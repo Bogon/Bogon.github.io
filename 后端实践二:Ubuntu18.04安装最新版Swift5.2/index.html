@@ -93,7 +93,7 @@
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/swift-6stp.png">
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/swift-7stp.png">
 <meta property="article:published_time" content="2020-04-17T06:51:16.000Z">
-<meta property="article:modified_time" content="2020-04-17T09:31:34.239Z">
+<meta property="article:modified_time" content="2020-04-17T09:37:36.373Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="Server">
 <meta property="article:tag" content="Ubuntu">
@@ -402,7 +402,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  726 字
+                  720 字
                 </span>
               
 
@@ -446,7 +446,7 @@
 <a id="more"></a>
 
 
-<h1 id="Ubuntu-系统环境搭建"><a href="#Ubuntu-系统环境搭建" class="headerlink" title="Ubuntu 系统环境搭建"></a><strong><code>Ubuntu</code> 系统环境搭建</strong></h1><h3 id="1、连接服务器"><a href="#1、连接服务器" class="headerlink" title="1、连接服务器"></a>1、连接服务器</h3><blockquote>
+<h1 id="Ubuntu-系统环境搭建"><a href="#Ubuntu-系统环境搭建" class="headerlink" title="Ubuntu 系统环境搭建"></a><strong><code>Ubuntu</code> 系统环境搭建</strong></h1><h2 id="连接服务器"><a href="#连接服务器" class="headerlink" title="连接服务器"></a>连接服务器</h2><blockquote>
 <p>这里使用的SecureCRT作为终端连接服务器，也可以使用 <code>iTerm2</code> 连接服务器。</p>
 </blockquote>
 <p>使用 <code>SecureCRT</code> 提供的远程登录功能连接 <code>Ubuntu</code> 服务器的配置信息：</p>
@@ -459,11 +459,11 @@
 <p>查看当前服务器系统版本：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -a</span><br></pre></td></tr></table></figure>
 
-<h3 id="2、安装依赖库"><a href="#2、安装依赖库" class="headerlink" title="2、安装依赖库"></a>2、安装依赖库</h3><blockquote>
+<h2 id="安装依赖库"><a href="#安装依赖库" class="headerlink" title="安装依赖库"></a>安装依赖库</h2><blockquote>
 <figure class="highlight plain"><figcaption><span>依赖一些三方类库。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">必须安装的依赖： </span><br></pre></td></tr></table></figure>
 <p>sudo apt-get update<br>sudo apt-get install clang libicu-dev -y<br>sudo apt-get install libcurl3 libpython2.7 libpython2.7-dev</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### 2、安装 &#96;&#96;&#96;Swift</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">## 安装 &#96;&#96;&#96;Swift</span><br></pre></td></tr></table></figure>
 <p>在 <a href="https://swift.org/download/#releases" target="_blank" rel="noopener">Swift.org</a> 查找我们要安装的Swift对应版本的Toolchain，复制下载链接。</p>
 <blockquote>
 <p>在写这篇文章时最新版的Swift是v5.2.2。</p>
@@ -483,18 +483,18 @@
 <p>将解压的文件保存在 <code>share</code> 目录下:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo mv swift-5.2.2-RELEASE-ubuntu18.04 &#x2F;usr&#x2F;share&#x2F;swift</span><br></pre></td></tr></table></figure>
 
-<h3 id="3、配置-Swift-环境变量"><a href="#3、配置-Swift-环境变量" class="headerlink" title="3、配置 Swift 环境变量"></a>3、配置 <code>Swift</code> 环境变量</h3><p>完成以上操作即完成了 <code>swift</code> 的的安装，为了更方便的使用 <code>Swift</code> ，需要配置其在全局任意目录下可使用。</p>
+<h2 id="配置-Swift-环境变量"><a href="#配置-Swift-环境变量" class="headerlink" title="配置 Swift 环境变量"></a>配置 <code>Swift</code> 环境变量</h2><p>完成以上操作即完成了 <code>swift</code> 的的安装，为了更方便的使用 <code>Swift</code> ，需要配置其在全局任意目录下可使用。</p>
 <p>配置 <code>Swift</code> 环境变量:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">echo &quot;export PATH&#x3D;&#x2F;usr&#x2F;share&#x2F;swift&#x2F;usr&#x2F;bin:$PATH&quot; &gt;&gt; ~&#x2F;.bashrc</span><br></pre></td></tr></table></figure>
 
-<h3 id="4、验证是否成功"><a href="#4、验证是否成功" class="headerlink" title="4、验证是否成功"></a>4、验证是否成功</h3><p>检查当前系统的 <code>Swift</code> 版本:</p>
+<h2 id="验证是否成功"><a href="#验证是否成功" class="headerlink" title="验证是否成功"></a>验证是否成功</h2><p>检查当前系统的 <code>Swift</code> 版本:</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift -version</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>如果出现 <code>Command &#39;swift&#39; not found ...</code> 该提示，关闭连接终端，重新连接服务器，再次执行上述命令。</li>
 </ul>
 <p><img src="http://q8wtfza4q.bkt.clouddn.com/swift-6stp.png" alt="installSuccess"></p>
-<h1 id="运行-Swift-程序"><a href="#运行-Swift-程序" class="headerlink" title="运行 Swift 程序"></a><strong>运行 <code>Swift</code> 程序</strong></h1><h3 id="1、在终端运行程序，简单测试环境是否达建成功。"><a href="#1、在终端运行程序，简单测试环境是否达建成功。" class="headerlink" title="1、在终端运行程序，简单测试环境是否达建成功。"></a>1、在终端运行程序，简单测试环境是否达建成功。</h3><p>在终端输入：</p>
+<h1 id="运行-Swift-程序"><a href="#运行-Swift-程序" class="headerlink" title="运行 Swift 程序"></a><strong>运行 <code>Swift</code> 程序</strong></h1><h2 id="在终端运行程序，简单测试环境是否达建成功。"><a href="#在终端运行程序，简单测试环境是否达建成功。" class="headerlink" title="在终端运行程序，简单测试环境是否达建成功。"></a>在终端运行程序，简单测试环境是否达建成功。</h2><p>在终端输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift</span><br></pre></td></tr></table></figure>
 <p>此时进入到终端界面。</p>
 <p>编辑一段 <code>Swift</code> 程序代码：</p>
@@ -707,7 +707,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu-系统环境搭建"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu 系统环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、连接服务器"><span class="nav-number">1.0.1.</span> <span class="nav-text">1、连接服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2、安装依赖库"><span class="nav-number">1.0.2.</span> <span class="nav-text">2、安装依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3、配置-Swift-环境变量"><span class="nav-number">1.0.3.</span> <span class="nav-text">3、配置 Swift 环境变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4、验证是否成功"><span class="nav-number">1.0.4.</span> <span class="nav-text">4、验证是否成功</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行-Swift-程序"><span class="nav-number">2.</span> <span class="nav-text">运行 Swift 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1、在终端运行程序，简单测试环境是否达建成功。"><span class="nav-number">2.0.1.</span> <span class="nav-text">1、在终端运行程序，简单测试环境是否达建成功。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Ubuntu-系统环境搭建"><span class="nav-number">1.</span> <span class="nav-text">Ubuntu 系统环境搭建</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#连接服务器"><span class="nav-number">1.1.</span> <span class="nav-text">连接服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装依赖库"><span class="nav-number">1.2.</span> <span class="nav-text">安装依赖库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置-Swift-环境变量"><span class="nav-number">1.3.</span> <span class="nav-text">配置 Swift 环境变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#验证是否成功"><span class="nav-number">1.4.</span> <span class="nav-text">验证是否成功</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行-Swift-程序"><span class="nav-number">2.</span> <span class="nav-text">运行 Swift 程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在终端运行程序，简单测试环境是否达建成功。"><span class="nav-number">2.1.</span> <span class="nav-text">在终端运行程序，简单测试环境是否达建成功。</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
