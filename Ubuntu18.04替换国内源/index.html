@@ -99,14 +99,14 @@
 
 
 
-<meta name="description" content="再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本： 查看版本： 1lsb_release -c 备份系统源配置文件： 在修改之前要对系统的配置文件做好备份，这是个好习惯。 1cp &#x2F;etc&#x2F;apt&#x2F;sources.list &#x2F;etc&#x2F;apt&#x2F;sources.list.bak">
+<meta name="description" content="再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本： 查看版本： 1lsb_release -c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Ubuntu18.04替换国内源">
 <meta property="og:url" content="http://www.xuebaonline.com/Ubuntu18.04%E6%9B%BF%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本： 查看版本： 1lsb_release -c 备份系统源配置文件： 在修改之前要对系统的配置文件做好备份，这是个好习惯。 1cp &#x2F;etc&#x2F;apt&#x2F;sources.list &#x2F;etc&#x2F;apt&#x2F;sources.list.bak">
+<meta property="og:description" content="再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本： 查看版本： 1lsb_release -c">
 <meta property="article:published_time" content="2020-04-17T04:58:13.000Z">
-<meta property="article:modified_time" content="2020-04-18T13:43:12.938Z">
+<meta property="article:modified_time" content="2020-04-18T15:24:21.961Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="Server">
 <meta property="article:tag" content="Ubuntu">
@@ -350,8 +350,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vapor4-0/" itemprop="url" rel="index">
-                    <span itemprop="name">Vapor4.0</span>
+                  <a href="/categories/Server/" itemprop="url" rel="index">
+                    <span itemprop="name">Server</span>
                   </a>
                 </span>
 
@@ -361,8 +361,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Server/" itemprop="url" rel="index">
-                    <span itemprop="name">Server</span>
+                  <a href="/categories/Vapor4-0/" itemprop="url" rel="index">
+                    <span itemprop="name">Vapor4.0</span>
                   </a>
                 </span>
 
@@ -480,12 +480,12 @@
         <p>再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本：</p>
 <p><strong><em>查看版本：</em></strong></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lsb_release -c</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
 <p><strong><em>备份系统源配置文件：</em></strong></p>
 <p>在修改之前要对系统的配置文件做好备份，这是个好习惯。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp /etc/apt/sources.list /etc/apt/sources.list.bak</span><br></pre></td></tr></table></figure>
-
- <a id="more"></a>
-
 
 <h1 id="阿里源"><a href="#阿里源" class="headerlink" title="阿里源"></a><strong>阿里源</strong></h1><h2 id="更新源的配置文件"><a href="#更新源的配置文件" class="headerlink" title="更新源的配置文件"></a>更新源的配置文件</h2><p>下面是软件源的配置文件，将如下代码添加到sources.list中：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-security main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-updates main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-proposed main restricted universe multiverse</span><br><span class="line">deb-src http://mirrors.aliyun.com/ubuntu/ bionic-backports main restricted universe multivers</span><br></pre></td></tr></table></figure>
@@ -532,7 +532,7 @@
 	<span>本文标题:</span><a href="/Ubuntu18.04%E6%9B%BF%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/">Ubuntu18.04替换国内源</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
 	<p><span>发布时间:</span>2020年04月17日 - 12:04</p>
-	<p><span>最后更新:</span>2020年04月18日 - 21:04</p>
+	<p><span>最后更新:</span>2020年04月18日 - 23:04</p>
 	<p><span>原始链接:</span><a href="/Ubuntu18.04%E6%9B%BF%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/" title="Ubuntu18.04替换国内源">http://www.xuebaonline.com/Ubuntu18.04%E6%9B%BF%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/</a>
 		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Ubuntu18.04%E6%9B%BF%E6%8D%A2%E5%9B%BD%E5%86%85%E6%BA%90/"  aria-label="复制成功！"></i></span>
 	</p>
