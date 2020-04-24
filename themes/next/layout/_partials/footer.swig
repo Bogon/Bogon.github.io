@@ -7,7 +7,7 @@
     <i class="fa fa-{{ theme.footer.icon }}"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
-  <a href="http://www.miitbeian.gov.cn/">粤ICP备14057991号</a> 
+  <a href="http://www.beian.miit.gov.cn/">豫ICP备20011156号</a> 
   {% if theme.footer.counter %}
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
