@@ -1,5 +1,9 @@
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 <div class="copyright">{#
+ {% if theme.footer.beian.enable %}{#
+#}  {{ next_url('http://www.beian.miit.gov.cn/', theme.footer.beian.icp ) }}
+{% endif %}
+
 #}{% set current = date(Date.now(), "YYYY") %}{#
 #}&copy; {% if theme.footer.since and theme.footer.since != current %}{{ theme.footer.since }} &mdash; {% endif %}{#
 #}<span itemprop="copyrightYear">{{ current }}</span>
