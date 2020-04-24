@@ -37,6 +37,13 @@
   <link rel="stylesheet" media="all" href="{{ Han_uri }}">
 {% endif %}
 
+<!--  添加关键字 -->
+  <meta name="keywords" content="{% for key in page.keywords %}{{ key }},{% endfor %}" />
+{% elif page.tags and page.tags.length %}
+  <meta name="keywords" content="{% for tag in page.tags %}{{ tag.name }},{% endfor %}" />
+{% elif theme.keywords %}
+  <meta name="keywords" content="{{ theme.keywords }}" />
+{% endif %}
 
 {# #238, Disable Baidu tranformation #}
 <meta http-equiv="Cache-Control" content="no-transform" />
