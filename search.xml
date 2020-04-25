@@ -4,6 +4,45 @@
   
     
     <entry>
+      <title>Swift原型设计模式</title>
+      <link href="/Swift%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+      <url>/Swift%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原型设计模式用于创建基础对象的克隆，因此让我们看一些用Swift编写的实际示例。</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原型模式是 <a href="https://zh.wikipedia.org/wiki/%E5%89%B5%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener" title="创建型模式">创建型模式</a> 的一种，其特点在于通过“复制”一个已经存在的实例来返回新的实例,而不是新建实例。被复制的实例就是我们所称的“原型”，这个原型是可定制的。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原型模式多用于创建复杂的或者耗时的实例，因为这种情况下，复制一个已经存在的实例使程序运行更高效；或者创建值相等，只是命名不一样的同类数据。</p><a id="more"></a><blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在软件工程中，创建型模式是处理对象创建的设计模式，试图根据实际情况使用合适的方式创建对象。基本的对象创建方式可能会导致设计上的问题，或增加设计的复杂度。创建型模式通过以某种方式控制对象的创建来解决问题。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建型模式由两个主导思想构成。一是将系统使用的具体类封装起来，二是隐藏这些具体类的实例创建和结合的方式。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建型模式又分为对象创建型模式和类创建型模式。对象创建型模式处理对象的创建，类创建型模式处理类的创建。详细地说，对象创建型模式把对象创建的一部分推迟到另一个对象中，而类创建型模式将它对象的创建推迟到子类中。</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这也是一种创新的设计模式，当你对一个对象进行非常基本的配置并且想要将这些预定义值提供（复制）给另一个对象时，这很有用。 基本上，你是从原型对象制作复制。 😊😊😊</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种方法有一些好处，例如，你不必继承子类，但可以单独配置复制。 这也意味着，如果你要使用原型，则可以删除一堆样板代码（配置）。 🤔</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Paragraph</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> font: <span class="type">UIFont</span></span><br><span class="line">    <span class="keyword">var</span> color: <span class="type">UIColor</span></span><br><span class="line">    <span class="keyword">var</span> text: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(font: <span class="type">UIFont</span> = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">12</span>),</span><br><span class="line">         color: <span class="type">UIColor</span> = .darkText,</span><br><span class="line">         text: <span class="type">String</span> = <span class="string">""</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.font = font</span><br><span class="line">        <span class="keyword">self</span>.color = color</span><br><span class="line">        <span class="keyword">self</span>.text = text</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">clone</span><span class="params">()</span></span> -&gt; <span class="type">Paragraph</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Paragraph</span>(font: <span class="keyword">self</span>.font, color: <span class="keyword">self</span>.color, text: <span class="keyword">self</span>.text)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base = <span class="type">Paragraph</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> title = base.clone()</span><br><span class="line">title.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">18</span>)</span><br><span class="line">title.text = <span class="string">"This is the title"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> first = base.clone()</span><br><span class="line">first.text = <span class="string">"This is the first paragraph"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> second = base.clone()</span><br><span class="line">second.text = <span class="string">"This is the second paragraph"</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如上面的代码所示，实现只是几行代码。 你只需要一个默认的初始化程序和一个复制方法。 一切都将在 <code>init</code> 方法中针对原型对象进行预配置，并且你可以使用 <code>clone</code> 方法进行复制，但这时很明显……</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们再看一个例子：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Paragraph</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> font: <span class="type">UIFont</span></span><br><span class="line">    <span class="keyword">var</span> color: <span class="type">UIColor</span></span><br><span class="line">    <span class="keyword">var</span> text: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(font: <span class="type">UIFont</span> = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">12</span>),</span><br><span class="line">         color: <span class="type">UIColor</span> = .darkText,</span><br><span class="line">         text: <span class="type">String</span> = <span class="string">""</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.font = font</span><br><span class="line">        <span class="keyword">self</span>.color = color</span><br><span class="line">        <span class="keyword">self</span>.text = text</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">clone</span><span class="params">()</span></span> -&gt; <span class="type">Paragraph</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Paragraph</span>(font: <span class="keyword">self</span>.font, color: <span class="keyword">self</span>.color, text: <span class="keyword">self</span>.text)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base = <span class="type">Paragraph</span>()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> title = base.clone()</span><br><span class="line">title.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">18</span>)</span><br><span class="line">title.text = <span class="string">"This is the title"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> first = base.clone()</span><br><span class="line">first.text = <span class="string">"This is the first paragraph"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> second = base.clone()</span><br><span class="line">second.text = <span class="string">"This is the second paragraph"</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你打算获取已知对象状态的快照，则原型设计模式也很有用。 例如，在绘图应用程序中，你可以将形状类作为原型，可以开始向其添加路径，有时甚至可以从中创建快照。 你可以继续处理新对象，但这将使你能够在将来的任何时间返回到保存状态。 🎉</p><p>当你的应用程序不依赖于创建，合成和表示对象的方法时，应考虑选择它，以及至少下列各项之一：</p><ul><li>在运行时创建对象</li><li>你想避免工厂的复杂层次结构</li><li>对象只能有很少的状态</li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，就是 <code>Swift</code> 中的原型设计模式。 🐿</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+          <category> 设计模式 </category>
+          
+          <category> UIKit </category>
+          
+          <category> Swift </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> 设计模式 </tag>
+            
+            <tag> UIKit </tag>
+            
+            <tag> Swift </tag>
+            
+            <tag> 原型设计模式 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>比较工厂设计模式</title>
       <link href="/%E6%AF%94%E8%BE%83%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
       <url>/%E6%AF%94%E8%BE%83%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</url>
@@ -34,7 +73,7 @@
             
             <tag> Swift </tag>
             
-            <tag> 工厂设计模 </tag>
+            <tag> 工厂设计模式 </tag>
             
         </tags>
       
