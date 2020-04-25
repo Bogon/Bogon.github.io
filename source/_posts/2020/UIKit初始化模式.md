@@ -24,7 +24,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了类库中包含的基础控件之外，我们也能够对控件根据业务需要进行整合，也就是设计出一套适用于本公司的组件，提高开发速度。
 
-# ** ```UIViewController``` 初始化 ** 
+# ** UIViewController 初始化 ** 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，```UIViewController``` 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 ```init``` ，如果你使用一个 ```storyboard``` 初始化控制器，那么 ```init（coder）``` 是你所需要的。如果你尝试从外部 ```nib``` 文件启动控制器，则将调用 ```init（nib，bundle）``` 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。
 
@@ -100,7 +100,64 @@ ___
 
 </br>
 
-# ** ```UIView``` 初始化 ** 
+# ** UIView 初始化 ** 
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们通常为 ```UIView``` 创建一个通用的初始化程序，以使初始化过程更加轻松，使用起来更加方便。还会在该初始值设定项方法中将 ```translate autoresizing mask``` 属性设置为 ```false``` ，因为它是2017年，没有人再使用 ```spring＆struts``` 了。
+
+``` Swift
+import UIKit
+
+class View: UIView {
+
+    init() {
+        super.init(frame: .zero)
+
+        self.initialize()
+    }
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+
+        self.initialize()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        self.initialize()
+    }
+
+    func initialize() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
+}
+```
+使用自动布局助手也很不错，如果你想从nib文件中初始化视图，那么有一些便利的方法也很好。
+
+``` Swift
+import UIKit
+
+extension UIView {
+
+    public convenience init(autolayout: Bool) {
+        self.init(frame: .zero)
+
+        self.translatesAutoresizingMaskIntoConstraints = !autolayout
+    }
+
+    public static func create(autolayout: Bool = true) -> Self {
+        let _self = self.init()
+        let view  = _self as UIView
+        view.translatesAutoresizingMaskIntoConstraints = !autolayout
+        return _self
+    }
+
+    public static func createFromNib(owner: Any? = nil, options: [AnyHashable: Any]? = nil) -> UIView {
+        return Bundle.main.loadNibNamed(String(describing: self), owner: owner, options: options)?.last as! UIView
+    }
+}
+let view = UIView(autolayout: true)
+```
+
+使用这些代码片段，为所有 ```UIKit``` 类维护一个合理的初始化过程确实很容易，因为其中大多数都是从这两个 “主要” 类派生的。
