@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;如果您正在使用 Swift 并想对实现 NSCoding 的东西进行子类化（例如 UIView，UIViewController 等），则可能会遇到麻烦的情况。即，NSCoding 协议需要 init(coder：aDecoder) 初始化程序，这意味着如果你为超类重写了指定的初始化程序，则需要实现该初">
 <meta property="article:published_time" content="2020-04-25T01:36:42.000Z">
-<meta property="article:modified_time" content="2020-04-25T01:49:28.020Z">
+<meta property="article:modified_time" content="2020-04-25T01:51:09.545Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
@@ -523,6 +523,8 @@
 
       
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您正在使用 <code>Swift</code> 并想对实现 <code>NSCoding</code> 的东西进行子类化（例如 <code>UIView</code>，<code>UIViewController</code> 等），则可能会遇到麻烦的情况。即，<code>NSCoding</code> 协议需要 <code>init(coder：aDecoder)</code> 初始化程序，这意味着如果你为超类重写了指定的初始化程序，则需要实现该初始化程序。</p>
+<a id="more"></a>
+
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那就好了，但是 <code>Swift</code> 在确保对类的所有属性进行超级严格的调用之前，都要确保在 <code>init()</code> 中分配了一个值。这意味着，如果您想提供自己的初始化程序，则无法执行以下操作：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooViewController</span>: <span class="title">UIViewController</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>() &#123;</span><br><span class="line">    name = <span class="string">"Bar"</span></span><br><span class="line">    <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle:<span class="literal">nil</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">required</span> <span class="keyword">init</span>(coder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>.<span class="keyword">init</span>(coder: coder)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
