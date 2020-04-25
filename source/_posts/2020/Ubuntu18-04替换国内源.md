@@ -2,7 +2,8 @@
 title: Ubuntu18.04替换国内源
 permalink: Ubuntu18.04替换国内源
 date: 2020-04-17 12:58:13
-copyright : ture
+copyright: ture
+keywords: 后端,开发环境,Ubuntu18.04,国内源,阿里源,中科大源,清华源
 tags:
     - [Server]
     - [Ubuntu]
@@ -14,7 +15,7 @@ categories:
     - [Ubuntu软件源]
 ---
 
-再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本：
 
 ***查看版本：***
 ``` bash
@@ -120,4 +121,4 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/ubuntu/ bionic-proposed main restri
  ```
 
  # **总结**
-在Ubuntu18.04的配置中，更新了系统的软件源，国内源推荐使用清华源。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Ubuntu18.04的配置中，更新了系统的软件源，国内源推荐使用清华源。

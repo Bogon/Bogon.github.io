@@ -2,7 +2,8 @@
 title: '后端实践三:Ubuntu18.04安装Vapor4.0'
 permalink: '后端实践三:Ubuntu18.04安装Vapor4.0'
 date: 2020-04-17 16:52:46
-copyright : ture
+copyright: ture
+keywords: 后端,Ubuntu,Ubuntu18.04,安装,Vapor,Vapor4.0,Swift
 tags:
     - [Server]
     - [Ubuntu]
@@ -14,16 +15,14 @@ categories:
     - [Server]
 ---
 
-通过文章《[后端实践二:Ubuntu18.04安装最新版Swift5.2](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%BA%8C:Ubuntu18.04%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88Swift5.2/ "后端实践二:Ubuntu18.04安装最新版Swift5.2")》可以在 Ubuntu18.04 的服务器上顺利安装最新版本的 ```Swift``` 。我们参照 [官网文档](https://docs.vapor.codes/3.0/install/ubuntu/ "") 安装 ```Vapor4.0``` 的开发环境。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过文章《[后端实践二:Ubuntu18.04安装最新版Swift5.2](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%BA%8C:Ubuntu18.04%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88Swift5.2/ "后端实践二:Ubuntu18.04安装最新版Swift5.2")》可以在 Ubuntu18.04 的服务器上顺利安装最新版本的 ```Swift``` 。我们参照 [官网文档](https://docs.vapor.codes/3.0/install/ubuntu/ "") 安装 ```Vapor4.0``` 的开发环境。
 
-> 官网上的文档跟开发维护的速度有一定的版本误差，所以现在在官网上看到的安装方法是针对 ```Vapor(>3.0 && < 4.0)``` 的版本。由于版本间差异比较大，在实践过程中，只会关注到 ```Vapor(>=4.0)``` 以上版本的新特性。在创建工程和引入依赖库的过程中也会出现微小的差别，我们在后续的实践中会总结到。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;官网上的文档跟开发维护的速度有一定的版本误差，所以现在在官网上看到的安装方法是针对 ```Vapor(>3.0 && < 4.0)``` 的版本。由于版本间差异比较大，在实践过程中，只会关注到 ```Vapor(>=4.0)``` 以上版本的新特性。在创建工程和引入依赖库的过程中也会出现微小的差别，我们在后续的实践中会总结到。
 
 # **验证 Swift 安装** 
-我们通过访问 ```Swift.org```，可以得到一份如何在 ```Linux``` 上安装 ```Swift``` 的文档。我们完成对 ```Swift``` 的安装之后，在终端中输入如下命令：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们通过访问 ```Swift.org```，可以得到一份如何在 ```Linux``` 上安装 ```Swift``` 的文档。我们完成对 ```Swift``` 的安装之后，在终端中输入如下命令：
 
-``` swift
-swift --version
-```
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
 <!-- more -->
 
@@ -49,7 +48,7 @@ curl -sL apt.vapor.sh -o apt.vapor.sh
 
 ## ```Toolbox``` 源代码
 
-由于之后的版本中，不在将该文件托管至软件源，所以我们在安装时需要做出如下操作获取到 ```Toolbox``` 源代码到本地文件夹中：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于之后的版本中，不在将该文件托管至软件源，所以我们在安装时需要做出如下操作获取到 ```Toolbox``` 源代码到本地文件夹中：
 
 
 下载 ```Toolbox``` 源代码：
@@ -77,7 +76,7 @@ swift build -c release
 ```
 
 
-由于获取的源代码中缺少部分文件，期间或存在报错发现 ```Toolbox``` 中没有 ```LinuxMain.swift``` 文件在 ```Tests``` 文件夹中，这时我们进入到 ```XCTest``` 文件夹中。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于获取的源代码中缺少部分文件，期间或存在报错发现 ```Toolbox``` 中没有 ```LinuxMain.swift``` 文件在 ```Tests``` 文件夹中，这时我们进入到 ```XCTest``` 文件夹中。
 
 ![Vapor](http://q8wtfza4q.bkt.clouddn.com/tl-2stp.png "")
 
@@ -153,4 +152,4 @@ vapor --help
 ![Vaporhelp](http://q8wtfza4q.bkt.clouddn.com/tl-5stp.png "")
 
 # **总结**
-至此 ```Vapor 4.0``` 的环境配置已经完成。由于 ```3.0``` 和 ```4.0``` 版本差异比较大，在配置方面也有差异。在创建项目时更需要加上 ```branch=4``` 等。后续会加入：创建第一个 ```Hello World``` 工程。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此 ```Vapor 4.0``` 的环境配置已经完成。由于 ```3.0``` 和 ```4.0``` 版本差异比较大，在配置方面也有差异。在创建项目时更需要加上 ```branch=4``` 等。后续会加入：创建第一个 ```Hello World``` 工程。

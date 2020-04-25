@@ -2,7 +2,8 @@
 title: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 permalink: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 date: 2020-04-17 09:17:13
-copyright : ture
+copyright: ture
+keywords: 后端,开发环境,Ubuntu18.04,安装,VMware,开发环境搭建
 tags:
     - [Server]
     - [Ubuntu]
@@ -12,7 +13,7 @@ categories:
     - [Vapor4.0]
 ---
 
-```Mac``` 环境下使用 ```VMware``` 安装 ```Ubuntu 18.04``` 的主要目的是用于对后端开发框架：```Vapor 4.0``` 的实践。由于 ```Vapor 4.0``` 框架支持 ```MacOS``` 和 ```Ubuntu``` ，所以实践时间，以使用 ```Ubuntu``` 为主。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Mac``` 环境下使用 ```VMware``` 安装 ```Ubuntu 18.04``` 的主要目的是用于对后端开发框架：```Vapor 4.0``` 的实践。由于 ```Vapor 4.0``` 框架支持 ```MacOS``` 和 ```Ubuntu``` ，所以实践时间，以使用 ```Ubuntu``` 为主。
 
 <!-- more -->
 
@@ -38,7 +39,7 @@ categories:
 
 ## 选择虚拟的操作系统
 这里选择 ```Linux``` -> ```Ubuntu``` 64位。
-> 因为我们下载的系统就是 ```Ubuntu 18.04``` 64位。还有很重要的一点，因为安装这个操作系统的目的是作为 ```Vapor 4.0``` 的服务器，所以在选用操作系统时，我们不需要图形界面。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为我们下载的系统就是 ```Ubuntu 18.04``` 64位。还有很重要的一点，因为安装这个操作系统的目的是作为 ```Vapor 4.0``` 的服务器，所以在选用操作系统时，我们不需要图形界面。
 
 ![选择操作系统类型](http://q8wtfza4q.bkt.clouddn.com/vm-2stp.png "")
 
@@ -50,7 +51,7 @@ categories:
 
 ## 选择虚拟磁盘
 选择虚拟磁盘为虚拟操作系统在本机上开辟操作磁盘的空间。
-> 因为不会再虚拟机上做比较大的文件操作， ```20G``` 的磁盘空间已经够用。在开辟磁盘空间时，开辟的是空间使用上限，在虚拟操作系统文件所占用的空间以实际使用为准，并不是开辟了多少，就是用多少。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为不会再虚拟机上做比较大的文件操作， ```20G``` 的磁盘空间已经够用。在开辟磁盘空间时，开辟的是空间使用上限，在虚拟操作系统文件所占用的空间以实际使用为准，并不是开辟了多少，就是用多少。
 
 ![选择虚拟磁盘](http://q8wtfza4q.bkt.clouddn.com/vm-4stp.png "")
 
@@ -168,4 +169,4 @@ OpenSSH可是系统支持远程登录，远程操作。
 ![输入用户信息](http://q8wtfza4q.bkt.clouddn.com/vm-23stp.png "")
 
 # **```Ubuntu 18.04``` 个性化配置**
-后续会加入一些实用的小技巧：国内的软件源，远程登录、配置数据库、安装 ```Vapor 4.0``` 开发环境等。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;后续会加入一些实用的小技巧：国内的软件源，远程登录、配置数据库、安装 ```Vapor 4.0``` 开发环境等。

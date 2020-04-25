@@ -2,7 +2,8 @@
 title: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 permalink: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 date: 2020-04-17 14:51:16
-copyright : ture
+copyright: ture
+keywords: 后端,Ubuntu,Ubuntu18.04,安装,Swift5.2,Swift
 tags:
     - [Server]
     - [Ubuntu]
@@ -14,14 +15,14 @@ categories:
     - [Server]
 ---
 
-通过文章《[后端实践一:开发环境搭建VMware下安装Ubuntu18.04](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%B8%80:%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BAVMware%E4%B8%8B%E5%AE%89%E8%A3%85Ubuntu18.04/ "后端实践一:开发环境搭建VMware下安装Ubuntu18.04")》可以完成在  ```mac``` 上搭建起可用的 ```Ubuntu 18.04``` 的服务器。接下来我们要在此基础上完善 ```Vapor 4.0``` 的开发环境。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过文章《[后端实践一:开发环境搭建VMware下安装Ubuntu18.04](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%B8%80:%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BAVMware%E4%B8%8B%E5%AE%89%E8%A3%85Ubuntu18.04/ "后端实践一:开发环境搭建VMware下安装Ubuntu18.04")》可以完成在  ```mac``` 上搭建起可用的 ```Ubuntu 18.04``` 的服务器。接下来我们要在此基础上完善 ```Vapor 4.0``` 的开发环境。
 
 
->Ubuntu 18.04 安装 Swift 5.2.2 ，可在 Vapor 官网的引导完成。这篇文章就是讲解如何完成在 Ubuntu 上安装最新版本 Swift，构建出一个强大的云端服务器。
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Ubuntu 18.04 安装 Swift 5.2.2 ，可在 Vapor 官网的引导完成。这篇文章就是讲解如何完成在 Ubuntu 上安装最新版本 Swift，构建出一个强大的云端服务器。
 
 # **```Ubuntu``` 系统环境搭建**
 ## 连接服务器
-> 这里使用的SecureCRT作为终端连接服务器，也可以使用 ```iTerm2``` 连接服务器。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里使用的SecureCRT作为终端连接服务器，也可以使用 ```iTerm2``` 连接服务器。
 
 <!-- more -->
 
@@ -86,7 +87,7 @@ sudo mv swift-5.2.2-RELEASE-ubuntu18.04 /usr/share/swift
 ```
 
 ## 配置 ```Swift``` 环境变量
-完成以上操作即完成了 ```swift``` 的的安装，为了更方便的使用 ```Swift``` ，需要配置其在全局任意目录下可使用。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成以上操作即完成了 ```swift``` 的的安装，为了更方便的使用 ```Swift``` ，需要配置其在全局任意目录下可使用。
 
 配置 ```Swift``` 环境变量:
 
@@ -130,4 +131,4 @@ var a = 12, b = 13, c = a + b
 ![Swift](http://q8wtfza4q.bkt.clouddn.com/swift-7stp.png "")
 
 # **总结**
-完成 ``` Swift``` 在 ```Ubuntu``` 环境下的配置，接下来可以配置 ```Vapor 4.0``` 的开发环境。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成 ``` Swift``` 在 ```Ubuntu``` 环境下的配置，接下来可以配置 ```Vapor 4.0``` 的开发环境。
