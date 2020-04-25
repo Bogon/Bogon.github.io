@@ -101,14 +101,14 @@
 
 
 
-<meta name="description" content="曾经沧海难为水，除却巫山不是云。">
+<meta name="description" content="了解UIKit中两个常用类的初始化过程。了解UIViewcontroller和UIView初始化模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;UIKit 是在iOS开发过程中必须也是使用频次最高的一个类库，里面包含了许多与用户直接交互的控件比如：UIView, UITableView, UIScrollView 等。在收到用户交互的设计">
 <meta property="og:type" content="article">
 <meta property="og:title" content="UIKit初始化模式">
 <meta property="og:url" content="http://www.xuebaonline.com/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="曾经沧海难为水，除却巫山不是云。">
+<meta property="og:description" content="了解UIKit中两个常用类的初始化过程。了解UIViewcontroller和UIView初始化模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;UIKit 是在iOS开发过程中必须也是使用频次最高的一个类库，里面包含了许多与用户直接交互的控件比如：UIView, UITableView, UIScrollView 等。在收到用户交互的设计">
 <meta property="article:published_time" content="2020-04-25T00:05:14.000Z">
-<meta property="article:modified_time" content="2020-04-25T00:15:07.480Z">
+<meta property="article:modified_time" content="2020-04-25T01:10:12.378Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
@@ -246,7 +246,7 @@
       
         
         <li class="menu-item menu-item-archives">
-          <a href="/archives%20" rel="section">
+          <a href="/archives" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
@@ -256,7 +256,7 @@
       
         
         <li class="menu-item menu-item-about">
-          <a href="/about%20" rel="section">
+          <a href="/about" rel="section">
             
               <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
             
@@ -473,7 +473,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  673 字
                 </span>
               
 
@@ -489,7 +489,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  2 分钟
                 </span>
               
             </div>
@@ -510,7 +510,26 @@
       
 
       
-        
+        <blockquote>
+<p>了解UIKit中两个常用类的初始化过程。了解UIViewcontroller和UIView初始化模式。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>UIKit</code> 是在iOS开发过程中必须也是使用频次最高的一个类库，里面包含了许多与用户直接交互的控件比如：<code>UIView</code>, <code>UITableView</code>, <code>UIScrollView</code> 等。在收到用户交互的设计图之后，我们要合理的使用这些控件，就能编写出交互良好的应用。</p>
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了类库中包含的基础控件之外，我们也能够对控件根据业务需要进行整合，也就是设计出一套适用于本公司的组件，提高开发速度。</p>
+<h1 id="UIViewController-初始化"><a href="#UIViewController-初始化" class="headerlink" title="** UIViewController 初始化 **"></a>** <code>UIViewController</code> 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，<code>UIViewController</code> 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 <code>init</code> ，如果你使用一个 <code>storyboard</code> 初始化控制器，那么 <code>init（coder）</code> 是你所需要的。如果你尝试从外部 <code>nib</code> 文件启动控制器，则将调用 <code>init（nib，bundle）</code> 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。</p>
+</br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面介绍两种 <code>UIViewControllers</code> 的初始化模式，第一种只是一个常见的init函数，在每种情况下都可以调用该函数来初始化控制器。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(nibName nibNameOrNil: <span class="type">String?</span>, bundle nibBundleOrNil: <span class="type">Bundle?</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: nibNameOrNil, bundle: nibBundleOrNil)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//do your stuff here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以在之后的子类中隐藏 <code>init（nib，bundle）</code> 和 <code>init（coder）</code> 方法。在子类中不必重写 <code>init（nib，bundle）</code>，并且可以将 <code>init（coder）</code> 标记为默认初始化程序。这个似乎是有点棘手的解决方案，使用起来不是很方便，但确实可以完成 <code>ViewController</code> 的初始化。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">convenience</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">//do your stuff here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyFutureViewController</span>: <span class="title">ViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> vc = <span class="type">MyFutureViewController</span>()</span><br></pre></td></tr></table></figure>
+<hr>
+</br>
+
+<h1 id="UIView-初始化"><a href="#UIView-初始化" class="headerlink" title="** UIView 初始化 **"></a>** <code>UIView</code> 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们通常为 <code>UIView</code> 创建一个通用的初始化程序，以使初始化过程更加轻松，使用起来更加方便。还会在该初始值设定项方法中将 <code>translate autoresizing mask</code> 属性设置为 <code>false</code> ，因为它是2017年，没有人再使用 <code>spring＆struts</code> 了。</p>
+
       
     </div>
     
@@ -540,7 +559,7 @@
 	<span>本文标题:</span><a href="/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/">UIKit初始化模式</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
 	<p><span>发布时间:</span>2020年04月25日 - 08:04</p>
-	<p><span>最后更新:</span>2020年04月25日 - 08:04</p>
+	<p><span>最后更新:</span>2020年04月25日 - 09:04</p>
 	<p><span>原始链接:</span><a href="/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/" title="UIKit初始化模式">http://www.xuebaonline.com/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/</a>
 		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/"  aria-label="复制成功！"></i></span>
 	</p>
@@ -684,8 +703,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -702,7 +730,7 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives%20%7C%7C%20archive">
+                <a href="/archives%7C%7C%20archive">
               
                   <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
@@ -770,6 +798,18 @@
                         <i class="fa fa-fw fa-heartbeat"></i>CSDN</a>
                   </span>
                 
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://twitter.com/Bogon" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://stackoverflow.com/users/4368897/qizhang" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
             </div>
           
 
@@ -808,6 +848,23 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UIViewController-初始化"><span class="nav-number">1.</span> <span class="nav-text">** UIViewController 初始化 **</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UIView-初始化"><span class="nav-number">2.</span> <span class="nav-text">** UIView 初始化 **</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
       
 
       
