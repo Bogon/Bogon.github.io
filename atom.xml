@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xuebaonline.com/"/>
-  <updated>2020-04-25T07:15:19.575Z</updated>
+  <updated>2020-04-25T07:23:43.529Z</updated>
   <id>http://www.xuebaonline.com/</id>
   
   <author>
@@ -15,6 +15,46 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Swift工厂方法设计模式</title>
+    <link href="http://www.xuebaonline.com/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>http://www.xuebaonline.com/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-04-25T07:16:57.000Z</published>
+    <updated>2020-04-25T07:23:43.529Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法设计模式是一种专用的非静态方法，用于隐藏对象的创建逻辑。 让我们用Swift做吧！</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。</p><a id="more"></a><h1 id="工厂方法只是一种非静态方法"><a href="#工厂方法只是一种非静态方法" class="headerlink" title="工厂方法只是一种非静态方法"></a><strong>工厂方法只是一种非静态方法</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;面对现实，这种模式只是通常由简单协议和类支持的一种方法。 从一个非常简单的示例开始：想象一个可以为您的服务端点创建基本URL的类。 我们称之为服务工厂。 😅</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">createProductionUrl</span><span class="params">()</span></span> -&gt; <span class="type">URL</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">URL</span>(string: <span class="string">"https://localhost/"</span>)!</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> factory = <span class="type">ServiceFactory</span>()</span><br><span class="line">factory.createProductionUrl()</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会想，这甚至不接近工厂方法模式，但请稍候…让我们通过为服务类创建协议以及返回 <code>URL</code> 的协议，使事情变得有些复杂。 现在，我们可以将基本生产环境url协议实现为一个单独的类，并从生产服务工厂类返回该特定实例。 只需检查一下代码即可：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ServiceFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">create</span><span class="params">()</span></span> -&gt; <span class="type">Service</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> url: <span class="type">URL</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductionService</span>: <span class="title">Service</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> url: <span class="type">URL</span> &#123; <span class="keyword">return</span> <span class="type">URL</span>(string: <span class="string">"https://localhost/"</span>)! &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ProductionServiceFactory</span>: <span class="title">ServiceFactory</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">create</span><span class="params">()</span></span> -&gt; <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">ProductionService</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> factory = <span class="type">ProductionServiceFactory</span>()</span><br><span class="line"><span class="keyword">let</span> request = factory.create()</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为什么我们将所有逻辑分为两类和协议？ 请相信我去耦是一件好事。 从现在开始，你可以轻松编写带有虚拟 <code>url</code> 的模拟服务。 显然，这需要一个匹配的工厂类。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些模拟实例还将实现服务协议，因此你可以以相对轻松的方式添加新类型，而无需更改原始代码库。 工厂方法解决了简单工厂模式的一个特定问题。 如果列表（ <code>switch-case</code> 的列表）太长，那么只有一个工厂就很难维护新对象。 工厂方法通过引入多个工厂对象来解决此问题。</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;工厂方法设计模式是一种专用的非静态方法，用于隐藏对象的创建逻辑。 让我们用Swift做吧！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
+    
+      <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
+    
+      <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
+    
+      <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="工厂方法设计模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>Swift中快速简单的工厂设计模式</title>
