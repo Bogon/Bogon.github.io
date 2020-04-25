@@ -9,7 +9,7 @@ tags:
     - [设计模式]
     - [UIKit]
     - [Swift]
-    - [抽象工厂设计模]
+    - [抽象工厂设计模式]
 categories:
     - [iOS]
     - [设计模式]
