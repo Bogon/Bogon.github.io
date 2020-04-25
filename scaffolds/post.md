@@ -5,4 +5,5 @@ date: {{ date }}
 keywords:
 tags:
 categories:
+copyright: ture
 ---
