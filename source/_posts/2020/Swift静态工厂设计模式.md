@@ -53,7 +53,7 @@ public extension TimeInterval {
 
 ## **缓存对象**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态工厂模式的下一个优点是，为了更好地使用内存，它可以支持缓存。 这样，如果你通过静态构造函数（也称为静态工厂方法）对其进行初始化，则可以限制所创建对象的数量。 🏭
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态工厂模式的下一个优点是，为了更好地使用内存，它可以支持缓存。 这样，如果你通过静态构造函数（也称为[静态工厂方法](http://www.xuebaonline.com/Swift%E4%B8%AD%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83/ "Swift中构造函数与静态工厂方法的比较")）对其进行初始化，则可以限制所创建对象的数量。 🏭
 
 ``` Swift
 class Service {
