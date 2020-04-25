@@ -20,7 +20,7 @@ categories:
     - [Swift]
 ---
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我相信Joshua Bloch 在他的非常不错的书 《Effective Java》 中首先说了它：与构造函数相比，静态工厂方法是实例化对象的首选方法。 我不同意。 不仅因为我相信静态方法是纯粹的邪恶，而且主要是因为在这种特殊情况下，它们形成好的方法，使我们认为我们必须偏向使用它们。
 
