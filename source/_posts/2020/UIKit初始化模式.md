@@ -26,7 +26,7 @@ categories:
 
 # **UIViewController 初始化** 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，```UIViewController``` 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 ```init``` ，如果你使用一个 ```storyboard``` 初始化控制器，那么 ```init（coder）``` 是你所需要的。如果你尝试从外部 ```nib``` 文件启动控制器，则将调用 ```init（nib，bundle）``` 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，```UIViewController``` 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 ```init``` ，如果你使用一个 ```storyboard``` 初始化控制器，那么 [init(coder)](http://www.xuebaonline.com/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/ "NSCODER和SWIFT初始化") 是你所需要的。如果你尝试从外部 ```nib``` 文件启动控制器，则将调用 ```init（nib，bundle）``` 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。
 
 </br>
 
