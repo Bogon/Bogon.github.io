@@ -51,9 +51,11 @@ class MyViewController: UIViewController {
     }
 }
 ``` 
+</br>
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这就是我所说 **隐式引用** 的意思-你只需在类中直接使用单例。 我们可以做得更好。 在Swift中，有一种轻量级，简便且影响小的方式来改善这一点。 Swift也使其优雅。
+
 
 # **依赖注入**
 
