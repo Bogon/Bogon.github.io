@@ -21,7 +21,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我真的很喜欢James Shore的这句话：依赖注入意味着给对象一个实例变量，如此而已。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我看来，学习依赖注入要稍微复杂一点，但是如果你将问题弄清楚，你将意识到实现 [DI模式]( "DI模式") 就像给对象实例变量一样简单。 别开玩笑，这确实是理所当然的，但是许多开发人员使它过于复杂，并在错误的位置使用了注入。 💉
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我看来，学习依赖注入要稍微复杂一点，但是如果你将问题弄清楚，你将意识到实现 [DI模式](http://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/ "DI模式") 就像给对象实例变量一样简单。 别开玩笑，这确实是理所当然的，但是许多开发人员使它过于复杂，并在错误的位置使用了注入。 💉
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学习DI并不是关于实现细节，而是关于你将如何使用该模式。 依赖项注入有四个小变化，让我们通过使用真实的示例进行遍历，这些示例将帮助你了解何时使用依赖项注入。 现在抓住键盘！ 💻
 
