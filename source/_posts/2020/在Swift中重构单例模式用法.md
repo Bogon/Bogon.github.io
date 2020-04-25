@@ -56,12 +56,12 @@ class MyViewController: UIViewController {
 </br>
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这就是我所说 隐式引用 的意思-你只需在类中直接使用单例。 我们可以做得更好。 在Swift中，有一种轻量级，简便且影响小的方式来改善这一点。 Swift也使其优雅。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这就是我所说 隐式引用 的意思-你只需在类中直接使用单例。 我们可以做得更好。 在Swift中，有一种轻量级，简便且影响小的方式来改善这一点。 Swift也使其使用起来更加优雅。
 
 
 # **依赖注入**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 简而言之，答案是[依赖注入](https://en.wikipedia.org/wiki/Dependency_injection "依赖注入")。 该原则表明你应该设计类和函数，以使所有输入都是显式的。 如果你重构上面的代码片段以使用依赖项注入，它将看起来像这样：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 简而言之，答案是 [**依赖注入**](https://en.wikipedia.org/wiki/Dependency_injection "依赖注入") 。 该原则表明你应该设计类和函数，以使所有输入都是显式的。 如果你重构上面的代码片段以使用依赖项注入，它将看起来像这样：
 
 ``` Swift
 class MyViewController: UIViewController {
