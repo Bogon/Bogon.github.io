@@ -18,6 +18,9 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您正在使用 ```Swift``` 并想对实现 ```NSCoding``` 的东西进行子类化（例如 ```UIView```，```UIViewController``` 等），则可能会遇到麻烦的情况。即，```NSCoding``` 协议需要 ```init(coder：aDecoder)``` 初始化程序，这意味着如果你为超类重写了指定的初始化程序，则需要实现该初始化程序。
 
+
+<!-- more -->
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那就好了，但是 ```Swift``` 在确保对类的所有属性进行超级严格的调用之前，都要确保在 ```init()``` 中分配了一个值。这意味着，如果您想提供自己的初始化程序，则无法执行以下操作：
 
 ``` Swift
