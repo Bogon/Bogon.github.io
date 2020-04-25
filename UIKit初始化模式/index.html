@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="了解UIKit中两个常用类的初始化过程。了解UIViewcontroller和UIView初始化模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;UIKit 是在iOS开发过程中必须也是使用频次最高的一个类库，里面包含了许多与用户直接交互的控件比如：UIView, UITableView, UIScrollView 等。在收到用户交互的设计">
 <meta property="article:published_time" content="2020-04-25T00:05:14.000Z">
-<meta property="article:modified_time" content="2020-04-25T01:10:12.378Z">
+<meta property="article:modified_time" content="2020-04-25T01:18:54.863Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
@@ -473,7 +473,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  673 字
+                  886 字
                 </span>
               
 
@@ -489,7 +489,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  2 分钟
+                  3 分钟
                 </span>
               
             </div>
@@ -517,7 +517,7 @@
 <a id="more"></a>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了类库中包含的基础控件之外，我们也能够对控件根据业务需要进行整合，也就是设计出一套适用于本公司的组件，提高开发速度。</p>
-<h1 id="UIViewController-初始化"><a href="#UIViewController-初始化" class="headerlink" title="** UIViewController 初始化 **"></a>** <code>UIViewController</code> 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，<code>UIViewController</code> 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 <code>init</code> ，如果你使用一个 <code>storyboard</code> 初始化控制器，那么 <code>init（coder）</code> 是你所需要的。如果你尝试从外部 <code>nib</code> 文件启动控制器，则将调用 <code>init（nib，bundle）</code> 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。</p>
+<h1 id="UIViewController-初始化"><a href="#UIViewController-初始化" class="headerlink" title="** UIViewController 初始化 **"></a>** UIViewController 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，<code>UIViewController</code> 的初始化非常简单。如果要完全控制，则只需要重写一些方法。这取决于你使用何种方式调用 <code>init</code> ，如果你使用一个 <code>storyboard</code> 初始化控制器，那么 <code>init（coder）</code> 是你所需要的。如果你尝试从外部 <code>nib</code> 文件启动控制器，则将调用 <code>init（nib，bundle）</code> 。你还有第三个选择，你可以通过代码以编程方式初始化控制器。简而言之，为了进行合理的初始化过程，这是你必须要做的。</p>
 </br>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面介绍两种 <code>UIViewControllers</code> 的初始化模式，第一种只是一个常见的init函数，在每种情况下都可以调用该函数来初始化控制器。</p>
@@ -528,7 +528,12 @@
 <hr>
 </br>
 
-<h1 id="UIView-初始化"><a href="#UIView-初始化" class="headerlink" title="** UIView 初始化 **"></a>** <code>UIView</code> 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们通常为 <code>UIView</code> 创建一个通用的初始化程序，以使初始化过程更加轻松，使用起来更加方便。还会在该初始值设定项方法中将 <code>translate autoresizing mask</code> 属性设置为 <code>false</code> ，因为它是2017年，没有人再使用 <code>spring＆struts</code> 了。</p>
+<h1 id="UIView-初始化"><a href="#UIView-初始化" class="headerlink" title="** UIView 初始化 **"></a>** UIView 初始化 **</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们通常为 <code>UIView</code> 创建一个通用的初始化程序，以使初始化过程更加轻松，使用起来更加方便。还会在该初始值设定项方法中将 <code>translate autoresizing mask</code> 属性设置为 <code>false</code> ，因为它是2017年，没有人再使用 <code>spring＆struts</code> 了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">View</span>: <span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: .zero)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用自动布局助手也很不错，如果你想从nib文件中初始化视图，那么有一些便利的方法也很好。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(autolayout: <span class="type">Bool</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(frame: .zero)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = !autolayout</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">create</span><span class="params">(autolayout: Bool = <span class="literal">true</span>)</span></span> -&gt; <span class="type">Self</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> _self = <span class="keyword">self</span>.<span class="keyword">init</span>()</span><br><span class="line">        <span class="keyword">let</span> view  = _self <span class="keyword">as</span> <span class="type">UIView</span></span><br><span class="line">        view.translatesAutoresizingMaskIntoConstraints = !autolayout</span><br><span class="line">        <span class="keyword">return</span> _self</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">createFromNib</span><span class="params">(owner: <span class="keyword">Any</span>? = <span class="literal">nil</span>, options: [AnyHashable: <span class="keyword">Any</span>]? = <span class="literal">nil</span>)</span></span> -&gt; <span class="type">UIView</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Bundle</span>.main.loadNibNamed(<span class="type">String</span>(describing: <span class="keyword">self</span>), owner: owner, options: options)?.last <span class="keyword">as</span>! <span class="type">UIView</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> view = <span class="type">UIView</span>(autolayout: <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用这些代码片段，为所有 <code>UIKit</code> 类维护一个合理的初始化过程确实很容易，因为其中大多数都是从这两个 “主要” 类派生的。</p>
 
       
     </div>
