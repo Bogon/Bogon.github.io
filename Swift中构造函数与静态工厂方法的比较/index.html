@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="Char's Blog" /> 
+ <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,构,造,函,数,,,S,w,i,f,t,,,静,态,工,厂,模,式,,,重,构," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="Char's Blog" />
+  <meta name="keywords" content="iOS,UIKit,设计模式,构造函数,Swift,静态工厂模式,重构" />
 
 
 
@@ -101,15 +101,22 @@
 
 
 
-<meta name="description" content="曾经沧海难为水，除却巫山不是云。">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 我相信Joshua Bloch 在他的非常不错的书 《Effective Java》 中首先说了它：与构造函数相比，静态工厂方法是实">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift中构造函数与静态工厂方法的比较">
 <meta property="og:url" content="http://www.xuebaonline.com/Swift%E4%B8%AD%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="曾经沧海难为水，除却巫山不是云。">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; 我相信Joshua Bloch 在他的非常不错的书 《Effective Java》 中首先说了它：与构造函数相比，静态工厂方法是实">
 <meta property="article:published_time" content="2020-04-25T04:19:43.000Z">
-<meta property="article:modified_time" content="2020-04-25T04:19:43.313Z">
+<meta property="article:modified_time" content="2020-04-25T04:29:09.101Z">
 <meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="UIKit">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="构造函数">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="静态工厂模式">
+<meta property="article:tag" content="重构">
 <meta name="twitter:card" content="summary">
 
 
@@ -377,6 +384,61 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index">
+                    <span itemprop="name">UIKit</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -424,7 +486,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  449 字
                 </span>
               
 
@@ -461,7 +523,27 @@
       
 
       
-        
+        <blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我相信Joshua Bloch 在他的非常不错的书 《Effective Java》 中首先说了它：与构造函数相比，静态工厂方法是实例化对象的首选方法。 我不同意。 不仅因为我相信静态方法是纯粹的邪恶，而且主要是因为在这种特殊情况下，它们形成好的方法，使我们认为我们必须偏向使用它们。</p>
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从面向对象的角度分析推理并弄清楚其原因。这是一个具有一个主要构造函数和两个次要构造函数的类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> int hex;</span><br><span class="line">    <span class="type">Color</span>(<span class="type">String</span> rgb) &#123;</span><br><span class="line">        this(<span class="type">Integer</span>.parseInt(rgb, <span class="number">16</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Color</span>(int red, int green, int blue) &#123;</span><br><span class="line">        this(red &lt;&lt; <span class="number">16</span> + green &lt;&lt; <span class="number">8</span> + blue);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="type">Color</span>(int h) &#123;</span><br><span class="line">        this.hex = h;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是带有三个静态工厂方法的类似类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> int hex;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Color</span> makeFromRGB(<span class="type">String</span> rgb) &#123;</span><br><span class="line">        <span class="keyword">return</span> new <span class="type">Color</span>(<span class="type">Integer</span>.parseInt(rgb, <span class="number">16</span>));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Color</span> makeFromPalette(int red, int green, int blue) &#123;</span><br><span class="line">        <span class="keyword">return</span> new <span class="type">Color</span>(red &lt;&lt; <span class="number">16</span> + green &lt;&lt; <span class="number">8</span> + blue);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> <span class="type">Color</span> makeFromHex(int h) &#123;</span><br><span class="line">        <span class="keyword">return</span> new <span class="type">Color</span>(h);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Color</span>(int h) &#123;</span><br><span class="line">        <span class="keyword">return</span> new <span class="type">Color</span>(h);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你更喜欢哪一个？</p>
+<p>根据Joshua Bloch的说法，使用静态工厂方法而不是构造函数具有三个基本优点（实际上有四个优点，但是第四个不再适用于Java）：</p>
+<ul>
+<li>他们有名字。</li>
+<li>他们可以缓存。</li>
+<li>它们可以是子类型。</li>
+</ul>
+<p>我认为，如果设计错误，那么这三者都是很合理的。 它们是解决问题的好办法。 让我们一一介绍。</p>
+<h1 id="命名存在"><a href="#命名存在" class="headerlink" title="命名存在"></a><strong>命名存在</strong></h1>
       
     </div>
     
@@ -551,6 +633,24 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
+          
+            <a href="/tags/UIKit/" rel="tag"># UIKit</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag"># 工厂模式</a>
+          
+            <a href="/tags/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/" rel="tag"># 构造函数</a>
+          
+            <a href="/tags/%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/" rel="tag"># 静态工厂方法</a>
+          
+        </div>
+      
 
       
       
@@ -623,8 +723,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -665,7 +774,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -759,6 +868,23 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#命名存在"><span class="nav-number">1.</span> <span class="nav-text">命名存在</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
       
 
       
