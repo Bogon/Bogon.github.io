@@ -101,14 +101,14 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用一些自定义序列（符合 Swift 标准库中的 IteratorProtocol ），学习迭代器设计模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在面向对象编程里，迭代器模式 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用一些 自定义序列（符合 Swift 标准库中的 IteratorProtocol ），学习迭代器设计模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在面向对象编程里，迭代器模式 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Swift迭代器设计模式">
 <meta property="og:url" content="http://www.xuebaonline.com/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用一些自定义序列（符合 Swift 标准库中的 IteratorProtocol ），学习迭代器设计模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在面向对象编程里，迭代器模式 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用一些 自定义序列（符合 Swift 标准库中的 IteratorProtocol ），学习迭代器设计模式。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在面向对象编程里，迭代器模式 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用">
 <meta property="article:published_time" content="2020-04-26T01:13:26.000Z">
-<meta property="article:modified_time" content="2020-04-26T01:29:25.613Z">
+<meta property="article:modified_time" content="2020-04-26T02:22:15.675Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
@@ -525,9 +525,9 @@
 
       
         <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用一些自定义序列（符合 <code>Swift</code> 标准库中的 <code>IteratorProtocol</code> ），学习迭代器设计模式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用一些 <a href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" title="自定义序列"><code>自定义序列</code></a>（符合 <code>Swift</code> 标准库中的 <code>IteratorProtocol</code> ），学习迭代器设计模式。</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在面向对象编程里，<a href="https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener" title="迭代器模式">迭代器模式</a> 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户透过特定的接口巡访容器中的每一个元素而不用了解底层的实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在面向对象编程里，<a href="https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener" title="迭代器模式">迭代器模式</a> 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户透过特定的接口访问容器中的每一个元素而不用了解底层的实现。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，我将重点介绍迭代器设计模式。 该模式在 <a href="https://developer.apple.com/documentation/swift/swift_standard_library" target="_blank" rel="noopener" title="Swift标准库"><code>Swift标准库</code></a> 中大量使用，如果你需要创建迭代器，有一些协议可以为你提供支持，但是老实说：我从来没有直接实现过这种模式。 😅</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实是，在99％的用例中，你将永远不必处理这种模式，因为对 <code>Swift</code> 中直接内置的迭代器提供了惊人的支持。 始终使用序列，数组，字典而不是直接实现此模式，但是很高兴知道事情是如何进行的。 🙃</p>
 <a id="more"></a>
@@ -585,7 +585,7 @@
 	<span>本文标题:</span><a href="/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Swift迭代器设计模式</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
 	<p><span>发布时间:</span>2020年04月26日 - 09:04</p>
-	<p><span>最后更新:</span>2020年04月26日 - 09:04</p>
+	<p><span>最后更新:</span>2020年04月26日 - 10:04</p>
 	<p><span>原始链接:</span><a href="/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="Swift迭代器设计模式">http://www.xuebaonline.com/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
 		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"  aria-label="复制成功！"></i></span>
 	</p>
@@ -858,7 +858,7 @@
               <ul class="links-of-blogroll-list">
                 
                   <li class="links-of-blogroll-item">
-                    <a href="https://developer.apple.com/swift/" title="Swift 4" rel="external nofollow" target="_blank">Swift 4</a>
+                    <a href="https://developer.apple.com/swift/" title="Swift 5.1" rel="external nofollow" target="_blank">Swift 5.1</a>
                   </li>
                 
                   <li class="links-of-blogroll-item">
