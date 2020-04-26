@@ -29,7 +29,7 @@ categories:
 
 # **删除可选**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像我们在 [```“在Swift中处理非可选的可选内容”```]( "在Swift中处理非可选的可选内容") 中介绍的那样，减少了在实际需要的值真正需要时使用可选的需求，这确实可以帮助我们避免错误并简化我们的代码。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像我们在 [```“在Swift中处理非可选的可选内容”```](http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/ "在Swift中处理非可选的可选内容") 中介绍的那样，减少了在实际需要的值真正需要时使用可选的需求，这确实可以帮助我们避免错误并简化我们的代码。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，集合的问题在于，你通常无法保证它们是否包含一定的值，因此，你往往会遇到很多可选内容和逻辑，这些可选内容和逻辑要求以一种或另一种方式将它们拆开。
 

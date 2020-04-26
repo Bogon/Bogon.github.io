@@ -17,9 +17,9 @@ categories:
     - [Swift]
 ---
 
->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用一些自定义序列（符合 ```Swift``` 标准库中的 ```IteratorProtocol``` ），学习迭代器设计模式。
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用一些 [```自定义序列```](http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/ "自定义序列")（符合 ```Swift``` 标准库中的 ```IteratorProtocol``` ），学习迭代器设计模式。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在面向对象编程里，[迭代器模式](https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F "迭代器模式") 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户透过特定的接口巡访容器中的每一个元素而不用了解底层的实现。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在面向对象编程里，[迭代器模式](https://zh.wikipedia.org/wiki/%E8%BF%AD%E4%BB%A3%E5%99%A8%E6%A8%A1%E5%BC%8F "迭代器模式") 是一种设计模式，是一种最简单也最常见的设计模式。它可以让用户透过特定的接口访问容器中的每一个元素而不用了解底层的实现。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，我将重点介绍迭代器设计模式。 该模式在 [```Swift标准库```](https://developer.apple.com/documentation/swift/swift_standard_library "Swift标准库") 中大量使用，如果你需要创建迭代器，有一些协议可以为你提供支持，但是老实说：我从来没有直接实现过这种模式。 😅
 
