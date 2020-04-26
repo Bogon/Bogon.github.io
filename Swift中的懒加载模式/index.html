@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,迭,代,器,设,计,模,式,,,重,构,,,I,t,e,r,a,t,o,r, ,d,e,s,i,g,n, ,p,a,t,t,e,r,n,,,o,p,t,i,o,n,a,l,s,,,n,o,n,-,o,p,t,i,o,n,a,l," /> 
+ <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,懒,加,载,模,式,,,重,构,,,o,b,j,e,c,t, ,p,o,o,l, ,d,e,s,i,g,n, ,p,a,t,t,e,r,n," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design pattern,optionals,non-optional" />
+  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,懒加载模式,重构,object pool design pattern" />
 
 
 
@@ -101,25 +101,23 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;可选参数可以说是 Swift 最重要的功能之一，也是将其与 Objective-C 之类的语言区分开来的关键。 通过被迫处理可能为 nil 的情况，我们倾向于编写更具可预测性和较少错误的代码。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是，有时可选">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何在 Swift 中使用惰性属性来提高性能，避免使用可选参数或只是为了使初始化过程更加简洁。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在程式设计中, 惰性初始是一种拖延战术。在第一次需求出现以前，先延迟创建物件、计算值或其它昂贵程序。这通">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Swift中处理非可选选项">
-<meta property="og:url" content="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/index.html">
+<meta property="og:title" content="Swift中的懒加载模式">
+<meta property="og:url" content="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;可选参数可以说是 Swift 最重要的功能之一，也是将其与 Objective-C 之类的语言区分开来的关键。 通过被迫处理可能为 nil 的情况，我们倾向于编写更具可预测性和较少错误的代码。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是，有时可选">
-<meta property="article:published_time" content="2020-04-26T01:49:49.000Z">
-<meta property="article:modified_time" content="2020-04-26T02:19:11.394Z">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何在 Swift 中使用惰性属性来提高性能，避免使用可选参数或只是为了使初始化过程更加简洁。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在程式设计中, 惰性初始是一种拖延战术。在第一次需求出现以前，先延迟创建物件、计算值或其它昂贵程序。这通">
+<meta property="article:published_time" content="2020-04-26T03:01:52.000Z">
+<meta property="article:modified_time" content="2020-04-26T03:24:04.578Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="抽象">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="迭代器设计模式">
+<meta property="article:tag" content="懒加载模式">
 <meta property="article:tag" content="重构">
-<meta property="article:tag" content="Iterator design pattern">
-<meta property="article:tag" content="optionals">
-<meta property="article:tag" content="non-optional">
+<meta property="article:tag" content="object pool design pattern">
 <meta name="twitter:card" content="summary">
 
 
@@ -150,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xuebaonline.com/在Swift中处理非可选选项/"/>
+  <link rel="canonical" href="http://www.xuebaonline.com/Swift中的懒加载模式/"/>
 
 
 
 
 
-  <title>在Swift中处理非可选选项 | Char's Blog</title>
+  <title>Swift中的懒加载模式 | Char's Blog</title>
   
 
 
@@ -347,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Char">
@@ -364,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在Swift中处理非可选选项</h1>
+          <h1 class="post-title" itemprop="name headline">Swift中的懒加载模式</h1>
         
 
         <div class="post-meta">
@@ -376,7 +374,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T09:49:49+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T11:01:52+08:00">
                 2020-04-26
               </time>
             
@@ -450,8 +448,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" itemprop="commentCount"></span>
+                <a href="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -459,7 +457,7 @@
 
           
           
-             <span id="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" class="leancloud_visitors" data-flag-title="在Swift中处理非可选选项">
+             <span id="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Swift中的懒加载模式">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -489,7 +487,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  2.1k 字
+                  1.8k 字
                 </span>
               
 
@@ -505,7 +503,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  8 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -526,81 +524,69 @@
       
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选参数可以说是 <code>Swift</code> 最重要的功能之一，也是将其与 <code>Objective-C</code> 之类的语言区分开来的关键。 通过被迫处理可能为 <code>nil</code> 的情况，我们倾向于编写更具可预测性和较少错误的代码。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，有时可选参数可能会使你处于一个很难处理的局面，在程序员看来，你知道（或至少在假设之下）某个变量在使用时始终为 <code>non-nil</code> ，即使它是 可选类型。 就像在视图控制器中处理视图时一样：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tableView: <span class="type">UITableView?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        tableView = <span class="type">UITableView</span>(frame: view.bounds)</span><br><span class="line">        view.addSubview(tableView!)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">viewModelDidUpdate</span><span class="params">(<span class="number">_</span> viewModel: ViewModel)</span></span> &#123;</span><br><span class="line">        tableView?.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何在 <code>Swift</code> 中使用惰性属性来提高性能，避免使用可选参数或只是为了使初始化过程更加简洁。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在程式设计中, 惰性初始是一种拖延战术。在第一次需求出现以前，先延迟创建物件、计算值或其它昂贵程序。这通常是以一个旗号来实现，用旗号来标示是否完成其程式。每次请求对象时，会先测试此旗号。如果已完成，直接传回，否则当场执行。<br>对于此想法更一般的论述，可见惰性求值。对指令式语言，这个模式可能潜藏着危险，尤其是使用共享状态的程式习惯。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以设计模式的观点来说，惰性初始通常会和工厂方法模式合作，这结合了三种构想：</p>
+<ul>
+<li>使用一个工厂去得到一个类别的实例（工厂方法模式）。</li>
+<li>将实例存在一个集合中，所以下次要求一个实例却有相同参数时，可以得到同一个实例（可和单例模式来做比较）。</li>
+<li>在第一次时，使用惰性初始来实例化物件（惰性初始模式）。</li>
+</ul>
 <a id="more"></a>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这种情况下， <code>Swift</code> 程序员会在与制表符和空格几乎相同的程度上存在分歧。 有人说：</p>
+</br>
+
+<h1 id="懒惰的终极指南"><a href="#懒惰的终极指南" class="headerlink" title="懒惰的终极指南"></a><strong>懒惰的终极指南</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果仅在某个时间点需要某个属性，则可以在其前面加上 <code>lazy</code> 关键字，以便在初始化过程中将其 <code>“excluded”</code> ，并且将按需分配其默认值。 这对于创建成本高昂或需要更多时间创建的类型很有用。 这是一个懒惰公主的小故事。 👸💤</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SleepingBeauty</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"zzz...sleeping..."</span>)</span><br><span class="line">        sleep(<span class="number">2</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"sleeping beauty is ready!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Castle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> princess = <span class="type">SleepingBeauty</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"castle is ready!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"a new castle..."</span>)</span><br><span class="line"><span class="keyword">let</span> castle = <span class="type">Castle</span>()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此代码段的输出如下所示，但是你可以看到公主睡了很长时间，她也“堵住了”城堡。 🏰</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a new castle...</span><br><span class="line">zzz...sleeping...</span><br><span class="line">sleeping beauty is ready!</span><br><span class="line">castle is ready!</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以通过添加 <code>lazy</code> 关键字来加快处理速度，因此你的英雄将有时间杀死龙，我们的公主可以睡在她的床上直到需要她为止。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SleepingBeauty</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"zzz...sleeping..."</span>)</span><br><span class="line">        sleep(<span class="number">2</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"sleeping beauty is ready!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Castle</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> princess = <span class="type">SleepingBeauty</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"castle is ready!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"a new castle..."</span>)</span><br><span class="line"><span class="keyword">let</span> castle = <span class="type">Castle</span>()</span><br><span class="line">castle.princess</span><br></pre></td></tr></table></figure>
+
+<p>好多了！ 现在城堡立即为战斗做好了准备，因此王子可以唤醒他所爱的人，并且……他们从此过着幸福的生活。 故事结局。👸 ❤️ 🤴</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a new castle...</span><br><span class="line">castle is ready!</span><br><span class="line">zzz...sleeping...</span><br><span class="line">sleeping beauty is ready!</span><br></pre></td></tr></table></figure>
+
+<p>希望你喜欢童话故事，但让我们做一些真正的编码吧！ 🤓</p>
+</br>
+
+<h1 id="避免懒加载可选属性"><a href="#避免懒加载可选属性" class="headerlink" title="避免懒加载可选属性"></a><strong>避免懒加载可选属性</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你在前面的示例中所看到的，可以使用惰性属性来提高 <code>Swift</code> 代码的性能。 您也可以消除对象中的可选项。 如果你要处理 <code>UIView</code> 派生类，这将很有用。 例如，如果你的视图层次结构需要 <code>UILabel</code> ，则通常必须将该属性声明为可选属性或隐式展开的可选存储属性。 让我们通过使用惰性和消除邪恶的可选要求的方式来重新制作此示例。 😈</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> label: <span class="type">UILabel</span> = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.label)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.label.textColor = .black</span><br><span class="line">        <span class="keyword">self</span>.label.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">16</span>, weight: .bold)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;情况还不错，但是我仍然更喜欢将我的视图声明为隐式展开的可选对象。 💀</p>
+</br>
+
+<h1 id="使用懒加载闭包"><a href="#使用懒加载闭包" class="headerlink" title="使用懒加载闭包"></a>使用懒加载闭包</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 <a href=""""><code>懒加载闭包(lazy closure)</code></a> 将一些代码包装在其中。 与存储的属性相比，懒惰的主要优点是，只有对该变量执行读取操作时，才执行块。 您还可以使用常规存储属性填充 <a href=""""><code>惰性属性(lazy property)</code></a> 的值。 让我们在实践中看一下。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> label: <span class="type">UILabel</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        label.textColor = .black</span><br><span class="line">        label.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">16</span>, weight: .bold)</span><br><span class="line">        <span class="keyword">return</span> label</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想整理一下init方法，这是一个不错的做法。 你可以将所有对象自定义逻辑放在闭包内。 闭包在读取时自动执行（自我执行的闭包），因此当你调用self.label时，你的代码块将被执行并贴紧：视图将准备就绪。</p>
 <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“由于它是可选的，因此你应该始终正确地解开它，使用 <code>let</code> 或 <code>guard let</code> 。”</p>
+<p><strong><em>提示：</em></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你不能在存储的属性中使用 <code>self</code> ，但是可以使用 <code>lazy closure</code> 来使用 <code>self</code> 。 注意：如果你不想造成引用循环和内存泄漏，则应始终使用 <code>[unown self]</code> 。 ♻️</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而其他人会朝完全不同的方向说：</p>
+</br>
+
+<h1 id="使用工厂模式进行-Lazy-initialization"><a href="#使用工厂模式进行-Lazy-initialization" class="headerlink" title="使用工厂模式进行 Lazy initialization"></a><strong><em>使用工厂模式进行 Lazy initialization</em></strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我已经有几篇关于 <code>Swift</code> 中 <a href="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"><code>工厂设计模式</code></a> 的文章，所以现在我只想向你展示如何使用工厂方法和结合了 <code>lazy property</code> 的静态工厂。</p>
+</br>
+
+<h2 id="工厂方法"><a href="#工厂方法" class="headerlink" title="工厂方法"></a><strong><em>工厂方法</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你不喜欢自动执行的闭包，则可以将代码移出工厂方法，并将其与惰性变量一起使用。 像这样简单：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> label: <span class="type">UILabel</span> = <span class="keyword">self</span>.createCustomLabel()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">createCustomLabel</span><span class="params">()</span></span> -&gt; <span class="type">UILabel</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"called"</span>)</span><br><span class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        label.textColor = .black</span><br><span class="line">        label.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">16</span>, weight: .bold)</span><br><span class="line">        <span class="keyword">return</span> label</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，工厂方法的工作方式类似于你的惰性属性的私有初始化程序。 让我们更进一步，以便可以稍微提高可重用性…</p>
+<h2 id="静态工厂方式"><a href="#静态工厂方式" class="headerlink" title="静态工厂方式"></a><strong><em>静态工厂方式</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想在应用程序的多个部分中重复使用这些初始化代码，则将它们初始化为 <a href="http://www.xuebaonline.com/tags/%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95/"><code>静态工厂(static factory)</code></a> 可能是一个好习惯。 例如，这非常适合初始化自定义视图。 另外，创建自定义视图实际上并不是视图控制器任务，因此本示例中的职责更加分离。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> label: <span class="type">UILabel</span> = <span class="type">UILabel</span>.createCustomLabel()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UILabel</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">createCustomLabel</span><span class="params">()</span></span> -&gt; <span class="type">UILabel</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        label.textColor = .black</span><br><span class="line">        label.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">16</span>, weight: .bold)</span><br><span class="line">        <span class="keyword">return</span> label</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;免费获得你可以享受静态工厂属性/方法的优点，例如缓存或返回特定的子类型。 挺整洁的！ 👍</p>
+</br>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;惰性变量是优化代码的一种非常方便的方法，但是它们只能在结构和类上使用。 n你不能将它们用作计算属性，这意味着它们在你每次尝试访问它们时都不会返回闭包块。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个重要的事情是，惰性属性不是线程安全的，因此你必须谨慎使用它们。 另外，你并不总是希望消除隐式解包的可选值，有时候崩溃只是更好的选择！ 🐛</p>
 <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“由于你知道变量将不会为 <code>nil</code> ，请强制将其解包（使用！）。 崩溃比处于不确定状态要好。”</p>
+<p><strong><em>提示：</em></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别偷懒！</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本上，我们在这里谈论的是是否进行 <a href="https://zh.wikipedia.org/wiki/%E9%98%B2%E5%BE%A1%E6%80%A7%E7%BC%96%E7%A8%8B" target="_blank" rel="noopener" title="防御性编程"><code>防御性编程(英文：defensive programming)</code></a>。 我们是否试图从不确定的状态中恢复，还是仅仅放弃并崩溃？</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我必须对这个问题给出一个二元的答案，那么我肯定会选择后者。 未定义状态会导致很难发现错误，可能会导致不必要的代码执行，而采用防御性编程只会导致难以推理的代码。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，我宁愿不必给出二进制答案，而是研究一些可用于以更细微的方式解决此问题的技术。 </p>
-</br>
-
-<h1 id="真的可选吗？"><a href="#真的可选吗？" class="headerlink" title="真的可选吗？"></a><strong>真的可选吗？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变量和属性是可选的，但实际上是程序逻辑所必需的，实际上是体系结构缺陷的征兆。 如果需要某些东西，到没有它会使你处于不确定状态-它不是可选的。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管在某些情况下（例如与某些系统 <code>API</code> 进行交互时），确实很难避免使用可选项–在许多情况下，我们可以使用某些技术来摆脱可选项。</p>
-</br>
-
-<h1 id="懒加载-lazy-比非可选的-non-optionally-optional-要好"><a href="#懒加载-lazy-比非可选的-non-optionally-optional-要好" class="headerlink" title="懒加载(lazy)比非可选的(non-optionally optional)要好"></a><strong>懒加载(lazy)比非可选的(non-optionally optional)要好</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一种避免使用属性的可选选项的方法，即通过使用惰性属性来避免在创建父对象之后需要创建值的属性（例如，视图控制器中的视图-应该在 <code>loadView()</code> 或 <code>viewDidLoad()</code> 中创建）。 惰性属性可以是非可选的，但仍不需要在其父级的初始值设定项中创建。 它将在首次访问时创建。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从之前更新 <code>TableViewController</code> ，以对其表视图使用对属性进行懒加载：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> tableView = <span class="type">UITableView</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        tableView.frame = view.bounds</span><br><span class="line">        view.addSubview(tableView)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">viewModelDidUpdate</span><span class="params">(<span class="number">_</span> viewModel: ViewModel)</span></span> &#123;</span><br><span class="line">        tableView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>没有可选项，没有不确定的状态！ 🎉</p>
-</br>
-
-<h1 id="适当的依赖项管理要比非可选的可选项好"><a href="#适当的依赖项管理要比非可选的可选项好" class="headerlink" title="适当的依赖项管理要比非可选的可选项好"></a><strong>适当的依赖项管理要比非可选的可选项好</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选项的另一个常见用法是打破 <a href="https://en.wikipedia.org/wiki/Circular_dependency" target="_blank" rel="noopener" title="循环依赖关系"><code>循环依赖关系(circular dependencies)</code></a> 。 有时您可能会遇到 <code>A</code> 依赖于 <code>B</code> ，但 <code>B</code> 也依赖于 <code>A</code> 的情况。类似于此设置：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">weak</span> <span class="keyword">var</span> commentManager: <span class="type">CommentManager?</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">userDidPostComment</span><span class="params">(<span class="number">_</span> comment: Comment)</span></span> &#123;</span><br><span class="line">        user.totalNumberOfComments += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">logOutCurrentUser</span><span class="params">()</span></span> &#123;</span><br><span class="line">        user.logOut()</span><br><span class="line">        commentManager?.clearCache()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommentManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">weak</span> <span class="keyword">var</span> userManager: <span class="type">UserManager?</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">composer</span><span class="params">(<span class="number">_</span> composer: CommentComposer</span></span></span><br><span class="line"><span class="function"><span class="params">                  didPostComment comment: Comment)</span></span> &#123;</span><br><span class="line">        userManager?.userDidPostComment(comment)</span><br><span class="line">        handle(comment)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">clearCache</span><span class="params">()</span></span> &#123;</span><br><span class="line">        cache.clear()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们在上面看到的，我们在 <code>UserManager</code> 和 <code>CommentManager</code> 之间具有循环依赖关系，其中它们都不假定彼此拥有所有权，但是它们在逻辑上仍然相互依赖。 那只是等待发生的错误！ 😅</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了解决上述问题，我们改为让 <code>CommentComposer</code> 充当中间人，并负责通知 <code>UserManager</code> 和 <code>CommentManager</code> 已做出评论：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CommentComposer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> commentManager: <span class="type">CommentManager</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> userManager: <span class="type">UserManager</span></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> textView = <span class="type">UITextView</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(commentManager: <span class="type">CommentManager</span>,</span><br><span class="line">         userManager: <span class="type">UserManager</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.commentManager = commentManager</span><br><span class="line">        <span class="keyword">self</span>.userManager = userManager</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">postComment</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> comment = <span class="type">Comment</span>(text: textView.text)</span><br><span class="line">        commentManager.handle(comment)</span><br><span class="line">        userManager.userDidPostComment(comment)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样，<code>UserManager</code> 可以拥有对 <code>CommentManager</code> 的强引用，而没有循环引用（或依赖)：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserManager</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> commentManager: <span class="type">CommentManager</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(commentManager: <span class="type">CommentManager</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.commentManager = commentManager</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">userDidPostComment</span><span class="params">(<span class="number">_</span> comment: Comment)</span></span> &#123;</span><br><span class="line">        user.totalNumberOfComments += <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们再次删除了所有可选内容，并提供了可预测的代码！ 🎉</p>
-</br>
-
-<h1 id="崩溃"><a href="#崩溃" class="headerlink" title="崩溃"></a><strong>崩溃</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的示例中，我们看到了一些示例，在这些示例中我们可以调整代码以通过删除可选选项来消除不确定性。 但是，有时候这是不可能的。 假设你正在加载包含应用程序配置的本地 <code>JSON</code> 文件。 这本质上是一项可能会失败的操作，因此我们将需要添加一些错误处理。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果配置无法加载，则继续执行程序会使应用程序处于未定义状态，因此在这种情况下可能会引发崩溃。 这样，我们可以获得崩溃报告，并希望我们的 <code>tests &amp; QA</code> 检查流程能够早于解决此问题并将其传递给用户。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么，我们如何崩溃？ 最简单的解决方案是简单地使用 <code>! operator</code> ，强制解开可选选项，如果它包含 <code>nil</code> 则导致崩溃：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> configuration = loadConfiguration()!</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管这种方法很简单，但缺点是很大。 如果此代码开始崩溃，我们将得到的错误消息是：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: unexpectedly found <span class="literal">nil</span> <span class="keyword">while</span> unwrapping an <span class="type">Optional</span> value</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误消息不会告诉我们错误的原因和发生位置，也没有提供解决方法的线索。 相反，让我们结合使用 <code>guard</code> 语句和 <code>preconditionFailure()</code> 函数，以自定义消息退出。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">guard</span> <span class="keyword">let</span> configuration = loadConfiguration() <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">preconditionFailure</span>(<span class="string">"Configuration couldn't be loaded. "</span> +</span><br><span class="line">                        <span class="string">"Verify that Config.JSON is valid."</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用以上方法崩溃时，我们将获得更多有用的错误消息：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: <span class="type">Configuration</span> couldn’t be loaded. <span class="type">Verify</span> that <span class="type">Config1</span>.<span class="type">JSON</span> <span class="keyword">is</span> valid.: file ~/<span class="type">DemoApp</span>/<span class="type">Sources</span>/<span class="type">AppDelegate</span>.swift, line <span class="number">17</span></span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以采取明确的措施来解决该问题，并且我们确切知道它在代码库中的位置！ 🚀</p>
-</br>
-
-<h1 id="更多"><a href="#更多" class="headerlink" title="更多"></a><strong>更多</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进行上面的 <code>guard-let-preconditionFailure</code> 操作可能会有些乏味，并且确实会使代码难于遵循。 我们真的不想在代码中留出如此大的空间，这样的特殊情况-我们要专注于我们的逻辑。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我的解决方案是 <code>Require</code> 。 它在 <code>Optional</code> 上添加了一个简单的 <code>require()</code> 方法，可以完成上述操作，但是使调用站点更加整洁。 使用 <code>Require</code> 时，上述配置加载代码如下所示：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> configuration = loadConfiguration().require(hint: <span class="string">"Verify that Config.JSON is valid"</span>)</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果失败，它将给我们以下错误消息：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fatal error: <span class="type">Required</span> value was <span class="literal">nil</span>. <span class="type">Debugging</span> hint: <span class="type">Verify</span> that <span class="type">Config1</span>.<span class="type">JSON</span> <span class="keyword">is</span> valid: file ~/<span class="type">DemoApp</span>/<span class="type">Sources</span>/<span class="type">AppDelegate</span>.swift, line <span class="number">17</span></span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Require</code> 的另一个优点是，它还将引发 <code>NSException</code> 以及调用 <code>preconditionFailure</code> ，这将使崩溃报告工具（如 <code>Crashlytics</code> ）能够提取崩溃的所有元数据。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想在代码中使用  <a href="https://github.com/JohnSundell/Require" target="_blank" rel="noopener" title="Require"><code>Require</code></a> ，它是 <a href="https://github.com/JohnSundell/Require" target="_blank" rel="noopener" title="Require"><code>GitHub</code></a> 上的开源代码。</p>
-</br>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综上所述，这些是我在 <code>Swift</code> 中处理非可选可选内容的技巧：</p>
-<ul>
-<li>懒加载(lazy)比非可选的(non-optionally optional)要好</li>
-<li>适当的依赖项管理要比非可选的可选项好</li>
-<li>当您需要使用非可选的可选选项时，正常崩溃</li>
-</ul>
+<p>…但是请随时使用惰性属性！ 😉</p>
 
       
     </div>
@@ -628,12 +614,12 @@
 	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<p></p>
-	<span>本文标题:</span><a href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/">在Swift中处理非可选选项</a>
+	<span>本文标题:</span><a href="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/">Swift中的懒加载模式</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
-	<p><span>发布时间:</span>2020年04月26日 - 09:04</p>
-	<p><span>最后更新:</span>2020年04月26日 - 10:04</p>
-	<p><span>原始链接:</span><a href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" title="在Swift中处理非可选选项">http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/</a>
-		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/"  aria-label="复制成功！"></i></span>
+	<p><span>发布时间:</span>2020年04月26日 - 11:04</p>
+	<p><span>最后更新:</span>2020年04月26日 - 11:04</p>
+	<p><span>原始链接:</span><a href="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" title="Swift中的懒加载模式">http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/"  aria-label="复制成功！"></i></span>
 	</p>
 	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -701,11 +687,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 迭代器设计模式</a>
-          
-            <a href="/tags/optionals/" rel="tag"># optionals</a>
-          
-            <a href="/tags/non-optional/" rel="tag"># non-optional</a>
+            <a href="/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="tag"># 懒加载模式</a>
           
         </div>
       
@@ -718,8 +700,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" rel="next" title="在Swift中创建自定义集合">
-                <i class="fa fa-chevron-left"></i> 在Swift中创建自定义集合
+              <a href="/Swift%E5%AF%B9%E8%B1%A1%E6%B1%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift对象池设计模式">
+                <i class="fa fa-chevron-left"></i> Swift对象池设计模式
               </a>
             
           </div>
@@ -727,10 +709,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Swift%E5%A4%96%E8%A7%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="Swift外观设计模式">
-                Swift外观设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -940,7 +918,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#真的可选吗？"><span class="nav-number">1.</span> <span class="nav-text">真的可选吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒加载-lazy-比非可选的-non-optionally-optional-要好"><span class="nav-number">2.</span> <span class="nav-text">懒加载(lazy)比非可选的(non-optionally optional)要好</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适当的依赖项管理要比非可选的可选项好"><span class="nav-number">3.</span> <span class="nav-text">适当的依赖项管理要比非可选的可选项好</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#崩溃"><span class="nav-number">4.</span> <span class="nav-text">崩溃</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更多"><span class="nav-number">5.</span> <span class="nav-text">更多</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#懒惰的终极指南"><span class="nav-number">1.</span> <span class="nav-text">懒惰的终极指南</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#避免懒加载可选属性"><span class="nav-number">2.</span> <span class="nav-text">避免懒加载可选属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用懒加载闭包"><span class="nav-number">3.</span> <span class="nav-text">使用懒加载闭包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用工厂模式进行-Lazy-initialization"><span class="nav-number">4.</span> <span class="nav-text">使用工厂模式进行 Lazy initialization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#工厂方法"><span class="nav-number">4.1.</span> <span class="nav-text">工厂方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态工厂方式"><span class="nav-number">4.2.</span> <span class="nav-text">静态工厂方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
