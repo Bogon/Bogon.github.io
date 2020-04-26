@@ -5,7 +5,7 @@ copyright: ture
 date: 2020-04-25 18:45:18
 keywords: iOS,UIKit,设计模式,抽象,Swift,适配器设计模式,重构, adapter design pattern
 tags:
- - [iOS]
+    - [iOS]
     - [设计模式]
     - [UIKit]
     - [Swift]
