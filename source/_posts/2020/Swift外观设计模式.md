@@ -21,6 +21,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[```外观模式（Facade pattern）```](https://zh.wikipedia.org/wiki/%E5%A4%96%E8%A7%80%E6%A8%A1%E5%BC%8F "外观模式") ，是软件工程中常用的一种软件设计模式，它为子系统中的一组接口提供一个统一的高层接口，使得子系统更容易使用。
 
+![外观设计模式](http://q8wtfza4q.bkt.clouddn.com/fp-stp1.png "外观设计模式")
+
 <!-- more -->
 
 + 结构
@@ -33,9 +35,6 @@ categories:
     + Packages
         
         客户可以通过外观接口读取的内部库。
-
-
-![外观设计模式](http://q8wtfza4q.bkt.clouddn.com/fp-stp1.png "外观设计模式")
 
 
 </br>
