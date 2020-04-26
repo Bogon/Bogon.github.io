@@ -138,7 +138,7 @@ class ViewController: UIViewController {
 
 # 使用懒加载闭包
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 [```懒加载闭包(lazy closure)```]( "") 将一些代码包装在其中。 与存储的属性相比，懒惰的主要优点是，只有对该变量执行读取操作时，才执行块。 您还可以使用常规存储属性填充 [```惰性属性(lazy property)```]( "") 的值。 让我们在实践中看一下。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 [```懒加载闭包(lazy closure)```]( "") 将一些代码包装在其中。 与存储的属性相比，懒惰的主要优点是，只有对该变量执行读取操作时，才执行块。 您还可以使用常规存储属性填充 [```惰性属性(lazy property)```](http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/ "") 的值。 让我们在实践中看一下。
 
 ``` Swift
 class ViewController: UIViewController {
