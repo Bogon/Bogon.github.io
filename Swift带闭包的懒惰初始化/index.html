@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,适,配,器,设,计,模,式,,,重,构,,, ,a,d,a,p,t,e,r, ,d,e,s,i,g,n, ,p,a,t,t,e,r,n," /> 
+ <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,带,闭,包,的,懒,惰,初,始,化,,,重,构,,,L,a,z,y, ,P,r,o,p,e,r,t,y, ,I,n,i,t,i,a,l,i,z,a,t,i,o,n,p,a,t,t,e,r,n," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,适配器设计模式,重构, adapter design pattern" />
+  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,带闭包的懒惰初始化,重构,Lazy Property Initializationpattern" />
 
 
 
@@ -101,27 +101,26 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用真实示例和 Swift 中的适配器设计模式，将不兼容的对象转换为目标接口或类。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装(wrapper)。将一个">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何创建具有模块化和可读性的对象。 使用初衷&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在 iOS 之旅的开始，我遵循了 YouTube 上的教程。 我看到一些使用如下所示的方法来创建 UI 对象。 1234let makeBox: UIView">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift适配器设计模式">
-<meta property="og:url" content="http://www.xuebaonline.com/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="Swift带闭包的懒惰初始化">
+<meta property="og:url" content="http://www.xuebaonline.com/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;通过使用真实示例和 Swift 中的适配器设计模式，将不兼容的对象转换为目标接口或类。  &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在设计模式中，适配器模式（英语：adapter pattern）有时候也称包装样式或者包装(wrapper)。将一个">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/adp-stp1.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/adp-stp2.png">
-<meta property="article:published_time" content="2020-04-25T10:45:18.000Z">
-<meta property="article:modified_time" content="2020-04-26T01:15:53.944Z">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何创建具有模块化和可读性的对象。 使用初衷&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在 iOS 之旅的开始，我遵循了 YouTube 上的教程。 我看到一些使用如下所示的方法来创建 UI 对象。 1234let makeBox: UIView">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/xcode-edit-all.gif">
+<meta property="article:published_time" content="2020-04-26T07:55:06.000Z">
+<meta property="article:modified_time" content="2020-04-26T08:46:52.783Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="抽象">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="适配器设计模式">
+<meta property="article:tag" content="带闭包的懒惰初始化">
 <meta property="article:tag" content="重构">
-<meta property="article:tag" content=" adapter design pattern">
+<meta property="article:tag" content="Lazy Property Initializationpattern">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/adp-stp1.png">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/xcode-edit-all.gif">
 
 
 
@@ -151,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xuebaonline.com/Swift适配器设计模式/"/>
+  <link rel="canonical" href="http://www.xuebaonline.com/Swift带闭包的懒惰初始化/"/>
 
 
 
 
 
-  <title>Swift适配器设计模式 | Char's Blog</title>
+  <title>Swift带闭包的懒惰初始化 | Char's Blog</title>
   
 
 
@@ -348,7 +347,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Char">
@@ -365,7 +364,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift适配器设计模式</h1>
+          <h1 class="post-title" itemprop="name headline">Swift带闭包的懒惰初始化</h1>
         
 
         <div class="post-meta">
@@ -377,8 +376,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-25T18:45:18+08:00">
-                2020-04-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T15:55:06+08:00">
+                2020-04-26
               </time>
             
 
@@ -451,8 +450,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
+                <a href="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -460,7 +459,7 @@
 
           
           
-             <span id="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Swift适配器设计模式">
+             <span id="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/" class="leancloud_visitors" data-flag-title="Swift带闭包的懒惰初始化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -490,7 +489,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  2.3k 字
                 </span>
               
 
@@ -506,7 +505,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  9 分钟
                 </span>
               
             </div>
@@ -527,44 +526,117 @@
       
 
       
-        <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用真实示例和 <code>Swift</code> 中的适配器设计模式，将不兼容的对象转换为目标接口或类。</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在设计模式中，<a href="https://zh.wikipedia.org/wiki/%E9%80%82%E9%85%8D%E5%99%A8%E6%A8%A1%E5%BC%8F" target="_blank" rel="noopener" title="适配器模式">适配器模式</a>（英语：adapter pattern）有时候也称包装样式或者包装(wrapper)。将一个类的接口转接成用户所期待的。一个适配使得因接口不兼容而不能在一起工作的类能在一起工作，做法是将类自己的接口包裹在一个已存在的类中。</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何创建具有模块化和可读性的对象。</p>
+<h1 id="使用初衷"><a href="#使用初衷" class="headerlink" title="使用初衷"></a><strong>使用初衷</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>iOS</code> 之旅的开始，我遵循了 <code>YouTube</code> 上的教程。 我看到一些使用如下所示的方法来创建 <code>UI</code> 对象。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> makeBox: <span class="type">UIView</span> = &#123;</span><br><span class="line"> <span class="keyword">let</span> view = <span class="type">UIView</span>()</span><br><span class="line"> <span class="keyword">return</span> view</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为学习者，我复制了练习并使用了它。 但是，有一天，有人问我：“为什么要添加 <code>{}</code> ，为什么 <code>（）</code> 末尾存在？ 它是计算属性吗？” 我无法回答。</p>
 <a id="more"></a>
 
-<h1 id="结构"><a href="#结构" class="headerlink" title="结构"></a><strong>结构</strong></h1><p>有两种类型的适配器模式：</p>
+</br>
+
+<h1 id="学习的目标"><a href="#学习的目标" class="headerlink" title="学习的目标"></a><strong>学习的目标</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有三个目标。 首先，了解如何使用上述非常规方式初始化对象。 其次，了解何时在 <code>Swift</code> 中使用惰性 <code>var</code> 。 最后，如何最终正确使用它。</p>
+<h2 id="先决条件"><a href="#先决条件" class="headerlink" title="先决条件"></a><strong><em>先决条件</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了充分理解文章中的内容，我强烈建议您熟悉以下主题。</p>
 <ul>
-<li><p><strong>对象适配器模式</strong></p>
-<p>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这种适配器模式中，适配器容纳一个它包裹的类的实例。在这种情况下，适配器调用被包裹对象的物理实体。</p>
-<p>  <img src="http://q8wtfza4q.bkt.clouddn.com/adp-stp1.png" alt="对象适配器模式" title="对象适配器模式"></p>
-</li>
+<li><a href="https://blog.bobthedeveloper.io/no-fear-closure-in-swift-3-with-bob-72a10577c564?gi=bfa929c89fa9" target="_blank" rel="noopener"><code>Closures</code></a></li>
+<li><a href="https://blog.bobthedeveloper.io/swift-retention-cycle-in-closures-and-delegate-836c469ef128" target="_blank" rel="noopener"><code>Capture List and retention cycle [weak self]</code></a></li>
+<li>Descent Object Oriented Programming</li>
 </ul>
-<br>
+</br>
 
-<ul>
-<li><strong>类适配器模式</strong></li>
+<h1 id="创建UI组件"><a href="#创建UI组件" class="headerlink" title="创建UI组件"></a><strong>创建UI组件</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我解释上述非常规方法之前，让我们先回顾一下你的过去。 为了在 <code>Swift</code> 中创建一个按钮，你可能已经做了类似的事情。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Determine Size</span></span><br><span class="line"><span class="keyword">let</span> buttonSize = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">100</span>, height: <span class="number">100</span>)</span><br><span class="line"><span class="comment">// Create Instance</span></span><br><span class="line"><span class="keyword">let</span> bobButton = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line">bobButton.backgroundColor = .black</span><br><span class="line">bobButton.titleLabel?.text = <span class="string">"Bob"</span></span><br><span class="line">bobButton.titleLabel?.textColor = .white</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设你必须创建其他三个按钮，你可能必须复制上面的代码，然后将名称从 <code>bobButton</code> 更改为 <code>bobbyButton</code> 。这非常繁琐。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// New Button</span></span><br><span class="line"><span class="keyword">let</span> bobbyButton = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line">bobbyButton.backgroundColor = .black</span><br><span class="line">bobbyButton.titleLabel?.text = <span class="string">"Bob"</span></span><br><span class="line">bobbyButton.titleLabel?.textColor = .white</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使事情变得容易一些，你可以：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/xcode-edit-all.gif" alt="带闭包的懒惰初始化" title="这也适用于键盘快捷键：ctrl-cmd-e"></p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用快捷键：ctrl-cmd-e，完成上述操作。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你不想重复这样创建，则可以创建一个函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createButton</span><span class="params">(enterTitle: String)</span></span> -&gt; <span class="type">UIButton</span> &#123;</span><br><span class="line"> <span class="keyword">let</span> button = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line"> button.backgroundColor = .black</span><br><span class="line"> button.titleLabel?.text = enterTitle</span><br><span class="line"> <span class="keyword">return</span> button</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">createButton(enterTitle: <span class="string">"Yoyo"</span>) <span class="comment">//  👍</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，在 <code>iOS</code> 开发中，很少有自定义按钮看起来相似的情况。 因此，一个函数可能需要更多的参数，包括背景颜色，标题，边框半径，阴影等。 你的功能可能最终看起来像：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">createButton</span><span class="params">(title: String, borderWidth: Double, backgrounColor, ...)</span></span> -&gt; <span class="type">Button</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即使你向函数添加默认参数，上面的代码也不是理想的选择。 它降低了可读性。 因此，最好还是保留上面乏味的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，有什么方法可以使它减少乏味和更有条理？ 当然。 我们已经调查了你的过去—现在该加紧步伐，展望你的未来。</p>
+</br>
+
+<h1 id="引入非常规方式"><a href="#引入非常规方式" class="headerlink" title="引入非常规方式"></a><strong>引入非常规方式</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以非常规的方式创建UI组件之前，让我们首先回答最初问题: <code>{}</code> 是什么意思，它是计算属性吗？</p>
+<p><strong><em>不，这只是一个封闭块。</em></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，让我们演示如何使用闭包创建对象。 我们将设计一个名为 <code>Human</code> 的结构。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Human</span> </span>&#123;</span><br><span class="line"> <span class="keyword">init</span>() &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"Born 1996"</span>)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，这就是创建带闭包的对象的方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> createBob = &#123; () -&gt; <span class="type">Human</span> <span class="keyword">in</span></span><br><span class="line"> <span class="keyword">let</span> human = <span class="type">Human</span>()</span><br><span class="line"> <span class="keyword">return</span> human</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> babyBob = createBob() <span class="comment">// "Born 1996"</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>仅说明一下，createBob</code> 是一个类型为 <code>（）-&gt; Human</code> 的闭包。 您已经通过调用 <code>createBob（）</code> 创建了一个名为 <code>babyBob</code> 的实例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，你必须创建两个常量： <code>createBob</code> 和 <code>babyBob</code> 。 如果你想在一个语句中做所有事情怎么办？ </p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bobby = &#123; () -&gt; <span class="type">Human</span> <span class="keyword">in</span></span><br><span class="line"> <span class="keyword">let</span> human = <span class="type">Human</span>()</span><br><span class="line"> <span class="keyword">return</span> human</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，闭包块通过在末尾添加 <code>（）</code> 来执行自身，而 <code>bobby</code> 现在附加了一个 <code>Human</code> 对象。 很好的东西。</p>
+<p><strong><em>你已经了解了如何使用闭包块初始化对象。</em></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，让我们来创建一个 <code>UI</code> 对象，该对象应该与上面的示例相似。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bobView = &#123; () -&gt; <span class="type">UIView</span> <span class="keyword">in</span></span><br><span class="line"> <span class="keyword">let</span> view = <span class="type">UIView</span>()</span><br><span class="line"> view.backgroundColor = .black</span><br><span class="line"> <span class="keyword">return</span> view</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;太好了，我们可以缩短它的时间。 实际上，我们不需要指定封闭块的类型。 相反，我们要做的就是指定实例的类型，例如 <code>bobView</code> 。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bobbyView: <span class="type">UIView</span> = &#123;</span><br><span class="line"> <span class="keyword">let</span> view = <span class="type">UIView</span>()</span><br><span class="line"> view.backgroundColor = .black</span><br><span class="line"> <span class="keyword">return</span> view</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 能够基于关键字 <code>return</code> 推断出闭包块是 <code>（）-&gt; UIView</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，看看。 上面的示例应该看起来与我担心的“非常规方式”相同。</p>
+</br>
+
+<h1 id="闭包初始化的好处"><a href="#闭包初始化的好处" class="headerlink" title="闭包初始化的好处"></a><strong>闭包初始化的好处</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 我们讨论了创建对象的乏味以及使用函数引起的问题。 在你的脑海中，你肯定在想：“为什么我应该改用闭包？”</p>
+<h2 id="容易复制"><a href="#容易复制" class="headerlink" title="容易复制"></a><strong><em>容易复制</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我不喜欢使用 <code>Storyboard</code> ，我喜欢复制和粘贴 <code>UI</code> 对象。 实际上，我的计算机中有一个“库”。 让我们假设库中有一个如下所示的按钮。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line"> <span class="keyword">let</span> button = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line"> button.backgroundColor = .black</span><br><span class="line"> button.titleLabel?.text = <span class="string">"Button"</span></span><br><span class="line"> button.titleLabel?.textColor = .white</span><br><span class="line"> button.layer.cornerRadius = <span class="number">1</span></span><br><span class="line"> button.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要做的就是复制整行，然后将 <code>myButton</code> 的名称更改为 <code>newButton</code> 以供使用。 如果不使用闭包方法，则可能不得不将 <code>button</code> 的名称更改为 <code>newButton</code> 7–8次。 我们可以使用上面的 <code>Xcode</code> 快捷方式，但为什么不使其更简单。</p>
+<h2 id="代码更整洁"><a href="#代码更整洁" class="headerlink" title="代码更整洁"></a><strong><em>代码更整洁</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于将对象组合在一起，看代码更加直观。 比较一下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Init with Closure</span></span><br><span class="line"><span class="keyword">let</span> leftCornerButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line"> <span class="keyword">let</span> button = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line"> button.backgroundColor = .black</span><br><span class="line"> button.titleLabel?.text = <span class="string">"Button"</span></span><br><span class="line"> button.titleLabel?.textColor = .white</span><br><span class="line"> button.layer.cornerRadius = <span class="number">1</span></span><br><span class="line"> button.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br><span class="line"><span class="keyword">let</span> rightCornerButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line"> <span class="keyword">let</span> button = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line"> button.backgroundColor = .black</span><br><span class="line"> button.titleLabel?.text = <span class="string">"Button"</span></span><br><span class="line"> button.titleLabel?.textColor = .white</span><br><span class="line"> button.layer.cornerRadius = <span class="number">1</span></span><br><span class="line"> button.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line"><span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+<p><em><code>比较</code></em></p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Init With Fingers</span></span><br><span class="line"><span class="keyword">let</span> leftCornerButton = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line">leftCornerButton.backgroundColor = .black</span><br><span class="line">leftCornerButton.titleLabel?.text = <span class="string">"Button"</span></span><br><span class="line">leftCornerButton.titleLabel?.textColor = .white</span><br><span class="line">leftCornerButton.layer.cornerRadius = <span class="number">1</span></span><br><span class="line">leftCornerButton.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line"><span class="keyword">let</span> rightCornerButton = <span class="type">UIButton</span>(frame: buttonSize)</span><br><span class="line">rightCornerButton.backgroundColor = .black</span><br><span class="line">rightCornerButton.titleLabel?.text = <span class="string">"Button"</span></span><br><span class="line">rightCornerButton.titleLabel?.textColor = .white</span><br><span class="line">rightCornerButton.layer.cornerRadius = <span class="number">1</span></span><br><span class="line">rightCornerButton.layer.masksToBounds = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管使用闭包创建对象要多加几行，但我感到有点不知所措，因为我只需要向按钮添加属性，而不必向 <code>rightCornerButton</code> 或 <code>leftCornerButton</code> 添加属性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，如果按钮的名称更具描述性，那么创建带有闭包块的对象通常需要较少的行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你已经实现了第一个目标。 恭喜你</p>
+<h2 id="延迟初始化应用"><a href="#延迟初始化应用" class="headerlink" title="延迟初始化应用"></a><strong><em>延迟初始化应用</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你已经走了很长一段路。 现在该实现本教程的第二个目标。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能在下面看到了类似的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">IntenseMathProblem</span> </span>&#123;</span><br><span class="line"> <span class="built_in">lazy</span> <span class="keyword">var</span> complexNumber: <span class="type">Int</span> = &#123;</span><br><span class="line">  <span class="comment">// imagine it requires a lot of CPU</span></span><br><span class="line">  <span class="number">1</span> * <span class="number">1</span></span><br><span class="line"> &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;惰性允许您执行的操作是，仅当你尝试访问 <code>complexNumber</code> 属性时，才会计算 <code>complexNumber</code> 属性。 例如:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> problem = <span class="type">IntenseMathProblem</span></span><br><span class="line">problem()  <span class="comment">// No value for complexNumber</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前， <code>complexNumber</code> 没有值。 但是，一旦你访问该媒体资源，</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">problem().complexNumber <span class="comment">// Now returns 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;惰性变量经常用于对数据库进行排序并从任何后端服务中获取数据，因为你绝对不想在创建对象时对所有内容进行计算和排序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，你的手机会崩溃，因为该物体过大且RAM无法处理。</p>
+</br>
+
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a><strong>应用</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面只是 <code>lazy var</code> 的一个应用。</p>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a><strong><em>排序</em></strong></h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SortManager</span> </span>&#123;</span><br><span class="line"> <span class="built_in">lazy</span> <span class="keyword">var</span> sortNumberFromDatabase: [<span class="type">Int</span>] = &#123;</span><br><span class="line">  <span class="comment">// Sorting logic</span></span><br><span class="line">  <span class="keyword">return</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line"> &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="图像压缩"><a href="#图像压缩" class="headerlink" title="图像压缩"></a><strong><em>图像压缩</em></strong></h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CompressionManager</span> </span>&#123;</span><br><span class="line"> <span class="built_in">lazy</span> <span class="keyword">var</span> compressedImage: <span class="type">UIImage</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> image = <span class="type">UIImage</span>()</span><br><span class="line">  <span class="comment">// Compress the image</span></span><br><span class="line">  <span class="comment">// Logic</span></span><br><span class="line">  <span class="keyword">return</span> image</span><br><span class="line"> &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="懒加载规则"><a href="#懒加载规则" class="headerlink" title="懒加载规则"></a><strong>懒加载规则</strong></h1><ul>
+<li>你不能将lazy与let一起使用，因为它没有初始值，并且在以后访问它时才可以达到。</li>
+<li>你不能将其与计算属性一起使用，因为当你修改与惰性属性有关系的任何变量时，总是会重新计算计算属性（需要CPU）。</li>
+<li>惰性仅对结构或类的成员有效</li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种适配器模式下，适配器继承自已实现的类（一般多重继承）。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/adp-stp2.png" alt="类适配器模式" title="类适配器模式"></p>
-<br>
+</br>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;适配器是一种结构设计模式，允许具有不兼容接口的对象一起工作。 换句话说，它转换对象的接口以使其适应不同的对象。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，适配器可以将一件事转换为另一件事，有时也称为包装器，因为它可以包装对象并在其周围提供一个新接口。 就像特定接口或旧类的软件加密狗一样。 </p>
-<br>
+<h1 id="懒加载能捕获"><a href="#懒加载能捕获" class="headerlink" title="懒加载能捕获"></a><strong>懒加载能捕获</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，如果你已阅读上一篇有关<a href="https://blog.bobthedeveloper.io/swift-retention-cycle-in-closures-and-delegate-836c469ef128" target="_blank" rel="noopener"><code>“封闭和委托中的循环引用”</code></a>的文章，您可能会感到奇怪。 让我们测试一下。 创建一个名为 <code>BobGreet</code> 的类。 它具有两个属性：名称为 <code>String</code> 的名称和问候语也为 <code>String</code> 的问候语，但使用闭包块进行了初始化。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BobGreet</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name = <span class="string">"Bob the Developer"</span></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> greeting: <span class="type">String</span> = &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello, \(self.name)"</span></span><br><span class="line">    &#125;()</span><br><span class="line">    <span class="keyword">deinit</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"I'm gone, bruh 🙆‍"</span>)&#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h1 id="适配器设计模式的实现"><a href="#适配器设计模式的实现" class="headerlink" title="适配器设计模式的实现"></a><strong>适配器设计模式的实现</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中创建适配器实际上是一件非常容易的事情。 你只需要创建一个新对象，将旧对象“装箱”到其中，并在新类或结构上实现所需的接口即可。 换句话说，包装器对象将是我们的适配器，通过包装另一个适配器对象来实现目标接口。</p>
-<h2 id="Adaptee"><a href="#Adaptee" class="headerlink" title="Adaptee"></a><strong>Adaptee</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们正在适应特定目标的对象（例如，老式的USB-A端口）。</p>
-<h2 id="Adapter"><a href="#Adapter" class="headerlink" title="Adapter"></a><strong>Adapter</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个包装原始对象并产生由某些目标接口指定的新要求的对象（这完成了实际工作，也就是上面的小软件狗）。</p>
-<h2 id="Target"><a href="#Target" class="headerlink" title="Target"></a><strong>Target</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是我们要与（我们的 <code>USB-C</code> 插座）适配器一起使用的对象。</p>
-<br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;封闭块可能对 <code>BobGuest</code> 强引用，但让我们尝试取消分配。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bobGreet: <span class="type">BobGreet?</span> = <span class="type">BobGreet</span>()</span><br><span class="line">bobGreet?.greeting</span><br><span class="line">bobGreet = <span class="literal">nil</span> <span class="comment">// I'm gone, bruh 🙆‍</span></span><br></pre></td></tr></table></figure>
 
-<h1 id="如何在Swift中使用适配器模式？"><a href="#如何在Swift中使用适配器模式？" class="headerlink" title="如何在Swift中使用适配器模式？"></a><strong>如何在Swift中使用适配器模式？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要在代码中集成第三方库，则可以使用适配器，但是其接口与你的要求不匹配。 例如，你可以围绕整个 <code>SDK</code>或后端 <code>API</code> 端点创建包装器，以创建一个公分母。 👽</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我的示例中，我将使用适配器类包装 <code>EKEvent</code> 对象，以实现全新的协议。 📆</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> EventKit</span><br><span class="line"></span><br><span class="line"><span class="comment">// our target protocol</span></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Event</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> title: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> startDate: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="keyword">var</span> endDate: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// adapter (wrapper class)</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EventAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> dateFormatter: <span class="type">DateFormatter</span> = &#123;</span><br><span class="line">        <span class="keyword">let</span> dateFormatter = <span class="type">DateFormatter</span>()</span><br><span class="line">        dateFormatter.dateFormat = <span class="string">"yyyy. MM. dd. HH:mm"</span></span><br><span class="line">        <span class="keyword">return</span> dateFormatter</span><br><span class="line">    &#125;()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> event: <span class="type">EKEvent</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(event: <span class="type">EKEvent</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.event = event</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// actual adapter implementation</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">EventAdapter</span>: <span class="title">Event</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> title: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.event.title</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> startDate: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.dateFormatter.string(from: event.startDate)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> endDate: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.dateFormatter.string(from: event.endDate)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// let's create an EKEvent adaptee instance</span></span><br><span class="line"><span class="keyword">let</span> dateFormatter = <span class="type">DateFormatter</span>()</span><br><span class="line">dateFormatter.dateFormat = <span class="string">"MM/dd/yyyy HH:mm"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> calendarEvent = <span class="type">EKEvent</span>(eventStore: <span class="type">EKEventStore</span>())</span><br><span class="line">calendarEvent.title = <span class="string">"Adapter tutorial deadline"</span></span><br><span class="line">calendarEvent.startDate = dateFormatter.date(from: <span class="string">"07/30/2018 10:00"</span>)</span><br><span class="line">calendarEvent.endDate = dateFormatter.date(from: <span class="string">"07/30/2018 11:00"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// now we can use the adapter class as an Event protocol, instead of an EKEvent</span></span><br><span class="line"><span class="keyword">let</span> adapter = <span class="type">EventAdapter</span>(event: calendarEvent)</span><br><span class="line"><span class="comment">// adapter.title</span></span><br><span class="line"><span class="comment">// adapter.startDate</span></span><br><span class="line"><span class="comment">// adapter.endDate</span></span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个用例是当你必须使用几个现有的最终类或结构，但它们缺少某些功能，并且你想在它们之上构建一个新的目标接口时。 有时，实现包装程序来处理这种混乱情况是一个不错的选择。 🤷‍♂️</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这就是适配器设计模式的全部内容。 通常，用 <code>Swift</code> 或任何其他编程语言实现它确实很容易，但是它非常有用，有时是不可避免的。 孩子们，请记住：不要在加密狗上太用力！😉</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无需担心 <code>[unown self]</code> 闭包块没有对该对象的引用。 取而代之的是，它只是在封闭块内复制自身。 </p>
 
       
     </div>
@@ -592,12 +664,12 @@
 	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<p></p>
-	<span>本文标题:</span><a href="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Swift适配器设计模式</a>
+	<span>本文标题:</span><a href="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/">Swift带闭包的懒惰初始化</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
-	<p><span>发布时间:</span>2020年04月25日 - 18:04</p>
-	<p><span>最后更新:</span>2020年04月26日 - 09:04</p>
-	<p><span>原始链接:</span><a href="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="Swift适配器设计模式">http://www.xuebaonline.com/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
-		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"  aria-label="复制成功！"></i></span>
+	<p><span>发布时间:</span>2020年04月26日 - 15:04</p>
+	<p><span>最后更新:</span>2020年04月26日 - 16:04</p>
+	<p><span>原始链接:</span><a href="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/" title="Swift带闭包的懒惰初始化">http://www.xuebaonline.com/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/"  aria-label="复制成功！"></i></span>
 	</p>
 	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -665,7 +737,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 适配器设计模式</a>
+            <a href="/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="tag"># 懒加载模式</a>
           
         </div>
       
@@ -678,8 +750,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/" rel="next" title="Swift关于Dependency Injection (DI)">
-                <i class="fa fa-chevron-left"></i> Swift关于Dependency Injection (DI)
+              <a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" rel="next" title="Swift Lazy属性初始化">
+                <i class="fa fa-chevron-left"></i> Swift Lazy属性初始化
               </a>
             
           </div>
@@ -687,10 +759,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="Swift迭代器设计模式">
-                Swift迭代器设计模式 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -900,7 +968,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#结构"><span class="nav-number">1.</span> <span class="nav-text">结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#适配器设计模式的实现"><span class="nav-number">2.</span> <span class="nav-text">适配器设计模式的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Adaptee"><span class="nav-number">2.1.</span> <span class="nav-text">Adaptee</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adapter"><span class="nav-number">2.2.</span> <span class="nav-text">Adapter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Target"><span class="nav-number">2.3.</span> <span class="nav-text">Target</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在Swift中使用适配器模式？"><span class="nav-number">3.</span> <span class="nav-text">如何在Swift中使用适配器模式？</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#使用初衷"><span class="nav-number">1.</span> <span class="nav-text">使用初衷</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#学习的目标"><span class="nav-number">2.</span> <span class="nav-text">学习的目标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#先决条件"><span class="nav-number">2.1.</span> <span class="nav-text">先决条件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建UI组件"><span class="nav-number">3.</span> <span class="nav-text">创建UI组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引入非常规方式"><span class="nav-number">4.</span> <span class="nav-text">引入非常规方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包初始化的好处"><span class="nav-number">5.</span> <span class="nav-text">闭包初始化的好处</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#容易复制"><span class="nav-number">5.1.</span> <span class="nav-text">容易复制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码更整洁"><span class="nav-number">5.2.</span> <span class="nav-text">代码更整洁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟初始化应用"><span class="nav-number">5.3.</span> <span class="nav-text">延迟初始化应用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用"><span class="nav-number">6.</span> <span class="nav-text">应用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">6.1.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图像压缩"><span class="nav-number">6.2.</span> <span class="nav-text">图像压缩</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒加载规则"><span class="nav-number">7.</span> <span class="nav-text">懒加载规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒加载能捕获"><span class="nav-number">8.</span> <span class="nav-text">懒加载能捕获</span></a></li></ol></div>
             
 
           </div>
