@@ -226,13 +226,13 @@ class ViewController: UIViewController {
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以编程方式创建约束并不比计算框架好，它会导致你达到相同的复杂度甚至更糟，这就是为什么这么多第三方框架活跃起来并最终由```Apple```发出问题的原因。
 
 > **```提示:```**\
-我有一篇[```关于掌握自动布局锚点```]( "")的出色文章，如果你想熟悉锚点，强烈建议阅读。 📖
+我有一篇[```关于掌握自动布局锚点```](http://www.xuebaonline.com/Swift%E6%8E%8C%E6%8F%A1iOS%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9/ "")的出色文章，如果你想熟悉锚点，强烈建议阅读。 📖
 
 </br>
 
 # **锚点(Anchors)**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[```锚点(Anchors)```]( "")的诞生是因为“自动布局”存在一些构造缺陷。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[```锚点(Anchors)```](http://www.xuebaonline.com/Swift%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F/ "")的诞生是因为“自动布局”存在一些构造缺陷。
 
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```NSLayoutAnchor``` 类是用于使用流畅的 ```API``` 创建 ```NSLayoutConstraint``` 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义你的布局。
 
