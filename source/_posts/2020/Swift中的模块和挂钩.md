@@ -98,12 +98,9 @@ class C: Module {
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们需要一个模块管理器，可以使用模块数组对其进行初始化。 该管理器将负责在每个模块上调用正确的调用方法，并将以类型安全的方式处理返回的响应。 我们将立即实现两个 ```invoke``` 方法版本。 一个用于合并结果，另一个用于返回挂钩的第一个结果。
 
 
-> ```提示:```\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以尝试实现一个可以使用 ```&&``` 运算符合并 ```Bool``` 值的版本。
+**你可以尝试实现一个可以使用 ```&&``` 运算符合并 ```Bool``` 值的版本。**
 
-
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是我们使用两种通用方法的模块管理器实现：
-
+这是我们使用两种通用方法的模块管理器实现：
 
 ``` Swift
 struct ModuleManager {
