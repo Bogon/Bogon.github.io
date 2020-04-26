@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,迭,代,器,设,计,模,式,,,重,构,,,I,t,e,r,a,t,o,r, ,d,e,s,i,g,n, ,p,a,t,t,e,r,n,,,C,o,l,l,e,c,t,i,o,n,s,,,C,o,l,l,e,c,t,i,o,n," /> 
+ <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,L,a,z,y,属,性,初,始,化,,,重,构,,,L,a,z,y, ,P,r,o,p,e,r,t,y, ,I,n,i,t,i,a,l,i,z,a,t,i,o,n,p,a,t,t,e,r,n," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design pattern,Collections,Collection" />
+  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,Lazy属性初始化,重构,Lazy Property Initializationpattern" />
 
 
 
@@ -101,25 +101,23 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在 Swift 中创建对象或值的集合时，我们通常使用标准库提供的数据结构-例如 Array ，Dictionary 和 Set 。 尽管这三个案例涵盖了大多数用例，但有时创建自定义包装器集合可以使你使代码更可预测，并且更不易出错。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先回顾一下在 Swift 中声明和初始化存储属性的最常用方法： 直接分配&amp;nbsp;&amp;nbsp;&amp;nbs">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在Swift中创建自定义集合">
-<meta property="og:url" content="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/index.html">
+<meta property="og:title" content="Swift Lazy属性初始化">
+<meta property="og:url" content="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在 Swift 中创建对象或值的集合时，我们通常使用标准库提供的数据结构-例如 Array ，Dictionary 和 Set 。 尽管这三个案例涵盖了大多数用例，但有时创建自定义包装器集合可以使你使代码更可预测，并且更不易出错。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;">
-<meta property="article:published_time" content="2020-04-26T01:29:52.000Z">
-<meta property="article:modified_time" content="2020-04-26T02:20:25.950Z">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先回顾一下在 Swift 中声明和初始化存储属性的最常用方法： 直接分配&amp;nbsp;&amp;nbsp;&amp;nbs">
+<meta property="article:published_time" content="2020-04-26T07:37:12.000Z">
+<meta property="article:modified_time" content="2020-04-26T07:52:47.513Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
 <meta property="article:tag" content="设计模式">
 <meta property="article:tag" content="抽象">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="迭代器设计模式">
+<meta property="article:tag" content="Lazy属性初始化">
 <meta property="article:tag" content="重构">
-<meta property="article:tag" content="Iterator design pattern">
-<meta property="article:tag" content="Collections">
-<meta property="article:tag" content="Collection">
+<meta property="article:tag" content="Lazy Property Initializationpattern">
 <meta name="twitter:card" content="summary">
 
 
@@ -150,13 +148,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xuebaonline.com/在Swift中创建自定义集合/"/>
+  <link rel="canonical" href="http://www.xuebaonline.com/Swift Lazy属性初始化/"/>
 
 
 
 
 
-  <title>在Swift中创建自定义集合 | Char's Blog</title>
+  <title>Swift Lazy属性初始化 | Char's Blog</title>
   
 
 
@@ -347,7 +345,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Char">
@@ -364,7 +362,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">在Swift中创建自定义集合</h1>
+          <h1 class="post-title" itemprop="name headline">Swift Lazy属性初始化</h1>
         
 
         <div class="post-meta">
@@ -376,7 +374,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T09:29:52+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T15:37:12+08:00">
                 2020-04-26
               </time>
             
@@ -450,8 +448,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" itemprop="commentCount"></span>
+                <a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -459,7 +457,7 @@
 
           
           
-             <span id="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" class="leancloud_visitors" data-flag-title="在Swift中创建自定义集合">
+             <span id="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" class="leancloud_visitors" data-flag-title="Swift Lazy属性初始化">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -489,7 +487,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.8k 字
+                  1.2k 字
                 </span>
               
 
@@ -505,7 +503,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  7 分钟
+                  4 分钟
                 </span>
               
             </div>
@@ -526,65 +524,59 @@
       
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中创建对象或值的集合时，我们通常使用标准库提供的数据结构-例如 <code>Array</code> ，<code>Dictionary</code> 和 <code>Set</code> 。 尽管这三个案例涵盖了大多数用例，但有时创建自定义包装器集合可以使你使代码更可预测，并且更不易出错。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此次，让我们看看作为应用程序开发人员的我们如何在 <code>Swift</code> 中定义此类自定义集合，以及结合枚举的强大功能，如何让我们为自己创建一些非常漂亮的 <code>API</code> 。</p>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先回顾一下在 <code>Swift</code> 中声明和初始化存储属性的最常用方法：</p>
+<h1 id="直接分配"><a href="#直接分配" class="headerlink" title="直接分配"></a><strong>直接分配</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过直接分配初始值来对常量和变量存储的属性进行初始化的最简单形式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant</span></span><br><span class="line"><span class="keyword">let</span> fontSize: <span class="type">CGFloat</span> = <span class="number">24.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// variable</span></span><br><span class="line"><span class="keyword">var</span> spacing: <span class="type">CGFloat</span> = <span class="number">16.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Optional</span></span><br><span class="line"><span class="keyword">var</span> title: <span class="type">String?</span></span><br></pre></td></tr></table></figure>
+
 <a id="more"></a>
 
-</br>
-
-<h1 id="删除可选"><a href="#删除可选" class="headerlink" title="删除可选"></a><strong>删除可选</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像我们在 <a href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" title="在Swift中处理非可选的可选内容"><code>“在Swift中处理非可选的可选内容”</code></a> 中介绍的那样，减少了在实际需要的值真正需要时使用可选的需求，这确实可以帮助我们避免错误并简化我们的代码。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，集合的问题在于，你通常无法保证它们是否包含一定的值，因此，你往往会遇到很多可选内容和逻辑，这些可选内容和逻辑要求以一种或另一种方式将它们拆开。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们正在为一家杂货店构建应用程序，并且我们希望拥有一个用户界面，该界面可让用户按类别显示所有产品。 要为此类UI创建模型，我们可以使用 <code>Dictionary</code> ，其使用 <code>Category</code> 作为其键类型，并使用 <code>[Product]</code> 作为其值类型，如下所示：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> products: [<span class="type">Category</span> : [<span class="type">Product</span>]] = [</span><br><span class="line">    .dairy: [</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Milk"</span>, category: .dairy),</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Butter"</span>, category: .dairy)</span><br><span class="line">    ],</span><br><span class="line">    .vegetables: [</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Cucumber"</span>, category: .vegetables),</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Lettuce"</span>, category: .vegetables)</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管上述方法有效，但要求我们编写这样的代码，以便例如仅显示所有 <code>Product</code> ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> dairyProducts = products[.dairy] &#123;</span><br><span class="line">    <span class="keyword">guard</span> !dairyProducts.isEmpty <span class="keyword">else</span> &#123;</span><br><span class="line">        renderEmptyView()</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render(dairyProducts)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    renderEmptyView()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很好，但是可能会更好。 但是，插入新产品变得更加麻烦：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShoppingCart</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> products = [<span class="type">Category</span> : [<span class="type">Product</span>]]()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(<span class="number">_</span> product: Product)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">var</span> productsInCategory = products[product.category] &#123;</span><br><span class="line">            productsInCategory.append(product)</span><br><span class="line">            products[product.category] = productsInCategory</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            products[product.category] = [product]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好消息是，通过创建我们自己的自定义集合，我们可以使上述两个示例变得更好更清晰。 而且，更好的消息是-借助 <code>Swift</code> 的面向协议的设计-创建这样的集合实际上非常容易！</p>
-</br>
-
-<h1 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a><strong>创建集合</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 标准库中的所有集合都遵循 <code>Collection</code> 协议，而 <code>Collection</code> 协议又继承自 <code>Sequence</code> 协议。 通过使自定义集合符合这两个协议，它可以完全免费地利用所有标准集合操作（例如，迭代和过滤）。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从定义自定义 <code>ProductCollection</code> 的基础开始，这将使我们能够以更好的方式处理产品和类别。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ProductCollection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">DictionaryType</span> = [<span class="type">Category</span> : [<span class="type">Product</span>]]</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Underlying, private storage, that is the same type of dictionary</span></span><br><span class="line">    <span class="comment">// that we previously was using at the call site</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> products = <span class="type">DictionaryType</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Enable our collection to be initialized with a dictionary</span></span><br><span class="line">    <span class="keyword">init</span>(products: <span class="type">DictionaryType</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.products = products</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们将通过实现协议要求使其符合 <code>Collection</code> 。 我们要做的大多数事情就是简单地将调用转发到基础 <code>products</code> 字典，然后让它进行“繁重的工作”：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ProductCollection</span>: <span class="title">Collection</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Required nested types, that tell Swift what our collection contains</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Index</span> = <span class="type">DictionaryType</span>.<span class="type">Index</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Element</span> = <span class="type">DictionaryType</span>.<span class="type">Element</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// The upper and lower bounds of the collection, used in iterations</span></span><br><span class="line">    <span class="keyword">var</span> startIndex: <span class="type">Index</span> &#123; <span class="keyword">return</span> products.startIndex &#125;</span><br><span class="line">    <span class="keyword">var</span> endIndex: <span class="type">Index</span> &#123; <span class="keyword">return</span> products.endIndex &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Required subscript, based on a dictionary index</span></span><br><span class="line">    <span class="keyword">subscript</span>(index: <span class="type">Index</span>) -&gt; <span class="type">Iterator</span>.<span class="type">Element</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> products[index] &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Method that returns the next index when iterating</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">index</span><span class="params">(after i: Index)</span></span> -&gt; <span class="type">Index</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> products.index(after: i)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的代码使用的是 <code>Swift 4</code> ，这归功于对通用约束的改进（使我们可以更仔细地研究这些改进以及如何在以后的文章中使用类型约束），从而使自定义集合的定义变得更加简单。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们有了一个自定义集合，可以将其用作内置集合之一。 例如，我们可以遍历它：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (category, productsInCategory) <span class="keyword">in</span> products &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者在其上使用诸如 <code>map</code> 的操作：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> categories = productCollection.<span class="built_in">map</span> &#123; $<span class="number">0</span>.key &#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，默认情况下，可选参数初始化为 <code>nil</code> 。 我喜欢将恒定的魔术数字（如 <code>fontSize</code> ）收集到一个结构中，使它们成为静态的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">struct</span> <span class="title">ViewMetrics</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">let</span> fontSize: <span class="type">CGFloat</span> = <span class="number">24.0</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">titleLabel.font = <span class="type">ViewMetrics</span>.fontSize</span><br></pre></td></tr></table></figure>
 
 </br>
 
-<h1 id="自定义集合-API"><a href="#自定义集合-API" class="headerlink" title="自定义集合 API"></a><strong>自定义集合 API</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们已经为我们的系列奠定了基础，让我们开始向其中添加一些 <code>API</code> ，使我们能够使我们的产品处理代码更好。 我们将从一个自定义的下标重载开始，该重载使我们无需处理可选项就可以获取或设置一系列产品：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ProductCollection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span>(category: <span class="type">Category</span>) -&gt; [<span class="type">Product</span>] &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> products[category] ?? [] &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123; products[category] = newValue &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用初始化器"><a href="#使用初始化器" class="headerlink" title="使用初始化器"></a><strong>使用初始化器</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你没有将初始值分配给存储属性作为其定义的一部分，则必须在初始化程序中进行设置。 引用《 Swift编程语言》指南：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类和结构必须在创建该类或结构的实例时将其所有存储的属性设置为适当的初始值。 存储的属性不能处于不确定状态。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(title: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.title = title</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还添加一个便捷的 <code>API</code> ，以轻松地将新 <code>product</code> 插入我们的收藏夹：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ProductCollection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">insert</span><span class="params">(<span class="number">_</span> product: Product)</span></span> &#123;</span><br><span class="line">        <span class="keyword">var</span> productsInCategory = <span class="keyword">self</span>[product.category]</span><br><span class="line">        productsInCategory.append(product)</span><br><span class="line">        <span class="keyword">self</span>[product.category] = productsInCategory</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当属性始终采用相同的初始值时，最好在声明属性时进行设置，而不要在初始化程序中进行设置。</p>
+</br>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以返回原始的 <code>product</code> 处理代码，并将其更新为更好的代码。 </p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dairyProducts = products[.dairy]</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> dairyProducts.isEmpty &#123;</span><br><span class="line">    renderEmptyView()</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    render(dairyProducts)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="使用闭包"><a href="#使用闭包" class="headerlink" title="使用闭包"></a><strong>使用闭包</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当初始值需要更多设置时，闭包是一个不错的选择。 我发现闭包样式比许多初始化程序代码更可取，因为它使设置接近属性声明。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> button: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: .system)</span><br><span class="line">  button.titleLabel?.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="type">ViewMetrics</span>.fontSize)</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
 
-<p>下一步：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ShoppingCart</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> products = <span class="type">ProductCollection</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(product: Product)</span></span> &#123;</span><br><span class="line">        products.insert(product)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始化包含属性的类型时，将调用一次闭包。 闭包的返回值分配给该属性。 不要忘记尾随（）来执行关闭。</p>
+</br>
+
+<h1 id="懒加载方式"><a href="#懒加载方式" class="headerlink" title="懒加载方式"></a><strong>懒加载方式</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当初始值创建起来开销相对较大时时，通常会使用惰性初始化。 仅在确定需要时才创建值。 如果你是从 <code>Objective-C</code> 转到 <code>Swift</code> 的，那么您可能会熟悉使用 <code>getter</code> 仅在首次使用属性时才对其进行延迟初始化的技术：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">NSNumberFormatter</span> *)decimalFormatter &#123;</span><br><span class="line">  <span class="keyword">if</span> (_decimalFormatter == <span class="literal">nil</span>) &#123;</span><br><span class="line">    _decimalFormatter = [[<span class="type">NSNumberFormatter</span> alloc] <span class="keyword">init</span>];</span><br><span class="line">    [_decimalFormatter setNumberStyle:<span class="type">NSNumberFormatterDecimalStyle</span>];        </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _decimalFormatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么 <code>Swift</code> 中的惰性属性呢？ <code>Swift</code> 属性没有后备实例变量（如 <code>_decimalFormatter</code> ）。 要在 <code>Swift</code> 中延迟初始化属性，请添加 <code>lazy</code> 关键字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> decimalFormatter: <span class="type">NumberFormatter</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> formatter = <span class="type">NumberFormatter</span>()</span><br><span class="line">  formatter.numberStyle = .decimal</span><br><span class="line">  <span class="keyword">return</span> formatter</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，惰性属性始终为 <code>var</code> 。 当访问属性时，可以在初始化完成后调用该闭包。</p>
+</br>
+
+<h1 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a><strong>访问属性</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;惰性属性初始化的另一个常见用法是，当初始值取决于初始化实例的属性或方法时。 例如，使用闭包设置对象，此堆栈视图可以作为 <code>let constant</code> 属性使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stackView: <span class="type">UIStackView</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> stackView = <span class="type">UIStackView</span>()</span><br><span class="line">  stackView.spacing = <span class="type">ViewMetrics</span>.spacing</span><br><span class="line">  <span class="keyword">return</span> stackView</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请记住，在初始化期间调用了闭包，因此你尚不能使用 <code>self</code> 来访问实例的任何属性或方法。 如果你需要访问 <code>self</code> ，则必须将 <code>let</code> 替换为 <code>lazy var</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> spacing: <span class="type">CGFloat</span> = <span class="number">16.0</span>  &#123;</span><br><span class="line">  <span class="keyword">didSet</span> &#123;</span><br><span class="line">    stackView.spacing = spacing</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> stackView: <span class="type">UIStackView</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> stackView = <span class="type">UIStackView</span>()</span><br><span class="line">  stackView.spacing = spacing</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> stackView</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，在对象初始化之后执行关闭操作，因此你可以通过 <code>self</code> 完全访问实例属性和方法。 这是声明诸如用户界面组件之类的便捷方式。 将任何常见配置移至单独的方法或类扩展：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> buttonFontSize: <span class="type">CGFloat</span> = <span class="number">18.0</span> &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> redButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="type">UILabel</span>.colorButton(title: <span class="string">"Red"</span>, color: .red, fontSize: buttonFontSize)</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> blueButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="type">UILabel</span>.colorButton(title: <span class="string">"Blue"</span>, color: .blue, fontSize: buttonFontSize)</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
 
 </br>
 
-<h1 id="通过-Key-值获取"><a href="#通过-Key-值获取" class="headerlink" title="通过 Key 值获取"></a><strong>通过 Key 值获取</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好了，到了关键时候！ 由于我们的自定义集合基本上只是字典的包装，因此我们可以轻松地添加对使用字典文字进行初始化的支持。 这样做将使我们能够编写如下代码：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> products: <span class="type">ProductCollection</span> = [</span><br><span class="line">    .dairy: [</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Milk"</span>, category: .dairy),</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Butter"</span>, category: .dairy)</span><br><span class="line">    ],</span><br><span class="line">    .vegetables: [</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Cucumber"</span>, category: .vegetables),</span><br><span class="line">        <span class="type">Product</span>(name: <span class="string">"Lettuce"</span>, category: .vegetables)</span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;太酷了！ 这不仅对减少生产代码中的冗长有用，而且还将使在我们的测试中设置产品集合模拟更加简单。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们要做的就是遵守    <code>ExpressibleByDictionaryLiteral</code> ，它要求我们实现一个带有文字的初始化程序，如下所示：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ProductCollection</span>: <span class="title">ExpressibleByDictionaryLiteral</span> </span>&#123;</span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Key</span> = <span class="type">Category</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Value</span> = [<span class="type">Product</span>]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(dictionaryLiteral elements: (<span class="type">Category</span>, [<span class="type">Product</span>])...) &#123;</span><br><span class="line">        <span class="keyword">for</span> (category, productsInCategory) <span class="keyword">in</span> elements &#123;</span><br><span class="line">            products[category] = productsInCategory</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</br>
-
-<h1 id="结论"><a href="#结论" class="headerlink" title="结论"></a><strong>结论</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用自定义集合可能是一种非常强大的工具，可以以一种更加可预测且易于使用的方式来处理一组值。 当您处理多个值时，它不一定总是您的首选解决方案，但在正确的情况下，它确实可以帮助你编写更简洁的代码。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在调试时，了解诸如集合之类的事物的工作方式也非常有帮助，或者使你了解如何优化与集合相关的代码。</p>
+<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a><strong>要点</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需要记住的一些关键点并不明显，并且经常引起混乱（至少对我而言）：</p>
+<ul>
+<li>引用闭包内的其他实例属性或方法时，无需编写self。</li>
+<li>闭包不会逃逸，因此你无需使用 <code>weak self</code> 避免形成循环引用。</li>
+<li>初始化之前，如果属性可以被多个线程访问，请小心。 无法保证只有在设置初始值之前有多个线程同时访问该属性时才将其初始化一次。</li>
+</ul>
 
       
     </div>
@@ -612,12 +604,12 @@
 	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<p></p>
-	<span>本文标题:</span><a href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/">在Swift中创建自定义集合</a>
+	<span>本文标题:</span><a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/">Swift Lazy属性初始化</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
-	<p><span>发布时间:</span>2020年04月26日 - 09:04</p>
-	<p><span>最后更新:</span>2020年04月26日 - 10:04</p>
-	<p><span>原始链接:</span><a href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" title="在Swift中创建自定义集合">http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/</a>
-		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/"  aria-label="复制成功！"></i></span>
+	<p><span>发布时间:</span>2020年04月26日 - 15:04</p>
+	<p><span>最后更新:</span>2020年04月26日 - 15:04</p>
+	<p><span>原始链接:</span><a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" title="Swift Lazy属性初始化">http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/"  aria-label="复制成功！"></i></span>
 	</p>
 	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -685,11 +677,7 @@
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 迭代器设计模式</a>
-          
-            <a href="/tags/Collection/" rel="tag"># Collection</a>
-          
-            <a href="/tags/Collections/" rel="tag"># Collections</a>
+            <a href="/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="tag"># 懒加载模式</a>
           
         </div>
       
@@ -702,8 +690,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift迭代器设计模式">
-                <i class="fa fa-chevron-left"></i> Swift迭代器设计模式
+              <a href="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift中的懒加载模式">
+                <i class="fa fa-chevron-left"></i> Swift中的懒加载模式
               </a>
             
           </div>
@@ -711,10 +699,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" rel="prev" title="在Swift中处理非可选选项">
-                在Swift中处理非可选选项 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -924,7 +908,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#删除可选"><span class="nav-number">1.</span> <span class="nav-text">删除可选</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建集合"><span class="nav-number">2.</span> <span class="nav-text">创建集合</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义集合-API"><span class="nav-number">3.</span> <span class="nav-text">自定义集合 API</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过-Key-值获取"><span class="nav-number">4.</span> <span class="nav-text">通过 Key 值获取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结论"><span class="nav-number">5.</span> <span class="nav-text">结论</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#直接分配"><span class="nav-number">1.</span> <span class="nav-text">直接分配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用初始化器"><span class="nav-number">2.</span> <span class="nav-text">使用初始化器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用闭包"><span class="nav-number">3.</span> <span class="nav-text">使用闭包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒加载方式"><span class="nav-number">4.</span> <span class="nav-text">懒加载方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问属性"><span class="nav-number">5.</span> <span class="nav-text">访问属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要点"><span class="nav-number">6.</span> <span class="nav-text">要点</span></a></li></ol></div>
             
 
           </div>
