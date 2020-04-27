@@ -8,7 +8,6 @@
   </span>
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
   
-  
   {% if theme.footer.counter %}
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -32,8 +31,8 @@
 
 <div class="BbeiAn-info">
   
-      <a href="http://www.beian.miit.gov.cn/" style="color:#f0d784; text-decoration:none; padding-left:30px; no-repeat left center" rel="nofollow">豫ICP备20011156号 | </a>   
-      <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" style="color:#f0d784; text-decoration:none;  padding-left:30px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.pn) no-repeat left center" rel="nofollow">{{ ('豫公网安备41172402000135号') }}</a> 
+    <a href="http://www.beian.miit.gov.cn/" style="color:#f0d784; text-decoration:none; padding-left:30px; no-repeat left center" rel="nofollow">豫ICP备20011156号 | </a>   
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" style="color:#f0d784; text-decoration:none;  padding-left:30px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">{{ ('豫公网安备41172402000135号') }}</a> 
 </div>
 
 
