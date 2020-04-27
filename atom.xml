@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xuebaonline.com/"/>
-  <updated>2020-04-26T12:12:24.328Z</updated>
+  <updated>2020-04-27T01:27:04.075Z</updated>
   <id>http://www.xuebaonline.com/</id>
   
   <author>
@@ -21,13 +21,35 @@
     <link href="http://www.xuebaonline.com/Swift%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F/"/>
     <id>http://www.xuebaonline.com/Swift%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F/</id>
     <published>2020-04-26T12:12:24.000Z</published>
-    <updated>2020-04-26T12:12:24.328Z</updated>
+    <updated>2020-04-27T01:27:04.075Z</updated>
+    
+    <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Auto Layout</code> 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，<code>iOS 9</code> 做了很多改进。 <code>堆栈视图</code> 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：</p><blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以编程方式创建约束时，您有三个选择：可以使用 <code>layout anchors</code> ，可以使用 <code>NSLayoutConstraint</code> 类，或者可以使用可视格式语言。</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将再次看一下布局指南，但是现在这里是我关于使用布局锚点在代码中轻松创建约束的说明：</p><a id="more"></a></br><h1 id="创建约束"><a href="#创建约束" class="headerlink" title="创建约束"></a><strong>创建约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先提醒一下使用 <code>NSLayoutConstraint</code> 类方法创建约束的方式。 假设我们有一个堆栈视图，我们想要固定到视图控制器顶级视图的左右边距：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NSLayoutConstraint</span>(item: stackView,</span><br><span class="line">  attribute: .leading,</span><br><span class="line">  relatedBy: .<span class="built_in">equal</span>,</span><br><span class="line">  toItem: view,</span><br><span class="line">  attribute: .leadingMargin,</span><br><span class="line">  multiplier: <span class="number">1</span>,</span><br><span class="line">  constant: <span class="number">0</span>).isActive = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="type">NSLayoutConstraint</span>(item: stackView,</span><br><span class="line">  attribute: .trailing,</span><br><span class="line">  relatedBy: .<span class="built_in">equal</span>,</span><br><span class="line">  toItem: view,</span><br><span class="line">  attribute: .trailingMargin,</span><br><span class="line">  multiplier: <span class="number">1</span>,</span><br><span class="line">  constant: <span class="number">0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以将堆栈视图固定在顶部布局指南下方，以免被导航栏隐藏：</p>  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NSLayoutConstraint</span>(item: stackView,</span><br><span class="line">attribute: .top,</span><br><span class="line">relatedBy: .<span class="built_in">equal</span>,</span><br><span class="line">toItem: topLayoutGuide,</span><br><span class="line">attribute: .bottom,</span><br><span class="line">multiplier: <span class="number">1</span>,</span><br><span class="line">constant: <span class="number">8.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我认为我们可以同意，这既不美观也不容易理解（ <code>Objective-C</code> 版本更糟）。 在我看来，使用 <strong><em>Visual Format Language</em></strong> 并不是更好：</p>  <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">let</span> views: [<span class="type">String</span>: <span class="type">AnyObject</span>] =</span><br><span class="line">  [<span class="string">"stackView"</span> : stackView,</span><br><span class="line">   <span class="string">"topLayoutGuide"</span> : topLayoutGuide]</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> h = <span class="type">NSLayoutConstraint</span>.constraints(</span><br><span class="line">  withVisualFormat: <span class="string">"|-[stackView]-|"</span>,</span><br><span class="line">  options: [],</span><br><span class="line">  metrics: <span class="literal">nil</span>,</span><br><span class="line">  views: views)</span><br><span class="line"><span class="type">NSLayoutConstraint</span>.activate(h)</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> v = <span class="type">NSLayoutConstraint</span>.constraints(</span><br><span class="line">  withVisualFormat: <span class="string">"V:|[topLayoutGuide]-[stackView]"</span>,</span><br><span class="line">  options: [],</span><br><span class="line">  metrics: <span class="literal">nil</span>,</span><br><span class="line">  views: views)</span><br><span class="line"><span class="type">NSLayoutConstraint</span>.activate(v)</span><br></pre></td></tr></table></figure></br><h1 id="使用-Layout-Anchors-创建约束"><a href="#使用-Layout-Anchors-创建约束" class="headerlink" title="使用 Layout Anchors 创建约束"></a><strong>使用 <code>Layout Anchors</code> 创建约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点使创建约束更加容易。 从文档中：</p><blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>NSLayoutAnchor</code> 类是用于使用流畅的 <code>API</code> 创建 <code>NSLayoutConstraint</code> 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义您的布局。</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点是 <code>UIView</code>（或<code>UILayoutGuide</code> ）上的属性。 每个属性都是 <code>NSLayoutAnchor</code> 的子类，其方法可直接为其他相同类型的布局锚创建约束。 <code>UIView</code> 具有十二种不同的布局锚点属性，可用于创建水平，垂直或基于大小的约束：</p><h2 id="水平约束"><a href="#水平约束" class="headerlink" title="水平约束"></a><strong><em>水平约束</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于创建水平约束的  <code>NSLayoutXAxisAnchor</code> 类型的布局锚点：</p><ul><li><code>centerXAnchor</code></li><li><code>leadingAnchor</code> 和 <code>trailingAnchor</code></li><li><code>leftAnchor</code> 和 <code>rightAnchor</code></li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，创建约束以使两个视图居中对齐：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line">myView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line">[<span class="keyword">self</span>.myView.centerXAnchor constraintEqualToAnchor:<span class="keyword">self</span>.view.centerXAnchor].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><p><strong><em>请注意如何从一个视图上的锚点开始并为另一个视图上的锚点创建约束。</em></strong></p><h2 id="垂直约束"><a href="#垂直约束" class="headerlink" title="垂直约束"></a><strong><em>垂直约束</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于创建垂直约束的 <code>NSLayoutYAxisAnchor</code> 类型的布局锚点：</p><ul><li><code>centerYAnchor</code></li><li><code>bottomAnchor</code> 和 <code>topAnchor</code></li><li><code>firstBaselineAnchor</code> 和 <code>lastBaselineAnchor</code></li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，要在间距恒定的两个视图的顶部和底部锚点之间创建约束：</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; Swift</span><br><span class="line">myView.bottomAnchor.constraint(equalTo: view.topAnchor,</span><br><span class="line">       constant: 8).isActive&#x3D;true</span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line">[<span class="keyword">self</span>.myView.bottomAnchor constraintEqualToAnchor:<span class="keyword">self</span>.view.topAnchor</span><br><span class="line">      constant:<span class="number">8.0</span>].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><h2 id="基于-Size-的约束"><a href="#基于-Size-的约束" class="headerlink" title="基于 Size 的约束"></a><strong><em>基于 Size 的约束</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>NSLayoutDimension</code> 类型的布局锚，用于创建基于 <code>Size</code> 的约束：</p><ul><li><code>heightAnchor</code> 和 <code>widthAnchor</code></li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，为视图创建宽度约束：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line">myView.widthAnchor.constraint(equalToConstant: <span class="number">50.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line">[<span class="keyword">self</span>.myView.widthAnchor constraintEqualToConstant:<span class="number">50.0</span>].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个示例，使用 <code>multiplier</code> 使一个视图的高度是另一个视图的高度的两倍：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line">myView.heightAnchor.constraint(equalTo: otherView.heightAnchor,</span><br><span class="line">       multiplier: <span class="number">2.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line">[<span class="keyword">self</span>.myView.heightAnchor constraintEqualToAnchor:<span class="keyword">self</span>.otherView.heightAnchor </span><br><span class="line">      multiplier:<span class="number">2.0</span>].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><h2 id="视图边距"><a href="#视图边距" class="headerlink" title="视图边距"></a><strong><em>视图边距</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>UIView</code> 没有用于创建堆栈视图约束时使用的前，后边距的布局锚。 相反，<code>iOS 9</code> 添加了两个新属性， <code>layoutMarginGuide</code> 和可读 <code>readableContentGuide</code> ，它们又具有布局锚点。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，要将子视图的前沿约束到父视图的前面：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line"><span class="keyword">let</span> margins = view.layoutMarginsGuide    </span><br><span class="line">myView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line"><span class="type">UILayoutGuide</span> *margins = <span class="keyword">self</span>.view.layoutMarginsGuide;</span><br><span class="line">[<span class="keyword">self</span>.myView.leadingAnchor constraintEqualToAnchor:</span><br><span class="line">      margins.leadingAnchor].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><h2 id="顶部和底部布局"><a href="#顶部和底部布局" class="headerlink" title="顶部和底部布局"></a><strong><em>顶部和底部布局</em></strong></h2><blockquote><p><strong><code>提示:</code></strong> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顶部和底部布局指南已由 <code>iOS 11</code> 中的 <code>“Safe Area Layout Guide ”</code> 代替。</p></blockquote><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当您要相对于顶部或底部 <code>UIKit</code> 工具栏定位内容时，视图控制器具有 <code>topLayoutGuide</code> 和 <code>bottomLayoutGuide</code> 属性。 从 <code>iOS 9</code> 开始，这两个属性均符合 <code>UILayoutSupport</code>  协议，该协议为 <code>bar</code> 提供了 <code>bottomAnchor</code> ， <code>topAnchor</code> 和 <code>heightAnchor</code> 属性。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，要将视图放置在顶部布局指南底部下方8个点处：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line">    myView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor,</span><br><span class="line">       constant: <span class="number">8.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Objective-C</span></span><br><span class="line">    [<span class="keyword">self</span>.stackView.topAnchor constraintEqualToAnchor:<span class="keyword">self</span>.topLayoutGuide.bottomAnchor</span><br><span class="line">       constant:<span class="number">8.0</span>].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><h2 id="控件组合布局"><a href="#控件组合布局" class="headerlink" title="控件组合布局"></a><strong><em>控件组合布局</em></strong></h2><p><strong>那么我们如何使用布局锚创建堆栈视图约束？</strong></p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我们获得父视图的 <code>leading</code> 和 <code>trailing</code> 边距：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> margins = view.layoutMarginsGuide</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，我们创建 <code>leading</code> 和 <code>trailing</code>  水平约束：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stackView.leadingAnchor.constraint(equalTo: margins.leadingAnchor).isActive = <span class="literal">true</span></span><br><span class="line">stackView.trailingAnchor.constraint(equalTo: margins.trailingAnchor).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，我们使用视图控制器的 <code>topLayoutGuide</code> 属性将堆栈视图固定在导航栏下方的8点处：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">stackView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor,</span><br><span class="line">          constant: <span class="number">8.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Objective-C</code> 版本稍微冗长一些，但仍有很大改进：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UILayoutGuide</span> *margins = <span class="keyword">self</span>.view.layoutMarginsGuide;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.stackView.leadingAnchor</span><br><span class="line">      constraintEqualToAnchor:margins.leadingAnchor].active = <span class="type">YES</span>;</span><br><span class="line">[<span class="keyword">self</span>.stackView.trailingAnchor</span><br><span class="line">      constraintEqualToAnchor:margins.trailingAnchor].active = <span class="type">YES</span>;</span><br><span class="line"></span><br><span class="line">[<span class="keyword">self</span>.stackView.topAnchor</span><br><span class="line">      constraintEqualToAnchor:<span class="keyword">self</span>.topLayoutGuide.bottomAnchor</span><br><span class="line">      constant:<span class="number">8.0</span>].active = <span class="type">YES</span>;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与以前的代码相比，我发现更容易理解这些约束的意图。</p></br><h1 id="了解更多"><a href="#了解更多" class="headerlink" title="了解更多"></a><strong>了解更多</strong></h1><ul><li><a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/ProgrammaticallyCreatingConstraints.html" target="_blank" rel="noopener"><strong><code>Programmatically Creating Constraints (Apple Auto Layout Guide)</code></strong></a></li><li><a href="https://developer.apple.com/videos/play/wwdc2015/219/" target="_blank" rel="noopener"><strong><code>WWDC 2015 Session 219 Mysteries of Auto Layout, Part 2</code></strong></a></li></ul>]]></content>
     
     <summary type="html">
+    
+      &lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;code&gt;Auto Layout&lt;/code&gt; 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，&lt;code&gt;iOS 9&lt;/code&gt; 做了很多改进。 &lt;code&gt;堆栈视图&lt;/code&gt; 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在以编程方式创建约束时，您有三个选择：可以使用 &lt;code&gt;layout anchors&lt;/code&gt; ，可以使用 &lt;code&gt;NSLayoutConstraint&lt;/code&gt; 类，或者可以使用可视格式语言。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我将再次看一下布局指南，但是现在这里是我关于使用布局锚点在代码中轻松创建约束的说明：&lt;/p&gt;
     
     </summary>
     
     
+      <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
+    
+    
+      <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="自动化布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%83%E5%B1%80/"/>
     
   </entry>
   
@@ -68,9 +90,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -166,11 +188,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -206,11 +228,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -247,11 +269,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -288,11 +310,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -328,11 +350,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -374,11 +396,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -415,11 +437,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -455,11 +477,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -494,11 +516,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -536,11 +558,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -582,11 +604,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -622,11 +644,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -661,11 +683,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -705,11 +727,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -745,11 +767,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -790,11 +812,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -831,11 +853,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -871,11 +893,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -911,11 +933,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -951,11 +973,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -991,11 +1013,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1035,11 +1057,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1081,11 +1103,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1122,11 +1144,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1165,11 +1187,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1203,11 +1225,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1240,11 +1262,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
@@ -1278,11 +1300,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/categories/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
