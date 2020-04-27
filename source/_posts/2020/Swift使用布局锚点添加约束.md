@@ -17,7 +17,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Auto Layout``` 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，```iOS 9``` 做了很多改进。 ```堆栈视图``` 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以编程方式创建约束时，您有三个选择：可以使用 ```layout anchors``` ，可以使用 ```NSLayoutConstraint``` 类，或者可以使用可视格式语言。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以编程方式创建约束时，你有三个选择：可以使用 ```layout anchors``` ，可以使用 ```NSLayoutConstraint``` 类，或者可以使用可视格式语言。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将再次看一下布局指南，但是现在这里是我关于使用布局锚点在代码中轻松创建约束的说明：
 
@@ -87,7 +87,7 @@ NSLayoutConstraint.activate(v)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点使创建约束更加容易。 从文档中：
 
->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```NSLayoutAnchor``` 类是用于使用流畅的 ```API``` 创建 ```NSLayoutConstraint``` 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义您的布局。
+>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```NSLayoutAnchor``` 类是用于使用流畅的 ```API``` 创建 ```NSLayoutConstraint``` 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义你的布局。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点是 ```UIView```（或```UILayoutGuide``` ）上的属性。 每个属性都是 ```NSLayoutAnchor``` 的子类，其方法可直接为其他相同类型的布局锚创建约束。 ```UIView``` 具有十二种不同的布局锚点属性，可用于创建水平，垂直或基于大小的约束：
 
@@ -191,7 +191,7 @@ UILayoutGuide *margins = self.view.layoutMarginsGuide;
 > **```提示:```** \
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顶部和底部布局指南已由 ```iOS 11``` 中的 ```“Safe Area Layout Guide ”``` 代替。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当您要相对于顶部或底部 ```UIKit``` 工具栏定位内容时，视图控制器具有 ```topLayoutGuide``` 和 ```bottomLayoutGuide``` 属性。 从 ```iOS 9``` 开始，这两个属性均符合 ```UILayoutSupport```  协议，该协议为 ```bar``` 提供了 ```bottomAnchor``` ， ```topAnchor``` 和 ```heightAnchor``` 属性。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你要相对于顶部或底部 ```UIKit``` 工具栏定位内容时，视图控制器具有 ```topLayoutGuide``` 和 ```bottomLayoutGuide``` 属性。 从 ```iOS 9``` 开始，这两个属性均符合 ```UILayoutSupport```  协议，该协议为 ```bar``` 提供了 ```bottomAnchor``` ， ```topAnchor``` 和 ```heightAnchor``` 属性。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，要将视图放置在顶部布局指南底部下方8个点处：
 
