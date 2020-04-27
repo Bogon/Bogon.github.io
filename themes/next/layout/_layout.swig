@@ -45,7 +45,6 @@
       <div class="footer-inner">
         {% include '_partials/footer.swig' %}
         {% include '_third-party/analytics/analytics-with-widget.swig' %}
-        
         {% block footer %}{% endblock %}
       </div>
     </footer>
