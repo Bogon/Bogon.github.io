@@ -9,12 +9,6 @@
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
   
 
-  {% if theme.footer.gongan.enable %}{#
-  } <span style="padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">
-  {{ next_url('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode='+theme.footer.gongan.num, theme.footer.gongan.local+'公网安备'+theme.footer.gongan.num+'号' ) }}</span>{#
-  }{% endif %}
-  
-  
   {% if theme.footer.counter %}
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -36,22 +30,14 @@
   {% endif %}
 </div>
 
-
+ <div class="BeiAn-info">
+    <a href="http://www.beian.miit.gov.cn/" style="color:#666666; text-decoration:none; padding-left:30px; no-repeat left center" rel="nofollow">豫ICP备20011156号-1 | </a>   
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" style="color:#666666; text-decoration: none;  padding-left:30px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">{{ ('公网安备41172402000135号') }}</a> 
+  </div>
 
 
 
 <!-- 
-  <div class="BbeiAn-info">
-    
-    <a href="http://www.beian.miit.gov.cn/" style="color:#666666; text-decoration: none; padding-left:30px; no-repeat left center" rel="nofollow">豫ICP备20011156号 | </a>   
-    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" style="color:#666666; text-decoration: none;  padding-left:30px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">{{ ('公网安备41172402000135号') }}</a> 
-  </div>
-
-{% if theme.footer.gongan.enable %}{#
-} <span style="padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">
-{{ next_url('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode='+theme.footer.gongan.num, theme.footer.gongan.local+'公网安备'+theme.footer.gongan.num+'号' ) }}</span>{#
-}{% endif %}
-</div>
 
 {% if theme.footer.powered %}
   <div class="powered-by">{#
