@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,抽,象,,,S,w,i,f,t,,,L,a,z,y,属,性,初,始,化,,,重,构,,,L,a,z,y, ,P,r,o,p,e,r,t,y, ,I,n,i,t,i,a,l,i,z,a,t,i,o,n,p,a,t,t,e,r,n," /> 
+ <meta name="keywords" content="i,O,S,,,S,w,i,f,t,,,自,动,化,布,局,,,用,户,体,验,,, ,U,I,C,o,l,l,e,c,t,i,o,n,V,i,e,w,,,U,I,C,o,l,l,e,c,t,i,o,n,V,i,e,w,C,e,l,l,,,自,适,应," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="iOS,UIKit,设计模式,抽象,Swift,Lazy属性初始化,重构,Lazy Property Initializationpattern" />
+  <meta name="keywords" content="iOS,Swift,自动化布局,用户体验, UICollectionView,UICollectionViewCell,自适应" />
 
 
 
@@ -101,24 +101,26 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先回顾一下在 Swift 中声明和初始化存储属性的最常用方法： 直接分配&amp;nbsp;&amp;nbsp;&amp;nbs">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何通过旋转支持为包装在 UICollectionView 单元格内的 UIImageView 项制作圆角。   UICollectionView 中的圆形单元格&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;实现目标相对容易，但是如果你不知道后台发生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift Lazy属性初始化">
-<meta property="og:url" content="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
+<meta property="og:title" content="UICollectionView Cells：圆形图像、支持旋转">
+<meta property="og:url" content="http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先回顾一下在 Swift 中声明和初始化存储属性的最常用方法： 直接分配&amp;nbsp;&amp;nbsp;&amp;nbs">
-<meta property="article:published_time" content="2020-04-26T07:37:12.000Z">
-<meta property="article:modified_time" content="2020-04-26T07:52:47.513Z">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何通过旋转支持为包装在 UICollectionView 单元格内的 UIImageView 项制作圆角。   UICollectionView 中的圆形单元格&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;实现目标相对容易，但是如果你不知道后台发生">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/uc-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/uc-stp2.jpg">
+<meta property="article:published_time" content="2020-04-27T02:37:04.000Z">
+<meta property="article:modified_time" content="2020-04-27T02:53:13.821Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
-<meta property="article:tag" content="UIKit">
-<meta property="article:tag" content="设计模式">
-<meta property="article:tag" content="抽象">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="Lazy属性初始化">
-<meta property="article:tag" content="重构">
-<meta property="article:tag" content="Lazy Property Initializationpattern">
+<meta property="article:tag" content="自动化布局">
+<meta property="article:tag" content="用户体验">
+<meta property="article:tag" content=" UICollectionView">
+<meta property="article:tag" content="UICollectionViewCell">
+<meta property="article:tag" content="自适应">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/uc-stp1.png">
 
 
 
@@ -148,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xuebaonline.com/Swift Lazy属性初始化/"/>
+  <link rel="canonical" href="http://www.xuebaonline.com/UICollectionView Cells：圆形图像、支持旋转/"/>
 
 
 
 
 
-  <title>Swift Lazy属性初始化 | Char's Blog</title>
+  <title>UICollectionView Cells：圆形图像、支持旋转 | Char's Blog</title>
   
 
 
@@ -345,7 +347,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Char">
@@ -362,7 +364,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift Lazy属性初始化</h1>
+          <h1 class="post-title" itemprop="name headline">UICollectionView Cells：圆形图像、支持旋转</h1>
         
 
         <div class="post-meta">
@@ -374,8 +376,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T15:37:12+08:00">
-                2020-04-26
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-27T10:37:04+08:00">
+                2020-04-27
               </time>
             
 
@@ -399,17 +401,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
                     <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -448,8 +439,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" itemprop="commentCount"></span>
+                <a href="/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -457,7 +448,7 @@
 
           
           
-             <span id="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" class="leancloud_visitors" data-flag-title="Swift Lazy属性初始化">
+             <span id="/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/" class="leancloud_visitors" data-flag-title="UICollectionView Cells：圆形图像、支持旋转">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -503,7 +494,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  5 分钟
                 </span>
               
             </div>
@@ -524,59 +515,33 @@
       
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift中什么是惰性存储属性？ 你应该如何以及何时使用它？ 快速入门指南，需要记住的一些关键点。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先回顾一下在 <code>Swift</code> 中声明和初始化存储属性的最常用方法：</p>
-<h1 id="直接分配"><a href="#直接分配" class="headerlink" title="直接分配"></a><strong>直接分配</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过直接分配初始值来对常量和变量存储的属性进行初始化的最简单形式：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// constant</span></span><br><span class="line"><span class="keyword">let</span> fontSize: <span class="type">CGFloat</span> = <span class="number">24.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// variable</span></span><br><span class="line"><span class="keyword">var</span> spacing: <span class="type">CGFloat</span> = <span class="number">16.0</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Optional</span></span><br><span class="line"><span class="keyword">var</span> title: <span class="type">String?</span></span><br></pre></td></tr></table></figure>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何通过旋转支持为包装在 <code>UICollectionView</code> 单元格内的 <code>UIImageView</code> 项制作圆角。</p>
+</br>
 
+<h1 id="UICollectionView-中的圆形单元格"><a href="#UICollectionView-中的圆形单元格" class="headerlink" title="UICollectionView 中的圆形单元格"></a><strong>UICollectionView 中的圆形单元格</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实现目标相对容易，但是如果你不知道后台发生了什么，那可能会比你最初想的要难。 因此，让我们创建一个新项目，添加带有 <code>UICollectionViewController</code> 的情节提要，将 <code>UIImageView</code> 拖动到单元格内，调整其大小，添加一些约束，设置单元格标识符。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/uc-stp1.png" alt="UICollectionViewController"></p>
 <a id="more"></a>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，默认情况下，可选参数初始化为 <code>nil</code> 。 我喜欢将恒定的魔术数字（如 <code>fontSize</code> ）收集到一个结构中，使它们成为静态的：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">struct</span> <span class="title">ViewMetrics</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">let</span> fontSize: <span class="type">CGFloat</span> = <span class="number">24.0</span></span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">titleLabel.font = <span class="type">ViewMetrics</span>.fontSize</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它看起来应该像上面的图像。 对于我们的示例应用程序而言，没有什么特别的简单的 <code>UI</code> 。 现在搜索一些随机图像，将其添加到项目中，让我们进行一些实际的编码。 首先，我将向你展示单元子类内部的小技巧。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> imageView: <span class="type">UIImageView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> bounds: <span class="type">CGRect</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.layoutIfNeeded()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">awakeFromNib</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.awakeFromNib()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.imageView.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.setCircularImageView()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setCircularImageView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.imageView.layer.cornerRadius = <span class="type">CGFloat</span>(roundf(<span class="type">Float</span>(<span class="keyword">self</span>.imageView.frame.size.width / <span class="number">2.0</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你能看见它吗？ 是的，你应该重写 <code>bounds</code> 属性。 下一步，我们必须为控制器类编写一些用于收集视图的基本数据源，并为旋转方法提供适当的支持。 🤓</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UICollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">30</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                                 cellForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> cell = collectionView.dequeueReusableCell(withReuseIdentifier: <span class="string">"Cell"</span>, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">Cell</span></span><br><span class="line"></span><br><span class="line">        cell.imageView.image = <span class="type">UIImage</span>(named: <span class="string">"Example.jpg"</span>)</span><br><span class="line">        cell.imageView.backgroundColor = .lightGray</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">traitCollectionDidChange</span><span class="params">(<span class="number">_</span> previousTraitCollection: UITraitCollection?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.traitCollectionDidChange(previousTraitCollection)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">guard</span></span><br><span class="line">            <span class="keyword">let</span> previousTraitCollection = previousTraitCollection,</span><br><span class="line">            <span class="keyword">self</span>.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass ||</span><br><span class="line">            <span class="keyword">self</span>.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line">        <span class="keyword">self</span>.collectionView?.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewWillTransition</span><span class="params">(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewWillTransition(to: size, with: coordinator)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line"></span><br><span class="line">        coordinator.animate(alongsideTransition: &#123; context <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">        &#125;, completion: &#123; context <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">self</span>.collectionView?.visibleCells.forEach &#123; cell <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">guard</span> <span class="keyword">let</span> cell = cell <span class="keyword">as</span>? <span class="type">Cell</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span></span><br><span class="line">                &#125;</span><br><span class="line">                cell.setCircularImageView()</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UICollectionViewDelegateFlowLayout</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        layout collectionViewLayout: UICollectionViewLayout,</span></span></span><br><span class="line"><span class="function"><span class="params">                        sizeForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGSize</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">CGSize</span>(width: collectionView.frame.size.width/<span class="number">3.0</span> - <span class="number">8</span>,</span><br><span class="line">                      height: collectionView.frame.size.width/<span class="number">3.0</span> - <span class="number">8</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，如果没有重写的 <code>bounds</code> 属性，则该示例在左侧看起来像这样。 😢</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/uc-stp2.jpg" alt="UICollectionViewController2"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好笑吧？ 右侧的图像是带有超出范围的实际结果，这是预期的行为。 如果你不覆盖边界并且不为可见视图重设 <code>cornerRadius</code> 属性，那么滚动和旋转将真的很奇怪。 你可能会问：但是为什么呢？ 🤔</p>
 </br>
 
-<h1 id="使用初始化器"><a href="#使用初始化器" class="headerlink" title="使用初始化器"></a><strong>使用初始化器</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你没有将初始值分配给存储属性作为其定义的一部分，则必须在初始化程序中进行设置。 引用《 Swift编程语言》指南：</p>
-<blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类和结构必须在创建该类或结构的实例时将其所有存储的属性设置为适当的初始值。 存储的属性不能处于不确定状态。</p>
-</blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(title: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.title = title</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Layers-springs-amp-struts-说明"><a href="#Layers-springs-amp-struts-说明" class="headerlink" title="Layers, springs &amp; struts 说明"></a><strong>Layers, springs &amp; struts</strong> 说明</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Apple</code> 在 <code>UIKit</code> 中仍然具有基于 <code>“ Springs＆Struts”</code> 的代码。 这意味着框架和边界计算正在底层系统中进行，并且约束系统也在努力工作以找出适当的措施。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当有一个 <code>init（frame :)</code> 方法或一个必需的 <code>init（coder :)</code> 方法时，这些布局会糟透了。 我真的很喜欢 <code>Interface Builder</code> ，但是直到我们没有一个好的工具来创建出色的用户界面， <code>IB</code> 才可能是潜在错误的另一层。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果仅使用自动布局约束或布局锚从代码创建单元，则甚至不会出现此问题！ 这是因为IB根据你在设计原型时提供的框架来创建单元。 但是，如果你忘记了 <code>init（frame :)</code> ，而只是创建了一个新的 <code>UIImageView</code> 实例并让自动布局完成了艰苦的工作，则布局系统将解决所有其他问题。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> imageView: <span class="type">UIImageView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> imageView = <span class="type">UIImageView</span>()</span><br><span class="line">        imageView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.addSubview(imageView)</span><br><span class="line">        <span class="keyword">self</span>.imageView = imageView</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.imageView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.topAnchor)</span><br><span class="line">        <span class="keyword">self</span>.imageView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.bottomAnchor)</span><br><span class="line">        <span class="keyword">self</span>.imageView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.leadingAnchor)</span><br><span class="line">        <span class="keyword">self</span>.imageView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.trailingAnchor)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">layoutSubviews</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.layoutSubviews()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.imageView.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">self</span>.imageView.layer.cornerRadius = <span class="type">CGFloat</span>(roundf(<span class="type">Float</span>(<span class="keyword">self</span>.imageView.frame.size.width/<span class="number">2.0</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当属性始终采用相同的初始值时，最好在声明属性时进行设置，而不要在初始化程序中进行设置。</p>
-</br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，你必须编写更多代码，在控制器类中手动注册单元格类，并且还必须重写单元格中的 <code>layoutSubviews</code> 方法，但是它将按预期执行。 🙄</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">self</span>.collectionView?.register(<span class="type">Cell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: <span class="string">"Cell"</span>)</span><br></pre></td></tr></table></figure>
 
-<h1 id="使用闭包"><a href="#使用闭包" class="headerlink" title="使用闭包"></a><strong>使用闭包</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当初始值需要更多设置时，闭包是一个不错的选择。 我发现闭包样式比许多初始化程序代码更可取，因为它使设置接近属性声明。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> button: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> button = <span class="type">UIButton</span>(type: .system)</span><br><span class="line">  button.titleLabel?.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="type">ViewMetrics</span>.fontSize)</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> button</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始化包含属性的类型时，将调用一次闭包。 闭包的返回值分配给该属性。 不要忘记尾随（）来执行关闭。</p>
-</br>
-
-<h1 id="懒加载方式"><a href="#懒加载方式" class="headerlink" title="懒加载方式"></a><strong>懒加载方式</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当初始值创建起来开销相对较大时时，通常会使用惰性初始化。 仅在确定需要时才创建值。 如果你是从 <code>Objective-C</code> 转到 <code>Swift</code> 的，那么您可能会熟悉使用 <code>getter</code> 仅在首次使用属性时才对其进行延迟初始化的技术：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="type">NSNumberFormatter</span> *)decimalFormatter &#123;</span><br><span class="line">  <span class="keyword">if</span> (_decimalFormatter == <span class="literal">nil</span>) &#123;</span><br><span class="line">    _decimalFormatter = [[<span class="type">NSNumberFormatter</span> alloc] <span class="keyword">init</span>];</span><br><span class="line">    [_decimalFormatter setNumberStyle:<span class="type">NSNumberFormatterDecimalStyle</span>];        </span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> _decimalFormatter;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么 <code>Swift</code> 中的惰性属性呢？ <code>Swift</code> 属性没有后备实例变量（如 <code>_decimalFormatter</code> ）。 要在 <code>Swift</code> 中延迟初始化属性，请添加 <code>lazy</code> 关键字：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> decimalFormatter: <span class="type">NumberFormatter</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> formatter = <span class="type">NumberFormatter</span>()</span><br><span class="line">  formatter.numberStyle = .decimal</span><br><span class="line">  <span class="keyword">return</span> formatter</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，惰性属性始终为 <code>var</code> 。 当访问属性时，可以在初始化完成后调用该闭包。</p>
-</br>
-
-<h1 id="访问属性"><a href="#访问属性" class="headerlink" title="访问属性"></a><strong>访问属性</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;惰性属性初始化的另一个常见用法是，当初始值取决于初始化实例的属性或方法时。 例如，使用闭包设置对象，此堆栈视图可以作为 <code>let constant</code> 属性使用：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stackView: <span class="type">UIStackView</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> stackView = <span class="type">UIStackView</span>()</span><br><span class="line">  stackView.spacing = <span class="type">ViewMetrics</span>.spacing</span><br><span class="line">  <span class="keyword">return</span> stackView</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请记住，在初始化期间调用了闭包，因此你尚不能使用 <code>self</code> 来访问实例的任何属性或方法。 如果你需要访问 <code>self</code> ，则必须将 <code>let</code> 替换为 <code>lazy var</code> ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> spacing: <span class="type">CGFloat</span> = <span class="number">16.0</span>  &#123;</span><br><span class="line">  <span class="keyword">didSet</span> &#123;</span><br><span class="line">    stackView.spacing = spacing</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> stackView: <span class="type">UIStackView</span> = &#123;</span><br><span class="line">  <span class="keyword">let</span> stackView = <span class="type">UIStackView</span>()</span><br><span class="line">  stackView.spacing = spacing</span><br><span class="line">  ...</span><br><span class="line">  <span class="keyword">return</span> stackView</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，在对象初始化之后执行关闭操作，因此你可以通过 <code>self</code> 完全访问实例属性和方法。 这是声明诸如用户界面组件之类的便捷方式。 将任何常见配置移至单独的方法或类扩展：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> buttonFontSize: <span class="type">CGFloat</span> = <span class="number">18.0</span> &#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> redButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="type">UILabel</span>.colorButton(title: <span class="string">"Red"</span>, color: .red, fontSize: buttonFontSize)</span><br><span class="line">&#125;()</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="built_in">lazy</span> <span class="keyword">var</span> blueButton: <span class="type">UIButton</span> = &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="type">UILabel</span>.colorButton(title: <span class="string">"Blue"</span>, color: .blue, fontSize: buttonFontSize)</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
-
-</br>
-
-<h1 id="要点"><a href="#要点" class="headerlink" title="要点"></a><strong>要点</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;需要记住的一些关键点并不明显，并且经常引起混乱（至少对我而言）：</p>
-<ul>
-<li>引用闭包内的其他实例属性或方法时，无需编写self。</li>
-<li>闭包不会逃逸，因此你无需使用 <code>weak self</code> 避免形成循环引用。</li>
-<li>初始化之前，如果属性可以被多个线程访问，请小心。 无法保证只有在设置初始值之前有多个线程同时访问该属性时才将其初始化一次。</li>
-</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无论如何，在注册以编程方式创建的单元格之后，你将有一种很好的方式来显示圆形图像。 使用这种技术非常棘手，但是在每种情况下它肯定都有效。 </p>
 
       
     </div>
@@ -604,12 +569,12 @@
 	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<p></p>
-	<span>本文标题:</span><a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/">Swift Lazy属性初始化</a>
+	<span>本文标题:</span><a href="/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/">UICollectionView Cells：圆形图像、支持旋转</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
-	<p><span>发布时间:</span>2020年04月26日 - 15:04</p>
-	<p><span>最后更新:</span>2020年04月26日 - 15:04</p>
-	<p><span>原始链接:</span><a href="/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/" title="Swift Lazy属性初始化">http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/</a>
-		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%20Lazy%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96/"  aria-label="复制成功！"></i></span>
+	<p><span>发布时间:</span>2020年04月27日 - 10:04</p>
+	<p><span>最后更新:</span>2020年04月27日 - 10:04</p>
+	<p><span>原始链接:</span><a href="/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/" title="UICollectionView Cells：圆形图像、支持旋转">http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/"  aria-label="复制成功！"></i></span>
 	</p>
 	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -671,13 +636,13 @@
           
             <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
-          
             <a href="/tags/UIKit/" rel="tag"># UIKit</a>
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="tag"># 懒加载模式</a>
+            <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/" rel="tag"># 自适应布局</a>
+          
+            <a href="/tags/UICollectionView/" rel="tag"># UICollectionView</a>
           
         </div>
       
@@ -690,8 +655,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Swift%E4%B8%AD%E7%9A%84%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift中的懒加载模式">
-                <i class="fa fa-chevron-left"></i> Swift中的懒加载模式
+              <a href="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/" rel="next" title="Swift支持旋转的自适应单元格">
+                <i class="fa fa-chevron-left"></i> Swift支持旋转的自适应单元格
               </a>
             
           </div>
@@ -699,10 +664,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Swift%E5%B8%A6%E9%97%AD%E5%8C%85%E7%9A%84%E6%87%92%E6%83%B0%E5%88%9D%E5%A7%8B%E5%8C%96/" rel="prev" title="Swift带闭包的懒惰初始化">
-                Swift带闭包的懒惰初始化 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -912,7 +873,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#直接分配"><span class="nav-number">1.</span> <span class="nav-text">直接分配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用初始化器"><span class="nav-number">2.</span> <span class="nav-text">使用初始化器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用闭包"><span class="nav-number">3.</span> <span class="nav-text">使用闭包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#懒加载方式"><span class="nav-number">4.</span> <span class="nav-text">懒加载方式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#访问属性"><span class="nav-number">5.</span> <span class="nav-text">访问属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要点"><span class="nav-number">6.</span> <span class="nav-text">要点</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UICollectionView-中的圆形单元格"><span class="nav-number">1.</span> <span class="nav-text">UICollectionView 中的圆形单元格</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Layers-springs-amp-struts-说明"><span class="nav-number">2.</span> <span class="nav-text">Layers, springs &amp; struts 说明</span></a></li></ol></div>
             
 
           </div>
