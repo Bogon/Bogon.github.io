@@ -31,7 +31,7 @@
 </div>
 
  <div class="copyright">
-    <a href="http://www.beian.miit.gov.cn/" style="color:#666666; text-decoration:none; padding-left:0px; no-repeat left center" rel="nofollow">豫ICP备20011156号-1 | </a>   
+    <a href="http://www.beian.miit.gov.cn/" style="color:#666666; text-decoration:none; padding-left:0px; no-repeat left center" rel="nofollow">豫ICP备20011156号 | </a>   
     <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" style="color:#666666; text-decoration: none;  padding-left:30px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow">{{ ('公网安备41172402000135号') }}</a> 
   </div>
 
