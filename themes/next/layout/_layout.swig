@@ -45,6 +45,20 @@
       <div class="footer-inner">
         {% include '_partials/footer.swig' %}
         {% include '_third-party/analytics/analytics-with-widget.swig' %}
+        
+                <div class="footer-custom">
+                    {% if theme.footer.beian.enable %}{#
+                  #}{{ next_url('http://www.beian.miit.gov.cn', theme.footer.beian.icp + ' ') }}{#
+                  #}{% endif %}
+                  {% if theme.footer.beian.enable and theme.footer.gongan.enable %}
+                    <span class="post-meta-divider">|</span>
+                  {% endif %}
+                  {% if theme.footer.gongan.enable %}{#
+                  #} <span style="padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">{#
+                  #} {{ theme.footer.gongan.local}}{{__('footer.beian.gongan', next_url('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode='+theme.footer.gongan.num, theme.footer.gongan.num )) }}{#
+                  #}{% endif %}
+                </div>
+        
         {% block footer %}{% endblock %}
       </div>
     </footer>
