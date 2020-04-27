@@ -26,7 +26,7 @@ categories:
 <!-- more -->
 
 
-![Main.storyboard](http://q8wtfza4q.bkt.clouddn.com/sc-stp1.png "")
+![Main.storyboard](http://q8wtfza4q.bkt.clouddn.com/sc-stp1.jpg "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将表视图控制器场景设置为初始视图控制器，并使用相应的类创建 ```TableViewController.swift``` 文件。
 
@@ -75,7 +75,7 @@ class TableViewCell: UITableViewCell {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，创建类本身，然后使用界面构建器选择表视图控制器场景并将标签拖到原型单元中。 将原型单元格的类设置为 ```TableViewCell``` 。 可重复使用的标识符可以简单地是 ```“ Cell” ```。 将 ```dynamicLabel``` 插座连接到视图。 将标签的上，下，前，尾约束赋予父视图，默认值为8。选择标签，将字体设置为主体样式，并将 ```lines``` 属性设置为零。 就是这么简单。 😂
 
-![TableViewCell](http://q8wtfza4q.bkt.clouddn.com/sc-stp2.png "")
+![TableViewCell](http://q8wtfza4q.bkt.clouddn.com/sc-stp2.jpg "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在你已经准备好了。 你只需要在表格视图上设置估计的行高。 在 ```TableViewController``` 类内部，更改 ```viewDidLoad``` 方法，如下所示：
 
@@ -104,7 +104,7 @@ NotificationCenter.default.addObserver(self.tableView, selector: #selector(UITab
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在开始之前，我们仍然可以使用 ```IB``` 。 创建一个新的集合视图控制器场景，然后将一个推键从上一个表视图单元格拖到这个新的控制器上。 最后，将整个内容嵌入导航控制器中。
 
-![UICollectionView](http://q8wtfza4q.bkt.clouddn.com/sc-stp3.png "")
+![UICollectionView](http://q8wtfza4q.bkt.clouddn.com/sc-stp3.jpg "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该单元将与我们用于表视图的单元完全相同，但是它是 ```UICollectionViewCell``` 的子类，并且我们将直接从代码构造布局。
 
