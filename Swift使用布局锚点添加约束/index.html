@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;Auto Layout 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，iOS 9 做了很多改进。 堆栈视图 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：  &amp;nbsp;&amp;nbs">
 <meta property="article:published_time" content="2020-04-26T12:12:24.000Z">
-<meta property="article:modified_time" content="2020-04-27T01:27:04.075Z">
+<meta property="article:modified_time" content="2020-04-27T01:30:53.037Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -511,7 +511,7 @@
       
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Auto Layout</code> 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，<code>iOS 9</code> 做了很多改进。 <code>堆栈视图</code> 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：</p>
 <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以编程方式创建约束时，您有三个选择：可以使用 <code>layout anchors</code> ，可以使用 <code>NSLayoutConstraint</code> 类，或者可以使用可视格式语言。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以编程方式创建约束时，你有三个选择：可以使用 <code>layout anchors</code> ，可以使用 <code>NSLayoutConstraint</code> 类，或者可以使用可视格式语言。</p>
 </blockquote>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将再次看一下布局指南，但是现在这里是我关于使用布局锚点在代码中轻松创建约束的说明：</p>
 <a id="more"></a>
@@ -531,7 +531,7 @@
 
 <h1 id="使用-Layout-Anchors-创建约束"><a href="#使用-Layout-Anchors-创建约束" class="headerlink" title="使用 Layout Anchors 创建约束"></a><strong>使用 <code>Layout Anchors</code> 创建约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点使创建约束更加容易。 从文档中：</p>
 <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>NSLayoutAnchor</code> 类是用于使用流畅的 <code>API</code> 创建 <code>NSLayoutConstraint</code> 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义您的布局。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>NSLayoutAnchor</code> 类是用于使用流畅的 <code>API</code> 创建 <code>NSLayoutConstraint</code> 对象的工厂类。 使用这些约束可以使用“自动布局”以编程方式定义你的布局。</p>
 </blockquote>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;布局锚点是 <code>UIView</code>（或<code>UILayoutGuide</code> ）上的属性。 每个属性都是 <code>NSLayoutAnchor</code> 的子类，其方法可直接为其他相同类型的布局锚创建约束。 <code>UIView</code> 具有十二种不同的布局锚点属性，可用于创建水平，垂直或基于大小的约束：</p>
 <h2 id="水平约束"><a href="#水平约束" class="headerlink" title="水平约束"></a><strong><em>水平约束</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用于创建水平约束的  <code>NSLayoutXAxisAnchor</code> 类型的布局锚点：</p>
@@ -580,7 +580,7 @@
 <h2 id="顶部和底部布局"><a href="#顶部和底部布局" class="headerlink" title="顶部和底部布局"></a><strong><em>顶部和底部布局</em></strong></h2><blockquote>
 <p><strong><code>提示:</code></strong> <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顶部和底部布局指南已由 <code>iOS 11</code> 中的 <code>“Safe Area Layout Guide ”</code> 代替。</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当您要相对于顶部或底部 <code>UIKit</code> 工具栏定位内容时，视图控制器具有 <code>topLayoutGuide</code> 和 <code>bottomLayoutGuide</code> 属性。 从 <code>iOS 9</code> 开始，这两个属性均符合 <code>UILayoutSupport</code>  协议，该协议为 <code>bar</code> 提供了 <code>bottomAnchor</code> ， <code>topAnchor</code> 和 <code>heightAnchor</code> 属性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你要相对于顶部或底部 <code>UIKit</code> 工具栏定位内容时，视图控制器具有 <code>topLayoutGuide</code> 和 <code>bottomLayoutGuide</code> 属性。 从 <code>iOS 9</code> 开始，这两个属性均符合 <code>UILayoutSupport</code>  协议，该协议为 <code>bar</code> 提供了 <code>bottomAnchor</code> ， <code>topAnchor</code> 和 <code>heightAnchor</code> 属性。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，要将视图放置在顶部布局指南底部下方8个点处：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Swift</span></span><br><span class="line">    myView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor,</span><br><span class="line">       constant: <span class="number">8.0</span>).isActive = <span class="literal">true</span></span><br></pre></td></tr></table></figure>
 
@@ -700,9 +700,9 @@
           
             <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/UIKit/" rel="tag"># UIKit</a>
-          
             <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/UIKit/" rel="tag"># UIKit</a>
           
             <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%83%E5%B1%80/" rel="tag"># 自动化布局</a>
           
