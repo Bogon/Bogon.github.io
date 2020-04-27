@@ -37,7 +37,7 @@
 
 
 <!--  添加关键字 -->
- <meta name="keywords" content="i,O,S,,,U,I,K,i,t,,,设,计,模,式,,,初,始,化,,,S,w,i,f,t,,,工,厂,模,式,,,重,构," /> 
+ <meta name="keywords" content="i,O,S,,,S,w,i,f,t,,,自,动,化,布,局,,,用,户,体,验,,, ,U,I,T,a,b,l,e,V,i,e,w,,,U,I,T,a,b,l,e,V,i,e,w,C,e,l,l,,,自,适,应," /> 
 
 
 <meta http-equiv="Cache-Control" content="no-transform" />
@@ -88,7 +88,7 @@
 
 
 
-  <meta name="keywords" content="iOS,UIKit,设计模式,初始化,Swift,工厂模式,重构" />
+  <meta name="keywords" content="iOS,Swift,自动化布局,用户体验, UITableView,UITableViewCell,自适应" />
 
 
 
@@ -101,23 +101,27 @@
 
 
 
-<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在本文中，我们一起看一下有关 静态工厂设计模式 的知识，并展示一些使用Swift编程语言的用例。   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;如何在Swift中为表格视图和集合视图制作自定义大小的单元格，以支持方向更改和动态字体类型。   UITableView&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;因此，让我们从 iOS 的标准单视图模板开始。 命名项目，然后直接转到 Main.sto">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Swift静态工厂设计模式">
-<meta property="og:url" content="http://www.xuebaonline.com/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/index.html">
+<meta property="og:title" content="Swift支持旋转的自适应单元格">
+<meta property="og:url" content="http://www.xuebaonline.com/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在本文中，我们一起看一下有关 静态工厂设计模式 的知识，并展示一些使用Swift编程语言的用例。   &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计">
-<meta property="article:published_time" content="2020-04-25T03:48:39.000Z">
-<meta property="article:modified_time" content="2020-04-25T04:21:36.398Z">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;如何在Swift中为表格视图和集合视图制作自定义大小的单元格，以支持方向更改和动态字体类型。   UITableView&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;因此，让我们从 iOS 的标准单视图模板开始。 命名项目，然后直接转到 Main.sto">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sc-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sc-stp2.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sc-stp3.png">
+<meta property="article:published_time" content="2020-04-27T02:12:39.000Z">
+<meta property="article:modified_time" content="2020-04-27T02:30:42.978Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
-<meta property="article:tag" content="UIKit">
-<meta property="article:tag" content="设计模式">
-<meta property="article:tag" content="初始化">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="工厂模式">
-<meta property="article:tag" content="重构">
+<meta property="article:tag" content="自动化布局">
+<meta property="article:tag" content="用户体验">
+<meta property="article:tag" content=" UITableView">
+<meta property="article:tag" content="UITableViewCell">
+<meta property="article:tag" content="自适应">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sc-stp1.png">
 
 
 
@@ -147,13 +151,13 @@
 
 
 
-  <link rel="canonical" href="http://www.xuebaonline.com/Swift静态工厂设计模式/"/>
+  <link rel="canonical" href="http://www.xuebaonline.com/Swift支持旋转的自适应单元格/"/>
 
 
 
 
 
-  <title>Swift静态工厂设计模式 | Char's Blog</title>
+  <title>Swift支持旋转的自适应单元格 | Char's Blog</title>
   
 
 
@@ -344,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Char">
@@ -361,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Swift静态工厂设计模式</h1>
+          <h1 class="post-title" itemprop="name headline">Swift支持旋转的自适应单元格</h1>
         
 
         <div class="post-meta">
@@ -373,8 +377,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-25T11:48:39+08:00">
-                2020-04-25
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-27T10:12:39+08:00">
+                2020-04-27
               </time>
             
 
@@ -398,17 +402,6 @@
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
                   <a href="/categories/iOS/" itemprop="url" rel="index">
                     <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
                   </a>
                 </span>
 
@@ -447,8 +440,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
+                <a href="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -456,7 +449,7 @@
 
           
           
-             <span id="/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Swift静态工厂设计模式">
+             <span id="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/" class="leancloud_visitors" data-flag-title="Swift支持旋转的自适应单元格">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -486,7 +479,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.1k 字
+                  1.8k 字
                 </span>
               
 
@@ -502,7 +495,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  4 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -523,43 +516,48 @@
       
 
       
-        <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本文中，我们一起看一下有关 <a href="https://zh.wikipedia.org/wiki/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95" target="_blank" rel="noopener" title="静态工厂设计模式">静态工厂设计模式</a> 的知识，并展示一些使用Swift编程语言的用例。</p>
-</blockquote>
-<blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。” </p>
-</blockquote>
-<a id="more"></a>
-
-
-<blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建一个对象常常需要复杂的过程，所以不适合包含在一个复合对象中。创建对象可能会导致大量的重复代码，可能会需要复合对象访问不到的信息，也可能提供不了足够级别的抽象，还可能并不是复合对象概念的一部分。工厂方法模式通过定义一个单独的创建对象的方法来解决这些问题。由子类实现这个方法来创建具体类型的对象。</p>
-</blockquote>
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如何在Swift中为表格视图和集合视图制作自定义大小的单元格，以支持方向更改和动态字体类型。</p>
 </br>
 
-<h1 id="静态工厂模式示例"><a href="#静态工厂模式示例" class="headerlink" title="静态工厂模式示例"></a><strong>静态工厂模式示例</strong></h1><blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对象创建中的有些过程包括决定创建哪个对象、管理对象的生命周期，以及管理特定对象的创建和销毁的概念。</p>
-</blockquote>
-<h2 id="命名构造函数"><a href="#命名构造函数" class="headerlink" title="命名构造函数"></a><strong>命名构造函数</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于静态装饰模式的第一个好处是，每个静态装饰方法都可以有一个名称。 <code>Apple</code> 在其 <code>UIColor</code> 类实现中使用此模式来创建诸如 <code>.red</code> ，<code>.yellow</code> 等的命名颜色。请注意，<code>Swift</code> 中的实现实际上不是方法，而是静态属性，它返回实际实例。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">extension</span> <span class="title">TimeInterval</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> second: <span class="type">TimeInterval</span> &#123; <span class="keyword">return</span> <span class="number">1</span> &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> minute: <span class="type">TimeInterval</span> &#123; <span class="keyword">return</span> <span class="number">60</span> &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> hour: <span class="type">TimeInterval</span> &#123; <span class="keyword">return</span> <span class="number">3_600</span> &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> day: <span class="type">TimeInterval</span> &#123; <span class="keyword">return</span> <span class="number">86_400</span> &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> week: <span class="type">TimeInterval</span> &#123; <span class="keyword">return</span> <span class="number">604_800</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="UITableView"><a href="#UITableView" class="headerlink" title="UITableView"></a><strong>UITableView</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们从 <code>iOS</code> 的标准单视图模板开始。 命名项目，然后直接转到 <code>Main.storyboard</code> 文件。 选择你的 <code>ViewController</code> ，将其删除并创建一个新的 <code>UITableViewController</code> <code>scene</code> 。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sc-stp1.png" alt="Main.storyboard"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将表视图控制器场景设置为初始视图控制器，并使用相应的类创建 <code>TableViewController.swift</code> 文件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> dataSource: [<span class="type">String</span>] = [</span><br><span class="line">        <span class="string">"Donec id elit non mi porta gravida at eget metus."</span>,</span><br><span class="line">        <span class="string">"Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus."</span>,</span><br><span class="line">        <span class="string">"Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Vestibulum id ligula porta felis euismod semper. Nullam id dolor id nibh ultricies vehicula ut id elit. Nullam quis risus eget urna mollis ornare vel eu leo."</span>,</span><br><span class="line">        <span class="string">"Maecenas faucibus mollis interdum."</span>,</span><br><span class="line">        <span class="string">"Donec ullamcorper nulla non metus auctor fringilla. Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet fermentum."</span>,</span><br><span class="line">        <span class="string">"Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Maecenas faucibus mollis interdum."</span>,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">TableViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.dataSource.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"Cell"</span>, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">TableViewCell</span></span><br><span class="line"></span><br><span class="line">        cell.dynamicLabel?.text = <span class="keyword">self</span>.dataSource[indexPath.row]</span><br><span class="line">        cell.dynamicLabel.font  = <span class="type">UIFont</span>.preferredFont(forTextStyle: .body)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果很难记住一天或一周是几秒钟，为什么不为它创建一个命名初始化器。 看到 <code>TimeInterval.week</code> 比 <code>604_800</code> 好得多。 😅</p>
-</br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该设置实际上是自我描述的。 你已经有了一个字符串数组作为数据源，以及 <code>UITableViewDataSource</code> 协议的必需实现。</p>
+<p>唯一缺少的是 <code>TableViewCell</code> 类:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableViewCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> dynamicLabel: <span class="type">UILabel!</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="缓存对象"><a href="#缓存对象" class="headerlink" title="缓存对象"></a><strong>缓存对象</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;静态工厂模式的下一个优点是，为了更好地使用内存，它可以支持缓存。 这样，如果你通过静态构造函数（也称为<a href="http://www.xuebaonline.com/Swift%E4%B8%AD%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83/" title="Swift中构造函数与静态工厂方法的比较">静态工厂方法</a>）对其进行初始化，则可以限制所创建对象的数量。 🏭</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - cache</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">var</span> cache: [<span class="type">String</span>:<span class="type">Service</span>] = [:]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">cached</span><span class="params">(name: String)</span></span> -&gt; <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="type">Service</span>.cache[name] == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="type">Service</span>.cache[name] = <span class="type">Service</span>(named: name)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Service</span>.cache[name]!</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - static factory</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> local: <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Service</span>.cached(name: <span class="string">"local"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> remote: <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Service</span>.cached(name: <span class="string">"remote"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - init</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(named name: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，创建类本身，然后使用界面构建器选择表视图控制器场景并将标签拖到原型单元中。 将原型单元格的类设置为 <code>TableViewCell</code> 。 可重复使用的标识符可以简单地是 <code>“ Cell”</code>。 将 <code>dynamicLabel</code> 插座连接到视图。 将标签的上，下，前，尾约束赋予父视图，默认值为8。选择标签，将字体设置为主体样式，并将 <code>lines</code> 属性设置为零。 就是这么简单。 😂</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sc-stp2.png" alt="TableViewCell"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在你已经准备好了。 你只需要在表格视图上设置估计的行高。 在 <code>TableViewController</code> 类内部，更改 <code>viewDidLoad</code> 方法，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.tableView.estimatedRowHeight = <span class="number">44</span></span><br><span class="line">    <span class="keyword">self</span>.tableView.rowHeight = <span class="type">UITableView</span>.automaticDimension</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>EstimateRowHeight</code> 属性将告诉系统 <code>tableview</code> 应该尝试动态计算每个单元格的高度。 你还应该将 <code>rowHeight</code> 属性更改为自动尺寸，如果不这样做，则系统将使用静态单元格高度-你可以在单元格上设置的界面生成器高度。 现在构建并运行。 你将拥有一个带有自定义尺寸单元格的绝佳表格视图。 你甚至可以旋转设备，它将在两个方向上都能正常工作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你在 <code>iOS</code> 辅助功能设置下更改了文字大小，表格视图将反映这些更改，因此它将使布局适应新值。 表格视图的字体大小将使 <code>comcorint</code> 更改为滑块值。 你可能想要订阅 <code>UIContentSizeCategory.didChangeNotification</code> 以便检测大小更改并重新加载 <code>UI</code> 。 此功能称为动态类型。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>.tableView, selector: #selector(<span class="type">UITableView</span>.reloadData), name: <span class="type">UIContentSizeCategory</span>.didChangeNotification,, object: <span class="literal">nil</span>)</span><br></pre></td></tr></table></figure>
 
 </br>
 
-<h2 id="本地初始化范围"><a href="#本地初始化范围" class="headerlink" title="本地初始化范围"></a><strong>本地初始化范围</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于静态工厂方法的另一个好处是，你可以将类的初始化限制为私有作用域。 换句话说，只能通过静态工厂方法进行对象创建。 你只需要将 <code>init</code> 方法设为私有。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Service</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> local: <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Service</span>(name: <span class="string">"local"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">var</span> remote: <span class="type">Service</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Service</span>(name: <span class="string">"remote"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="UICollectionView"><a href="#UICollectionView" class="headerlink" title="UICollectionView"></a><strong>UICollectionView</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此，我们完成了简单的部分。 现在，让我们尝试通过集合视图实现相同的功能。 <code>UICollectionView</code> 是一个通用类，旨在创建自定义布局，因为这种通用行为，你将无法从界面生成器创建自定义单元格。 你必须通过代码来完成。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在开始之前，我们仍然可以使用 <code>IB</code> 。 创建一个新的集合视图控制器场景，然后将一个推键从上一个表视图单元格拖到这个新的控制器上。 最后，将整个内容嵌入导航控制器中。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sc-stp3.png" alt="UICollectionView"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该单元将与我们用于表视图的单元完全相同，但是它是 <code>UICollectionViewCell</code> 的子类，并且我们将直接从代码构造布局。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CollectionViewCell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> dynamicLabel: <span class="type">UILabel!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: <span class="keyword">self</span>.bounds)</span><br><span class="line">        label.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        label.font = <span class="type">UIFont</span>.preferredFont(forTextStyle: .body)</span><br><span class="line">        label.backgroundColor = <span class="type">UIColor</span>.darkGray</span><br><span class="line">        label.numberOfLines = <span class="number">0</span></span><br><span class="line">        label.preferredMaxLayoutWidth = frame.size.width</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.contentView.addSubview(label)</span><br><span class="line">        <span class="keyword">self</span>.dynamicLabel = label</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.contentView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.dynamicLabel.topAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.dynamicLabel.bottomAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.dynamicLabel.leadingAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.dynamicLabel.trailingAnchor),</span><br><span class="line">        ])</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareForReuse</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.prepareForReuse()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.dynamicLabel.font = <span class="type">UIFont</span>.preferredFont(forTextStyle: .body)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setPreferred</span><span class="params">(width: CGFloat)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.dynamicLabel.preferredMaxLayoutWidth = width</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>请注意，您可以使用 <code>final＆static</code> 关键字限制子类化。 如果要允许子类化，则应删除 <code>final</code> 并为属性使用 <code>class</code> 关键字而不是 <code>static</code> ，这样子类可以覆盖工厂方法。</strong> 🤔</p>
-</br>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们为单元格提供了一个子类，现在让我们创建视图控制器类。 在 <code>viewDidLoad</code> 方法内部，你必须在集合视图上设置 <code>EstimatedItemSize</code> 属性。 如果输入的尺寸错误，自动旋转将无法正常工作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.navigationItem.rightBarButtonItem = <span class="type">UIBarButtonItem</span>(barButtonSystemItem: .refresh, target: <span class="keyword">self</span>, action: #selector(<span class="keyword">self</span>.toggleColumns))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.collectionView?.register(<span class="type">CollectionViewCell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: <span class="string">"Cell"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> flowLayout = <span class="keyword">self</span>.collectionView?.collectionViewLayout <span class="keyword">as</span>? <span class="type">UICollectionViewFlowLayout</span> &#123;</span><br><span class="line">        flowLayout.itemSize = <span class="type">CGSize</span>(width: <span class="number">64</span>, height: <span class="number">64</span>)</span><br><span class="line">        flowLayout.minimumInteritemSpacing = <span class="number">10</span></span><br><span class="line">        flowLayout.minimumLineSpacing = <span class="number">20</span></span><br><span class="line">        flowLayout.sectionInset = <span class="type">UIEdgeInsets</span>(top: <span class="number">10</span>, <span class="keyword">left</span>: <span class="number">10</span>, bottom: <span class="number">10</span>, <span class="keyword">right</span>: <span class="number">10</span>)</span><br><span class="line">        flowLayout.estimatedItemSize = <span class="type">CGSize</span>(width: <span class="keyword">self</span>.preferredWith(forSize: <span class="keyword">self</span>.view.bounds.size), height: <span class="number">64</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.collectionView?.reloadData()</span><br><span class="line"></span><br><span class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>.collectionView!, selector: #selector(<span class="type">UICollectionView</span>.reloadData), name: <span class="type">UIContentSizeCategory</span>.didChangeNotification, object: <span class="literal">nil</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="静态返回任何数据"><a href="#静态返回任何数据" class="headerlink" title="静态返回任何数据"></a><strong>静态返回任何数据</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 静态工厂也可以返回给定对象的子类型，但是为什么我们不更进一步呢？ 你还可以从静态方法返回任何类型的数据，我知道这似乎是一种作弊，因为我不是在这里创建 <code>UIColor</code> 的实例，但是我相信在这里值得一提这个方法，静态工厂。 有时，这个技术可能非常有用。 😛</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIColor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">image</span><span class="params">(with color: UIColor)</span></span> -&gt; <span class="type">UIImage</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> rect = <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">1</span>, height: <span class="number">1</span>)</span><br><span class="line">        <span class="type">UIGraphicsBeginImageContext</span>(rect.size)</span><br><span class="line">        <span class="keyword">let</span> context = <span class="type">UIGraphicsGetCurrentContext</span>()!</span><br><span class="line">        context.setFillColor(color.cgColor)</span><br><span class="line">        context.fill(rect)</span><br><span class="line">        <span class="keyword">let</span> img = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>()</span><br><span class="line">        <span class="type">UIGraphicsEndImageContext</span>()</span><br><span class="line">        <span class="keyword">return</span> img!</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> redImage: <span class="type">UIImage</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIColor</span>.image(with: .red)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在旋转方法内部，必须使集合视图布局无效，并在发生过渡时重新计算可见的单元格大小。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">traitCollectionDidChange</span><span class="params">(<span class="number">_</span> previousTraitCollection: UITraitCollection?)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.traitCollectionDidChange(previousTraitCollection)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">guard</span></span><br><span class="line">        <span class="keyword">let</span> previousTraitCollection = previousTraitCollection,</span><br><span class="line">        <span class="keyword">self</span>.traitCollection.verticalSizeClass != previousTraitCollection.verticalSizeClass ||</span><br><span class="line">        <span class="keyword">self</span>.traitCollection.horizontalSizeClass != previousTraitCollection.horizontalSizeClass</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line">    <span class="keyword">self</span>.collectionView?.reloadData()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewWillTransition</span><span class="params">(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator)</span></span> &#123;</span><br><span class="line">    <span class="keyword">super</span>.viewWillTransition(to: size, with: coordinator)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line">    <span class="keyword">self</span>.estimateVisibleCellSizes(to: size)</span><br><span class="line"></span><br><span class="line">    coordinator.animate(alongsideTransition: &#123; context <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;, completion: &#123; context <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">self</span>.collectionView?.collectionViewLayout.invalidateLayout()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有两种辅助方法可以计算估计的项目大小的首选宽度并重新计算可见的单元格大小。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">preferredWith</span><span class="params">(forSize size: CGSize)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> columnFactor: <span class="type">CGFloat</span> = <span class="number">1.0</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.twoColumns &#123;</span><br><span class="line">        columnFactor = <span class="number">2.0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> (size.width - <span class="number">30</span>) / columnFactor</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">estimateVisibleCellSizes</span><span class="params">(to size: CGSize)</span></span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> collectionView = <span class="keyword">self</span>.collectionView <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> flowLayout = <span class="keyword">self</span>.collectionView?.collectionViewLayout <span class="keyword">as</span>? <span class="type">UICollectionViewFlowLayout</span> &#123;</span><br><span class="line">        flowLayout.estimatedItemSize = <span class="type">CGSize</span>(width: <span class="keyword">self</span>.preferredWith(forSize: size), height: <span class="number">64</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    collectionView.visibleCells.forEach(&#123; cell <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> cell = cell <span class="keyword">as</span>? <span class="type">CollectionViewCell</span> &#123;</span><br><span class="line">            cell.setPreferred(width: <span class="keyword">self</span>.preferredWith(forSize: size))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果进行适当的计算，甚至可以包含多列。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我只有一件事无法解决，但这只是一条日志消息。 如果向后旋转设备，则某些单元格将不可见，布局引擎将无法对这些单元格进行快照。</p>
+<p><strong><em>快照尚未渲染的视图将导致快照为空。 确保在快照之前或屏幕更新后快照至少已渲染一次视图。</em></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你可以通过某种方式使此消息消失 <code>OS_ACTIVITY_MODE = disable</code> 。 😉</p>
 
       
     </div>
@@ -587,12 +585,12 @@
 	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<p></p>
-	<span>本文标题:</span><a href="/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">Swift静态工厂设计模式</a>
+	<span>本文标题:</span><a href="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/">Swift支持旋转的自适应单元格</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
-	<p><span>发布时间:</span>2020年04月25日 - 11:04</p>
-	<p><span>最后更新:</span>2020年04月25日 - 12:04</p>
-	<p><span>原始链接:</span><a href="/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" title="Swift静态工厂设计模式">http://www.xuebaonline.com/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</a>
-		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"  aria-label="复制成功！"></i></span>
+	<p><span>发布时间:</span>2020年04月27日 - 10:04</p>
+	<p><span>最后更新:</span>2020年04月27日 - 10:04</p>
+	<p><span>原始链接:</span><a href="/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/" title="Swift支持旋转的自适应单元格">http://www.xuebaonline.com/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC%E7%9A%84%E8%87%AA%E9%80%82%E5%BA%94%E5%8D%95%E5%85%83%E6%A0%BC/"  aria-label="复制成功！"></i></span>
 	</p>
 	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
 </div>
@@ -654,13 +652,11 @@
           
             <a href="/tags/iOS/" rel="tag"># iOS</a>
           
-            <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"># 设计模式</a>
-          
             <a href="/tags/UIKit/" rel="tag"># UIKit</a>
           
             <a href="/tags/Swift/" rel="tag"># Swift</a>
           
-            <a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" rel="tag"># 工厂模式</a>
+            <a href="/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/" rel="tag"># 自适应布局</a>
           
         </div>
       
@@ -673,8 +669,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Swift%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift生成器模式">
-                <i class="fa fa-chevron-left"></i> Swift生成器模式
+              <a href="/Swift%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F/" rel="next" title="Swift使用布局锚点添加约束">
+                <i class="fa fa-chevron-left"></i> Swift使用布局锚点添加约束
               </a>
             
           </div>
@@ -682,10 +678,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/Swift%E4%B8%AD%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E4%B8%8E%E9%9D%99%E6%80%81%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E7%9A%84%E6%AF%94%E8%BE%83/" rel="prev" title="Swift中构造函数与静态工厂方法的比较">
-                Swift中构造函数与静态工厂方法的比较 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -895,7 +887,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#静态工厂模式示例"><span class="nav-number">1.</span> <span class="nav-text">静态工厂模式示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#命名构造函数"><span class="nav-number">1.1.</span> <span class="nav-text">命名构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存对象"><span class="nav-number">1.2.</span> <span class="nav-text">缓存对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地初始化范围"><span class="nav-number">1.3.</span> <span class="nav-text">本地初始化范围</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态返回任何数据"><span class="nav-number">1.4.</span> <span class="nav-text">静态返回任何数据</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#UITableView"><span class="nav-number">1.</span> <span class="nav-text">UITableView</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UICollectionView"><span class="nav-number">2.</span> <span class="nav-text">UICollectionView</span></a></li></ol></div>
             
 
           </div>
