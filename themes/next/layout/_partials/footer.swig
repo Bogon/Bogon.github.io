@@ -8,6 +8,7 @@
   </span>
   <span class="author" itemprop="copyrightHolder">{{ theme.footer.copyright || config.author }}</span>
   <a href="http://www.beian.miit.gov.cn/">豫ICP备20011156号</a> 
+  
   {% if theme.footer.counter %}
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
     <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
@@ -29,29 +30,44 @@
   {% endif %}
 </div>
 
-
-{% if theme.footer.powered %}
-  <div class="powered-by">{#
-  #}{{ __('footer.powered', '<a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a>') }}{#
-#}</div>
+<div>
+{% if theme.footer.beian.enable %}{#
+}  {{ next_url('http://www.miitbeian.gov.cn', theme.footer.beian.icp ) }}
 {% endif %}
 
-{% if theme.footer.powered and theme.footer.theme.enable %}
+{% if theme.footer.beian.enable and theme.footer.gongan.enable %}
   <span class="post-meta-divider">|</span>
 {% endif %}
 
-{% if theme.footer.theme.enable %}
-  <div class="theme-info">{#
-  #}{{ __('footer.theme') }} &mdash; {#
-  #}<a rel="external nofollow" class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">{#
-    #}NexT.{{ theme.scheme }}{#
-  #}</a>{% if theme.footer.theme.version %} v{{ theme.version }}{% endif %}{#
-#}</div>
-{% endif %}
+{% if theme.footer.gongan.enable %}{#
+} <span style="padding-left:25px;background:url(/images/beian.png) no-repeat left center" rel="nofollow">
+{{ next_url('http://www.beian.gov.cn/portal/registerSystemInfo?recordcode='+theme.footer.gongan.num, theme.footer.gongan.local+'公网安备'+theme.footer.gongan.num+'号' ) }}</span>{#
+}{% endif %}
+</div>
 
-{% if theme.footer.custom_text %}
-  <div class="footer-custom">{#
-  #}{{ theme.footer.custom_text }}{#
-#}</div>
-{% endif %}
-<!-- -->
+<!-- 
+//{% if theme.footer.powered %}
+//  <div class="powered-by">{#
+//  #}{{ __('footer.powered', '<a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a>') }}{#
+//#}</div>
+//{% endif %}
+//
+//{% if theme.footer.powered and theme.footer.theme.enable %}
+//  <span class="post-meta-divider">|</span>
+//{% endif %}
+//
+//{% if theme.footer.theme.enable %}
+//  <div class="theme-info">{#
+//  #}{{ __('footer.theme') }} &mdash; {#
+//  #}<a rel="external nofollow" class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">{#
+//    #}NexT.{{ theme.scheme }}{#
+//  #}</a>{% if theme.footer.theme.version %} v{{ theme.version }}{% endif %}{#
+//#}</div>
+//{% endif %}
+//
+//{% if theme.footer.custom_text %}
+//  <div class="footer-custom">{#
+//  #}{{ theme.footer.custom_text }}{#
+//#}</div>
+//{% endif %}
+-->
