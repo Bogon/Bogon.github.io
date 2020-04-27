@@ -23,6 +23,9 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们从 ```iOS``` 的标准单视图模板开始。 命名项目，然后直接转到 ```Main.storyboard``` 文件。 选择你的 ```ViewController``` ，将其删除并创建一个新的 ```UITableViewController``` ```scene``` 。
 
+<!-- more -->
+
+
 ![Main.storyboard](http://q8wtfza4q.bkt.clouddn.com/sc-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将表视图控制器场景设置为初始视图控制器，并使用相应的类创建 ```TableViewController.swift``` 文件。
