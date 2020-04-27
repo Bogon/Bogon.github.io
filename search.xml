@@ -26,9 +26,9 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> Swift </tag>
             
             <tag> 自动化布局 </tag>
             
@@ -43,7 +43,7 @@
       <link href="/Swift%E6%8E%8C%E6%8F%A1iOS%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9/"/>
       <url>/Swift%E6%8E%8C%E6%8F%A1iOS%E8%87%AA%E5%8A%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9/</url>
       
-        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;寻找使用布局锚点的最佳实践吗？ 让我们学习如何使用 <code>Swift</code> 以正确的方式使用 <code>iOS</code> 自动布局系统。</p><h1 id="以代码方式创建视图和约束"><a href="#以代码方式创建视图和约束" class="headerlink" title="以代码方式创建视图和约束"></a><strong>以代码方式创建视图和约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我想回顾一下 <code>UIViewController</code> 生命周期方法，你可能对其中一些方法很熟悉。 它们按以下顺序被调用：</p><ul><li><code>loadView</code></li><li><code>viewDidLoad</code></li><li><code>viewWillAppear</code></li><li><code>viewWillLayoutSubviews</code></li><li><code>viewDidLayoutSubviews</code></li><li><code>viewDidAppear</code></li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在自动布局之前，你必须在 <code>viewDidLayoutSubviews</code> 方法内进行布局计算，但是由于这是专业的自动布局教程，因此我们仅关注 <code>loadView</code> 和 <code>viewDidLoad</code> 方法。 🤓</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些是使用自动布局创建视图层次结构的基本规则：</p><ul><li>永远不要自己手动计算帧！</li><li>使用 <code>.zero</code> 初始化视图 <code>frame</code></li><li>将 <code>translatesAutoresizing</code>, <code>MaskIntoConstraints</code> 设置为 <code>false</code></li><li>使用 <code>addSubview</code> 将视图添加到视图层次结构</li><li>创建并激活你的布局约束 <code>NSLayoutConstraint.activate</code></li><li>使用 <code>loadView</code> 代替 <code>viewDidLoad</code> 创建具有约束的视图</li><li>通过使用弱引用来管理内存管理</li><li>在 <code>viewDidLoad</code> 中设置所有其他属性，例如背景色等。</li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理论足够，下面是一个简短的示例：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">            testView.widthAnchor.constraint(equalTo: testView.heightAnchor),</span><br><span class="line">            testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">            testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很简单吧？ 只需几行代码，你就可以得到一个大小固定的中心对齐视图，并带有专用的类属性引用。 如果通过接口构建器创建完全相同的对象，则调用 <code>loadView</code> 方法，但是你必须设置对该视图的 <code>@IBOutlet</code> 引用。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没关系，请随意选择。 有时我喜欢和 <code>IB</code> 一起玩，但是在大多数情况下，我更喜欢编程的做事方式。 😛</p></br><h1 id="常见的UIKit自动布局约束用例"><a href="#常见的UIKit自动布局约束用例" class="headerlink" title="常见的UIKit自动布局约束用例"></a><strong>常见的UIKit自动布局约束用例</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我只使用布局锚。 你可能会浪费时间使用 <code>visual format language</code> ，但这绝对是死胡同。 因此，请记住我的话：仅使用锚点或堆栈视图，请勿使用其他任何视图！ 😇</p><p>这是我用来创建漂亮布局的最常见模式。 😉</p><h2 id="设置固定宽度或高度"><a href="#设置固定宽度或高度" class="headerlink" title="设置固定宽度或高度"></a><strong><em>设置固定宽度或高度</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一个是最简单的一个：将视图的高度或宽度设置为固定点。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalToConstant: <span class="number">320</span>),</span><br><span class="line">testView.heightAnchor.constraint(equalToConstant: <span class="number">240</span>),</span><br></pre></td></tr></table></figure><h2 id="设定长宽比"><a href="#设定长宽比" class="headerlink" title="设定长宽比"></a><strong><em>设定长宽比</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置视图的纵横比只是将宽度限制为高度，反之亦然，你可以通过 <code>multiplier</code> 简单地定义倍数。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">testView.widthAnchor.constraint(equalTo: testView.heightAnchor, multiplier: <span class="number">16</span>/<span class="number">9</span>),</span><br></pre></td></tr></table></figure><h2 id="水平和垂直居中"><a href="#水平和垂直居中" class="headerlink" title="水平和垂直居中"></a><strong><em>水平和垂直居中</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将视图居中放置在另一个视图中是一件很简单的事情，为此需要特定的锚点。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br></pre></td></tr></table></figure><h2 id="伸展-用边距填充内部视图"><a href="#伸展-用边距填充内部视图" class="headerlink" title="伸展 | 用边距填充内部视图"></a><strong><em>伸展 | 用边距填充内部视图</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里唯一棘手的部分是，对于常量，尾部约束和底部约束的行为与顶部和前部约束略有不同。 通常，你必须使用负值，但经过几次尝试，你将在这里理解逻辑。 😅</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.topAnchor, constant: <span class="number">32</span>),</span><br><span class="line">testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.leadingAnchor, constant: <span class="number">32</span>),</span><br><span class="line">testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.trailingAnchor, constant: -<span class="number">32</span>),</span><br><span class="line">testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.bottomAnchor, constant: -<span class="number">32</span>),</span><br></pre></td></tr></table></figure><h2 id="比例宽度或高度"><a href="#比例宽度或高度" class="headerlink" title="比例宽度或高度"></a><strong><em>比例宽度或高度</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果不想使用常量值，可以使用 <code>multiplier</code> 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalTo: <span class="keyword">self</span>.view.widthAnchor, multiplier: <span class="number">1</span>/<span class="number">3</span>),</span><br><span class="line">testView.heightAnchor.constraint(equalTo: <span class="keyword">self</span>.view.heightAnchor, multiplier: <span class="number">2</span>/<span class="number">3</span>),</span><br></pre></td></tr></table></figure><h2 id="使用-safe-area-layout"><a href="#使用-safe-area-layout" class="headerlink" title="使用 safe area layout"></a><strong><em>使用 safe area layout</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用最新的 <code>iPhone</code> ，你将需要一些指南，以确保你安全无虞。 这就是视图具有 <code>safeAreaLayoutGuide</code> 属性的原因。 调出安全区域指南后，即可获得所有常用锚。 💪</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor),</span><br><span class="line">testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor),</span><br></pre></td></tr></table></figure></br><h1 id="带有动画的布局约束"><a href="#带有动画的布局约束" class="headerlink" title="带有动画的布局约束"></a><strong>带有动画的布局约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有约束的动画很容易，你不应该相信别人会说什么。 我制定了一些规则和示例，可以帮助你理解为约束的常量值设置动画效果以及切换各种约束的基本原理。 👍</p><p><strong>规则</strong>：</p><ul><li>将标准 <code>UIView</code> 动画与 <code>layoutIfNeeded</code> 一起使用</li><li>始终先停用约束</li><li>遵守停用的约束</li><li>玩得开心！ 😛</li></ul><p>约束动画示例：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> topConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line">    <span class="keyword">var</span> bottomConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line">    <span class="keyword">var</span> heightConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> topConstraint = testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor)</span><br><span class="line">        <span class="keyword">let</span> bottomConstraint = testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor)</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            topConstraint,</span><br><span class="line">            testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">            testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">            bottomConstraint,</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> heightConstraint = testView.heightAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.heightAnchor, multiplier: <span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">        <span class="keyword">self</span>.topConstraint = topConstraint</span><br><span class="line">        <span class="keyword">self</span>.bottomConstraint = bottomConstraint</span><br><span class="line">        <span class="keyword">self</span>.heightConstraint = heightConstraint</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> tap = <span class="type">UITapGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(<span class="keyword">self</span>.tapped))</span><br><span class="line">        <span class="keyword">self</span>.view.addGestureRecognizer(tap)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">tapped</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.topConstraint.constant != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.topConstraint.constant = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.topConstraint.constant = <span class="number">64</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.bottomConstraint.isActive &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.deactivate([<span class="keyword">self</span>.bottomConstraint])</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate([<span class="keyword">self</span>.heightConstraint])</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.deactivate([<span class="keyword">self</span>.heightConstraint])</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate([<span class="keyword">self</span>.bottomConstraint])</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.25</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.view.layoutIfNeeded()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，还算不错：适应性强并且支持多种设备屏幕尺寸。 🤔</p></br><h1 id="如何为iOS创建自适应布局？"><a href="#如何为iOS创建自适应布局？" class="headerlink" title="如何为iOS创建自适应布局？"></a><strong>如何为iOS创建自适应布局？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果公司内置的 <code>iOS</code> 应用程序中都难以适应自适应布局。 如果你查看使用收藏夹视图制作的应用程序（例如照片），则在每个设备上的布局都可以。 但是，还有其他一些-我认为-在更大的屏幕上是可怕的经历。 <code>#just use collectionview</code> 所有内容。 🤐</p><h2 id="支持旋转"><a href="#支持旋转" class="headerlink" title="支持旋转"></a><strong><em>支持旋转</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自适应布局的第一步是支持多种设备方向。 你可以查看我以前有关iOS自动布局的文章，其中有很多关于旋转支持，在自动布局区域内使用图层等方面的好文章。</p><h2 id="特征集合"><a href="#特征集合" class="headerlink" title="特征集合"></a><strong><em>特征集合</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二步是调整特征集合。  <code>UITraitCollection</code> 可以为你分组所有特定于环境的特征，例如尺寸类别，显示比例，用户界面 <code>idom</code> 等。 大多数时候，你将不得不检查垂直和水平尺寸类别。 有设备尺寸类别的参考以及 <code>Apple</code> 所做的所有可能的变化，请参阅下面的外部资源部分。 😉</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的这个小段 <code>Swift</code> 代码示例演示了如何检查尺寸类别，以便为紧凑型和常规屏幕设置不同的布局。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> regularConstraints: [<span class="type">NSLayoutConstraint</span>] = []</span><br><span class="line">    <span class="keyword">var</span> compactConstraints: [<span class="type">NSLayoutConstraint</span>] = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.regularConstraints = [</span><br><span class="line">            testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">            testView.widthAnchor.constraint(equalTo: testView.heightAnchor),</span><br><span class="line">            testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">            testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.compactConstraints = [</span><br><span class="line">            testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor),</span><br><span class="line">            testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">            testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">            testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor),</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.activateCurrentConstraints()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">activateCurrentConstraints</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.deactivate(<span class="keyword">self</span>.compactConstraints + <span class="keyword">self</span>.regularConstraints)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.traitCollection.verticalSizeClass == .regular &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate(<span class="keyword">self</span>.regularConstraints)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate(<span class="keyword">self</span>.compactConstraints)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - rotation support</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> shouldAutorotate: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> supportedInterfaceOrientations: <span class="type">UIInterfaceOrientationMask</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .allButUpsideDown</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> preferredInterfaceOrientationForPresentation: <span class="type">UIInterfaceOrientation</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .portrait</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - trait collections</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">traitCollectionDidChange</span><span class="params">(<span class="number">_</span> previousTraitCollection: UITraitCollection?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.traitCollectionDidChange(previousTraitCollection)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.activateCurrentConstraints()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="设备检测"><a href="#设备检测" class="headerlink" title="设备检测"></a><strong><em>设备检测</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你也可以通过 <code>UIDevice</code> 类检查用户界面 <code>idom</code> （是 <code>iPhone</code> 还是 <code>iPad</code> ？），以基于该设备设置例如字体大小。 📱</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIDevice</span>.current.userInterfaceIdiom == .pad</span><br></pre></td></tr></table></figure><h2 id="屏幕尺寸"><a href="#屏幕尺寸" class="headerlink" title="屏幕尺寸"></a><strong><em>屏幕尺寸</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确定你的环境的另一个选项是检查屏幕的大小。 你可以检查原始像素数或以 <code>points</code> 为单位的相对大小。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iPhone X</span></span><br><span class="line"><span class="type">UIScreen</span>.main.nativeBounds   <span class="comment">// 1125x2436</span></span><br><span class="line"><span class="type">UIScreen</span>.main.bounds         <span class="comment">// 375x812</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常我会尽力遵守这些规则。 我真的不记得一个场景，在这种情况下，我需要的不只是上面列出的所有内容。 😉</p>]]></content>
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;寻找使用布局锚点的最佳实践吗？ 让我们学习如何使用 <code>Swift</code> 以正确的方式使用 <code>iOS</code> 自动布局系统。</p><h1 id="以代码方式创建视图和约束"><a href="#以代码方式创建视图和约束" class="headerlink" title="以代码方式创建视图和约束"></a><strong>以代码方式创建视图和约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我想回顾一下 <code>UIViewController</code> 生命周期方法，你可能对其中一些方法很熟悉。 它们按以下顺序被调用：</p><ul><li><code>loadView</code></li><li><code>viewDidLoad</code></li><li><code>viewWillAppear</code></li><li><code>viewWillLayoutSubviews</code></li><li><code>viewDidLayoutSubviews</code></li><li><code>viewDidAppear</code></li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在自动布局之前，你必须在 <code>viewDidLayoutSubviews</code> 方法内进行布局计算，但是由于这是专业的自动布局教程，因此我们仅关注 <code>loadView</code> 和 <code>viewDidLoad</code> 方法。 🤓</p><a id="more"></a><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些是使用自动布局创建视图层次结构的基本规则：</p><ul><li>永远不要自己手动计算帧！</li><li>使用 <code>.zero</code> 初始化视图 <code>frame</code></li><li>将 <code>translatesAutoresizing</code>, <code>MaskIntoConstraints</code> 设置为 <code>false</code></li><li>使用 <code>addSubview</code> 将视图添加到视图层次结构</li><li>创建并激活你的布局约束 <code>NSLayoutConstraint.activate</code></li><li>使用 <code>loadView</code> 代替 <code>viewDidLoad</code> 创建具有约束的视图</li><li>通过使用弱引用来管理内存管理</li><li>在 <code>viewDidLoad</code> 中设置所有其他属性，例如背景色等。</li></ul><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;理论足够，下面是一个简短的示例：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">            testView.widthAnchor.constraint(equalTo: testView.heightAnchor),</span><br><span class="line">            testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">            testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很简单吧？ 只需几行代码，你就可以得到一个大小固定的中心对齐视图，并带有专用的类属性引用。 如果通过接口构建器创建完全相同的对象，则调用 <code>loadView</code> 方法，但是你必须设置对该视图的 <code>@IBOutlet</code> 引用。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没关系，请随意选择。 有时我喜欢和 <code>IB</code> 一起玩，但是在大多数情况下，我更喜欢编程的做事方式。 😛</p></br><h1 id="常见的UIKit自动布局约束用例"><a href="#常见的UIKit自动布局约束用例" class="headerlink" title="常见的UIKit自动布局约束用例"></a><strong>常见的UIKit自动布局约束用例</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我只使用布局锚。 你可能会浪费时间使用 <code>visual format language</code> ，但这绝对是死胡同。 因此，请记住我的话：仅使用锚点或堆栈视图，请勿使用其他任何视图！ 😇</p><p>这是我用来创建漂亮布局的最常见模式。 😉</p><h2 id="设置固定宽度或高度"><a href="#设置固定宽度或高度" class="headerlink" title="设置固定宽度或高度"></a><strong><em>设置固定宽度或高度</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一个是最简单的一个：将视图的高度或宽度设置为固定点。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalToConstant: <span class="number">320</span>),</span><br><span class="line">testView.heightAnchor.constraint(equalToConstant: <span class="number">240</span>),</span><br></pre></td></tr></table></figure><h2 id="设定长宽比"><a href="#设定长宽比" class="headerlink" title="设定长宽比"></a><strong><em>设定长宽比</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置视图的纵横比只是将宽度限制为高度，反之亦然，你可以通过 <code>multiplier</code> 简单地定义倍数。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">testView.widthAnchor.constraint(equalTo: testView.heightAnchor, multiplier: <span class="number">16</span>/<span class="number">9</span>),</span><br></pre></td></tr></table></figure><h2 id="水平和垂直居中"><a href="#水平和垂直居中" class="headerlink" title="水平和垂直居中"></a><strong><em>水平和垂直居中</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将视图居中放置在另一个视图中是一件很简单的事情，为此需要特定的锚点。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br></pre></td></tr></table></figure><h2 id="伸展-用边距填充内部视图"><a href="#伸展-用边距填充内部视图" class="headerlink" title="伸展 | 用边距填充内部视图"></a><strong><em>伸展 | 用边距填充内部视图</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里唯一棘手的部分是，对于常量，尾部约束和底部约束的行为与顶部和前部约束略有不同。 通常，你必须使用负值，但经过几次尝试，你将在这里理解逻辑。 😅</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.topAnchor, constant: <span class="number">32</span>),</span><br><span class="line">testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.leadingAnchor, constant: <span class="number">32</span>),</span><br><span class="line">testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.trailingAnchor, constant: -<span class="number">32</span>),</span><br><span class="line">testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.bottomAnchor, constant: -<span class="number">32</span>),</span><br></pre></td></tr></table></figure><h2 id="比例宽度或高度"><a href="#比例宽度或高度" class="headerlink" title="比例宽度或高度"></a><strong><em>比例宽度或高度</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果不想使用常量值，可以使用 <code>multiplier</code> 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">testView.widthAnchor.constraint(equalTo: <span class="keyword">self</span>.view.widthAnchor, multiplier: <span class="number">1</span>/<span class="number">3</span>),</span><br><span class="line">testView.heightAnchor.constraint(equalTo: <span class="keyword">self</span>.view.heightAnchor, multiplier: <span class="number">2</span>/<span class="number">3</span>),</span><br></pre></td></tr></table></figure><h2 id="使用-safe-area-layout"><a href="#使用-safe-area-layout" class="headerlink" title="使用 safe area layout"></a><strong><em>使用 safe area layout</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用最新的 <code>iPhone</code> ，你将需要一些指南，以确保你安全无虞。 这就是视图具有 <code>safeAreaLayoutGuide</code> 属性的原因。 调出安全区域指南后，即可获得所有常用锚。 💪</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor),</span><br><span class="line">testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor),</span><br></pre></td></tr></table></figure></br><h1 id="带有动画的布局约束"><a href="#带有动画的布局约束" class="headerlink" title="带有动画的布局约束"></a><strong>带有动画的布局约束</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有约束的动画很容易，你不应该相信别人会说什么。 我制定了一些规则和示例，可以帮助你理解为约束的常量值设置动画效果以及切换各种约束的基本原理。 👍</p><p><strong>规则</strong>：</p><ul><li>将标准 <code>UIView</code> 动画与 <code>layoutIfNeeded</code> 一起使用</li><li>始终先停用约束</li><li>遵守停用的约束</li><li>玩得开心！ 😛</li></ul><p>约束动画示例：</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> topConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line">    <span class="keyword">var</span> bottomConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line">    <span class="keyword">var</span> heightConstraint: <span class="type">NSLayoutConstraint!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> topConstraint = testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor)</span><br><span class="line">        <span class="keyword">let</span> bottomConstraint = testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor)</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            topConstraint,</span><br><span class="line">            testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">            testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">            bottomConstraint,</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> heightConstraint = testView.heightAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.heightAnchor, multiplier: <span class="number">0.5</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">        <span class="keyword">self</span>.topConstraint = topConstraint</span><br><span class="line">        <span class="keyword">self</span>.bottomConstraint = bottomConstraint</span><br><span class="line">        <span class="keyword">self</span>.heightConstraint = heightConstraint</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> tap = <span class="type">UITapGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(<span class="keyword">self</span>.tapped))</span><br><span class="line">        <span class="keyword">self</span>.view.addGestureRecognizer(tap)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">tapped</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.topConstraint.constant != <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.topConstraint.constant = <span class="number">0</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.topConstraint.constant = <span class="number">64</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.bottomConstraint.isActive &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.deactivate([<span class="keyword">self</span>.bottomConstraint])</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate([<span class="keyword">self</span>.heightConstraint])</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.deactivate([<span class="keyword">self</span>.heightConstraint])</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate([<span class="keyword">self</span>.bottomConstraint])</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">UIView</span>.animate(withDuration: <span class="number">0.25</span>) &#123;</span><br><span class="line">            <span class="keyword">self</span>.view.layoutIfNeeded()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，还算不错：适应性强并且支持多种设备屏幕尺寸。 🤔</p></br><h1 id="如何为iOS创建自适应布局？"><a href="#如何为iOS创建自适应布局？" class="headerlink" title="如何为iOS创建自适应布局？"></a><strong>如何为iOS创建自适应布局？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果公司内置的 <code>iOS</code> 应用程序中都难以适应自适应布局。 如果你查看使用收藏夹视图制作的应用程序（例如照片），则在每个设备上的布局都可以。 但是，还有其他一些-我认为-在更大的屏幕上是可怕的经历。 <code>#just use collectionview</code> 所有内容。 🤐</p><h2 id="支持旋转"><a href="#支持旋转" class="headerlink" title="支持旋转"></a><strong><em>支持旋转</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自适应布局的第一步是支持多种设备方向。 你可以查看我以前有关iOS自动布局的文章，其中有很多关于旋转支持，在自动布局区域内使用图层等方面的好文章。</p><h2 id="特征集合"><a href="#特征集合" class="headerlink" title="特征集合"></a><strong><em>特征集合</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二步是调整特征集合。  <code>UITraitCollection</code> 可以为你分组所有特定于环境的特征，例如尺寸类别，显示比例，用户界面 <code>idom</code> 等。 大多数时候，你将不得不检查垂直和水平尺寸类别。 有设备尺寸类别的参考以及 <code>Apple</code> 所做的所有可能的变化，请参阅下面的外部资源部分。 😉</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的这个小段 <code>Swift</code> 代码示例演示了如何检查尺寸类别，以便为紧凑型和常规屏幕设置不同的布局。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> testView: <span class="type">UIView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> regularConstraints: [<span class="type">NSLayoutConstraint</span>] = []</span><br><span class="line">    <span class="keyword">var</span> compactConstraints: [<span class="type">NSLayoutConstraint</span>] = []</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> testView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">        testView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(testView)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.regularConstraints = [</span><br><span class="line">            testView.widthAnchor.constraint(equalToConstant: <span class="number">64</span>),</span><br><span class="line">            testView.widthAnchor.constraint(equalTo: testView.heightAnchor),</span><br><span class="line">            testView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerXAnchor),</span><br><span class="line">            testView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.view.centerYAnchor),</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.compactConstraints = [</span><br><span class="line">            testView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor),</span><br><span class="line">            testView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.leadingAnchor),</span><br><span class="line">            testView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.trailingAnchor),</span><br><span class="line">            testView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor),</span><br><span class="line">        ]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.activateCurrentConstraints()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView = testView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">activateCurrentConstraints</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.deactivate(<span class="keyword">self</span>.compactConstraints + <span class="keyword">self</span>.regularConstraints)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.traitCollection.verticalSizeClass == .regular &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate(<span class="keyword">self</span>.regularConstraints)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="type">NSLayoutConstraint</span>.activate(<span class="keyword">self</span>.compactConstraints)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.testView.backgroundColor = .red</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - rotation support</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> shouldAutorotate: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> supportedInterfaceOrientations: <span class="type">UIInterfaceOrientationMask</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .allButUpsideDown</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> preferredInterfaceOrientationForPresentation: <span class="type">UIInterfaceOrientation</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .portrait</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - trait collections</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">traitCollectionDidChange</span><span class="params">(<span class="number">_</span> previousTraitCollection: UITraitCollection?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.traitCollectionDidChange(previousTraitCollection)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.activateCurrentConstraints()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h2 id="设备检测"><a href="#设备检测" class="headerlink" title="设备检测"></a><strong><em>设备检测</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你也可以通过 <code>UIDevice</code> 类检查用户界面 <code>idom</code> （是 <code>iPhone</code> 还是 <code>iPad</code> ？），以基于该设备设置例如字体大小。 📱</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIDevice</span>.current.userInterfaceIdiom == .pad</span><br></pre></td></tr></table></figure><h2 id="屏幕尺寸"><a href="#屏幕尺寸" class="headerlink" title="屏幕尺寸"></a><strong><em>屏幕尺寸</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确定你的环境的另一个选项是检查屏幕的大小。 你可以检查原始像素数或以 <code>points</code> 为单位的相对大小。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//iPhone X</span></span><br><span class="line"><span class="type">UIScreen</span>.main.nativeBounds   <span class="comment">// 1125x2436</span></span><br><span class="line"><span class="type">UIScreen</span>.main.bounds         <span class="comment">// 375x812</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常我会尽力遵守这些规则。 我真的不记得一个场景，在这种情况下，我需要的不只是上面列出的所有内容。 😉</p>]]></content>
       
       
       <categories>
@@ -61,9 +61,9 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> Swift </tag>
             
             <tag> 自动化布局 </tag>
             
@@ -96,9 +96,9 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
-            
             <tag> UIKit </tag>
+            
+            <tag> Swift </tag>
             
         </tags>
       
@@ -197,11 +197,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> Modules And Hooks </tag>
             
@@ -236,11 +236,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> Modules And Hooks </tag>
             
@@ -275,11 +275,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 初始化模式 </tag>
             
@@ -314,11 +314,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -353,11 +353,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -392,11 +392,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -431,11 +431,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 对象池设计模式 </tag>
             
@@ -470,11 +470,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 外观设计模式 </tag>
             
@@ -509,11 +509,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -552,11 +552,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -595,11 +595,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -634,11 +634,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 适配器设计模式 </tag>
             
@@ -673,11 +673,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 依赖注入设计模式 </tag>
             
@@ -714,11 +714,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 依赖注入设计模式 </tag>
             
@@ -753,11 +753,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 委托设计模式 </tag>
             
@@ -792,11 +792,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 命令设计模式 </tag>
             
@@ -831,11 +831,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 原型设计模式 </tag>
             
@@ -870,11 +870,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 工厂设计模式 </tag>
             
@@ -909,11 +909,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 抽象工厂设计模式 </tag>
             
@@ -948,11 +948,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 工厂方法设计模式 </tag>
             
@@ -987,11 +987,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1030,11 +1030,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1073,11 +1073,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1112,11 +1112,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 生成器模式 </tag>
             
@@ -1151,11 +1151,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 单例模式 </tag>
             
@@ -1190,11 +1190,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> 单例模式 </tag>
             
@@ -1229,11 +1229,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
         </tags>
       
@@ -1266,11 +1266,11 @@
             
             <tag> iOS </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> UIKit </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
         </tags>
       
