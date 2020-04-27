@@ -30,6 +30,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在自动布局之前，你必须在 ```viewDidLayoutSubviews``` 方法内进行布局计算，但是由于这是专业的自动布局教程，因此我们仅关注 ```loadView``` 和 ```viewDidLoad``` 方法。 🤓
 
+<!-- more -->
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些是使用自动布局创建视图层次结构的基本规则：
 
 + 永远不要自己手动计算帧！
