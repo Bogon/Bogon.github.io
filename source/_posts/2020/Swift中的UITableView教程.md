@@ -24,6 +24,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们直接进入编码部分，但首先：启动 ```Xcode``` ，创建一个新的 ```iOS``` 单视图应用程序项目，像往常一样输入该项目的名称和详细信息，使用 ```Swift``` ，最后立即打开 ```ViewController.swift``` 文件。 现在抓住键盘！ ⌨️
 
+<!-- more -->
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我不会使用 ```Interface Builder``` ，那么我们如何以代码方式创建视图？ 有一个称为 ```loadView``` 的方法，你应该在其中将自定义视图添加到视图层次结构中。 你可以选择+单击Xcode中的方法名称并阅读有关 ```loadView``` 方法的讨论，但让我总结一下整个过程。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将使用弱属性来保存对表格视图的引用。 接下来，我们重写 ```loadView``` 方法并调用 ```super``` ，以使用视图对象（如果有控制器的话，在 ```nib or a storyboard``` 文件中）加载控制器的 ```self.view``` 属性。 之后，我们将全新的视图分配给本地属性，关闭系统提供的布局，然后将表视图插入到视图层次结构中。 最后，我们使用锚创建一些实际的约束，并保存指向弱属性的指针。 简单！ 🤪
