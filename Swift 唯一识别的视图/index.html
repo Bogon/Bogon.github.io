@@ -108,7 +108,7 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解如何使用基于字符串的 UIView 标识符而不是标签。 如果你厌倦了标记视图，请查看这些替代解决方案。   第一种方法：accessibility to the rescue!&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;长话短说，我很讨厌用愚蠢的数">
 <meta property="article:published_time" content="2020-04-28T08:24:22.000Z">
-<meta property="article:modified_time" content="2020-04-28T08:29:59.923Z">
+<meta property="article:modified_time" content="2020-04-28T08:35:22.581Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -526,6 +526,8 @@
 </br>
 
 <h1 id="第一种方法：accessibility-to-the-rescue"><a href="#第一种方法：accessibility-to-the-rescue" class="headerlink" title="第一种方法：accessibility to the rescue!"></a><strong>第一种方法：accessibility to the rescue!</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长话短说，我很讨厌用愚蠢的数字值标记视图，因此我寻求一种更好的替代解决方案来解决我的问题。 事实证明，有一个名为 <code>accessibilityIdentifier</code> 的属性可以完成这项工作。</p>
+<a id="more"></a>
+
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span>.accessibilityIdentifier</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.accessibilityIdentifier = newValue</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">view</span><span class="params">(withId id: String)</span></span> -&gt; <span class="type">UIView?</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.id == id &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> view <span class="keyword">in</span> <span class="keyword">self</span>.subviews &#123;</span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> view = view.view(withId: id) &#123;</span><br><span class="line">                <span class="keyword">return</span> view</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我对 <code>UIView</code> 类进行了简单的扩展，因此现在我可以使用适当的字符串值来唯一地标识视图层次结构中的任何视图对象。 这是一个很好的解决方案，现在我可以以一种非常不错的方式命名我的 <code>views</code> 。 免费将名称存储在 <code>accessibilityIdentifier</code> 下将对 <code>UI</code> 测试带来好处。 😉</p>
@@ -656,6 +658,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/Swift%20%E5%A6%82%E4%BD%95%E5%AD%A6%E4%B9%A0%E7%8E%B0%E4%BB%A3UIKit%EF%BC%9F/" rel="prev" title="Swift 如何学习现代UIKit？">
+                Swift 如何学习现代UIKit？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -738,7 +744,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">50</span>
+                  <span class="site-state-item-count">51</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -749,7 +755,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -760,7 +766,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
