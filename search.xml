@@ -4,6 +4,43 @@
   
     
     <entry>
+      <title>UICollectionView data source and delegates</title>
+      <link href="/UICollectionView%20data%20source%20and%20delegates/"/>
+      <url>/UICollectionView%20data%20source%20and%20delegates/</url>
+      
+        <content type="html"><![CDATA[<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这个快速的 <code>UIKit</code> 教程中，我将向你展示如何在不使用 <code>Interface Builder</code> 而是仅使用 <code>Swift</code> 的情况下创建简单的 <code>UICollectionView</code> 。</p></br><h1 id="UICollectionViewCell-纯代码实现"><a href="#UICollectionViewCell-纯代码实现" class="headerlink" title="UICollectionViewCell 纯代码实现"></a><strong><code>UICollectionViewCell</code> 纯代码实现</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要向单元格中添加视图，则应使用 <code>init（frame :)</code> 方法，并在那里设置视图层次结构。 而不是 <code>awakeFromNib</code> ，你也应该在 <code>init</code> 方法中设置视图的样式。 你可以在常规的 <code>prepareForReuse</code> 方法中重置所有内容。 如你所见，有时使用锚点值得完全抛弃 <code>IB</code> 。 🎉</p><a id="more"></a><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cell</span>: <span class="title">UICollectionViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> identifier: <span class="type">String</span> = <span class="string">"Cell"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> textLabel: <span class="type">UILabel!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(frame: <span class="type">CGRect</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(frame: frame)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> textLabel = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        textLabel.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.contentView.addSubview(textLabel)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.contentView.centerXAnchor.constraint(equalTo: textLabel.centerXAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.centerYAnchor.constraint(equalTo: textLabel.centerYAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.textLabel = textLabel</span><br><span class="line">        <span class="keyword">self</span>.reset()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">"init(coder:) has not been implemented"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareForReuse</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.prepareForReuse()</span><br><span class="line">        <span class="keyword">self</span>.reset()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">reset</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.textLabel.textAlignment = .center</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></br><h1 id="UICollectionView-纯代码创建"><a href="#UICollectionView-纯代码创建" class="headerlink" title="UICollectionView 纯代码创建"></a><strong><code>UICollectionView</code> 纯代码创建</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;仅使用 <code>Swift</code> 代码创建集合视图控制器仅需要几行。 你可以实现 <code>loadView</code> 并在那里创建你的 <code>UICollectionView</code> 对象。 将其的弱引用存储在控制器内部，其余部分相同。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> collectionView: <span class="type">UICollectionView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> data: [<span class="type">Int</span>] = <span class="type">Array</span>(<span class="number">0</span>..&lt;<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> collectionView = <span class="type">UICollectionView</span>(frame: .zero, collectionViewLayout: <span class="type">UICollectionViewFlowLayout</span>())</span><br><span class="line">        collectionView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(collectionView)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.view.topAnchor.constraint(equalTo: collectionView.topAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.leadingAnchor.constraint(equalTo: collectionView.leadingAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.trailingAnchor.constraint(equalTo: collectionView.trailingAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView = collectionView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.collectionView.dataSource = <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">self</span>.collectionView.delegate = <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">self</span>.collectionView.register(<span class="type">Cell</span>.<span class="keyword">self</span>, forCellWithReuseIdentifier: <span class="type">Cell</span>.identifier)</span><br><span class="line">        <span class="keyword">self</span>.collectionView.alwaysBounceVertical = <span class="literal">true</span></span><br><span class="line">        <span class="keyword">self</span>.collectionView.backgroundColor = .white</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UICollectionViewDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.data.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        cellForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = collectionView.dequeueReusableCell(withReuseIdentifier: <span class="type">Cell</span>.identifier, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">Cell</span></span><br><span class="line">        <span class="keyword">let</span> data = <span class="keyword">self</span>.data[indexPath.item]</span><br><span class="line">        cell.textLabel.text = <span class="type">String</span>(data)</span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UICollectionViewDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UICollectionViewDelegateFlowLayout</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        layout collectionViewLayout: UICollectionViewLayout,</span></span></span><br><span class="line"><span class="function"><span class="params">                        sizeForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGSize</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">CGSize</span>(width: collectionView.bounds.width, height: <span class="number">44</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        layout collectionViewLayout: UICollectionViewLayout,</span></span></span><br><span class="line"><span class="function"><span class="params">                        insetForSectionAt section: Int)</span></span> -&gt; <span class="type">UIEdgeInsets</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIEdgeInsets</span>(top: <span class="number">0</span>, <span class="keyword">left</span>: <span class="number">0</span>, bottom: <span class="number">0</span>, <span class="keyword">right</span>: <span class="number">0</span>) <span class="comment">//.zero</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        layout collectionViewLayout: UICollectionViewLayout,</span></span></span><br><span class="line"><span class="function"><span class="params">                        minimumInteritemSpacingForSectionAt section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView,</span></span></span><br><span class="line"><span class="function"><span class="params">                        layout collectionViewLayout: UICollectionViewLayout,</span></span></span><br><span class="line"><span class="function"><span class="params">                        minimumLineSpacingForSectionAt section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那很简单。 <code>Anchors</code> 确实非常强大， <code>Interface Builder</code> 很有帮助，但是有时从代码创建视图只是更快。 选择是你的，但请不要担心对用户界面进行编码！ 😅</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> iOS </category>
+          
+          <category> Swift </category>
+          
+          <category> UIKit </category>
+          
+          <category> UICollectionView </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> iOS </tag>
+            
+            <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
+            
+            <tag> UICollectionView </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Swift中UIColor最佳实践</title>
       <link href="/Swift%E4%B8%ADUIColor%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"/>
       <url>/Swift%E4%B8%ADUIColor%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/</url>
@@ -26,9 +63,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> UIColor </tag>
             
@@ -61,9 +98,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自定义转场 </tag>
             
@@ -98,9 +135,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自适应布局 </tag>
             
@@ -135,9 +172,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自适应布局 </tag>
             
@@ -172,9 +209,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自适应布局 </tag>
             
@@ -209,9 +246,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自动化布局 </tag>
             
@@ -244,9 +281,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
             <tag> 自动化布局 </tag>
             
@@ -279,9 +316,9 @@
             
             <tag> iOS </tag>
             
-            <tag> UIKit </tag>
-            
             <tag> Swift </tag>
+            
+            <tag> UIKit </tag>
             
         </tags>
       
@@ -380,11 +417,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> Modules And Hooks </tag>
             
@@ -419,11 +456,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> Modules And Hooks </tag>
             
@@ -458,11 +495,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 初始化模式 </tag>
             
@@ -497,11 +534,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -536,11 +573,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -575,11 +612,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 懒加载模式 </tag>
             
@@ -614,11 +651,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 对象池设计模式 </tag>
             
@@ -653,11 +690,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 外观设计模式 </tag>
             
@@ -692,11 +729,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -735,11 +772,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -778,11 +815,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 迭代器设计模式 </tag>
             
@@ -817,11 +854,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 适配器设计模式 </tag>
             
@@ -856,11 +893,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 依赖注入设计模式 </tag>
             
@@ -897,11 +934,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 依赖注入设计模式 </tag>
             
@@ -936,11 +973,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 委托设计模式 </tag>
             
@@ -975,11 +1012,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 命令设计模式 </tag>
             
@@ -1014,11 +1051,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 原型设计模式 </tag>
             
@@ -1053,11 +1090,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 工厂设计模式 </tag>
             
@@ -1092,11 +1129,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 抽象工厂设计模式 </tag>
             
@@ -1131,11 +1168,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 工厂方法设计模式 </tag>
             
@@ -1170,11 +1207,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1213,11 +1250,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1256,11 +1293,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 工厂模式 </tag>
             
@@ -1295,11 +1332,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 生成器模式 </tag>
             
@@ -1334,11 +1371,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 单例模式 </tag>
             
@@ -1373,11 +1410,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
             <tag> 单例模式 </tag>
             
@@ -1412,11 +1449,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
         </tags>
       
@@ -1449,11 +1486,11 @@
             
             <tag> iOS </tag>
             
-            <tag> 设计模式 </tag>
+            <tag> Swift </tag>
             
             <tag> UIKit </tag>
             
-            <tag> Swift </tag>
+            <tag> 设计模式 </tag>
             
         </tags>
       
