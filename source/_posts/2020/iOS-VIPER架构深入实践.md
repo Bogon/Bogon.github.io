@@ -24,6 +24,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并非所有的软件模式都是设计模式，设计模式特指软件“设计”层次上的问题。还有其他非设计模式的模式，如架构模式。同时，算法不能算是一种设计模式，因为算法主要是用来解决计算上的问题，而非设计上的问题。
 
+<!-- more -->
+
 </br>
 
 # **Swift 设计模式和 iOS 架构**
@@ -31,4 +33,10 @@ categories:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;软件设计模式基本上是关于如何解决特定（但通常是结合业务场景）情况的通用模板。 结构模式对整个代码库影响更大，它们是高级通用模板。 请记住一件事：
 > 架构没有好坏之分。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择的武器仅取决于情况，但您知道一切都是相对的。 让我们快速快速地了解所有 ```iOS``` 设计模式和体系结构，并开始学习VIPER。 🐍
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;选择的武器仅取决于情况，但您知道一切都是相对的。 让我们快速快速地了解所有 ```iOS``` 设计模式和体系结构，并开始学习 [***```VIPER```***](http://www.xuebaonline.com/iOS%E9%A1%B9%E7%9B%AE%E6%9E%B6%E6%9E%84%EF%BC%9A%E4%BD%BF%E7%94%A8VIPER/ "") 。 🐍
+
+</br>
+
+# **Swift 设计模式**
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从基础开始吧？ 如果不熟悉 ```UIKit``` ，我们会发现发明了许多设计模式，也许您已经知道其中一些。 但是，嘿，由于我们没有太多时间，我想谈谈 VIPER ，让我们看看使用 ```MVC``` 模式构建 ```UIKit``` 应用程序的基本原理。
