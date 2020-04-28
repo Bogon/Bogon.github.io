@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU" />
+<meta name="baidu-site-verification" content="7gJOLignE2" />
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "ba781384"
+    });
+  daovoice('update');
+  </script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+<!--  添加关键字 -->
+ <meta name="keywords" content="i,O,S,,,S,w,i,f,t,,,X,i,b,,,用,户,体,验,,,U,I,T,a,b,l,e,V,i,e,w," /> 
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,Swift,Xib,用户体验,UITableView" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;本指南是供初学者通过 Swift 中的自动布局以编程方式学习 UITableView 类的基础的。   如何以代码方式创建表视图？&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;让我们直接进入编码部分，但首先：启动 Xcode ，创建一个新的 iOS 单视">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift中的UITableView教程">
+<meta property="og:url" content="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;本指南是供初学者通过 Swift 中的自动布局以编程方式学习 UITableView 类的基础的。   如何以代码方式创建表视图？&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;让我们直接进入编码部分，但首先：启动 Xcode ，创建一个新的 iOS 单视">
+<meta property="article:published_time" content="2020-04-28T03:46:56.000Z">
+<meta property="article:modified_time" content="2020-04-28T04:11:06.993Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Xib">
+<meta property="article:tag" content="用户体验">
+<meta property="article:tag" content="UITableView">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xuebaonline.com/Swift中的UITableView教程/"/>
+
+
+
+
+
+  <title>Swift中的UITableView教程 | Char's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Char's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Swift中的UITableView教程</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-28T11:46:56+08:00">
+                2020-04-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index">
+                    <span itemprop="name">UIKit</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UITableView/" itemprop="url" rel="index">
+                    <span itemprop="name">UITableView</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/" class="leancloud_visitors" data-flag-title="Swift中的UITableView教程">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  3.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  17 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本指南是供初学者通过 <code>Swift</code> 中的自动布局以编程方式学习 <code>UITableView</code> 类的基础的。</p>
+</br>
+
+<h1 id="如何以代码方式创建表视图？"><a href="#如何以代码方式创建表视图？" class="headerlink" title="如何以代码方式创建表视图？"></a><strong>如何以代码方式创建表视图？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们直接进入编码部分，但首先：启动 <code>Xcode</code> ，创建一个新的 <code>iOS</code> 单视图应用程序项目，像往常一样输入该项目的名称和详细信息，使用 <code>Swift</code> ，最后立即打开 <code>ViewController.swift</code> 文件。 现在抓住键盘！ ⌨️</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我不会使用 <code>Interface Builder</code> ，那么我们如何以代码方式创建视图？ 有一个称为 <code>loadView</code> 的方法，你应该在其中将自定义视图添加到视图层次结构中。 你可以选择+单击Xcode中的方法名称并阅读有关 <code>loadView</code> 方法的讨论，但让我总结一下整个过程。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将使用弱属性来保存对表格视图的引用。 接下来，我们重写 <code>loadView</code> 方法并调用 <code>super</code> ，以使用视图对象（如果有控制器的话，在 <code>nib or a storyboard</code> 文件中）加载控制器的 <code>self.view</code> 属性。 之后，我们将全新的视图分配给本地属性，关闭系统提供的布局，然后将表视图插入到视图层次结构中。 最后，我们使用锚创建一些实际的约束，并保存指向弱属性的指针。 简单！ 🤪</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> tableView: <span class="type">UITableView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> tableView = <span class="type">UITableView</span>(frame: .zero, style: .plain)</span><br><span class="line">        tableView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(tableView)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">        <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.tableView = tableView</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;始终使用自动布局锚来指定视图约束，如果你不知道如何使用它们，请查看 <a href="http://www.xuebaonline.com/Swift%E4%BD%BF%E7%94%A8%E5%B8%83%E5%B1%80%E9%94%9A%E7%82%B9%E6%B7%BB%E5%8A%A0%E7%BA%A6%E6%9D%9F/"><strong><em><code>《Swift使用布局锚点添加约束》</code></em></strong></a>，学习此 <code>API</code> 仅需15分钟，并且你不会后悔。 对于任何 <code>iOS</code> 开发者来说，这都是一个非常有用的工具！ 😉</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会问：我应该使用弱属性还是强属性作为视图引用？ 我会说，在大多数情况下，如果你不压制 <code>self.view</code> ，则应使用弱项！ 视图层次结构将通过强大的参考来保存你的自定义视图，因此不需要愚蠢的保留周期和内存泄漏。 相信我！ 🤥</p>
+</br>
+
+<h1 id="UITableView-DataSource"><a href="#UITableView-DataSource" class="headerlink" title="UITableView DataSource"></a><strong>UITableView DataSource</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好的，我们有一个空的表格视图，让我们显示一些单元格！ 为了用真实数据填充表格视图，我们必须遵守 <code>UITableViewDataSource</code> 协议。 通过简单的委托模式，我们可以为 <code>UITableView</code> 类提供各种信息，因此它将知道需要多少节和行，应该为每行显示哪种单元格以及更多的小细节。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一件事是，<code>UITableView</code> 是一个非常有效的类。 它会重用当前屏幕上未显示的所有单元格，因此，如果你需要处理数百或数千个项目，它将消耗比 <code>UIScrollView</code> 更少的内存。 为了支持这种行为，我们必须使用重用标识符注册我们的单元格类，因此基础系统将知道特定位置需要哪种单元格。 ⚙️</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> items: [<span class="type">String</span>] = [</span><br><span class="line">        <span class="string">"👽"</span>, <span class="string">"🐱"</span>, <span class="string">"🐔"</span>, <span class="string">"🐶"</span>, <span class="string">"🦊"</span>, <span class="string">"🐵"</span>, <span class="string">"🐼"</span>, <span class="string">"🐷"</span>, <span class="string">"💩"</span>, <span class="string">"🐰"</span>,</span><br><span class="line">        <span class="string">"🤖"</span>, <span class="string">"🦄"</span>, <span class="string">"🐻"</span>, <span class="string">"🐲"</span>, <span class="string">"🦁"</span>, <span class="string">"💀"</span>, <span class="string">"🐨"</span>, <span class="string">"🐯"</span>, <span class="string">"👻"</span>, <span class="string">"🦖"</span>,</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"UITableViewCell"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.tableView.dataSource = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.items.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"UITableViewCell"</span>, <span class="keyword">for</span>: indexPath)</span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">self</span>.items[indexPath.item]</span><br><span class="line">        cell.textLabel?.text = item</span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我们的视图控制器文件中添加几行代码后，表格视图现在可以显示一个漂亮的表情符号列表！ 我们正在使用 <code>UIKit</code> 的内置 <code>UITableViewCell</code> 类，如果你很好地使用 <code>“iOS-system-like”</code> 的单元格设计，那么它将非常方便。 通过告诉我们的节中有多少项（目前只有一个节），我们还符合数据源协议，并在 <code>indexPath</code> 委托方法的行中为行配置了我们的单元格。 😎</p>
+</br>
+
+<h1 id="自定义UItableViewCell"><a href="#自定义UItableViewCell" class="headerlink" title="自定义UItableViewCell"></a><strong>自定义UItableViewCell</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>UITableViewCell</code> 可以提供一些基本元素来显示数据（标题，详细信息，不同样式的图像），但是通常你需要自定义设计的单元格。 这是自定义单元格子类的基本模板，在代码之后，我将解释所有方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(style: <span class="type">UITableViewCell</span>.<span class="type">CellStyle</span>, reuseIdentifier: <span class="type">String?</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(style: style, reuseIdentifier: reuseIdentifier)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    override func awakeFromNib() &#123;</span></span><br><span class="line"><span class="comment">        super.awakeFromNib()</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareForReuse</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.prepareForReuse()</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>如果要以编程方式使用默认的UITableViewCell</code> ，但使用不同的样式（在初始化单元格后没有设置 <code>cellStyle</code> 的选项），则 <code>init（style：reuseIdentifier</code>） 方法是重写单元格样式属性的好地方。 例如，如果你需要一个 <code>.value1</code> 样式的单元格，只需将参数直接传递给超级调用即可。 这样，你可以使用 <code>4</code> 种预定义的单元格样式。</p>
+<blockquote>
+<p><strong><em><code>提示:</code></em></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你还必须实现 <code>init（coder :)</code>，所以你应该创建一个通用的 <code>initialize（）</code> 函数，在其中你可以在视图层次结构中添加自定义视图，就像我们在上面的 <code>loadView</code> 方法中所做的那样。 如果使用的是 <code>xib</code> 文件和 <code>IB</code> ，则可以使用 <code>awakeFromNib</code> 方法通过标准 <code>@IBOutlet</code> 属性为视图添加额外的样式（或向层次结构中添加额外的视图）。 👍</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们要讨论的最后一个方法是 <code>prepareForReuse</code> 。 正如我之前提到的，单元格被重用，因此，如果要重置某些属性（例如单元格的背景），可以在此处进行操作。 在单元将被重用之前将调用此方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们创建两个新的单元格子类。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">DetailCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(style: <span class="type">UITableViewCell</span>.<span class="type">CellStyle</span>, reuseIdentifier: <span class="type">String?</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(style: .subtitle, reuseIdentifier: reuseIdentifier)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// nothing to do here :)</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareForReuse</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.prepareForReuse()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.textLabel?.text = <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">self</span>.detailTextLabel?.text = <span class="literal">nil</span></span><br><span class="line">        <span class="keyword">self</span>.imageView?.image = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的自定义单元格将具有大的图像背景，并在视图的中心添加一个带有自定义大小的系统字体的标题标签。 另外，我已将 S<code>wift logo</code> 作为 <code>asset</code> 添加到项目中，因此我们可以得到一个不错的演示图像。 🖼</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> coverView: <span class="type">UIImageView!</span></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> titleLabel: <span class="type">UILabel!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(style: <span class="type">UITableViewCell</span>.<span class="type">CellStyle</span>, reuseIdentifier: <span class="type">String?</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(style: style, reuseIdentifier: reuseIdentifier)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> coverView = <span class="type">UIImageView</span>(frame: .zero)</span><br><span class="line">        coverView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.contentView.addSubview(coverView)</span><br><span class="line">        <span class="keyword">self</span>.coverView = coverView</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> titleLabel = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        titleLabel.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.contentView.addSubview(titleLabel)</span><br><span class="line">        <span class="keyword">self</span>.titleLabel = titleLabel</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.contentView.topAnchor.constraint(equalTo: <span class="keyword">self</span>.coverView.topAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.bottomAnchor.constraint(equalTo: <span class="keyword">self</span>.coverView.bottomAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.leadingAnchor.constraint(equalTo: <span class="keyword">self</span>.coverView.leadingAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.trailingAnchor.constraint(equalTo: <span class="keyword">self</span>.coverView.trailingAnchor),</span><br><span class="line"></span><br><span class="line">            <span class="keyword">self</span>.contentView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.titleLabel.centerXAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.titleLabel.centerYAnchor),</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.titleLabel.font = <span class="type">UIFont</span>.systemFont(ofSize: <span class="number">64</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">prepareForReuse</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.prepareForReuse()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.coverView.image = <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就是这样，让我们开始使用这些新单元格。 我什至会告诉你如何为给定单元格设置自定义高度，以及如何正确处理单元格选择，但是首先我们需要了解另一个委托协议。 🤝</p>
+</br>
+
+<h1 id="UITableViewDelegate-使用"><a href="#UITableViewDelegate-使用" class="headerlink" title="UITableViewDelegate 使用"></a><strong>UITableViewDelegate 使用</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>UITableViewDelegate</code> 负责很多事情，但是现在，我们将只讨论一些有趣的方面，例如如何处理单元格选择以及为表格中的每个项目提供自定义单元格高度。 示例代码:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">            <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">            <span class="keyword">self</span>.tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"UITableViewCell"</span>)</span><br><span class="line">            <span class="keyword">self</span>.tableView.register(<span class="type">DetailCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"DetailCell"</span>)</span><br><span class="line">            <span class="keyword">self</span>.tableView.register(<span class="type">CustomCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"CustomCell"</span>)</span><br><span class="line"></span><br><span class="line">            <span class="keyword">self</span>.tableView.dataSource = <span class="keyword">self</span></span><br><span class="line">            <span class="keyword">self</span>.tableView.delegate = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"CustomCell"</span>, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">CustomCell</span></span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">self</span>.items[indexPath.item]</span><br><span class="line">        cell.titleLabel.text = item</span><br><span class="line">        cell.coverView.image = <span class="type">UIImage</span>(named: <span class="string">"Swift"</span>)</span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, heightForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">128</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, didSelectRowAt indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">        tableView.deselectRow(at: indexPath, animated: <span class="literal">true</span>)</span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">self</span>.items[indexPath.item]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: item, message: <span class="string">"is in da house!"</span>, preferredStyle: .alert)</span><br><span class="line">        <span class="keyword">let</span> action = <span class="type">UIAlertAction</span>(title: <span class="string">"Ok"</span>, style: .<span class="keyword">default</span>) &#123; <span class="number">_</span> <span class="keyword">in</span> &#125;</span><br><span class="line">        alertController.addAction(action)</span><br><span class="line">        <span class="keyword">self</span>.present(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，我正在 <code>viewDidLoad</code> 方法中注册全新的自定义单元格类。 我还更改了 <code>cellForRowAt indexPath</code> 方法中的代码，因此我们可以使用 <code>CustomCell</code> 类代替 <code>UITableViewCells</code> 。 不必担心强制转换，如果此时出现问题，你的应用程序应该崩溃。 🙃</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在这里使用两种委托方法。 在第一个中，我们必须返回一个数字，系统将使用该高度作为单元格。 如果要在每行中使用不同的单元格高度，则也可以通过检查 <code>indexPath</code> 属性或类似属性来实现。 第二个是选择的处理程序。 如果有人点击某个单元格，则将调用此方法，你可以执行一些操作。</p>
+</br>
+
+<h1 id="带标题和页脚的-Section"><a href="#带标题和页脚的-Section" class="headerlink" title="带标题和页脚的 Section"></a><strong>带标题和页脚的 Section</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表格视图中可能有多个部分，我不会赘述，因为它非常简单。 你只需要使用 <code>indexPaths</code> 即可获取/设置/返回每个节和单元格的正确数据。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> tableView: <span class="type">UITableView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> placeholderView = <span class="type">UIView</span>(frame: .zero)</span><br><span class="line">    <span class="keyword">var</span> isPullingDown = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Style</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> `<span class="keyword">default</span>`</span><br><span class="line">        <span class="keyword">case</span> subtitle</span><br><span class="line">        <span class="keyword">case</span> custom</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> style = <span class="type">Style</span>.<span class="keyword">default</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> items: [<span class="type">String</span>: [<span class="type">String</span>]] = [</span><br><span class="line">        <span class="string">"Originals"</span>: [<span class="string">"👽"</span>, <span class="string">"🐱"</span>, <span class="string">"🐔"</span>, <span class="string">"🐶"</span>, <span class="string">"🦊"</span>, <span class="string">"🐵"</span>, <span class="string">"🐼"</span>, <span class="string">"🐷"</span>, <span class="string">"💩"</span>, <span class="string">"🐰"</span>,<span class="string">"🤖"</span>, <span class="string">"🦄"</span>],</span><br><span class="line">        <span class="string">"iOS 11.3"</span>: [<span class="string">"🐻"</span>, <span class="string">"🐲"</span>, <span class="string">"🦁"</span>, <span class="string">"💀"</span>],</span><br><span class="line">        <span class="string">"iOS 12"</span>: [<span class="string">"🐨"</span>, <span class="string">"🐯"</span>, <span class="string">"👻"</span>, <span class="string">"🦖"</span>],</span><br><span class="line">    ]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">loadView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.loadView()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> tableView = <span class="type">UITableView</span>(frame: .zero, style: .plain)</span><br><span class="line">        tableView.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.view.addSubview(tableView)</span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: tableView.topAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: tableView.bottomAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.leadingAnchor.constraint(equalTo: tableView.leadingAnchor),</span><br><span class="line">            <span class="keyword">self</span>.view.trailingAnchor.constraint(equalTo: tableView.trailingAnchor),</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.tableView = tableView</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.tableView.register(<span class="type">UITableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"UITableViewCell"</span>)</span><br><span class="line">        <span class="keyword">self</span>.tableView.register(<span class="type">DetailCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"DetailCell"</span>)</span><br><span class="line">        <span class="keyword">self</span>.tableView.register(<span class="type">CustomCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"CustomCell"</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.tableView.dataSource = <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">self</span>.tableView.delegate = <span class="keyword">self</span></span><br><span class="line">        <span class="keyword">self</span>.tableView.separatorStyle = .singleLine</span><br><span class="line">        <span class="keyword">self</span>.tableView.separatorColor = .lightGray</span><br><span class="line">        <span class="keyword">self</span>.tableView.separatorInset = .zero</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.navigationItem.rightBarButtonItem = .<span class="keyword">init</span>(barButtonSystemItem: .refresh, target: <span class="keyword">self</span>, action: #selector(<span class="keyword">self</span>.toggleCells))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">toggleCells</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span>.style &#123;</span><br><span class="line">        <span class="keyword">case</span> .<span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">self</span>.style = .subtitle</span><br><span class="line">        <span class="keyword">case</span> .subtitle:</span><br><span class="line">            <span class="keyword">self</span>.style = .custom</span><br><span class="line">        <span class="keyword">case</span> .custom:</span><br><span class="line">            <span class="keyword">self</span>.style = .<span class="keyword">default</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">            <span class="keyword">self</span>.tableView.reloadData()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - helpers</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">key</span><span class="params">(<span class="keyword">for</span> section: Int)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> keys = <span class="type">Array</span>(<span class="keyword">self</span>.items.keys).sorted &#123; first, last -&gt; <span class="type">Bool</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> first == <span class="string">"Originals"</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> first &lt; last</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> key = keys[section]</span><br><span class="line">        <span class="keyword">return</span> key</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">items</span><span class="params">(<span class="keyword">in</span> section: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</span><br><span class="line">        <span class="keyword">let</span> key = <span class="keyword">self</span>.key(<span class="keyword">for</span>: section)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.items[key]!</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">item</span><span class="params">(at indexPath: IndexPath)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> items = <span class="keyword">self</span>.items(<span class="keyword">in</span>: indexPath.section)</span><br><span class="line">        <span class="keyword">return</span> items[indexPath.item]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> tableView: UITableView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.items.keys.<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.items(<span class="keyword">in</span>: section).<span class="built_in">count</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">self</span>.item(at: indexPath)</span><br><span class="line">        <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"CustomCell"</span>, <span class="keyword">for</span>: indexPath) <span class="keyword">as</span>! <span class="type">CustomCell</span></span><br><span class="line">        cell.titleLabel.text = item</span><br><span class="line">        cell.coverView.image = <span class="type">UIImage</span>(named: <span class="string">"Swift"</span>)</span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, titleForHeaderInSection section: Int)</span></span> -&gt; <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.key(<span class="keyword">for</span>: section)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, heightForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">128</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, didSelectRowAt indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">        tableView.deselectRow(at: indexPath, animated: <span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> item = <span class="keyword">self</span>.item(at: indexPath)</span><br><span class="line">        <span class="keyword">let</span> alertController = <span class="type">UIAlertController</span>(title: item, message: <span class="string">"is in da house!"</span>, preferredStyle: .alert)</span><br><span class="line">        <span class="keyword">let</span> action = <span class="type">UIAlertAction</span>(title: <span class="string">"Ok"</span>, style: .<span class="keyword">default</span>) &#123; <span class="number">_</span> <span class="keyword">in</span> &#125;</span><br><span class="line">        alertController.addAction(action)</span><br><span class="line">        <span class="keyword">self</span>.present(alertController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管上面的代码片段中添加了一个有趣的内容。 你可以为每个部分都有一个自定义标题，只需添加 <code>titleForHeaderInSection</code> 数据源方法即可。 是的，看起来像狗屎一样，但这与 <code>UI / UX</code> 无关。 😂</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，如果你对部分标题的布局不满意，可以创建一个自定义类并使用它来代替内置类。 这是执行自定义节标题视图的方法。 这是可重用视图的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HeaderView</span>: <span class="title">UITableViewHeaderFooterView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> titleLabel: <span class="type">UILabel!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">init</span>(reuseIdentifier: <span class="type">String?</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(reuseIdentifier: reuseIdentifier)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(coder: aDecoder)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.initialize()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">initialize</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> titleLabel = <span class="type">UILabel</span>(frame: .zero)</span><br><span class="line">        titleLabel.translatesAutoresizingMaskIntoConstraints = <span class="literal">false</span></span><br><span class="line">        <span class="keyword">self</span>.contentView.addSubview(titleLabel)</span><br><span class="line">        <span class="keyword">self</span>.titleLabel = titleLabel</span><br><span class="line"></span><br><span class="line">        <span class="type">NSLayoutConstraint</span>.activate([</span><br><span class="line">            <span class="keyword">self</span>.contentView.centerXAnchor.constraint(equalTo: <span class="keyword">self</span>.titleLabel.centerXAnchor),</span><br><span class="line">            <span class="keyword">self</span>.contentView.centerYAnchor.constraint(equalTo: <span class="keyword">self</span>.titleLabel.centerYAnchor),</span><br><span class="line">        ])</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.contentView.backgroundColor = .black</span><br><span class="line">        <span class="keyword">self</span>.titleLabel.font = <span class="type">UIFont</span>.boldSystemFont(ofSize: <span class="number">16</span>)</span><br><span class="line">        <span class="keyword">self</span>.titleLabel.textAlignment = .center</span><br><span class="line">        <span class="keyword">self</span>.titleLabel.textColor = .white</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只剩下几件事要做，你必须注册标题视图，就像你为单元格所做的一样。 完全相同，只是页眉和页脚视图有一个单独的注册“池”。 最后，你必须实现两个其他但相对简单（和熟悉）的委托方法。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// This goes to viewDidLoad, but I don't want to embedd that much code... :)</span></span><br><span class="line"><span class="comment">// self.tableView.register(HeaderView.self, forHeaderFooterViewReuseIdentifier: "HeaderView")</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, heightForHeaderInSection section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">32</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, viewForHeaderInSection section: Int)</span></span> -&gt; <span class="type">UIView?</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> view = tableView.dequeueReusableHeaderFooterView(withIdentifier: <span class="string">"HeaderView"</span>) <span class="keyword">as</span>! <span class="type">HeaderView</span></span><br><span class="line">        view.titleLabel.text = <span class="keyword">self</span>.key(<span class="keyword">for</span>: section)</span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>页脚的工作原理与页眉完全相同，只需支持相应的数据源和委托方法即可。</em></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;根据行或节的索引或任何特定的业务需求，你甚至可以在同一张表视图中具有多个单元格。 我不会在这里进行演示，因为我有一个更好的解决方案，用于混合和重用 <a href="https://gitlab.com/corekit/CoreKit" target="_blank" rel="noopener"><strong><em><code>CoreKit</code></em></strong></a> 框架中的单元格。  🤓</p>
+</br>
+
+<h1 id="Section-titles-amp-indexes"><a href="#Section-titles-amp-indexes" class="headerlink" title="Section titles &amp; indexes"></a><strong>Section titles &amp; indexes</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吧，如果你的大脑还没有融化，我将向你展示另外两个对于初学者来说可能很有趣的小东西。 第一个基于两种其他数据源方法，对于长列表而言，这是一个非常令人愉快的添加。 （我更喜欢搜索栏！）🤯</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">UITableViewDataSource</span> </span>&#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">sectionIndexTitles</span><span class="params">(<span class="keyword">for</span> tableView: UITableView)</span></span> -&gt; [<span class="type">String</span>]? &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> index</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要在上面实现这些方法，则可以在表视图的右侧为各节提供一个小的索引视图，因此最终用户将能够在各节之间快速跳转。 就像在官方联系人应用程序中一样。 📕</p>
+</br>
+
+<h1 id="Selection-vs-highlight"><a href="#Selection-vs-highlight" class="headerlink" title="Selection vs highlight"></a><strong>Selection vs highlight</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你用手指按住单元格时，单元格高亮。 如果你从单元格中松开手指，则将选择该单元格。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不要过于复杂。 你只需在自定义单元格类中实现两个方法即可使所有工作正常进行。 我更喜欢立即取消选择我的单元格（如果某些数据选择器布局未使用它们）。 这是代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CustomCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setSelected</span><span class="params">(<span class="number">_</span> selected: Bool, animated: Bool)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.coverView.backgroundColor = selected ? .red : .clear</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setHighlighted</span><span class="params">(<span class="number">_</span> highlighted: Bool, animated: Bool)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.coverView.backgroundColor = highlighted ? .blue : .clear</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，这非常简单，但是大多数初学者都不知道该怎么做。 此外，他们通常会在重用逻辑发生之前忘记重置单元格，因此列表会不断弄乱单元格状态。 不必太担心这些问题，它们会消失，因为你将对 <code>UITableView API</code> 更有经验。</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+	
+		<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+	
+</div>
+      
+    </div>
+    
+    <div>
+          
+            
+<div class="my_post_copyright">
+	<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+	
+	<!-- JS库 sweetalert 可修改路径 -->
+	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<p></p>
+	<span>本文标题:</span><a href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/">Swift中的UITableView教程</a>
+	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
+	<p><span>发布时间:</span>2020年04月28日 - 11:04</p>
+	<p><span>最后更新:</span>2020年04月28日 - 12:04</p>
+	<p><span>原始链接:</span><a href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/" title="Swift中的UITableView教程">http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/"  aria-label="复制成功！"></i></span>
+	</p>
+	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+		var clipboard = new Clipboard('.fa-clipboard');
+		$(".fa-clipboard").click(function(){
+			clipboard.on('success', function(){
+				swal({   
+					title: "",   
+					text: '复制成功',
+					icon: "success", 
+					showConfirmButton: true
+					});
+		});
+		});  
+</script>
+
+          
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Char 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Char 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/UIKit/" rel="tag"># UIKit</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/UITableView/" rel="tag"># UITableView</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/" rel="next" title="Swift结合Xib文件自定义UIView">
+                <i class="fa fa-chevron-left"></i> Swift结合Xib文件自定义UIView
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG"
+                alt="Char" />
+            
+              <p class="site-author-name" itemprop="name">Char</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">46</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://github.com/Bogon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="mailto:zhangqixcu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://weibo.com/u/5640441479" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>新浪微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://blog.csdn.net/bogonbug" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://twitter.com/Bogon" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://stackoverflow.com/users/4368897/qizhang" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/swift/" title="Swift 5.1" rel="external nofollow" target="_blank">Swift 5.1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/documentation/objectivec" title="Objective-C" rel="external nofollow" target="_blank">Objective-C</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+<!--
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=490637664&auto=1&height=66"></iframe>
+-->
+          
+    
+        </div>
+        
+         
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#如何以代码方式创建表视图？"><span class="nav-number">1.</span> <span class="nav-text">如何以代码方式创建表视图？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UITableView-DataSource"><span class="nav-number">2.</span> <span class="nav-text">UITableView DataSource</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义UItableViewCell"><span class="nav-number">3.</span> <span class="nav-text">自定义UItableViewCell</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UITableViewDelegate-使用"><span class="nav-number">4.</span> <span class="nav-text">UITableViewDelegate 使用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#带标题和页脚的-Section"><span class="nav-number">5.</span> <span class="nav-text">带标题和页脚的 Section</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Section-titles-amp-indexes"><span class="nav-number">6.</span> <span class="nav-text">Section titles &amp; indexes</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Selection-vs-highlight"><span class="nav-number">7.</span> <span class="nav-text">Selection vs highlight</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+  
+
+  
+  
+  
+</div>
+
+ <div class="copyright">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#666666; text-decoration:none; padding-left:0px; no-repeat left center" rel="nofollow noopener">豫ICP备20011156号 | </a>   
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" target="_blank" style="color:#666666; text-decoration: none;  padding-left:25px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow noopener">公网安备41172402000135号</a> 
+  </div>
+
+
+
+<!-- 
+
+
+  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a rel="external nofollow" class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+        appKey: 'eyu1k9BeINgR5FuXzbc969UA',
+        placeholder: '写出你的想法……',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz", "eyu1k9BeINgR5FuXzbc969UA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
