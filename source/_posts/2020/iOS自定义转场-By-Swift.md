@@ -16,7 +16,7 @@ categories:
     - [UIKit]
 ---
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本文中，您将学习如何使用自定义转场和百分比驱动的交互来替换 ```Push``` ，```pop``` 和模式动画。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本文中，你将学习如何使用自定义转场和百分比驱动的交互来替换 ```Push``` ，```pop``` 和模式动画。
 
 </br>
 
@@ -27,13 +27,15 @@ categories:
 
 ## ***UIViewControllerTransitioningDelegate*** 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个视图控制器都可以有一个过渡委托，在该委托实现中，您可以提供自定义动画和交互控制器。 这些对象将负责实际的动画处理，并且可以在此委托中将代码“注入” ```UIKit``` 框架。 💉💉💉
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个视图控制器都可以有一个过渡委托，在该委托实现中，你可以提供自定义动画和交互控制器。 这些对象将负责实际的动画处理，并且可以在此委托中将代码“注入” ```UIKit``` 框架。 💉💉💉
+
+<!-- more -->
 
 </br>
 
 ## ***UINavigationControllerDelegate***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导航控制器委托还具有两种方法，用于自定义推送和弹出动画。 它与视图控制器的过渡委托几乎相同，但是稍后您将看到它的作用。 💥
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;导航控制器委托还具有两种方法，用于自定义推送和弹出动画。 它与视图控制器的过渡委托几乎相同，但是稍后你将看到它的作用。 💥
 
 </br>
 
@@ -54,7 +56,7 @@ categories:
 
 ## ***UIViewControllerContextTransitioning***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该上下文封装了有关过渡的所有信息，您可以从该对象获取参与的视图，控制器以及更多其他信息。 过渡上下文可供您在动画期间使用。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该上下文封装了有关过渡的所有信息，你可以从该对象获取参与的视图，控制器以及更多其他信息。 过渡上下文可供你在动画期间使用。
 
 </br>
 
@@ -62,13 +64,13 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在一个视图控制器和另一个视图控制器之间驱动交互式动画的对象。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，这是一种神奇的功能，使您能够神奇地用手指从屏幕边缘向后（如果您改变主意了）来回滑动导航控制器。 📱
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，这是一种神奇的功能，使你能够神奇地用手指从屏幕边缘向后（如果你改变主意了）来回滑动导航控制器。 📱
 
 </br>
 
 # **编码自定义过渡动画**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 让我们做一些实际的编码！ 我将向您展示如何在导航堆栈内的视图控制器之间制作基本的淡入淡出动画。 首先，我们将从推动画开始。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 让我们做一些实际的编码！ 我将向你展示如何在导航堆栈内的视图控制器之间制作基本的淡入淡出动画。 首先，我们将从推动画开始。
 
 ``` Swift
 open class FadePushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
@@ -96,9 +98,9 @@ open class FadePushAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如您所见，创建自定义过渡动画非常简单。 您只需要实现两个委托方法。 其中一个将返回动画的持续时间，而另一个将包含实际的过渡。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，创建自定义过渡动画非常简单。 你只需要实现两个委托方法。 其中一个将返回动画的持续时间，而另一个将包含实际的过渡。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过渡上下文提供了一个自定义 ```containterView``` 对象，您可以在动画中使用它，也可以像我之前提到的那样从该对象中获取参与的视图和控制器。 现在，让我们反转该动画。 👈
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过渡上下文提供了一个自定义 ```containterView``` 对象，你可以在动画中使用它，也可以像我之前提到的那样从该对象中获取参与的视图和控制器。 现在，让我们反转该动画。 👈
 
 ``` Swift
 open class FadePopAnimator: CustomAnimator {
@@ -127,7 +129,7 @@ open class FadePopAnimator: CustomAnimator {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，您只需要实现导航控制器的委托方法即可替换内置的UIKit系统动画。 🛠
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，你只需要实现导航控制器的委托方法即可替换内置的UIKit系统动画。 🛠
 
 ``` Swift
 extension MainViewController: UINavigationControllerDelegate {
@@ -148,13 +150,13 @@ extension MainViewController: UINavigationControllerDelegate {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，您不必制作两个单独的类（ ```pop``` 和 ```push``` ），也可以通过操作并在单个动画 ```tarnsitioning``` 类中实现动画。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，你不必制作两个单独的类（ ```pop``` 和 ```push``` ），也可以通过操作并在单个动画 ```tarnsitioning``` 类中实现动画。
 
 </br>
 
 # **Percent Driven Interactive Transition**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，现在您知道了如何实现自定义过渡，但现在该使其具有交互性了！ 该过程非常简单，您只需要一个手势识别器和适当的委托方法即可使事情正常进行。 ⌨️
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，现在你知道了如何实现自定义过渡，但现在该使其具有交互性了！ 该过程非常简单，你只需要一个手势识别器和适当的委托方法即可使事情正常进行。 ⌨️
 
 ``` Swift
 class DetailViewController: UIViewController {
@@ -217,7 +219,7 @@ extension DetailViewController: UINavigationControllerDelegate {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在将要弹出的控制器内部，您可以拥有导航控制器的委托的所有权，并使用左屏幕边缘平移手势识别器实现交互式过渡控制器。 整个代码通常进入 ```UIPercentDrivenInteractiveTransition``` 的新子类中，但是为了简单起见，这次我们将跳过该部分，并使用这个非常简单的解决方案。  😅
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在将要弹出的控制器内部，你可以拥有导航控制器的委托的所有权，并使用左屏幕边缘平移手势识别器实现交互式过渡控制器。 整个代码通常进入 ```UIPercentDrivenInteractiveTransition``` 的新子类中，但是为了简单起见，这次我们将跳过该部分，并使用这个非常简单的解决方案。  😅
 
 </br>
 
@@ -261,11 +263,11 @@ extension DetailViewController: UIViewControllerTransitioningDelegate {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您运行代码并提供模态视图控制器，则可以正常工作。 当您尝试关闭显示的视图控制器时，会发生此问题。 整个应用程序将转为死亡黑屏（BSOD）。 🖥
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你运行代码并提供模态视图控制器，则可以正常工作。 当你尝试关闭显示的视图控制器时，会发生此问题。 整个应用程序将转为死亡黑屏（BSOD）。 🖥
 
 ***```(pop != dismiss) && (push != present)```***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您必须修改pop动画才能支持模态解雇动画。 简而言之：问题在于放置视图和内存管理。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你必须修改pop动画才能支持模态解雇动画。 简而言之：问题在于放置视图和内存管理。
 
 ``` Swift
 open class FadePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
@@ -310,10 +312,10 @@ open class FadePopAnimator: NSObject, UIViewControllerAnimatedTransitioning {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最简单的解决方案是引入一个新属性，以便您可以基于该标志来决定是否弹出视图控制器。 现在，您也可以安全地将相同的动画器用于模态显示的视图控制器。 😬
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最简单的解决方案是引入一个新属性，以便你可以基于该标志来决定是否弹出视图控制器。 现在，你也可以安全地将相同的动画器用于模态显示的视图控制器。 😬
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，导航栏将始终使用淡入淡出的动画，但遗憾的是无法自定义。 另外，我进行了自定义的模态演示，并且所有内容都在使用交互式过渡。 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，如果您不想手动实现自定义动画效果，则可以使用 [***```Hero```***](https://github.com/lkzhao/Hero "") 优雅的过渡库。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，如果你不想手动实现自定义动画效果，则可以使用 [***```Hero```***](https://github.com/lkzhao/Hero "") 优雅的过渡库。
 
 
