@@ -24,6 +24,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长话短说，我很讨厌用愚蠢的数字值标记视图，因此我寻求一种更好的替代解决方案来解决我的问题。 事实证明，有一个名为 ```accessibilityIdentifier``` 的属性可以完成这项工作。
 
+<!-- more -->
+
 ``` Swift
 extension UIView {
 
