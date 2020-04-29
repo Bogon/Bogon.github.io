@@ -20,6 +20,8 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在写了关于 [***```VIPER的最佳实践```***](http://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/ "") 之后，我对代码库进行了一些更改。 我已经想到了这些想法，但是却没有足够的时间正确地实施它们。 
 
+
+
 </br>
 
 # **VIPER协议**
@@ -32,6 +34,8 @@ categories:
 + **Entity**
 + **Router**
 + **Module**
+
+<!-- more -->
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，通过这种方式，我的 ```路由器对象``` 正在实现 ```路由器协议``` ，因此，如果在其上进行扩展，则每一个都将具有该特定功能。 这是一个很小但非常令人愉快的功能，使我的模块比以前更强大。 老实说，我从一开始就应该拥有这种功能，但是无论如何从现在开始就应该是这样。 😬
 
