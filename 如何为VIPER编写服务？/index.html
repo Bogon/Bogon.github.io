@@ -101,14 +101,15 @@
 
 
 
-<meta name="description" content="曾经沧海难为水，除却巫山不是云。">
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;并非所有内容都是 VIPER模块 。 在本文中，我将向你展示如何使用 Swift 将 服务层 与 模块 分离。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我可以想象你刚刚开始编写第一个 VIPER模块 ，你可能会想：我应该把所有与用户界面都不相关的所">
 <meta property="og:type" content="article">
 <meta property="og:title" content="如何为VIPER编写服务？">
 <meta property="og:url" content="http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="曾经沧海难为水，除却巫山不是云。">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;并非所有内容都是 VIPER模块 。 在本文中，我将向你展示如何使用 Swift 将 服务层 与 模块 分离。 &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;我可以想象你刚刚开始编写第一个 VIPER模块 ，你可能会想：我应该把所有与用户界面都不相关的所">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/ws-stp1.png">
 <meta property="article:published_time" content="2020-04-29T03:02:56.000Z">
-<meta property="article:modified_time" content="2020-04-29T03:03:19.104Z">
+<meta property="article:modified_time" content="2020-04-29T08:20:23.166Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -117,6 +118,7 @@
 <meta property="article:tag" content=" architecture">
 <meta property="article:tag" content=" 可重用">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/ws-stp1.png">
 
 
 
@@ -485,7 +487,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  0 字
+                  3.1k 字
                 </span>
               
 
@@ -501,7 +503,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  1 分钟
+                  12 分钟
                 </span>
               
             </div>
@@ -522,7 +524,93 @@
       
 
       
-        
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并非所有内容都是 <code>VIPER模块</code> 。 在本文中，我将向你展示如何使用 <code>Swift</code> 将 <code>服务层</code> 与 <code>模块</code> 分离。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我可以想象你刚刚开始编写第一个 <a href="http://www.xuebaonline.com/iOS%20VIPER%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/"><strong><em><code>VIPER模块</code></em></strong></a> ，你可能会想：我应该把所有与用户界面都不相关的所有 <code>网络通信</code> ， <code>CoreLocation</code> ， <code>CoreData</code> 或 <code>“任何服务”</code> 代码放在哪里？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我通常将它们称为 API ， 位置 ， 存储即服务 ，因为它们为你的 模块 提供某种信息。 另外，它们可以封装基础层，为 VIPER模块 提供定义明确的 API接口 。 😅</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好的，但是 <code>interactors</code> 呢？ 我不应该在这里实现这种东西吗？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好吧，我的答案是否定的，因为 <code>服务</code> 和 <code>interactors</code> 之间存在重大差异。 虽然服务只是一个“虚拟”包装器，但例如 一个 <code>RESTful API</code> ，另一个围绕 <code>CoreData存储</code> ， <code>interactors</code> 可以使用它们两者通过API请求某种数据，并使用存储服务将其保存在本地。  <code>interactors</code> 还可以在 <code>数据传输对象（DTO）</code> 和实体之间进行排序，过滤和转换，稍后将对其进行更多介绍。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，理论足够了，让我们创建一个新服务。</p>
+<a id="more"></a>
+
+</br>
+
+<h1 id="服务接口"><a href="#服务接口" class="headerlink" title="服务接口"></a><strong>服务接口</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次如协议目标编程范式所示：            <code>通过定义协议开始设计我们的系统。</code></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的第一个服务将是对所有服务而言非常简单的服务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ServiceInterface</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ServiceInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setup</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// do nothing...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在服务初始化过程中将为每个服务调用安装程序。 我们可以扩展基本服务，因此我们不必实现此方法，而仅当我们确实必须执行某些操作（例如设置 <code>CoreData堆栈</code> ）时才可以实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们可以提供我们的 <code>API</code> 服务，在这种情况下，我将实现一个虚拟端点，该端点使用带有 <code>URLSession</code> 的新 <code>Combine框架</code> 加载一些数据，但是当然你也可以使用完成块或 <code>Promises</code> 。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ApiServiceInterface</span>: <span class="title">ServiceInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">todos</span><span class="params">()</span></span> -&gt; <span class="type">AnyPublisher</span>&lt;[<span class="type">TodoObject</span>], <span class="type">HTTP</span>.<span class="type">Error</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今，我正在为所有与网络相关的内容使用 <code>HTTP</code> 名称空间，例如请求方法，响应，错误等。可以根据需要随意扩展它。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTP</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Method</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">get</span></span><br><span class="line">        <span class="comment">//...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">LocalizedError</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> invalidResponse</span><br><span class="line">        <span class="keyword">case</span> statusCode(<span class="type">Int</span>)</span><br><span class="line">        <span class="keyword">case</span> unknown(<span class="type">Swift</span>.<span class="type">Error</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，它非常轻巧，但是非常方便。 我们还没有谈论过 <code>TodoObject</code> 。 这将是我们的第一个 <code>DTO</code> 。 😱</p>
+</br>
+
+<h1 id="数据传输对象"><a href="#数据传输对象" class="headerlink" title="数据传输对象"></a><strong>数据传输对象</strong></h1><blockquote>
+<figure class="highlight plain"><figcaption><span>-维基百科```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在这种情况下，我们谈论的不是流程，而是 &#96;&#96;&#96;服务&#96;&#96;&#96; 和 [***&#96;&#96;&#96;VIPER模块&#96;&#96;&#96;***](http:&#x2F;&#x2F;www.xuebaonline.com&#x2F;%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84&#x2F; &quot;&quot;) 。 它们存在，因此我们可以将服务层与模块分离。  &#96;&#96;&#96;interactor&#96;&#96;&#96; 可以将 &#96;&#96;&#96;DTO&#96;&#96;&#96; 转换为 &#96;&#96;&#96;模块实体&#96;&#96;&#96; ，因此 &#96;&#96;&#96;VIPER模块&#96;&#96;&#96; 的所有其他部分将完全独立于服务。 值得一提的是， &#96;&#96;&#96;DTO&#96;&#96;&#96; 通常非常简单，在 &#96;&#96;&#96;RESTful API&#96;&#96;&#96; 服务中， &#96;&#96;&#96;DTO&#96;&#96;&#96; 可以实现 &#96;&#96;&#96;Codable&#96;&#96;&#96; 接口，仅此而已；对于 &#96;&#96;&#96;CoreData&#96;&#96;&#96; ， &#96;&#96;&#96;DTO&#96;&#96;&#96; 只能是 &#96;&#96;&#96;NSManagedObject&#96;&#96;&#96; 子类。</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96; Swift</span><br><span class="line">struct TodoObject: Codable &#123;</span><br><span class="line">   let id: Int</span><br><span class="line">   let title: String</span><br><span class="line">   let completed: Bool</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你还可以使用简单的 <code>DTO</code> 包装请求参数。 例如，你可以使用可以包含一些过滤器或排序参数的 <code>TodoRequestObject</code> 。 你可能会注意到，我始终在 <code>DTO</code> 中使用对象后缀，这是个人喜好，但这有助于我将它们与实体区分开。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;进一步介绍一下：你可以使用 <code>SPM</code> 将整个服务层作为封装的 <code>Swift软件包发布</code> ，从Xcode 11开始，这些软件包都受本机支持，因此，如果你仍在使用 <code>CocoaPods</code> ，则应考虑迁移到 <code>Swift软件包管理器</code> ，如下所示： 尽快。</p>
+</br>
+
+<h1 id="实现-Service"><a href="#实现-Service" class="headerlink" title="实现 Service"></a><strong>实现 Service</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在开始构建真实的服务实现之前，最好有一个用于演示或测试目的的假冒产品。 我之所以称其为伪造的，是因为我们将返回固定数量的伪造数据，但这与我们的实际实现很接近。 如果我们的请求将包括过滤或排序，那么此伪造的实现服务应像最终响应那样对我们的响应进行过滤或排序。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FakeApiService</span>: <span class="title">ApiServiceInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> delay: <span class="type">TimeInterval</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(delay: <span class="type">TimeInterval</span> = <span class="number">1</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.delay = delay</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">fakeRequest</span>&lt;T&gt;<span class="params">(response: T)</span></span> -&gt; <span class="type">AnyPublisher</span>&lt;<span class="type">T</span>, <span class="type">HTTP</span>.<span class="type">Error</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Future</span>&lt;<span class="type">T</span>, <span class="type">HTTP</span>.<span class="type">Error</span>&gt; &#123; promise <span class="keyword">in</span></span><br><span class="line">            promise(.success(response))</span><br><span class="line">        &#125;</span><br><span class="line">        .delay(<span class="keyword">for</span>: .<span class="keyword">init</span>(<span class="keyword">self</span>.delay), scheduler: <span class="type">RunLoop</span>.main)</span><br><span class="line">        .eraseToAnyPublisher()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">todos</span><span class="params">()</span></span> -&gt; <span class="type">AnyPublisher</span>&lt;[<span class="type">TodoObject</span>], <span class="type">HTTP</span>.<span class="type">Error</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> todos = [</span><br><span class="line">            <span class="type">TodoObject</span>(id: <span class="number">1</span>, title: <span class="string">"first"</span>, completed: <span class="literal">false</span>),</span><br><span class="line">            <span class="type">TodoObject</span>(id: <span class="number">2</span>, title: <span class="string">"second"</span>, completed: <span class="literal">false</span>),</span><br><span class="line">            <span class="type">TodoObject</span>(id: <span class="number">3</span>, title: <span class="string">"third"</span>, completed: <span class="literal">false</span>),</span><br><span class="line">        ]</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.fakeRequest(response: todos)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我想给假对象增加一些延迟，因为它可以帮助我测试 <code>UI堆栈</code> 。 <a href="https://www.scotthurff.com/posts/why-your-user-interface-is-awkward-youre-ignoring-the-ui-stack/" target="_blank" rel="noopener"><strong><em><code>如何解决不良用户界面</code></em></strong></a> 你绝对应该阅读它，因为它很棒，它将帮助你设计更好的产品。 👍</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;继续前进，这是该服务的实际“实际”实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApiService</span>: <span class="title">ApiServiceInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> baseUrl: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(baseUrl: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.baseUrl = baseUrl</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">todos</span><span class="params">()</span></span> -&gt; <span class="type">AnyPublisher</span>&lt;[<span class="type">TodoObject</span>], <span class="type">HTTP</span>.<span class="type">Error</span>&gt; &#123;</span><br><span class="line">        <span class="keyword">let</span> url = <span class="type">URL</span>(string: <span class="keyword">self</span>.baseUrl + <span class="string">"todos"</span>)!</span><br><span class="line">        <span class="keyword">var</span> request = <span class="type">URLRequest</span>(url: url)</span><br><span class="line">        request.httpMethod = <span class="type">HTTP</span>.<span class="type">Method</span>.<span class="keyword">get</span>.rawValue.uppercased()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="type">URLSession</span>.shared.dataTaskPublisher(<span class="keyword">for</span>: request)</span><br><span class="line">        .tryMap &#123; data, response <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> httpResponse = response <span class="keyword">as</span>? <span class="type">HTTPURLResponse</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="type">HTTP</span>.<span class="type">Error</span>.invalidResponse</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">guard</span> httpResponse.statusCode == <span class="number">200</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="type">HTTP</span>.<span class="type">Error</span>.statusCode(httpResponse.statusCode)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> data</span><br><span class="line">        &#125;</span><br><span class="line">        .decode(type: [<span class="type">TodoObject</span>].<span class="keyword">self</span>, decoder: <span class="type">JSONDecoder</span>())</span><br><span class="line">        .mapError &#123; error -&gt; <span class="type">HTTP</span>.<span class="type">Error</span> <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> httpError = error <span class="keyword">as</span>? <span class="type">HTTP</span>.<span class="type">Error</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> httpError</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">HTTP</span>.<span class="type">Error</span>.unknown(error)</span><br><span class="line">        &#125;</span><br><span class="line">        .eraseToAnyPublisher()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;问题是我们可以做得更好，但是为了简单起见，我将“一起”实现。 我不喜欢隐式解包的 <code>url</code> 和其他许多小细节，但是出于学习目的，这是完全可以的。 😛</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以现在最大的问题是，如何将事情放在一起？ 我的意思是我们有一个有效的服务实现，一个伪造的服务实现，但是如果不将伪造的代码运送到生产环境中，我们应该怎么把所有东西放到一个真正的Xcode项目中呢？</p>
+</br>
+
+<h1 id="目标环境"><a href="#目标环境" class="headerlink" title="目标环境"></a><strong>目标环境</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，你将具有现场生产环境，开发环境，也许是测试环境，以及用于QA，UAT或演示目的的其他环境。 对于这些环境，情况可能会有所不同，例如最终的 <code>API URL</code>或应用程序图标等。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，我将建立一个具有3个独立环境的项目：</p>
+<ul>
+<li>Production</li>
+<li>Development</li>
+<li>Fake</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你从一个新项目开始，则默认情况下将有一个主要（非测试）目标。 你可以通过右键单击目标来复制它。 让我们做两次。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/ws-stp1.png" alt="Production"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我通常为目标和方案名称加上后缀，但生产环境除外，在生产环境中，我使用“基本名称”而不使用<code>-Production</code> 后缀。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如你在屏幕截图上所看到的，我具有用于环境的基本文件夹结构。 每个目标都必须有一个单独的 <code>Info.plist</code> 文件，因此我将它们放入适当的 <code>Assets</code> 文件夹中。 <code>FakeApiService.swift</code> 只是伪造目标的一部分，其他所有文件都是共享的。 等等， <code>ServiceBuilder</code> 到底是什么？</p>
+</br>
+
+<h1 id="依赖注入"><a href="#依赖注入" class="headerlink" title="依赖注入"></a><strong>依赖注入</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多种环境意味着我们必须为每个构建目标使用正确的服务（或配置）。 为此，我正在使用依赖项注入设计模式。 服务构建者只是有助于实现此目标的协议。 它定义了如何根据环境设置服务。 让我告诉你它是如何工作的。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ServiceBuilderInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> api: <span class="type">ApiServiceInterface</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setup</span><span class="params">()</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ServiceBuilderInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setup</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.api.setup()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，对于每个目标（环境），我都在实际的 <code>ServiceBuilder.swift</code> 文件中实现 <code>ServiceBuilderInterface</code> ，因此可以根据需要设置服务。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">ServiceBuilder</span>: <span class="title">ServiceBuilderInterface</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> api: <span class="type">ApiServiceInterface</span> = &#123;</span><br><span class="line">        <span class="comment">// this can be the url of the development server</span></span><br><span class="line">        <span class="type">MyApiService</span>(baseUrl: <span class="string">"https://jsonplaceholder.typicode.com"</span>)</span><br><span class="line">    &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我通常有一个基本的 <code>service-interactor</code> 类，它将在初始化过程中接收所有服务。 因此，我可以轻松地交换任何东西。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ServiceInteractor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> services: <span class="type">ServiceBuilderInterface</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(services: <span class="type">ServiceBuilderInterface</span> = <span class="type">App</span>.shared.services) &#123;</span><br><span class="line">        <span class="keyword">self</span>.services = services</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DI很不错，但是我不想重复太多，这就是为什么要为此属性提供默认值的原因，该属性位于我唯一的 <code>单例类App</code> 中。 我知道，单例是邪恶的，但是我已经在这里有了一个反模式，所以再引入一个并没有关系，对吗？🤔</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> services = <span class="type">ServiceBuilder</span>()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - singleton</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shared = <span class="type">App</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="comment">// do nothing...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - api</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setup</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.services.setup()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要进行测试，此设置非常有用。 如果要测试一个 <code>interactor</code> ，则可以简单地模拟所有服务。 它也很干净，因为你可以像这样在 <code>interactor</code> 中访问方法：<code>self.services.api.todos（）</code> 。</p>
+<blockquote>
+<p><strong><code>提示：</code></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以对模块应用相同的模式，例如，你可以拥有一个实现 <code>ModuleBuilderInterface</code> 的 <code>ModuleBuilder</code> ，并且所有 <code>routers</code> 都可以通过 <code>DI</code> 来拥有它们，因此你不必使用构建就从头开始初始化所有内容 模块的功能。 😉</p>
+</blockquote>
+</br>
+
+<h1 id="对象，模型，实体，…是什么？"><a href="#对象，模型，实体，…是什么？" class="headerlink" title="对象，模型，实体，…是什么？"></a><strong>对象，模型，实体，…是什么？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于命名约定的一点建议（我一直都将它们用作后缀）：</p>
+<ul>
+<li>Object</li>
+<li>Entity</li>
+<li>Model</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我的字典中，对象始终是 ··· ，它仅存在于服务层中。 这是一个愚蠢的傻子，没有比提供一个不错的 <code>Swiftish API</code> 多的目的。 这意味着你不必处理 <code>JSON对象</code> 或类似的疯狂对象，但是你可以直接使用这些对象，通常很高兴拥有此功能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>实体</code> 与 <code>VIPER模块</code> 相关。 其目的是充当可在视图， <code>interactor</code> ， <code>presenter</code> ， <code>router</code> 之间传递的通信对象，或充当另一个模块的参数。 它可以封装模块所需的本地内容。 这意味着，如果服务层（可能是 <code>DTO</code> ）中的某些内容发生变化，则你的模块将能够工作，则只需对齐 <code>interactor</code> 即可。 😬</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模型是指视图模型，它是我在 <code>UICollectionView</code> 类之上的基于 <code>组件</code> 的 <code>UI</code> 构建方法的一部分。 如果你想了解更多信息，则应该查看链接，其语法与 <code>SwiftUI</code> 非常相似，但显然不那么高级。 总之，模型始终具有呈现视图所需的数据，仅此而已。</p>
+</br>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我希望这篇小文章能帮助你更好地构建应用程序。 由于你必须设计应用程序，因此 <code>VIPER</code> 有时可能会遇到很多问题。 使用这类服务是分离所有不同的API连接，传感器等的好方法，最后请记住：<br><code>并非所有内容都是 VIPER模块 。</code></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 <a href="https://github.com/theswiftdev/tutorials" target="_blank" rel="noopener"><strong><em><code>GitHub</code></em></strong></a> 上的下载本文的源文件。👏</p>
+
       
     </div>
     
@@ -552,7 +640,7 @@
 	<span>本文标题:</span><a href="/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/">如何为VIPER编写服务？</a>
 	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
 	<p><span>发布时间:</span>2020年04月29日 - 11:04</p>
-	<p><span>最后更新:</span>2020年04月29日 - 11:04</p>
+	<p><span>最后更新:</span>2020年04月29日 - 16:04</p>
 	<p><span>原始链接:</span><a href="/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/" title="如何为VIPER编写服务？">http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/</a>
 		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/"  aria-label="复制成功！"></i></span>
 	</p>
@@ -696,8 +784,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -832,6 +929,23 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#服务接口"><span class="nav-number">1.</span> <span class="nav-text">服务接口</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#数据传输对象"><span class="nav-number">2.</span> <span class="nav-text">数据传输对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现-Service"><span class="nav-number">3.</span> <span class="nav-text">实现 Service</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#目标环境"><span class="nav-number">4.</span> <span class="nav-text">目标环境</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注入"><span class="nav-number">5.</span> <span class="nav-text">依赖注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象，模型，实体，…是什么？"><span class="nav-number">6.</span> <span class="nav-text">对象，模型，实体，…是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
       
 
       
