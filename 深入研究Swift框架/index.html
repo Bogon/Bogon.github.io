@@ -1,0 +1,1689 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU" />
+<meta name="baidu-site-verification" content="7gJOLignE2" />
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "ba781384"
+    });
+  daovoice('update');
+  </script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+<!--  添加关键字 -->
+ <meta name="keywords" content="i,O,S,,,S,w,i,f,t,,,架,构,,,a,r,c,h,i,t,e,c,t,u,r,e,,,可,重,用,,,S,w,i,f,t, ,P,a,c,k,a,g,e, ,M,a,n,a,g,e,r," /> 
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,Swift,架构,architecture,可重用,Swift Package Manager" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解有关 Swift模块 ， 库 ， 软件包 ， 封闭源框架 ， 命令行工具 等的一切。   基本定义&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先，你应该对基本术语有清楚的了解。 如果你已经知道模块，程序包，库或框架之间的区别，则可以跳过本节。 但">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入研究Swift框架">
+<meta property="og:url" content="http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;了解有关 Swift模块 ， 库 ， 软件包 ， 封闭源框架 ， 命令行工具 等的一切。   基本定义&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先，你应该对基本术语有清楚的了解。 如果你已经知道模块，程序包，库或框架之间的区别，则可以跳过本节。 但">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sf-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sf-stp2.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sf-stp3.png">
+<meta property="article:published_time" content="2020-04-29T08:26:23.000Z">
+<meta property="article:modified_time" content="2020-04-29T10:44:00.064Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="架构">
+<meta property="article:tag" content="architecture">
+<meta property="article:tag" content="可重用">
+<meta property="article:tag" content="Swift Package Manager">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sf-stp1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xuebaonline.com/深入研究Swift框架/"/>
+
+
+
+
+
+  <title>深入研究Swift框架 | Char's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Char's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">深入研究Swift框架</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T16:26:23+08:00">
+                2020-04-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
+                    <span itemprop="name">架构设计</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/" class="leancloud_visitors" data-flag-title="深入研究Swift框架">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  18 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解有关 <code>Swift模块</code> ， <code>库</code> ， <code>软件包</code> ， <code>封闭源框架</code> ， <code>命令行工具</code> 等的一切。</p>
+</br>
+
+<h1 id="基本定义"><a href="#基本定义" class="headerlink" title="基本定义"></a><strong>基本定义</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，你应该对基本术语有清楚的了解。 如果你已经知道模块，程序包，库或框架之间的区别，则可以跳过本节。 但是，如果你对这些事情仍然有一些困惑，请继续阅读，你将不会后悔。 😉</p>
+<h2 id="Package"><a href="#Package" class="headerlink" title="Package"></a><strong><em>Package</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个包由 <code>Swift</code> 源文件和清单文件组成。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包是 <code>Swift</code> 源文件的集合。 如果你使用的是 <code>Swift Package Manager</code>，则还必须提供一个清单文件才能制作一个真正的软件包。 如果你想了解更多有关此工具的信息，请查看我的 <code>Swift Package Manager</code> 教程。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例：这是你的 <code>package</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Sources</span></span><br><span class="line">    my-source-file.swift</span><br><span class="line"><span class="type">Package</span>.swift</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你还可以查看 <code>Apple</code> 提供的开源 <code>swift-corelibs-foundation</code> 软件包，该软件包用于构建 <code>Swift</code> 的 <code>Foundation框架</code> 。</p>
+<a id="more"></a>
+
+
+<h2 id="Library"><a href="#Library" class="headerlink" title="Library"></a><strong><em>Library</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;库是程序可以链接到的目标文件的打包集合。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，库是一堆编译后的代码。 你可以创建两种库：</p>
+<ul>
+<li>static</li>
+<li>dynamic</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从非常简单的角度来看，它们之间的唯一区别就是 <code>“集成”</code> 的方法。 将它们链接到你的项目。 在我进一步介绍该过程之前，首先我们应该讨论目标文件。</p>
+<h2 id="Mach-O文件格式"><a href="#Mach-O文件格式" class="headerlink" title="Mach-O文件格式"></a><strong><em>Mach-O文件格式</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了创建程序，开发人员将源代码转换为目标文件。 然后将目标文件打包到可执行代码或静态库中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译源文件时，基本上是在使用 <code>Mach-O（MachObject）</code> 文件格式来制作目标文件。 这些文件是应用程序，框架和库（动态和静态）的核心构建块。</p>
+<h2 id="链接库"><a href="#链接库" class="headerlink" title="链接库"></a><strong><em>链接库</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;链接是指从多个目标文件创建单个可执行文件。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;换一种说法：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器创建完所有目标文件后，将调用另一个程序将它们捆绑到可执行程序文件中。 该程序称为链接器，而将它们捆绑到可执行文件中的过程称为链接。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;链接只是将你所有的目标文件组合成一个可执行文件，并解决所有外部问题，因此系统将能够调用二进制文件中的所有函数。</p>
+<p><strong>静态链接</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，该库的源代码将被复制到应用程序的源代码中。 这将导致一个较大的可执行文件，它将花费更多的时间来加载，因此二进制文件的启动时间会更慢。 哦，我是否提到过，如果你尝试多次链接同一库，由于符号重复，该过程将失败？</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sf-stp1.png" alt="静态链接"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种方法也有优点，例如，可执行文件将始终包含正确版本的库，并且仅将那些真正使用过的部分复制到主应用程序中，因此你不必加载全部内容，但是 在某些情况下，似乎动态链接会更好。</p>
+<h2 id="动态链接"><a href="#动态链接" class="headerlink" title="动态链接"></a><strong><em>动态链接</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>动态库</code> 未嵌入到二进制源中，而是在运行时加载的。 这意味着，由于使用了轻量级的二进制文件，因此应用程序可以更小，并且启动时间可以大大缩短。 免费提供的动态库可以与多个可执行文件共享，因此它们可以减少内存占用。 这就是为什么有时将它们称为共享库的原因。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sf-stp2.png" alt="动态链接"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，如果动态库不可用-或可用，但该版本不兼容-你的应用程序将无法运行或崩溃。 另一方面，这可能是一个优势，因为动态库的作者可以发布修补程序，而你的应用程序可以从中受益，而无需重新编译。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;幸运的是，像 <code>UIKit</code> 这样的系统库总是可用的，因此你不必太担心这个问题…</p>
+<h2 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a><strong><em>Framework</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;框架是分层目录，它将共享资源（例如动态共享库，nib文件，图像文件，本地化字符串，头文件和参考文档）封装在一个程序包中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们简化一下：框架是打包成捆绑有一些额外 <code>assets</code> ，用于版本控制的元描述的 <code>静态</code> 或 <code>动态库</code> 。  <code>UIKit</code> 是一个需要图像 <code>assets</code> 来显示某些 <code>UI元素</code> 的框架，并且具有版本描述，通过这种方式， <code>UIKit</code> 的版本与 <code>iOS</code> 的版本相同。</p>
+<h2 id="Module"><a href="#Module" class="headerlink" title="Module"></a><strong><em>Module</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 将代码组织到模块中。 每个模块都指定一个名称空间，并强制执行访问控制，以便可以在模块外部使用该代码的哪些部分。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>import</code> 关键字，你实际上是将 <code>外部模块</code> 导入到你的 <code>项目</code> 中。 在Swift中，你始终使用框架作为模块，但是让我们回顾一下，来了解为什么我们完全需要 <code>模块</code> 。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> my-awesome-module</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在使用模块之前，你必须将框架标头直接导入代码中，并且还必须在 <code>Xcode</code> 中手动链接框架的二进制文件。  <code>#import宏</code> 实际上将整个已解析的依赖项结构复制粘贴到你的代码中，然后编译器对该庞大的源文件进行了处理。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个脆弱的系统，宏定义可能会出错，你很容易破坏其他框架。 这就是定义带前缀的大写超长宏名称的原因，例如： <code>NS_MYSUPERLONGMACRONAME</code>  …😒</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有另一个问题：复制粘贴会导致不可扩展的编译时间。 为了解决这个问题，预编译的头文件 <code>（PCH）</code> 诞生了，但这只是部分解决方案，因为它们污染了名称空间（你知道是否将 <code>UIKit</code> 导入 <code>PCH</code> 文件中，它随处可见），而且没有人真正维护过 他们。</p>
+<h2 id="Modules-amp-module-maps"><a href="#Modules-amp-module-maps" class="headerlink" title="Modules &amp; module maps"></a><strong><em>Modules &amp; module maps</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经有了 <code>模块映射</code> （定义什么样的头文件是模块的一部分以及什么是实现的二进制文件），我们已经封装了模块化框架。 🎉它们分别编译一次，头文件定义 <code>接口（API）</code>，并且（自动）链接包含实现的 <code>dylib文件</code> 。 在编译期间（可伸缩性）无需解析框架头，因此本地宏定义不会破坏任何内容。 模块可以包含子模块（继承），而你不必在 <code>（Xcode）</code> 项目中显式链接它们，因为 <code>.modulemap文件</code> 包含构建系统所需的所有信息。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在你知道导入 <code>Foundation</code> 或 <code>导入UIKit</code> 时会发生什么。</p>
+</br>
+
+<h1 id="Command-line-tools"><a href="#Command-line-tools" class="headerlink" title="Command line tools"></a><strong>Command line tools</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;既然你知道整个 <code>动态模块化框架</code> 系统背后的逻辑，我们就应该开始研究使该基础架构成为可能的工具。</p>
+<blockquote>
+<p><strong><em><code>提示：</code></em></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总是阅读手册页。 RTFM！ 如果你不喜欢阅读太多内容，可以从gitlab下载示例项目并打开的 <code>makefile</code> 。 将有3个主要类别：<code>C</code>， <code>Swift</code> 和 <code>Xcode</code> 项目示例。</p>
+</blockquote>
+<h2 id="clang"><a href="#clang" class="headerlink" title="clang"></a><strong><em>clang</em></strong></h2><blockquote>
+<p><strong><em><code>the Clang C, C++, and Objective-C compiler</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Clang</code> 是 <code>C语言</code> （ <code>C</code> ， <code>C++</code> ， <code>Objective-C</code> ）的前端编译器。 如果你在大学期间曾经尝试使用 <code>gcc</code> 编译 <code>C代码</code> ，你可以想象 <code>clang</code> 与 <code>gcc</code> 差不多，但如今它可以做更多的事情。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clang -c main.c -o main.o <span class="meta">#compiles a C source file</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>LLVM</strong> ：编译器后端系统，可以编译和优化由 <code>clang</code> 或 <code>Swift</code> 编译器生成的中间表示 <code>（IR）</code> 代码。 它是独立于语言的，现在让我们说 <code>LLVM</code> 为你的 <code>可执行文件</code> 制作最终的 <code>机器代码</code> 。</p>
+<h2 id="swiftc"><a href="#swiftc" class="headerlink" title="swiftc"></a><strong><em>swiftc</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift编译器</code> 对此没有手动输入，但是不用担心，只需启动 <code>swiftc -h</code> 并看看能为你提供什么。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swiftc main.swift <span class="meta">#compiles a Swift source file</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，此工具实际上是可以将 <code>Swift源文件</code> 编译为 <code>Mach-O</code> 或最终 <code>可执行文件</code> 的工具。</p>
+<h2 id="ar"><a href="#ar" class="headerlink" title="ar"></a><strong><em>ar</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ar</code> 实用程序创建并维护组合成档案的文件组。 创建归档文件后，可以添加新文件，并且可以提取，删除或替换现有文件。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，简而言之，你可以将 <code>Mach-O文件</code> 压缩为一个文件。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ar -rcs myLibrary.a *.o</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>ar</code> 的帮助下，你可以创建 <code>静态库文件</code> ，但是如今 <code>libtool</code> 具有相同的功能。</p>
+<h2 id="ranlib"><a href="#ranlib" class="headerlink" title="ranlib"></a><strong><em>ranlib</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ranlib</code> 生成指向档案内容的索引，并将其存储在档案中。 索引列出了由可重定位目标文件的归档成员定义的每个符号。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Ranlib</code> 可以在 <code>静态库</code> 中创建一个索引文件，因此当你要使用库时，事情将会变得更快。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ranlib myLibrary.a</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此， <code>ranlib＆ar</code> 是维护 <code>静态库</code> 的工具，通常 <code>ar</code> 负责维护索引，并且你不必再运行 <code>ranlib</code> 。 但是，还有一个更好的管理 <code>静态（和动态）库</code> 的选择，你应该学习…</p>
+<h2 id="libtool"><a href="#libtool" class="headerlink" title="libtool"></a><strong><em>libtool</em></strong></h2><blockquote>
+<p><strong><em><code>创建类库</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>libtool</code> 可以创建 <code>动态链接的库</code> 或 <code>静态链接的（归档）库</code> 。 该带有 <code>-static</code> 选项的工具旨在替换 <code>ar＆ranlib</code> 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">libtool -static *.o -o myLibrary.a</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今， <code>libtool</code> 是构建库文件的主要选项，如果你是本主题的话，一定要学习该工具。 你可以检查示例项目的 <code>makefile</code> 以获得更多信息，或者通常可以阅读手册（<code>man libtool</code>）。 😉</p>
+<h2 id="ld"><a href="#ld" class="headerlink" title="ld"></a><strong><em>ld</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ld命令</code> 组合了几个目标文件和库，解析引用，并生成输出文件。  <code>ld</code> 可以产生最终的 <code>链接映像</code> （ <code>可执行文件</code> ， <code>dylib</code> 或 <code>bundle</code> ）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们简单点：这是 <code>链接器工具</code> 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ld main.o -lSystem -LmyLibLocation -lmyLibrary -o MyApp</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它可以将多个文件链接到一个实体中，因此你可以从 <code>Mach-O</code> 制作 <code>可执行二进制文件</code> 。  <code>链接</code> 是必需的，因为系统需要从链接的库中解析每种方法的地址。 换句话说，可执行文件将能够运行，并且所有功能都可以调用。 📱</p>
+<h2 id="nm"><a href="#nm" class="headerlink" title="nm"></a><strong><em>nm</em></strong></h2><blockquote>
+<p><strong><em><code>显示名称列表（符号表）</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>nm</code> ，你可以查看文件中包含哪些符号。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">nm myLibrary.a</span><br><span class="line"># <span class="number">0000000000001000</span> <span class="type">A</span> __mh_execute_header</span><br><span class="line">#                  <span class="type">U</span> _factorial</span><br><span class="line"># 0000000000001f50 <span class="type">T</span> _main</span><br><span class="line">#                  <span class="type">U</span> _printf</span><br><span class="line">#                  <span class="type">U</span> dyld_stub_binder</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从输出中可以看到，某些符号与某些内存地址相关联。 具有地址的地址实际上已给出，所有其他地址都来自其他库（它们尚未解析）。 因此，这意味着它们将在运行时解决。 另一个选择是你必须链接它们。 😅</p>
+<h2 id="otool"><a href="#otool" class="headerlink" title="otool"></a><strong><em>otool</em></strong></h2><blockquote>
+<p><strong><em><code>目标文件显示工具</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>otool</code> ，你可以检查 <code>Mach-O文件</code> 或 <code>库</code> 的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">otool -L myLibrary.a</span><br><span class="line">otool -tV myLibrary.a</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，你可以列出 <code>链接</code> 的库，或查看文件的 <code>反汇编</code> 文本内容。 如果你熟悉 <code>Mach-O文件格式</code> ，那么它是一个非常有用的工具，也是对现有应用程序进行 <code>逆向工程</code> 的好工具。</p>
+<h2 id="lipo"><a href="#lipo" class="headerlink" title="lipo"></a><strong><em>lipo</em></strong></h2><blockquote>
+<p><strong><em><code>创建通用文件或对其进行操作</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;借助 <code>lipo</code> 工具，你可以创建通用（多体系结构）文件。 通常，此工具用于创建通用框架。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lipo -create -output myFramework.framework devices.framework simulator.framework</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设想以下情形：你为 <code>arm7</code> 和 <code>i386</code> 都构建了类库。 在真实设备上，你需要发布 <code>arm7版本</code> ，但对于 <code>iOS模拟器</code>  ，你将需要 <code>i386版本</code> 。 在 <code>lipo</code> 的帮助下，你可以将这些体系结构组合为一个，并交付该框架，因此最终不必再担心此问题。</p>
+</br>
+
+<h1 id="Xcode相关工具"><a href="#Xcode相关工具" class="headerlink" title="Xcode相关工具"></a><strong>Xcode相关工具</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些工具也可以从命令行调用，但是它们与 <code>Xcode</code> 的关系比以前更多。 让我们快速了解一下。</p>
+<h2 id="xcode-select"><a href="#xcode-select" class="headerlink" title="xcode-select"></a><strong><em>xcode-select</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;管理 <code>Xcode</code> 和 <code>BSD工具</code> 。 如果你的计算机上具有多个版本的 <code>Xcode</code> ，则此工具可以轻松地在各个版本提供的开发人员工具之间切换。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcode-select --switch path/to/Xcode.app</span><br></pre></td></tr></table></figure>
+
+<h2 id="xcrun"><a href="#xcrun" class="headerlink" title="xcrun"></a><strong><em>xcrun</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运行或找到开发工具和属性。 使用 <code>xcrun</code> ，你基本上可以运行任何可以通过 <code>Xcode</code> 管理的内容。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xcrun simctl list <span class="comment">#list of simulators</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="codesign"><a href="#codesign" class="headerlink" title="codesign"></a><strong><em>codesign</em></strong></h2><blockquote>
+<p><strong><em><code>创建和操作代码签名</code></em></strong></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它可以选择适当的签名对你的应用程序进行签名。 通常，在引入自动签名之前尝试对应用程序进行签名时，此操作失败。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">codesign -s <span class="string">"Your Company, Inc."</span> /path/to/MyApp.app</span><br><span class="line">    codesign -v /path/to/MyApp.app</span><br></pre></td></tr></table></figure>
+
+<h2 id="xcodebuild"><a href="#xcodebuild" class="headerlink" title="xcodebuild"></a><strong><em>xcodebuild</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;构建 <code>Xcode</code> 项目和 <code>workspaces</code></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它将解析 <code>Xcode项目</code> 或 <code>workspaces</code> 文件，并基于该文件执行适当的 <code>buid命令</code> 。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">xcodebuild -project Example.xcodeproj -target Example</span><br><span class="line">    xcodebuild -list</span><br><span class="line">    xcodebuild -showsdks</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？"><a href="#如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？" class="headerlink" title="如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？"></a><strong>如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所以我们在这里，整篇文章都是为了学习本教程背后的逻辑而写的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我不想重新发明轮子。 但是，我想为你提供一些更详细的说明，并对脚本进行一些修改。</p>
+<h2 id="Thin-vs-fat-frameworks"><a href="#Thin-vs-fat-frameworks" class="headerlink" title="Thin vs. fat frameworks"></a><strong><em>Thin vs. fat frameworks</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Thin frameworks</code> 仅包含一种体系结构的编译代码。 另一方面，<code>fat frameworks</code> 包含用于多种体系结构的 <code>“slices”</code> 。 架构基本上被称为片，例如 <code>i386</code> 或 <code>arm7 slice</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>slice</code> 这意味着，如果仅针对 <code>i386</code> 和 <code>x86_64架构编译框架</code> ，则该框架仅在模拟器上有效，而在实际设备上则失败。 因此，如果你想构建一个真正的通用框架，则必须为所有现有架构进行编译。</p>
+<h2 id="构建一个-fat-framework"><a href="#构建一个-fat-framework" class="headerlink" title="构建一个 fat framework"></a><strong><em>构建一个 fat framework</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我对你有个好消息。 你只需要一个构建阶段脚本和一个聚合目标即可构建一个多体系结构框架。 在这里，从原始文章中无耻地撕下来，进行了一些额外的更改…😁</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> -e</span><br><span class="line">BUILD_PATH=<span class="string">"<span class="variable">$&#123;SRCROOT&#125;</span>/build"</span></span><br><span class="line">DEPLOYMENT_PATH=<span class="string">"<span class="variable">$&#123;SRCROOT&#125;</span>"</span></span><br><span class="line">TARGET_NAME=<span class="string">"Console-iOS"</span></span><br><span class="line">FRAMEWORK_NAME=<span class="string">"Console"</span></span><br><span class="line">FRAMEWORK=<span class="string">"<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>.framework"</span></span><br><span class="line">FRAMEWORK_PATH=<span class="string">"<span class="variable">$&#123;DEPLOYMENT_PATH&#125;</span>/<span class="variable">$&#123;FRAMEWORK&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># clean the build folder</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    rm -rf <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># build the framework for every architecture using xcodebuild</span></span><br><span class="line">xcodebuild -target <span class="string">"<span class="variable">$&#123;TARGET_NAME&#125;</span>"</span> -configuration Release \</span><br><span class="line">    -arch arm64 -arch armv7 -arch armv7s \</span><br><span class="line">    only_active_arch=no defines_module=yes -sdk <span class="string">"iphoneos"</span></span><br><span class="line"></span><br><span class="line">xcodebuild -target <span class="string">"<span class="variable">$&#123;TARGET_NAME&#125;</span>"</span> -configuration Release \</span><br><span class="line">    -arch x86_64 -arch i386 \</span><br><span class="line">    only_active_arch=no defines_module=yes -sdk <span class="string">"iphonesimulator"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># remove previous version from the deployment path</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$&#123;FRAMEWORK_PATH&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    rm -rf <span class="string">"<span class="variable">$&#123;FRAMEWORK_PATH&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># copy freshly built version to the deployment path</span></span><br><span class="line">cp -r <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/Release-iphoneos/<span class="variable">$&#123;FRAMEWORK&#125;</span>"</span> <span class="string">"<span class="variable">$&#123;FRAMEWORK_PATH&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># merge all the slices and create the fat framework</span></span><br><span class="line">lipo -create -output <span class="string">"<span class="variable">$&#123;FRAMEWORK_PATH&#125;</span>/<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>"</span> \</span><br><span class="line">    <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/Release-iphoneos/<span class="variable">$&#123;FRAMEWORK&#125;</span>/<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>"</span> \</span><br><span class="line">    <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/Release-iphonesimulator/<span class="variable">$&#123;FRAMEWORK&#125;</span>/<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># copy Swift module mappings for the simulator</span></span><br><span class="line">cp -r <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>/Release-iphonesimulator/<span class="variable">$&#123;FRAMEWORK&#125;</span>/Modules/<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>.swiftmodule/"</span> \</span><br><span class="line">    <span class="string">"<span class="variable">$&#123;FRAMEWORK_PATH&#125;</span>/Modules/<span class="variable">$&#123;FRAMEWORK_NAME&#125;</span>.swiftmodule"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># clean up the build folder again</span></span><br><span class="line"><span class="keyword">if</span> [ -d <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span> ]; <span class="keyword">then</span></span><br><span class="line">    rm -rf <span class="string">"<span class="variable">$&#123;BUILD_PATH&#125;</span>"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你也可以使用 <code>lipo</code> 工具检查创建的框架。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lipo -info Console.framework/Console</span><br><span class="line">    <span class="comment">#Architectures in the fat file: Console.framework/Console are: x86_64 i386 armv7 armv7s arm64</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a><strong><em>用法</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你只需要将全新的框架嵌入到要使用的项目中并设置一些路径即可。 </p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sf-stp3.png" alt="静态链接"></p>
+<h2 id="提交至App-Store"><a href="#提交至App-Store" class="headerlink" title="提交至App Store"></a><strong><em>提交至App Store</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>fat frameworks</code> 只有一个问题。 它们也包含模拟器的切片。 如果要向应用商店提交应用，则必须从框架中切断与模拟器相关的代码库。 其背后的原因是，没有真正的实际设备需要此代码块，那么为什么要提交它呢？</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">APP_PATH=<span class="string">"<span class="variable">$&#123;TARGET_BUILD_DIR&#125;</span>/<span class="variable">$&#123;WRAPPER_NAME&#125;</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># remove unused architectures from embedded frameworks</span></span><br><span class="line">find <span class="string">"<span class="variable">$APP_PATH</span>"</span> -name <span class="string">'*.framework'</span> -<span class="built_in">type</span> d | <span class="keyword">while</span> <span class="built_in">read</span> -r FRAMEWORK</span><br><span class="line"><span class="keyword">do</span></span><br><span class="line">    FRAMEWORK_EXECUTABLE_NAME=$(defaults <span class="built_in">read</span> <span class="string">"<span class="variable">$FRAMEWORK</span>/Info.plist"</span> CFBundleExecutable)</span><br><span class="line">    FRAMEWORK_EXECUTABLE_PATH=<span class="string">"<span class="variable">$FRAMEWORK</span>/<span class="variable">$FRAMEWORK_EXECUTABLE_NAME</span>"</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Executable is <span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>"</span></span><br><span class="line"></span><br><span class="line">    EXTRACTED_ARCHS=()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> ARCH <span class="keyword">in</span> <span class="variable">$ARCHS</span></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="built_in">echo</span> <span class="string">"Extracting <span class="variable">$ARCH</span> from <span class="variable">$FRAMEWORK_EXECUTABLE_NAME</span>"</span></span><br><span class="line">        lipo -extract <span class="string">"<span class="variable">$ARCH</span>"</span> <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>"</span> -o <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>-<span class="variable">$ARCH</span>"</span></span><br><span class="line">        EXTRACTED_ARCHS+=(<span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>-<span class="variable">$ARCH</span>"</span>)</span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Merging extracted architectures: <span class="variable">$&#123;ARCHS&#125;</span>"</span></span><br><span class="line">    lipo -o <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>-merged"</span> -create <span class="string">"<span class="variable">$&#123;EXTRACTED_ARCHS[@]&#125;</span>"</span></span><br><span class="line">    rm <span class="string">"<span class="variable">$&#123;EXTRACTED_ARCHS[@]&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">"Replacing original executable with thinned version"</span></span><br><span class="line">    rm <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>"</span></span><br><span class="line">    mv <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>-merged"</span> <span class="string">"<span class="variable">$FRAMEWORK_EXECUTABLE_PATH</span>"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个小脚本将删除框架中所有不必要的片段，因此你可以通过 <code>iTunes Connect</code> 提交应用程序，而不会出现任何问题。 （哈哈哈。😅）</p>
+<blockquote>
+<p><strong><em><code>提示：</code></em></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 你必须将此最后一个脚本添加到应用程序的 <code>build phases</code> 中。</p>
+</blockquote>
+</br>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 如果你想熟悉幕后的工具，本文将为你展示基础知识。 😉</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+	
+		<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+	
+</div>
+      
+    </div>
+    
+    <div>
+          
+            
+<div class="my_post_copyright">
+	<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+	
+	<!-- JS库 sweetalert 可修改路径 -->
+	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<p></p>
+	<span>本文标题:</span><a href="/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/">深入研究Swift框架</a>
+	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
+	<p><span>发布时间:</span>2020年04月29日 - 16:04</p>
+	<p><span>最后更新:</span>2020年04月29日 - 18:04</p>
+	<p><span>原始链接:</span><a href="/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/" title="深入研究Swift框架">http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E7%A0%94%E7%A9%B6Swift%E6%A1%86%E6%9E%B6/"  aria-label="复制成功！"></i></span>
+	</p>
+	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+		var clipboard = new Clipboard('.fa-clipboard');
+		$(".fa-clipboard").click(function(){
+			clipboard.on('success', function(){
+				swal({   
+					title: "",   
+					text: '复制成功',
+					icon: "success", 
+					showConfirmButton: true
+					});
+		});
+		});  
+</script>
+
+          
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Char 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Char 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+            <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag"># 架构设计</a>
+          
+            <a href="/tags/Swift-Package-Manager/" rel="tag"># Swift Package Manager</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E5%A6%82%E4%BD%95%E4%B8%BAVIPER%E7%BC%96%E5%86%99%E6%9C%8D%E5%8A%A1%EF%BC%9F/" rel="next" title="如何为VIPER编写服务？">
+                <i class="fa fa-chevron-left"></i> 如何为VIPER编写服务？
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG"
+                alt="Char" />
+            
+              <p class="site-author-name" itemprop="name">Char</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">59</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">47</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://github.com/Bogon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="mailto:zhangqixcu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://weibo.com/u/5640441479" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>新浪微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://blog.csdn.net/bogonbug" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://twitter.com/Bogon" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://stackoverflow.com/users/4368897/qizhang" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/swift/" title="Swift 5.1" rel="external nofollow" target="_blank">Swift 5.1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/documentation/objectivec" title="Objective-C" rel="external nofollow" target="_blank">Objective-C</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+<!--
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=490637664&auto=1&height=66"></iframe>
+-->
+          
+    
+        </div>
+        
+         
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基本定义"><span class="nav-number">1.</span> <span class="nav-text">基本定义</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Package"><span class="nav-number">1.1.</span> <span class="nav-text">Package</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Library"><span class="nav-number">1.2.</span> <span class="nav-text">Library</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Mach-O文件格式"><span class="nav-number">1.3.</span> <span class="nav-text">Mach-O文件格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#链接库"><span class="nav-number">1.4.</span> <span class="nav-text">链接库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态链接"><span class="nav-number">1.5.</span> <span class="nav-text">动态链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Framework"><span class="nav-number">1.6.</span> <span class="nav-text">Framework</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Module"><span class="nav-number">1.7.</span> <span class="nav-text">Module</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Modules-amp-module-maps"><span class="nav-number">1.8.</span> <span class="nav-text">Modules &amp; module maps</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Command-line-tools"><span class="nav-number">2.</span> <span class="nav-text">Command line tools</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#clang"><span class="nav-number">2.1.</span> <span class="nav-text">clang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#swiftc"><span class="nav-number">2.2.</span> <span class="nav-text">swiftc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ar"><span class="nav-number">2.3.</span> <span class="nav-text">ar</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ranlib"><span class="nav-number">2.4.</span> <span class="nav-text">ranlib</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#libtool"><span class="nav-number">2.5.</span> <span class="nav-text">libtool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ld"><span class="nav-number">2.6.</span> <span class="nav-text">ld</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#nm"><span class="nav-number">2.7.</span> <span class="nav-text">nm</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#otool"><span class="nav-number">2.8.</span> <span class="nav-text">otool</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#lipo"><span class="nav-number">2.9.</span> <span class="nav-text">lipo</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Xcode相关工具"><span class="nav-number">3.</span> <span class="nav-text">Xcode相关工具</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#xcode-select"><span class="nav-number">3.1.</span> <span class="nav-text">xcode-select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xcrun"><span class="nav-number">3.2.</span> <span class="nav-text">xcrun</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#codesign"><span class="nav-number">3.3.</span> <span class="nav-text">codesign</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#xcodebuild"><span class="nav-number">3.4.</span> <span class="nav-text">xcodebuild</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？"><span class="nav-number">4.</span> <span class="nav-text">如何使iOS的封闭源通用FATtened（多体系结构）Swift框架？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Thin-vs-fat-frameworks"><span class="nav-number">4.1.</span> <span class="nav-text">Thin vs. fat frameworks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#构建一个-fat-framework"><span class="nav-number">4.2.</span> <span class="nav-text">构建一个 fat framework</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">4.3.</span> <span class="nav-text">用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#提交至App-Store"><span class="nav-number">4.4.</span> <span class="nav-text">提交至App Store</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+  
+
+  
+  
+  
+</div>
+
+ <div class="copyright">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#666666; text-decoration:none; padding-left:0px; no-repeat left center" rel="nofollow noopener">豫ICP备20011156号 | </a>   
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" target="_blank" style="color:#666666; text-decoration: none;  padding-left:25px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow noopener">公网安备41172402000135号</a> 
+  </div>
+
+
+
+<!-- 
+
+
+  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a rel="external nofollow" class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+        appKey: 'eyu1k9BeINgR5FuXzbc969UA',
+        placeholder: '写出你的想法……',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz", "eyu1k9BeINgR5FuXzbc969UA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
