@@ -341,7 +341,7 @@ let emojis = groups.flatMap { $0.value }
 
 ## ***compactMap***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么， [***```flatMap和compactMap有什么关系```***](https://www.avanderlee.com/swift/compactmap-flatmap-differences-explained/ "") 呢？ 过去， ```flatMap``` 可以用于从数组中删除可选元素，但是从 ```Swift 4.1``` 开始，有一个名为 ```compactMap``` 的新函数可以用于此目的。 在大多数情况下，编译器会警告您将 [***```flatMap 替换为 compactMap```***](https://useyourloaf.com/blog/replacing-flatmap-with-compactmap/ "") 。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么， [***```flatMap和compactMap有什么关系```***](http://www.xuebaonline.com/Swift%20CompactMap%20vs%20flatMap%EF%BC%9A%E5%B7%AE%E5%BC%82%E8%AF%B4%E6%98%8E/ "") 呢？ 过去， ```flatMap``` 可以用于从数组中删除可选元素，但是从 ```Swift 4.1``` 开始，有一个名为 ```compactMap``` 的新函数可以用于此目的。 在大多数情况下，编译器会警告您将 [***```flatMap 替换为 compactMap```***](http://www.xuebaonline.com/Swift%20%E7%94%A8%20compactMap%20%E6%9B%BF%E6%8D%A2%20flatMap/ "") 。
 
 ``` Swift
 // compactMap
