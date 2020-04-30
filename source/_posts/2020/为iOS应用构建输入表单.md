@@ -15,7 +15,7 @@ categories:
 了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 ```Swift``` 。
 
 > **```提示:```**\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… [***```请阅读我的其他文章```***]( "") 。🤷‍♂️
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… [***```请阅读我的其他文章```***](http://www.xuebaonline.com/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/ "") 。🤷‍♂️
 
 </br>
 
