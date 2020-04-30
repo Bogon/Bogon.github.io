@@ -336,6 +336,473 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/" itemprop="url">在Swift中生成随机数</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-30T11:23:07+08:00">
+                2020-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/random/" itemprop="url" rel="index">
+                    <span itemprop="name">random</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/" class="leancloud_visitors" data-flag-title="在Swift中生成随机数">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用最新方法并涵盖一些旧技术，了解在 <code>Swift</code> 中生成随机值所需的一切。</p>
+</br>
+
+<h1 id="如何使用Swift生成随机数？"><a href="#如何使用Swift生成随机数？" class="headerlink" title="如何使用Swift生成随机数？"></a><strong>如何使用Swift生成随机数？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;幸运的是，自 <code>Swift 4.2</code> 起，统一了随机数生成功能。 这意味着你不再需要导入的 <code>C API</code>，只需在所有平台上使用本机 <code>Swift</code> 方法即可生成随机值！ 😍</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> randomBool = <span class="type">Bool</span>.random()</span><br><span class="line"><span class="keyword">let</span> randomInt = <span class="type">Int</span>.random(<span class="keyword">in</span>: <span class="number">1</span>...<span class="number">6</span>) <span class="comment">//dice roll</span></span><br><span class="line"><span class="keyword">let</span> randomFloat = <span class="type">Float</span>.random(<span class="keyword">in</span>: <span class="number">0</span>...<span class="number">1</span>)</span><br><span class="line"><span class="keyword">let</span> randomDouble = <span class="type">Double</span>.random(<span class="keyword">in</span>: <span class="number">1</span>..&lt;<span class="number">100</span>)</span><br></pre></td></tr></table></figure>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，借助 <code>Swift语言</code> 内置的加密安全随机发生器，现在非常容易生成骰子。 新的随机数生成器 <code>API</code> 也更擅长分配数字。 旧的 <code>arc4random</code> 函数存在一些问题，因为由于模偏差的影响，生成的值不均匀地分布在例如1到6之间。 🎲</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+    <div>
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/" itemprop="url">Swift Grand Central Dispatch 深入实践</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-30T10:32:15+08:00">
+                2020-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Grand-Central-Dispatch/" itemprop="url" rel="index">
+                    <span itemprop="name">Grand Central Dispatch</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/" class="leancloud_visitors" data-flag-title="Swift Grand Central Dispatch 深入实践">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  4.7k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  19 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解 <code>Swift</code> 中 <code>GCD框架</code> 的 <code>多线程原理</code> 。 我保证，将所有需要的 <code>队列</code> ， <code>任务</code> ， <code>组</code> 进行分组。</p>
+</br>
+
+<h1 id="适用于初学者的GCD并发教程"><a href="#适用于初学者的GCD并发教程" class="headerlink" title="适用于初学者的GCD并发教程"></a><strong>适用于初学者的GCD并发教程</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://developer.apple.com/documentation/dispatch" target="_blank" rel="noopener"><strong><em><code>Grand Central Dispatch （GCD，或仅调度）</code></em></strong></a>框架基于基础 <code>线程池设计模式</code> 。 这意味着系统会生成固定数量的线程-基于某些因素（例如 <code>CPU内核</code> ），它们始终可用，等待任务同时执行。 🚦</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在运行时创建线程是一项昂贵的任务，因此 <a href="https://www.raywenderlich.com/148513/grand-central-dispatch-tutorial-swift-3-part-1" target="_blank" rel="noopener"><strong><em><code>GCD</code></em></strong></a> 会将任务组织到特定队列中，稍后，将在池中适当且可用的线程上执行等待这些队列中的任务。 这种方法导致了出色的性能和较低的执行延迟。 我们可以说 <a href="https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift" target="_blank" rel="noopener"><strong><em><code>Dispatch框架</code></em></strong></a> 是一个非常快速，高效的并发框架，专为现代多核硬件和需求而设计。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+    <div>
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/iOS%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8iCloud%E6%96%87%E6%A1%A3%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2178,513 +2645,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/" itemprop="url">如何使用VIPER构建SwiftUI Apps？</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T10:17:21+08:00">
-                2020-04-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VIPER/" itemprop="url" rel="index">
-                    <span itemprop="name">VIPER</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SwiftUI/" itemprop="url" rel="index">
-                    <span itemprop="name">SwiftUI</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">架构设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/" class="leancloud_visitors" data-flag-title="如何使用VIPER构建SwiftUI Apps？">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  3.4k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  14 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这篇文章中，我将向你展示如何在真实的 <code>iOS应用程序</code> 示例中将 <code>SwiftUI</code> 与 <code>VIPER架构</code> 结合起来。</p>
-</br>
-
-<h1 id="SwiftUI-初学者"><a href="#SwiftUI-初学者" class="headerlink" title="SwiftUI-初学者"></a><strong>SwiftUI-初学者</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;网上确实有成百上千的 <code>SwiftUI</code> 教程，但是我只能找到一两个专门针对现实用例的东西，而不是像在 <code>SwiftUI</code> 中配置/制作X这样的较小细节。！</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我对 <code>SwiftUI</code> 也有自己的 “挣扎” ，因为我的集合视图框架的结构与编写 <code>SwiftUI</code> 代码的方式完全相同。😂</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无论如何，我从零开始就知道会有大量新的 <code>SwiftUI</code> 教程到来，并且每个人都会对新的声明性 <code>UI框架</code> 大肆宣传，但是老实说，我已经有了通用的工具包。这就是为什么我不想写它。坦率地说， 比起 <code>SwiftUI</code> 更喜欢 <code>Combine</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最终，因为到底是什么让我们尝试了新事物，并且我对 <code>SwiftUI</code> 如何适合我的应用程序构建方法感到好奇，所以我开始根据这些视图创建新的 <code>VIPER模板</code> 。我还想使用最新的新框架制作一个有用的，可扩展的，模块化的实际应用示例。 😛</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VIPER%E6%9E%84%E5%BB%BASwiftUI%20Apps%EF%BC%9F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-    <div>
-          
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/" itemprop="url">掌握VIPER架构</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-29T09:39:33+08:00">
-                2020-04-29
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/VIPER/" itemprop="url" rel="index">
-                    <span itemprop="name">VIPER</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index">
-                    <span itemprop="name">架构设计</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/" class="leancloud_visitors" data-flag-title="掌握VIPER架构">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.4k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  5 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 <code>Swift</code> 使用一些 <code>面向协议</code> 的编程技术来掌握 <code>VIPER架构设计模式</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在写了关于 <a href="http://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><strong><em><code>VIPER的最佳实践</code></em></strong></a> 之后，我对代码库进行了一些更改。 我已经想到了这些想法，但是却没有足够的时间正确地实施它们。 </p>
-</br>
-
-<h1 id="VIPER协议"><a href="#VIPER协议" class="headerlink" title="VIPER协议"></a><strong>VIPER协议</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我希望每个 <code>模块组件</code> 都有一个通用接口。 这就是为什么我为以下内容创建 <code>简单协议</code> 的原因：</p>
-<ul>
-<li><strong>View</strong></li>
-<li><strong>Interactor</strong></li>
-<li><strong>Presenter</strong></li>
-<li><strong>Entity</strong></li>
-<li><strong>Router</strong></li>
-<li><strong>Module</strong></li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-    <div>
-          
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2737,7 +2697,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">67</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2748,7 +2708,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2759,7 +2719,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">52</span>
+                  <span class="site-state-item-count">54</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
