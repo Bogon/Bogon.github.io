@@ -399,7 +399,7 @@ let luckyThirteen = numbers
 
 ## ***promises***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我喜欢 ```promises``` ，如果您不知道 ```promises``` 如何运作，也应该学习它们。 否则，您仍然可以使用 [***```Dispatch框架```***]( "") ，但我更喜欢 ```Promise``` ，因为使用 ```Promise框架``` 使传递变量更加容易。 正如我之前在事实上的标准中提到的是 ```PromiseKit``` ，但这对于我的口味来说有点太复杂了，我也更喜欢我的 ```promise方法``` 名称，如下所示：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我喜欢 ```promises``` ，如果您不知道 ```promises``` 如何运作，也应该学习它们。 否则，您仍然可以使用 [***```Dispatch框架```***](http://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/ "") ，但我更喜欢 ```Promise``` ，因为使用 ```Promise框架``` 使传递变量更加容易。 正如我之前在事实上的标准中提到的是 ```PromiseKit``` ，但这对于我的口味来说有点太复杂了，我也更喜欢我的 ```promise方法``` 名称，如下所示：
 
 ``` Swift
 Promise<String> { fulfill, reject in
