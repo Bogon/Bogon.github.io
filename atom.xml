@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://www.xuebaonline.com/"/>
-  <updated>2020-04-30T10:09:35.821Z</updated>
+  <updated>2020-04-30T12:02:00.441Z</updated>
   <id>http://www.xuebaonline.com/</id>
   
   <author>
@@ -15,6 +15,54 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS 自定义视图，输入表单和错误提示</title>
+    <link href="http://www.xuebaonline.com/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/"/>
+    <id>http://www.xuebaonline.com/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/</id>
+    <published>2020-04-30T12:02:00.000Z</published>
+    <updated>2020-04-30T12:02:00.441Z</updated>
+    
+    <summary type="html">
+    
+    </summary>
+    
+    
+    
+  </entry>
+  
+  <entry>
+    <title>为iOS应用构建输入表单</title>
+    <link href="http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/"/>
+    <id>http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/</id>
+    <published>2020-04-30T11:42:53.000Z</published>
+    <updated>2020-04-30T12:01:03.753Z</updated>
+    
+    <content type="html"><![CDATA[<p>了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 <code>Swift</code> 。</p><blockquote><p><strong><code>提示:</code></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… <a href=""""><strong><em><code>请阅读我的其他文章</code></em></strong></a> 。🤷‍♂️</p></blockquote></br><h1 id="CollectionView和输入表单"><a href="#CollectionView和输入表单" class="headerlink" title="CollectionView和输入表单"></a><strong>CollectionView和输入表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><strong><em><code>CollectionView框架</code></em></strong></a> 刚刚进行了巨大更新。有很多新变化，但是最大的改进之一是我处理视图模型的方式。过去，你必须在视图模型中使用长函数名，包括通用视图和模型类名。如果你曾经阅读过 <a href="http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"><strong><em><code>最终UICollectionView指南</code></em></strong></a> ，那么你应该了解我在说什么。好消息：我现在有一种更好的解决方案！ 😉</p><a id="more"></a><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此更新不仅可以清理很多代码，还可以添加自定义视图模型处理程序，因此我可以以一种非常简单的方式与输入字段，切换等交互。另一个巨大的改进是，我开始使用视图标识符。那是偶然的发现，我只想寻找 <a href="http://www.xuebaonline.com/Swift%20%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%9A%84%E8%A7%86%E5%9B%BE/"><strong><em><code>一种通过标签识别视图的替代解决方案</code></em></strong></a> ，然后我有了一个绝妙的主意：为什么不也通过id查找单元格呢？</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结果，我现在可以使用框架来创建表单。我仍然相信集合视图是大多数应用程序的最终构建块。是的，你仍然可以说没有灵丹妙药，但是如果此解决方案可以覆盖我90％的用例，那很好。毕竟，大多数应用程序只是以一种不错的或不太好的方式可视化 <code>JSON数据</code> 。 🤷‍♂️</p></br><h1 id="可重复使用的表单组件"><a href="#可重复使用的表单组件" class="headerlink" title="可重复使用的表单组件"></a><strong>可重复使用的表单组件</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们使用全新的框架来构建表单。 首先，你需要使用包管理器对其进行集成。 我真的希望在几周内我们可以使用 <code>Swift Package Manager</code> ，直到比你应该使用 <code>CocoaPods</code> 或 <code>carthage</code> 为止。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># cocoapods</span><br><span class="line">source 'https:<span class="comment">//github.com/CoreKit/CocoaPods.git'</span></span><br><span class="line">pod '<span class="type">CollectionView'</span>, '~&gt; <span class="number">2.0</span>.<span class="number">0</span>'</span><br><span class="line"></span><br><span class="line"># carthage</span><br><span class="line">github <span class="string">"CoreKit/CollectionView"</span> <span class="string">"2.0.0"</span></span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在让我们为输入字段创建一个可重用的单元格。 可以像往常一样随意使用 <code>xib文件</code> ，实现上的唯一区别是，我将在 <code>reset方法</code> 中删除目标侦听器。 我们稍后将在视图模型中添加一个。 🎯</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputCell</span>: <span class="title">Cell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textField: <span class="type">UITextField!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">reset</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.reset()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.textField.removeTarget(<span class="literal">nil</span>, action: <span class="literal">nil</span>, <span class="keyword">for</span>: .editingChanged)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我还将创建一个简单的实体，用于在表单字段为空时显示占位符并存储输入字段的实际值，我们将其称为 <code>InputEntity</code> 。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">InputEntity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> placeholder: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> value: <span class="type">String?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在最困难的部分是：在视图和模型之间建立连接。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputViewModel</span>: <span class="title">ViewModel</span>&lt;<span class="title">InputCell</span>, <span class="title">InputEntity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> editingChangeHandler: <span class="type">ViewModelHandler?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> height: <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">60</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">updateView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.placeholder = <span class="keyword">self</span>.model.placeholder</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.text = <span class="keyword">self</span>.model.value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.view?.textField.addTarget(<span class="keyword">self</span>,</span><br><span class="line">                                       action: #selector(<span class="keyword">self</span>.editingChanged(<span class="number">_</span>:)),</span><br><span class="line">                                       <span class="keyword">for</span>: .editingChanged)</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.addTarget(<span class="keyword">self</span>,</span><br><span class="line">                                       action: #selector(<span class="keyword">self</span>.editingDidEnd(<span class="number">_</span>:)),</span><br><span class="line">                                       <span class="keyword">for</span>: .editingDidEnd)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">onEditingChange</span><span class="params">(<span class="number">_</span> handler: @escaping ViewModelHandler)</span></span> -&gt; <span class="type">Self</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.editingChangeHandler = handler</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">editingChanged</span><span class="params">(<span class="number">_</span> textField: UITextField)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.model.value = textField.text</span><br><span class="line">        <span class="keyword">self</span>.editingChangeHandler?(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">editingDidEnd</span><span class="params">(<span class="number">_</span> textField: UITextField)</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"nothing-to-do-here-now..."</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个非常复杂的视图模型，但是它也可以做很多事情。 你应该了解的第一件事是 <code>ViewModelHandler</code> ，它基本上是可以在视图模型中使用的通用别名。 它使你能够传递回调的类型安全视图模型。 你稍后会看到。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二个主要更改是 <code>updateView方法</code> ，该方法用于基于来自模型的数据来更新视图。 我还将目标侦听器添加到视图中，以便可以直接在 <code>view-model类</code> 内部处理用户输入。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>onEditingChange</code> 方法是视图模型的 <code>“公共” api</code> 。 我现在使用on前缀将处理程序和侦听器添加到我的视图模型。 如果发生更改事件，它将基本上调用存储的块。 你可以根据需要添加任意数量的事件处理程序块。 我真的希望你能掌握这种方法。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一件事：现在返回单元格的高度是单线！ 🎊</p></br><h1 id="Composing-forms-and-more"><a href="#Composing-forms-and-more" class="headerlink" title="Composing forms and more"></a><strong>Composing forms and more</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前，该计划将具有一个包含两个输入字段的输入表单。 一个用于电子邮件地址，另一个将用于密码。 诀窍是，这次我不会向你展示整个代码，但是你必须弄清楚其余的代码。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，我将向你展示制作自己的表单所需的所有知识，甚至包括一些复杂的表单。 不用担心，这只是几行代码。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">CollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> grid = <span class="type">Grid</span>(columns: <span class="number">1</span>, margin: <span class="type">UIEdgeInsets</span>(all: <span class="number">16</span>), padding: .zero)</span><br><span class="line">        <span class="keyword">self</span>.collectionView.source = .<span class="keyword">init</span>(grid: grid, [</span><br><span class="line">            [</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="string">"email-input"</span>, .<span class="keyword">init</span>(placeholder: <span class="string">"Email"</span>, value: <span class="literal">nil</span>))</span><br><span class="line">                .onEditingChange &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="string">"password-input"</span>) <span class="keyword">as</span>? <span class="type">InputViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    passwordViewModel.model.value = viewModel.model.value ?? <span class="string">""</span></span><br><span class="line">                    passwordViewModel.updateView()</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="string">"password-input"</span>, .<span class="keyword">init</span>(placeholder: <span class="string">"Password"</span>, value: <span class="literal">nil</span>)),</span><br><span class="line">            ],</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你曾经使用过集合视图框架，那么你应该知道我一直使用网格系统，因为我真的不喜欢计算数字。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源是一组按部分分组的视图模型。这里唯一有趣的部分是，现在可以使用节和视图模型的数组来初始化源。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你使用和标识符初始化一个视图模型，则以后可以通过ID查询该视图模型。这正是在编辑更改处理程序块内发生的事情。每个视图模型都可以通过id返回其他一些视图模型。默认情况下，视图模型是类型安全的，由于通用的 <code>ViewModelHandler</code> 别名， <code>viewModel</code> 也在块内传递。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，在这个小示例中，如果你在第一个输入字段中键入内容，则完全相同的文本将出现在第二个文本字段中。你可以在需要时按ID获取所有视图模型。例如，如果你必须提交此表单，则可以使用相同的方法来获取电子邮件和密码字段。</p></br><h1 id="建立登录表单"><a href="#建立登录表单" class="headerlink" title="建立登录表单"></a><strong>建立登录表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要求你使用我的框架自行构建一个登录表单。 我保证不超过30分钟的工作时间。 我将向你展示我将使用的最终视图控制器，因此这可能会给你一些帮助。</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想稍微增加点趣味，甚至可以添加一个复选框以接受隐私策略。 这里的主要思想是你应该为表单中的每个项目创建可重用的组件。 因此，例如，具有相应视图模型的 <code>ToggleView</code> 是一种很好的方法（也适用于按钮）。 🤫</p><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是最终的提示，你只需要创建自己的视图模型和视图即可。</p><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">CollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Ids</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> email = <span class="string">"email-input"</span></span><br><span class="line">        <span class="keyword">case</span> password = <span class="string">"password-input"</span></span><br><span class="line">        <span class="keyword">case</span> privacyPolicy = <span class="string">"privacy-policy-checkbox"</span></span><br><span class="line">        <span class="keyword">case</span> submit = <span class="string">"submit-button"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> grid = <span class="type">Grid</span>(columns: <span class="number">1</span>, margin: <span class="type">UIEdgeInsets</span>(all: <span class="number">16</span>), padding: .zero)</span><br><span class="line">        <span class="keyword">self</span>.collectionView.source = .<span class="keyword">init</span>(grid: grid, [</span><br><span class="line">            [</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="type">Ids</span>.email.rawValue, .<span class="keyword">init</span>(placeholder: <span class="string">"Email"</span>, value: <span class="literal">nil</span>))</span><br><span class="line">                .onEditingEnd &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="type">Ids</span>.password.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    passwordViewModel.view?.textField.becomeFirstResponder()</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="type">Ids</span>.password.rawValue, .<span class="keyword">init</span>(placeholder: <span class="string">"Password"</span>, value: <span class="literal">nil</span>, secure: <span class="literal">true</span>))</span><br><span class="line">                .onEditingEnd &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    viewModel.view?.textField.endEditing(<span class="literal">true</span>)</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">                <span class="type">ToggleViewModel</span>(id: <span class="type">Ids</span>.privacyPolicy.rawValue, .<span class="keyword">init</span>(label: <span class="string">"Privacy policy"</span>, value: <span class="literal">false</span>))</span><br><span class="line">                .onValueChange &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> submitViewModel = viewModel.by(id: <span class="type">Ids</span>.submit.rawValue) <span class="keyword">as</span>? <span class="type">ButtonViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">var</span> model = submitViewModel.model</span><br><span class="line">                    model.enabled = viewModel.model.value</span><br><span class="line">                    submitViewModel.model = model</span><br><span class="line">                    submitViewModel.updateView()</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">                <span class="type">ButtonViewModel</span>(id: <span class="type">Ids</span>.submit.rawValue, .<span class="keyword">init</span>(title: <span class="string">"Submit"</span>, enabled: <span class="literal">false</span>))</span><br><span class="line">                .onSubmit &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span></span><br><span class="line">                        <span class="keyword">let</span> emailViewModel = viewModel.by(id: <span class="type">Ids</span>.email.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span>,</span><br><span class="line">                        <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="type">Ids</span>.password.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span></span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">/* ... */</span></span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到此为止，这是一个几乎完整的登录表单，仅包含几行代码。 当然有一个基础框架，但是如果你检查 <a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><strong><em><code>源代码</code></em></strong></a> ，你实际上会发现它不包含任何被视为黑魔法的东西。 💫</p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 &lt;code&gt;Swift&lt;/code&gt; 。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;&lt;code&gt;提示:&lt;/code&gt;&lt;/strong&gt;&lt;br&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… &lt;a href=&quot;&quot;&quot;&quot;&gt;&lt;strong&gt;&lt;em&gt;&lt;code&gt;请阅读我的其他文章&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; 。🤷‍♂️&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/br&gt;
+
+&lt;h1 id=&quot;CollectionView和输入表单&quot;&gt;&lt;a href=&quot;#CollectionView和输入表单&quot; class=&quot;headerlink&quot; title=&quot;CollectionView和输入表单&quot;&gt;&lt;/a&gt;&lt;strong&gt;CollectionView和输入表单&lt;/strong&gt;&lt;/h1&gt;&lt;p&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&lt;a href=&quot;https://github.com/corekit/collectionview&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;&lt;strong&gt;&lt;em&gt;&lt;code&gt;CollectionView框架&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; 刚刚进行了巨大更新。有很多新变化，但是最大的改进之一是我处理视图模型的方式。过去，你必须在视图模型中使用长函数名，包括通用视图和模型类名。如果你曾经阅读过 &lt;a href=&quot;http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/&quot;&gt;&lt;strong&gt;&lt;em&gt;&lt;code&gt;最终UICollectionView指南&lt;/code&gt;&lt;/em&gt;&lt;/strong&gt;&lt;/a&gt; ，那么你应该了解我在说什么。好消息：我现在有一种更好的解决方案！ 😉&lt;/p&gt;
+    
+    </summary>
+    
+    
+      <category term="iOS" scheme="http://www.xuebaonline.com/categories/iOS/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
+    
+    
+      <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
+    
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+  </entry>
   
   <entry>
     <title>Swift编写的20个iOS库(一)</title>
@@ -608,9 +656,9 @@
     
       <category term="Swift" scheme="http://www.xuebaonline.com/categories/Swift/"/>
     
-      <category term="SwiftUI" scheme="http://www.xuebaonline.com/categories/SwiftUI/"/>
-    
       <category term="VIPER" scheme="http://www.xuebaonline.com/categories/VIPER/"/>
+    
+      <category term="SwiftUI" scheme="http://www.xuebaonline.com/categories/SwiftUI/"/>
     
       <category term="架构设计" scheme="http://www.xuebaonline.com/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/"/>
     
@@ -864,9 +912,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="SwiftUI" scheme="http://www.xuebaonline.com/tags/SwiftUI/"/>
     
@@ -902,9 +950,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="Uniquely identifying views" scheme="http://www.xuebaonline.com/tags/Uniquely-identifying-views/"/>
     
@@ -942,9 +990,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="子类化样式" scheme="http://www.xuebaonline.com/tags/%E5%AD%90%E7%B1%BB%E5%8C%96%E6%A0%B7%E5%BC%8F/"/>
     
@@ -981,9 +1029,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="UIImagePickerController" scheme="http://www.xuebaonline.com/tags/UIImagePickerController/"/>
     
@@ -1022,9 +1070,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="UIImagePickerController" scheme="http://www.xuebaonline.com/tags/UIImagePickerController/"/>
     
@@ -1060,9 +1108,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="UITableView" scheme="http://www.xuebaonline.com/tags/UITableView/"/>
     
@@ -1098,9 +1146,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自定义UIView" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89UIView/"/>
     
@@ -1136,9 +1184,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="UICollectionView" scheme="http://www.xuebaonline.com/tags/UICollectionView/"/>
     
@@ -1179,9 +1227,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="UIColor" scheme="http://www.xuebaonline.com/tags/UIColor/"/>
     
@@ -1218,9 +1266,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自定义转场" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BD%AC%E5%9C%BA/"/>
     
@@ -1257,9 +1305,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自适应布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/"/>
     
@@ -1296,9 +1344,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自适应布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/"/>
     
@@ -1334,9 +1382,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自适应布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80/"/>
     
@@ -1373,9 +1421,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自动化布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%83%E5%B1%80/"/>
     
@@ -1416,9 +1464,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
       <category term="自动化布局" scheme="http://www.xuebaonline.com/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%83%E5%B1%80/"/>
     
@@ -1453,9 +1501,9 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
-      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
       <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
+      <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
     
   </entry>
   
@@ -1553,11 +1601,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="Modules And Hooks" scheme="http://www.xuebaonline.com/tags/Modules-And-Hooks/"/>
     
@@ -1593,11 +1641,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="Modules And Hooks" scheme="http://www.xuebaonline.com/tags/Modules-And-Hooks/"/>
     
@@ -1634,11 +1682,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="初始化模式" scheme="http://www.xuebaonline.com/tags/%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1675,11 +1723,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="懒加载模式" scheme="http://www.xuebaonline.com/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1715,11 +1763,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="懒加载模式" scheme="http://www.xuebaonline.com/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1761,11 +1809,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="懒加载模式" scheme="http://www.xuebaonline.com/tags/%E6%87%92%E5%8A%A0%E8%BD%BD%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1802,11 +1850,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="对象池设计模式" scheme="http://www.xuebaonline.com/tags/%E5%AF%B9%E8%B1%A1%E6%B1%A0%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1842,11 +1890,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="外观设计模式" scheme="http://www.xuebaonline.com/tags/%E5%A4%96%E8%A7%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1881,11 +1929,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="迭代器设计模式" scheme="http://www.xuebaonline.com/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1923,11 +1971,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="迭代器设计模式" scheme="http://www.xuebaonline.com/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -1969,11 +2017,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="迭代器设计模式" scheme="http://www.xuebaonline.com/tags/%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2009,11 +2057,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="适配器设计模式" scheme="http://www.xuebaonline.com/tags/%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2048,11 +2096,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="依赖注入设计模式" scheme="http://www.xuebaonline.com/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2092,11 +2140,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="依赖注入设计模式" scheme="http://www.xuebaonline.com/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2132,11 +2180,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="委托设计模式" scheme="http://www.xuebaonline.com/tags/%E5%A7%94%E6%89%98%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2177,11 +2225,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="命令设计模式" scheme="http://www.xuebaonline.com/tags/%E5%91%BD%E4%BB%A4%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2218,11 +2266,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="原型设计模式" scheme="http://www.xuebaonline.com/tags/%E5%8E%9F%E5%9E%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2258,11 +2306,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="工厂设计模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2298,11 +2346,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="抽象工厂设计模式" scheme="http://www.xuebaonline.com/tags/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2338,11 +2386,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="工厂方法设计模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2378,11 +2426,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="工厂模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2422,11 +2470,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="工厂模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2468,11 +2516,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="工厂模式" scheme="http://www.xuebaonline.com/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2509,11 +2557,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="生成器模式" scheme="http://www.xuebaonline.com/tags/%E7%94%9F%E6%88%90%E5%99%A8%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2552,11 +2600,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="单例模式" scheme="http://www.xuebaonline.com/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2590,11 +2638,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
       <category term="单例模式" scheme="http://www.xuebaonline.com/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/"/>
     
@@ -2627,11 +2675,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
   </entry>
   
@@ -2665,11 +2713,11 @@
     
       <category term="iOS" scheme="http://www.xuebaonline.com/tags/iOS/"/>
     
+      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
+    
       <category term="设计模式" scheme="http://www.xuebaonline.com/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="UIKit" scheme="http://www.xuebaonline.com/tags/UIKit/"/>
-    
-      <category term="Swift" scheme="http://www.xuebaonline.com/tags/Swift/"/>
     
   </entry>
   

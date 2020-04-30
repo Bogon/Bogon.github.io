@@ -1,0 +1,1586 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU" />
+<meta name="baidu-site-verification" content="7gJOLignE2" />
+
+
+  <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "ba781384"
+    });
+  daovoice('update');
+  </script>
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+<!--  添加关键字 -->
+ <meta name="keywords" content="i,O,S,,,S,w,i,f,t,,,输,入,表,单,,,i,O,S,库," /> 
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="iOS,Swift,输入表单,iOS库" />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml" />
+
+
+
+
+
+
+<meta name="description" content="了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 Swift 。  提示:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… 请阅读我的其他文章 。🤷‍♂️    CollectionView和输入表单&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="为iOS应用构建输入表单">
+<meta property="og:url" content="http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 Swift 。  提示:&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… 请阅读我的其他文章 。🤷‍♂️    CollectionView和输入表单&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;">
+<meta property="article:published_time" content="2020-04-30T11:42:53.000Z">
+<meta property="article:modified_time" content="2020-04-30T12:01:03.753Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="输入表单">
+<meta property="article:tag" content="iOS库">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.xuebaonline.com/为iOS应用构建输入表单/"/>
+
+
+
+
+
+  <title>为iOS应用构建输入表单 | Char's Blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Char's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-schedule">
+          <a href="/schedule" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-calendar"></i> <br />
+            
+            日程表
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">为iOS应用构建输入表单</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-30T19:42:53+08:00">
+                2020-04-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/" class="leancloud_visitors" data-flag-title="为iOS应用构建输入表单">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.2k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  9 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 <code>Swift</code> 。</p>
+<blockquote>
+<p><strong><code>提示:</code></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… <a href=""""><strong><em><code>请阅读我的其他文章</code></em></strong></a> 。🤷‍♂️</p>
+</blockquote>
+</br>
+
+<h1 id="CollectionView和输入表单"><a href="#CollectionView和输入表单" class="headerlink" title="CollectionView和输入表单"></a><strong>CollectionView和输入表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><strong><em><code>CollectionView框架</code></em></strong></a> 刚刚进行了巨大更新。有很多新变化，但是最大的改进之一是我处理视图模型的方式。过去，你必须在视图模型中使用长函数名，包括通用视图和模型类名。如果你曾经阅读过 <a href="http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"><strong><em><code>最终UICollectionView指南</code></em></strong></a> ，那么你应该了解我在说什么。好消息：我现在有一种更好的解决方案！ 😉</p>
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此更新不仅可以清理很多代码，还可以添加自定义视图模型处理程序，因此我可以以一种非常简单的方式与输入字段，切换等交互。另一个巨大的改进是，我开始使用视图标识符。那是偶然的发现，我只想寻找 <a href="http://www.xuebaonline.com/Swift%20%E5%94%AF%E4%B8%80%E8%AF%86%E5%88%AB%E7%9A%84%E8%A7%86%E5%9B%BE/"><strong><em><code>一种通过标签识别视图的替代解决方案</code></em></strong></a> ，然后我有了一个绝妙的主意：为什么不也通过id查找单元格呢？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结果，我现在可以使用框架来创建表单。我仍然相信集合视图是大多数应用程序的最终构建块。是的，你仍然可以说没有灵丹妙药，但是如果此解决方案可以覆盖我90％的用例，那很好。毕竟，大多数应用程序只是以一种不错的或不太好的方式可视化 <code>JSON数据</code> 。 🤷‍♂️</p>
+</br>
+
+<h1 id="可重复使用的表单组件"><a href="#可重复使用的表单组件" class="headerlink" title="可重复使用的表单组件"></a><strong>可重复使用的表单组件</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们使用全新的框架来构建表单。 首先，你需要使用包管理器对其进行集成。 我真的希望在几周内我们可以使用 <code>Swift Package Manager</code> ，直到比你应该使用 <code>CocoaPods</code> 或 <code>carthage</code> 为止。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># cocoapods</span><br><span class="line">source 'https:<span class="comment">//github.com/CoreKit/CocoaPods.git'</span></span><br><span class="line">pod '<span class="type">CollectionView'</span>, '~&gt; <span class="number">2.0</span>.<span class="number">0</span>'</span><br><span class="line"></span><br><span class="line"># carthage</span><br><span class="line">github <span class="string">"CoreKit/CollectionView"</span> <span class="string">"2.0.0"</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在让我们为输入字段创建一个可重用的单元格。 可以像往常一样随意使用 <code>xib文件</code> ，实现上的唯一区别是，我将在 <code>reset方法</code> 中删除目标侦听器。 我们稍后将在视图模型中添加一个。 🎯</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputCell</span>: <span class="title">Cell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textField: <span class="type">UITextField!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">reset</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.reset()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.textField.removeTarget(<span class="literal">nil</span>, action: <span class="literal">nil</span>, <span class="keyword">for</span>: .editingChanged)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我还将创建一个简单的实体，用于在表单字段为空时显示占位符并存储输入字段的实际值，我们将其称为 <code>InputEntity</code> 。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">InputEntity</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> placeholder: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> value: <span class="type">String?</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在最困难的部分是：在视图和模型之间建立连接。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">InputViewModel</span>: <span class="title">ViewModel</span>&lt;<span class="title">InputCell</span>, <span class="title">InputEntity</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> editingChangeHandler: <span class="type">ViewModelHandler?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> height: <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">60</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">updateView</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.placeholder = <span class="keyword">self</span>.model.placeholder</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.text = <span class="keyword">self</span>.model.value</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.view?.textField.addTarget(<span class="keyword">self</span>,</span><br><span class="line">                                       action: #selector(<span class="keyword">self</span>.editingChanged(<span class="number">_</span>:)),</span><br><span class="line">                                       <span class="keyword">for</span>: .editingChanged)</span><br><span class="line">        <span class="keyword">self</span>.view?.textField.addTarget(<span class="keyword">self</span>,</span><br><span class="line">                                       action: #selector(<span class="keyword">self</span>.editingDidEnd(<span class="number">_</span>:)),</span><br><span class="line">                                       <span class="keyword">for</span>: .editingDidEnd)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">onEditingChange</span><span class="params">(<span class="number">_</span> handler: @escaping ViewModelHandler)</span></span> -&gt; <span class="type">Self</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.editingChangeHandler = handler</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">editingChanged</span><span class="params">(<span class="number">_</span> textField: UITextField)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.model.value = textField.text</span><br><span class="line">        <span class="keyword">self</span>.editingChangeHandler?(<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@objc</span> <span class="function"><span class="keyword">func</span> <span class="title">editingDidEnd</span><span class="params">(<span class="number">_</span> textField: UITextField)</span></span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"nothing-to-do-here-now..."</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个非常复杂的视图模型，但是它也可以做很多事情。 你应该了解的第一件事是 <code>ViewModelHandler</code> ，它基本上是可以在视图模型中使用的通用别名。 它使你能够传递回调的类型安全视图模型。 你稍后会看到。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二个主要更改是 <code>updateView方法</code> ，该方法用于基于来自模型的数据来更新视图。 我还将目标侦听器添加到视图中，以便可以直接在 <code>view-model类</code> 内部处理用户输入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>onEditingChange</code> 方法是视图模型的 <code>“公共” api</code> 。 我现在使用on前缀将处理程序和侦听器添加到我的视图模型。 如果发生更改事件，它将基本上调用存储的块。 你可以根据需要添加任意数量的事件处理程序块。 我真的希望你能掌握这种方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一件事：现在返回单元格的高度是单线！ 🎊</p>
+</br>
+
+<h1 id="Composing-forms-and-more"><a href="#Composing-forms-and-more" class="headerlink" title="Composing forms and more"></a><strong>Composing forms and more</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;目前，该计划将具有一个包含两个输入字段的输入表单。 一个用于电子邮件地址，另一个将用于密码。 诀窍是，这次我不会向你展示整个代码，但是你必须弄清楚其余的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，我将向你展示制作自己的表单所需的所有知识，甚至包括一些复杂的表单。 不用担心，这只是几行代码。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">CollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> grid = <span class="type">Grid</span>(columns: <span class="number">1</span>, margin: <span class="type">UIEdgeInsets</span>(all: <span class="number">16</span>), padding: .zero)</span><br><span class="line">        <span class="keyword">self</span>.collectionView.source = .<span class="keyword">init</span>(grid: grid, [</span><br><span class="line">            [</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="string">"email-input"</span>, .<span class="keyword">init</span>(placeholder: <span class="string">"Email"</span>, value: <span class="literal">nil</span>))</span><br><span class="line">                .onEditingChange &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="string">"password-input"</span>) <span class="keyword">as</span>? <span class="type">InputViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    passwordViewModel.model.value = viewModel.model.value ?? <span class="string">""</span></span><br><span class="line">                    passwordViewModel.updateView()</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="string">"password-input"</span>, .<span class="keyword">init</span>(placeholder: <span class="string">"Password"</span>, value: <span class="literal">nil</span>)),</span><br><span class="line">            ],</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你曾经使用过集合视图框架，那么你应该知道我一直使用网格系统，因为我真的不喜欢计算数字。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;源是一组按部分分组的视图模型。这里唯一有趣的部分是，现在可以使用节和视图模型的数组来初始化源。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你使用和标识符初始化一个视图模型，则以后可以通过ID查询该视图模型。这正是在编辑更改处理程序块内发生的事情。每个视图模型都可以通过id返回其他一些视图模型。默认情况下，视图模型是类型安全的，由于通用的 <code>ViewModelHandler</code> 别名， <code>viewModel</code> 也在块内传递。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，在这个小示例中，如果你在第一个输入字段中键入内容，则完全相同的文本将出现在第二个文本字段中。你可以在需要时按ID获取所有视图模型。例如，如果你必须提交此表单，则可以使用相同的方法来获取电子邮件和密码字段。</p>
+</br>
+
+<h1 id="建立登录表单"><a href="#建立登录表单" class="headerlink" title="建立登录表单"></a><strong>建立登录表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要求你使用我的框架自行构建一个登录表单。 我保证不超过30分钟的工作时间。 我将向你展示我将使用的最终视图控制器，因此这可能会给你一些帮助。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想稍微增加点趣味，甚至可以添加一个复选框以接受隐私策略。 这里的主要思想是你应该为表单中的每个项目创建可重用的组件。 因此，例如，具有相应视图模型的 <code>ToggleView</code> 是一种很好的方法（也适用于按钮）。 🤫</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是最终的提示，你只需要创建自己的视图模型和视图即可。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> CollectionView</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">CollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Ids</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> email = <span class="string">"email-input"</span></span><br><span class="line">        <span class="keyword">case</span> password = <span class="string">"password-input"</span></span><br><span class="line">        <span class="keyword">case</span> privacyPolicy = <span class="string">"privacy-policy-checkbox"</span></span><br><span class="line">        <span class="keyword">case</span> submit = <span class="string">"submit-button"</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">let</span> grid = <span class="type">Grid</span>(columns: <span class="number">1</span>, margin: <span class="type">UIEdgeInsets</span>(all: <span class="number">16</span>), padding: .zero)</span><br><span class="line">        <span class="keyword">self</span>.collectionView.source = .<span class="keyword">init</span>(grid: grid, [</span><br><span class="line">            [</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="type">Ids</span>.email.rawValue, .<span class="keyword">init</span>(placeholder: <span class="string">"Email"</span>, value: <span class="literal">nil</span>))</span><br><span class="line">                .onEditingEnd &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="type">Ids</span>.password.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    passwordViewModel.view?.textField.becomeFirstResponder()</span><br><span class="line">                &#125;,</span><br><span class="line">                <span class="type">InputViewModel</span>(id: <span class="type">Ids</span>.password.rawValue, .<span class="keyword">init</span>(placeholder: <span class="string">"Password"</span>, value: <span class="literal">nil</span>, secure: <span class="literal">true</span>))</span><br><span class="line">                .onEditingEnd &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    viewModel.view?.textField.endEditing(<span class="literal">true</span>)</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">                <span class="type">ToggleViewModel</span>(id: <span class="type">Ids</span>.privacyPolicy.rawValue, .<span class="keyword">init</span>(label: <span class="string">"Privacy policy"</span>, value: <span class="literal">false</span>))</span><br><span class="line">                .onValueChange &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span> <span class="keyword">let</span> submitViewModel = viewModel.by(id: <span class="type">Ids</span>.submit.rawValue) <span class="keyword">as</span>? <span class="type">ButtonViewModel</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">var</span> model = submitViewModel.model</span><br><span class="line">                    model.enabled = viewModel.model.value</span><br><span class="line">                    submitViewModel.model = model</span><br><span class="line">                    submitViewModel.updateView()</span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">            [</span><br><span class="line">                <span class="type">ButtonViewModel</span>(id: <span class="type">Ids</span>.submit.rawValue, .<span class="keyword">init</span>(title: <span class="string">"Submit"</span>, enabled: <span class="literal">false</span>))</span><br><span class="line">                .onSubmit &#123; viewModel <span class="keyword">in</span></span><br><span class="line">                    <span class="keyword">guard</span></span><br><span class="line">                        <span class="keyword">let</span> emailViewModel = viewModel.by(id: <span class="type">Ids</span>.email.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span>,</span><br><span class="line">                        <span class="keyword">let</span> passwordViewModel = viewModel.by(id: <span class="type">Ids</span>.password.rawValue) <span class="keyword">as</span>? <span class="type">InputViewModel</span></span><br><span class="line">                    <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">return</span></span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="comment">/* ... */</span></span><br><span class="line">                &#125;,</span><br><span class="line">            ],</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到此为止，这是一个几乎完整的登录表单，仅包含几行代码。 当然有一个基础框架，但是如果你检查 <a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><strong><em><code>源代码</code></em></strong></a> ，你实际上会发现它不包含任何被视为黑魔法的东西。 💫</p>
+
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+        <div>
+	
+		<div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+	
+</div>
+      
+    </div>
+    
+    <div>
+          
+            
+<div class="my_post_copyright">
+	<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+	
+	<!-- JS库 sweetalert 可修改路径 -->
+	<script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<p></p>
+	<span>本文标题:</span><a href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/">为iOS应用构建输入表单</a>
+	<p><span>文章作者:</span><a href="/" title="访问 Char 的个人博客">Char</a></p>
+	<p><span>发布时间:</span>2020年04月30日 - 19:04</p>
+	<p><span>最后更新:</span>2020年04月30日 - 20:04</p>
+	<p><span>原始链接:</span><a href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/" title="为iOS应用构建输入表单">http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/</a>
+		<span class="copy-path"  title="点击复制文章链接"><i class="fa fa-clipboard" data-clipboard-text="http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/"  aria-label="复制成功！"></i></span>
+	</p>
+	<p><span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" title="Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0)">署名-非商业性使用</a> 转载请保留原文链接及作者。</p>  
+</div>
+<script> 
+		var clipboard = new Clipboard('.fa-clipboard');
+		$(".fa-clipboard").click(function(){
+			clipboard.on('success', function(){
+				swal({   
+					title: "",   
+					text: '复制成功',
+					icon: "success", 
+					showConfirmButton: true
+					});
+		});
+		});  
+</script>
+
+          
+    </div>
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Char 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.png" alt="Char 支付宝"/>
+        <p>支付宝</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag"># iOS</a>
+          
+            <a href="/tags/Swift/" rel="tag"># Swift</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Swift%E7%BC%96%E5%86%99%E7%9A%8420%E4%B8%AAiOS%E5%BA%93(%E4%B8%80)/" rel="next" title="Swift编写的20个iOS库(一)">
+                <i class="fa fa-chevron-left"></i> Swift编写的20个iOS库(一)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/" rel="prev" title="iOS 自定义视图，输入表单和错误提示">
+                iOS 自定义视图，输入表单和错误提示 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG"
+                alt="Char" />
+            
+              <p class="site-author-name" itemprop="name">Char</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">75</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">57</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+            <div class="feed-link motion-element">
+              <a href="/atom.xml" rel="alternate">
+                <i class="fa fa-rss"></i>
+                RSS
+              </a>
+            </div>
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://github.com/Bogon" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="mailto:zhangqixcu@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://weibo.com/u/5640441479" target="_blank" title="新浪微博">
+                      
+                        <i class="fa fa-fw fa-weibo"></i>新浪微博</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://blog.csdn.net/bogonbug" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-heartbeat"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://twitter.com/Bogon" target="_blank" title="Twitter">
+                      
+                        <i class="fa fa-fw fa-twitter"></i>Twitter</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a rel="external nofollow" href="https://stackoverflow.com/users/4368897/qizhang" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                推荐阅读
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/swift/" title="Swift 5.1" rel="external nofollow" target="_blank">Swift 5.1</a>
+                  </li>
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="https://developer.apple.com/documentation/objectivec" title="Objective-C" rel="external nofollow" target="_blank">Objective-C</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+<!--
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=490637664&auto=1&height=66"></iframe>
+-->
+          
+    
+        </div>
+        
+         
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CollectionView和输入表单"><span class="nav-number">1.</span> <span class="nav-text">CollectionView和输入表单</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可重复使用的表单组件"><span class="nav-number">2.</span> <span class="nav-text">可重复使用的表单组件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Composing-forms-and-more"><span class="nav-number">3.</span> <span class="nav-text">Composing forms and more</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#建立登录表单"><span class="nav-number">4.</span> <span class="nav-text">建立登录表单</span></a></li></ol></div>
+            
+
+          </div>
+          
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+  
+
+  
+  
+  
+</div>
+
+ <div class="copyright">
+    <a href="http://www.beian.miit.gov.cn/" target="_blank" style="color:#666666; text-decoration:none; padding-left:0px; no-repeat left center" rel="nofollow noopener">豫ICP备20011156号 | </a>   
+    <a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" target="_blank" style="color:#666666; text-decoration: none;  padding-left:25px; background:url(https://s1.ax1x.com/2018/09/29/ilmwIH.png) no-repeat left center" rel="nofollow noopener">公网安备41172402000135号</a> 
+  </div>
+
+
+
+<!-- 
+
+
+  <div class="powered-by">由 <a rel="external nofollow" class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a rel="external nofollow" class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      本站访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人
+    </span>
+  
+
+  
+    <span class="site-pv">
+      本站总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  
+  <script type="text/javascript">
+    var GUEST = ['nick','mail','link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item=>{
+      return GUEST.indexOf(item)>-1;
+    });
+    new Valine({
+        el: '#comments' ,
+        verify: false,
+        notify: false,
+        appId: 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+        appKey: 'eyu1k9BeINgR5FuXzbc969UA',
+        placeholder: '写出你的想法……',
+        avatar:'mm',
+        guest_info:guest,
+        pageSize:'10' || 10,
+    });
+  </script>
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz", "eyu1k9BeINgR5FuXzbc969UA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

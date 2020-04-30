@@ -336,6 +336,487 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" itemprop="url">在Swift中处理非可选选项</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T09:49:49+08:00">
+                2020-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index">
+                    <span itemprop="name">UIKit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/" class="leancloud_visitors" data-flag-title="在Swift中处理非可选选项">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  2.1k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  8 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选参数可以说是 <code>Swift</code> 最重要的功能之一，也是将其与 <code>Objective-C</code> 之类的语言区分开来的关键。 通过被迫处理可能为 <code>nil</code> 的情况，我们倾向于编写更具可预测性和较少错误的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，有时可选参数可能会使你处于一个很难处理的局面，在程序员看来，你知道（或至少在假设之下）某个变量在使用时始终为 <code>non-nil</code> ，即使它是 可选类型。 就像在视图控制器中处理视图时一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TableViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> tableView: <span class="type">UITableView?</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line">        tableView = <span class="type">UITableView</span>(frame: view.bounds)</span><br><span class="line">        view.addSubview(tableView!)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">viewModelDidUpdate</span><span class="params">(<span class="number">_</span> viewModel: ViewModel)</span></span> &#123;</span><br><span class="line">        tableView?.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E5%9C%A8Swift%E4%B8%AD%E5%A4%84%E7%90%86%E9%9D%9E%E5%8F%AF%E9%80%89%E9%80%89%E9%A1%B9/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+    <div>
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" itemprop="url">在Swift中创建自定义集合</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-26T09:29:52+08:00">
+                2020-04-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index">
+                    <span itemprop="name">Swift</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">设计模式</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index">
+                    <span itemprop="name">UIKit</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count valine-comment-count" data-xid="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/" class="leancloud_visitors" data-flag-title="在Swift中创建自定义集合">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.8k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  7 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中创建对象或值的集合时，我们通常使用标准库提供的数据结构-例如 <code>Array</code> ，<code>Dictionary</code> 和 <code>Set</code> 。 尽管这三个案例涵盖了大多数用例，但有时创建自定义包装器集合可以使你使代码更可预测，并且更不易出错。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此次，让我们看看作为应用程序开发人员的我们如何在 <code>Swift</code> 中定义此类自定义集合，以及结合枚举的强大功能，如何让我们为自己创建一些非常漂亮的 <code>API</code> 。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    <div>
+      
+    </div>
+    
+    <div>
+          
+    </div>
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E8%BF%AD%E4%BB%A3%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -2268,490 +2749,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url">Swift抽象工厂设计模式</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-25T15:26:13+08:00">
-                2020-04-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index">
-                    <span itemprop="name">UIKit</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Swift抽象工厂设计模式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  1.2k 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  4 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们将工厂方法与简单的工厂外观结合起来：这是用Swift语言编写的抽象工厂设计模式！</p>
-</blockquote>
-<p><a href="https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82" target="_blank" rel="noopener" title="抽象工厂模式">抽象工厂模式</a>（英语：Abstract factory pattern）是一种软件开发设计模式。抽象工厂模式提供了一种方式，可以将一组具有同一主题的单独的工厂封装起来。在正常使用中，客户端程序需要创建抽象工厂的具体实现，然后使用抽象工厂作为接口来创建这一主题的具体对象。客户端程序不需要知道（或关心）它从这些内部的工厂方法中获得对象的具体类型，因为客户端程序仅使用这些对象的通用接口。抽象工厂模式将一组对象的实现细节与他们的一般使用分离开来。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Swift%E6%8A%BD%E8%B1%A1%E5%B7%A5%E5%8E%82%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-    <div>
-          
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.xuebaonline.com/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url">Swift工厂方法设计模式</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-25T15:16:57+08:00">
-                2020-04-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index">
-                    <span itemprop="name">Swift</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index">
-                    <span itemprop="name">设计模式</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index">
-                    <span itemprop="name">UIKit</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count valine-comment-count" data-xid="/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-          
-             <span id="/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="leancloud_visitors" data-flag-title="Swift工厂方法设计模式">
-               <span class="post-meta-divider">|</span>
-               <span class="post-meta-item-icon">
-                 <i class="fa fa-eye"></i>
-               </span>
-               
-                 <span class="post-meta-item-text">阅读次数&#58;</span>
-               
-                 <span class="leancloud-visitors-count"></span>
-             </span>
-          
-
-          
-
-          
-            <div class="post-wordcount">
-              
-                
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-file-word-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">字数统计&#58;</span>
-                
-                <span title="字数统计">
-                  637 字
-                </span>
-              
-
-              
-                <span class="post-meta-divider">|</span>
-              
-
-              
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-clock-o"></i>
-                </span>
-                
-                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
-                
-                <span title="阅读时长">
-                  2 分钟
-                </span>
-              
-            </div>
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法设计模式是一种专用的非静态方法，用于隐藏对象的创建逻辑。 让我们用Swift做吧！</p>
-</blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法模式（英语：Factory method pattern）是一种实现了“工厂”概念的面向对象设计模式。就像其他创建型模式一样，它也是处理在不指定对象具体类型的情况下创建对象的问题。工厂方法模式的实质是“定义一个创建对象的接口，但让实现这个接口的类来决定实例化哪个类。工厂方法让类的实例化推迟到子类中进行。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/Swift%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    <div>
-      
-    </div>
-    
-    <div>
-          
-    </div>
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2804,7 +2801,7 @@
               
                 <a href="/archives%7C%7C%20archive">
               
-                  <span class="site-state-item-count">73</span>
+                  <span class="site-state-item-count">75</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
