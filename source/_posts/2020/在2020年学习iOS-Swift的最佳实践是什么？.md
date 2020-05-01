@@ -280,5 +280,4 @@ brew cask install firefox
 + [***```Paul Hudson```***](https://twitter.com/twostraws "")
 + [***```John Sundell```***](https://twitter.com/johnsundell "")
 
-</br>
 
