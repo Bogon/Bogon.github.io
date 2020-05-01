@@ -17,6 +17,9 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从 ```URL下载资源``` 似乎是一项艰巨的任务，但这真的那么容易吗？ 这要看情况。 如果必须 [***```下载和解析```***](http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Codable%20protocol%E5%9C%A8Swift%E4%B8%AD%E8%A7%A3%E6%9E%90JSON%EF%BC%9F/ "") 只有几个KB的 ```JSON文件``` ，则可以采用经典方式，也可以对 [***```Combine框架中的URLSession对象```***](http://www.xuebaonline.com/Swift%20URLSession%20&&%20Combine%20framework/ "") 使用新的 ```dataTaskPublisher``` 方法。
 
+
+<!-- more -->
+
 ## **不良做法⚠️**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用一些快速且肮脏的方法从互联网上获取一些较小的数据。 这些方法的问题在于你必须处理大量线程和队列。 幸运的是，使用 [***```Dispatch框架```***](http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Swift%E4%B8%AD%E7%9A%84Grand%20Central%20Dispatch/ "") 有很多帮助，因此你可以将阻止功能转换为非阻止功能。 🚧
