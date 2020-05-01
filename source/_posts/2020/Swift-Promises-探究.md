@@ -14,7 +14,7 @@ categories:
     - [Promises]
 ---
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promises``` 是链接异步任务的一种方法。 通常，异步任务以块的形式进行回调（或有时两个，一个用于成功，一个用于失败），该回调在异步操作完成时被调用。 要执行多个异步操作，您必须将第二个嵌套在第一个的完成块中：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promises``` 是链接异步任务的一种方法。 通常，异步任务以块的形式进行回调（或有时两个，一个用于成功，一个用于失败），该回调在异步操作完成时被调用。 要执行多个异步操作，你必须将第二个嵌套在第一个的完成块中：
 
 ``` Swift
 APIClient.fetchCurrentUser(success: { currentUser in
@@ -51,15 +51,15 @@ APIClient.fetchCurrentUser().then({ currentUser in
 })
 ```
 
-（您会注意到， ```promise``` 是将嵌套/缩进代码转换为 ```flat``` 代码的东西： ```promise``` 是 ```monad``` 。）
+（你会注意到， ```promise``` 是将嵌套/缩进代码转换为 ```flat``` 代码的东西： ```promise``` 是 ```monad``` 。）
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 ```JavaScript社区``` 中， ```promise``` 逐渐兴起。因为 ```Node.js``` 被设计为具有许多异步功能，所以即使是简单的任务也需要具有异步回调的方法调用链。即使仅执行了其中的3或4个操作，操作也变得很笨拙。 ```Promise``` 挽救了这一天，现在已成为 ```JavaScript ES6``` 官方规范的一部分。这篇[**```博客文章```**](http://www.mattgreer.org/articles/promises-in-wicked-detail/ "") 详细介绍了 ```JavaScript``` 的 ```promise``` 如何运作。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```JavaScript Promise``` 实现的一大优点是有一个非常明确定义的规范，称为 **A +** ，可以在 [**```promisejs.org```**](https://www.promisejs.org/ "") 中找到。这意味着由于 ```JavaScript``` 的弱类型系统，可能会出现多个 ```promise``` 实现，并且它们可以完全互操作。只要您的 ```Promise``` 实现具有符合规范的 ```then函数``` ，就可以将其与其他库中的 ```promise链接``` 在一起。这太棒了。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```JavaScript Promise``` 实现的一大优点是有一个非常明确定义的规范，称为 **A +** ，可以在 [**```promisejs.org```**](https://www.promisejs.org/ "") 中找到。这意味着由于 ```JavaScript``` 的弱类型系统，可能会出现多个 ```promise``` 实现，并且它们可以完全互操作。只要你的 ```Promise``` 实现具有符合规范的 ```then函数``` ，就可以将其与其他库中的 ```promise链接``` 在一起。这太棒了。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编写 ```Backchannel API（位于Node中）``` 时，我开始喜欢 ```Promises``` 。  **A+规范** 具有一个非常不错的 ```API``` ，避免了您希望在 ```monad``` 上使用的功能名称，以便于这样更简单，更易于理解（将其重载为 ```flatMap和map``` ）。尽管该 ```API``` 并非适合所有人（特别是，我可以完全理解为什么您偏爱函数名称的显式性），但我确实很喜欢它，并且着手在 ```Swift``` 中实现类似的库。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编写 ```Backchannel API（位于Node中）``` 时，我开始喜欢 ```Promises``` 。  **A+规范** 具有一个非常不错的 ```API``` ，避免了你希望在 ```monad``` 上使用的功能名称，以便于这样更简单，更易于理解（将其重载为 ```flatMap和map``` ）。尽管该 ```API``` 并非适合所有人（特别是，我可以完全理解为什么你偏爱函数名称的显式性），但我确实很喜欢它，并且着手在 ```Swift``` 中实现类似的库。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您可以在 [**```Github```**](https://github.com/khanlou/Promise "") 上找到此库。编写过程很有启发性，我想分享一些我在这里学到的东西。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以在 [**```Github```**](https://github.com/khanlou/Promise "") 上找到此库。编写过程很有启发性，我想分享一些我在这里学到的东西。
 
 </br>
 
@@ -120,18 +120,18 @@ var promise = new Promise(function(resolve, reject) {
 });
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您将其传递给一个具有以下两个功能的函数：一个用于 ```Promise``` 是否成功，另一个用于 ```Promise``` 是否失败。 对于这两个功能，顺序很重要。 而且由于 ```JavaScript``` 不是类型安全的，如果您在上面第一行中对函数进行了错误排序，编写了 ```reject``` ， ```resolve``` （我做得比我想承认的要多得多），您可以轻松地将错误传递给 resolve 功能。 ```另一方面，Swift``` 的类型安全性意味着 ```reject``` 函数的类型为 ```（ErrorType）-> Void``` ，并且不会接受您的成功结果。 担心我会搞混 ```reject``` 和 ```resolve``` 功能的顺序，这已经成为过去。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你将其传递给一个具有以下两个功能的函数：一个用于 ```Promise``` 是否成功，另一个用于 ```Promise``` 是否失败。 对于这两个功能，顺序很重要。 而且由于 ```JavaScript``` 不是类型安全的，如果你在上面第一行中对函数进行了错误排序，编写了 ```reject``` ， ```resolve``` （我做得比我想承认的要多得多），你可以轻松地将错误传递给 resolve 功能。 ```另一方面，Swift``` 的类型安全性意味着 ```reject``` 函数的类型为 ```（ErrorType）-> Void``` ，并且不会接受你的成功结果。 担心我会搞混 ```reject``` 和 ```resolve``` 功能的顺序，这已经成为过去。
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promise类型``` 是 ```Value``` 之上的泛型， ```Value``` 是它产生的值的类型。 这意味着您可以依靠类型推断来编写没有类型的代码。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promise类型``` 是 ```Value``` 之上的泛型， ```Value``` 是它产生的值的类型。 这意味着你可以依靠类型推断来编写没有类型的代码。
 
 ``` JS
 let promise = Promise(value: "initialValue") // a fulfilled Promise<String>
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 ```promise``` 通常是链接在一起的，因此依靠推断来找出您的类型将是特别有用的。 必须在链中的每个步骤中添加显式类型将非常令人沮丧，并且最终不会特别像 ```Swift``` 。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 ```promise``` 通常是链接在一起的，因此依靠推断来找出你的类型将是特别有用的。 必须在链中的每个步骤中添加显式类型将非常令人沮丧，并且最终不会特别像 ```Swift``` 。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我对此的第一个破解也是对 ```Error的泛型``` 。 这种严格性意味着要实现 ```promise``` ，就需要您每次都预先指定错误的类型。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我对此的第一个破解也是对 ```Error的泛型``` 。 这种严格性意味着要实现 ```promise``` ，就需要你每次都预先指定错误的类型。
 
 ``` JS
 let promise = Promise<String, APIError>(value: "initialValue")
@@ -139,12 +139,12 @@ let promise = Promise<String, APIError>(value: "initialValue")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这在以前的简单代码行中增加了很多不必要的负担，因此我删除了指定错误类型的功能。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不幸的是，删除显式错误类型意味着我不得不错过一个小型的类型系统好东西。 如果您创建一个名为 ```NoError``` 的空枚举，则可以有效地表示诺言不会失败。 由于无法初始化空的枚举，因此无法使 ```promise``` 进入 ```rejected``` 状态。 这是一个可悲的损失，但是最终，我认为这是值得的，因为它使在其他情况下使用 ```promise``` 更加简单。 我希望在实践中使用该课程可以让我深入了解这是否是一个明智的决定。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不幸的是，删除显式错误类型意味着我不得不错过一个小型的类型系统好东西。 如果你创建一个名为 ```NoError``` 的空枚举，则可以有效地表示诺言不会失败。 由于无法初始化空的枚举，因此无法使 ```promise``` 进入 ```rejected``` 状态。 这是一个可悲的损失，但是最终，我认为这是值得的，因为它使在其他情况下使用 ```promise``` 更加简单。 我希望在实践中使用该课程可以让我深入了解这是否是一个明智的决定。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与此相关， ```Swift``` 的泛型清单包含 ```“默认泛型参数”``` ，这将是解决此问题的好方法：您可以说默认值为 ```ErrorType``` ，并且如果有人想更具体地讲，他们就有这种能力。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与此相关， ```Swift``` 的泛型清单包含 ```“默认泛型参数”``` ，这将是解决此问题的好方法：你可以说默认值为 ```ErrorType``` ，并且如果有人想更具体地讲，他们就有这种能力。
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promise``` 类型是 ```monad``` ，这意味着您可以在其上调用 ```flatMap``` 。您传递给 ```flatMap``` 的函数将返回一个新的 ```Promise``` ，并且 ```Promise``` 的状态成为链的状态。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promise``` 类型是 ```monad``` ，这意味着你可以在其上调用 ```flatMap``` 。你传递给 ```flatMap``` 的函数将返回一个新的 ```Promise``` ，并且 ```Promise``` 的状态成为链的状态。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是， ```flatMap函数``` 的名称是完全不可理解的。它无法以一种易于阅读的方式来表示此处实际发生的情况。这是我偏爱 ```A+``` 的 ```Promise API``` 的部分原因。  ```JavaScript``` 中的 ```then函数``` 被重载，以充当 ```flatMap``` （为链返回一个新的承诺）和 ```map``` （为链中的下一个承诺返回一个新值）。那么现在的意思就是“不做下一步”，而不必考虑下一步的工作方式。
 

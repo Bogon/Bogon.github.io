@@ -299,7 +299,7 @@ Promises.zip(promise1, promise2)
 
 # **Promise 值得一看**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这篇文章值得一读 [***```Promises In Swift```***]( "")。 👍
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这篇文章值得一读 [***```Promises In Swift```***](http://www.xuebaonline.com/Swift%20Promises%20%E6%8E%A2%E7%A9%B6/ "")。 👍
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```github``` 上有很多 ```promise库``` ，但是如果我不得不从中选择（而不是我自己的实现），我肯定会选择以下其中一个：
 
