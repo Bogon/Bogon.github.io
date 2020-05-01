@@ -487,6 +487,10 @@
           
 
           
+              <div class="post-description">
+                  Swift URLSession && Combine framework
+              </div>
+          
 
         </div>
       </header>
@@ -502,10 +506,15 @@
 
       
         
-          Swift URLSession && Combine framework
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用带有 <code>基础网络</code> 的全新 <code>Combine框架</code> 发出 <code>HTTP请求</code> 并解析响应。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这将是一个非常简短但希望非常有用的教程，它讲述了我如何开始利用 <a href="https://heckj.github.io/swiftui-notes/" target="_blank" rel="noopener"><strong><em><code>Combine框架</code></em></strong></a> 来缓慢替换 <code>Promise库</code> 。 🤫</p>
+</br>
+
+<h1 id="API-amp-data-structure"><a href="#API-amp-data-structure" class="headerlink" title="API &amp; data structure"></a><strong>API &amp; data structure</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我们将需要某种API进行连接，像往常一样，我将对以下数据模型使用我最喜欢的 <a href="https://jsonplaceholder.typicode.com/" target="_blank" rel="noopener"><strong><em><code>JSONPlaceholder</code></em></strong></a> 服务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTPError</span>: <span class="title">LocalizedError</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> statusCode</span><br><span class="line">    <span class="keyword">case</span> post</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Post</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> body: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> userId: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Todo</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> completed: <span class="type">Bool</span></span><br><span class="line">    <span class="keyword">let</span> userId: <span class="type">Int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%20URLSession%20&&%20Combine%20framework/">
+            <a class="btn" href="/Swift%20URLSession%20&&%20Combine%20framework/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -715,6 +724,10 @@
           
 
           
+              <div class="post-description">
+                  Swift Promises 探究
+              </div>
+          
 
         </div>
       </header>
@@ -730,10 +743,20 @@
 
       
         
-          Swift Promises 探究
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Promises</code> 是链接异步任务的一种方法。 通常，异步任务以块的形式进行回调（或有时两个，一个用于成功，一个用于失败），该回调在异步操作完成时被调用。 要执行多个异步操作，你必须将第二个嵌套在第一个的完成块中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">APIClient</span>.fetchCurrentUser(success: &#123; currentUser <span class="keyword">in</span></span><br><span class="line">	<span class="type">APIClient</span>.fetchFollowers(user: currentUser, success: &#123; followers <span class="keyword">in</span></span><br><span class="line">		<span class="comment">// you now have an array of followers</span></span><br><span class="line">	&#125;, failure: &#123; error <span class="keyword">in</span></span><br><span class="line">		<span class="comment">// handle the error</span></span><br><span class="line">	&#125;)</span><br><span class="line">&#125;, failure: &#123; error <span class="keyword">in</span></span><br><span class="line">	<span class="comment">// handle the error</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Promises</code> 是一种形式化这些完成模块的方法，以使链接异步过程变得更加容易。 如果系统知道成功和失败的代码，那么编写这些异步操作将变得更加容易。 例如，编写可重复使用的代码可以：</p>
+<ul>
+<li>最后执行一个相关的异步操作链，并带有一个完成块</li>
+<li>一个完成块同时执行许多独立的异步操作</li>
+<li>开启许多异步操作并返回第一个要完成的值</li>
+<li>重试异步操作</li>
+<li>为异步操作添加超时</li>
+</ul>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%20Promises%20%E6%8E%A2%E7%A9%B6/">
+            <a class="btn" href="/Swift%20Promises%20%E6%8E%A2%E7%A9%B6/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -943,6 +966,10 @@
           
 
           
+              <div class="post-description">
+                  Swift Promises 初体验
+              </div>
+          
 
         </div>
       </header>
@@ -958,10 +985,16 @@
 
       
         
-          Swift Promises 初体验
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你想要了解的有关 <code>futures</code> 和 <code>promises</code> 的一切。 关于 <code>Swift</code> 中异步编程的初学者指南。</p>
+</br>
+
+<h1 id="同步与异步执行"><a href="#同步与异步执行" class="headerlink" title="同步与异步执行"></a><strong>同步与异步执行</strong></h1><blockquote>
+<p>编写异步代码是构建应用程序中最难的部分之一。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>同步执行</code> 和 <code>异步执行</code> 之间到底有什么区别？ 好了，我已经在 <a href="http://www.xuebaonline.com/%E6%B7%B1%E5%85%A5%E4%BA%86%E8%A7%A3Swift%E4%B8%AD%E7%9A%84Grand%20Central%20Dispatch/"><strong><em><code>Dispatch框架教程</code></em></strong></a> 中对此进行了解释，但是这里有一个简短的回顾。 同步函数通常会阻塞当前线程，并在以后返回一些值。 一个异步函数将立即返回并将结果值传递给完成处理程序。 你可以使用GCD框架在给定队列上异步执行任务同步。 让我给你看一个简单的例子：</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%20Promises%20%E5%88%9D%E4%BD%93%E9%AA%8C/">
+            <a class="btn" href="/Swift%20Promises%20%E5%88%9D%E4%BD%93%E9%AA%8C/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1160,6 +1193,10 @@
           
 
           
+              <div class="post-description">
+                  iOS 自定义视图，输入表单和错误提示
+              </div>
+          
 
         </div>
       </header>
@@ -1175,10 +1212,17 @@
 
       
         
-          iOS 自定义视图，输入表单和错误提示
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于以编程方式创建自定义视图的一些建议，以及关于为什么使用集合视图构建表单的真相。</p>
+</br>
+
+<h1 id="如何不为iOS应用构建表单？"><a href="#如何不为iOS应用构建表单？" class="headerlink" title="如何不为iOS应用构建表单？"></a><strong>如何不为iOS应用构建表单？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从一个诚实的声明开始：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="http://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/"><strong><em><code>为iOS应用构建输入表单</code></em></strong></a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事实是，这种表格构建方法仅在单元格始终在屏幕上可见的情况下才有效，这种情况很少见。 我在处理当前项目时发现了此问题，并且当单元格超出框架时，某些字段不断消失，并且将光标移至下一个输入字段停止了工作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><em><code>可重用性和内存效率并不总是你想要的。</code></em></strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;似乎 <code>UICollectionView</code> 并不是制作输入表单的最佳解决方案，因为恒定的单元可重用性会弄乱某些预期的行为。 它对于具有“一千个元素”的列表仍然很好，但是对于输入表单，我不再推荐这种技术。 是的，我的错，对此感到抱歉…😬</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/">
+            <a class="btn" href="/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1377,6 +1421,10 @@
           
 
           
+              <div class="post-description">
+                  为iOS应用构建输入表单
+              </div>
+          
 
         </div>
       </header>
@@ -1392,10 +1440,16 @@
 
       
         
-          为iOS应用构建输入表单
+          <p>了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 <code>Swift</code> 。</p>
+<blockquote>
+<p><strong><code>提示:</code></strong><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… <a href="http://www.xuebaonline.com/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/"><strong><em><code>请阅读我的其他文章</code></em></strong></a> 。🤷‍♂️</p>
+</blockquote>
+</br>
+
+<h1 id="CollectionView和输入表单"><a href="#CollectionView和输入表单" class="headerlink" title="CollectionView和输入表单"></a><strong>CollectionView和输入表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><strong><em><code>CollectionView框架</code></em></strong></a> 刚刚进行了巨大更新。有很多新变化，但是最大的改进之一是我处理视图模型的方式。过去，你必须在视图模型中使用长函数名，包括通用视图和模型类名。如果你曾经阅读过 <a href="http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"><strong><em><code>最终UICollectionView指南</code></em></strong></a> ，那么你应该了解我在说什么。好消息：我现在有一种更好的解决方案！ 😉</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/">
+            <a class="btn" href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1605,6 +1659,10 @@
           
 
           
+              <div class="post-description">
+                  Swift编写的20个iOS库(一)
+              </div>
+          
 
         </div>
       </header>
@@ -1620,10 +1678,18 @@
 
       
         
-          Swift编写的20个iOS库(一)
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我在 <code>github</code> 上收集了最好的开源 <code>Swift框架</code> ，这些框架将帮助你在2020年加快移动应用程序的开发速度。更多精彩的类库持续更新中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，最好使用第三方框架而不是重新发明轮子，但是你首先要提出一些重要问题：</p>
+<ul>
+<li>我真的需要 <code>library</code> 吗？</li>
+<li>我应该怎么用？</li>
+<li>它会得到支持吗？</li>
+<li>如果是 <code>bug</code> 怎么办？ 🐛</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在项目中添加依赖项也会导致技术负担。 不要懒惰，首先学习基础技术（或者至少阅读它，或者问一个真正了解它的人），如果你确定该框架是一个不错的选择，那就给它一个机会。 在此列表中，我尝试收集了大多数开发人员社区使用的面向未来的，可靠的，知名的iOS库。 ⭐️</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%E7%BC%96%E5%86%99%E7%9A%8420%E4%B8%AAiOS%E5%BA%93(%E4%B8%80)/">
+            <a class="btn" href="/Swift%E7%BC%96%E5%86%99%E7%9A%8420%E4%B8%AAiOS%E5%BA%93(%E4%B8%80)/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1833,6 +1899,10 @@
           
 
           
+              <div class="post-description">
+                  Swift 用 compactMap 替换 flatMap
+              </div>
+          
 
         </div>
       </header>
@@ -1848,10 +1918,16 @@
 
       
         
-          Swift 用 compactMap 替换 flatMap
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Xcode 9.3</code> 随附的 <code>Swift 4.1</code> 带来了对 <code>Swift语言</code> 和 <code>Swift标准库</code> 的更多更改。 苹果原本打算将其作为对 <code>Swift 4.0</code> 的源兼容升级，但我遭到一次源代码更改的打击，我猜这将是广泛的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在不建议在序列（如 <code>Array</code> ）上使用 <code>flatMap</code> 来过滤映射到 <code>nil</code> 的任何内容，并由 <code>compactMap</code> 取代。</p>
+<h1 id="改变的简短版本"><a href="#改变的简短版本" class="headerlink" title="改变的简短版本"></a><strong>改变的简短版本</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你是否正在使用 <code>flatMap</code> 从可选数组中删除 <code>nil</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> names: [<span class="type">String?</span>] = [<span class="string">"Tom"</span>, <span class="literal">nil</span>, <span class="string">"Peter"</span>, <span class="literal">nil</span>, <span class="string">"Harry"</span>]</span><br><span class="line"><span class="keyword">let</span> valid = names.flatMap &#123; $<span class="number">0</span> &#125;</span><br><span class="line"><span class="comment">// ["Tom", "Peter", "Harry"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Xcode 9.3</code> 显示了以这种方式使用 <code>flatMap</code> 的弃用警告：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/rfc-stp1.png" alt="flatMap"></p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%20%E7%94%A8%20compactMap%20%E6%9B%BF%E6%8D%A2%20flatMap/">
+            <a class="btn" href="/Swift%20%E7%94%A8%20compactMap%20%E6%9B%BF%E6%8D%A2%20flatMap/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2061,6 +2137,10 @@
           
 
           
+              <div class="post-description">
+                  Swift CompactMap vs flatMap：差异说明
+              </div>
+          
 
         </div>
       </header>
@@ -2076,10 +2156,14 @@
 
       
         
-          Swift CompactMap vs flatMap：差异说明
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>CompactMap</code> 和 <code>flatMap</code> 有什么区别？何时使用它们？  <code>Swift 4.1</code> 在 <a href="https://github.com/apple/swift-evolution/blob/master/proposals/0187-introduce-filtermap.md" target="_blank" rel="noopener"><strong><em><code>提案0187</code></em></strong></a> 中引入了这种新方法：引入 <code>Filtermap</code> 可以在 <code>flatMap</code> 用例中获得更多的清晰度。</p>
+</br>
+
+<h1 id="何时使用compactMap"><a href="#何时使用compactMap" class="headerlink" title="何时使用compactMap"></a><strong>何时使用compactMap</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当转换产生可选值时，使用此方法接收非可选值数组。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以下示例中查看 <code>map</code> 和 <code>compactMap</code> 之间的区别：</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Swift%20CompactMap%20vs%20flatMap%EF%BC%9A%E5%B7%AE%E5%BC%82%E8%AF%B4%E6%98%8E/">
+            <a class="btn" href="/Swift%20CompactMap%20vs%20flatMap%EF%BC%9A%E5%B7%AE%E5%BC%82%E8%AF%B4%E6%98%8E/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2289,6 +2373,10 @@
           
 
           
+              <div class="post-description">
+                  Functional Swift 初探
+              </div>
+          
 
         </div>
       </header>
@@ -2304,10 +2392,12 @@
 
       
         
-          Functional Swift 初探
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您将永远只需要学习一个高阶函数，例如： <code>map</code> ， <code>flatMap</code> ， <code>compactMap</code> ， <code>reduce</code> ， <code>filter</code> 等。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://zh.wikipedia.org/wiki/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B" target="_blank" rel="noopener"><strong><em><code>函数式编程</code></em></strong></a>（英语：functional programming）或称 <code>函数程序设计</code> 、 <code>泛函编程</code> ，是一种 <code>编程范式</code> ，它将电脑运算视为函数运算，并且避免使用程序状态以及易变对象。其中，λ演算（lambda calculus）为该语言最重要的基础。而且，λ演算的函数可以接受函数当作输入（引数）和输出（传出值）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比起 <code>指令式编程</code> ， <code>函数式编程</code> 更加强调程序执行的结果而非执行的过程，倡导利用若干简单的执行单元让计算结果不断渐进，逐层推导复杂的运算，而不是设计一个复杂的执行过程。</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/Functional%20Swift%20%E5%88%9D%E6%8E%A2/">
+            <a class="btn" href="/Functional%20Swift%20%E5%88%9D%E6%8E%A2/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -2517,6 +2607,10 @@
           
 
           
+              <div class="post-description">
+                  如何使用 Result Type来处理Swift 5中的Errors？
+              </div>
+          
 
         </div>
       </header>
@@ -2532,10 +2626,13 @@
 
       
         
-          如何使用 Result Type来处理Swift 5中的Errors？
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从本教程中，你可以学习如何使用带有新 <code>result type</code> 的 <code>do-try-catch</code> 语法来处理 <code>Swift</code> 中的错误。</p>
+</br>
+
+<h1 id="Swift中的错误处理"><a href="#Swift中的错误处理" class="headerlink" title="Swift中的错误处理"></a><strong>Swift中的错误处理</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自第一个 <code>Swift</code> 版本以来，处理错误的方式发生了很大变化。 第一个重大里程碑发生在 <code>Swift 2</code> 中， <code>Apple</code> 彻底改进了错误管理。 如今，你可以使用 <code>do</code> ， <code>try</code> ， <code>catch</code> ， <code>throw</code> ， <code>throws</code> ， <code>rethrows</code> 关键字来代替处理讨厌的 <code>NSError指针</code> ，因此这是该语言的一个受欢迎的补充。 现在，在 <code>Swift 5</code> 中，我们通过将 <code>Result类型</code> 作为内置泛型引入了另一个巨大的飞跃。 首先，让我向你展示 <code>Swift编程语言</code> 中所有错误处理的最佳实践，接下来，我将通过使用结果来处理错误，向你展示一些很棒的东西。 🚧</p>
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Result%20Type%E6%9D%A5%E5%A4%84%E7%90%86Swift%205%E4%B8%AD%E7%9A%84Errors%EF%BC%9F/">
+            <a class="btn" href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Result%20Type%E6%9D%A5%E5%A4%84%E7%90%86Swift%205%E4%B8%AD%E7%9A%84Errors%EF%BC%9F/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
