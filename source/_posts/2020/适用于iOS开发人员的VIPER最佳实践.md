@@ -1,5 +1,6 @@
 ---
 title: 适用于iOS开发人员的VIPER最佳实践
+description: 适用于iOS开发人员的VIPER最佳实践
 permalink: 适用于iOS开发人员的VIPER最佳实践
 copyright: ture
 date: 2020-04-28 20:12:33

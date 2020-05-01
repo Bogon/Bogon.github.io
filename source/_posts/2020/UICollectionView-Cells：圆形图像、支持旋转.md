@@ -1,5 +1,6 @@
 ---
 title: UICollectionView Cells：圆形图像、支持旋转
+description: UICollectionView Cells：圆形图像、支持旋转
 permalink: UICollectionView Cells：圆形图像、支持旋转
 copyright: ture
 date: 2020-04-27 10:37:04

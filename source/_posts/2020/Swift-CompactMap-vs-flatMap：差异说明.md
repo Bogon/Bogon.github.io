@@ -4,6 +4,7 @@ permalink: Swift CompactMap vs flatMap：差异说明
 copyright: ture
 date: 2020-04-30 17:08:16
 keywords: iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming
+description: Swift CompactMap vs flatMap：差异说明
 tags:
     - [iOS]
     - [Swift]
@@ -62,9 +63,9 @@ let flatMapped = scoresByName.flatMap { $0.value }
 
 # **compactMap vs flatMap**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的一般经验法则提醒您编写代码时的注意事项：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的一般经验法则提醒你编写代码时的注意事项：
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在序列上使用并具有返回可选值的转换，请使用 ```compactMap``` 。 如果没有，则 ```map``` 或 ```flatMap``` 应该会为您提供所需的结果。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在序列上使用并具有返回可选值的转换，请使用 ```compactMap``` 。 如果没有，则 ```map``` 或 ```flatMap``` 应该会为你提供所需的结果。
 
 ## ***命名为compactMap的原因***
 

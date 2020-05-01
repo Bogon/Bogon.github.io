@@ -1,5 +1,6 @@
 ---
 title: Swift迭代器设计模式
+description: Swift迭代器设计模式
 permalink: Swift迭代器设计模式
 copyright: ture
 date: 2020-04-26 09:13:26

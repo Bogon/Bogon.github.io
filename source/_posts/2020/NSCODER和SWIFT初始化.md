@@ -1,5 +1,6 @@
 ---
 title: NSCODER和SWIFT初始化
+description: NSCODER和SWIFT初始化
 permalink: NSCODER和SWIFT初始化
 date: 2020-04-25 09:36:42
 keywords: iOS,UIKit,设计模式,初始化,NSCoder,Swift

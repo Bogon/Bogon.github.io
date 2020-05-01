@@ -1,5 +1,6 @@
 ---
 title: 深入了解Swift中的Grand Central Dispatch
+description: 深入了解Swift中的Grand Central Dispatch
 permalink: 深入了解Swift中的Grand Central Dispatch
 copyright: ture
 date: 2020-04-30 15:02:22

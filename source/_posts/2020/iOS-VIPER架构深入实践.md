@@ -1,5 +1,6 @@
 ---
 title: iOS VIPER架构深入实践
+description: iOS VIPER架构深入实践
 permalink: iOS VIPER架构深入实践
 copyright: ture
 date: 2020-04-28 16:52:14

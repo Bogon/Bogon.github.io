@@ -1,5 +1,6 @@
 ---
 title: Swift UICollectionView使用指南
+description: Swift UICollectionView使用指南
 permalink: Swift UICollectionView使用指南
 copyright: ture
 date: 2020-04-27 10:56:48
@@ -22,7 +23,7 @@ categories:
 
 # **UICollectionView类的剖析**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您不熟悉 ```UICollectionView``` ，建议立即熟悉此类。 它们是 ```Apple``` 和其他第三方开发人员提供的许多应用程序的基本构建块。 就像 ```UITableView``` 一样。 结合 ```IB``` 和 ```Swift``` 代码快速了解和使用它们。 💻
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你不熟悉 ```UICollectionView``` ，建议立即熟悉此类。 它们是 ```Apple``` 和其他第三方开发人员提供的许多应用程序的基本构建块。 就像 ```UITableView``` 一样。 结合 ```IB``` 和 ```Swift``` 代码快速了解和使用它们。 💻
 
 ![UICollectionView](http://q8wtfza4q.bkt.clouddn.com/ug-stp1.png "")
 
@@ -37,13 +38,13 @@ categories:
 > **```提示:```**\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不要使用 ```IB``` ！
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您仍然想使用 ```IB``` ，这是绝对入门的真正快速教程：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你仍然想使用 ```IB``` ，这是绝对入门的真正快速教程：
 
 ![IB](http://q8wtfza4q.bkt.clouddn.com/ug-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建第一个基于 ```UICollectionView``` 的屏幕的主要步骤如下：
 
-+ 将 ```UICollectionView``` 对象拖到您的视图控制器
++ 将 ```UICollectionView``` 对象拖到你的视图控制器
 + 在集合视图上设置适当的约束
 + 设置数据源和集合视图的委托
 + 在控制器内部对单元布局进行原型设计
@@ -99,15 +100,15 @@ extension ViewController: UICollectionViewDelegate {
 ```
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，数据源将提供有关如何填充集合视图的所有必需数据，并且委托将处理用户事件，例如在单元格上轻按。 您应该对数据源和委托方法有清楚的了解，因此请稍候片刻。 ⌨️
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;简而言之，数据源将提供有关如何填充集合视图的所有必需数据，并且委托将处理用户事件，例如在单元格上轻按。 你应该对数据源和委托方法有清楚的了解，因此请稍候片刻。 ⌨️
 
 </br>
 
 # **如何在 ```Swift 5``` 中使用代码设置创建 ```UICollectionView```?**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您可能已经注意到，单元格是集合视图的核心组件。 它们是从可重用的视图派生的，这意味着，如果您有1000个元素的列表，则不会为每个元素创建一千个单元格，而只有少数几个可以填充屏幕大小，并且当您向下滚动列表时 这些项目将被重复使用以显示您的元素。 这仅仅是出于内存方面的考虑，因此与 ```UIScrollView``` 不同， ```UICollectionView``` （和 ```UITableView``` ）类是一个非常聪明且高效的类，但这也是每次显示之前都必须准备（重置内容）单元格的原因。 😉
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能已经注意到，单元格是集合视图的核心组件。 它们是从可重用的视图派生的，这意味着，如果你有1000个元素的列表，则不会为每个元素创建一千个单元格，而只有少数几个可以填充屏幕大小，并且当你向下滚动列表时 这些项目将被重复使用以显示你的元素。 这仅仅是出于内存方面的考虑，因此与 ```UIScrollView``` 不同， ```UICollectionView``` （和 ```UITableView``` ）类是一个非常聪明且高效的类，但这也是每次显示之前都必须准备（重置内容）单元格的原因。 😉
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始化也由系统处理，但是值得一提的是，如果使用 ```Interface Builder``` ，则应该在 ```awakeFromNib``` 方法内进行自定义，但是如果使用代码，则 ```init（frame :)``` 是您的地方。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始化也由系统处理，但是值得一提的是，如果使用 ```Interface Builder``` ，则应该在 ```awakeFromNib``` 方法内进行自定义，但是如果使用代码，则 ```init（frame :)``` 是你的地方。
 
 ``` Swift
 import UIKit
@@ -154,7 +155,7 @@ class MyCell: UICollectionViewCell {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们必须实现负责管理集合视图的视图控制器，因为我们没有使用 ```IB``` ，所以必须在 ```loadView``` 方法内部使用自动布局锚点（如单元格中的 ```textLabel``` ）手动创建它。 在视图层次结构准备就绪后，我们还设置了数据源并委托并注册了我们的单元格类以供进一步重用。 请注意，如果您使用 ```IB``` ，则此操作由系统自动完成，但是如果您喜欢代码，则必须通过调用适当的注册方法来完成。 您可以注册 ```nibs``` 和 ```classes``` 。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们必须实现负责管理集合视图的视图控制器，因为我们没有使用 ```IB``` ，所以必须在 ```loadView``` 方法内部使用自动布局锚点（如单元格中的 ```textLabel``` ）手动创建它。 在视图层次结构准备就绪后，我们还设置了数据源并委托并注册了我们的单元格类以供进一步重用。 请注意，如果你使用 ```IB``` ，则此操作由系统自动完成，但是如果你喜欢代码，则必须通过调用适当的注册方法来完成。 你可以注册 ```nibs``` 和 ```classes``` 。
 
 ``` Swift
 import UIKit
@@ -241,20 +242,20 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，您应该注意流布局委托方法。 您可以使用这些方法为布局系统提供支持。 流布局将基于这些数字和大小显示所有单元格。  ```sizeForItemAt``` 负责单元格的大小，```minimumInteritemSpacingForSectionAt``` 是水平填充，```minimumLineSpacingForSectionAt``` 是垂直填充，```insetForSectionAt``` 是集合视图部分的边距。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，你应该注意流布局委托方法。 你可以使用这些方法为布局系统提供支持。 流布局将基于这些数字和大小显示所有单元格。  ```sizeForItemAt``` 负责单元格的大小，```minimumInteritemSpacingForSectionAt``` 是水平填充，```minimumLineSpacingForSectionAt``` 是垂直填充，```insetForSectionAt``` 是集合视图部分的边距。
 
 </br>
 
 # **section headers and footers**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，在本节中，我将同时使用 ```storyboards```，```nibs``` 和一些 ```Swift``` 代码。 由于某些原因，这是我通常的方法。 虽然我很喜欢用代码进行约束，但大多数人更喜欢视觉编辑器，因此所有单元格都在笔尖内部创建。 为什么是笔尖？ 因为如果您有多个集合视图，这几乎是在它们之间共享单元格的唯一好方法。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，在本节中，我将同时使用 ```storyboards```，```nibs``` 和一些 ```Swift``` 代码。 由于某些原因，这是我通常的方法。 虽然我很喜欢用代码进行约束，但大多数人更喜欢视觉编辑器，因此所有单元格都在笔尖内部创建。 为什么是笔尖？ 因为如果你有多个集合视图，这几乎是在它们之间共享单元格的唯一好方法。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您可以像创建 ```section headers``` 一样完全地创建 ```section footers``` ，因此这就是我这次只关注 ```section headers``` 的原因，因为从字面上看，您只需要更改一个字即可使用 ```section footers``` 。 ⚽️
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以像创建 ```section headers``` 一样完全地创建 ```section footers``` ，因此这就是我这次只关注 ```section headers``` 的原因，因为从字面上看，你只需要更改一个字即可使用 ```section footers``` 。 ⚽️
 
 ![footers](http://q8wtfza4q.bkt.clouddn.com/ug-stp3.png "")
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您只需要创建两个 ```xib``` 文件，一个用于单元格，一个用于头文件。 请注意，您可以使用完全相同的集合视图单元格来在 ```section``` 标题中显示内容，但这是一个演示，因此让我们处理两个不同的项目。 您甚至不必从 ```IB``` 设置重用标识符，因为我们必须在源代码中注册我们的可重用视图，因此只需设置单元类并连接您的 ```outlets``` 即可。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你只需要创建两个 ```xib``` 文件，一个用于单元格，一个用于头文件。 请注意，你可以使用完全相同的集合视图单元格来在 ```section``` 标题中显示内容，但这是一个演示，因此让我们处理两个不同的项目。 你甚至不必从 ```IB``` 设置重用标识符，因为我们必须在源代码中注册我们的可重用视图，因此只需设置单元类并连接你的 ```outlets``` 即可。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单元格的注册和 ```section headers and footers``` 的注册略有不同。
 
@@ -302,7 +303,7 @@ if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionVie
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就是这样，现在您知道了如何使用集合视图构建基本布局。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就是这样，现在你知道了如何使用集合视图构建基本布局。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;复杂的情况怎么样，例如在同一集合视图中使用多种单元格呢？ 索引路径会使事情变得很混乱，所以这就是为什么我基于一种技术来重新发明更好的方法，该技术如何使用 ```Apple``` 在 ```WWDC 2014``` 上展示的 [**```集合视图来构建高级用户界面```**](https://developer.apple.com/videos/wwdc2014 "") 。
 
@@ -312,32 +313,32 @@ if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionVie
 
 > CollectionView + ViewModel pattern = ❤️ .
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将快速解释这些组件，然后，您将学习如何使用它们来构建起初我所谈论的 ```Apple``` 音乐风格的布局。 🎶
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将快速解释这些组件，然后，你将学习如何使用它们来构建起初我所谈论的 ```Apple``` 音乐风格的布局。 🎶
 
 ## ***网格系统***
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;集合视图的第一个问题是大小计算。您必须提供集合视图中每个单元的大小（宽度和高度）。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;集合视图的第一个问题是大小计算。你必须提供集合视图中每个单元的大小（宽度和高度）。
 
 + 如果在集合视图中所有内容都具有固定的大小，则只需在流布局本身上设置大小属性
-+ 如果您需要每个项目的动态尺寸，则可以实施流布局委托。 ```UICollectionViewDelegateFlowLayout```（为什么在名称中间使用委托词？？？）并返回布局系统的确切大小
-+ 如果您需要更多控制权，则可以创建一个从 ```CollectionView（Flow）Layout``` 派生的新布局子类，并在那里进行所有尺寸计算
++ 如果你需要每个项目的动态尺寸，则可以实施流布局委托。 ```UICollectionViewDelegateFlowLayout```（为什么在名称中间使用委托词？？？）并返回布局系统的确切大小
++ 如果你需要更多控制权，则可以创建一个从 ```CollectionView（Flow）Layout``` 派生的新布局子类，并在那里进行所有尺寸计算
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很好，但是您仍然必须弄乱索引路径，特征集合，框架等，以使简单的2、4，n列布局适用于所有设备。这就是为什么我创建了一个非常基本的网格系统进行尺寸计算的原因。使用我的网格类，您可以设置列数并获取x列数的大小，就像在基于 ```Web``` 的 ```CSS``` 网格系统中一样。 🕸
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很好，但是你仍然必须弄乱索引路径，特征集合，框架等，以使简单的2、4，n列布局适用于所有设备。这就是为什么我创建了一个非常基本的网格系统进行尺寸计算的原因。使用我的网格类，你可以设置列数并获取x列数的大小，就像在基于 ```Web``` 的 ```CSS``` 网格系统中一样。 🕸
 
 ## ***单元格重用***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单元格的注册和重用应该并且可以以类型安全的方式自动化。 您只想使用单元，而根本不关心重用标识符和单元注册。 我做了一些辅助方法，以使进步更加愉快。 重用标识符是从单元格类的名称派生的，因此您不必担心。 大多数开发人员都使用这种做法。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单元格的注册和重用应该并且可以以类型安全的方式自动化。 你只想使用单元，而根本不关心重用标识符和单元注册。 我做了一些辅助方法，以使进步更加愉快。 重用标识符是从单元格类的名称派生的，因此你不必担心。 大多数开发人员都使用这种做法。
 
 ## ***View model***
 
 > **```view model = cell (view) + data (model)```**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用实际数据填充“模板”单元应该是视图模型的任务。 这就是 ```MVVM``` 发挥作用的地方。 我做了一个通用的基本视图模型类，应该将其子类化。 借助协议，您可以在单个集合视图中使用各种单元，而不必担心行和节的计算，并且您可以专注于一项简单的任务：将视图与模型联系起来。 😛
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用实际数据填充“模板”单元应该是视图模型的任务。 这就是 ```MVVM``` 发挥作用的地方。 我做了一个通用的基本视图模型类，应该将其子类化。 借助协议，你可以在单个集合视图中使用各种单元，而不必担心行和节的计算，并且你可以专注于一项简单的任务：将视图与模型联系起来。 😛
 
 ## ***Section***
 
 > **```section = header + footer + cells```**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要强调的是，您不想弄乱索引路径，只想将数据放在一起就可以了。 过去，我对“不必要的索引路径计算”进行了充分的努力，因此，我将 ```section``` 对象作为一个简单的容器来包装标题，页脚和该部分中的所有项目。 结果？ 通用数据源类，可以与多个单元格一起使用，而无需任何行或节索引计算。 👏👏👏
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要强调的是，你不想弄乱索引路径，只想将数据放在一起就可以了。 过去，我对“不必要的索引路径计算”进行了充分的努力，因此，我将 ```section``` 对象作为一个简单的容器来包装标题，页脚和该部分中的所有项目。 结果？ 通用数据源类，可以与多个单元格一起使用，而无需任何行或节索引计算。 👏👏👏
 
 ## ***数据源***
 
@@ -347,14 +348,14 @@ if let flowLayout = self.collectionView.collectionViewLayout as? UICollectionVie
 
 # **CollectionView 框架创建示例**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如何使任何列表或网格布局轻松自如？ 好吧，作为第一步，只需将我的 ```CollectionView``` 框架添加为依赖项。 它已经支持```Xcode 11``` ，因此您可以直接从文件菜单使用 ```Swift``` 软件包管理器来集成此软件包。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如何使任何列表或网格布局轻松自如？ 好吧，作为第一步，只需将我的 ```CollectionView``` 框架添加为依赖项。 它已经支持```Xcode 11``` ，因此你可以直接从文件菜单使用 ```Swift``` 软件包管理器来集成此软件包。
 
 > **```提示：```**\
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只需在 ```AppDelegate``` 文件中添加 ```@_exported import CollectionView``` 行，那么您不必担心逐个文件导入框架。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只需在 ```AppDelegate``` 文件中添加 ```@_exported import CollectionView``` 行，那么你不必担心逐个文件导入框架。
 
 ## ***创建 Cell***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此步骤与常规设置相同，除了您的单元必须是我的 ```Cell``` 类的子类。 添加您自己的单元并像往常一样执行所有操作。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此步骤与常规设置相同，除了你的单元必须是我的 ```Cell``` 类的子类。 添加你自己的单元并像往常一样执行所有操作。
 
 ``` Swift
 import UIKit
@@ -436,7 +437,7 @@ class AlbumViewModel: ViewModel<AlbumCell, AlbumModel> {
 
 ## ***设置数据源***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，使用您的真实数据并使用视图模型填充您的集合视图。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，使用你的真实数据并使用视图模型填充你的集合视图。
 
 ``` Swift
 let grid = Grid(columns: 1, margin: UIEdgeInsets(all: 8))
@@ -451,7 +452,7 @@ self.collectionView.reloadData()
  
 ## 🍺🤘🏻🎸
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜，您已完成第一个 ```collection``` 视图。 仅需几行代码，您便拥有了 ```ROCK SOLID ```代码，可在大多数情况下为您提供帮助！ 😎
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜，你已完成第一个 ```collection``` 视图。 仅需几行代码，你便拥有了 ```ROCK SOLID ```代码，可在大多数情况下为你提供帮助！ 😎
 
 ![collection](http://q8wtfza4q.bkt.clouddn.com/ug-stp4.png "")
 
@@ -461,19 +462,19 @@ self.collectionView.reloadData()
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们制作一个包含集合视图的单元格并使用与上述相同的方法怎么办？ 包含 ```collectionview``` 的 ```collection``` 视图... ```UICollectionViewception``` !!! 😂
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完全有可能并且确实很容易做到，为视图模型提供数据的将是一个集合视图源对象，您已经完成了。 示例应用程序中还包括轻松，神奇和超好实现的内容。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完全有可能并且确实很容易做到，为视图模型提供数据的将是一个集合视图源对象，你已经完成了。 示例应用程序中还包括轻松，神奇和超好实现的内容。
 
 </br>
 
 # **带有圆角图片的 Section**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多个部分？这也是小菜一碟，如果您阅读了我先前有关 [**```设置圆形Collection视图单元```**](http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/ "") 的文章，您将知道该如何做，但是请从gitlab中查看源代码，并亲自进行操作。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;多个部分？这也是小菜一碟，如果你阅读了我先前有关 [**```设置圆形Collection视图单元```**](http://www.xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/ "") 的文章，你将知道该如何做，但是请从gitlab中查看源代码，并亲自进行操作。
 
 </br>
 
 # **Callbacks && Actions**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户事件可以非常容易地处理，因为视图模型可以具有委托或回调块，这仅取决于您喜欢哪一个。 该示例包含一个 ```onSelect``` 处理程序，该处理程序超级好并且内置于框架中。 😎
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户事件可以非常容易地处理，因为视图模型可以具有委托或回调块，这仅取决于你喜欢哪一个。 该示例包含一个 ```onSelect``` 处理程序，该处理程序超级好并且内置于框架中。 😎
 
 </br>
 
@@ -485,14 +486,14 @@ self.collectionView.reloadData()
 
 # **支持旋转，自适应**
 
-不必担心太多，您可以根据需要简单地更改网格或检查视图模型中的特征集合。 我想说几乎所有事情都可以立即完成。 那就是它的美，可以随意做任何您想做的事情，并以自己喜欢的方式使用它。 📦
+不必担心太多，你可以根据需要简单地更改网格或检查视图模型中的特征集合。 我想说几乎所有事情都可以立即完成。 那就是它的美，可以随意做任何你想做的事情，并以自己喜欢的方式使用它。 📦
 
 
 </br>
 
 # **如果我告诉你...又一件事：SwiftUI**
 
-> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您喜欢这种方法很酷，但是如果我告诉您还有更多方法呢？ 您是否想在所有地方都使用相同的模式？ 我的意思是在 ```iOS``` ，```tvOS```，```macOS```甚至 ```watchOS``` 上。  我已经在 ```CoreKit``` 框架中创建了所有内容。 还支持 ```UITableViews``` ， ```WKInterfaceTables``` 。
+> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你喜欢这种方法很酷，但是如果我告诉你还有更多方法呢？ 你是否想在所有地方都使用相同的模式？ 我的意思是在 ```iOS``` ，```tvOS```，```macOS```甚至 ```watchOS``` 上。  我已经在 ```CoreKit``` 框架中创建了所有内容。 还支持 ```UITableViews``` ， ```WKInterfaceTables``` 。
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我真的相信苹果今年会采用类似的方式处理下一代```UIKit / AppKit / UXKit```框架（当然是用```Swift```编写的）。 我不是在谈论视图模型模式，而是在每个平台上思考相同的```API```。 

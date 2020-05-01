@@ -1,5 +1,6 @@
 ---
 title: appleOS的Networking示例
+description: appleOS的Networking示例
 permalink: appleOS的Networking示例
 copyright: ture
 date: 2020-04-30 09:17:29

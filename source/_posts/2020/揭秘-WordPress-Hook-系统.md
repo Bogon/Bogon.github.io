@@ -1,5 +1,6 @@
 ---
 title: 揭秘 WordPress Hook 系统
+description: 揭秘 WordPress Hook 系统
 permalink: 揭秘 WordPress Hook 系统
 copyright: ture
 date: 2020-04-26 17:50:08

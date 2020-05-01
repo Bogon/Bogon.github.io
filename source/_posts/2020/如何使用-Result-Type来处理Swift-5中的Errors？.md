@@ -1,9 +1,11 @@
 ---
 title: 如何使用 Result Type来处理Swift 5中的Errors？
+description: 如何使用 Result Type来处理Swift 5中的Errors？
 permalink: 如何使用 Result Type来处理Swift 5中的Errors？
 copyright: ture
 date: 2020-04-30 15:21:39
 keywords: iOS,Swift,Result Type,Errors,tutorial
+description: 如何使用 Result Type来处理Swift 5中的Errors？
 tags:
     - [iOS]
     - [Swift]

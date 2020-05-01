@@ -1,5 +1,6 @@
 ---
 title: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
+description: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 permalink: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 date: 2020-04-17 14:51:16
 copyright: ture

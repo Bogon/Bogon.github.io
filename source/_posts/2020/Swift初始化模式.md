@@ -1,5 +1,6 @@
 ---
 title: Swift初始化模式
+description: Swift初始化模式
 permalink: Swift初始化模式
 copyright: ture
 date: 2020-04-26 16:53:01

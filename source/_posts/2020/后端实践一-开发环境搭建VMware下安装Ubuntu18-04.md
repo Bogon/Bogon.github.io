@@ -1,5 +1,6 @@
 ---
 title: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
+description: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 permalink: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 date: 2020-04-17 09:17:13
 copyright: ture

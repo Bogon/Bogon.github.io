@@ -1,5 +1,6 @@
 ---
 title: UICollectionView data source and delegates
+description: UICollectionView data source and delegates
 permalink: UICollectionView data source and delegates
 copyright: ture
 date: 2020-04-28 10:31:38

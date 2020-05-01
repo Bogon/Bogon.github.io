@@ -1,5 +1,6 @@
 ---
 title: Swift中快速简单的工厂设计模式
+description: Swift中快速简单的工厂设计模式
 permalink: Swift中快速简单的工厂设计模式
 copyright: ture
 date: 2020-04-25 13:15:16

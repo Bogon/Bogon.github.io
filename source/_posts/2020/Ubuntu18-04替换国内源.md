@@ -1,5 +1,6 @@
 ---
 title: Ubuntu18.04替换国内源
+description: Ubuntu18.04替换国内源
 permalink: Ubuntu18.04替换国内源
 date: 2020-04-17 12:58:13
 copyright: ture

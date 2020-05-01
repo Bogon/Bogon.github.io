@@ -4,6 +4,7 @@ permalink: Swift 用 compactMap 替换 flatMap
 copyright: ture
 date: 2020-04-30 17:18:07
 keywords: iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming
+description: Swift 用 compactMap 替换 flatMap
 tags:
     - [iOS]
     - [Swift]
@@ -20,7 +21,7 @@ categories:
 
 # **改变的简短版本**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您是否正在使用 ```flatMap``` 从可选数组中删除 ```nil```：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你是否正在使用 ```flatMap``` 从可选数组中删除 ```nil```：
 
 ``` Swift
 let names: [String?] = ["Tom", nil, "Peter", nil, "Harry"]
@@ -42,7 +43,7 @@ let valid = names.compactMap { $0 }
 // ["Tom", "Peter", "Harry"]
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只要您在带有闭包的序列上使用 ```flatMap``` 并返回可选值，该方法就适用。 所以这也被弃用了：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只要你在带有闭包的序列上使用 ```flatMap``` 并返回可选值，该方法就适用。 所以这也被弃用了：
 
 ``` Swift
 let words = ["53", "nine", "hello","0"]

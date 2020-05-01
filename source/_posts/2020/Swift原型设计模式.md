@@ -1,5 +1,6 @@
 ---
 title: Swift原型设计模式
+description: Swift原型设计模式
 permalink: Swift原型设计模式
 copyright: ture
 date: 2020-04-25 15:49:06

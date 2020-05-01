@@ -1,5 +1,6 @@
 ---
 title: Swift单例模式
+description: Swift单例模式
 permalink: Swift单例模式
 date: 2020-04-25 10:13:37
 keywords: iOS,UIKit,设计模式,初始化,Swift,单例模式

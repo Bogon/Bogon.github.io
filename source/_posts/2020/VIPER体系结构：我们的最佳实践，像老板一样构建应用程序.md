@@ -1,5 +1,6 @@
 ---
 title: VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
+description: VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
 permalink: VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
 copyright: ture
 date: 2020-04-28 17:06:59

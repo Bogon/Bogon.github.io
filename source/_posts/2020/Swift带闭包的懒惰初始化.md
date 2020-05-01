@@ -1,5 +1,6 @@
 ---
 title: Swift带闭包的懒惰初始化
+description: Swift带闭包的懒惰初始化
 permalink: Swift带闭包的懒惰初始化
 copyright: ture
 date: 2020-04-26 15:55:06

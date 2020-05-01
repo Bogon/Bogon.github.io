@@ -1,5 +1,6 @@
 ---
 title: Swift委托设计模式
+description: Swift委托设计模式
 permalink: Swift委托设计模式
 copyright: ture
 date: 2020-04-25 16:39:15

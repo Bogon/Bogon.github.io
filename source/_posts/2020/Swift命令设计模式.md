@@ -1,5 +1,6 @@
 ---
 title: Swift命令设计模式
+description: Swift命令设计模式
 permalink: Swift命令设计模式
 copyright: ture
 date: 2020-04-25 16:12:58

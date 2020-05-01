@@ -1,5 +1,6 @@
 ---
 title: Swift抽象工厂设计模式
+description: Swift抽象工厂设计模式
 permalink: Swift抽象工厂设计模式
 copyright: ture
 date: 2020-04-25 15:26:13

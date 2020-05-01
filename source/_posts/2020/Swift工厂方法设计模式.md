@@ -1,5 +1,6 @@
 ---
 title: Swift工厂方法设计模式
+description: Swift工厂方法设计模式
 permalink: Swift工厂方法设计模式
 copyright: ture
 date: 2020-04-25 15:16:57

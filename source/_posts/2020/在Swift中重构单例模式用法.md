@@ -1,5 +1,6 @@
 ---
 title: 在Swift中重构单例模式用法
+description: 在Swift中重构单例模式用法
 permalink: 在Swift中重构单例模式用法
 copyright: ture
 date: 2020-04-25 10:38:47

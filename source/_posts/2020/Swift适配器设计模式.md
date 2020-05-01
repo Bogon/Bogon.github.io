@@ -1,5 +1,6 @@
 ---
 title: Swift适配器设计模式
+description: Swift适配器设计模式
 permalink: Swift适配器设计模式
 copyright: ture
 date: 2020-04-25 18:45:18
