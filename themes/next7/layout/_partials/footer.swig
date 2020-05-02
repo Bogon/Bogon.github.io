@@ -27,7 +27,7 @@
     {%- if theme.symbols_count_time.item_text_total %}
       <span class="post-meta-item-text">{{ __('symbols_count_time.count_total') + __('symbol.colon') }}</span>
     {%- endif %}
-    <span title="{{ __('symbols_count_time.count_total') }}">{{ symbolsCountTotal(site) }}</span>
+    <span title="{{ __('symbols_count_time.count_total') }}">博客全站共{{ symbolsCountTotal(site) }}字</span>
   {%- endif %}
 
   {%- if config.symbols_count_time.total_time %}
