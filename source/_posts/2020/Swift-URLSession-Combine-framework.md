@@ -1,10 +1,10 @@
 ---
-title: Swift URLSession && Combine framework
-permalink: Swift URLSession && Combine framework
+title: Swift URLSession 和 Combine framework
+permalink: Swift URLSession 和 Combine framework
 copyright: ture
 date: 2020-05-01 10:12:32
 keywords: iOS,Swift,URLSession,Combine framework
-description: Swift URLSession && Combine framework
+description: Swift URLSession 和 Combine framework
 tags:
     - [iOS]
     - [Swift]
@@ -93,7 +93,7 @@ task.resume()
 
 </br>
 
-# **Data tasks && the Combine framework**
+# **Data tasks 和 the Combine framework**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在你可以看到传统的 ```“基于块”``` 的方法很好，但是我们可以在这里做些更好的事情吗？ 你知道吗，就像将整个事物描述成一个链条一样，就像我们过去对 ```Promises``` 所做的那样？ 从 ```iOS13``` 开始，借助惊人的 ```Combine框架``` ，你实际上可以超越！ 😃
 
