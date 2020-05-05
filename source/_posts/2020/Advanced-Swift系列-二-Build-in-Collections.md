@@ -132,8 +132,8 @@ for fib in fibs {
 squared // [0, 1, 1, 4, 9, 25]
 ```
 
-```Swift``` 数组具有 ```map方法``` ，该方法从函数世界中采用
-编程。 使用 ***map*** 的操作完全相同：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Swift``` 数组具有 ```map方法``` ，该方法从函数世界中采用编程。 使用 ***map*** 的操作完全相同：
+
 
 ``` Swift
 let squares = fibs.map{ fib in fib*fib }
@@ -168,6 +168,8 @@ func map<T>(_ transform: (Element) -> T) -> [T] {
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确实，此方法的签名应为
 >```func map <T>（__ transform：（Element）throws-> T）rethrows-> [T]```，表示映射将转换功能可能抛出的任何错误转发给调用者。 我们将在 ```“错误”``` 一章中对此进行详细介绍，但是在这里，为简单起见，我们省略了错误处理注释。 如果需要，您可以在GitHub的Swift存储库中检出 ```Sequence.map``` 的源代码。
+
+
 
 ### ***用函数参数化行为***
 
