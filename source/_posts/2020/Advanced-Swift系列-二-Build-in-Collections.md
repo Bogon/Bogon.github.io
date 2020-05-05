@@ -166,10 +166,7 @@ func map<T>(_ transform: (Element) -> T) -> [T] {
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```map``` 功能本身并不关心 ```元素``` 和 ```T``` 是什么。 他们可以是任何东西。 转换元素的具体 ```类型T``` 由 ```调用者传递给映射的转换函数的返回类型定义``` 。 有关通用参数的详细信息，请参见 ```“通用”``` 一章。
 
 
->&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确实，此方法的签名应为
->```func map <T>（__ transform：（Element）throws-> T）rethrows-> [T]```，表示映射将转换功能可能抛出的任何错误转发给调用者。 我们将在 ```“错误”``` 一章中对此进行详细介绍，但是在这里，为简单起见，我们省略了错误处理注释。 如果需要，您可以在GitHub的Swift存储库中检出 ```Sequence.map``` 的源代码。
-
-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确实，此方法的签名应为```func map <T>（__ transform：（Element）throws-> T）rethrows-> [T]```，表示映射将转换功能可能抛出的任何错误转发给调用者。 我们将在 ```“错误”``` 一章中对此进行详细介绍，但是在这里，为简单起见，我们省略了错误处理注释。 如果需要，您可以在GitHub的Swift存储库中检出 ```Sequence.map``` 的源代码。
 
 ### ***用函数参数化行为***
 
