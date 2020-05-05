@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJD">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Advanced Swift系列(一): Swift 简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(一): Swift 简介">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(一): Swift 简介">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-05T04:46:21.000Z">
+<meta property="article:modified_time" content="2020-05-05T05:42:34.131Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content=" Swift进阶">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Advanced Swift系列(一): Swift 简介 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">81</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(一): Swift 简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 12:46:21" itemprop="dateCreated datePublished" datetime="2020-05-05T12:46:21+08:00">2020-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(一): Swift 简介</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a><strong>简介</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Advanced Swift</code> 是一本书的大胆标题，所以也许我们应该从它的意思开始。</p>
+<p>当我们开始编写本书的第一版时， <code>Swift</code> 才刚满一岁。我们是在2.0版Beta发布之前这样做的-尽管只是暂时的，因为我们怀疑该语言在进入第二年后会继续发展。很少有语言（也许没有其他语言）被如此众多的开发人员如此迅速地采用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这给人们留下了未解之谜。你如何编写“惯用”  <code>Swift</code> ？有正确的方法来做某些事情吗？标准库提供了一些线索，但是即使随着时间的推移，它也发生了变化，删除了一些约定并采用了其他约定。自从将近五年前 <code>Swift</code> 推出以来， <code>Swift</code> 取得了长足的发展，并且变得更加清晰。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于来自另一种语言的人， Swift 可以使他们喜欢他们所选择的语言。低级位扭曲看起来可能与C非常相似（并且可以与C一样性能），但是没有许多未定义的行为陷阱。  <code>Rubyists</code> 熟悉 <code>map</code> 或 <code>lter</code> 的轻量级 <code>尾随闭包语法</code> 。  <code>Swift泛型</code> 类似于 <code>C++模板</code> ，但是具有类型约束，以确保泛型函数在定义时（而不是在使用时）是正确的。高阶函数的灵活性和运算符重载意味着你​​可以编写与 <code>Haskell</code> 或 <code>F＃</code> 风格相似的代码。  <code>@objc</code> 和 <code>dynamic</code> 关键字允许你以与 <code>Objective-C</code> 相同的方式使用选择器和运行时动态性。</p>
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考虑到这些相似之处，很容易采用其他语言的习惯用法。恰当的例子： <code>Objective-C</code> 示例项目几乎可以机械地移植到 <code>Swift</code> 。  <code>Java</code> 或 <code>C＃设计模式</code> 以及大多数功能编程模式也是如此。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是随之而来的是沮丧。为什么我们不能将 协议扩展 与相关类型（如Java中的接口）一起使用？为什么数组不像我们期望的那样协变？为什么我们不能写 <code>“ functor”</code> ？有时答案是因为有关  <code>Swift</code> 的部分尚未实现。但是更常见的是，这是因为有一种类似 <code>Swift</code> 的方式来完成你想做的事情，或者是因为你认为 <code>Swift</code> 功能实际上与其他语言中的等效功能实际上并不完全一样。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 是一种复杂的语言-大多数编程语言都是。但这很好地掩盖了这种复杂性。你可以在 <code>Swift</code> 中启动并运行开发应用程序，而无需了解 <code>泛型</code> 或 <code>重载</code> 或 <code>静态</code> 和 <code>动态调度</code> 之间的区别。你当然可以使用 <code>Swift</code> ，而无需调用 <code>C库</code> 或编写自己的集合类型，但是过了一会儿，我们认为你有必要了解<br>这些事情-是提高代码的性能，还是使其更优雅或更富表现力，或者仅仅是为了完成某些事情。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本书旨在进一步了解这些功能。我们打算回答许多“我该怎么做？”或“为什么Swift会那样表现？”我们在各种论坛上反复提出的问题。希望，一旦你阅读了我们的书，你将从了解语言的基础到了解许多高级功能以及对 <code>Swift</code> 的工作原理有更好的了解。熟悉所提供的材料可能是必要的，即使不够用，也要称自己为 <code>高级Swift程序员</code> 。</p>
+</br>
+
+<h1 id="这本书是给谁的？"><a href="#这本书是给谁的？" class="headerlink" title="这本书是给谁的？"></a><strong>这本书是给谁的？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本书面向有经验的（尽管不一定是专家） 程序员 ，例如现有的 <code>Apple平台开发人员</code> 。这也适用于那些来自其他语言（例如 <code>Java</code> 或 <code>C++</code> ）的人，他们希望将自己对 <code>Swift</code> 的知识提高到与“入门”语言相同的水平。此外，它适合刚开始使用 <code>Swift</code> 并熟悉基础知识并希望将其提升到新水平的新程序员。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这本书并不是要介绍 <code>Swift</code> 。假定你熟悉该语言的语法和结构。如果你希望对 <code>Swift</code> 的基础知识有一个很好的紧凑介绍，最好的资料是 <code>Apple Swift官方</code> 书（可在iBooks或Apple的网站上找到）。如果你已经是一名自信的程序员，则可以尝试同时阅读我们的书和Apple Swift书。<br>这也不是有关为macOS或iOS设备编程的书。当然，由于 <code>Swift</code> 在Apple平台上的开发用途很多，因此我们尝试提供一些实际使用的示例，但我们希望这本书对非Apple平台的程序员也有用。本书中的绝大多数示例在其他操作系统上应保持不变。那些根本不与Apple平台相关联的（因为它们使用iOS框架或依赖于Objective-C运行时），或者只需要很小的更改。从个人经验可以说， <code>Swift</code> 是编写运行在 <code>Linux</code> 上的服务器应用程序的绝佳语言，过去几年来，生态系统和社区不断发展，使之成为可行的选择。</p>
+</br>
+
+<h1 id="主题"><a href="#主题" class="headerlink" title="主题"></a><strong>主题</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本书的组织方式使每一章都涵盖一个特定的概念。关于一些基本的基本概念（例如，可选参数和字符串），有深入的章节，同时还深入探讨了诸如C互操作性之类的主题。但是在整本书中，希望有一些关于Swift的主题出现：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong><em><code>Swift</code> 桥接了多个抽象级别。</em></strong>  <code>Swift</code> 是一种高级语言，它允许你使用 <code>map</code> 和 <code>reduce</code> 来编写与 <code>Ruby</code> 和 <code>Python</code> 类似的代码，并轻松编写自己的高阶函数。  <code>Swift</code> 还允许你编写快速代码，这些代码可以直接编译为本机二进制文件，其性能类似于用 <code>C语言</code> 编写的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们兴奋的是，我们最欣赏的 <code>Swift</code> 方面是，你能够同时做这两项事情。将闭包表达式映射到数组上将编译为与循环访问连续内存块相同的汇编代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，要充分利用此功能，你需要了解一些事情。例如，对 <code>结构</code> 和 <code>类</code> 的差异有所了解，或者对 <code>动态</code> 和 <code>静态方法</code> 分配之间的区别有所了解，将使你受益（稍后我们将更深入地讨论诸如此类的主题）。而且，如果你需要降到较低的抽象层次并直接操作指针， <code>Swift</code> 也可以使你做到这一点。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 是一种 <code>多范式语言</code> 。你可以使用它来使用不可变值编写面向对象的代码或纯函数代码，也可以使用指针算法编写类似 <code>C</code> 的 <code>命令式代码</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这既是福也是祸。太好了，因为你有很多可用的工具，而且你不必被迫以一种方式编写代码。但这也使你面临用 <code>Swift</code> 编写 <code>Java</code> 或 <code>C</code> 或 <code>Objective-C</code> 的风险。</p>
+<figure class="highlight plain"><figcaption><span>仍然可以使用 ```Objective-C``` 的大多数功能，包括 ```消息发送``` ， ```运行时类型识别``` 和 ```键值观察``` 。但是 ```Swift``` 引入了许多在 ```Objective-C``` 中不可用的功能。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;著名的编程语言专家 &#96;&#96;&#96;Erik Meijer&#96;&#96;&#96; 在2015年10月发布了以下推文：</span><br><span class="line">&gt; 在这一点上，&#96;&#96;&#96;@SwiftLang&#96;&#96;&#96; 可能是比 &#96;&#96;&#96;Haskell&#96;&#96;&#96; 更好，更有价值的学习 &#96;&#96;&#96;函数式编程&#96;&#96;&#96; 的工具。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 通过使用 &#96;&#96;&#96;泛型&#96;&#96;&#96; ， &#96;&#96;&#96;协议&#96;&#96;&#96; ， &#96;&#96;&#96;值类型&#96;&#96;&#96; 和 &#96;&#96;&#96;闭包&#96;&#96;&#96; ，很好地介绍了一种更具功能性的编程风格。 甚至可以使用它来编写将 &#96;&#96;&#96;函数组合&#96;&#96;&#96; 在一起的 &#96;&#96;&#96;运算符&#96;&#96;&#96; 。 也就是说， &#96;&#96;&#96;Swift社区&#96;&#96;&#96; 中的大多数人似乎更喜欢命令式风格，同时融入了源于 &#96;&#96;&#96;函数式编程&#96;&#96;&#96; 的模式。  &#96;&#96;&#96;Swift&#96;&#96;&#96; 的 &#96;&#96;&#96;值类型&#96;&#96;&#96; &#96;&#96;&#96;可变性&#96;&#96;&#96; 概念及其 &#96;&#96;&#96;错误处理模型&#96;&#96;&#96; 是友好的命令式语法背后的语言“隐藏”功能概念的示例。</span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 非常灵活。 在《关于Lisp的书》的简介中，Paul Graham写道：</span><br><span class="line"></span><br><span class="line">&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;经验丰富的 &#96;&#96;&#96;Lisp程序员&#96;&#96;&#96; 对程序进行了不同的划分。 除自上而下的设计外，它们还遵循可称为自下而上的设计的原则-更改语言以适应问题。 在 &#96;&#96;&#96;Lisp&#96;&#96;&#96; 中，你不仅要按照语言编写程序，还要按照程序编写语言。 在编写程序时，你可能会想“我希望Lisp拥有这样的运算符。” 所以你去写吧。 之后，你意识到使用 &#96;&#96;&#96;new运算符&#96;&#96;&#96; 将简化程序另一部分的设计，依此类推。 语言和程序一起发展。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 与 &#96;&#96;&#96;Lisp&#96;&#96;&#96; 有很大的不同。但是，我们仍然感觉到 &#96;&#96;&#96;Swift&#96;&#96;&#96; 也具有鼓励“自下而上”编程的特征-简化编写非常通用的 可重用构建基块 ，然后将其组合成更大的功能，然后将其用于解决实际问题的特性。  &#96;&#96;&#96;Swift&#96;&#96;&#96; 特别擅长使这些构建基块看起来像原始语言，就像语言的一部分一样。这方面的一个很好的证明是，你可能认为许多基本功能（例如可选功能或基本运算符）的功能实际上是在库中定义的- &#96;&#96;&#96;Swift标准库&#96;&#96;&#96; -而不是直接在语言中定义。 尾随闭包 使你可以使用内置的功能扩展语言。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 代码可以紧凑而简洁，同时仍然清晰。  &#96;&#96;&#96;Swift&#96;&#96;&#96; 使自己适合相对简洁的代码。这里有一个潜在的目标，那就是不能节省打字。这个想法是为了更快地解决问题，并通过删除很多</span><br><span class="line">在其他语言中，你经常看到的“典范”样板模糊而不是澄清了代码的含义。</span><br><span class="line">例如， &#96;&#96;&#96;类型推论&#96;&#96;&#96; 消除了从上下文显而易见的类型声明的混乱情况。没有什么价值的分号和括号都消失了。 &#96;&#96;&#96;泛型&#96;&#96;&#96; 和 &#96;&#96;&#96;协议扩展&#96;&#96;&#96; 鼓励你通过将常见操作打包到 &#96;&#96;&#96;可重用函数&#96;&#96;&#96; 中来避免重复。目的是一眼就能看懂代码。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;首先，这可能会令人反感。如果你从未使用过 &#96;&#96;&#96;map&#96;&#96;&#96; ， &#96;&#96;&#96;maplter&#96;&#96;&#96; 和 &#96;&#96;&#96;reduce&#96;&#96;&#96; 之类的 &#96;&#96;&#96;函数&#96;&#96;&#96; ，那么它们可能比简单的 &#96;&#96;&#96;for循环难读&#96;&#96;&#96; 。但是我们希望这是一条短暂的学习曲线，而回报是代码，它可以带来更多</span><br><span class="line">乍看之下“显然是正确的”。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 会尝试尽可能实际地保持安全，直到你告知并非如此为止。这与 &#96;&#96;&#96;C&#96;&#96;&#96; 和 &#96;&#96;&#96;C++&#96;&#96;&#96; （你可能会因忘记做某事而很不安全）或 &#96;&#96;&#96;Haskell&#96;&#96;&#96; 或 &#96;&#96;&#96;Java&#96;&#96;&#96; （无论你是否喜欢它有时都是安全的）这样的语言不同。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;C＃&#96;&#96;&#96; 的主要设计师之一埃里克·利珀特（Eric Lippert）讲述了他对 &#96;&#96;&#96;C＃&#96;&#96;&#96; 的十个遗憾，包括以下课程：</span><br><span class="line"></span><br><span class="line">&gt; &amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;有时，你需要实现仅适用于正在 &#96;&#96;&#96;构建基础架构&#96;&#96;&#96; 的专家的功能； 这些功能应清楚地标记为危险-不会与其他语言的功能相似。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;埃里克（Eric）特别是指 &#96;&#96;&#96;C＃&#96;&#96;&#96; 的 &#96;&#96;&#96;finalizers&#96;&#96;&#96; ，类似于 &#96;&#96;&#96;C++&#96;&#96;&#96; 的 &#96;&#96;&#96;析构函数&#96;&#96;&#96; 。 但是与 &#96;&#96;&#96;析构函数&#96;&#96;&#96; 不同的是，它们在 &#96;&#96;&#96;垃圾收集器&#96;&#96;&#96; 的要求下（并在 &#96;&#96;&#96;垃圾收集器&#96;&#96;&#96; 的线程上）在不确定的时间运行（也许永远不会）。 但是，被 &#96;&#96;&#96;引用计数的Swift&#96;&#96;&#96; 确实可以确定地 &#96;&#96;&#96;执行类的deinit&#96;&#96;&#96; 。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&#96;&#96;&#96;Swift&#96;&#96;&#96; 以其他方式体现了这一观点。 默认情况下， **避免未定义和不安全的行为** 。 例如，变量必须在初始化之前才能使用，并且在 &#96;&#96;&#96;数组上&#96;&#96;&#96; 使用 &#96;&#96;&#96;越界下标&#96;&#96;&#96; 将被捕获，而不是继续使用可能的垃圾值。</span><br><span class="line">当你确实需要它们时，可以使用许多“不安全”选项（例如 &#96;&#96;&#96;unsafeBitCast函数&#96;&#96;&#96; 或 &#96;&#96;&#96;UnsafeMutablePointer类型&#96;&#96;&#96; ）。 但是强大的力量带来了巨大的不确定行为。 例如，你可以编写以下内容：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96; Swift</span><br><span class="line">var someArray &#x3D; [1, 2, 3]</span><br><span class="line">let uhOh &#x3D; someArray.withUnsafeBufferPointer &#123; ptr in</span><br><span class="line">return ptr &#125;</span><br><span class="line">&#x2F;&#x2F; Later...</span><br><span class="line">print(uhOh[10])</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它会编译，但是谁知道它会做什么。  <code>ptr变量</code> 仅在 <code>闭包表达式</code> 中有效，并且将其返回给调用者是非法的。但是，没有什么阻止你让它逃脱到野外。但是，你不能说没有人警告过你。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 是一种自以为是的语言。作为作者，我们对编写 <code>Swift</code> 的“正确”方法有强烈的意见。你会在本书中看到许多这样的内容，有时甚至表示它们是事实。但它们只是我们的意见-随时可以不同意！ <code>Swift</code> 还是年轻的<br>语言，许多事情还没有解决。无论你正在阅读什么，最重要的事情就是亲自尝试一下，检查它们的行为，并决定你对它们的感觉。认真思考，并注意过时的信息。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 继续发展。年度语法大变动的时期已经过去，但是该语言的重要领域仍未完成（ <code>字符串API</code> ， <code>泛型系统</code> ）， <code>不断变化（反射）</code> 或 <code>尚未解决（并发）</code> 。</p>
+</br>
+
+<h1 id="术语"><a href="#术语" class="headerlink" title="术语"></a><strong>术语</strong></h1><blockquote>
+<p>‘When I use a word,’ Humpty Dumpty said, in rather a scornful tone, ‘it means just what I choose it to mean — neither more nor less.’<br>— Through the Looking Glass, by Lewis Carroll</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程序员经常抛出艺术术语。为 <code>避免混淆</code> ，以下是我们在本书中使用的一些术语定义。在可能的情况下，我们尝试遵守与官方文档相同的用法，有时甚至坚持 <code>Swift社区</code> 广泛采用的定义。这些定义中的许多定义将在后面的章节中更详细地介绍，因此请放心，如果不是所有事情都立即生效的话。如果你已经熟悉所有这些术语，那么最好还是先略过一遍，以确保你所接受的含义与我们的含义相同。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，我们区分 <code>值</code> ， <code>变量</code> ， <code>引用</code> 和 <code>常量</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>值</code> 是永远不变的，永远不变。例如，1，true和[1,2,3]均为值。这些是文字的示例，但是值也可以在运行时生成。将数字5平方时得到的数字是一个值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们使用 <code>var x = [1,2]</code> 为名称分配值时，我们将创建一个名为x的变量，其中包含值[1,2]。通过更改 <code>x</code> 通过执行 <code>x.append（3）</code> ，我们没有更改原始值。相反，我们将 <code>x</code> 所保存的值替换为新值[1,2,3]-至少在逻辑上，如果不在实际实现中（这实际上可能只是在一些现有内存的后面添加新条目）。我们称此为 <code>变量变量</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以用 <code>let</code> 而不是 <code>var声明常量变量（简称常量）</code> 。一旦为常数分配了值，就永远不能为其分配新值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们也不需要立即为 <code>变量赋值</code> 。我们可以先声明变量 <code>（让x：Int ）</code>，然后再给它赋一个值 <code>（x = 1）</code> 。  <code>Swift</code> 强调 <code>安全性</code> ，将在读取变量值之前检查所有可能的代码路径是否导致为变量分配了值。没有一个变量具有尚未定义的值的概念。当然，如果变量用 <code>let声明</code> ，则只能赋给一次。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>结构</code> 和 <code>枚举</code> 是 值类型 。当将一个结构变量分配给另一个时，两个变量将包含相同的值。你可以认为内容是被复制的，但是更准确地说，一个变量已更改为包含与另一个变量相同的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>引用</code> 是一种特殊的值：它是一个 <code>“指向”内存</code> 中其他位置的值。因为两个引用可以引用相同的位置，所以这会导致存储在该位置的值立即被程序的两个不同部分 <code>突变的可能性</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>类</code> 是 <code>引用类型</code> 。你不能直接在 <code>变量</code> 中 <code>保存类的实例</code> （有时可能将其称为 <code>对象</code> ，这个术语充满了麻烦！）。相反，你必须在变量中保存对它的引用，然后通过该 <code>引用</code> 对其进行访问。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>引用类型</code> 具有标识-你可以使用 <code>===</code> 检查两个变量是否引用了 <code>完全相同的对象</code> 。你也可以检查它们是否相等，假设为相关类型实现了 <code>==</code> 。具有不同身份的两个 <code>对象仍然可以相等</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>值类型</code> 没有身份。你无法检查 <code>特定变量</code> 是否与另一个 <code>变量</code> 具有“相同”的数字2。你只能检查它们是否都包含值2。 <code>===</code> 确实是在问：“这两个变量是否都具有与它们的值相同的引用？”在编程语言文献中， <code>==</code> 有时称为 <code>结构相等</code> ，而 <code>===</code> 有时又称为 <code>指针相等</code> 或 <code>引用相等</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中， <code>类引用</code> 并不是唯一的一种引用。例如，还存在通过 <code>UnsafeMutablePointer函数</code> 等 <code>访问的指针</code> 。但是 <code>类</code> 是最简单的 <code>引用类型</code> ，部分原因是它们的类引用性质被语法糖部分地隐藏了，这意味着你不需要像使用其他语言的 <code>指针</code> 那样进行任何显式的 <code>“解引用”</code> 。 （我们将在“互操作性”一章中详细介绍其他类型的参考。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 <code>let声明</code> 保存引用的变量，即引用是 <code>常量</code> 。这意味着该变量 <code>永远不能更改为引用其他内容</code> 。但是-这很重要-并不意味着 <code>它所指的对象不能更改</code> 。因此，在将 <code>变量称为常量</code> 时，请小心-它 <code>仅指向常量</code> 。这并不意味着它指向的是  <code>恒定的</code> 。 （注意：如果最后几句话听起来像是双重说话，请不要担心，因为我们将在“结构和类”一章中再次介绍该内容。）不幸的是，这意味着当用 <code>let查看变量</code> 的声明时，你不能一眼就知道声明的内容是否完全不变。相反，你必须知道它是 <code>值类型</code> 还是 <code>引用类型</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>复制值类型</code> 时，通常会执行 <code>深度复制</code> ，即，它包含的所有值也会 <code>递归复制</code> 。此副本可以急于发生（每当引入新变量时），也可能懒惰（每当变量被突变时）。执行 <code>深拷贝的类型</code> 被称为具有 <code>值语义</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们遇到了另一个麻烦。如果 <code>结构</code> 包含 <code>引用类型</code> ，则将 <code>结构</code> 分配给新变量后， 不会自动复制引用的对象 。相反，仅 <code>引用本身会被复制</code> 。这些被称为 <code>浅拷贝</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如， <code>Foundation</code> 中的 <code>Data结构</code> 是 <code>存储实际字节</code> 的类的 <code>包装</code> 。但是，只要 <code>Data结构</code> 发生突变， <code>Data结构</code> 的作者就会采取额外的步骤来执行 <code>类实例</code> 的 <code>深层副本</code> 。他们使用称为 <code>写时复制</code> 的技术有效地做到了这一点，我们将在 <code>“结构和类”</code> 一章中对此进行说明。目前，重要的是要知道这种 <code>行为不是免费的</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>标准库</code> 中的 <code>集合</code> 还包装了 <code>引用类型</code> ，并使用 <code>写时复制</code> 有效地提供了 <code>值语义</code> 。但是，如果集合中的元素是引用（例如，包含对象的数组），则不会复制对象。相反，仅引用被复制。这意味着Swift数组仅在其元素也具有值语义的情况下才具有值语义。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有些类是完全不可变的-也就是说，它们在创建后不提供更改其内部状态的方法。这意味着，即使它们是类，它们也具有值语义（因为即使它们是共享的，它们也永远不会改变）。但是要小心-只能保证最终类不会被添加了可变状态。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中， <code>函数</code> 也是值。你可以将 <code>函数</code> 分配给 <code>变量</code> ，具有 <code>函数数组</code> ，然后调用保留在变量中的函数。将其他函数作为 <code>参数的函数</code> （例如map，其使用对变换序列中每个元素的函数进行转换）或返回函数称为 <code>高阶函数</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不必在顶层声明函数-你可以在另一个函数内或在 do 或其他范围内声明一个函数。在 外部作用域中 定义但从中传递出去的函数（例如，作为函数的返回值）可以“捕获”局部变量，在这种情况下，当局部作用域结束时，这些局部变量不会被破坏，并且该函数可以通过他们保持状态。此行为称为 <code>closures</code> 变量 ，执行此操作的函数称为 <code>closures</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 <code>func关键字</code> 或使用称为 <code>闭包表达式</code> 的速记 <code>{}语法</code> 来声明函数。有时将其简化为 <code>“闭包”</code> ，但不要让你给人以为只有闭包表达式才可以是 <code>闭包</code> 。使用 <code>func关键字</code> 声明的函数在作为 <code>closures</code> 外部变量时也属于 <code>闭包</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Functions</code> 通过引用保留。这意味着将已捕获状态的函数分配给另一个变量不会复制该状态。它共享它，类似于 <code>对象引用</code> 。更重要的是，当两个闭包关闭同一个局部变量时，它们都共享该变量，因此它们共享状态。这可能非常令人惊讶，我们将在“功能”一章中对此进行更多讨论。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>类</code> 或 <code>协议</code> 内部定义的函数是方法，它们具有隐式的 <code>self参数</code> 。有时我们称函数为 <code>非方法自由函数</code> 。这是为了将它们与方法区分开。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>Swift</code> 中的标准函数名称不仅包括函数的基本名称（括号前的部分），还包括参数标签。例如，将集合索引移动许多步的方法的全名是 <code>index（_：offsetBy :)</code> ，指示此函数接受两个参数（由两个冒号表示），其中第一个没有标签（由下划线表示）。如果从上下文可以清楚地知道我们指的是什么功能，我们通常会省略书中的标签；编译器允许你执行相同操作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>自由函数</code> 和在结构上调用的方法是 <code>静态分派的</code> 。这意味着将在编译时知道要调用的函数。这也意味着编译器可能能够 内联该函数 ，即根本不调用该函数，而是将其替换为该函数将执行的代码。 优化器 还可以 丢弃或简化 在编译时无法实际运行的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>类</code> 或 <code>协议</code> 上的方法可能会 <code>动态调度</code> 。这意味着编译器不一定在编译时就知道哪个函数将运行。通过使用 <code>vtables（类似于Java和C ++动态分配的工作方式）</code> 或在某些 <code>@objc类</code>和 <code>协议</code> 的情况下，通过使用 <code>选择器</code> 和 <code>objc_msgSend</code> 来完成此动态行为。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>子类型化</code> 和 <code>方法重写</code> 是获得 <code>多态行为</code> 的一种方法，<br>即根据所涉及的类型而变化的行为。第二种方法是 <code>函数重载</code> ，其中针对不同类型多次写入函数。 （重要的是不要混淆重写和重载，因为它们的行为截然不同。）第三种方式是通过 <code>泛型</code> ， <code>泛型</code> 是将 函数或方法编写一次 ，以采用任何提供某些函数或方法的类型，但是这些函数的实现可以变化。与方法重写不同， <code>函数重载</code> 和 <code>泛型</code> 的结果在编译时是 <code>静态已知</code> 的。我们将在“泛型”一章中对此进行详细介绍。</p>
+</br>
+
+<h1 id="Swift风格指南"><a href="#Swift风格指南" class="headerlink" title="Swift风格指南"></a><strong>Swift风格指南</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编写本书以及为我们自己的项目编写 <code>Swift代码</code> 时，我们尝试遵循以下规则：</p>
+<ul>
+<li>→ 进行命名，在使用时进行清晰性是最重要的考虑因素。由于API的使用次数超过了声明的次数，因此，应针对API的名称进行优化，以确保它们在调用站点上的正常运行。熟悉《 Swift API设计指南》，并尝试在你自己的代码中遵守它们。</li>
+<li>→Clarityisoft的简洁性可以帮助其实现，但简洁性不应成为其本身。</li>
+<li>→始终向功能添加文档注释，尤其是通用名称。</li>
+<li>→类型以UpperCaseLetters开头。函数，变量和枚举以lowerCaseLetters开头。</li>
+<li>→使用类型推断。显式但显而易见的类型会影响可读性。</li>
+<li>→不要在模棱两可的情况下使用类型推断，或者在定义合同时（<br>例如，这就是为什么func具有显式的返回类型）。</li>
+<li>→默认值构造为实际上不包含类或功能的引用<br>语义。</li>
+<li>→除非你已明确设计了MTBE可继承性，否则将其标记为“类”。如果要在内部使用继承，但不允许外部客户继承，则将类标记为public，但不要打开。</li>
+<li>→使用尾随密封句法，除非紧接在另一开口括号之后。</li>
+<li>→尽早使用保镖退出功能。</li>
+<li>→Eschewforce展开并隐式展开可选的选项。有时<br>有用，但是经常需要它们通常是一个标志，这是错误的。</li>
+<li>→不要自己重复。如果发现多次编写相同的代码片段，请将其提取到一个函数中。考虑将该功能作为协议扩展。</li>
+<li>→收藏夹和过滤器。但是不要强制使用：在有意义时使用循环。高阶函数的目的是使代码更具可读性。当更简单的for循环更加清晰时，混淆地使用reduce会破坏此目的。</li>
+<li>→Favorimmutable变量：默认为除非你知道你需要的突变。但是，在使代码更清晰或更高效时，请使用突变。再说一次，不要强迫：结构上的变异方法通常比返回全新的结构更惯用和有效。</li>
+<li><ul>
+<li>→Swift泛型（尤其是与协议约束组合）倾向于导致很长的函数签名。不幸的是，我们尚未找到将长函数声明分成多行的好方法。我们将尝试在示例代码中保持一致。</li>
+</ul>
+</li>
+<li>→离开自己。当你不进行编辑时。附件表示中存在自我。是一个明确的信号，表明自我正在被封闭所捕获。</li>
+<li>→代替编写自由功能，写扩展名类型或协议（如果可以）。这有助于提高可读性和可发现性。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于本书中的代码示例的最后一点：为了节省空间并专注于要点，我们通常会省略使代码编译所需的 <code>import</code> 语句。如果你亲自尝试该代码，并且编译器告诉你它无法识别特定符号，请尝试添加 <code>import Foundation</code> 或 <code>import UIKit</code> 语句。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/" title="Advanced Swift系列(一): Swift 简介">https://www.xuebaonline.com/Advanced Swift系列(一): Swift 简介/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%20Combine%20Publishers%E5%92%8CSubscribers%E9%80%9A%E8%BF%87URLSession%E4%B8%8B%E8%BD%BD%E6%96%87%E4%BB%B6%EF%BC%9F/" rel="prev" title="如何使用 Combine Publishers和Subscribers通过URLSession下载文件？">
+      <i class="fa fa-chevron-left"></i> 如何使用 Combine Publishers和Subscribers通过URLSession下载文件？
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#这本书是给谁的？"><span class="nav-number">2.</span> <span class="nav-text">这本书是给谁的？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#主题"><span class="nav-number">3.</span> <span class="nav-text">主题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#术语"><span class="nav-number">4.</span> <span class="nav-text">术语</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift风格指南"><span class="nav-number">5.</span> <span class="nav-text">Swift风格指南</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">81</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.1</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共468k字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">7:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
