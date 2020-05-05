@@ -1,7 +1,7 @@
 ---
-title: 'Advanced Swift系列(一): Build-in Collections'
-description: 'Advanced Swift系列(一): Build-in Collections'
-permalink: 'Advanced Swift系列(一): Build-in Collections'
+title: 'Advanced Swift系列(二): Build-in Collections'
+description: 'Advanced Swift系列(二): Build-in Collections'
+permalink: 'Advanced Swift系列(二): Build-in Collections'
 copyright: ture
 date: 2020-05-05 13:44:31
 keywords: iOS,Swift,Advanced Swift,Swift学习, Swift进阶
