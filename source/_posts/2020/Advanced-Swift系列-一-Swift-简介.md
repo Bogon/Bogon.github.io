@@ -63,7 +63,8 @@ categories:
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这既是福也是祸。太好了，因为你有很多可用的工具，而且你不必被迫以一种方式编写代码。但这也使你面临用 ```Swift``` 编写 ```Java``` 或 ```C``` 或 ```Objective-C``` 的风险。
-```Swift``` 仍然可以使用 ```Objective-C``` 的大多数功能，包括 ```消息发送``` ， ```运行时类型识别``` 和 ```键值观察``` 。但是 ```Swift``` 引入了许多在 ```Objective-C``` 中不可用的功能。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Swift``` 仍然可以使用 ```Objective-C``` 的大多数功能，包括 ```消息发送``` ， ```运行时类型识别``` 和 ```键值观察``` 。但是 ```Swift``` 引入了许多在 ```Objective-C``` 中不可用的功能。
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;著名的编程语言专家 ```Erik Meijer``` 在2015年10月发布了以下推文：
 > 在这一点上，```@SwiftLang``` 可能是比 ```Haskell``` 更好，更有价值的学习 ```函数式编程``` 的工具。
@@ -93,6 +94,17 @@ categories:
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Swift``` 以其他方式体现了这一观点。 默认情况下， **避免未定义和不安全的行为** 。 例如，变量必须在初始化之前才能使用，并且在 ```数组上``` 使用 ```越界下标``` 将被捕获，而不是继续使用可能的垃圾值。
 当你确实需要它们时，可以使用许多“不安全”选项（例如 ```unsafeBitCast函数``` 或 ```UnsafeMutablePointer类型``` ）。 但是强大的力量带来了巨大的不确定行为。 例如，你可以编写以下内容：
 
+
+
+``` Swift
+
+var someArray = [1, 2, 3]
+let uhOh = someArray.withUnsafeBufferPointer { ptr in
+return ptr }
+// Later...
+print(uhOh[10])
+
+```
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它会编译，但是谁知道它会做什么。  ```ptr变量``` 仅在 ```闭包表达式``` 中有效，并且将其返回给调用者是非法的。但是，没有什么阻止你让它逃脱到野外。但是，你不能说没有人警告过你。
