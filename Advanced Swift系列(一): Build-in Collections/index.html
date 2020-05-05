@@ -31,11 +31,13 @@
 <meta property="og:description" content="Advanced Swift系列(一): Build-in Collections">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-05T05:44:31.000Z">
-<meta property="article:modified_time" content="2020-05-05T05:44:31.849Z">
+<meta property="article:modified_time" content="2020-05-05T07:05:49.610Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="Vapor">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content=" Swift进阶">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Build-in%20Collections/">
@@ -158,7 +160,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">61</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">64</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -257,6 +259,23 @@
 
               <time title="创建时间：2020-05-05 13:44:31" itemprop="dateCreated datePublished" datetime="2020-05-05T13:44:31+08:00">2020-05-05</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -285,14 +304,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>10 分钟</span>
             </span>
             <div class="post-description">Advanced Swift系列(一): Build-in Collections</div>
 
@@ -305,7 +324,94 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在任何编程语言中，元素的 <code>集合</code> 都是最重要的数据类型之一。 对各种容器的良好语言支持对程序员的工作效率和幸福感有很大影响。  <code>Swift</code> 特别强调序列和集合-标准库的大部分内容都专门针对该主题，因此我们有时会觉得它处理的很少。 生成的模型比您可能习惯于其他语言的模型具有更高的 <code>可扩展性</code> ，但是它也相当复杂。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们将介绍 <code>Swift</code> 附带的主要 <code>集合类型</code> ，重点是如何有效地和惯用地使用它们。 在本书后面的 <code>“集合协议”</code> 一章中，我们将爬上 <code>抽象阶梯</code> ，并了解 <code>标准库</code> 中的 <code>集合协议</code> 如何工作。</p>
+<h1 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a><strong>Arrays</strong></h1><h2 id="Arrays-and-Mutability"><a href="#Arrays-and-Mutability" class="headerlink" title="Arrays and Mutability"></a><strong><em>Arrays and Mutability</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>数组</code> 是 <code>Swift</code> 中最常见的 <code>集合</code> 。  <code>数组</code> 是所有具有 <strong><code>相同类型的元素的有序容器</code></strong> ，它提供对每个元素的随机访问。 例如，要创建一个数字数组，我们可以编写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The Fibonacci numbers</span></span><br><span class="line"><span class="keyword">let</span> fibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果尝试修改上面定义的数组（例如，使用 <code>append（_ :)</code> ），则会出现编译错误。 这是因为使用 <code>let</code> 将数组定义为常量。 在很多情况下，这是正确的做法。 它可以防止我们意外更改数组。 如果我们希望数组为变量，则必须使用 <code>var</code> 进行定义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mutableFibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以轻松地附加单个元素或元素序列：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mutableFibs.append(<span class="number">8</span>) </span><br><span class="line">mutableFibs.append(contentsOf: [<span class="number">13</span>, <span class="number">21</span>]) </span><br><span class="line">mutableFibs <span class="comment">// [0, 1, 1, 2, 3, 5, 8, 13, 21]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区分 <code>var</code> 和 <code>let</code> 有很多好处。 用 <code>let</code> 定义的常数是 <code>不可变的</code> ，因此更容易推论。 什么时候<br>您读了一个类似 <code>let fibs= ...</code>的声明，您知道 <code>fibs</code> 的值将永远不会改变-不变性由编译器强制执行。 这在阅读时有很大帮助<br>通过代码。 但是，请注意，这仅适用于具有 <strong>值语义</strong> 的类型。 包含对类实例的引用的 <code>let变量</code> 可确保该引用永远不会改变，即，您不能将其他对象分配给该变量。 但是，参考指向的对象可以更改。 我们将在 <code>“结构和类”</code> 一章中详细介绍这些差异。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>标准库</code> 中的所有集合类型一样， <code>数组</code> 也具有 <strong>值语义</strong> 。 将现有数组分配给另一个变量时，将复制数组内容。 例如，在以下代码片段中， <code>x</code> 从未修改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] </span><br><span class="line"><span class="keyword">var</span> y=x </span><br><span class="line">y.append(<span class="number">4</span>)</span><br><span class="line">y <span class="comment">// [1, 2, 3, 4] </span></span><br><span class="line">x <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语句 <code>var y = x</code> 复制了 <code>x</code> ，因此将 <code>4</code> 附加到 <code>y</code> 不会更改 <code>x-x</code> 的值仍为[1、2、3]。 当您将数组传递给函数时，也会发生同样的事情。 该函数接收数组的本地副本，并且所做的任何更改都不会影响调用者。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将此与 <code>Foundation</code> 中 <code>NSArray</code> 采取的可变性方法进行比较。  <code>NSArray</code> 没有变异方法-要变异数组，您需要一个 <code>NSMutableArray</code> 。 但是，仅仅因为您拥有一个不变的 <code>NSArray引用</code> 并不意味着该数组无法在您的下方进行突变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="type">NSMutableArray</span>(array: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) </span><br><span class="line"><span class="comment">// I don't want to be able to mutate b. </span></span><br><span class="line"><span class="keyword">let</span> b: <span class="type">NSArray</span> = a</span><br><span class="line"><span class="comment">// But it can still be mutated — via a. </span></span><br><span class="line">a.insert(<span class="number">4</span>, at: <span class="number">3</span>)</span><br><span class="line">b <span class="comment">// ( 1, 2, 3, 4 )</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正确的写法是在分配后手动创建一个副本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">c</span> = <span class="type">NSMutableArray</span>(array: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) </span><br><span class="line"><span class="comment">// I don't want to be able to mutate d. </span></span><br><span class="line"><span class="keyword">let</span> d = <span class="built_in">c</span>.copy() <span class="keyword">as</span>! <span class="type">NSArray</span></span><br><span class="line"><span class="built_in">c</span>.insert(<span class="number">4</span>, at: <span class="number">3</span>) </span><br><span class="line">d <span class="comment">// ( 1, 2, 3 )</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的示例中，很明显，我们需要进行复制-毕竟是可变的。 但是，当在 <code>方法和函数</code> 之间传递数组时，这并不总是那么容易看到。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，只有一种数组类型，而 <code>可变性</code> 是通过使用 <code>var</code> 而不是 <code>let声明</code> 来控制的。 但是没有引用共享-当您使用 <code>let声明</code> 第二个数组时，可以确保它永远不会改变。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制作如此多的副本可能会造成性能问题，但是实际上， <code>Swift标准库</code> 中的所有集合类型都是使用称为 <code>写时复制的技术</code> 实现的，<strong>该技术可确保仅在必要时才复制数据</strong>。 因此，在我们的示例中，<strong>x和y共享内部存储</strong>，直到调用点 <strong><code>y.append</code></strong> 。 在“结构和类”一章中，我们将更深入地研究 <strong>值语义</strong> ，包括如何为自己的类型实现<strong>写时复制</strong>：</p>
+<h2 id="Array-Indexing"><a href="#Array-Indexing" class="headerlink" title="Array Indexing"></a><strong><em>Array Indexing</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift Array</code> 可提供您期望的所有常规操作，例如 <code>isEmpty</code> 和 <code>count</code> 。 数组还允许通过下标直接访问特定索引处的元素，例如 <code>fibs[3]</code> 。 请记住，在通过下标获取元素之前，需要确保索引在范围之内。 提取索引3的元素，最好确保数组中至少包含四个元素。 否则，您的程序将崩溃，<br>即因致命错误而中止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 有很多使用数组的方式，而无需您计算索引：</p>
+<ul>
+<li>→是否希望遍历整个数组？ 用于数组中的x</li>
+<li>→是否想对数组的第一个元素进行总体评估？ 对于array.dropFirst（）中的x</li>
+<li>→是否想对所有最后五个要素进行评估？ 对于array.dropLast（5）中的x</li>
+<li>→想要对数组中的所有元素进行编号？ 用于array.enumerated（）中的（num，element）</li>
+<li>→是否想找到特定元素的位置？<br>如果让idx =array.􏰀rstIndex{someMatchingLogic（$ 0）}</li>
+<li>→想要在数组中转换所有元素？ array.map {someTransformation（$ 0）}</li>
+<li>→是否只想获取与特定标准匹配的元素？ array.􏰀lter{someCriteria（$ 0）}</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 希望阻止您进行 索引数学运算 的另一个迹象是，从 <code>Swift 3</code> 的语言中删除了传统的C风格的 <code>for循环</code> 。手动摆弄索引会产生很多漏洞，因此通常最好避免使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是有时您必须使用索引。 对于数组索引，期望的是，当您这样做时，您会非常仔细地考虑过索引计算背后的逻辑。 因此必须解开下标操作的值可能是过大的<br>—这意味着您不信任您的代码。 但是您确实有可能信任代码，所以您可能会求助于对结果进行强制包装，因为您知道索引必须有效。 这是（a）令人讨厌的，并且（b）是要养成的不良习惯。 当强制展开成为常规操作时，最终您将滑倒并强制展开您不想要的东西。 因此，为避免这种习惯成为常规，数组不给您选择的余地。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管可以说对下标操作进行响应以控制崩溃的下标操作可以称为不安全，但这只是安全性的一个方面。 就内存安全而言，下标是绝对安全的-标准库集合始终执行边界检查，以防止越界索引进行未经授权的内存访问。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他操作的行为有所不同。 第一个和最后一个属性返回一个可选值，如果数组为空，则为 <code>nil</code> 。  <code>first</code> 等于 <code>isEmpty</code> 吗？ 无：<code>self[0]</code>。 同样，如果您在空数组上调用 <code>removeLast</code> 方法，则会捕获该方法，而如果数组不为空，则 <code>popLast</code> 将仅删除并返回最后一个元素，否则它将不执行任何操作并返回 <code>nil</code> 。 您要使用哪一个取决于您的用例。 当您将数组作为堆栈使用时，您可能总是希望结合使用检查空和删除最后一个条目。 另一方面，如果您已经知道数组是否为空，那么处理可选对象就很麻烦了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章的后面，当我们谈论字典时，我们将再次遇到这些折衷。 此外，有一整章专门介绍可选内容。</p>
+<h2 id="转换数组"><a href="#转换数组" class="headerlink" title="转换数组"></a><strong><em>转换数组</em></strong></h2><h3 id="map"><a href="#map" class="headerlink" title="map"></a><strong><em>map</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常需要对数组中的每个值执行转换。 每个程序员都写过类似的代码数百次：创建一个新的数组，遍历现有数组中的所有元素，对一个元素执行操作，并将该操作的结果附加到新数组中。 例如，以下代码对整数数组求平方：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> squared: [<span class="type">Int</span>] = [] </span><br><span class="line"><span class="keyword">for</span> fib <span class="keyword">in</span> fibs &#123;</span><br><span class="line">    squared.append(fib * fib) </span><br><span class="line">&#125;</span><br><span class="line">squared <span class="comment">// [0, 1, 1, 4, 9, 25]</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><figcaption><span>数组具有 ```map方法``` ，该方法从函数世界中采用</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">编程。 使用 ***map*** 的操作完全相同：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96; Swift</span><br><span class="line">let squares &#x3D; fibs.map&#123; fib in fib*fib &#125;</span><br><span class="line">squares &#x2F;&#x2F; [0, 1, 1, 4, 9, 25]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此版本具有三个主要优点。当然要短一些。错误的余地也更少了。但更重要的是，它更清楚：所有杂物都已消除。一旦习惯了无所不在地查看和使用 map ，它就可以作为信号-您看到 map 后，便会立即知道发生了什么：<strong>一个函数将应用于每个元素，并返回经过转换的元素的新数组</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不再需要使用 <code>var</code> 来声明平方，因为我们不再对它进行变异-它会从完整形成的 map 中提供，因此我们可以在适当的情况下使用 <code>let声明平方</code> 。并且由于可以从传递给 <code>map</code> 的函数中推断内容的类型，因此不再需要明确键入 <code>squares</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>map方法</code> 并不难编写-只是将for循环的样板部分包装为通用函数的问题。这是一种可能的实现方式（尽管在Swift中，它实际上是 <code>Sequence协议</code> 的扩展，我们将在Collection Protocols一章中介绍）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">map</span>&lt;T&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; <span class="type">T</span>) -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result: [<span class="type">T</span>] = [] </span><br><span class="line">    result.reserveCapacity(<span class="built_in">count</span>) </span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span>&#123;</span><br><span class="line">        result.append(transform(x)) </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Element</code> 是数组包含的任何类型的 <code>通用占位符</code> ，而 <code>T</code> 是表示元素转换结果的 <code>新占位符</code> 。  <code>map</code> 功能本身并不关心 <code>元素</code> 和 <code>T</code> 是什么。 他们可以是任何东西。 转换元素的具体 <code>类型T</code> 由 <code>调用者传递给映射的转换函数的返回类型定义</code> 。 有关通用参数的详细信息，请参见 <code>“通用”</code> 一章。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确实，此方法的签名应为</p>
+</blockquote>
+<figure class="highlight plain"><figcaption><span>map <T>（__ transform：（Element）throws-> T）rethrows-> [T]```，表示映射将转换功能可能抛出的任何错误转发给调用者。 我们将在 ```“错误”``` 一章中对此进行详细介绍，但是在这里，为简单起见，我们省略了错误处理注释。 如果需要，您可以在GitHub的Swift存储库中检出 ```Sequence.map``` 的源代码。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">### ***用函数参数化行为***</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;即使您已经熟悉 &#96;&#96;&#96;map&#96;&#96;&#96; ，也请花点时间考虑一下 &#96;&#96;&#96;map&#96;&#96;&#96; 的实现。 是什么使它如此通用却如此有用？</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp; &#96;&#96;&#96;map&#96;&#96;&#96; 设法将 样板 与每次调用的功能区分开来，即每次调用之间都没有变化，即逻辑上如何精确转换每个元素。 它通过调用者提供的参数来完成此操作： &#96;&#96;&#96;转换函数&#96;&#96;&#96; 。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在整个标准库中都可以找到这种 参数化行为模式 。 例如，在 &#96;&#96;&#96;Array&#96;&#96;&#96; （以及其他种类的集合）上有十几个单独的方法，它们带有一个函数来自定义其行为：</span><br><span class="line"></span><br><span class="line">+ → **&#96;&#96;&#96;map&#96;&#96;&#96;** and **&#96;&#96;&#96;flatMap&#96;&#96;&#96;** - 转换元素</span><br><span class="line">+ → **&#96;&#96;&#96;**filter&#96;&#96;&#96;** - 仅包含某些元素</span><br><span class="line">+ → **&#96;&#96;&#96;allSatisfy&#96;&#96;&#96;** — 满足条件的测试要素</span><br><span class="line">+ → **&#96;&#96;&#96;reduce&#96;&#96;&#96;** — 将元素折叠为合计值</span><br><span class="line">+ → **&#96;&#96;&#96;forEach&#96;&#96;&#96;** —访问</span><br><span class="line">+ → **&#96;&#96;&#96;sort（by :)&#96;&#96;&#96;**， **&#96;&#96;&#96;sorted（by :&#96;&#96;&#96;**) ， **&#96;&#96;&#96;lexicographicallyPrecedes（_：by :)&#96;&#96;&#96;** 和 **&#96;&#96;&#96;partition（by :)&#96;&#96;&#96;** —重新排列元素</span><br><span class="line">+ → **&#96;&#96;&#96;firstIndex（where :) &#96;&#96;&#96;**，**&#96;&#96;&#96;lastIndex（where :)&#96;&#96;&#96;**，**&#96;&#96;&#96;first（where :)&#96;&#96;&#96;**，**&#96;&#96;&#96;last（where :)&#96;&#96;&#96;**和 **&#96;&#96;&#96;contains（where :)&#96;&#96;&#96;**  — 元素是否存在？</span><br><span class="line">+ → **&#96;&#96;&#96;min（by :)&#96;&#96;&#96;** 和 **&#96;&#96;&#96;max（by :)&#96;&#96;&#96;** -查找最小的 **&#96;&#96;&#96;mumormaximumo&#96;&#96;&#96;** 元素</span><br><span class="line">+ → **&#96;&#96;&#96;elementsEqual（_：by :)&#96;&#96;&#96;** 和 **&#96;&#96;&#96;starts（with：by :)&#96;&#96;&#96;**  — 比较元素到另一个元素</span><br><span class="line">数组</span><br><span class="line">+ → **&#96;&#96;&#96;split（whereSeparator :)&#96;&#96;&#96;** - 将元素分解为多个数组</span><br><span class="line">+ → **&#96;&#96;&#96;prefix（while :) &#96;&#96;&#96;**- 只要条件成立，就从头开始采集元素</span><br><span class="line">+ → **&#96;&#96;&#96;drop（while :)&#96;&#96;&#96;** -在条件变为真之前丢弃元素，然后返回其余元素（类似于 &#96;&#96;&#96;prefix&#96;&#96;&#96; ，但这返回相反的值）</span><br><span class="line">+ → **&#96;&#96;&#96;removeAll（where :)&#96;&#96;&#96;** - 删除符合条件的要素</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;所有这些功能的目标是消除代码中不感兴趣的部分的混乱情况，例如创建新数组和对源数据进行 for循环 。取而代之的是，用一个描述正在做什么的单词来代替混乱。这将重要的代码（程序员想要表达的逻辑）带到了最前沿。</span><br><span class="line">其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 &#96;&#96;&#96;array.sort（）&#96;&#96;&#96; 的含义很直观，而 &#96;&#96;&#96;array.firstIndex（of：“ foo”）&#96;&#96;&#96; 比</span><br><span class="line">&#96;&#96;&#96;array.firstIndex&#123;$ 0 &#x3D;&#x3D;“ foo”&#125;&#96;&#96;&#96;。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;但是在每种情况下，这些只是常见情况的简写。元素不必具有可比性或相等性，也不必比较整个元素-您可以按年龄对一组人进行排序&#96;&#96;&#96;（people.sort &#123;$ 0.age &lt;$ 1.age&#125;）&#96;&#96;&#96;或检查是否该数组包含未成年人&#96;&#96;&#96;（people.contains &#123;$ 0.age &lt;18&#125;）&#96;&#96;&#96;。您还可以比较元素的某种变换。例如，公认的低效率不区分大小写和语言环境的排序可以通过 &#96;&#96;&#96;people.sort &#123;$ 0.name.uppercased（）&lt;$ 1.name.uppercased（）&#96;&#96;&#96;&#125; 执行。</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;还有其他用途相似的功能，它们也需要指定其行为的功能，但这些功能不在标准库中。您可以轻松地自己定义它们（并且可以尝试）：</span><br><span class="line">+ → **&#96;&#96;&#96;accumulate&#96;&#96;&#96;** - 将组合元素合并到一个运行值数组中（减少，但返回每个临时组合的数组）</span><br><span class="line">+ → **&#96;&#96;&#96;count（where :)&#96;&#96;&#96;** - 计算要匹配的元素数（这应该是Swift 5.0标准库的一部分，但是由于与count属性的名称冲突而延迟；不过可能会在后续发行版中重新引入）</span><br><span class="line">+ → **&#96;&#96;&#96;indexs（where :)&#96;&#96;&#96;** - 返回与条件匹配的条件（类似于 &#96;&#96;&#96;firstIndex（where :)&#96;&#96;&#96;，但它并不止于第一个）</span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;如果发现自己遍历一个数组以在代码中多次执行相同或相似的任务，请考虑为 &#96;&#96;&#96;Array&#96;&#96;&#96; 编写一个简短的扩展。例如，以下代码将数组拆分为相邻的相等元素的组：</span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96; Swift</span><br><span class="line">let array: [Int] &#x3D; [1, 2, 2, 2, 3, 4, 4]</span><br><span class="line">var result: [[Int]] &#x3D; array.isEmpty ? [] : [[array[0]]]</span><br><span class="line">for (previous, current) in zip(array, array.dropFirst()) &#123;</span><br><span class="line">    if previous &#x3D;&#x3D; current &#123; </span><br><span class="line">        result[result.endIndex-1].append(current)</span><br><span class="line">    &#125; else &#123; </span><br><span class="line">        result.append([current])</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">result &#x2F;&#x2F; [[1], [2, 2, 2], [3], [4, 4]]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过根据应用程序之间不同的逻辑（决定在何处拆分数组）提取成对在相邻元素对中成对循环遍历数组的代码来形式化此算法。 我们使用函数参数来允许调用者自定义后者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">split</span><span class="params">(<span class="keyword">where</span> condition: <span class="params">(Element, Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [[<span class="type">Element</span>]] &#123;</span><br><span class="line">    <span class="keyword">var</span> result: [[<span class="type">Element</span>]] = array.isEmpty ? [] : [[<span class="keyword">self</span>[<span class="number">0</span>]]] </span><br><span class="line">    <span class="keyword">for</span> (previous, current) <span class="keyword">in</span> <span class="built_in">zip</span>(<span class="keyword">self</span>, <span class="keyword">self</span>.<span class="built_in">dropFirst</span>()) &#123;</span><br><span class="line">        <span class="keyword">if</span> condition(previous, current) &#123;</span><br><span class="line">            result.append([current]) &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            result[result.endIndex-<span class="number">1</span>].append(current) &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> result &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使我们可以将 <code>for循环</code> 替换为以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parts = array.<span class="built_in">split</span> &#123; $<span class="number">0</span> != $<span class="number">1</span> &#125;</span><br><span class="line">parts <span class="comment">// [[1], [2, 2, 2], [3], [4, 4]]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者，在这种特殊情况下，我们甚至可以写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parts2 = array.<span class="built_in">split</span>(<span class="keyword">where</span>: !=)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这具有我们为 <code>map</code> 描述的所有相同优势。 使用 <code>split（where :)</code> 的示例比使用 <code>for循环</code> 的示例更具可读性； 即使 <code>for循环</code> 很简单，您仍然必须在脑子里遍历循环，这是一个小的精神负担。 使用 <code>split（where :)</code> 引入错误的机会更少（例如，意外忘记了数组为空的情况），它允许您使用 <code>let</code> 而不是 <code>var声明</code> 结果变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本书的后面，我们将详细介绍扩展集合和使用功能。</p>
+<h3 id="Mutation-and-Stateful-Closures"><a href="#Mutation-and-Stateful-Closures" class="headerlink" title="Mutation and Stateful Closures"></a><strong><em>Mutation and Stateful Closures</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遍历数组时，可以使用 <code>map</code> 产生副作用（例如，将元素插入到一些查找表中）。 我们不建议您这样做。 看一下以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="built_in">map</span> &#123; </span><br><span class="line">    item <span class="keyword">in</span> table.insert(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这在看起来像数组转换的构造中隐藏了副作用（查找表的 <code>mutation</code> ）。 如果您看到以上类似的内容，那么很明显<br>使用普通的 <code>for循环</code> 而不是诸如 <code>map之类</code> 的函数的情况。 在这种情况下， <code>forEach方法</code> 也比 <code>map</code> 更合适，但是它有其自身的问题，因此我们稍后再讨论 <code>forEach</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行副作用不同于故意赋予封闭局部状态，这是一种特别有用的技术。 除了有用之外， <code>闭包</code> （可以捕获超出范围范围内的变量并对其进行突变的函数）的强大功能也是与 <code>高阶函数</code> 结合使用时的强大工具。 例如，可以使用 <code>map</code> 和 <code>有状态</code> 的 <code>闭包</code> 来实现上述累加函数，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accumulate</span>&lt;Result&gt;<span class="params">(<span class="number">_</span> initialResult: Result,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> nextPartialResult: <span class="params">(Result, Element)</span></span></span> -&gt; <span class="type">Result</span>) -&gt; [<span class="type">Result</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> running = initialResult <span class="keyword">return</span> <span class="built_in">map</span> &#123; next <span class="keyword">in</span></span><br><span class="line">            running = nextPartialResult(running, next)</span><br><span class="line">            <span class="keyword">return</span> running </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
     </div>
 
     
@@ -392,6 +498,14 @@
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Build-in-Collections/" rel="tag"><i class="fa fa-tag"></i> Build-in Collections</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+          </div>
 
         
 
@@ -462,6 +576,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Arrays"><span class="nav-number">1.</span> <span class="nav-text">Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays-and-Mutability"><span class="nav-number">1.1.</span> <span class="nav-text">Arrays and Mutability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-Indexing"><span class="nav-number">1.2.</span> <span class="nav-text">Array Indexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换数组"><span class="nav-number">1.3.</span> <span class="nav-text">转换数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">1.3.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutation-and-Stateful-Closures"><span class="nav-number">1.3.2.</span> <span class="nav-text">Mutation and Stateful Closures</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -490,7 +605,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">61</span>
+        <span class="site-state-item-count">64</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -567,12 +682,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共465k字</span>
+    <span title="站点总字数">博客全站共476k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">7:03</span>
+    <span title="站点阅读时长">7:13</span>
 </div>
 
 <!--
