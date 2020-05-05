@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/asbc-stp1.png">
 <meta property="article:published_time" content="2020-05-05T05:44:31.000Z">
-<meta property="article:modified_time" content="2020-05-05T10:51:54.712Z">
+<meta property="article:modified_time" content="2020-05-05T10:53:47.351Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -405,7 +405,8 @@
 <li>→ <strong><code>drop（while :)</code></strong> -在条件变为真之前丢弃元素，然后返回其余元素（类似于 <code>prefix</code> ，但这返回相反的值）</li>
 <li>→ <strong><code>removeAll（where :)</code></strong> - 删除符合条件的要素</li>
 </ul>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有这些功能的目标是消除代码中不感兴趣的部分的混乱情况，例如创建新数组和对源数据进行 for循环 。取而代之的是，用一个描述正在做什么的单词来代替混乱。这将重要的代码（程序员想要表达的逻辑）带到了最前沿。<br>其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 <code>array.sort（）</code> 的含义很直观，而 <code>array.firstIndex（of：“ foo”）</code> 比 <code>array.firstIndex{$ 0 ==“ foo”}</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有这些功能的目标是消除代码中不感兴趣的部分的混乱情况，例如创建新数组和对源数据进行 for循环 。取而代之的是，用一个描述正在做什么的单词来代替混乱。这将重要的代码（程序员想要表达的逻辑）带到了最前沿。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 <code>array.sort（）</code> 的含义很直观，而 <code>array.firstIndex（of：“ foo”）</code> 比 <code>array.firstIndex{$ 0 ==“ foo”}</code>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是在每种情况下，这些只是常见情况的简写。元素不必具有可比性或相等性，也不必比较整个元素-您可以按年龄对一组人进行排序<code>（people.sort {$ 0.age &lt;$ 1.age}）</code>或检查是否该数组包含未成年人<code>（people.contains {$ 0.age &lt;18}）</code>。您还可以比较元素的某种变换。例如，公认的低效率不区分大小写和语言环境的排序可以通过 <code>people.sort {$ 0.name.uppercased（）&lt;$ 1.name.uppercased（）</code>} 执行。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有其他用途相似的功能，它们也需要指定其行为的功能，但这些功能不在标准库中。您可以轻松地自己定义它们（并且可以尝试）：</p>
 <ul>
