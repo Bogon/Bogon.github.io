@@ -94,16 +94,6 @@ categories:
 当你确实需要它们时，可以使用许多“不安全”选项（例如 ```unsafeBitCast函数``` 或 ```UnsafeMutablePointer类型``` ）。 但是强大的力量带来了巨大的不确定行为。 例如，你可以编写以下内容：
 
 
-``` Swift
-
-var someArray = [1, 2, 3]
-let uhOh = someArray.withUnsafeBufferPointer { ptr in
-return ptr }
-// Later...
-print(uhOh[10])
-
-```
-
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它会编译，但是谁知道它会做什么。  ```ptr变量``` 仅在 ```闭包表达式``` 中有效，并且将其返回给调用者是非法的。但是，没有什么阻止你让它逃脱到野外。但是，你不能说没有人警告过你。
 
@@ -118,6 +108,7 @@ print(uhOh[10])
 
 > 'When I use a word,’ Humpty Dumpty said, in rather a scornful tone, ‘it means just what I choose it to mean — neither more nor less.’\
 — Through the Looking Glass, by Lewis Carroll
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;程序员经常抛出艺术术语。为 ```避免混淆``` ，以下是我们在本书中使用的一些术语定义。在可能的情况下，我们尝试遵守与官方文档相同的用法，有时甚至坚持 ```Swift社区``` 广泛采用的定义。这些定义中的许多定义将在后面的章节中更详细地介绍，因此请放心，如果不是所有事情都立即生效的话。如果你已经熟悉所有这些术语，那么最好还是先略过一遍，以确保你所接受的含义与我们的含义相同。
 
