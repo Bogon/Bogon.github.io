@@ -192,8 +192,8 @@ func map<T>(_ transform: (Element) -> T) -> [T] {
 + → **```removeAll（where :)```** - 删除符合条件的要素
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有这些功能的目标是消除代码中不感兴趣的部分的混乱情况，例如创建新数组和对源数据进行 for循环 。取而代之的是，用一个描述正在做什么的单词来代替混乱。这将重要的代码（程序员想要表达的逻辑）带到了最前沿。
-其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 ```array.sort（）``` 的含义很直观，而 ```array.firstIndex（of：“ foo”）``` 比
-```array.firstIndex{$ 0 ==“ foo”}```。
+其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 ```array.sort（）``` 的含义很直观，而 ```array.firstIndex（of：“ foo”）``` 比 ```array.firstIndex{$ 0 ==“ foo”}```。
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是在每种情况下，这些只是常见情况的简写。元素不必具有可比性或相等性，也不必比较整个元素-您可以按年龄对一组人进行排序```（people.sort {$ 0.age <$ 1.age}）```或检查是否该数组包含未成年人```（people.contains {$ 0.age <18}）```。您还可以比较元素的某种变换。例如，公认的低效率不区分大小写和语言环境的排序可以通过 ```people.sort {$ 0.name.uppercased（）<$ 1.name.uppercased（）```} 执行。
 
