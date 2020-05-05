@@ -9,6 +9,7 @@ tags:
     - [iOS]
     - [Swift]
     - [Advanced Swift]
+    - [Swift5.0]
 categories:
     - [iOS]
     - [Swift]
