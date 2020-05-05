@@ -23,25 +23,25 @@
     var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="NSCODER和SWIFT初始化">
+  <meta name="description" content="Advanced Swift系列(三):  Optionals">
 <meta property="og:type" content="article">
-<meta property="og:title" content="NSCODER和SWIFT初始化">
-<meta property="og:url" content="https://www.xuebaonline.com/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/index.html">
+<meta property="og:title" content="Advanced Swift系列(三):  Optionals">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/index.html">
 <meta property="og:site_name" content="Char&#39;s Blog">
-<meta property="og:description" content="NSCODER和SWIFT初始化">
+<meta property="og:description" content="Advanced Swift系列(三):  Optionals">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-04-25T01:36:42.000Z">
-<meta property="article:modified_time" content="2020-05-01T02:51:45.800Z">
+<meta property="article:published_time" content="2020-05-05T10:40:00.000Z">
+<meta property="article:modified_time" content="2020-05-05T10:42:42.280Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
-<meta property="article:tag" content="UIKit">
-<meta property="article:tag" content="设计模式">
-<meta property="article:tag" content="初始化">
-<meta property="article:tag" content="NSCoder">
 <meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Optionals">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://www.xuebaonline.com/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/">
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/">
 
 
 <script id="page-configurations">
@@ -54,7 +54,7 @@
   };
 </script>
 
-  <title>NSCODER和SWIFT初始化 | Char's Blog</title>
+  <title>Advanced Swift系列(三):  Optionals | Char's Blog</title>
   
     <script>
       function sendPageView() {
@@ -235,7 +235,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
@@ -248,7 +248,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          NSCODER和SWIFT初始化
+          Advanced Swift系列(三):  Optionals
         </h1>
 
         <div class="post-meta">
@@ -258,7 +258,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-04-25 09:36:42" itemprop="dateCreated datePublished" datetime="2020-04-25T09:36:42+08:00">2020-04-25</time>
+              <time title="创建时间：2020-05-05 18:40:00" itemprop="dateCreated datePublished" datetime="2020-05-05T18:40:00+08:00">2020-05-05</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -274,11 +274,7 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
                 </span>
             </span>
 
@@ -298,8 +294,8 @@
       </span>
       <span class="post-meta-item-text">Valine：</span>
     
-    <a title="valine" href="/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/" itemprop="commentCount"></span>
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" itemprop="commentCount"></span>
     </a>
   </span>
   
@@ -309,16 +305,16 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.3k</span>
+              <span>0</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
-            <div class="post-description">NSCODER和SWIFT初始化</div>
+            <div class="post-description">Advanced Swift系列(三):  Optionals</div>
 
         </div>
       </header>
@@ -329,24 +325,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您正在使用 <code>Swift</code> 并想对实现 <code>NSCoding</code> 的东西进行子类化（例如 <code>UIView</code>，<code>UIViewController</code> 等），则可能会遇到麻烦的情况。即，<code>NSCoding</code> 协议需要 <code>init(coder：aDecoder)</code> 初始化程序，这意味着如果你为超类重写了指定的初始化程序，则需要实现该初始化程序。</p>
-<a id="more"></a>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那就好了，但是 <code>Swift</code> 在确保对类的所有属性进行超级严格的调用之前，都要确保在 <code>init()</code> 中分配了一个值。这意味着，如果您想提供自己的初始化程序，则无法执行以下操作：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooViewController</span>: <span class="title">UIViewController</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>() &#123;</span><br><span class="line">    name = <span class="string">"Bar"</span></span><br><span class="line">    <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle:<span class="literal">nil</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">required</span> <span class="keyword">init</span>(coder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">    <span class="keyword">super</span>.<span class="keyword">init</span>(coder: coder)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>init（coder :)</code> 初始值设定项未设置 <code>name</code> 属性，因此不会进行编译。你可以在两个初始值设定项中都重复初始化和设置名称，但是当你在init中进行了很多工作时，这很糟糕（如果希望尽可能避免使用可选属性，则应该这样做）。</p>
-<p>在 Objective-C 中，如果要在多个 <code>init</code> 方法之间共享初始化逻辑，则只需定义一个通用的 <strong>“setup”</strong> 方法即可执行所有共享的东西，并从两个初始化器中调用它：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">- (instancetype) <span class="keyword">init</span> &#123;</span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> <span class="keyword">init</span>];</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123; <span class="keyword">return</span> <span class="keyword">self</span>; &#125;</span><br><span class="line"></span><br><span class="line">  [<span class="keyword">self</span> setup];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (instancetype) initWithCoder:(<span class="type">NSCoder</span> *)aDecoder &#123;</span><br><span class="line">  <span class="keyword">self</span> = [<span class="keyword">super</span> initWithCoder:aDecoder];</span><br><span class="line">  <span class="keyword">if</span> (!<span class="keyword">self</span>) &#123; <span class="keyword">return</span> <span class="keyword">self</span>; &#125;</span><br><span class="line"></span><br><span class="line">  [<span class="keyword">self</span> setup];</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">self</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void) setup &#123;</span><br><span class="line">  <span class="keyword">self</span>.name = @<span class="string">"Foo"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  这种方式不会立即就创建出你想要的对象。问题在于，在这两个初始化程序中，我们都在调用    <code>[super init]</code> 之前，先给 <code>self.name</code> 分配了一个值，但这在 <code>Swift</code> 语法中是不可行的。我们也不能将对 <code>self.setup</code> 的调用移到对 <code>super.init（）</code> 的调用之上，因为在类通过调用 <code>super.init（）</code> 完全初始化之后，才允许您引用 <code>self</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  那么，如何将这只鸡从鸡蛋中取出并放到盘子上呢？好吧，我们要等到初始化后才能对 <code>self</code> 调用方法，但是只要我们从 <strong>“convienience”</strong> 初始化程序中调用它，就可以调用另一个 <code>init</code> 。仅通过示例进行解释可能更容易：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FooViewController</span>: <span class="title">UIViewController</span> </span>&#123;  </span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(<span class="number">_</span> coder: <span class="type">NSCoder?</span> = <span class="literal">nil</span>) &#123;</span><br><span class="line">    name = <span class="string">"Bar"</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> coder = coder &#123;</span><br><span class="line">      <span class="keyword">super</span>.<span class="keyword">init</span>(coder: coder)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle:<span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">required</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(coder: <span class="type">NSCoder</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.<span class="keyword">init</span>(coder)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在指定的初始化程序中添加了一个可选的 <code>NSCoder</code> 参数，并将其默认设置为 <code>nil</code> ，因此我们仍然可以像以前一样在没有任何参数的情况下调用它。但是，现在已将<code>NSCoding</code> 协议中要求的 <code>init（coder :)</code> 初始值设定项标记为<strong>convienience</strong>，这意味着它可以调用指定的初始值设定项并传入编码器。</p>
-<p>在指定的 <code>init</code> 中，我们检查 <code>coder</code> 是否为非 <code>nil</code> （如果让coder = conditional为条件），如果是，则调用 <code>super.init（coder :)</code> 。如果为 <code>nil</code>，我们将执行本来应该做的事情，并调用 <code>super.init（nibName：nil，bundle：nil）</code>。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，编译器很高兴在调用 <code>super.init（）</code> 之前为属性分配值，并且可以将初始化逻辑放在一个地方。如果要在情节提要中使用 <code>ViewController</code> ，则框架将调用init（coder :)，如果要以编程方式创建一个，则可以说 <code>let fooVC = FooViewController（）</code>。</p>
-
+        
     </div>
 
     
@@ -384,7 +363,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://www.xuebaonline.com/NSCODER%E5%92%8CSWIFT%E5%88%9D%E5%A7%8B%E5%8C%96/" title="NSCODER和SWIFT初始化">https://www.xuebaonline.com/NSCODER和SWIFT初始化/</a>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" title="Advanced Swift系列(三):  Optionals">https://www.xuebaonline.com/Advanced Swift系列(三):  Optionals/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -437,8 +416,9 @@
           <div class="post-tags">
               <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
               <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
-              <a href="/tags/UIKit/" rel="tag"><i class="fa fa-tag"></i> UIKit</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Optionals/" rel="tag"><i class="fa fa-tag"></i> Optionals</a>
           </div>
 
         
@@ -447,13 +427,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/UIKit%E5%88%9D%E5%A7%8B%E5%8C%96%E6%A8%A1%E5%BC%8F/" rel="prev" title="UIKit初始化模式">
-      <i class="fa fa-chevron-left"></i> UIKit初始化模式
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/" rel="prev" title="Advanced Swift系列(二): Build-in Collections">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(二): Build-in Collections
     </a></div>
-      <div class="post-nav-item">
-    <a href="/Swift%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift单例模式">
-      Swift单例模式 <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
