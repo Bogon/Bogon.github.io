@@ -31,7 +31,7 @@
 <meta property="og:description" content="Advanced Swift系列(一): Swift 简介">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-05T04:46:21.000Z">
-<meta property="article:modified_time" content="2020-05-05T07:00:19.772Z">
+<meta property="article:modified_time" content="2020-05-07T03:56:58.968Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -165,7 +165,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">86</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -392,7 +392,7 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用 <code>let声明</code> 保存引用的变量，即引用是 <code>常量</code> 。这意味着该变量 <code>永远不能更改为引用其他内容</code> 。但是-这很重要-并不意味着 <code>它所指的对象不能更改</code> 。因此，在将 <code>变量称为常量</code> 时，请小心-它 <code>仅指向常量</code> 。这并不意味着它指向的是  <code>恒定的</code> 。 （注意：如果最后几句话听起来像是双重说话，请不要担心，因为我们将在“结构和类”一章中再次介绍该内容。）不幸的是，这意味着当用 <code>let查看变量</code> 的声明时，你不能一眼就知道声明的内容是否完全不变。相反，你必须知道它是 <code>值类型</code> 还是 <code>引用类型</code> 。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>复制值类型</code> 时，通常会执行 <code>深度复制</code> ，即，它包含的所有值也会 <code>递归复制</code> 。此副本可以急于发生（每当引入新变量时），也可能懒惰（每当变量被突变时）。执行 <code>深拷贝的类型</code> 被称为具有 <code>值语义</code> 。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们遇到了另一个麻烦。如果 <code>结构</code> 包含 <code>引用类型</code> ，则将 <code>结构</code> 分配给新变量后， 不会自动复制引用的对象 。相反，仅 <code>引用本身会被复制</code> 。这些被称为 <code>浅拷贝</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如， <code>Foundation</code> 中的 <code>Data结构</code> 是 <code>存储实际字节</code> 的类的 <code>包装</code> 。但是，只要 <code>Data结构</code> 发生突变， <code>Data结构</code> 的作者就会采取额外的步骤来执行 <code>类实例</code> 的 <code>深层副本</code> 。他们使用称为 <code>写时复制</code> 的技术有效地做到了这一点，我们将在 <code>“结构和类”</code> 一章中对此进行说明。目前，重要的是要知道这种 <code>行为不是免费的</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如， <code>Foundation</code> 中的 <code>Data结构</code> 是 <code>存储实际字节</code> 的类的 <code>包装</code> 。但是，只要 <code>Data结构</code> 发生突变， <code>Data结构</code> 的作者就会采取额外的步骤来执行 <code>类实例</code> 的 <code>深层副本</code> 。他们使用称为 <code>写时复制</code> 的技术有效地做到了这一点，我们将在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/"><strong><em><code>“结构和类”</code></em></strong></a> 一章中对此进行说明。目前，重要的是要知道这种 <code>行为不是免费的</code> 。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>标准库</code> 中的 <code>集合</code> 还包装了 <code>引用类型</code> ，并使用 <code>写时复制</code> 有效地提供了 <code>值语义</code> 。但是，如果集合中的元素是引用（例如，包含对象的数组），则不会复制对象。相反，仅引用被复制。这意味着Swift数组仅在其元素也具有值语义的情况下才具有值语义。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有些类是完全不可变的-也就是说，它们在创建后不提供更改其内部状态的方法。这意味着，即使它们是类，它们也具有值语义（因为即使它们是共享的，它们也永远不会改变）。但是要小心-只能保证最终类不会被添加了可变状态。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中， <code>函数</code> 也是值。你可以将 <code>函数</code> 分配给 <code>变量</code> ，具有 <code>函数数组</code> ，然后调用保留在变量中的函数。将其他函数作为 <code>参数的函数</code> （例如map，其使用对变换序列中每个元素的函数进行转换）或返回函数称为 <code>高阶函数</code> 。</p>
@@ -522,7 +522,7 @@
               <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
               <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
               <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
-              <a href="/tags/Swift5-0/" rel="tag"><i class="fa fa-tag"></i> Swift5.0</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
           </div>
 
         
@@ -613,7 +613,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">86</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -703,12 +703,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共610k字</span>
+    <span title="站点总字数">博客全站共655k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">9:14</span>
+    <span title="站点阅读时长">9:56</span>
 </div>
 
 <!--
