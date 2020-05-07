@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/asbc-stp1.png">
 <meta property="article:published_time" content="2020-05-05T05:44:31.000Z">
-<meta property="article:modified_time" content="2020-05-05T12:09:26.678Z">
+<meta property="article:modified_time" content="2020-05-07T01:12:00.021Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -157,7 +157,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">65</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">66</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -167,7 +167,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">83</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">84</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -344,7 +344,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] </span><br><span class="line"><span class="keyword">var</span> y=x </span><br><span class="line">y.append(<span class="number">4</span>)</span><br><span class="line">y <span class="comment">// [1, 2, 3, 4] </span></span><br><span class="line">x <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语句 <code>var y = x</code> 复制了 <code>x</code> ，因此将 <code>4</code> 附加到 <code>y</code> 不会更改 <code>x-x</code> 的值仍为[1、2、3]。 当你将数组传递给函数时，也会发生同样的事情。 该函数接收数组的本地副本，并且所做的任何更改都不会影响调用者。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将此与 <code>Foundation</code> 中 <code>NSArray</code> 采取的可变性方法进行比较。  <code>NSArray</code> 没有变异方法-要变异数组，你需要一个 <code>NSMutableArray</code> 。 但是，仅仅因为你拥有一个不变的 <code>NSArray引用</code> 并不意味着该数组无法在你的下方进行突变：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将此与 <code>Foundation</code> 中 <code>NSArray</code> 采取的可变性方法进行比较。  <code>NSArray</code> 没有变异方法-要变异数组，你需要一个 <code>NSMutableArray</code> 。 但是，仅仅因为你拥有一个不变的 <code>NSArray引用</code> 并不意味着该数组无法在你的下方进行改变：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="type">NSMutableArray</span>(array: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) </span><br><span class="line"><span class="comment">// I don't want to be able to mutate b. </span></span><br><span class="line"><span class="keyword">let</span> b: <span class="type">NSArray</span> = a</span><br><span class="line"><span class="comment">// But it can still be mutated — via a. </span></span><br><span class="line">a.insert(<span class="number">4</span>, at: <span class="number">3</span>)</span><br><span class="line">b <span class="comment">// ( 1, 2, 3, 4 )</span></span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正确的写法是在分配后手动创建一个副本：</p>
@@ -432,7 +432,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="built_in">map</span> &#123; </span><br><span class="line">    item <span class="keyword">in</span> table.insert(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这在看起来像数组转换的构造中隐藏了副作用（查找表的 <code>mutation</code> ）。 如果你看到以上类似的内容，那么很明显<br>使用普通的 <code>for循环</code> 而不是诸如 <code>map之类</code> 的函数的情况。 在这种情况下， <code>forEach方法</code> 也比 <code>map</code> 更合适，但是它有其自身的问题，因此我们稍后再讨论 <code>forEach</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行副作用不同于故意赋予封闭局部状态，这是一种特别有用的技术。 除了有用之外， <code>闭包</code> （可以捕获超出范围范围内的变量并对其进行突变的函数）的强大功能也是与 <code>高阶函数</code> 结合使用时的强大工具。 例如，可以使用 <code>map</code> 和 <code>有状态</code> 的 <code>闭包</code> 来实现上述累加函数，如下所示：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行副作用不同于故意赋予封闭局部状态，这是一种特别有用的技术。 除了有用之外， <code>闭包</code> （可以捕获超出范围范围内的变量并对其进行改变的函数）的强大功能也是与 <code>高阶函数</code> 结合使用时的强大工具。 例如，可以使用 <code>map</code> 和 <code>有状态</code> 的 <code>闭包</code> 来实现上述累加函数，如下所示：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accumulate</span>&lt;Result&gt;<span class="params">(<span class="number">_</span> initialResult: Result,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> nextPartialResult: <span class="params">(Result, Element)</span></span></span> -&gt; <span class="type">Result</span>) -&gt; [<span class="type">Result</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> running = initialResult <span class="keyword">return</span> <span class="built_in">map</span> &#123; next <span class="keyword">in</span></span><br><span class="line">            running = nextPartialResult(running, next)</span><br><span class="line">            <span class="keyword">return</span> running </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
@@ -562,7 +562,7 @@
 <blockquote>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库的通用哈希函数使用随机种子作为其输入之一。 换句话说，在每个程序执行时，字符串“abc”的哈希值将有所不同。 随机种子植入是一种安全措施，可防止有针对性的无序哈希拒绝服务攻击。 自字典并按其在哈希表中存储的顺序设置其元素的迭代，并且由于此顺序由哈希值确定，因此这意味着同一代码在每次启动时都会产生不同的迭代顺序。 如果你需要确定性的哈希值（例如用于测试），则可以通过设置环境变量 <code>SWIFT_DETERMINISTIC_HASHING = 1</code> 来禁用随机种子设置，但在生产环境中请勿这样做。</p>
 </blockquote>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，在<strong>使用没有值语义的类型时要格外小心（例如可变对象）作为字典键</strong>。 如果你在将对象用作字典键后以某种方式对其进行了更改（即更改其哈希值和/或相等性），则你将无法在字典中再次找到该对象。 现在，词典将对象存储在错误的插槽中，从而有效地破坏了其内部存储。 值类型不是问题，因为字典中的键不会共享副本的存储空间，因此无法从外部进行突变。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，在<strong>使用没有值语义的类型时要格外小心（例如可变对象）作为字典键</strong>。 如果你在将对象用作字典键后以某种方式对其进行了更改（即更改其哈希值和/或相等性），则你将无法在字典中再次找到该对象。 现在，词典将对象存储在错误的插槽中，从而有效地破坏了其内部存储。 值类型不是问题，因为字典中的键不会共享副本的存储空间，因此无法从外部进行改变。</p>
 </br>
 
 <h1 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a><strong>Sets</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库中的第三个主要集合类型是 <code>Set</code> 。 <strong>集合是元素的无序集合，每个元素仅出现一次</strong>。 本质上，<strong><em>你可以将集合视为仅存储键而没有值的字典</em></strong>。 与字典一样，<code>集合是通过哈希表实现的</code>，并且具有相似的性能特征和要求。 测试集合中的成员资格值是一项恒定时间操作，并且集合元素必须是可哈希的，就像字典键一样。</p>
@@ -732,8 +732,8 @@
               <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
               <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
               <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
-              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
               <a href="/tags/Build-in-Collections/" rel="tag"><i class="fa fa-tag"></i> Build-in Collections</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
           </div>
 
         
@@ -824,7 +824,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">83</span>
+          <span class="site-state-item-count">84</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -837,7 +837,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">65</span>
+        <span class="site-state-item-count">66</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -914,12 +914,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共530k字</span>
+    <span title="站点总字数">博客全站共583k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">8:02</span>
+    <span title="站点阅读时长">8:50</span>
 </div>
 
 <!--
