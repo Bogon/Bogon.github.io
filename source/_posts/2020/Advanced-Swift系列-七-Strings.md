@@ -75,8 +75,10 @@ let double = "Poke\u{0301}mon" // Pokémon
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;两者的字符数相同：
 
 ``` Swift
-single.count // 7 double.count // 7
+single.count // 7 
+double.count // 7
 ``` 
+
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，它们也比较相等：
 
 ``` Swift
@@ -186,8 +188,8 @@ skinTone.count // 1
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以验证这确实是怎么回事：
 
-``` Swift
 
+``` Swift
 let family1 = " "
 let family2 = " \u{200D}   \u{200D}   \u{200D} "
 family1 == family2 // true
