@@ -42,7 +42,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们将详细介绍每种协议。 当你编写自己的算法时，牢记此协议层次结构可能非常有用：如果你可以针对层次结构的根在其中一个协议上编写算法，则更多类型的算法都可以利用该算法。
 
-## **Sequences**
+# **Sequences**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `序列协议 `位于层次结构的基础上。**序列是一系列相同类型的值，可让你遍历这些值**。 遍历序列的最常见方法是for循环：
 
