@@ -68,7 +68,7 @@ protocol Sequence {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从 `Sequence `的这个（简化的）定义中，我们可以学到两件事： `Sequence `具有关联的 `Element类型 `，并且它知道如何构造迭代器。 因此，让我们先仔细研究一下迭代器。
 
-## ***Iterators***
+# ***Iterators***
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**序列通过创建迭代器来提供对其元素的访问**。 迭代器一次生成一个序列的值，并在遍历序列时跟踪其自身的迭代状态。  `IteratorProtocol协议 `中定义的唯一方法是 `next（） `，该方法必须在每次后续调用时返回序列中的下一个元素，或者在序列用尽时返回 `nil `：
 
@@ -144,7 +144,7 @@ struct FibsIterator: IteratorProtocol {
 }
 ```
 
-## ***Conforming to Sequence***
+# ***Conforming to Sequence***
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的 `PrefixIterator `是产生有限序列的迭代器的一个示例，它生成字符串的所有非空前缀（包括字符串本身）。 例如，对于字符串 `“abc” `，它将生成 `“a” `， `“ab” `和 `“abc” `。 它从字符串的开头开始，并在每次调用 `next `时，将返回的字符串的片段增加一个字符，直到到达结尾：
 
@@ -206,7 +206,7 @@ PrefixSequence(string: "Hello").map { $0.uppercased() }
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以用相同的方式为 `ConstantIterator `和 `FibsIterator `创建序列。 我们不在这里显示它们，但你可能需要自己尝试一下。 请记住，这些迭代器会创建无限序列。 在 `fibsSequence.prefix（10） `中使用类似于i的构造来分割有限的部分。
 
 
-## **迭代器和值语义**
+# **迭代器和值语义**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，我们看到的**迭代器都具有值语义**。 如果你复制一个副本，则会复制迭代器的整个状态，并且两个实例的行为将彼此独立，如你所愿。 标准库中的大多数迭代器也具有值语义，但是也有例外。
 
@@ -257,7 +257,7 @@ i3.next() // Optional(7)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，这可能会导致错误，尽管在实践中极少会遇到此特定问题。 迭代器通常不是你在代码中传递的东西。 你更有可能在本地创建一个（有时是显式的，但大部分是通过 `for循环隐式 `创建的），只需一次使用它就可以遍历元素，然后将其丢弃。 如果发现自己与其他对象共享迭代器，请考虑将迭代器包装在序列中。
 
-## **基于函数的迭代器和序列**
+# **基于函数的迭代器和序列**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `AnyIterator `具有第二个初始化器，该初始化器直接将下一个函数作为其参数。 与对应的 `AnySequence类型 `一起，这使我们可以 `创建迭代器和序列 `，而无需定义任何新类型。 例如，我们可以将 `Fibonacci迭代器 `定义为返回 `AnyIterator的函数 `：
 
@@ -301,7 +301,7 @@ Array(fibsSequence2.prefix(10)) // [0, 1, 1, 2, 3, 5, 8, 13, 21, 34]
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建无限序列的可能性是将序列与集合区分开的一件事，集合不能是无限的。
 
-## ***单遍序列***
+# ***单遍序列***
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**序列不仅限于经典的集合数据结构，例如数组或列表。 网络流，磁盘上的文件，UI事件流以及许多其他类型的数据都可以建模为序列**。 但是，当你多次迭代元素时，并非所有这些元素的行为都像数组。
 
@@ -349,7 +349,7 @@ for (i, line) in numberedStdIn {
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个序列是多次通过的确定信号是否它也符合 `Collection `，因为此协议可以保证这一点。反之则不正确。即使标准库中的某些序列不是集合，也可以安全地遍历多次。示例包括 `StrideTo `和 `StrideThrough类型 `，分别由 `stride（from：to：by :) `和 `stride（from：through：by :) `返回。
 
 
-## ***序列与迭代器之间的关系***
+# **序列与迭代器之间的关系**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;序列和迭代器是如此相似，以至于你可能想知道为什么它们完全需要是单独的类型。 我们不能仅将 `IteratorProtocol功能 `折叠到 `Sequence `中吗？ 对于单遍序列，这确实可以正常工作，例如我们的标准输入示例。 这种序列具有其自身的迭代状态，并且在遍历时会发生变异。
 
@@ -1036,6 +1036,7 @@ slice.endIndex // 5
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们一一讨论。
+
 
 ### ***BidirectionalCollection***
 
