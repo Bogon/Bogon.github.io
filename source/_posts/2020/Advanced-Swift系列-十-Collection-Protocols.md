@@ -444,7 +444,9 @@ list2.elementsEqual(["1", "2", "3"]) // true
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在计算机科学理论中，对于某些常见操作，链表比数组更有效。 但是，实际上，利用超快的缓存和（相对）慢的主内存，要在现代计算机体系结构上胜过阵列确实非常困难。 由于阵列对其元素使用连续的内存，因此处理器可以更有效地处理它们。 
 
+
 # **Collections**
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**集合是可以多次无损遍历的多次遍历序列**。集合的元素不仅可以线性遍历，还可以通过带有索引的下标进行访问。集合索引通常是整数，因为它们在数组中。但是，正如我们将看到的那样，索引也可以是不透明的值（如在字典或字符串中），这有时使它们的使用变得不直观。集合的索引始终形成一个有限范围，并具有定义的起点和终点。这意味着与序列不同，集合不能是无限的。每个集合还具有一个关联的SubSequence，该子序列表示该集合的连续切片。
 
@@ -1178,7 +1180,9 @@ extension MutableCollection where Self: RandomAccessCollection, Element: Compara
 }
 ```
 
+
 # **惰性序列**
+
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库为延迟编程提供了两种协议： `LazySequenceProtocol `和 `LazyCollectionProtocol `。懒惰的编程意味着只在需要时才计算结果，这与急于编程的情况相反，后者是Swift中的默认设置。惰性序列会在序列的生产者和使用者之间造成分隔：你无需预先构建整个序列。相反，一旦消费者要求下一个元素，则惰性序列会产生它。出于性能原因，这既可以用于实现不同的编程样式。
 
