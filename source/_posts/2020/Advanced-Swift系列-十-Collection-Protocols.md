@@ -720,7 +720,8 @@ struct Dictionary {
 }
 ```
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相反，使用索引下标是 `Collection协议 `的一部分，并且始终返回非可选值，因为使用无效索引（例如数组上的越界索引）寻址集合被视为程序员错误，并且 所以应该陷阱：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相反，使用索引下标是 `Collection协议 `的一部分，并且始终返回非可选值，因为使用无效索引（例如数组上的越界索引）寻址集合被视为程序员错误，并且所以应该崩溃：
+
 
 ``` Swift
 protocol Collection {
