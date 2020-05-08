@@ -31,7 +31,7 @@
 <meta property="og:description" content="Advanced Swift系列(七): Strings">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-07T09:07:24.000Z">
-<meta property="article:modified_time" content="2020-05-08T04:19:41.918Z">
+<meta property="article:modified_time" content="2020-05-08T04:25:20.012Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -353,7 +353,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(single, double) <span class="comment">// ("Pokémon", "Pokémon")</span></span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;两者的字符数相同：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">single.<span class="built_in">count</span> <span class="comment">// 7 double.count // 7</span></span><br><span class="line">``` </span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;因此，它们也比较相等：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line">single == double <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">single.<span class="built_in">count</span> <span class="comment">// 7 </span></span><br><span class="line">double.<span class="built_in">count</span> <span class="comment">// 7</span></span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;因此，它们也比较相等：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line">single == double <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只有下拉至基础表示的视图，你才能看到它们是不同的：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">single.unicodeScalars.<span class="built_in">count</span> <span class="comment">// 7 </span></span><br><span class="line">double.unicodeScalars.<span class="built_in">count</span> <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
@@ -396,7 +396,7 @@
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;描绘家庭和夫妇的表情符号（例如和）对 <code>Unicode标准体系</code>提出了另一个挑战。 由于性别和群体人数的无数可能组合，为每种变化提供单独的代码点是有问题的。 结合每个人独特的肤色，就不可能了。  <code>Unicode</code>通过指定这些表情符号实际上是多个表情符号的序列以及不可见的零宽度连接符（ZWJ）字符（U+200D）来解决此问题。 因此，家庭实际上是男人 + ZWJ +女人+ ZWJ +女孩+ ZWJ +男孩。 ZWJ用作操作系统的指示符，它应使用单个字形（如果有）。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以验证这确实是怎么回事：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> family1 = <span class="string">" "</span></span><br><span class="line"><span class="keyword">let</span> family2 = <span class="string">" \u&#123;200D&#125;   \u&#123;200D&#125;   \u&#123;200D&#125; "</span></span><br><span class="line">family1 == family2 <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> family1 = <span class="string">" "</span></span><br><span class="line"><span class="keyword">let</span> family2 = <span class="string">" \u&#123;200D&#125;   \u&#123;200D&#125;   \u&#123;200D&#125; "</span></span><br><span class="line">family1 == family2 <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再一次，Swift足够聪明，可以将这样的序列视为单个角色：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">family1.<span class="built_in">count</span> <span class="comment">// 1 </span></span><br><span class="line">family2.<span class="built_in">count</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
