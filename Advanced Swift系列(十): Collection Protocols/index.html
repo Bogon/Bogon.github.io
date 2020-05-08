@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/ascp-stp1.png">
 <meta property="article:published_time" content="2020-05-08T06:19:07.000Z">
-<meta property="article:modified_time" content="2020-05-08T12:12:33.148Z">
+<meta property="article:modified_time" content="2020-05-08T12:23:32.670Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -709,6 +709,7 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;结合这些要求，在 <code>MutableCollection</code>的扩展中定义了 <code>sort方法</code>，并使用 <code>RandomAccessCollection</code>和 <code>Element：Comparable</code>作为附加约束：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MutableCollection</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">RandomAccessCollection</span>, <span class="title">Element</span>: <span class="title">Comparable</span> </span>&#123; </span><br><span class="line">    <span class="comment">/// Sorts the collection in place.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">sort</span><span class="params">()</span></span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+
 <h1 id="惰性序列"><a href="#惰性序列" class="headerlink" title="惰性序列"></a><strong>惰性序列</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库为延迟编程提供了两种协议： <code>LazySequenceProtocol</code>和 <code>LazyCollectionProtocol</code>。懒惰的编程意味着只在需要时才计算结果，这与急于编程的情况相反，后者是Swift中的默认设置。惰性序列会在序列的生产者和使用者之间造成分隔：你无需预先构建整个序列。相反，一旦消费者要求下一个元素，则惰性序列会产生它。出于性能原因，这既可以用于实现不同的编程样式。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们已经看到了许多延迟序列。我们展示了构造斐波那契序列的三个变体：使用自定义迭代器，使用 <code>AnySequence</code>和使用 <code>sequence（first：next :)</code>方法。这些变体中的每一个都会产生一个无限的惰性值流：仅当使用者调用 <code>next</code>时才计算下一个值。这使消费者可以决定需要多少元素。例如，我们可以使用该流的第一个元素或前缀。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;延迟计算序列的一个问题是某些转换需要计算整个序列。例如，回想一下我们对 <code>standardIn</code>的定义，这是一个单遍序列，它逐行从标准输入中读取字符串。我们可能只想打印符合特定条件的行。在功能风格上，我们可能会使用过滤器来实现这一目标。但是，由于 <code>Sequencelter on Sequence</code>的返回类型是一个数组（必须急切地进行计算），因此该实现只可以在返回结果之前处理整个标准输入。换句话说，结果不再是懒惰的。以下代码将打印所有具有三个以上单词的行，但仅在标准输入发送EOF信号之后：</p>
@@ -1019,12 +1020,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共783k字</span>
+    <span title="站点总字数">博客全站共785k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">11:52</span>
+    <span title="站点阅读时长">11:54</span>
 </div>
 
 <!--
