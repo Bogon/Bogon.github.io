@@ -31,7 +31,7 @@
 <meta property="og:description" content="Advanced Swift系列(十二):  Encoding and Decoding">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-05-08T14:02:53.000Z">
-<meta property="article:modified_time" content="2020-05-09T03:41:14.153Z">
+<meta property="article:modified_time" content="2020-05-09T03:44:48.947Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -163,7 +163,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">73</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">74</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -173,7 +173,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">92</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">93</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -339,6 +339,8 @@
 <li>→ <strong>类型安全性</strong> - 诸如JSON之类的交换格式经常被弱类型，而你的代码应使用强类型数据结构。</li>
 <li>→ <strong>减少样板文件</strong> — 开发人员必须编写尽可能小的重复“适配器代码”，以使自定义类型参与系统的编译器应自动为你生成此代码。</li>
 </ul>
+<a id="more"></a>
+
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型通过  <code>遵循可编码和/或可解码协议</code> 声明其被（反）序列化的能力。这些协议中的每一个都只有一个要求—   <code>Encodable</code> 定义了一个  <code>encode（to :)</code> 方法，其中值对自身进行编码，而  <code>Decodable</code> 指定用于从序列化数据创建实例的初始化程序：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A type that can encode itself to an external representation.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Encodable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Encodes this value into the given encoder. </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span><span class="params">(to encoder: Encoder)</span></span> <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// A type that can decode itself from an external representation.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Creates a new instance by decoding from the given decoder. </span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(from decoder: <span class="type">Decoder</span>) <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -654,7 +656,10 @@
     <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/" rel="prev" title="Advanced Swift系列(十一): Error Handling">
       <i class="fa fa-chevron-left"></i> Advanced Swift系列(十一): Error Handling
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/" rel="next" title="Advanced Swift系列(十三): Interoperability">
+      Advanced Swift系列(十三): Interoperability <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -730,7 +735,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">92</span>
+          <span class="site-state-item-count">93</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -743,7 +748,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
