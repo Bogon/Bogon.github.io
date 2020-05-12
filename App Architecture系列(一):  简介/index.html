@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/aain-stp1.png">
 <meta property="article:published_time" content="2020-05-09T09:11:29.000Z">
-<meta property="article:modified_time" content="2020-05-09T09:19:46.658Z">
+<meta property="article:modified_time" content="2020-05-10T06:42:04.886Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -167,17 +167,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">76</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">81</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">34</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">35</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">94</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">100</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -316,14 +316,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>2.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
             <div class="post-description">App Architecture系列(一):  简介</div>
 
@@ -346,8 +346,15 @@
 <h2 id="模型和视图"><a href="#模型和视图" class="headerlink" title="模型和视图"></a><strong><em>模型和视图</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在最高层次上，应用程序体系结构是一组基本类别，不同的应用程序组件被划分为这些类别。我们将这些不同的类别称为层：<strong>符合一些基本规则和职责的接口和其他代码的集合</strong>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些类别中最常见的是模型层和视图层。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模型层是对应用程序内容的抽象描述，不依赖于应用程序框架（如<code>UIKit</code>）。因此，它为程序员提供了完全的控制权。模型层通常既包含模型对象（Recordings应用程序中的示例包括文件夹和录音）又包含协调对象（例如，将数据持久保存在磁盘上的对象，例如示例应用程序中的Store）。模型中保留在磁盘上的部分称为文档模型。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视图层是依赖于应用程序框架的部分，使模型层可见并且用户可交互，从而将模型层转变为应用程序。在编写iOS应用程序时，视图层几乎总是直接使用UIKit。但是，正如我们将看到的，某些体系结构具有环绕UIKit的不同视图层。对于某些定制应用程序，尤其是游戏。</p>
-
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视图层是依赖于应用程序框架的部分，使模型层可见并且用户可交互，从而将模型层转变为应用程序。在编写iOS应用程序时，视图层几乎总是直接使用<code>UIKit</code>。但是，正如我们将看到的，某些体系结构具有环绕UIKit的不同视图层。对于某些定制应用程序，尤其是游戏。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，<strong>模型或视图实例由结构或枚举</strong>而不是对象表示。区别在实践中很重要，但是当我们在模型层中讨论对象，结构和枚举时，我们将它们全部称为三个模型对象，对于视图对象也是如此，它们可能表现为对象，结构或枚举为好。”</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;视图对象通常形成一个单一的视图层次结构，其中所有对象都以树状结构连接在一起，屏幕在树干上，屏幕在窗口内，分支和叶子上的视图越来越小。同样，视图控制器通常形成视图控制器层次结构。同时，模型对象不一定形成层次结构-程序中的模型之间可能没有联系。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编写视图时，通常是指单个视图对象，例如按钮或标签。编写模型时，通常是指单个模型对象，例如<code>Recording</code>或<code>Folder实例</code>。在有关该主题的大多数文献中，“模型”根据上下文的含义不同。这可能意味着模型层，模型层中的具体对象，文档模型或模型层中的离散文档。以冗长为代价，我们在本书中尝试阐明不同的含义。</p>
+<h3 id="为什么模型和视图的类别如此重要？"><a href="#为什么模型和视图的类别如此重要？" class="headerlink" title="为什么模型和视图的类别如此重要？"></a><strong><em>为什么模型和视图的类别如此重要？</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，可以在模型和视图层之间没有分隔的情况下编写应用程序。 例如，在一个简单的模态对话框中，通常没有单独的模型数据。 相反，当点击“确定”按钮时，我们直接从用户界面元素读取状态。 通常，尽管没有单独的模型层，但很难确保程序中的动作是根据任何一致的规则进行的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定义模型层的最重要原因是在我们的程序中只有一个真实的来源，它是干净且行为良好的，不受应用程序框架的实现细节的约束。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;应用程序框架提供了可用来构建应用程序的基础结构。 在本书中，我们使用Cocoa（具体来说，是UIKit，AppKit或WatchKit，具体取决于目标平台）作为应用程序框架。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果模型层与应用程序框架保持分离，我们可以在应用程序范围之外完全使用它。 我们可以在单独的测试工具中轻松运行它，也可以使用其他应用程序框架编写新的视图层，并在应用程序的Android，macOS或Windows版本中使用我们的模型层。</p>
+<h2 id="应用程序是反馈回路"><a href="#应用程序是反馈回路" class="headerlink" title="应用程序是反馈回路"></a><strong>应用程序是反馈回路</strong></h2>
     </div>
 
     
@@ -452,7 +459,10 @@
     <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/" rel="prev" title="Advanced Swift系列(十三): Interoperability">
       <i class="fa fa-chevron-left"></i> Advanced Swift系列(十三): Interoperability
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%201%E3%80%81%E8%A1%A8%E8%BE%BE%E5%BC%8F%20%E5%8F%98%E9%87%8F%E5%92%8C%E5%B8%B8%E9%87%8F/" rel="next" title="Swift Apprentice系列 (一) : 第一部分：Swift基础知识 - 1、表达式 变量和常量">
+      Swift Apprentice系列 (一) : 第一部分：Swift基础知识 - 1、表达式 变量和常量 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -512,7 +522,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用架构"><span class="nav-number">1.1.</span> <span class="nav-text">应用架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型和视图"><span class="nav-number">1.2.</span> <span class="nav-text">模型和视图</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#应用架构"><span class="nav-number">1.1.</span> <span class="nav-text">应用架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型和视图"><span class="nav-number">1.2.</span> <span class="nav-text">模型和视图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么模型和视图的类别如此重要？"><span class="nav-number">1.2.1.</span> <span class="nav-text">为什么模型和视图的类别如此重要？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用程序是反馈回路"><span class="nav-number">1.3.</span> <span class="nav-text">应用程序是反馈回路</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -528,20 +538,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">94</span>
+          <span class="site-state-item-count">100</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">34</span>
+        <span class="site-state-item-count">35</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">76</span>
+        <span class="site-state-item-count">81</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -618,12 +628,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共870k字</span>
+    <span title="站点总字数">博客全站共920k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">13:11</span>
+    <span title="站点阅读时长">13:56</span>
 </div>
 
 <!--
