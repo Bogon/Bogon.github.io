@@ -30,13 +30,28 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp2.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp3.png">
 <meta property="article:published_time" content="2020-05-12T10:09:10.000Z">
-<meta property="article:modified_time" content="2020-05-12T10:09:10.085Z">
+<meta property="article:modified_time" content="2020-05-12T12:56:59.686Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="Vapor">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/">
 
@@ -153,7 +168,7 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">82</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">84</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
@@ -163,7 +178,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">102</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">103</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -257,6 +272,23 @@
 
               <time title="创建时间：2020-05-12 18:09:10" itemprop="dateCreated datePublished" datetime="2020-05-12T18:09:10+08:00">2020-05-12</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -285,14 +317,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>11k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>10 分钟</span>
             </span>
             <div class="post-description">Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets</div>
 
@@ -305,7 +337,294 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="可变集合与不可变集合"><a href="#可变集合与不可变集合" class="headerlink" title="可变集合与不可变集合"></a><strong>可变集合与不可变集合</strong></h1><p>就像你以前阅读过的类型（例如Int或String）一样，在创建集合时，必须将其声明为常量或变量。</p>
+<p>如果集合创建后不需要更改，则应通过let将其声明为常量来使其不可变。 另外，如果你需要添加，删除或更新集合中的值，则应通过将其声明为var变量来创建可变集合。</p>
+<h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a><strong><em>Arrays</em></strong></h2><p>数组是你在Swift中会遇到的最常见的集合类型。 像常规变量和常量一样，对数组进行类型化，并像简单列表一样存储多个值。</p>
+<p>在创建第一个数组之前，请花一些时间详细考虑什么是数组以及为什么要使用一个数组。</p>
+<a id="more"></a>
+
+<h3 id="什么是数组？"><a href="#什么是数组？" class="headerlink" title="什么是数组？"></a><strong><em>什么是数组？</em></strong></h3><p><strong>数组是相同类型的值的有序集合</strong>。 数组中的元素为零索引，这意味着第一个元素的索引为0，第二个元素的索引为1，依此类推。 知道了这一点，你可以得出最后一个元素的索引是数组中值的数量减去一。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp1.png" alt="playground"></p>
+<p>此数组中有五个元素，索引为0–4。</p>
+<p>所有值均为String类型，因此你不能将非字符串类型添加到包含字符串的数组中。 请注意，同一值可以出现多次。</p>
+<h3 id="数组什么时候有用？"><a href="#数组什么时候有用？" class="headerlink" title="数组什么时候有用？"></a><strong><em>数组什么时候有用？</em></strong></h3><p>当你要按特定顺序存储项目时，数组很有用。 你可能需要对元素进行排序，或者可能需要按索引获取元素，而无需遍历整个数组。</p>
+<p>例如，如果你要存储高分数据，则顺序很重要。 你可能希望最高的分数排在列表的第一位（即索引0），然后是第二高的分数，依此类推。</p>
+<h3 id="创建数组"><a href="#创建数组" class="headerlink" title="创建数组"></a><strong><em>创建数组</em></strong></h3><p>创建数组的最简单方法是使用数组文字。 这是提供数组值的简洁方法。 数组文字是由逗号分隔并用方括号括起来的值的列表。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> evenNumbers = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]</span><br></pre></td></tr></table></figure>
+
+<p>由于数组文字仅包含整数，因此Swift会将evenNumbers的类型推断为Int值的数组。 此类型写为[Int]。 方括号内的类型定义了数组可以存储的值的类型，当你将元素添加到数组时，编译器将强制执行该类型。</p>
+<p>例如，如果你尝试添加字符串，则编译器将返回错误，并且你的代码将无法编译。 可以使用空数组文字[]创建一个空数组。 由于编译器无法从中推断出类型，因此你需要使用类型注释来使类型明确：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> subscribers: [<span class="type">String</span>] = []</span><br></pre></td></tr></table></figure>
+
+<p>也可以创建一个数组并将其所有值都设置为默认值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> allZeros = <span class="type">Array</span>(repeating: <span class="number">0</span>, <span class="built_in">count</span>: <span class="number">5</span>) <span class="comment">// [0, 0, 0, 0, 0]</span></span><br></pre></td></tr></table></figure>
+
+<p>最好将不会更改的数组声明为常量。 例如，考虑以下数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> vowels = [<span class="string">"A"</span>, <span class="string">"E"</span>, <span class="string">"I"</span>, <span class="string">"O"</span>, <span class="string">"U"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>元音是一个字符串数组，其值不能更改。 但这很好，因为元音列表不会经常更改！</p>
+<h3 id="访问元素"><a href="#访问元素" class="headerlink" title="访问元素"></a><strong><em>访问元素</em></strong></h3><p>除非你知道如何从数组中获取值，否则能够创建数组是没有用的。 在本节中，你将学习几种访问数组元素的不同方法。</p>
+<h3 id="使用属性和方法"><a href="#使用属性和方法" class="headerlink" title="使用属性和方法"></a><strong><em>使用属性和方法</em></strong></h3><p>假设你要创建纸牌游戏，并且想要将玩家的姓名存储在一个阵列中。 随着玩家加入或离开游戏，列表将需要更改，因此你需要声明一个可变数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> players = [<span class="string">"Alice"</span>, <span class="string">"Bob"</span>, <span class="string">"Cindy"</span>, <span class="string">"Dan"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，players是可变数组，因为你已将其分配给变量。</p>
+<p>在游戏开始之前，你需要确保有足够的玩家。 你可以使用isEmpty属性检查是否至少有一个玩家：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(players.isEmpty) </span><br><span class="line"><span class="comment">// &gt; false</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：你将在第11章“属性”中了解有关属性的所有信息。 现在，只需将它们视为内置在值中的变量即可。 要访问属性，请在保存该值的常量或变量的名称之后放置一个点，并在其后跟随要访问的属性的名称。</p>
+</blockquote>
+<p>阵列不为空，但是你至少需要两个玩家才能开始游戏。 你可以使用count属性获取玩家人数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> players.<span class="built_in">count</span> &lt; <span class="number">2</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"We need at least two players!"</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Let’s start!"</span>) </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &gt; Let’s start!</span></span><br></pre></td></tr></table></figure>
+
+<p>现在该开始游戏了！ 你确定播放顺序是按数组中名称的顺序进行的。 你将如何获得第一个玩家的名字？</p>
+<p>数组提供第一个属性来获取数组的第一个对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> currentPlayer = players.first</span><br></pre></td></tr></table></figure>
+
+<p>打印currentPlayer的值揭示了一些有趣的东西：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(currentPlayer <span class="keyword">as</span> <span class="type">Any</span>)</span><br><span class="line"><span class="comment">// &gt; Optional("Alice")</span></span><br></pre></td></tr></table></figure>
+
+<p>该属性实际上首先返回一个可选参数，因为如果数组为空，则first将返回nil。 print（）方法实现currentPlayer是可选的并生成警告。 要取消显示警告，只需将“ Any”添加为要打印的类型。 同样，数组具有last属性，该属性返回数组中的最后一个值；如果数组为空，则返回nil：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(players.last <span class="keyword">as</span> <span class="type">Any</span>) </span><br><span class="line"><span class="comment">// &gt; Optional("Dan")</span></span><br></pre></td></tr></table></figure>
+
+<p>从数组获取值的另一种方法是调用min()。 此方法返回数组中具有最低值的元素，而不是最低索引！ 如果数组包含字符串，则它将返回按字母顺序排列的最低字符串，在这种情况下为“ Alice”：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">currentPlayer = players.<span class="built_in">min</span>() <span class="built_in">print</span>(currentPlayer <span class="keyword">as</span> <span class="type">Any</span>) </span><br><span class="line"><span class="comment">// &gt; Optional("Alice")</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：你将在第12章“方法”中了解有关方法的所有信息。 现在，只需将它们视为内置在值中的函数即可。 若要调用方法，请在保存该值的常量或变量的名称后放置一个点，并在其后跟随要调用的方法的名称。 就像使用函数一样，在调用方法时，即使它为空，也不要忘记包含参数列表。</p>
+</blockquote>
+<p>显然，first和min()不会总是返回相同的值。 例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>([<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>].first <span class="keyword">as</span> <span class="type">Any</span>) <span class="comment">// &gt; Optional(2)</span></span><br><span class="line"><span class="built_in">print</span>([<span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>].<span class="built_in">min</span>() <span class="keyword">as</span> <span class="type">Any</span>) <span class="comment">// &gt; Optional(1)</span></span><br></pre></td></tr></table></figure>
+
+<p>你可能已经猜到了，数组还具有max()方法。</p>
+<blockquote>
+<p>注意：first和last属性以及min()和max()方法并不是数组唯一的。 除了许多其他类型外，每种集合类型都具有这些属性和方法。 阅读第16章“协议”中的协议，你将学到更多有关此行为的信息。</p>
+</blockquote>
+<p>现在你已经知道如何获得第一位玩家，接下来将宣布该玩家是谁：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> currentPlayer = currentPlayer &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(currentPlayer) will start"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &gt; Alice will start</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以使用if来解开从min()返回的可选内容； 否则，该语句将打印Optional（“ Alice”）将开始，这不是你想要的。</p>
+<p>如果要获取第一个，最后一个，最小或最大元素，这些属性和方法将很有帮助。 但是，如果无法使用这些属性或方法之一获得所需的元素怎么办？</p>
+<h3 id="使用下标"><a href="#使用下标" class="headerlink" title="使用下标"></a><strong><em>使用下标</em></strong></h3><p>访问数组中元素的最方便方法是使用下标语法。 此语法使你可以通过使用方括号内的索引直接访问任何值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstPlayer = players[<span class="number">0</span>]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"First player is \(firstPlayer)"</span>)</span><br><span class="line"><span class="comment">// &gt; First player is "Alice"</span></span><br></pre></td></tr></table></figure>
+
+<p>由于数组的索引为零，因此你可以使用索引0来获取第一个对象。 你可以使用更大的索引来获取数组中的下一个元素，但是如果尝试访问的索引超出数组的大小，则会出现运行时错误。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> player = players[<span class="number">4</span>]</span><br><span class="line"><span class="comment">// &gt; fatal error: Index out of range</span></span><br></pre></td></tr></table></figure>
+
+<p>你收到此错误，因为播放器仅包含四个字符串。 索引4代表第五个元素，但是此数组中没有第五个元素。</p>
+<p>使用下标时，不必担心可选项，因为尝试访问不存在的索引不会返回nil； 它只会导致运行时错误。</p>
+<h3 id="使用可数范围制作ArraySlice"><a href="#使用可数范围制作ArraySlice" class="headerlink" title="使用可数范围制作ArraySlice"></a><strong><em>使用可数范围制作ArraySlice</em></strong></h3><p>你可以将下标语法与可计数范围一起使用，以从数组中获取多个值。 例如，如果你想吸引下两名玩家，可以这样做：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> upcomingPlayersSlice = players[<span class="number">1</span>...<span class="number">2</span>] </span><br><span class="line"><span class="built_in">print</span>(upcomingPlayersSlice[<span class="number">1</span>], upcomingPlayersSlice[<span class="number">2</span>]) </span><br><span class="line"><span class="comment">// &gt; "Bob Cindy\n"</span></span><br></pre></td></tr></table></figure>
+
+<p>常量即将到来的PlayersSlice实际上是原始数组的ArraySlice。 这种类型差异的原因是要弄清楚即将到来的PlayersSlice与玩家共享存储空间。</p>
+<p>你使用的范围是1 … 2，代表数组中的第二项和第三项。 只要起始值小于或等于结束值且在数组范围内，就可以在此处使用索引。</p>
+<p>从ArraySlice制作一个全新的，零索引的Array也很容易，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> upcomingPlayersArray = <span class="type">Array</span>(players[<span class="number">1</span>...<span class="number">2</span>]) </span><br><span class="line"><span class="built_in">print</span>(upcomingPlayersArray[<span class="number">0</span>], upcomingPlayersArray[<span class="number">1</span>]) </span><br><span class="line"><span class="comment">// &gt; "Bob Cindy\n"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="检查元素"><a href="#检查元素" class="headerlink" title="检查元素"></a><strong><em>检查元素</em></strong></h3><p>你可以使用contains(_ :)检查数组中是否存在至少一个特定元素，如果它在数组中找到该元素，则返回true，否则返回false。</p>
+<p>你可以使用此策略编写一个函数来检查给定玩家是否在游戏中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isEliminated</span><span class="params">(player: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    !players.<span class="built_in">contains</span>(player) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，你可以在需要检查球员是否被淘汰时随时使用此功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(isEliminated(player: <span class="string">"Bob"</span>))</span><br><span class="line"><span class="comment">// &gt; false</span></span><br></pre></td></tr></table></figure>
+
+<p>你甚至可以使用ArraySlice测试特定范围内元素的存在：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">players[<span class="number">1</span>...<span class="number">3</span>].<span class="built_in">contains</span>(<span class="string">"Bob"</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>现在你可以从数组中获取数据，是时候来看看可变数组以及如何更改其值了。</p>
+<h3 id="修改数组"><a href="#修改数组" class="headerlink" title="修改数组"></a><strong><em>修改数组</em></strong></h3><p>你可以对可变数组进行各种更改，例如添加和删除元素，更新现有值以及将元素移动到不同的顺序。 在本部分中，你将看到如何使用数组来匹配游戏中发生的事情。</p>
+<h4 id="追加元素"><a href="#追加元素" class="headerlink" title="追加元素"></a><strong><em>追加元素</em></strong></h4><p>如果新玩家想加入游戏，他们需要注册并将他们的名字添加到数组中。 伊莱（Eli）是第一个加入现有四名球员的球员。 你可以使用append(_ :)方法将Eli添加到数组的末尾：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">players.append(<span class="string">"Eli"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果你尝试附加字符串以外的任何内容，则编译器将显示错误。 请记住，数组只能存储相同类型的值。 另外，append(_ :)仅适用于可变数组。</p>
+<p>下一位加入游戏的玩家是吉娜（Gina）。 你可以使用+=运算符将她添加到游戏中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">players += [<span class="string">"Gina"</span>]</span><br></pre></td></tr></table></figure>
+
+<p>该表达式的右侧是一个包含单个元素的数组：字符串“ Gina”。 通过使用<code>+=</code>，你可以将该数组的元素附加到播放器。</p>
+<p>现在，数组如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(players)</span><br><span class="line"><span class="comment">// &gt; ["Alice", "Bob", "Cindy", "Dan", "Eli", "Gina"]</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，你向数组添加了一个元素，但是通过在Gina的后面添加更多名称，你可以看到使用+=运算符添加多个项目会多么容易。</p>
+<h4 id="插入元素"><a href="#插入元素" class="headerlink" title="插入元素"></a><strong><em>插入元素</em></strong></h4><p>此纸牌游戏的不成文规则是，玩家的姓名必须按字母顺序排列。 此列表中缺少以字母F开头的玩家。幸运的是，弗兰克刚到。 你想将他添加到Eli和Gina之间的列表中。 为此，可以使用insert(_：at :)方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">players.insert(<span class="string">"Frank"</span>, at: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>at参数定义要在何处添加元素。 请记住，数组是零索引的，所以索引5是Gina的索引，导致她随着Frank的到来而上升。</p>
+<h4 id="移除元素"><a href="#移除元素" class="headerlink" title="移除元素"></a><strong><em>移除元素</em></strong></h4><p>在比赛中，其他玩家发现Cindy和Gina作弊。 他们应该从游戏中删除！ 你知道Gina在玩家列表中排在最后，因此你可以使用removeLast()方法轻松删除她：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> removedPlayer = players.removeLast() </span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\(removedPlayer) was removed"</span>)</span><br><span class="line"><span class="comment">// &gt; Gina was removed</span></span><br></pre></td></tr></table></figure>
+
+<p>这个方法有两件事：它删除最后一个元素，然后返回它，以防万一你需要打印它或将其存储在其他位置（例如在作弊器阵列中）！</p>
+<p>要从游戏中删除Cindy，你需要知道存储她名字的确切索引。 查看玩家列表，你会发现她在列表中排名第三，因此她的指数为2。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">removedPlayer = players.remove(at: <span class="number">2</span>) </span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\(removedPlayer) was removed"</span>) </span><br><span class="line"><span class="comment">// &gt; Cindy was removed</span></span><br></pre></td></tr></table></figure>
+
+<p>但是，如果你还不知道该元素的索引，该如何获取呢？ 有一种方法！ firstIndex(of :)返回元素的第一个索引，因为数组可能包含相同值的多个副本。 如果该方法找不到元素，则返回nil。</p>
+<h3 id="遍历数组"><a href="#遍历数组" class="headerlink" title="遍历数组"></a><strong><em>遍历数组</em></strong></h3><p>天色已经晚了，所以玩家决定停下来过夜，明天继续。 同时，你会将他们的分数保存在单独的数组中。 了解字典后，你将研究一种更好的方法，但是现在你可以继续使用数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> scores = [<span class="number">2</span>, <span class="number">2</span>, <span class="number">8</span>, <span class="number">6</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>在玩家离开之前，你要打印仍在游戏中的玩家的名字。 你可以使用第4章“高级控制流”中介绍的for-in循环来执行此操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> player <span class="keyword">in</span> players &#123;</span><br><span class="line">  <span class="built_in">print</span>(player)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &gt; Anna</span></span><br><span class="line"><span class="comment">// &gt; Brian</span></span><br><span class="line"><span class="comment">// &gt; Craig</span></span><br><span class="line"><span class="comment">// &gt; Dan</span></span><br><span class="line"><span class="comment">// &gt; Donna</span></span><br><span class="line"><span class="comment">// &gt; Eli</span></span><br><span class="line"><span class="comment">// &gt; Franklin</span></span><br></pre></td></tr></table></figure>
+
+<p>此代码遍历了玩家的所有元素，从索引0到players.count-1，并显示其值。 在第一次迭代中，player等于数组的第一个元素； 在第二次迭代中，它等于数组的第二个元素； 依此类推，直到循环打印出数组中的所有元素为止。</p>
+<p>如果需要每个元素的索引，则可以遍历数组的enumerated（）方法的返回值，该方法返回带有每个元素的索引和值的元组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (index, player) <span class="keyword">in</span> players.enumerated() &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(index + 1). \(player)"</span>) </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &gt; 1. Anna</span></span><br><span class="line"><span class="comment">// &gt; 2. Brian</span></span><br><span class="line"><span class="comment">// &gt; 3. Craig</span></span><br><span class="line"><span class="comment">// &gt; 4. Dan</span></span><br><span class="line"><span class="comment">// &gt; 5. Donna</span></span><br><span class="line"><span class="comment">// &gt; 6. Eli</span></span><br><span class="line"><span class="comment">// &gt; 7. Franklin</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，你可以使用刚刚学习的技术来编写一个函数，该函数将整数数组作为输入并返回其元素的总和：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sumOfElements</span><span class="params">(<span class="keyword">in</span> array: [Int])</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="keyword">var</span> sum = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> number <span class="keyword">in</span> array &#123;</span><br><span class="line">        sum += number</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> sum </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以使用此功能来计算玩家得分的总和：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(sumOfElements(<span class="keyword">in</span>: scores))</span><br><span class="line"><span class="comment">// &gt; 22</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="数组操作的时间复杂度"><a href="#数组操作的时间复杂度" class="headerlink" title="数组操作的时间复杂度"></a><strong><em>数组操作的时间复杂度</em></strong></h3><p><strong>数组作为连续块存储在内存中</strong>。这意味着，如果数组中有十个元素，则十个值都将彼此相邻存储。考虑到这一点，以下是各种阵列操作的性能成本：</p>
+<p><strong>访问元素</strong>：获取元素的成本很便宜，这意味着它发生在固定或恒定的时间内。有时这被写为O（1）。由于所有值都是顺序的，因此可以轻松使用随机访问并在特定索引处获取值；编译器只需要知道数组从何处开始以及要获取的索引。</p>
+<p><strong>插入元素</strong>：添加元素的复杂度取决于添加新元素的位置：</p>
+<ul>
+<li><p>如果添加到数组的开头，则Swift需要的时间与数组的大小成正比，因为它必须将所有元素都移一个以腾出空间。这称为线性时间，有时写为O（n）。</p>
+</li>
+<li><p>同样，如果添加到数组的中间，则该索引上的所有值都需要移入。这样做将需要n / 2次运算，因此时间复杂度仍与数组或O（n）的大小成线性关系。</p>
+</li>
+<li><p>如果使用append将元素添加到数组的末尾并有空间，则将占用O（1）。如果没有空间，Swift将需要在其他地方腾出空间并复制整个数组，然后再添加新元素，这将占用O（n）。但是平均情况是O（1），因为大多数情况下数组未满。</p>
+</li>
+</ul>
+<p><strong>删除元素</strong>：删除元素会在删除元素所在的位置留下一个空白。数组中的所有元素必须是顺序的，因此需要通过向前移动元素来弥合此间隙。</p>
+<p>复杂度类似于插入元素：如果要从末尾删除元素，则这是O（1）操作。否则，复杂度为O（n）。</p>
+<p><strong>搜索元素</strong>：如果你要搜索的元素是数组中的第一个元素，则搜索将在一次操作后结束。如果该元素不存在，则需要执行N次操作，直到意识到找不到该元素。平均而言，搜索元素将执行n/2次操作，因此搜索的复杂度为O（n）。</p>
+<p>在学习字典和集合时，你会发现它们的性能特征与数组有何不同。这样可以提示你针对特定案例使用哪种集合类型。</p>
+<h2 id="Dictionaries"><a href="#Dictionaries" class="headerlink" title="Dictionaries"></a><strong><em>Dictionaries</em></strong></h2><p><strong>字典是对的无序集合</strong>，其中每个对都包含一个键和一个值。</p>
+<p>如下图所示，<strong>键是唯一的</strong>。 相同的键不能在字典中出现两次，但是不同的键可能指向相同的值。 <strong>所有键必须具有相同的类型，并且所有值都必须具有相同的类型</strong>。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp2.png" alt="playground"></p>
+<p>当你想通过标识符查找值时，字典很有用。 例如，本书的目录将章节名称映射到其页码，从而可以轻松跳至你要阅读的章节。</p>
+<p>这与数组有何不同？ 对于数组，只能按其索引获取值，该索引必须是整数，并且所有索引必须是顺序的。 在字典中，键可以是任何类型，并且没有特定的顺序。</p>
+<h3 id="创建字典"><a href="#创建字典" class="headerlink" title="创建字典"></a><strong><em>创建字典</em></strong></h3><p>创建字典的最简单方法是使用字典文字。 这是用逗号分隔的键值对的列表，括在方括号中。</p>
+<p>对于以前的纸牌游戏，可以使用字典文字来代替使用两个数组将玩家映射到他们的得分：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> namesAndScores = [<span class="string">"Anna"</span>: <span class="number">2</span>, <span class="string">"Brian"</span>: <span class="number">2</span>, <span class="string">"Craig"</span>: <span class="number">8</span>, <span class="string">"Donna"</span>: <span class="number">6</span>]</span><br><span class="line"><span class="built_in">print</span>(namesAndScores)</span><br><span class="line"><span class="comment">// &gt; ["Craig": 8, "Anna": 2, "Donna": 6, "Brian": 2]</span></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，字典的类型被推断为[String：Int]。 这意味着namesAndScores是一个字典，其中字符串作为键，而整数作为值。</p>
+<p>当你打印字典时，你会发现配对之间没有特定的顺序。 请记住，与数组不同，<strong>字典是无序的</strong>！</p>
+<p>空的字典文字看起来像这样：[：]。 你可以使用它来清空现有字典，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namesAndScores = [:]</span><br></pre></td></tr></table></figure>
+
+<p>…或创建一个新字典，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> pairs: [<span class="type">String</span>: <span class="type">Int</span>] = [:]</span><br></pre></td></tr></table></figure>
+
+<p>这里需要使用类型注释，因为<strong>编译器无法从空字典文字推断出字典的类型</strong>。</p>
+<p>创建字典后，可以定义其容量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pairs.reserveCapacity(<span class="number">20</span>)</span><br></pre></td></tr></table></figure>
+
+<p>当你知道字典需要存储多少数据时，使用reserveCapacity(_ :)是提高性能的一种简便方法。</p>
+<h3 id="访问值"><a href="#访问值" class="headerlink" title="访问值"></a><strong><em>访问值</em></strong></h3><p>与数组一样，有几种访问字典值的方法。</p>
+<h4 id="使用下标-1"><a href="#使用下标-1" class="headerlink" title="使用下标"></a><strong><em>使用下标</em></strong></h4><p>字典支持下标访问值。 与数组不同，你不是通过索引访问值，而是<strong>通过键访问值</strong>。 例如，如果你想获得安娜的分数，则可以输入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">namesAndScores = [<span class="string">"Anna"</span>: <span class="number">2</span>, <span class="string">"Brian"</span>: <span class="number">2</span>, <span class="string">"Craig"</span>: <span class="number">8</span>, <span class="string">"Donna"</span>: <span class="number">6</span>]</span><br><span class="line"><span class="comment">// Restore the values</span></span><br><span class="line"><span class="built_in">print</span>(namesAndScores[<span class="string">"Anna"</span>]!) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>请注意，返回类型是可选的。 字典会检查键安娜是否存在一对，如果存在，则返回其值。</p>
+<p>如果字典找不到键，它将返回nil。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">namesAndScores[<span class="string">"Greg"</span>] <span class="comment">// nil</span></span><br></pre></td></tr></table></figure>
+
+<p>对于数组，越界下标访问会导致运行时错误，但是字典不同，因为它们的结果都包装在可选变量中。 使用可选选项的下标访问功能非常强大。 你可以找到特定的玩家是否在游戏中，而不必遍历所有键，就像使用数组时必须做的那样。</p>
+<h4 id="使用属性和方法-1"><a href="#使用属性和方法-1" class="headerlink" title="使用属性和方法"></a><strong><em>使用属性和方法</em></strong></h4><p>字典（如数组）符合Swift的<code>Collection协议</code>。 因此，它们共享许多相同的属性。 例如，数组和字典都具有<code>isEmpty</code>和<code>count属性</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">namesAndScores.isEmpty <span class="comment">// false </span></span><br><span class="line">namesAndScores.<span class="built_in">count</span> <span class="comment">// 4</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：如果只想知道字典中是否包含元素，最好使用isEmpty属性。 字典需要遍历所有值以计算计数。 相反，无论有多少值，isEmpty始终在恒定时间内运行。</p>
+</blockquote>
+<h3 id="修改字典"><a href="#修改字典" class="headerlink" title="修改字典"></a><strong><em>修改字典</em></strong></h3><p>创建字典并访问其内容非常容易，但是如何对其进行修改呢？</p>
+<h4 id="添加对"><a href="#添加对" class="headerlink" title="添加对"></a><strong><em>添加对</em></strong></h4><p>鲍勃想加入游戏。</p>
+<p>在让他加入之前，先看看他的详细信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bobData = [</span><br><span class="line">  <span class="string">"name"</span>: <span class="string">"Bob"</span>,</span><br><span class="line">  <span class="string">"profession"</span>: <span class="string">"Card Player"</span>,</span><br><span class="line">  <span class="string">"country"</span>: <span class="string">"USA"</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>该词典的类型为[String：String]，并且可变，因为它已分配给变量。 想象一下，你收到了有关Bob的更多信息，并且想将其添加到词典中。 这是你的操作方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData.updateValue(<span class="string">"CA"</span>, forKey: <span class="string">"state"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>使用下标，甚至还有更短的添加对的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData[<span class="string">"city"</span>] = <span class="string">"San Francisco"</span></span><br></pre></td></tr></table></figure>
+
+<p>鲍勃（Bob）是专业的纸牌玩家 到目前为止，他听起来还不错。</p>
+<h4 id="更新值"><a href="#更新值" class="headerlink" title="更新值"></a><strong><em>更新值</em></strong></h4><p>过去看来，鲍勃在玩纸牌时被骗。 他不仅是专业人士，而且是卡鲨！ 他要求你更改他的名字和专业，所以没人会认出他。</p>
+<p>因为鲍勃似乎渴望改变自己的方式，所以你同意。 首先，你将他的名字从Bob更改为Bobby：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData.updateValue(<span class="string">"Bobby"</span>, forKey: <span class="string">"name"</span>) <span class="comment">// Bob</span></span><br></pre></td></tr></table></figure>
+
+<p>在阅读有关添加对时，你已经在上面看到了此方法。 为什么返回字符串Bob？ updateValue(_：forKey :)用新值替换给定键的值，并返回旧值。 如果密钥不存在，则此方法将添加一对新密钥并返回nil。</p>
+<p>与添加一样，通过使用下标，你可以使用更少的代码来完成此操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData[<span class="string">"profession"</span>] = <span class="string">"Mailman"</span></span><br></pre></td></tr></table></figure>
+
+<p>像updateValue(_：forKey :)一样，此代码更新此密钥的值，或者，如果该密钥不存在，则创建一个新对。</p>
+<h4 id="删除对"><a href="#删除对" class="headerlink" title="删除对"></a><strong><em>删除对</em></strong></h4><p>Bob –er 抱歉，Bobby仍然不安全，他希望你删除所有有关他的下落的信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData.removeValue(forKey: <span class="string">"state"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>此方法将从字典中删除键状态及其关联的值。</p>
+<p>如你所料，有一种使用下标的较短方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bobData[<span class="string">"city"</span>] = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<p>将nil分配为键的关联值会将其从字典中删除。</p>
+<blockquote>
+<p>注意：如果你使用的字典的值是可选类型，则dictionary [key] = nil仍会完全删除该键。 如果要保留键并将值设置为nil，则必须使用updateValue方法。</p>
+</blockquote>
+<h3 id="遍历字典"><a href="#遍历字典" class="headerlink" title="遍历字典"></a><strong><em>遍历字典</em></strong></h3><p>当你要遍历字典时，for-in循环也可以使用。 但是由于字典中的项目是成对的，因此你需要使用元组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (player, score) <span class="keyword">in</span> namesAndScores &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(player) - \(score)"</span>) </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &gt; Craig - 8 </span></span><br><span class="line"><span class="comment">// &gt; Anna - 2 </span></span><br><span class="line"><span class="comment">// &gt; Donna - 6 </span></span><br><span class="line"><span class="comment">// &gt; Brian - 2</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以仅对键进行迭代：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> player <span class="keyword">in</span> namesAndScores.keys &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(player), "</span>, terminator: <span class="string">""</span>) <span class="comment">// no newline</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">""</span>) <span class="comment">// print one final newline</span></span><br><span class="line"><span class="comment">// &gt; Craig, Anna, Donna, Brian,</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以使用字典的values属性以相同的方式仅迭代值。</p>
+<h3 id="字典操作的时间复杂度"><a href="#字典操作的时间复杂度" class="headerlink" title="字典操作的时间复杂度"></a><strong><em>字典操作的时间复杂度</em></strong></h3><p>为了能够检查字典的工作方式，你需要了解什么是哈希以及哈希如何工作。<strong>散列是将值（字符串，整数，双精度，布尔等）转换为数字值（称为散列值）的过程</strong>。然后，可以使用此值快速查找哈希表中的值。</p>
+<p>Swift字典对键有类型要求。<strong>key必须是可哈希的</strong>，否则会出现编译器错误。</p>
+<p>幸运的是，在Swift中，<strong>所有基本类型都已经可以哈希并且具有哈希值</strong>。此值必须是确定性的-意味着给定值必须始终返回相同的哈希值。无论你为某个字符串计算哈希值多少次，它始终会给出相同的值。但是，永远不要保存哈希值，因为每次运行程序时哈希值都会不同。</p>
+<p>这是各种字典操作的性能。出色的性能取决于具有良好的散列函数，可以避免值冲突。如果你的哈希功能差，则下面的所有操作都会退化为线性时间或O（n）性能。幸运的是，内置类型具有出色的通用Hashable实现。</p>
+<p><strong>访问元素</strong>：获取键的值是恒定时间操作或O（1）。</p>
+<p><strong>插入元素</strong>：要插入元素，字典需要计算键的哈希值，然后根据该哈希存储数据。这些都是O（1）操作。</p>
+<p><strong>删除元素</strong>：同样，字典需要计算哈希值，以准确知道在哪里可以找到元素，然后将其删除。这也是O（1）操作。</p>
+<p><strong>搜索元素</strong>：如上所述，访问元素具有恒定的时间复杂度，因此搜索的复杂度也为O（1）。</p>
+<p>尽管所有这些时间复杂度都比数组优越，但请记住，使用字典时会丢失订单信息。</p>
+<h2 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a><strong><em>Sets</em></strong></h2><p><strong>集合是相同类型的唯一值的无序集合</strong>。 当你要确保某个项目在集合中出现的次数不超过一次并且项目的顺序不重要时，这可能非常有用。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-ads-stp3.png" alt="playground"></p>
+<p>上面的“设置”插图中有4个字符串。 请注意，这些元素没有顺序。</p>
+<h3 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a><strong><em>创建集合</em></strong></h3><p>你可以通过写Set并在尖括号内键入类型来显式声明一个set：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> setOne: <span class="type">Set</span>&lt;<span class="type">Int</span>&gt; = [<span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置字面量"><a href="#设置字面量" class="headerlink" title="设置字面量"></a><strong><em>设置字面量</em></strong></h4><p>集合没有自己的文字。 你可以使用数组文字来创建具有初始值的集合。 考虑以下示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> someArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这是一个数组。 那么如何使用数组文字来创建集合呢？ 像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> explicitSet: <span class="type">Set</span>&lt;<span class="type">Int</span>&gt; = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>]</span><br></pre></td></tr></table></figure>
+
+<p>你必须将变量明确声明为Set。 但是，你可以让编译器像这样推断元素类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someSet = <span class="type">Set</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">1</span>])</span><br></pre></td></tr></table></figure>
+
+<p>要查看实际使用的集合的最重要功能，请打印你刚刚制作的集合创建：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(someSet)</span><br><span class="line"><span class="comment">// &gt; [2, 3, 1] but the order is not defined</span></span><br></pre></td></tr></table></figure>
+
+<p>首先，你可以看到没有特定的顺序。 其次，尽管你创建的集合具有两个值1实例，但该值仅出现一次。 请记住，<strong><em>一组值必须唯一</em></strong>。</p>
+<h3 id="访问元素-1"><a href="#访问元素-1" class="headerlink" title="访问元素"></a><strong><em>访问元素</em></strong></h3><p>你可以使用contains(_ :)检查特定元素的存在：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(someSet.<span class="built_in">contains</span>(<span class="number">1</span>)) <span class="comment">// &gt; true </span></span><br><span class="line"><span class="built_in">print</span>(someSet.<span class="built_in">contains</span>(<span class="number">4</span>)) <span class="comment">// &gt; false</span></span><br></pre></td></tr></table></figure>
+
+<p>你还可以使用first和last属性，它们返回集合中的一个元素。 但是，由于集合是无序的，因此你将无法确切知道要获得哪个项目。</p>
+<h4 id="添加和删除元素"><a href="#添加和删除元素" class="headerlink" title="添加和删除元素"></a><strong><em>添加和删除元素</em></strong></h4><p>你可以使用insert(_ :)将元素添加到集合中。 如果元素已经存在，则该方法不执行任何操作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">someSet.insert(<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>你可以像这样从集合中删除元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> removedElement = someSet.remove(<span class="number">1</span>) </span><br><span class="line"><span class="built_in">print</span>(removedElement!)</span><br><span class="line"><span class="comment">// &gt; 1</span></span><br></pre></td></tr></table></figure>
+
+<p>remove(_ :)返回已删除的元素（如果它在集合中），否则返回nil。</p>
+<h3 id="集合操作的时间复杂度"><a href="#集合操作的时间复杂度" class="headerlink" title="集合操作的时间复杂度"></a><strong><em>集合操作的时间复杂度</em></strong></h3><p>集具有与字典非常相似的实现，并且它们还要求元素是可哈希的。 所有操作的运行时间与字典相同。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><p>集合</p>
+<ul>
+<li>是相同类型的唯一值的无序集合。</li>
+<li>当你需要了解集合中是否包含某些内容时，此功能最为有用。</li>
+</ul>
+<p>字典</p>
+<ul>
+<li>是键值对的无序集合。</li>
+<li>这些键都是同一类型，而值都是同一类型。</li>
+<li>使用下标获取值以及添加，更新或删除对。</li>
+<li>如果键不在词典中，则查找返回nil。</li>
+<li>词典的键必须是符合<code>Hashable协议</code>的类型。</li>
+<li>基本的Swift类型（例如String，Int，Double）可直接使用Hash。</li>
+</ul>
+<p>数组：</p>
+<ul>
+<li>是相同类型的值的有序集合。</li>
+<li>使用下标或许多属性和方法之一来访问和更新元素。</li>
+<li>当心访问超出范围的索引。</li>
+</ul>
+
     </div>
 
     
@@ -392,6 +711,14 @@
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Arrays-Dictionaries-Sets/" rel="tag"><i class="fa fa-tag"></i> Arrays,Dictionaries,Sets</a>
+          </div>
 
         
 
@@ -402,7 +729,10 @@
     <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/" rel="prev" title="Swift Apprentice系列 (七) : 第二部分：Collection Types">
       <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (七) : 第二部分：Collection Types
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B9%9D)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%208%E3%80%81%E4%BD%BF%E7%94%A8%E9%97%AD%E5%8C%85%E9%9B%86%E5%90%88%E8%BF%AD%E4%BB%A3/" rel="next" title="Swift Apprentice系列 (九) : 第二部分：Collection Types - 8、使用闭包集合迭代">
+      Swift Apprentice系列 (九) : 第二部分：Collection Types - 8、使用闭包集合迭代 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -462,6 +792,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#可变集合与不可变集合"><span class="nav-number">1.</span> <span class="nav-text">可变集合与不可变集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays"><span class="nav-number">1.1.</span> <span class="nav-text">Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是数组？"><span class="nav-number">1.1.1.</span> <span class="nav-text">什么是数组？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组什么时候有用？"><span class="nav-number">1.1.2.</span> <span class="nav-text">数组什么时候有用？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建数组"><span class="nav-number">1.1.3.</span> <span class="nav-text">创建数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问元素"><span class="nav-number">1.1.4.</span> <span class="nav-text">访问元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用属性和方法"><span class="nav-number">1.1.5.</span> <span class="nav-text">使用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用下标"><span class="nav-number">1.1.6.</span> <span class="nav-text">使用下标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用可数范围制作ArraySlice"><span class="nav-number">1.1.7.</span> <span class="nav-text">使用可数范围制作ArraySlice</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查元素"><span class="nav-number">1.1.8.</span> <span class="nav-text">检查元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改数组"><span class="nav-number">1.1.9.</span> <span class="nav-text">修改数组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#追加元素"><span class="nav-number">1.1.9.1.</span> <span class="nav-text">追加元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入元素"><span class="nav-number">1.1.9.2.</span> <span class="nav-text">插入元素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#移除元素"><span class="nav-number">1.1.9.3.</span> <span class="nav-text">移除元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历数组"><span class="nav-number">1.1.10.</span> <span class="nav-text">遍历数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组操作的时间复杂度"><span class="nav-number">1.1.11.</span> <span class="nav-text">数组操作的时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Dictionaries"><span class="nav-number">1.2.</span> <span class="nav-text">Dictionaries</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建字典"><span class="nav-number">1.2.1.</span> <span class="nav-text">创建字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问值"><span class="nav-number">1.2.2.</span> <span class="nav-text">访问值</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用下标-1"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">使用下标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用属性和方法-1"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">使用属性和方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改字典"><span class="nav-number">1.2.3.</span> <span class="nav-text">修改字典</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加对"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">添加对</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#更新值"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">更新值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除对"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">删除对</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#遍历字典"><span class="nav-number">1.2.4.</span> <span class="nav-text">遍历字典</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字典操作的时间复杂度"><span class="nav-number">1.2.5.</span> <span class="nav-text">字典操作的时间复杂度</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Sets"><span class="nav-number">1.3.</span> <span class="nav-text">Sets</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建集合"><span class="nav-number">1.3.1.</span> <span class="nav-text">创建集合</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#设置字面量"><span class="nav-number">1.3.1.1.</span> <span class="nav-text">设置字面量</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#访问元素-1"><span class="nav-number">1.3.2.</span> <span class="nav-text">访问元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加和删除元素"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">添加和删除元素</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#集合操作的时间复杂度"><span class="nav-number">1.3.3.</span> <span class="nav-text">集合操作的时间复杂度</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">2.</span> <span class="nav-text">关键点</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -477,7 +808,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">102</span>
+          <span class="site-state-item-count">103</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -490,7 +821,7 @@
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">82</span>
+        <span class="site-state-item-count">84</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -567,12 +898,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共921k字</span>
+    <span title="站点总字数">博客全站共940k字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">13:57</span>
+    <span title="站点阅读时长">14:15</span>
 </div>
 
 <!--
