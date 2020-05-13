@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJD">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp3.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp4.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp5.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp6.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp7.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp8.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp9.png">
+<meta property="article:published_time" content="2020-05-13T07:19:35.000Z">
+<meta property="article:modified_time" content="2020-05-13T07:51:48.909Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">90</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">110</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-13 15:19:35" itemprop="dateCreated datePublished" datetime="2020-05-13T15:19:35+08:00">2020-05-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>结构向你介绍了命名类型。 在本章中，你将熟悉类，它们非常类似于结构-它们被命名为具有属性和方法的类型。</p>
+<p>你将学习<strong>类是与值类型相对的引用类型，而不是值类型</strong>，并且与结构类相比，它们具有明显不同的功能和优点。 虽然你经常会在应用中使用结构来表示值，但通常会使用类来表示对象。</p>
+<p>但是，价值与目标的真正含义是什么？</p>
+<h1 id="创建类"><a href="#创建类" class="headerlink" title="创建类"></a><strong>创建类</strong></h1><p>考虑一下Swift中的以下类定义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> lastName: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> fullName: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="string">"\(firstName) \(lastName)"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> john = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>很简单！ 定义与其结构对应几乎完全相同可能会让你感到惊讶。 关键字class后跟该类的名称，花括号中的所有内容均为该类的成员。</p>
+<a id="more"></a>
+
+<p>但是，你还可以看到类和结构之间的一些区别：上面的类定义了一个将firstName和lastName都设置为初始值的初始化程序。 与结构不同，<strong>类不会自动提供成员初始化器-这意味着你必须自己提供它</strong>。 如果你忘记提供初始化程序，Swift编译器会将其标记为错误：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png" alt="playground"></p>
+<p>除了默认初始化外，类和结构的初始化规则非常相似。 类初始化程序是标记为init的函数，并且必须在init结束之前为所有存储的属性分配初始值。</p>
+<p>类初始化还有很多，但是你必须等到第14章“高级类”，它将介绍继承的概念及其对初始化规则的影响。 本章将使用基本的类初始化程序，以便你可以熟悉Swift中的类。</p>
+<h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a><strong>引用类型</strong></h1><p>在Swift中，结构的实例是不可变的值，而类的实例是可变的对象。 类是引用类型，因此类类型的变量不存储实际的实例，而是将对位置的引用存储在存储实例的内存中。</p>
+<p>如果你创建的SimplePerson类实例仅具有以下名称：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimplePerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> var1 = <span class="type">SimplePerson</span>(name: <span class="string">"John"</span>)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">在内存中看起来像这样：</span><br><span class="line"></span><br><span class="line">![playground](http:<span class="comment">//q8wtfza4q.bkt.clouddn.com/sasb-c-stp2.png "")</span></span><br><span class="line"></span><br><span class="line">如果要创建一个新变量var2并为其分配var1的值：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="keyword">var</span> var2 = var1</span><br></pre></td></tr></table></figure>
+
+<p>然后，var1和var2内部的引用将引用内存中的相同位置：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp3.png" alt="playground"></p>
+<p>相反，将结构作为值类型存储实际值，从而可以直接访问它。 用以下结构替换SimplePerson类实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimplePerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在内存中，该变量不会引用内存中的位置，但该值将排他地属于var1：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp4.png" alt="playground"></p>
+<p>在这种情况下，赋值var var2 = var1将复制var1的值：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp5.png" alt="playground"></p>
+<p>值类型和引用类型各有其独特的优点和缺点。 在本章的后面，你将考虑在给定情况下使用哪种类型的问题。 现在，让我们研究一下类和结构如何在后台运行。</p>
+<h1 id="堆与栈"><a href="#堆与栈" class="headerlink" title="堆与栈"></a><strong>堆与栈</strong></h1><p>当创建引用类型（例如类）时，<strong>系统会将实际实例存储在称为堆的内存区域中</strong>。诸如<em>结构之类的值类型的实例驻留在称为栈的内存区域中</em>，除非该值是类实例的一部分，在这种情况下，该值与其他类实例一起存储在堆中。</p>
+<p>堆和栈在任何程序的执行中都起着至关重要的作用。对它们是什么以及它们如何工作的一般理解将帮助你可视化类和结构之间的功能差异：</p>
+<ul>
+<li><p>系统使用堆栈将任何内容存储在执行的直接线程中；它由CPU严格管理和优化。当函数创建变量时，堆栈将存储该变量，然后在函数退出时销毁它。由于堆栈的组织非常严格，因此非常高效，因此非常快。</p>
+</li>
+<li><p>系统使用堆存储引用类型的实例。堆通常是一个很大的内存池，系统可以从中请求并动态分配内存块。生命周期是灵活而动态的。</p>
+</li>
+</ul>
+<p>堆不会像栈一样自动销毁其数据；为此，还需要进行其他工作。与在堆栈上相比，这会使在堆上创建和删除数据的过程变慢。</p>
+<p>也许你已经弄清楚了它与结构和类的关系。看一下下图：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp6.png" alt="playground"></p>
+<ul>
+<li><p>创建类的实例时，你的代码请求堆上的一块内存来存储实例本身。 这是图表右侧实例中的名字和姓氏。 它将内存的地址存储在堆栈上的命名变量中； 这就是存储在图表左侧的参考。</p>
+</li>
+<li><p>创建结构实例（不属于类实例的一部分）时，该实例本身存储在堆栈中，并且从不涉及堆。</p>
+</li>
+</ul>
+<p>现在，你已经了解了堆和栈的动态特性，这足以理解你将在类中使用的引用语义，但还不足以要求专业知识。 ：]</p>
+<h1 id="使用引用"><a href="#使用引用" class="headerlink" title="使用引用"></a><strong>使用引用</strong></h1><p>在第10章“结构”中，你了解了使用结构和其他值类型时涉及的复制语义。 使用该章中的Location和DeliveryArea结构，这里有一些提醒：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Location</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">let</span> y: <span class="type">Int</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DeliveryArea</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> range: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">let</span> center: <span class="type">Location</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> area1 = <span class="type">DeliveryArea</span>(range: <span class="number">2.5</span>,</span><br><span class="line"><span class="keyword">var</span> area2 = area1 <span class="built_in">print</span>(area1.range) <span class="comment">// 2.5 print(area2.range) // 2.5</span></span><br><span class="line">area1.range = <span class="number">4</span> <span class="built_in">print</span>(area1.range) <span class="comment">// 4.0 print(area2.range) // 2.5</span></span><br><span class="line">center: <span class="type">Location</span>(x: <span class="number">2</span>, y: <span class="number">4</span>))</span><br></pre></td></tr></table></figure>
+
+<p>当你将area1的值分配给area2时，area2会收到area1值的副本。 这样，当area1.range收到新值4时，数字仅反映在area1中，而area2仍具有原始值2.5。</p>
+<p>由于类是引用类型，因此当你分配给类类型的变量时，系统不会复制该实例； 它仅复制引用。</p>
+<p>将之前的代码与以下代码进行比较：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> homeOwner = john</span><br><span class="line">john.firstName = <span class="string">"John"</span> <span class="comment">// John wants to use his short name! </span></span><br><span class="line">john.firstName <span class="comment">// "John"</span></span><br><span class="line">homeOwner.firstName <span class="comment">// "John"</span></span><br></pre></td></tr></table></figure>
+
+<p>如你所见，john和homeOwner真正具有相同的值！</p>
+<p>类实例之间的这种隐含共享在传递事物时产生了一种新的思维方式。 例如，如果john对象发生更改，则所有引用john的内容都会自动看到更新。 如果使用的是结构，则必须单独更新每个副本，否则它的旧值仍为“ Johnny”。</p>
+<h1 id="对象身份"><a href="#对象身份" class="headerlink" title="对象身份"></a><strong>对象身份</strong></h1><p>在前面的代码示例中，很容易看到john和homeOwner指向同一个对象。 代码简短，两个引用均被命名为变量。 如果你想查看变量后面的值是John怎么办？</p>
+<p>你可能会考虑检查firstName的值，但是你怎么知道它是你要查找的John而不是冒名顶替者？ 或更糟糕的是，如果约翰再次改名怎么办？</p>
+<p>在Swift中，<code>===运算符使</code>你可以检查一个对象的身份是否等于另一个对象的身份：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">john === homeOwner <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>就像==运算符检查两个值是否相等一样，===标识运算符比较两个引用的内存地址。 它告诉你引用的值是否相同。 也就是说，它们指向堆上的同一数据块。</p>
+<p>这意味着此===运算符可以区分你要查找的John和冒名顶替的John之间的区别：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> imposterJohn = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>,</span><br><span class="line">                          lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">john === homeOwner <span class="comment">// true</span></span><br><span class="line">john === imposterJohn <span class="comment">// false</span></span><br><span class="line">imposterJohn === homeOwner <span class="comment">// false</span></span><br><span class="line"><span class="comment">// Assignment of existing variables changes the instances the variables reference.</span></span><br><span class="line">homeOwner = imposterJohn</span><br><span class="line">john === homeOwner <span class="comment">// false</span></span><br><span class="line">homeOwner = john</span><br><span class="line">john === homeOwner <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>当你不能依靠常规等式（==）来比较和标识你关心的对象时，这特别有用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create fake, imposter Johns. Use === to see if any of these imposters are our real John.</span></span><br><span class="line"><span class="keyword">var</span> imposters = (<span class="number">0</span>...<span class="number">100</span>).<span class="built_in">map</span> &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line">  <span class="type">Person</span>(firstName: <span class="string">"John"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Equality (==) is not effective when John cannot be identified by his name alone</span></span><br><span class="line">imposters.<span class="built_in">contains</span> &#123;</span><br><span class="line">    $<span class="number">0</span>.firstName == john.firstName &amp;&amp; $<span class="number">0</span>.lastName == john.lastName </span><br><span class="line">&#125; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>通过使用标识运算符，你可以验证引用本身是否相等，并将我们的真实约翰与其他人分开：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Check to ensure the real John is not found among the imposters.</span></span><br><span class="line">imposters.<span class="built_in">contains</span> &#123;</span><br><span class="line">    $<span class="number">0</span> === john</span><br><span class="line">&#125; <span class="comment">// false</span></span><br><span class="line"><span class="comment">// Now hide the "real" John somewhere among the imposters.</span></span><br><span class="line">imposters.insert(john, at: <span class="type">Int</span>.random(<span class="keyword">in</span>: <span class="number">0</span>..&lt;<span class="number">100</span>))</span><br><span class="line">    <span class="comment">// John can now be found among the imposters.</span></span><br><span class="line">    imposters.<span class="built_in">contains</span> &#123; $<span class="number">0</span> === john</span><br><span class="line">&#125; <span class="comment">// true</span></span><br><span class="line"><span class="comment">// Since `Person` is a reference type, you can use === to grab the real John out of the list of imposters and modify the value. </span></span><br><span class="line"><span class="comment">// The original `john` variable will print the new last name! </span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> indexOfJohn = imposters.firstIndex(<span class="keyword">where</span>: &#123; $<span class="number">0</span> === john &#125;) &#123;         </span><br><span class="line">    imposters[indexOfJohn].lastName = <span class="string">"Bananapeel"</span></span><br><span class="line">&#125;</span><br><span class="line">john.fullName <span class="comment">// John Bananapeel</span></span><br></pre></td></tr></table></figure>
+
+<p>实际上，你可能会发现在日常Swift中不会使用身份运算符===。 重要的是要了解它的功能以及它对引用类型的属性的说明。</p>
+<h1 id="方法和可变性"><a href="#方法和可变性" class="headerlink" title="方法和可变性"></a><strong>方法和可变性</strong></h1><p>如前所述，类的实例是可变的对象，而结构的实例是不可变的值。 以下示例说明了这种差异：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"> <span class="class"><span class="keyword">struct</span> <span class="title">Grade</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> letter: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> points: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">let</span> credits: <span class="type">Double</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> grades: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123;</span><br><span class="line">        grades.append(grade) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> jane = <span class="type">Student</span>(firstName: <span class="string">"Jane"</span>, lastName: <span class="string">"Appleseed"</span>) </span><br><span class="line"><span class="keyword">let</span> history = <span class="type">Grade</span>(letter: <span class="string">"B"</span>, points: <span class="number">9.0</span>, credits: <span class="number">3.0</span>) </span><br><span class="line"><span class="keyword">var</span> math = <span class="type">Grade</span>(letter: <span class="string">"A"</span>, points: <span class="number">16.0</span>, credits: <span class="number">4.0</span>)</span><br><span class="line">jane.recordGrade(history) </span><br><span class="line">jane.recordGrade(math)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，recordGrade（_ :)可以通过在末尾添加更多值来改变数组的等级。 尽管这会更改当前对象，但不需要关键字mutating。</p>
+<p>如果你尝试过使用结构体，则可能会遇到编译器错误，因为结构体是不可变的。 请记住，当你<strong>更改结构的值时，不是在修改值，而是在创建新值。 关键字变异标记方法用新值替换当前值</strong>。 <strong>对于类，不使用此关键字，因为实例本身是可变的</strong>。</p>
+<h1 id="可变性和常数"><a href="#可变性和常数" class="headerlink" title="可变性和常数"></a><strong>可变性和常数</strong></h1><p>前面的示例可能会让你想知道即使jane被定义为常量，如何也可以对其进行修改。 定义常量时，不能更改常量的值。 如果你回想起有关值类型与引用类型的讨论，请务必记住，对于引用类型，该值是一个引用。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp7.png" alt="playground"></p>
+<p>红色“ reference1”的值是存储在jane中的值。 此值是一个引用，并且因为jane被声明为常量，所以此引用是常量。 如果你试图将另一个学生分配给简，则会出现编译器错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// Error: jane is a `let` constant</span></span><br><span class="line">jane = <span class="type">Student</span>(firstName: <span class="string">"John"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>如果改为将jane声明为变量，则可以在堆上为其分配Student的另一个实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> jane = <span class="type">Student</span>(firstName: <span class="string">"Jane"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">jane = <span class="type">Student</span>(firstName: <span class="string">"John"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在将另一个Student分配给jane之后，jane后面的参考值将更新为指向新的Student对象。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp8.png" alt="playground"></p>
+<p>由于没有东西会引用原始的“ Jane”对象，因此它的内存将被释放以在其他地方使用。 你将在第23章“内存管理”中了解更多信息。</p>
+<p>可以通过使用常量来保护类的任何单个成员免遭修改，但是由于引用类型本身不被视为值，因此不能整体保护它们免受突变的影响。</p>
+<h1 id="了解状态和副作用"><a href="#了解状态和副作用" class="headerlink" title="了解状态和副作用"></a><strong>了解状态和副作用</strong></h1><p>由于<strong>类的本质是它们都可以被引用并且是可变的</strong>，因此存在许多可能性，也涉及程序员的许多问题。 请记住：<strong>如果用新值更新类实例，则对该实例的每个引用也将看到新值</strong>。</p>
+<p>你可以利用此优势。 也许你将学生实例传递给运动队，成绩单和班级名册。 想象所有这些实体都需要知道学生的成绩，并且由于它们都指向同一个实例，因此当实例记录它们时，它们都会看到新的成绩。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp9.png" alt="playground"></p>
+<p><strong>共享的结果是类实例具有状态</strong>。 状态变化有时可能很明显，但往往不是。</p>
+<p>为了说明这一点，请在Student类中添加一个credits属性。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> credits = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+
+<p>并更新recordGrade（_ :)以使用此新属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123; </span><br><span class="line">    grades.append(grade)</span><br><span class="line">    credits += grade.credits </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这个经过稍微修改的Student示例中，recordGrade（_ :)现在将积分数添加到credits属性中。 调用recordGrade（_ :)具有更新积分的副作用。</p>
+<p>现在，观察副作用如何导致不明显的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">jane.credits <span class="comment">// 7</span></span><br><span class="line"><span class="comment">// The teacher made a mistake; math has 5 credits</span></span><br><span class="line">math = <span class="type">Grade</span>(letter: <span class="string">"A"</span>, points: <span class="number">20.0</span>, credits: <span class="number">5.0</span>) </span><br><span class="line">jane.recordGrade(math)</span><br><span class="line">jane.credits <span class="comment">// 12, not 8!</span></span><br></pre></td></tr></table></figure>
+
+<p>修改过的Student类的编写者这样做的天真之处在于，假设相同的成绩不会被记录两次！</p>
+<p>由于类实例是可变的，因此你需要注意共享引用周围的意外行为。</p>
+<p>尽管在这样的小示例中令人困惑，但随着类的大小和复杂性的增加，可变性和状态可能会变得极为混乱。</p>
+<p>对于此类学生来说，这种情况会更加常见，该类可缩放到20个存储的属性并具有10个方法。</p>
+<h1 id="使用扩展名扩展类"><a href="#使用扩展名扩展类" class="headerlink" title="使用扩展名扩展类"></a><strong>使用扩展名扩展类</strong></h1><p>如你在结构中所见，可以使用extension关键字重新打开类以添加方法和计算属性。 将fullName计算属性添加到Student：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fullName: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="string">"\(firstName) \(lastName)"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>也可以使用继承将功能添加到类中。 你甚至可以将新存储的属性添加到继承的类。 你将在下一章中详细探讨该技术。</p>
+<h1 id="何时使用类与结构"><a href="#何时使用类与结构" class="headerlink" title="何时使用类与结构"></a><strong>何时使用类与结构</strong></h1><p>现在你知道了类和结构之间的区别和相似之处，你可能想知道“我怎么知道使用哪个？”</p>
+<h2 id="值与对象"><a href="#值与对象" class="headerlink" title="值与对象"></a><strong><em>值与对象</em></strong></h2><p>尽管没有严格的规则，所以你应该考虑值与引用语义之间的关系，并使用结构作为值，将类用作具有标识的对象。</p>
+<p>对象是引用类型的实例，并且此类实例具有标识的含义，即每个对象都是唯一的。仅仅因为它们拥有相同的状态，就不会将两个对象视为相等。因此，你可以使用===来查看对象是否真正相等，而不仅仅是包含相同的状态。相反，如果值类型的实例是相同的值，则将它们视为相等。</p>
+<p>例如：交付范围是一个值，因此你将其实现为结构。学生是对象，因此你可以将其实现为类。用非技术术语来说，即使两个学生的名字相同，也不会将其视为相等！</p>
+<h2 id="速度"><a href="#速度" class="headerlink" title="速度"></a><strong><em>速度</em></strong></h2><p>速度是一回事，因为<strong>结构依赖于较快的堆栈</strong>，而<strong>类则依赖于较慢的</strong>堆。如果你有更多实例（数百个或更多），或者这些实例仅在内存中存在很短时间，则倾向于使用结构。如果你的实例在内存中的生命周期更长，或者你将创建相对较少的实例，则堆上的类实例不会产生太多开销。</p>
+<p>例如，你将使用一个结构来计算基于许多基于GPS的航路点的行驶路线的总距离，例如你在第10章“结构”中使用的“位置”结构。你会创建许多航路点，但是在修改路线时会很快创建和销毁它们。</p>
+<p>你也可以为对象使用一个类来存储路线历史记录，因为每个用户只有一个对象，并且在用户的整个生命周期中都可能使用相同的历史记录对象。</p>
+<h2 id="极简主义方法"><a href="#极简主义方法" class="headerlink" title="极简主义方法"></a><strong><em>极简主义方法</em></strong></h2><p>另一种方法是仅使用你需要的内容。如果你的数据永远不会改变，或者你需要简单的数据存储，请使用结构。如果需要更新数据，并且需要数据包含逻辑来更新其自身的状态，请使用类。通常，最好从结构开始。如果以后需要某个类的附加功能，则只需将结构转换为一个类。</p>
+<h1 id="结构与类回顾"><a href="#结构与类回顾" class="headerlink" title="结构与类回顾"></a><strong>结构与类回顾</strong></h1><h2 id="结构体"><a href="#结构体" class="headerlink" title="结构体"></a><strong><em>结构体</em></strong></h2><ul>
+<li>对于表示值很有用。</li>
+<li>隐式复制值。</li>
+<li>用let声明时变得完全不变。</li>
+<li>快速内存分配（堆栈）。</li>
+</ul>
+<h2 id="类"><a href="#类" class="headerlink" title="类"></a><strong><em>类</em></strong></h2><ul>
+<li>用于表示具有身份的对象。</li>
+<li>隐式共享对象。</li>
+<li>即使使用let声明，内部也可以保持可变。</li>
+<li>较慢的内存分配（堆）。</li>
+</ul>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li>与结构一样，类是可以具有属性和方法的命名类型。</li>
+<li>类使用分配时共享的引用。</li>
+<li>类实例称为对象。</li>
+<li>对象是可变的。</li>
+<li>可变性引入状态，这会增加管理对象时的复杂性。</li>
+<li>需要引用语义时使用类； 值语义的结构。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/" title="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">https://www.xuebaonline.com/Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Classes/" rel="tag"><i class="fa fa-tag"></i> Classes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/" rel="prev" title="Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/" rel="next" title="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">
+      Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#创建类"><span class="nav-number">1.</span> <span class="nav-text">创建类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引用类型"><span class="nav-number">2.</span> <span class="nav-text">引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#堆与栈"><span class="nav-number">3.</span> <span class="nav-text">堆与栈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用引用"><span class="nav-number">4.</span> <span class="nav-text">使用引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象身份"><span class="nav-number">5.</span> <span class="nav-text">对象身份</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法和可变性"><span class="nav-number">6.</span> <span class="nav-text">方法和可变性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可变性和常数"><span class="nav-number">7.</span> <span class="nav-text">可变性和常数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解状态和副作用"><span class="nav-number">8.</span> <span class="nav-text">了解状态和副作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用扩展名扩展类"><span class="nav-number">9.</span> <span class="nav-text">使用扩展名扩展类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#何时使用类与结构"><span class="nav-number">10.</span> <span class="nav-text">何时使用类与结构</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#值与对象"><span class="nav-number">10.1.</span> <span class="nav-text">值与对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#速度"><span class="nav-number">10.2.</span> <span class="nav-text">速度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#极简主义方法"><span class="nav-number">10.3.</span> <span class="nav-text">极简主义方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构与类回顾"><span class="nav-number">11.</span> <span class="nav-text">结构与类回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构体"><span class="nav-number">11.1.</span> <span class="nav-text">结构体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类"><span class="nav-number">11.2.</span> <span class="nav-text">类</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">12.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.1</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共996k字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

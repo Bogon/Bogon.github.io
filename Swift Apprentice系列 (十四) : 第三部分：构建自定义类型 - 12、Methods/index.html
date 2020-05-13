@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJD">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp1.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp2.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp3.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp4.png">
+<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp5.png">
+<meta property="article:published_time" content="2020-05-13T05:56:50.000Z">
+<meta property="article:modified_time" content="2020-05-13T07:24:36.993Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">90</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">35</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">110</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-13 13:56:50" itemprop="dateCreated datePublished" datetime="2020-05-13T13:56:50+08:00">2020-05-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在上一章中，你了解了属性，这些属性是作为结构一部分的常量和变量。 正如你已经看到的，方法仅仅是驻留在结构内部的函数。</p>
+<p>在本章中，你将仔细研究方法和初始化程序。 与属性一样，你将开始设计更复杂的结构。 你在本章中学到的东西将适用于所有命名类型的方法，包括类和枚举，你将在后面的章节中看到。</p>
+<h1 id="方法更新"><a href="#方法更新" class="headerlink" title="方法更新"></a><strong>方法更新</strong></h1><p>还记得Array.removeLast()吗？ 它从数组实例中弹出最后一项：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] </span><br><span class="line">numbers.removeLast() </span><br><span class="line">numbers <span class="comment">// [1, 2]</span></span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp1.png" alt="playground"></p>
+<p>诸如removeLast()之类的方法可帮助你控制结构中的数据。</p>
+<h1 id="将方法与计算属性进行比较"><a href="#将方法与计算属性进行比较" class="headerlink" title="将方法与计算属性进行比较"></a><strong>将方法与计算属性进行比较</strong></h1><p>使用计算的属性，你在上一章中看到可以从结构内部运行代码。 听起来很像一种方法。 有什么不同？ 这实际上取决于样式，但是有一些有用的想法可以帮助你做出决定。 当方法执行工作时，属性保存你可以获取和设置的值。 有时，当方法的唯一目的是返回单个值时，这种区分变得模糊。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp2.png" alt="playground"></p>
+<p>问问自己是否想要设置值并获得值。 计算属性可以在内部具有一个setter组件来写入值。 要考虑的另一个问题是该计算是否需要大量计算或从数据库中读取。 即使是简单的值，一种方法也可以帮助你向未来的开发人员表明该调用在时间和计算资源上都是昂贵的。 如果调用便宜（如固定时间O（1）），则坚持使用计算属性。</p>
+<h1 id="将函数转换为方法"><a href="#将函数转换为方法" class="headerlink" title="将函数转换为方法"></a><strong>将函数转换为方法</strong></h1><p>要探索方法和初始化程序，你将为日期创建一个简单的模型，称为SimpleDate。 请注意，Apple的Foundation库包含一个强大的，可立即投入生产的Date类，该类可以正确处理所有处理日期和时间的微妙错综复杂的情况。</p>
+<p>在下面的代码中，如何将monthsUntilWinterBreak(date :)转换为方法？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> months = [<span class="string">"January"</span>, <span class="string">"February"</span>, <span class="string">"March"</span>,</span><br><span class="line">              <span class="string">"April"</span>, <span class="string">"May"</span>, <span class="string">"June"</span>,</span><br><span class="line">              <span class="string">"July"</span>, <span class="string">"August"</span>, <span class="string">"September"</span>,</span><br><span class="line">              <span class="string">"October"</span>, <span class="string">"November"</span>, <span class="string">"December"</span>]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> month: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">(from date: SimpleDate)</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">    months.firstIndex(of: date.month)! </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：此示例很脆弱，因为它强制解开可能无效的索引。 你不希望在生产代码中执行此操作。 另外，如果你生活在南半球，你可能会对结果感到失望。 处理时间很难。 ：]</p>
+</blockquote>
+<p>制作方法就像在结构定义内部移动函数一样容易：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> month: <span class="type">String</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">(from date: SimpleDate)</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        months.firstIndex(of: <span class="string">"December"</span>)! - </span><br><span class="line">        months.firstIndex(of: date.month)!</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法没有识别关键字； 它实际上只是命名类型内部的一个函数。 你可以使用点语法在实例上调用方法，就像对属性一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="type">SimpleDate</span>(month: <span class="string">"October"</span>) </span><br><span class="line">date.monthsUntilWinterBreak(from: date) <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>就像属性一样，一旦你开始输入方法名称，Xcode就会提供建议。 你可以使用键盘上的向上和向下箭头键选择一个，然后按Tab即可自动完成调用：</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp3.png" alt="playground"></p>
+<p>如果花一分钟时间考虑一下此代码，你将意识到该方法的定义很尴尬。 必须有替代方法来访问实例存储的内容，而不是将实例本身作为参数传递给方法。 调用它会更好：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date.monthsUntilWinterBreak() <span class="comment">// Error!</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="介绍Self"><a href="#介绍Self" class="headerlink" title="介绍Self"></a><strong>介绍Self</strong></h1><p>在上一章中，你已经使用<strong>Self（用大写S拼写）作为从结构内部访问静态属性的方法</strong>。 现在我们看一下小写的self。 结构定义就像一个蓝图，而实例是一个真实的对象。 要访问实例的值，请在结构内部使用关键字self。 Swift编译器将其作为秘密参数传递到你的方法中。 方法定义转换为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; <span class="comment">// 2</span></span><br><span class="line">    months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">    months.firstIndex(of: <span class="keyword">self</span>.month)! </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>发生了以下变化：</p>
+<p>1.现在，方法定义中没有参数。</p>
+<p>2.在实现中，将self替换为旧的参数名称。</p>
+<p>你现在可以在不传递参数的情况下调用方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date.monthsUntilWinterBreak（）<span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>看起来更干净了！ 你可以简化代码的另一件事是移除self：</p>
+<p>self是你对实例的引用，但是大多数情况下你不需要使用它，因为如果你仅使用变量名，Swift就会理解你的意图。 尽管你始终可以使用self来访问当前实例的属性和方法，但是大多数时候你并不需要。 在monthsUntilWinterBreak（）中，你可以只说month而不是self.month：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">months.firstIndex(of: <span class="string">"December"</span>)! - months.firstIndex(of: month)!</span><br></pre></td></tr></table></figure>
+
+<p>大多数程序员仅在需要时才使用self，例如，在局部变量和具有相同名称的属性之间进行歧义。 稍后，你将获得更多使用自我的练习。</p>
+<h1 id="初始化器简介"><a href="#初始化器简介" class="headerlink" title="初始化器简介"></a><strong>初始化器简介</strong></h1><p>你已经在上一章中了解了初始化器，但让我们以新发现的方法知识再次对其进行研究。</p>
+<p>初始化程序是你用来创建新实例的特殊方法。 他们忽略了func关键字甚至名字。 而是使用init。 初始值设定项可以具有参数，但不一定必须如此。</p>
+<p>现在，当你创建SimpleDate结构的新实例时，必须为month属性指定一个值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="type">SimpleDate</span>(month: <span class="string">"January"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>虽然编译器现在给你一个错误，但是你可以提供无参数的初始化程序。</p>
+<p>通过实现init，你可以使用默认值创建最直接的初始化路径。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> month: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        month = <span class="string">"January"</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">        months.firstIndex(of: month)! </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是该代码中发生的事情：</p>
+<ul>
+<li>1.init（）定义既不需要func关键字也不需要名称。 你总是使用类型的名称来调用初始化程序。</li>
+<li>2.与函数一样，初始化器必须具有参数列表，即使该列表为空。</li>
+<li>3.在初始化程序中，为结构的所有存储属性分配值。</li>
+<li>4.初始化程序从不返回值。 它的任务只是初始化一个新实例。 </li>
+</ul>
+<p>现在，你可以使用简单的初始化程序来创建实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="type">SimpleDate</span>()</span><br><span class="line">date.month <span class="comment">// January </span></span><br><span class="line">date.monthsUntilWinterBreak() <span class="comment">// 11</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以在初始值设定项中测试对值的更改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span>() &#123;</span><br><span class="line">  month = <span class="string">"March"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>monthsUntilWinterBreak()的值将相应更改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date = <span class="type">SimpleDate</span>() date.month <span class="comment">// March </span></span><br><span class="line">date.monthsUntilWinterBreak() <span class="comment">// 9</span></span><br></pre></td></tr></table></figure>
+
+<p>当你考虑此处的实现时，良好的用户体验优化将使初始化程序根据今天的日期使用默认值。</p>
+<p>将来，你将可以检索当前日期。 最终，你将使用Foundation库中的Date类来处理日期。</p>
+<p>在充分利用这些库提供的所有功能之前，让我们从头开始继续实现自己的SimpleDate类型。</p>
+<h1 id="结构中的初始化器"><a href="#结构中的初始化器" class="headerlink" title="结构中的初始化器"></a><strong>结构中的初始化器</strong></h1><p>初始化程序确保在实例可以使用之前设置所有属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> month: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> day: <span class="type">Int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        month = <span class="string">"January"</span></span><br><span class="line">        day = <span class="number">1</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">        months.firstIndex(of: month)! </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你尝试在不设置day属性的情况下创建初始化程序，则编译器会抱怨。</p>
+<p>通过创建甚至一个自定义初始化程序，你就放弃了使用自动成员初始化程序的选项。 回想一下，自动生成的成员初始化器按顺序接受所有属性作为SimpleDate结构的参数，例如init（month：day :)。 编写自定义初始化程序时，编译器将废弃自动创建的初始化程序。</p>
+<p>因此，此代码目前无法正常工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> valentinesDay = <span class="type">SimpleDate</span>(month: <span class="string">"February"</span>, day: <span class="number">14</span>) <span class="comment">// Error!</span></span><br></pre></td></tr></table></figure>
+
+<p>相反，你必须使用参数定义自己的初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span>(month: <span class="type">String</span>, day: <span class="type">Int</span>) &#123; </span><br><span class="line">    <span class="keyword">self</span>.month = month</span><br><span class="line">    <span class="keyword">self</span>.day = day </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在该代码中，你将传入的参数分配给结构的属性。 请注意，如何使用self来告诉编译器你所指的是属性而不是本地参数。</p>
+<p>在简单的初始化程序中，不需要self：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">init</span>() &#123;</span><br><span class="line">    month = <span class="string">"January"</span></span><br><span class="line">    day = <span class="number">1</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在该代码中，没有与属性名称相同的参数。 因此，对于编译器来说，了解你所指的属性是不需要self的。</p>
+<p>使用复杂的初始化程序后，你可以像调用自动生成的初始化程序一样调用新的初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> valentinesDay = <span class="type">SimpleDate</span>(month: <span class="string">"February"</span>, day: <span class="number">14</span>) </span><br><span class="line">valentinesDay.month <span class="comment">// February</span></span><br><span class="line">valentinesDay.day <span class="comment">// 14</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="默认值和初始值设定项"><a href="#默认值和初始值设定项" class="headerlink" title="默认值和初始值设定项"></a><strong>默认值和初始值设定项</strong></h1><p>如你所料，有一种更简单的方法来实现无参数的初始化程序或空的初始化程序。</p>
+<p>设置属性的默认值时，自动成员初始化程序将考虑默认值。</p>
+<p>在你的结构中，删除两个初始化器，然后添加月份和日期的默认值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">var</span> month = <span class="string">"January"</span></span><br><span class="line">    <span class="keyword">var</span> day = <span class="number">1</span></span><br><span class="line">    <span class="comment">//2</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">        months.firstIndex(of: month)! &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是该代码中发生的事情：</p>
+<p>1.现在，两个属性都具有一个合理的默认值：1月1日。</p>
+<p>2.两个初始化程序init（）和init（month：day :)均已删除。 …瞧，不用初始化程序！</p>
+<p>即使initalizer消失了，你仍然可以使用两种初始化样式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> newYearsDay = <span class="type">SimpleDate</span>() </span><br><span class="line">newYearsDay.month <span class="comment">// January newYearsDay.day // 1</span></span><br><span class="line"><span class="keyword">let</span> valentinesDay = <span class="type">SimpleDate</span>(month: <span class="string">"February"</span>, day: <span class="number">14</span>) </span><br><span class="line">valentinesDay.month <span class="comment">// February</span></span><br><span class="line">valentinesDay.day <span class="comment">// 14</span></span><br></pre></td></tr></table></figure>
+
+<p>这是因为你没有声明任何自定义初始化程序，所以可以使用成员自动初始化程序。 因为这些参数是属性，所以它为你提供了init（month：day）。 但是，也足够聪明地意识到属性在声明时具有默认值，因此不需要将其传递给初始化程序。 这也是你获取init（）的方式。 最酷的是，你还可以混合和匹配，只传递你需要设置的属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> octoberFirst = <span class="type">SimpleDate</span>(month: <span class="string">"October"</span>) </span><br><span class="line">octoberFirst.month <span class="comment">// October</span></span><br><span class="line">octoberFirst.day <span class="comment">// 1</span></span><br><span class="line"><span class="keyword">let</span> januaryTwentySecond = <span class="type">SimpleDate</span>(day: <span class="number">22</span>) </span><br><span class="line">januaryTwentySecond.month <span class="comment">// January </span></span><br><span class="line">januaryTwentySecond.day <span class="comment">// 22</span></span><br></pre></td></tr></table></figure>
+
+<p>在该代码中，你仅将月份传递给了第一个实例，仅将日期传递给了第二个实例。 很漂亮，,！</p>
+<h1 id="引入变异方法"><a href="#引入变异方法" class="headerlink" title="引入变异方法"></a><strong>引入变异方法</strong></h1><p>结构中的方法不能更改实例的值，除非将其标记为变异。 你可以想象SimpleDate结构中的方法可以进行到第二天：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">advance</span><span class="params">()</span></span> &#123;</span><br><span class="line">    day += <span class="number">1</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：上面的实现是天真地编写advance()的方法，因为它没有考虑到月底发生的情况。 在本章末尾的挑战中，你将创建一个更强大的版本。</p>
+</blockquote>
+<p><strong>mutating关键字标记了一种更改结构值的方法</strong>。 由于结构是一种值类型，因此每次将其传递给应用程序时，系统都会将其复制。 如果方法更改了属性之一的值，则原始实例和复制的实例将不再等效。</p>
+<p><strong>通过将方法标记为mutate，你还告诉Swift编译器不得在常量上调用此方法</strong>。 这就是Swift知道在编译时允许哪些方法以及拒绝哪些方法的方式。 如果在结构的常量实例上调用<code>mutating方法</code>，则编译器会将其标记为必须先更正的错误，然后才能运行程序。</p>
+<p>对于变异方法，Swift像常规方法一样秘密地自我传递。 但是对于变异方法，self会被标记为<code>inout参数</code>。 <strong>变异方法内部发生的一切都会影响外部依赖类型的所有内容</strong>。</p>
+<h1 id="类型方法"><a href="#类型方法" class="headerlink" title="类型方法"></a><strong>类型方法</strong></h1><p>像类型属性一样，你可以使用<strong>类型方法来访问所有实例中的数据</strong>。 你可以在类型本身而不是实例上调用类型方法。 要定义类型方法，请在其前面加上<strong>static修饰符</strong>。</p>
+<p>类型方法对于通常与类型有关的事情很有用，而不是与特定实例有关的事情。</p>
+<p>例如，你可以使用类型方法将相似的方法分组为一个结构：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Math</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">factorial</span><span class="params">(of number: Int)</span></span> -&gt; <span class="type">Int</span> &#123; <span class="comment">// 2</span></span><br><span class="line">        (<span class="number">1</span>...number).<span class="built_in">reduce</span>(<span class="number">1</span>, *) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="type">Math</span>.factorial(of: <span class="number">6</span>) <span class="comment">// 720</span></span><br></pre></td></tr></table></figure>
+
+<p>你可能会对诸如阶乘之类的东西进行自定义计算。 不用一堆独立的函数，你可以将相关函数作为结构中的类型方法组合在一起。 据说该结构充当命名空间。</p>
+<p>这是正在发生的事情：</p>
+<ul>
+<li>1.使用static声明类型方法，该方法接受一个整数并返回一个整数。</li>
+<li>2.实现使用称为reduce（<em>：</em> :)的高阶函数。 它有效地遵循了计算阶乘的公式：“从1到n的所有整数的乘积”。 你可以使用for循环来编写此代码，但是高阶函数以更简洁的方式表达你的意图。</li>
+<li>3.你在Math上而不是在该类型的实例上调用type方法。</li>
+</ul>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp4.png" alt="playground"></p>
+<p>收集到结构中的类型方法将有利地用Xcode编码完成。 在此示例中，你可以通过键入Math来查看所有可用的math实用程序方法。</p>
+<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp5.png" alt="playground"></p>
+<h1 id="通过扩展添加到现有结构"><a href="#通过扩展添加到现有结构" class="headerlink" title="通过扩展添加到现有结构"></a><strong>通过扩展添加到现有结构</strong></h1><p>有时你想向结构中添加功能，但又不想弄乱原来的定义。 有时你无法添加功能，因为你无权访问源代码。 可以打开一个现有结构（甚至你没有源代码的结构），并向其中添加方法，初始化程序和计算属性。 这对代码组织很有用，第18章“访问控制和代码组织”中将对此进行详细讨论。 这样做与使用关键字extension一样容易。</p>
+<p>在操场的底部，在Math的定义之外，使用扩展名添加一个名为primeFactors（of :)的类型方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Math</span> </span>&#123;</span><br><span class="line"><span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">primeFactors</span><span class="params">(of value: Int)</span></span> -&gt; [<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">var</span> remainingValue = value</span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">var</span> testFactor = <span class="number">2</span></span><br><span class="line">    <span class="keyword">var</span> primes: [<span class="type">Int</span>] = []</span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="keyword">while</span> testFactor * testFactor &lt;= remainingValue &#123;</span><br><span class="line">      <span class="keyword">if</span> remainingValue % testFactor == <span class="number">0</span> &#123;</span><br><span class="line">        primes.append(testFactor)</span><br><span class="line">        remainingValue /= testFactor</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        testFactor += <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> remainingValue &gt; <span class="number">1</span> &#123;</span><br><span class="line">        primes.append(remainingValue) &#125;</span><br><span class="line">        <span class="keyword">return</span> primes</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此方法找到给定数字的素因。 例如，81返回[3，3，3，3]。 这是代码中发生的事情：</p>
+<ul>
+<li>1.作为参数传入的值被分配给可变变量剩余值，以便在计算运行时可以对其进行更改。</li>
+<li>2.testFactor从两个开始，并将被分为剩余值。</li>
+<li>3.逻辑运行循环，直到用完剩余值。 如果它平均分配（表示没有余数），则将testFactor的值留作主要因素。 如果没有平均分配，则testFactor会增加以进行下一个循环。</li>
+</ul>
+<p>该算法是蛮力的，但是确实包含一个优化：testFactor的平方永远不应该大于剩余值。 如果是，则剩余值本身必须是素数，并将其添加到素数列表中。</p>
+<p>现在，你已在Math中添加了一种方法，而无需更改其原始定义。 验证扩展名是否可以使用以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Math</span>.primeFactors(of: <span class="number">81</span>) <span class="comment">// [3, 3, 3, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p>非常漂亮！ 你将看到在实践中如何发挥作用。</p>
+<blockquote>
+<p>注意：<strong>在扩展中，你不能将存储的属性添加到现有结构中，因为这会改变结构的大小和内存布局并破坏现有代码</strong>。</p>
+</blockquote>
+<h1 id="使用扩展保留编译器生成的初始化程序"><a href="#使用扩展保留编译器生成的初始化程序" class="headerlink" title="使用扩展保留编译器生成的初始化程序"></a><strong>使用扩展保留编译器生成的初始化程序</strong></h1><p>通过SimpleDate结构，你看到添加了自己的init()之后，编译器生成的成员初始化器就会消失。事实证明，如果将init()添加到SimpleDate的扩展中，则可以同时保留两者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> month = <span class="string">"January"</span></span><br><span class="line">    <span class="keyword">var</span> day = <span class="number">1</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">monthsUntilWinterBreak</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        months.firstIndex(of: <span class="string">"December"</span>)! -</span><br><span class="line">        months.firstIndex(of: month)! </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">advance</span><span class="params">()</span></span> &#123;</span><br><span class="line">        day += <span class="number">1</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SimpleDate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">init</span>(month: <span class="type">Int</span>, day: <span class="type">Int</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.month = months[month-<span class="number">1</span>]</span><br><span class="line">        <span class="keyword">self</span>.day = day </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>init（month：day :)被添加到SimpleDate，而无需牺牲自动生成的成员初始化器。 万岁！</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li><p>方法是与类型关联的函数。</p>
+</li>
+<li><p>方法是定义类型功能的行为。</p>
+</li>
+<li><p>一种方法可以使用关键字self来访问实例的数据。</p>
+</li>
+<li><p>初始化程序创建类型的新实例。 它们看起来很像被称为init且没有返回值的方法。</p>
+</li>
+<li><p>类型方法将行为添加到类型而不是该类型的实例。 要定义类型方法，请在其前面加上static修饰符。</p>
+</li>
+<li><p>你可以打开现有结构，并使用扩展名向其添加方法，初始化程序和计算属性。</p>
+</li>
+<li><p>通过在扩展中添加自己的初始化程序，可以保留编译器的结构成员明智的初始化程序。</p>
+</li>
+<li><p>方法可以存在于所有命名的类型中-结构，类和枚举。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2012%E3%80%81Methods/" title="Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods">https://www.xuebaonline.com/Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Methods/" rel="tag"><i class="fa fa-tag"></i> Methods</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2011%E3%80%81Properties/" rel="prev" title="Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 - 11、Properties">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 - 11、Properties
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/" rel="next" title="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
+      Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#方法更新"><span class="nav-number">1.</span> <span class="nav-text">方法更新</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将方法与计算属性进行比较"><span class="nav-number">2.</span> <span class="nav-text">将方法与计算属性进行比较</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将函数转换为方法"><span class="nav-number">3.</span> <span class="nav-text">将函数转换为方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍Self"><span class="nav-number">4.</span> <span class="nav-text">介绍Self</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初始化器简介"><span class="nav-number">5.</span> <span class="nav-text">初始化器简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#结构中的初始化器"><span class="nav-number">6.</span> <span class="nav-text">结构中的初始化器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#默认值和初始值设定项"><span class="nav-number">7.</span> <span class="nav-text">默认值和初始值设定项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引入变异方法"><span class="nav-number">8.</span> <span class="nav-text">引入变异方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类型方法"><span class="nav-number">9.</span> <span class="nav-text">类型方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#通过扩展添加到现有结构"><span class="nav-number">10.</span> <span class="nav-text">通过扩展添加到现有结构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用扩展保留编译器生成的初始化程序"><span class="nav-number">11.</span> <span class="nav-text">使用扩展保留编译器生成的初始化程序</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">12.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">35</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">90</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.1</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共996k字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
