@@ -108,11 +108,11 @@ for i in 1...count {
 
 Xcode的 “playground” 为你提供了可视化此类迭代的便捷方法。 将鼠标悬停在结果窗格中的总和+ = i线上，你会在右侧看到一个白点。 将鼠标悬停在该点上以显示加号（+）按钮：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp1.png "")
+![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp1.png "")
 
 单击此加号（+）按钮，Xcode将在playground代码编辑器中的线下显示一个图形：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp2.png "")
+![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp2.png "")
 
 此图使你可以在循环迭代时可视化sum变量。
 
@@ -149,11 +149,11 @@ for i in 1...count where i % 2 == 1 {
 
 以8 x 8网格为例，其中每个单元格包含行的值乘以列。 乘法表看起来很多行，不是吗？
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp3.png "")
+![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp3.png "")
 
 假设你要计算所有单元格的总和，但不包括所有偶数行，如下所示：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp4.png "")
+![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp4.png "")
 
 使用for循环，可以实现以下目的：
 
@@ -175,7 +175,7 @@ for row in 0..<8 {
 
 为了说明这一点，它应该汇总以下单元格：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp5.png "")
+![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-acf-stp5.png "")
 
 使用for循环，可以实现以下目的：
 
