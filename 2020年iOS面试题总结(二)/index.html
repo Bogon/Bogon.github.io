@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJD">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="2020年iOS面试题总结(二)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年iOS面试题总结(二)">
+<meta property="og:url" content="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="2020年iOS面试题总结(二)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-19T04:53:55.000Z">
+<meta property="article:modified_time" content="2020-05-19T06:49:51.618Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Advanced Classes">
+<meta property="article:tag" content="面试题">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>2020年iOS面试题总结(二) | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">91</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">36</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">112</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年iOS面试题总结(二)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-19 12:53:55" itemprop="dateCreated datePublished" datetime="2020-05-19T12:53:55+08:00">2020-05-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">iOS面试题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>10k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+            <div class="post-description">2020年iOS面试题总结(二)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><h2 id="什么是Runtime"><a href="#什么是Runtime" class="headerlink" title="什么是Runtime"></a>什么是Runtime</h2><ul>
+<li><p><code>runtime</code>是由<code>C</code>和<code>C++</code>、汇编实现的一套<code>API</code>，为<code>OC语言</code>加入了面向对象、运行时的功能</p>
+</li>
+<li><p>运行时（<code>runtime</code>）将数据类型的确定由编译时推迟到了运行时</p>
+</li>
+<li><p>平时编写的<code>OC</code>代码，在程序运行过程中，最终会转换成<code>runtime</code>的C语言代码——<code>runtime</code>是<code>Objective-C</code> 的幕后作者</p>
+</li>
+</ul>
+<p>如类结构中的<code>ro</code>和<code>rw</code>属性</p>
+<ul>
+<li><p><code>ro</code>（<code>read-only</code>）在编译时已经确定</p>
+</li>
+<li><p><code>rw</code>（<code>read-write</code>）在运行时才确定，因此可以使用<code>runtime</code>进行修改</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="方法的本质是什么"><a href="#方法的本质是什么" class="headerlink" title="方法的本质是什么"></a>方法的本质是什么</h2><p>方法的本质是发送消息<code>objc_msgSend</code>，即寻找<code>IMP</code>的过程</p>
+<p>发送消息会有以下⼏个流程：</p>
+<ul>
+<li><p><strong>快速查找流程</strong> —— 通过汇编<code>objc_msgSend</code>查找缓存<code>cache_t</code>是否有<code>imp</code>实现</p>
+</li>
+<li><p><strong>慢速查找流程</strong> —— 通过<code>C++</code>中<code>lookUpImpOrForward</code>递归查找<strong>当前类和父类</strong>的<code>rw</code>中<code>methodlist</code>的方法</p>
+</li>
+<li><p><strong>动态方法解析</strong> —— 通过调用<code>resolveInstanceMethod</code>和<code>resolveClassMethod</code>来动态方法决议——实现消息动态处理</p>
+</li>
+<li><p><strong>快速转发流程</strong> —— 通过<code>CoreFoundation</code>来触发消息转发流程，<code>forwardingTargetForSelector</code>实现快速转发，由其他对象来实现处理方法</p>
+</li>
+<li><p><strong>慢速转发流程</strong> —— 先调用<code>methodSignatureForSelector</code>获取到方法的签名，生成对应的<code>invocation</code>；再通过<code>forwardInvocation</code>来进行处理</p>
+</li>
+<li><p>以上流程均无法挽救就崩溃并报错</p>
+</li>
+</ul>
+<h2 id="SEL和IMP的关系"><a href="#SEL和IMP的关系" class="headerlink" title="SEL和IMP的关系"></a>SEL和IMP的关系</h2><p><code>SEL</code>是方法编号，也是方法名，在<code>dyld加载镜像</code>到内存时，通过<code>_read_image方法</code>加载到内存的表中了</p>
+<p><code>IMP</code>是函数实现指针，找<code>IMP</code>就是找函数实现的过程</p>
+<p><code>SEL</code>和<code>IMP</code>的关系就可以解释为：</p>
+<ul>
+<li><code>SEL</code>就相当于书本的⽬录标题</li>
+<li><code>IMP</code>就是书本的⻚码</li>
+<li><code>函数</code>就是具体页码对应的内容</li>
+</ul>
+<h2 id="能否向运时创建的类中添加实例变量"><a href="#能否向运时创建的类中添加实例变量" class="headerlink" title="能否向运时创建的类中添加实例变量"></a>能否向运时创建的类中添加实例变量</h2><p>具体情况具体分析：</p>
+<ul>
+<li>编译好的类不能添加实例变量</li>
+<li>运行时创建的类可以添加实例变量，但若已注册到内存中就不行了</li>
+</ul>
+<p>原因：</p>
+<ul>
+<li>编译好的实例变量存储的位置在ro，而ro是在编译时就已经确定了的</li>
+<li>编译完成，内存结构就完全确定就法修改</li>
+<li>只能修改rw中的方法或者可以通过关联对象的方式来添加属性</li>
+</ul>
+<h2 id="利用runtime-API创建对象"><a href="#利用runtime-API创建对象" class="headerlink" title="利用runtime-API创建对象"></a>利用runtime-API创建对象</h2><h3 id="API介绍"><a href="#API介绍" class="headerlink" title="API介绍"></a>API介绍</h3><h4 id="动态创建类"><a href="#动态创建类" class="headerlink" title="动态创建类"></a>动态创建类</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> *创建类</span><br><span class="line"> *</span><br><span class="line"> *superClass: 父类，传Nil会创建一个新的根类</span><br><span class="line"> *name: 类名</span><br><span class="line"> *extraBytes: 额外的内存空间，一般传0</span><br><span class="line"> *return:返回新类，创建失败返回Nil，如果类名已经存在，则创建失败</span><br><span class="line"> *&#x2F;</span><br><span class="line">Class FXPerson &#x3D; objc_allocateClassPair([NSObject class], &quot;LGPerson&quot;, 0);</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加成员变量"><a href="#添加成员变量" class="headerlink" title="添加成员变量"></a>添加成员变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">*添加成员变量</span><br><span class="line">*这个函数只能在objc_allocateClassPair和objc_registerClassPair之前调用。不支持向现有类添加一个实例变量</span><br><span class="line">*这个类不能是元类，不支持在元类中添加一个实例变量</span><br><span class="line">*实例变量的最小对齐为1 &lt;&lt; align，实例变量的最小对齐依赖于ivar的类型和机器架构。对于任何指针类型的变量，请通过log2(sizeof(pointer_type))</span><br><span class="line">*</span><br><span class="line">*cls 往哪个类添加</span><br><span class="line">*name 添加的名字</span><br><span class="line">*size 大小</span><br><span class="line">*alignment 对齐处理方式</span><br><span class="line">*types 签名</span><br><span class="line">*&#x2F;</span><br><span class="line">class_addIvar(FXPerson, &quot;fxName&quot;, sizeof(NSString *), log2(sizeof(NSString *)), &quot;@&quot;);</span><br></pre></td></tr></table></figure>
+
+<h4 id="注册到内存"><a href="#注册到内存" class="headerlink" title="注册到内存"></a>注册到内存</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> *往内存注册类</span><br><span class="line"> *</span><br><span class="line"> * cls 要注册的类</span><br><span class="line"> *&#x2F;</span><br><span class="line"> objc_registerClassPair(FXPerson);</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加属性变量"><a href="#添加属性变量" class="headerlink" title="添加属性变量"></a>添加属性变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line">*往类里面添加属性</span><br><span class="line">*</span><br><span class="line">*cls 要添加属性的类</span><br><span class="line">*name 属性名字</span><br><span class="line">*attributes 属性的属性数组。</span><br><span class="line">*attriCount 属性中属性的数量。</span><br><span class="line">*&#x2F;</span><br><span class="line">class_addProperty(targetClass, propertyName, attrs, 4);</span><br></pre></td></tr></table></figure>
+
+<h4 id="添加方法"><a href="#添加方法" class="headerlink" title="添加方法"></a>添加方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;**</span><br><span class="line"> *往类里面添加方法</span><br><span class="line"> *</span><br><span class="line"> *cls 要添加方法的类</span><br><span class="line"> *sel 方法编号</span><br><span class="line"> *imp 函数实现指针</span><br><span class="line"> *types 签名</span><br><span class="line"> *&#x2F;</span><br><span class="line">class_addMethod(FXPerson, @selector(setHobby), (IMP)fxSetter, &quot;v@:@&quot;);</span><br></pre></td></tr></table></figure>
+
+<h3 id="整体使用"><a href="#整体使用" class="headerlink" title="整体使用"></a>整体使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; hobby的setter-IMP</span><br><span class="line">void fxSetter(NSString *value) &#123;</span><br><span class="line">    printf(&quot;%s&#x2F;n&quot;,__func__);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; hobby的getter-IMP</span><br><span class="line">NSString *fxHobby() &#123;</span><br><span class="line">    return @&quot;iOS&quot;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 添加属性变量的封装方法</span><br><span class="line">void fx_class_addProperty(Class targetClass, const char *propertyName) &#123;</span><br><span class="line">    objc_property_attribute_t type &#x3D; &#123; &quot;T&quot;, [[NSString stringWithFormat:@&quot;@\&quot;%@\&quot;&quot;,NSStringFromClass([NSString class])] UTF8String] &#125;; &#x2F;&#x2F;type</span><br><span class="line">    objc_property_attribute_t ownership0 &#x3D; &#123; &quot;C&quot;, &quot;&quot; &#125;; &#x2F;&#x2F; C &#x3D; copy</span><br><span class="line">    objc_property_attribute_t ownership &#x3D; &#123; &quot;N&quot;, &quot;&quot; &#125;; &#x2F;&#x2F;N &#x3D; nonatomic</span><br><span class="line">    objc_property_attribute_t backingivar  &#x3D; &#123; &quot;V&quot;, [NSString stringWithFormat:@&quot;_%@&quot;,[NSString stringWithCString:propertyName encoding:NSUTF8StringEncoding]].UTF8String &#125;;  &#x2F;&#x2F;variable name</span><br><span class="line">    objc_property_attribute_t attrs[] &#x3D; &#123;type, ownership0, ownership, backingivar&#125;;</span><br><span class="line">    class_addProperty(targetClass, propertyName, attrs, 4);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 打印属性变量的封装方法</span><br><span class="line">void fx_printerProperty(Class targetClass)&#123;</span><br><span class="line">    unsigned int outCount, i;</span><br><span class="line">    objc_property_t *properties &#x3D; class_copyPropertyList(targetClass, &amp;outCount);</span><br><span class="line">    for (i &#x3D; 0; i &lt; outCount; i++) &#123;</span><br><span class="line">        objc_property_t property &#x3D; properties[i];</span><br><span class="line">        fprintf(stdout, &quot;%s %s\n&quot;, property_getName(property), property_getAttributes(property));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        &#x2F;&#x2F; 动态创建类</span><br><span class="line">        Class FXPerson &#x3D; objc_allocateClassPair([NSObject class], &quot;FXPerson&quot;, 0);</span><br><span class="line">        &#x2F;&#x2F; 添加成员变量</span><br><span class="line">        class_addIvar(FXPerson, &quot;name&quot;, sizeof(NSString *), log2(sizeof(NSString *)), &quot;@&quot;);</span><br><span class="line">        &#x2F;&#x2F; 注册到内存</span><br><span class="line">        objc_registerClassPair(FXPerson);</span><br><span class="line">        &#x2F;&#x2F; 添加属性变量</span><br><span class="line">        fx_class_addProperty(FXPerson, &quot;hobby&quot;);</span><br><span class="line">        fx_printerProperty(FXPerson);</span><br><span class="line">        &#x2F;&#x2F; 添加方法（为属性方法添加setter、getter方法）</span><br><span class="line">        class_addMethod(FXPerson, @selector(setHobby:), (IMP)fxSetter, &quot;v@:@&quot;);</span><br><span class="line">        class_addMethod(FXPerson, @selector(hobby), (IMP)fxHobby, &quot;@@:&quot;);</span><br><span class="line"></span><br><span class="line">        &#x2F;&#x2F; 开始使用</span><br><span class="line">        id person &#x3D; [FXPerson alloc];</span><br><span class="line">        [person setValue:@&quot;Felix&quot; forKey:@&quot;name&quot;];</span><br><span class="line">        NSLog(@&quot;FXPerson的名字是：%@ 爱好是：%@&quot;, [person valueForKey:@&quot;name&quot;], [person valueForKey:@&quot;hobby&quot;]);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li>记得导入<code>&lt;objc/runtime.h&gt;</code></li>
+<li>添加成员变量<code>class_addIvar</code>必须在<code>objc_registerClassPair</code>前，因为注册到内存时<code>ro</code>已经确定了，不能再往<code>ivars</code>添加（同第四个面试题）</li>
+<li>添加属性变量<code>class_addProperty</code>可以在注册内存前后，因为是往<code>rw</code>中添加的</li>
+<li><code>class_addProperty</code>中“属性的属性”——<code>nonatomic/copy</code>是根据属性的类型变化而变化的</li>
+<li><code>class_addProperty</code>不会自动生成<code>setter</code>和<code>getter</code>方法，因此直接调用<code>KVC</code>会崩溃</li>
+</ul>
+<p>不只可以通过<code>KVC</code>打印来检验，也可以下断点查看<code>ro、rw</code>的结构来检验</p>
+<h2 id="关联对象分析"><a href="#关联对象分析" class="headerlink" title="关联对象分析"></a>关联对象分析</h2><blockquote>
+<p>实则是为了解决分类创建属性的问题</p>
+</blockquote>
+<h3 id="分类直接添加属性的后果"><a href="#分类直接添加属性的后果" class="headerlink" title="分类直接添加属性的后果"></a>分类直接添加属性的后果</h3><ul>
+<li>编译会出现警告：没有setter方法和getter方法</li>
+<li>运行会报错：-[FXPerson setName:]: unrecognized selector sent to instance 0x100f61180’</li>
+</ul>
+<h3 id="为什么不能直接添加属性"><a href="#为什么不能直接添加属性" class="headerlink" title="为什么不能直接添加属性"></a>为什么不能直接添加属性</h3><p><code>Category</code>在<code>runtime</code>中是用一个结构体表示的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">struct category_t &#123;</span><br><span class="line">    const char *name;</span><br><span class="line">    classref_t cls;</span><br><span class="line">    struct method_list_t *instanceMethods;</span><br><span class="line">    struct method_list_t *classMethods;</span><br><span class="line">    struct protocol_list_t *protocols;</span><br><span class="line">    struct property_list_t *instanceProperties;</span><br><span class="line">    &#x2F;&#x2F; Fields below this point are not always present on disk.</span><br><span class="line">    struct property_list_t *_classProperties;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>里面虽然可以添加属性变量，但是这些<code>properties</code>并不会自动生成<code>Ivar</code>，也就是不会有 <code>@synthesize</code>的作用，<code>dyld</code>加载期间，这些分类会被加载并<code>patch</code>到相应的类中。这是一个动态过程，<code>Ivar</code>不能动态添加.</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>手动实现setter、getter方法，关联对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">- (void)setName:(NSString *)name &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">    参数一：id object : 给哪个对象添加属性，这里要给自己添加属性，用self。</span><br><span class="line">    参数二：void * &#x3D;&#x3D; id key : 属性名，根据key获取关联对象的属性的值，在objc_getAssociatedObject中通过次key获得属性的值并返回。</span><br><span class="line">    参数三：id value : 关联的值，也就是set方法传入的值给属性去保存。</span><br><span class="line">    参数四：objc_AssociationPolicy policy : 策略，属性以什么形式保存。</span><br><span class="line">    *&#x2F;</span><br><span class="line">    objc_setAssociatedObject(self, @&quot;name&quot;, name, OBJC_ASSOCIATION_RETAIN_NONATOMIC);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSString *)name &#123;</span><br><span class="line">    &#x2F;**</span><br><span class="line">    参数一：id object : 获取哪个对象里面的关联的属性。</span><br><span class="line">    参数二：void * &#x3D;&#x3D; id key : 什么属性，与objc_setAssociatedObject中的key相对应，即通过key值取出value。</span><br><span class="line">    *&#x2F;</span><br><span class="line">    return objc_getAssociatedObject(self, @&quot;name&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="关联对象原理"><a href="#关联对象原理" class="headerlink" title="关联对象原理"></a>关联对象原理</h3><h4 id="setter方法——objc-setAssociatedObject分析"><a href="#setter方法——objc-setAssociatedObject分析" class="headerlink" title="setter方法——objc_setAssociatedObject分析"></a>setter方法——<code>objc_setAssociatedObject</code>分析</h4><p>苹果设计接口时往往会加个中间层——即使底层实现逻辑发生变化也不会影响到对外接口</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">void objc_setAssociatedObject(id object, const void *key, id value, objc_AssociationPolicy policy) &#123;</span><br><span class="line">    _object_set_associative_reference(object, (void *)key, value, policy);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟进去看看<code>_object_set_associative_reference</code>实现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line">void _object_set_associative_reference(id object, void *key, id value, uintptr_t policy) &#123;</span><br><span class="line">    &#x2F;&#x2F; This code used to work when nil was passed for object and key. Some code</span><br><span class="line">    &#x2F;&#x2F; probably relies on that to not crash. Check and handle it explicitly.</span><br><span class="line">    &#x2F;&#x2F; rdar:&#x2F;&#x2F;problem&#x2F;44094390</span><br><span class="line">    if (!object &amp;&amp; !value) return;</span><br><span class="line"></span><br><span class="line">    assert(object);</span><br><span class="line"></span><br><span class="line">    if (object-&gt;getIsa()-&gt;forbidsAssociatedObjects())</span><br><span class="line">        _objc_fatal(&quot;objc_setAssociatedObject called on instance (%p) of class %s which does not allow associated objects&quot;, object, object_getClassName(object));</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F; retain the new value (if any) outside the lock.</span><br><span class="line">    &#x2F;&#x2F; 在锁之外保留新值（如果有）。</span><br><span class="line">    ObjcAssociation old_association(0, nil);</span><br><span class="line">    &#x2F;&#x2F; acquireValue会对retain和copy进行操作，</span><br><span class="line">    id new_value &#x3D; value ? acquireValue(value, policy) : nil;</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; 关联对象的管理类</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        &#x2F;&#x2F; 获取关联的 HashMap -&gt; 存储当前关联对象</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        &#x2F;&#x2F; 对当前的对象的地址做按位去反操作 - 就是 HashMap 的key (哈希函数)</span><br><span class="line">        disguised_ptr_t disguised_object &#x3D; DISGUISE(object);</span><br><span class="line">        if (new_value) &#123;</span><br><span class="line">            &#x2F;&#x2F; break any existing association.</span><br><span class="line">            &#x2F;&#x2F; 获取 AssociationsHashMap 的迭代器 - (对象的) 进行遍历</span><br><span class="line">            AssociationsHashMap::iterator i &#x3D; associations.find(disguised_object);</span><br><span class="line">            if (i !&#x3D; associations.end()) &#123;</span><br><span class="line">                &#x2F;&#x2F; secondary table exists</span><br><span class="line">                ObjectAssociationMap *refs &#x3D; i-&gt;second;</span><br><span class="line">                &#x2F;&#x2F; 根据key去获取关联属性的迭代器</span><br><span class="line">                ObjectAssociationMap::iterator j &#x3D; refs-&gt;find(key);</span><br><span class="line">                if (j !&#x3D; refs-&gt;end()) &#123;</span><br><span class="line">                    old_association &#x3D; j-&gt;second;</span><br><span class="line">                    &#x2F;&#x2F; 替换设置新值</span><br><span class="line">                    j-&gt;second &#x3D; ObjcAssociation(policy, new_value);</span><br><span class="line">                &#125; else &#123;</span><br><span class="line">                    &#x2F;&#x2F; 到最后了 - 直接设置新值</span><br><span class="line">                    (*refs)[key] &#x3D; ObjcAssociation(policy, new_value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                &#x2F;&#x2F; create the new association (first time).</span><br><span class="line">                &#x2F;&#x2F; 如果AssociationsHashMap从没有对象的关联信息表，</span><br><span class="line">                &#x2F;&#x2F; 那么就创建一个map并通过传入的key把value存进去</span><br><span class="line">                ObjectAssociationMap *refs &#x3D; new ObjectAssociationMap;</span><br><span class="line">                associations[disguised_object] &#x3D; refs;</span><br><span class="line">                (*refs)[key] &#x3D; ObjcAssociation(policy, new_value);</span><br><span class="line">                object-&gt;setHasAssociatedObjects();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            &#x2F;&#x2F; setting the association to nil breaks the association.</span><br><span class="line">            &#x2F;&#x2F; 如果传入的value是nil，并且之前使用相同的key存储过关联对象，</span><br><span class="line">            &#x2F;&#x2F; 那么就把这个关联的value移除（这也是为什么传入nil对象能够把对象的关联value移除）</span><br><span class="line">            AssociationsHashMap::iterator i &#x3D; associations.find(disguised_object);</span><br><span class="line">            if (i !&#x3D;  associations.end()) &#123;</span><br><span class="line">                ObjectAssociationMap *refs &#x3D; i-&gt;second;</span><br><span class="line">                ObjectAssociationMap::iterator j &#x3D; refs-&gt;find(key);</span><br><span class="line">                if (j !&#x3D; refs-&gt;end()) &#123;</span><br><span class="line">                    old_association &#x3D; j-&gt;second;</span><br><span class="line">                    refs-&gt;erase(j);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#x2F;&#x2F; release the old value (outside of the lock).</span><br><span class="line">    &#x2F;&#x2F; 最后把之前使用传入的这个key存储的关联的value释放（OBJC_ASSOCIATION_SETTER_RETAIN策略存储的）</span><br><span class="line">    if (old_association.hasValue()) ReleaseValue()(old_association);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><code>ObjcAssociation old_association(0, nil)</code>处理传进来的值得到<code>new_value</code></p>
+</li>
+<li><p>获取到管理所有关联对象的hashmap总表的管理者<code>AssociationsManager</code>，然后拿到<code>hashmap</code>总表<code>AssociationsHashMap</code></p>
+</li>
+<li><p><code>DISGUISE(object)</code>对关联对象的地址进行取反操作得到哈希表对应的下标<code>index</code></p>
+</li>
+<li><p>如果<code>new_value</code>为空（即对属性赋值为<code>nil</code>）就直接找到相应的表进行删除</p>
+</li>
+<li><p>如果<code>new_value</code>不为空，就拿到总表的迭代器通过拿到的下标<code>index</code>进行遍历查找；如果找到管理对象的关联属性哈希<code>map</code>表，然后再通过<code>key</code>去遍历取值</p>
+<ul>
+<li>如果取到了，就先把新值设置到<code>key</code>上，再将旧值释放掉</li>
+<li>如果没取到，就直接将新值设置在<code>key</code>上</li>
+</ul>
+</li>
+</ul>
+<h4 id="getter方法——objc-getAssociatedObject分析"><a href="#getter方法——objc-getAssociatedObject分析" class="headerlink" title="getter方法——objc_getAssociatedObject分析"></a>getter方法——<code>objc_getAssociatedObject</code>分析</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id objc_getAssociatedObject(id object, const void *key) &#123;</span><br><span class="line">    return _object_get_associative_reference(object, (void *)key);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">id _object_get_associative_reference(id object, void *key) &#123;</span><br><span class="line">    id value &#x3D; nil;</span><br><span class="line">    uintptr_t policy &#x3D; OBJC_ASSOCIATION_ASSIGN;</span><br><span class="line">    &#123;</span><br><span class="line">        &#x2F;&#x2F; 关联对象的管理类</span><br><span class="line">        AssociationsManager manager;</span><br><span class="line">        AssociationsHashMap &amp;associations(manager.associations());</span><br><span class="line">        &#x2F;&#x2F; 生成伪装地址。处理参数 object 地址</span><br><span class="line">        disguised_ptr_t disguised_object &#x3D; DISGUISE(object);</span><br><span class="line">        &#x2F;&#x2F; 所有对象的额迭代器</span><br><span class="line">        AssociationsHashMap::iterator i &#x3D; associations.find(disguised_object);</span><br><span class="line">        if (i !&#x3D; associations.end()) &#123;</span><br><span class="line">            ObjectAssociationMap *refs &#x3D; i-&gt;second;</span><br><span class="line">            &#x2F;&#x2F; 内部对象的迭代器</span><br><span class="line">            ObjectAssociationMap::iterator j &#x3D; refs-&gt;find(key);</span><br><span class="line">            if (j !&#x3D; refs-&gt;end()) &#123;</span><br><span class="line">                &#x2F;&#x2F; 找到 - 把值和策略读取出来</span><br><span class="line">                ObjcAssociation &amp;entry &#x3D; j-&gt;second;</span><br><span class="line">                value &#x3D; entry.value();</span><br><span class="line">                policy &#x3D; entry.policy();</span><br><span class="line">                &#x2F;&#x2F; OBJC_ASSOCIATION_GETTER_RETAIN - 就会持有一下</span><br><span class="line">                if (policy &amp; OBJC_ASSOCIATION_GETTER_RETAIN) &#123;</span><br><span class="line">                    objc_retain(value);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    if (value &amp;&amp; (policy &amp; OBJC_ASSOCIATION_GETTER_AUTORELEASE)) &#123;</span><br><span class="line">        objc_autorelease(value);</span><br><span class="line">    &#125;</span><br><span class="line">    return value;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/" title="2020年iOS面试题总结(二)">https://www.xuebaonline.com/2020年iOS面试题总结(二)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> iOS面试题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)/" rel="prev" title="2020年iOS面试题总结(一)">
+      <i class="fa fa-chevron-left"></i> 2020年iOS面试题总结(一)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Runtime"><span class="nav-number">1.</span> <span class="nav-text">Runtime</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是Runtime"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Runtime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法的本质是什么"><span class="nav-number">1.2.</span> <span class="nav-text">方法的本质是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SEL和IMP的关系"><span class="nav-number">1.3.</span> <span class="nav-text">SEL和IMP的关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#能否向运时创建的类中添加实例变量"><span class="nav-number">1.4.</span> <span class="nav-text">能否向运时创建的类中添加实例变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用runtime-API创建对象"><span class="nav-number">1.5.</span> <span class="nav-text">利用runtime-API创建对象</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#API介绍"><span class="nav-number">1.5.1.</span> <span class="nav-text">API介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#动态创建类"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">动态创建类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加成员变量"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">添加成员变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#注册到内存"><span class="nav-number">1.5.1.3.</span> <span class="nav-text">注册到内存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加属性变量"><span class="nav-number">1.5.1.4.</span> <span class="nav-text">添加属性变量</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加方法"><span class="nav-number">1.5.1.5.</span> <span class="nav-text">添加方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#整体使用"><span class="nav-number">1.5.2.</span> <span class="nav-text">整体使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注意事项"><span class="nav-number">1.5.3.</span> <span class="nav-text">注意事项</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关联对象分析"><span class="nav-number">1.6.</span> <span class="nav-text">关联对象分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#分类直接添加属性的后果"><span class="nav-number">1.6.1.</span> <span class="nav-text">分类直接添加属性的后果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么不能直接添加属性"><span class="nav-number">1.6.2.</span> <span class="nav-text">为什么不能直接添加属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">1.6.3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联对象原理"><span class="nav-number">1.6.4.</span> <span class="nav-text">关联对象原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setter方法——objc-setAssociatedObject分析"><span class="nav-number">1.6.4.1.</span> <span class="nav-text">setter方法——objc_setAssociatedObject分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#getter方法——objc-getAssociatedObject分析"><span class="nav-number">1.6.4.2.</span> <span class="nav-text">getter方法——objc_getAssociatedObject分析</span></a></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://q8wtfza4q.bkt.clouddn.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">112</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">36</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">91</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.1</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="http://www.beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">15:27</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
