@@ -233,7 +233,7 @@ class StudentAthlete: Student {
 
 如果你的子类具有与其父类相同的方法声明，但是省略了override关键字，则Swift将发出编译器错误：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-ac-stp1.png "")
+![playground](https://cdn.xuebaonline.com/sasb-ac-stp1.png "")
 
 这非常清楚地表明一种方法是否覆盖了现有方法。
 
@@ -323,7 +323,7 @@ class StudentAthlete: Student {
 
 哦！ 编译器抱怨你在初始化程序的末尾没有调用super.init：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-ac-stp2.png "")
+![playground](https://cdn.xuebaonline.com/sasb-ac-stp2.png "")
 
 子类中的初始化程序需要调用super.init，因为没有它，超类将无法为其所有存储的属性（在这种情况下为firstName和lastName）提供初始状态。
 
@@ -358,7 +358,7 @@ class StudentAthlete: Student {
 
 在子类初始化程序的范围内，你可以认为这是在调用super.init之后产生的。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-ac-stp3.png "")
+![playground](https://cdn.xuebaonline.com/sasb-ac-stp3.png "")
 
 这又是StudentAthlete班，运动员会自动获得入门等级：
 
