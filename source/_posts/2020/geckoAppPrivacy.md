@@ -3,7 +3,7 @@ title: geckoAppPrivacy
 description: geckoAppPrivacy
 permalink: geckoAppPrivacy
 copyright: ture
-date: 2020-06-27 22:26:38
+date: 2020-03-27 22:26:38
 keywords: 用户协议与隐私政策
 tags:
     - [用户协议与隐私政策]
