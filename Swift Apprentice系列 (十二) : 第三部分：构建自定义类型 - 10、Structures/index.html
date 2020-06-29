@@ -30,11 +30,11 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (十二) : 第三部分：构建自定义类型 - 10、Structures">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp1.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp2.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp2.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-struct-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-struct-stp2.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-struct-stp2.png">
 <meta property="article:published_time" content="2020-05-13T02:23:14.000Z">
-<meta property="article:modified_time" content="2020-05-13T05:31:13.829Z">
+<meta property="article:modified_time" content="2020-06-29T02:47:25.853Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -56,7 +56,7 @@
 <meta property="article:tag" content="Structures">
 <meta property="article:tag" content="结构体">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp1.png">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-struct-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%8C)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2010%E3%80%81Structures/">
 
@@ -349,20 +349,20 @@
 <a id="more"></a>
 
 <h1 id="介绍结构体"><a href="#介绍结构体" class="headerlink" title="介绍结构体"></a>介绍结构体</h1><p>假设你住在一个名为Pizzaville的小镇。 如你所料，Pizzaville以其惊人的比萨而闻名。 你拥有Pizzaville最受欢迎（最快）的比萨外卖餐厅-“ Swift Pizza”。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp1.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-struct-stp1.png" alt="playground"></p>
 <p>作为一家餐厅的所有者，你的送货区域有限。 你想编写一个程序来计算潜在客户是否在交付驱动程序的范围内。 程序的第一个版本可能如下所示：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> restaurantLocation = (<span class="number">2</span>, <span class="number">4</span>) </span><br><span class="line"><span class="keyword">let</span> restaurantRange = <span class="number">2.5</span></span><br><span class="line"><span class="comment">// Pythagorean Theorem ( )</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">distance</span><span class="params">(from source: <span class="params">(x: Int, y: Int)</span></span></span>, to target: (x: <span class="type">Int</span>, y: <span class="type">Int</span>)) -&gt; <span class="type">Double</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> distanceX = <span class="type">Double</span>(source.x - target.x)</span><br><span class="line">    <span class="keyword">let</span> distanceY = <span class="type">Double</span>(source.y - target.y)</span><br><span class="line">    <span class="keyword">return</span> (distanceX * distanceX + distanceY * distanceY).squareRoot()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isInDeliveryRange</span><span class="params">(location: <span class="params">(x: Int, y: Int)</span></span></span>) -&gt; <span class="type">Bool</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> deliveryDistance = <span class="built_in">distance</span>(from: location, to: restaurantLocation)</span><br><span class="line">    <span class="keyword">return</span> deliveryDistance &lt; restaurantRange</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>很简单吧？ distance(from：to :)将计算你与披萨的距离。 isInDeliveryRange(location :)仅在你距离不太远的情况下才会返回true。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp2.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-struct-stp2.png" alt="playground"></p>
 <p>成功的比萨外卖业务最终可能会扩展到多个地点，这给可交付使用的计算器带来了轻微的变化。 用以下代码替换现有代码：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> restaurantLocation = (<span class="number">2</span>, <span class="number">4</span>) </span><br><span class="line"><span class="keyword">let</span> restaurantRange = <span class="number">2.5</span></span><br><span class="line"><span class="keyword">let</span> otherRestaurantLocation = (<span class="number">7</span>, <span class="number">8</span>) </span><br><span class="line"><span class="keyword">let</span> otherRestaurantRange = <span class="number">1.5</span></span><br><span class="line"><span class="comment">// Pythagorean Theorem ( )</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">distance</span><span class="params">(from source: <span class="params">(x: Int, y: Int)</span></span></span>, to target: (x: <span class="type">Int</span>, y: <span class="type">Int</span>)) -&gt; <span class="type">Double</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> distanceX = <span class="type">Double</span>(source.x - target.x)</span><br><span class="line">    <span class="keyword">let</span> distanceY = <span class="type">Double</span>(source.y - target.y)</span><br><span class="line">    <span class="keyword">return</span> (distanceX * distanceX + distanceY * distanceY).squareRoot()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isInDeliveryRange</span><span class="params">(location: <span class="params">(x: Int, y: Int)</span></span></span>) -&gt; <span class="type">Bool</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> deliveryDistance = <span class="built_in">distance</span>(from: location, to: restaurantLocation)</span><br><span class="line">    <span class="keyword">let</span> secondDeliveryDistance = <span class="built_in">distance</span>(from: location, to:  otherRestaurantLocation)</span><br><span class="line">    <span class="keyword">return</span> deliveryDistance &lt; restaurantRange || secondDeliveryDistance &lt; otherRestaurantRange</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>isInDeliveryRange(location :)检查两个位置，以查看是否可以从任一位置获取披萨。</p>
 <p>最终，不断增长的客户数量将迫使该公司扩展业务，不久后可能会发展到总共10家门店！ 那呢 你是否不断更新功能以检查所有这些坐标和范围集？</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-struct-stp2.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-struct-stp2.png" alt="playground"></p>
 <p>你可能会短暂考虑创建一个x/y坐标元组数组来跟踪你的披萨餐厅，但这既难以阅读又难以维护。 幸运的是，Swift提供了其他工具来帮助你简化问题。</p>
 <h1 id="你的第一个结构"><a href="#你的第一个结构" class="headerlink" title="你的第一个结构"></a><strong>你的第一个结构</strong></h1><p>结构是Swift中的命名类型之一，它允许你封装相关的属性和行为。 你可以声明一个新类型，为其命名，然后在代码中使用它。</p>
 <p>在比萨饼业务的示例中，你一直在使用x/y坐标元组来表示位置。</p>

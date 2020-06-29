@@ -30,16 +30,16 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp3.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp4.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp5.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp6.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp7.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp8.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp9.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp3.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp4.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp5.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp6.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp7.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp8.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-c-stp9.png">
 <meta property="article:published_time" content="2020-05-13T07:19:35.000Z">
-<meta property="article:modified_time" content="2020-05-13T07:51:48.909Z">
+<meta property="article:modified_time" content="2020-06-29T02:47:25.852Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -63,7 +63,7 @@
 <meta property="article:tag" content="Methods">
 <meta property="article:tag" content="Classes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-c-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/">
 
@@ -359,22 +359,22 @@
 <a id="more"></a>
 
 <p>但是，你还可以看到类和结构之间的一些区别：上面的类定义了一个将firstName和lastName都设置为初始值的初始化程序。 与结构不同，<strong>类不会自动提供成员初始化器-这意味着你必须自己提供它</strong>。 如果你忘记提供初始化程序，Swift编译器会将其标记为错误：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp1.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp1.png" alt="playground"></p>
 <p>除了默认初始化外，类和结构的初始化规则非常相似。 类初始化程序是标记为init的函数，并且必须在init结束之前为所有存储的属性分配初始值。</p>
 <p>类初始化还有很多，但是你必须等到第14章“高级类”，它将介绍继承的概念及其对初始化规则的影响。 本章将使用基本的类初始化程序，以便你可以熟悉Swift中的类。</p>
 <h1 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a><strong>引用类型</strong></h1><p>在Swift中，结构的实例是不可变的值，而类的实例是可变的对象。 类是引用类型，因此类类型的变量不存储实际的实例，而是将对位置的引用存储在存储实例的内存中。</p>
 <p>如果你创建的SimplePerson类实例仅具有以下名称：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimplePerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> var1 = <span class="type">SimplePerson</span>(name: <span class="string">"John"</span>)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">在内存中看起来像这样：</span><br><span class="line"></span><br><span class="line">![playground](http:<span class="comment">//q8wtfza4q.bkt.clouddn.com/sasb-c-stp2.png "")</span></span><br><span class="line"></span><br><span class="line">如果要创建一个新变量var2并为其分配var1的值：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="keyword">var</span> var2 = var1</span><br></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SimplePerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">self</span>.name = name </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> var1 = <span class="type">SimplePerson</span>(name: <span class="string">"John"</span>)</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">在内存中看起来像这样：</span><br><span class="line"></span><br><span class="line">![playground](https:<span class="comment">//cdn.xuebaonline.com/sasb-c-stp2.png "")</span></span><br><span class="line"></span><br><span class="line">如果要创建一个新变量var2并为其分配var1的值：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="keyword">var</span> var2 = var1</span><br></pre></td></tr></table></figure>
 
 <p>然后，var1和var2内部的引用将引用内存中的相同位置：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp3.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp3.png" alt="playground"></p>
 <p>相反，将结构作为值类型存储实际值，从而可以直接访问它。 用以下结构替换SimplePerson类实现：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SimplePerson</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在内存中，该变量不会引用内存中的位置，但该值将排他地属于var1：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp4.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp4.png" alt="playground"></p>
 <p>在这种情况下，赋值var var2 = var1将复制var1的值：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp5.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp5.png" alt="playground"></p>
 <p>值类型和引用类型各有其独特的优点和缺点。 在本章的后面，你将考虑在给定情况下使用哪种类型的问题。 现在，让我们研究一下类和结构如何在后台运行。</p>
 <h1 id="堆与栈"><a href="#堆与栈" class="headerlink" title="堆与栈"></a><strong>堆与栈</strong></h1><p>当创建引用类型（例如类）时，<strong>系统会将实际实例存储在称为堆的内存区域中</strong>。诸如<em>结构之类的值类型的实例驻留在称为栈的内存区域中</em>，除非该值是类实例的一部分，在这种情况下，该值与其他类实例一起存储在堆中。</p>
 <p>堆和栈在任何程序的执行中都起着至关重要的作用。对它们是什么以及它们如何工作的一般理解将帮助你可视化类和结构之间的功能差异：</p>
@@ -386,7 +386,7 @@
 </ul>
 <p>堆不会像栈一样自动销毁其数据；为此，还需要进行其他工作。与在堆栈上相比，这会使在堆上创建和删除数据的过程变慢。</p>
 <p>也许你已经弄清楚了它与结构和类的关系。看一下下图：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp6.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp6.png" alt="playground"></p>
 <ul>
 <li><p>创建类的实例时，你的代码请求堆上的一块内存来存储实例本身。 这是图表右侧实例中的名字和姓氏。 它将内存的地址存储在堆栈上的命名变量中； 这就是存储在图表左侧的参考。</p>
 </li>
@@ -426,7 +426,7 @@
 <p>请注意，recordGrade（_ :)可以通过在末尾添加更多值来改变数组的等级。 尽管这会更改当前对象，但不需要关键字mutating。</p>
 <p>如果你尝试过使用结构体，则可能会遇到编译器错误，因为结构体是不可变的。 请记住，当你<strong>更改结构的值时，不是在修改值，而是在创建新值。 关键字变异标记方法用新值替换当前值</strong>。 <strong>对于类，不使用此关键字，因为实例本身是可变的</strong>。</p>
 <h1 id="可变性和常数"><a href="#可变性和常数" class="headerlink" title="可变性和常数"></a><strong>可变性和常数</strong></h1><p>前面的示例可能会让你想知道即使jane被定义为常量，如何也可以对其进行修改。 定义常量时，不能更改常量的值。 如果你回想起有关值类型与引用类型的讨论，请务必记住，对于引用类型，该值是一个引用。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp7.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp7.png" alt="playground"></p>
 <p>红色“ reference1”的值是存储在jane中的值。 此值是一个引用，并且因为jane被声明为常量，所以此引用是常量。 如果你试图将另一个学生分配给简，则会出现编译器错误：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">// Error: jane is a `let` constant</span></span><br><span class="line">jane = <span class="type">Student</span>(firstName: <span class="string">"John"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br></pre></td></tr></table></figure>
 
@@ -434,12 +434,12 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> jane = <span class="type">Student</span>(firstName: <span class="string">"Jane"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">jane = <span class="type">Student</span>(firstName: <span class="string">"John"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>在将另一个Student分配给jane之后，jane后面的参考值将更新为指向新的Student对象。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp8.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp8.png" alt="playground"></p>
 <p>由于没有东西会引用原始的“ Jane”对象，因此它的内存将被释放以在其他地方使用。 你将在第23章“内存管理”中了解更多信息。</p>
 <p>可以通过使用常量来保护类的任何单个成员免遭修改，但是由于引用类型本身不被视为值，因此不能整体保护它们免受突变的影响。</p>
 <h1 id="了解状态和副作用"><a href="#了解状态和副作用" class="headerlink" title="了解状态和副作用"></a><strong>了解状态和副作用</strong></h1><p>由于<strong>类的本质是它们都可以被引用并且是可变的</strong>，因此存在许多可能性，也涉及程序员的许多问题。 请记住：<strong>如果用新值更新类实例，则对该实例的每个引用也将看到新值</strong>。</p>
 <p>你可以利用此优势。 也许你将学生实例传递给运动队，成绩单和班级名册。 想象所有这些实体都需要知道学生的成绩，并且由于它们都指向同一个实例，因此当实例记录它们时，它们都会看到新的成绩。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/sasb-c-stp9.png" alt="playground"></p>
+<p><img src="https://cdn.xuebaonline.com/sasb-c-stp9.png" alt="playground"></p>
 <p><strong>共享的结果是类实例具有状态</strong>。 状态变化有时可能很明显，但往往不是。</p>
 <p>为了说明这一点，请在Student类中添加一个credits属性。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> credits = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>

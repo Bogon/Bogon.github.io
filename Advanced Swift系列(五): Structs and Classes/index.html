@@ -30,11 +30,11 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Advanced Swift系列(五): Structs and Classes">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/awsc-stp1.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/awsc-stp2.png">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/awsc-stp3.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/awsc-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/awsc-stp2.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/awsc-stp3.png">
 <meta property="article:published_time" content="2020-05-07T01:22:01.000Z">
-<meta property="article:modified_time" content="2020-05-07T03:47:56.544Z">
+<meta property="article:modified_time" content="2020-06-29T02:47:25.870Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -44,7 +44,7 @@
 <meta property="article:tag" content="Structs">
 <meta property="article:tag" content="Classes">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/awsc-stp1.png">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/awsc-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/">
 
@@ -346,7 +346,7 @@
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在继续之前，让我们退后一步，从更底层的角度看待这种行为。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们所说的“变量”是什么意思？ 我们可以说<strong>变量是内存中某个位置的名称</strong>，其中包含某种类型的值。 在上面的示例中，我们使用名称<code>a</code>指代<code>Int类型</code>的内存中当前持有值3的位置。第二个变量b是内存中不同位置的名称，同等Int类型并包含该值 初始分配后为3。 语句b + = 1然后获取存储在称为b的内存位置中的值，将其加1，然后将其写回到内存中的同一位置。 因此，b现在包含值4。由于增量语句仅修改b变量的值，因此a不受此语句影响。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/awsc-stp1.png" alt="Memeory" title="值类型变量是直接包含值的内存中位置的名称。"></p>
+<p><img src="https://cdn.xuebaonline.com/awsc-stp1.png" alt="Memeory" title="值类型变量是直接包含值的内存中位置的名称。"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值类型的特征在于变量和值之间的这种直接关系：<strong>值（也称为值类型的实例）直接位于变量后面的内存中的位置</strong>。 这适用于简单的值类型（例如整数），也适用于更复杂的类型（例如具有多个属性的自定义结构）（在机器代码级别上，由于编译器的优化，这可能不成立，但对开发人员而言是不透明的，因此我们的描述是 语义上最不准确）。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，我们来看一下视图类，作为典型引用类型的示例：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> view1 = <span class="type">UIView</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: <span class="number">100</span>, height: <span class="number">100</span>)) </span><br><span class="line"><span class="keyword">var</span> view2 = view1</span><br><span class="line">view2.frame.origin = <span class="type">CGPoint</span>(x: <span class="number">50</span>, y: <span class="number">50</span>)</span><br><span class="line">view1.frame.origin <span class="comment">// (50, 50)</span></span><br><span class="line">view2.frame.origin <span class="comment">// (50, 50)</span></span><br></pre></td></tr></table></figure>
@@ -358,7 +358,7 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>view1</code>仍引用以前创建的视图，而<code>view2变量</code>现在引用新创建的标签实例。 换句话说，重新分配<code>已更改了view2变量指向的实例（或对象）</code>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这就是引用类型的本质：<strong><em>变量本身不包含“事物”（例如，UIView或URLSession的实例），而是对其的引用</em></strong>。 其他变量也可以包含对同一基础实例的引用，并且该实例可以通过其任何引用变量进行突变。具有这些属性的类型也被称为具有<strong>参考语义</strong>。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与值类型相比，间接作用级别更高。 值类型变量包含值本身时，引用类型变量包含指向其他位置值的引用。 这种间接允许我们在程序的不同部分之间共享对对象的访问。</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/awsc-stp2.png" alt="Memeory" title="引用类型变量包含指向内存中其他地方实际实例的指针。"></p>
+<p><img src="https://cdn.xuebaonline.com/awsc-stp2.png" alt="Memeory" title="引用类型变量包含指向内存中其他地方实际实例的指针。"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们以定义的自定义类型为例，从一个类开始观察值类型和引用类型的不同行为：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ScoreClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> home: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> guest: <span class="type">Int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(home: <span class="type">Int</span>, guest: <span class="type">Int</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.home = home</span><br><span class="line">        <span class="keyword">self</span>.guest = guest </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> score1 = <span class="type">ScoreClass</span>(home: <span class="number">0</span>, guest: <span class="number">0</span>) </span><br><span class="line"><span class="keyword">var</span> score2 = score1</span><br><span class="line">score2.guest += <span class="number">1</span></span><br><span class="line">score1.guest <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
 
@@ -474,7 +474,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> window: <span class="type">Window?</span> = <span class="type">Window</span>()</span><br><span class="line"><span class="keyword">var</span> view: <span class="type">View?</span> = <span class="type">View</span>(window: window!) </span><br><span class="line">window?.onRotate = &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"We now also need to update the view: \(view)"</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该视图引用该窗口，该窗口引用该回调，而该回调引用该视图：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/awsc-stp3.png" alt="Memeory" title="视图，窗口和回调之间的引用周期"></p>
+<p><img src="https://cdn.xuebaonline.com/awsc-stp3.png" alt="Memeory" title="视图，窗口和回调之间的引用周期"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以在三个位置中断此引用周期（每个位置对应于上图中的箭头）：</p>
 <ul>
 <li>→我们可以使该视图对窗口的引用变弱。不幸的是，该窗口将被立即释放，因为没有其他引用可以使该窗口保持活动状态。</li>

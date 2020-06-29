@@ -30,9 +30,9 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Advanced Swift系列(十): Collection Protocols">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://q8wtfza4q.bkt.clouddn.com/ascp-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/ascp-stp1.png">
 <meta property="article:published_time" content="2020-05-08T06:19:07.000Z">
-<meta property="article:modified_time" content="2020-05-08T12:37:39.196Z">
+<meta property="article:modified_time" content="2020-06-29T02:47:25.870Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -46,7 +46,7 @@
 <meta property="article:tag" content="多态">
 <meta property="article:tag" content="Collection Protocols">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://q8wtfza4q.bkt.clouddn.com/ascp-stp1.png">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/ascp-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81):%20Collection%20Protocols/">
 
@@ -333,7 +333,7 @@
 
       
         <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/"><strong><em><code>“内置集合”</code></em></strong></a>一章中提到， <code>Swift</code>的集合类型（如数组，字典和集合）是在用于处理元素序列的一组丰富抽象之上实现的。 本章全部涉及 <code>序列和集合协议</code>，这些协议构成了该模型的基石。 我们将介绍这些协议的工作方式，为何以其工作方式工作以及如何编写自己的序列和集合。 它有助于在继承图中查看集合协议：</p>
-<p><img src="http://q8wtfza4q.bkt.clouddn.com/ascp-stp1.png" alt="序列和集合协议" title="标准库中的集合协议层次结构"></p>
+<p><img src="https://cdn.xuebaonline.com/ascp-stp1.png" alt="序列和集合协议" title="标准库中的集合协议层次结构"></p>
 <a id="more"></a>
 
 <ul>
@@ -632,7 +632,7 @@
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>word[somewhere .. &lt;words.endIndex]（</code>从特定点到结尾的切片）和  <code>word[words.startIndex .. &lt;somewhere]</code>（从开始至特定点的切片）这样的操作很常见，因此存在变体 在标准库中以更易读的方式执行这些操作：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstDropped2 = words.suffix(from: onePastStart) </span><br><span class="line"><span class="comment">// or:</span></span><br><span class="line"><span class="keyword">let</span> firstDropped3 = words[onePastStart...]</span><br></pre></td></tr></table></figure>
 
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认情况下， <code>firstDropped</code>的类型将不是单词-它将是 <code>Slice&lt;Words&gt;</code>。  <code>Slice</code>是任何集合之上的轻量级包装。 实现看起来像这样：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认情况下， <code>firstDropped</code>的类型将不是单词-它将是 <code>Slice&lt;Words&gt;</code>。  <code>Slice</code>是任何集合之上的轻量级包装。 实现看起来像这样��������������</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Slice</span>&lt;<span class="title">Base</span>: <span class="title">Collection</span>&gt;: <span class="title">Collection</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">Index</span> = <span class="type">Base</span>.<span class="type">Index</span></span><br><span class="line">    <span class="keyword">let</span> collection: <span class="type">Base</span></span><br><span class="line">    <span class="keyword">var</span> startIndex: <span class="type">Index</span> <span class="keyword">var</span> endIndex: <span class="type">Index</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(base: <span class="type">Base</span>, bounds: <span class="type">Range</span>&lt;<span class="type">Index</span>&gt;) &#123; </span><br><span class="line">        collection = base</span><br><span class="line">        startIndex = bounds.lowerBound </span><br><span class="line">        endIndex = bounds.upperBound</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">index</span><span class="params">(after i: Index)</span></span> -&gt; <span class="type">Index</span> &#123; r</span><br><span class="line">        eturn collection.index(after: i)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">subscript</span>(position: <span class="type">Index</span>) -&gt; <span class="type">Base</span>.<span class="type">Element</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> collection[position]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">subscript</span>(bounds: <span class="type">Range</span>&lt;<span class="type">Index</span>&gt;) -&gt; <span class="type">Slice</span>&lt;<span class="type">Base</span>&gt; &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="type">Slice</span>(base: collection, bounds: bounds)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Slice</code>是一种非常好的默认子序列类型，但是每次你编写自定义集合时，都值得研究是否可以将集合设为自己的子序列。 对于Word，这很容易做到：</p>
