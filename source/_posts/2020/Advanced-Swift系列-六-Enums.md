@@ -723,7 +723,7 @@ next: List<Swift.Int>.end))) */
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此列表类型具有一个有趣的属性： `“持久” `。 节点是不可变的，一旦创建，就无法更改它们。 将另一个元素包含在列表中不会复制该列表。 它只是为你提供了一个链接到现有列表前面的新节点。
 这意味着两个列表可以共享一条尾巴：
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/aseu-stp1.png "List Sharing")
+![Memeory](https://cdn.xuebaonline.com/aseu-stp1.png "List Sharing")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;列表的不变性在这里很关键。 如果可以更改列表（例如，删除最后一个条目或更新节点中保留的元素），则此共享将是一个问题-x可能会更改列表，而更改会影响y。
 
@@ -763,7 +763,7 @@ tack.pop() // Optional(2)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变异方法使我们可以更改self所引用的值，但是这些值本身（列表的节点）是不可变的。 从这个意义上讲，通过间接，变量已成为列表的迭代器：
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/aseu-stp2.png "List Iteration")
+![Memeory](https://cdn.xuebaonline.com/aseu-stp2.png "List Iteration")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 `“Collection协议” `一章中，我们将回到使用列表作为迭代器的想法，在此我们使列表枚举与序列协议保持一致。
 
@@ -771,7 +771,7 @@ tack.pop() // Optional(2)
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，这只是事物运作方式的逻辑模型。 实际上，这些节点实际上位于彼此指向的内存中。 而且它们占用了空间，如果不再需要, Swift使用自动引用计数（ARC）进行管理，并为不再使用的节点释放内存：
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/aseu-stp3.png " List Memory Management")
+![Memeory](https://cdn.xuebaonline.com/aseu-stp3.png " List Memory Management")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于递归枚举的另一个示例，请查看 `“互操作性” `一章，在该章节中，我们使用枚举构建表示 `Markdown文本 `的数据结构。 你会注意到，尽管我们建立的两个枚举都是递归的，但它们不需要 `indirect `关键字。 这是因为它们的子节点是数组。 由于数组在内部使用引用类型作为其存储，因此它们已经提供了所需的间接级别，从而使间接不必要。
 

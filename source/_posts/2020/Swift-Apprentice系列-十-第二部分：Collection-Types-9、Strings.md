@@ -69,13 +69,13 @@ see the documentation comment for discussion
 
 因此，你可以通过以下两种方式之一用重音来表示e：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-s-stp1.png "")
+![playground](https://cdn.xuebaonline.com/sasb-s-stp1.png "")
 
 第二个图中的这两个字符的组合形成了由Unicode标准定义的所谓的字素簇。 当想到一个字符时，实际上可能是在想到一个字素簇。 字素簇由Swift类型的Character表示。
 
 组合字符的另一个示例是用于更改某些表情符号肤色的特殊字符。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-s-stp2.png "")
+![playground](https://cdn.xuebaonline.com/sasb-s-stp2.png "")
 
 在这里，竖起大拇指的表情符号后跟一个肤色组合字符。 在支持它的平台（包括iOS和macOS）上，渲染的表情符号是一个单竖起大拇指的角色，并应用了肤色。
 
@@ -189,7 +189,7 @@ fourthChar.unicodeScalars.forEach { codePoint in
 
 组合字符会使字符串的相等性更加棘手。 例如，考虑使用单个é字符和组合字符一次编写的café一词，如下所示：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-s-stp3.png "")
+![playground](https://cdn.xuebaonline.com/sasb-s-stp3.png "")
 
 这两个字符串在逻辑上当然是相等的。 当它们在屏幕上打印时，它们使用相同的标志符号，并且外观完全相同。 但是它们以不同的方式表示在计算机内部。 许多编程语言会认为这些字符串不相等，因为这些语言通过将代码点一一比较来工作。 Swift认为默认情况下这些字符串相等。 让我们看看实际情况。
 
@@ -391,11 +391,11 @@ thaiNine.wholeNumberValue
 
 为了说明这一点，请考虑下图：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-s-stp4.png "")
+![playground](https://cdn.xuebaonline.com/sasb-s-stp4.png "")
 
 当然，也支持高于11位的代码点。 根据以下方案，12至16位代码点使用3个UTF-8代码单元，而17至21位代码点使用4个UTF-8代码单元：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-s-stp5.png "")
+![playground](https://cdn.xuebaonline.com/sasb-s-stp5.png "")
 
 每个x替换为代码点中的位。
 

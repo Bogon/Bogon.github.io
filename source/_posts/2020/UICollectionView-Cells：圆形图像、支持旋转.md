@@ -25,7 +25,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实现目标相对容易，但是如果你不知道后台发生了什么，那可能会比你最初想的要难。 因此，让我们创建一个新项目，添加带有 ```UICollectionViewController``` 的情节提要，将 ```UIImageView``` 拖动到单元格内，调整其大小，添加一些约束，设置单元格标识符。
 
-![UICollectionViewController](http://q8wtfza4q.bkt.clouddn.com/uc-stp1.png "")
+![UICollectionViewController](https://cdn.xuebaonline.com/uc-stp1.png "")
 
 <!-- more -->
 
@@ -130,7 +130,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，如果没有重写的 ```bounds``` 属性，则该示例在左侧看起来像这样。 😢
 
-![UICollectionViewController2](http://q8wtfza4q.bkt.clouddn.com/uc-stp2.jpg "")
+![UICollectionViewController2](https://cdn.xuebaonline.com/uc-stp2.jpg "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好笑吧？ 右侧的图像是带有超出范围的实际结果，这是预期的行为。 如果你不覆盖边界并且不为可见视图重设 ```cornerRadius``` 属性，那么滚动和旋转将真的很奇怪。 你可能会问：但是为什么呢？ 🤔
 

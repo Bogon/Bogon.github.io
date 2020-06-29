@@ -45,7 +45,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今，隐私非常重要，因此你必须在应用程序 ```Info.plist``` 文件中添加两个重要的键，否则最终将导致可怕的崩溃！ ⚠️
 
-![Info.plist](http://q8wtfza4q.bkt.clouddn.com/uc-stp1.jpg "")
+![Info.plist](https://cdn.xuebaonline.com/uc-stp1.jpg "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于你要获取一些私人数据，因此必须向用户（和 ```Apple``` ）提供说明消息，说明该应用为何要求访问相机和照片库。  ```NSCameraUsageDescription``` 用于相机， ```NSPhotoLibraryUsageDescription``` 键用于照片库访问。 这两个值都应该是一个简单的字符串，该字符串将向用户解释你为什么需要他/她的裸照。 谨慎很重要！ 🔒
 
@@ -188,7 +188,7 @@ extension ImagePicker: UINavigationControllerDelegate {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好了，现在你可以拍照了。 我做了一个简单的视图控制器，向你展示了一个真正的快速示例。 你只需要一个 ```UIImageView``` 和一个 ```UIButton``` 。
 
-![UIImageView](http://q8wtfza4q.bkt.clouddn.com/uc-stp2-1.jpg "")
+![UIImageView](https://cdn.xuebaonline.com/uc-stp2-1.jpg "")
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，这是示例视图控制器的代码。 没什么了不起的，我只是将控制器作为 ```ImagePicker``` 的 ```presentationController``` 进行传递，因此它可以在此之上呈现 ```UIImagePickerController``` 。 我将代表从表示控制器中分离出来，因为有时会派上用场。 🤷‍♂️

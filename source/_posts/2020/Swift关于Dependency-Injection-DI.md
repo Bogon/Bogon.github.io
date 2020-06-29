@@ -183,7 +183,7 @@ public class NSURLCache : NSObject {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```COMPOSITION ROOT``` 是将应用程序不同层的组件连接在一起的地方。 拥有复合根的主要目的是将配置逻辑与我们其余的代码分开，并以通用的方式在定义明确的位置进行配置。 拥有一段代码，单个职责就是配置其他组件。 创建依赖关系并将其注入到构造函数或属性中只能在“合成根目录”中完成。
 
-![COMPOSITION ROOT](http://q8wtfza4q.bkt.clouddn.com/di-stp1.png "")
+![COMPOSITION ROOT](https://cdn.xuebaonline.com/di-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 理想情况下，应用程序中应该有一个```COMPOSITION ROOT```，并且它应该靠近应用程序入口点。 就像这张图一样。 但是不必使用单个方法或类来实现。 它可以包含所需的多个类和方法，直到它们在同一组件层中在一起为止。
 
@@ -349,7 +349,7 @@ class RecipesService {
 
 > ***Interfaces are not abstractions - Mark Seeman*** 
 
-![Interfaces&&abstractions](http://q8wtfza4q.bkt.clouddn.com/di-stp2.png "")
+![Interfaces&&abstractions](https://cdn.xuebaonline.com/di-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你在构造函数中传递依赖项或使用属性或方法注入时-您应将其作为抽象传递（同样，不必使用协议）。 如果使用 ```ambinet ```上下文，则相同。 它不仅是一些共享的静态实例，还应该是抽象的。
 

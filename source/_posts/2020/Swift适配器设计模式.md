@@ -34,7 +34,7 @@ categories:
 
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这种适配器模式中，适配器容纳一个它包裹的类的实例。在这种情况下，适配器调用被包裹对象的物理实体。
 
-    ![对象适配器模式](http://q8wtfza4q.bkt.clouddn.com/adp-stp1.png "对象适配器模式")
+    ![对象适配器模式](https://cdn.xuebaonline.com/adp-stp1.png "对象适配器模式")
 
 <br>
 
@@ -42,7 +42,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种适配器模式下，适配器继承自已实现的类（一般多重继承）。
 
-![类适配器模式](http://q8wtfza4q.bkt.clouddn.com/adp-stp2.png "类适配器模式")
+![类适配器模式](https://cdn.xuebaonline.com/adp-stp2.png "类适配器模式")
 
 <br>
 

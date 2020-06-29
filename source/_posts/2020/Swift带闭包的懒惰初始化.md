@@ -76,7 +76,7 @@ bobbyButton.titleLabel?.textColor = .white
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使事情变得容易一些，你可以：
 
-![带闭包的懒惰初始化](http://q8wtfza4q.bkt.clouddn.com/xcode-edit-all.gif "这也适用于键盘快捷键：ctrl-cmd-e")
+![带闭包的懒惰初始化](https://cdn.xuebaonline.com/xcode-edit-all.gif "这也适用于键盘快捷键：ctrl-cmd-e")
 
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用快捷键：ctrl-cmd-e，完成上述操作。
 

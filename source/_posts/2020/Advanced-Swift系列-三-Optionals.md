@@ -291,7 +291,7 @@ if case0..<10=j {
 
 ## ***if var and while var***
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以让 ````var```` 与 ```if``` ， ```while和for``` 一起使用，而不是让。 这使你可以在语句主体内对变量进行突变：
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以让 ````var```` 与 ```if``` ， ```while和for``` 一起使用，而不是让。 这使你可以在语句主体内对变量进行改变：
 
 ``` Swift
 let number = "1"

@@ -35,7 +35,7 @@ categories:
 
 这是它的工作原理图：
 
-![computer的工作方式](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp1.png "")
+![computer的工作方式](https://cdn.xuebaonline.com/sasb-evc-stp1.png "")
 
 当`CPU`将值从`RAM`提取到其寄存器中时，它将使用其数学单元中的值并将结果存储回另一个寄存器中。
 
@@ -56,7 +56,7 @@ categories:
 十进制或基数10的数字423包含三个单位，两个十和四百：
 
 
-![10的数字42](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp2.png "")
+![10的数字42](https://cdn.xuebaonline.com/sasb-evc-stp2.png "")
 
 在以10为基数的系统中，数字的每个数字可以具有0、1、2、3、4、5、6、7、8或9的值，从而为每个数字总共提供10个可能的值。 是的，这就是为什么它被称为基础10！
 
@@ -80,7 +80,7 @@ categories:
 
 这是二进制 1110的表示形式：
 
-![二进制数](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp3.png "")
+![二进制数](https://cdn.xuebaonline.com/sasb-evc-stp3.png "")
 
 在以·为底的数字系统中，位置值以10：`1、10、100、1000等倍数增长`。在以2为底的数字中，以2、`1、2、4、8、16等倍数增长`。 一般规则是，将每个数字乘以基数的幂（在这种情况下为2的幂）从右向左移动。
 
@@ -125,7 +125,7 @@ categories:
 
 这是一个以16为基础的示例，其格式与以前相同：
 
-![十六进制数](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp4.png "")
+![十六进制数](https://cdn.xuebaonline.com/sasb-evc-stp4.png "")
 
 你将字母转换为等效的十进制数，然后执行通常的计算。
 
@@ -167,7 +167,7 @@ c0de = 1100 0000 1101 1110
 
 当你打开`Xcode`时，它将以以下欢迎屏幕向你打招呼：
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp5.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp5.png "")
 
 如果你没有看到此屏幕，则最有可能是因为未选中`“启动Xcode时显示此窗口”`选项。 你也可以通过按`Command-Shift-1`或 Window ▸ Welcome to Xcode 从菜单栏中的`Xcode`打开屏幕。
 
@@ -175,7 +175,7 @@ c0de = 1100 0000 1101 1110
 
 现在单击它，`Xcode`将为你提供模板选择。
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp6.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp6.png "")
 
 你选择的平台仅定义了`Xcode`用来创建`Playground`的模板版本。 当前，你的选择是`iOS`，`macOS`或`tvOS`。 每个平台都具有自己的环境，可让你开始使用代码。
 
@@ -187,11 +187,11 @@ c0de = 1100 0000 1101 1110
 
 单击创建以创建和保存操场。 然后，`Xcode`向你展示`Playground`，如下所示：
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp7.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp7.png "")
 
 即使是空白的`Playground`也并非一开始就空无一人，但是有一些基本的入门代码可以帮助你入门。 不用担心-你很快就会了解此代码的含义。
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp8.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp8.png "")
 
 上一个屏幕截图重点介绍了需要了解的首要和最重要的事情：
 
@@ -272,7 +272,7 @@ print("Hello, Swift Apprentice reader!")
 
 这将向调试区域输出一条不错的消息，如下所示：
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp9.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp9.png "")
 
 你可以使用上图中用红色框突出显示的按钮隐藏或显示调试区域。 你也可以单击 `View ▸ Debug Area ▸ Show Debug Area`  来执行相同的操作。
 
@@ -306,13 +306,13 @@ Swift中的所有操作都使用一个称为运算符的符号来表示其执行
 
 这些行中的每一行都是一个表达式，表示每行都有一个值。 在这些情况下，所有四个表达式都具有相同的值：注意代码看起来与你用笔和纸写出的操作类似。 你可以直接将这些输入操场。
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp10.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp10.png "")
 
 浅蓝色的行号是尚未运行的行号。 要运行代码，请单击光标旁边最后一行上的浅蓝色播放按钮。
 
 运行后，操场从运行的行中删除了蓝色的侧边栏，你还可以在右侧栏中看到这些表达式的值，称为结果侧边栏。
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp11.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp11.png "")
 
 如果需要，可以删除运算符周围的空格：
 
@@ -398,7 +398,7 @@ Swift中的所有操作都使用一个称为运算符的符号来表示其执行
 这是在此位移操作期间发生的情况的说明：
 
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp12.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp12.png "")
 
 用来填充右侧空白点的数字将变为0。落在左侧末尾的数字将丢失。
 
@@ -534,7 +534,7 @@ number = 0
 
 在Xcode中，你将看到以这种方式表示的错误：
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp13.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp13.png "")
 
 常数对于不会改变的值很有用。 例如，如果你要对飞机建模，并且需要参考已安装的座椅总数，则可以使用常数。
 
@@ -567,7 +567,7 @@ var variableNumber: Int = 42
 
 现在是仔细查看`Playground`结果边栏的好时机。 在操场上键入上面的代码时，你会看到右侧的结果侧边栏在每一行显示了`variableNumber`的当前值：
 
-![创建一个Playgrounds](http://q8wtfza4q.bkt.clouddn.com/sasb-evc-stp14.png "")
+![创建一个Playgrounds](https://cdn.xuebaonline.com/sasb-evc-stp14.png "")
 
 结果边栏将显示每一行的相关结果（如果存在）。 对于变量或常量，无论你刚刚声明了常量，还是声明或重新分配了变量，结果都是新值。
 

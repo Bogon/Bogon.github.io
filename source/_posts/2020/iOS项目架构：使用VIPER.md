@@ -30,7 +30,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```VIPER``` 是 ```View``` ， ```Interactor``` ， ```Presenter``` ， ```Entity``` 和 ```Router``` 的反义词。 基本上，这是一种实施 ```“单一责任原则”``` 的方法，可以为你的 ```iOS``` 项目创建更简洁，更模块化的结构。 这种模式背后的思想是隔离应用程序的依赖关系，以平衡实体之间的职责委派。 这是通过使用以下体系结构来实现的：
 
-![什么是VIPER？](http://q8wtfza4q.bkt.clouddn.com/vu-stp1.png "")
+![什么是VIPER？](https://cdn.xuebaonline.com/vu-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上图说明了 ```VIPER``` 体系结构，其中每个块对应于具有特定任务，输入和输出的对象。 将这些块视为装配线中的工人：工人完成对某个对象的工作后，该对象将传递给下一个工人，直到完成产品为止。
 

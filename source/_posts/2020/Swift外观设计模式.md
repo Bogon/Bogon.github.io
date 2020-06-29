@@ -26,7 +26,7 @@ categories:
 
 <!-- more -->
 
-![外观设计模式](http://q8wtfza4q.bkt.clouddn.com/fp-stp1.png "")
+![外观设计模式](http://cdn.xuebaonline.com/fp-stp1.png "")
 
 + 结构
     + Facade

@@ -54,7 +54,7 @@ public struct Int: FixedWidthInteger, SignedInteger {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们所说的“变量”是什么意思？ 我们可以说**变量是内存中某个位置的名称**，其中包含某种类型的值。 在上面的示例中，我们使用名称`a`指代`Int类型`的内存中当前持有值3的位置。第二个变量b是内存中不同位置的名称，同等Int类型并包含该值 初始分配后为3。 语句b + = 1然后获取存储在称为b的内存位置中的值，将其加1，然后将其写回到内存中的同一位置。 因此，b现在包含值4。由于增量语句仅修改b变量的值，因此a不受此语句影响。
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/awsc-stp1.png "值类型变量是直接包含值的内存中位置的名称。")
+![Memeory](https://cdn.xuebaonline.com/awsc-stp1.png "值类型变量是直接包含值的内存中位置的名称。")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值类型的特征在于变量和值之间的这种直接关系：**值（也称为值类型的实例）直接位于变量后面的内存中的位置**。 这适用于简单的值类型（例如整数），也适用于更复杂的类型（例如具有多个属性的自定义结构）（在机器代码级别上，由于编译器的优化，这可能不成立，但对开发人员而言是不透明的，因此我们的描述是 语义上最不准确）。
 
@@ -81,7 +81,7 @@ view2 = UILabel()
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与值类型相比，间接作用级别更高。 值类型变量包含值本身时，引用类型变量包含指向其他位置值的引用。 这种间接允许我们在程序的不同部分之间共享对对象的访问。
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/awsc-stp2.png "引用类型变量包含指向内存中其他地方实际实例的指针。")
+![Memeory](https://cdn.xuebaonline.com/awsc-stp2.png "引用类型变量包含指向内存中其他地方实际实例的指针。")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们以定义的自定义类型为例，从一个类开始观察值类型和引用类型的不同行为：
 
@@ -474,7 +474,7 @@ window?.onRotate = {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该视图引用该窗口，该窗口引用该回调，而该回调引用该视图：
 
-![Memeory](http://q8wtfza4q.bkt.clouddn.com/awsc-stp3.png "视图，窗口和回调之间的引用周期")
+![Memeory](https://cdn.xuebaonline.com/awsc-stp3.png "视图，窗口和回调之间的引用周期")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以在三个位置中断此引用周期（每个位置对应于上图中的箭头）：
 

@@ -107,7 +107,7 @@ Print multiple of multiplier 4 and 2
 
 下图说明了函数声明中外部和内部名称的来源：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-f-stp1.png "")
+![playground](https://cdn.xuebaonline.com/sasb-f-stp1.png "")
 
 其背后的想法是允许你以类似句子的方式使函数调用可读，但在函数本身内仍具有表达性名称。 你可能像这样编写了上面的函数：
 
@@ -476,11 +476,11 @@ calculateAverage(of: 1, and: 3, and: 5)
 
 首先，代码完成时会显示你的文档，如下所示：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-f-stp2.png "")
+![playground](https://cdn.xuebaonline.com/sasb-f-stp2.png "")
 
 另外，你还可以按住Option键并单击函数名，然后在方便的弹出框中显示你的文档，如下所示：
 
-![“playground”](http://q8wtfza4q.bkt.clouddn.com/sasb-f-stp3.png "")
+![playground](https://cdn.xuebaonline.com/sasb-f-stp3.png "")
 
 这两个都是非常有用的，你应该考虑记录所有功能，尤其是那些经常使用或复杂的功能。 将来，你稍后会感谢你。 ：]
 

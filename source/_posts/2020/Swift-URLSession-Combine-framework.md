@@ -1,10 +1,10 @@
 ---
-title: Swift URLSession 和 Combine framework
-permalink: Swift URLSession 和 Combine framework
+title: Swift URLSession && Combine framework
+permalink: Swift URLSession && Combine framework
 copyright: ture
 date: 2020-05-01 10:12:32
 keywords: iOS,Swift,URLSession,Combine framework
-description: Swift URLSession 和 Combine framework
+description: Swift URLSession && Combine framework
 tags:
     - [iOS]
     - [Swift]
@@ -58,7 +58,7 @@ struct Todo: Codable {
 
 # **传统方式**
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 ```Swift``` 中执行 ```HTTP请求``` 非常容易，你可以将内置的共享 ```URLSession``` 与简单的数据任务结合使用，然后响应一下。 当然，你可能想检查有效的状态码，如果一切正常，则可以使用 ```Foundation``` 中的 ```JSONDecoder``` 对象来 [***```解析响应JSON```***]( "") 。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 ```Swift``` 中执行 ```HTTP请求``` 非常容易，你可以将内置的共享 ```URLSession``` 与简单的数据任务结合使用，然后响应一下。 当然，你可能想检查有效的状态码，如果一切正常，则可以使用 ```Foundation``` 中的 ```JSONDecoder``` 对象来 [***```解析响应JSON```***](http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Codable%20protocol%E5%9C%A8Swift%E4%B8%AD%E8%A7%A3%E6%9E%90JSON%EF%BC%9F/ "") 。
 
 <!-- more -->
 
@@ -93,7 +93,7 @@ task.resume()
 
 </br>
 
-# **Data tasks 和 the Combine framework**
+# **Data tasks && the Combine framework**
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在你可以看到传统的 ```“基于块”``` 的方法很好，但是我们可以在这里做些更好的事情吗？ 你知道吗，就像将整个事物描述成一个链条一样，就像我们过去对 ```Promises``` 所做的那样？ 从 ```iOS13``` 开始，借助惊人的 ```Combine框架``` ，你实际上可以超越！ 😃
 
@@ -269,7 +269,7 @@ func details(for id: Int) -> AnyPublisher<Post, Error> {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Combine``` 是一个了不起的框架，它可以完成很多工作，但是肯定有一些学习过程。 可悲的是，仅当你针对 ```iOS13或更高版本``` 时才可以使用它（这意味着你有一年的时间来学习框架的每一点），因此在采用这种新技术之前请三思而后行。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你还应该注意，当前没有 [***```上载和下载任务publisher```***](http://www.xuebaonline.com/%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8Codable%20protocol%E5%9C%A8Swift%E4%B8%AD%E8%A7%A3%E6%9E%90JSON%EF%BC%9F/ "") ，但是你可以制定自己的解决方案，直到Apple正式发布某些东西。  🤞
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你还应该注意，当前没有 [***```上载和下载任务publisher```***]( "") ，但是你可以制定自己的解决方案，直到Apple正式发布某些东西。  🤞
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我真的很喜欢 ```Apple``` 如何实现 ··· 的一些概念，我迫不及待地希望 ```Combine``` 成为具有 ```Linux``` 支持的开源软件包。 ❤️
 

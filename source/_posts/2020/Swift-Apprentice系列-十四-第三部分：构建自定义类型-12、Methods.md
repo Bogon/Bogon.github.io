@@ -33,7 +33,7 @@ numbers // [1, 2]
 
 <!-- more -->
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp1.png "")
+![playground](https://cdn.xuebaonline.com/sasb-m-stp1.png "")
 
 诸如removeLast()之类的方法可帮助你控制结构中的数据。
 
@@ -41,7 +41,7 @@ numbers // [1, 2]
 
 使用计算的属性，你在上一章中看到可以从结构内部运行代码。 听起来很像一种方法。 有什么不同？ 这实际上取决于样式，但是有一些有用的想法可以帮助你做出决定。 当方法执行工作时，属性保存你可以获取和设置的值。 有时，当方法的唯一目的是返回单个值时，这种区分变得模糊。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp2.png "")
+![playground](https://cdn.xuebaonline.com/sasb-m-stp2.png "")
 
 问问自己是否想要设置值并获得值。 计算属性可以在内部具有一个setter组件来写入值。 要考虑的另一个问题是该计算是否需要大量计算或从数据库中读取。 即使是简单的值，一种方法也可以帮助你向未来的开发人员表明该调用在时间和计算资源上都是昂贵的。 如果调用便宜（如固定时间O（1）），则坚持使用计算属性。
 
@@ -89,7 +89,7 @@ date.monthsUntilWinterBreak(from: date) // 2
 
 就像属性一样，一旦你开始输入方法名称，Xcode就会提供建议。 你可以使用键盘上的向上和向下箭头键选择一个，然后按Tab即可自动完成调用：
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp3.png "")
+![playground](https://cdn.xuebaonline.com/sasb-m-stp3.png "")
 
 如果花一分钟时间考虑一下此代码，你将意识到该方法的定义很尴尬。 必须有替代方法来访问实例存储的内容，而不是将实例本身作为参数传递给方法。 调用它会更好：
 
@@ -349,11 +349,11 @@ Math.factorial(of: 6) // 720
 + 2.实现使用称为reduce（_：_ :)的高阶函数。 它有效地遵循了计算阶乘的公式：“从1到n的所有整数的乘积”。 你可以使用for循环来编写此代码，但是高阶函数以更简洁的方式表达你的意图。
 + 3.你在Math上而不是在该类型的实例上调用type方法。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp4.png "")
+![playground](https://cdn.xuebaonline.com/sasb-m-stp4.png "")
 
 收集到结构中的类型方法将有利地用Xcode编码完成。 在此示例中，你可以通过键入Math来查看所有可用的math实用程序方法。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-m-stp5.png "")
+![playground](https://cdn.xuebaonline.com/sasb-m-stp5.png "")
 
 
 # **通过扩展添加到现有结构**

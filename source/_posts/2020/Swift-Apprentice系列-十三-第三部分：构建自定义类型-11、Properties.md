@@ -51,7 +51,7 @@ struct Contact {
 
 你可以一遍又一遍地使用此结构，让你构建联系人数组，每个联系人都有不同的值。 你要存储的属性是个人的全名和电子邮件地址。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-p-stp1.png "")
+![playground](https://cdn.xuebaonline.com/sasb-p-stp1.png "")
 
 这些是Contact结构的属性。 你为每种数据类型都提供一种数据类型，但是由于计划在初始化时分配值，因此选择不分配默认值。 毕竟，每个Contact实例的值都将不同。
 
@@ -124,7 +124,7 @@ person.relationship // friend
 
 计算属性还必须包括类型，因为编译器需要知道作为返回值的期望值。
 
-![playground](http://q8wtfza4q.bkt.clouddn.com/sasb-p-stp2.png "")
+![playground](https://cdn.xuebaonline.com/sasb-p-stp2.png "")
 
 电视的测量值是计算属性的理想用例。 电视屏幕尺寸的行业定义不是屏幕的高度或宽度，而是对角线尺寸：
 
