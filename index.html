@@ -161,17 +161,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">112</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">113</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">39</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">40</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">138</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">140</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -239,6 +239,118 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/iOS%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%3C%E4%B8%80%3E/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/iOS%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%3C%E4%B8%80%3E/" class="post-title-link" itemprop="url">iOS开发记录<一></a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-07 09:24:07" itemprop="dateCreated datePublished" datetime="2020-09-07T09:24:07+08:00">2020-09-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index"><span itemprop="name">开发记录</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/iOS%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%3C%E4%B8%80%3E/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/iOS%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%3C%E4%B8%80%3E/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>953</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">iOS开发记录<一></div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="1、自定义键盘去除iPad上方的工具栏"><a href="#1、自定义键盘去除iPad上方的工具栏" class="headerlink" title="1、自定义键盘去除iPad上方的工具栏"></a>1、自定义键盘去除iPad上方的工具栏</h1><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Foundation</span><br><span class="line"><span class="keyword">import</span> DeviceKit</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UITextField</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// ipad 下隐藏工具栏</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">hiddenInputAssistantItem</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">/// 如果是ipad需要进行快捷栏隐藏</span></span><br><span class="line">        <span class="keyword">if</span> <span class="type">Device</span>.current.isPad &#123;</span><br><span class="line">            <span class="keyword">let</span> inputAssistantItem =  <span class="keyword">self</span>.inputAssistantItem</span><br><span class="line">            inputAssistantItem.leadingBarButtonGroups = [<span class="type">UIBarButtonItemGroup</span>]()</span><br><span class="line">            inputAssistantItem.trailingBarButtonGroups = [<span class="type">UIBarButtonItemGroup</span>]()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="2、推送播放自定义声音设置以及注意事项"><a href="#2、推送播放自定义声音设置以及注意事项" class="headerlink" title="2、推送播放自定义声音设置以及注意事项"></a>2、推送播放自定义声音设置以及注意事项</h1><h1 id="3、UIView的重绘及布局刷新，触发刷新事件"><a href="#3、UIView的重绘及布局刷新，触发刷新事件" class="headerlink" title="3、UIView的重绘及布局刷新，触发刷新事件"></a>3、UIView的重绘及布局刷新，触发刷新事件</h1><p><a href="https://www.jianshu.com/p/e9ca7dfb5d72" target="_blank" rel="noopener">https://www.jianshu.com/p/e9ca7dfb5d72</a></p>
+<h1 id="4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除"><a href="#4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除" class="headerlink" title="4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除"></a>4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除</h1><p><a href="https://my.oschina.net/u/4391811/blog/3252616" target="_blank" rel="noopener">https://my.oschina.net/u/4391811/blog/3252616</a></p>
+<h1 id="5、NSUserDefaults存储失败原因及解析"><a href="#5、NSUserDefaults存储失败原因及解析" class="headerlink" title="5、NSUserDefaults存储失败原因及解析"></a>5、NSUserDefaults存储失败原因及解析</h1><p><a href="https://blog.csdn.net/Ado_add/article/details/75298990" target="_blank" rel="noopener">https://blog.csdn.net/Ado_add/article/details/75298990</a></p>
+<h1 id="6、iOS-获取状态栏、导航栏、tabBar高度"><a href="#6、iOS-获取状态栏、导航栏、tabBar高度" class="headerlink" title="6、iOS 获取状态栏、导航栏、tabBar高度"></a>6、iOS 获取状态栏、导航栏、tabBar高度</h1>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/iOS%E5%BC%80%E5%8F%91%E8%AE%B0%E5%BD%95%3C%E4%B8%80%3E/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%203%E3%80%81Subjects/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -299,7 +411,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>226</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -319,10 +431,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>您已掌握了什么是可观察对象，如何创建可观察对象，如何订阅它以及完成后如何处理。 可观察对象是RxSwift的基本组成部分，但是开发应用程序时的普遍需求是在运行时将新值手动添加到可观察对象上，然后将其发送给订阅者。 您想要的东西既可以充当可观察对象，又可以充当观察者角色。 那就是所谓的主题。</p>
-<p>在本篇中，您将学习RxSwift中不同类型的主题，了解如何处理每个主题，以及为什么要根据一些常见用例选择一个主题。 您还将学习中继，中继是围绕主题的包装。</p>
+          <p>你已掌握了什么是可观察对象，如何创建可观察对象，如何订阅它以及完成后如何处理。 可观察对象是RxSwift的基本组成部分，但是开发应用程序时的普遍需求是在运行时将新值手动添加到可观察对象上，然后将其发送给订阅者。 你想要的东西既可以充当可观察对象，又可以充当观察者角色。 那就是所谓的主题。</p>
+<p>在本篇中，你将学习RxSwift中不同类型的主题，了解如何处理每个主题，以及为什么要根据一些常见用例选择一个主题。 你还将学习中继，中继是围绕主题的包装。</p>
 <p>我们待会再拆开！</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>在入门项目文件夹RxPlayground中运行./bootstrap.sh，它将打开本章的项目，然后在项目导航器中选择RxSwiftPlayground。 你将从一个简单的例子开始，为泵加注。 将以下代码添加到你的 playground ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"PublishSubject"</span>) &#123;</span><br><span class="line">	<span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
+<p>你刚刚创建了一个PublishSubject。 它之所以得名，是因为它像报纸发行商一样，会接收信息，然后转过来将其发布给订阅者，可能是先修改了某些信息之后。 它是String类型，因此只能接收和发布字符串。 初始化后，就可以接收字符串了。</p>
+<p>将以下代码添加到你的示例中:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject.onNext(<span class="string">"Is anyone listening?"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这将在主题上放置一个新字符串。 但是，由于没有观察者，因此尚未打印出任何内容。 通过订阅该主题来创建一个。 将以下代码添加到示例中：</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%203%E3%80%81Subjects/#more" rel="contents">
@@ -1179,111 +1298,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Vapor%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%20Vapor%20%E5%88%9D%E6%8E%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%20Vapor%20%E5%88%9D%E6%8E%A2/" class="post-title-link" itemprop="url">Vapor系列 (一) :  Vapor 初探</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-21 20:03:57" itemprop="dateCreated datePublished" datetime="2020-06-21T20:03:57+08:00">2020-06-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Vapor-4-0/" itemprop="url" rel="index"><span itemprop="name">Vapor 4.0</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%20Vapor%20%E5%88%9D%E6%8E%A2/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Vapor%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%20Vapor%20%E5%88%9D%E6%8E%A2/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-            <div class="post-description">Vapor系列 (一) :  Vapor 初探</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>本章是对服务器端Swift世界的介绍，解释了Swift作为通用编程语言的发展。 我们将讨论该语言的优点和缺点，并讨论为什么Swift是构建后端应用程序的理想选择。 我们将探索Swift生态系统和开源运动，这些运动使得有可能在Linux上创建必要的工具以将Swift变成服务器端语言。 你将了解Vapor，这是本书中将要使用的最流行的Web应用程序框架。</p>
-<h1 id="SWIFT编程语言"><a href="#SWIFT编程语言" class="headerlink" title="SWIFT编程语言"></a>SWIFT编程语言</h1><p>Swift是一种兼顾性能的现代，交互式，类型安全的编程语言。该语言的开发由Chris Lattner于2010年开始。该语言的首次公开展示是在2014年的Apple全球开发者大会（WWDC）活动上。大约一年后，它在 <a href="https://github.com/apple/swift/" target="_blank" rel="noopener"><strong><em><code>GitHub</code></em></strong></a> 上开源。多年来，斯威夫特获得了如此多的爱与恨。在早期，由于语言快速变化，编译时间慢，ABI不稳定，缺乏适当的开发人员工具等等，因此受到了广泛的批评。</p>
-<p>另一方面，人们喜欢Swift，因为它是一种非常快速的编译语言，这得益于 <a href="http://llvm.org/" target="_blank" rel="noopener"><strong><em><code>LLVM</code></em></strong></a> 基础架构，编译器可以在后台做出一些明智的决定，以获得最佳性能，这就是我们甚至可以将Swift与C进行比较的众多原因之一。在速度方面。它与C系列语言具有很好的互操作性。 Swift具有良好的 <a href="https://docs.swift.org/swift-book/LanguageGuide/MemorySafety.html" target="_blank" rel="noopener"><strong><em><code>内存管理</code></em></strong></a> 工具，默认情况下为你提供内存安全性。该语言使用自动引用计数（ <a href="https://docs.swift.org/swift-book/LanguageGuide/AutomaticReferenceCounting.html" target="_blank" rel="noopener"><strong><em><code>ARC</code></em></strong></a> ），因此不需要垃圾收集器。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%B8%80)%20:%20%20Vapor%20%E5%88%9D%E6%8E%A2/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1355,20 +1369,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">138</span>
+          <span class="site-state-item-count">140</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">39</span>
+        <span class="site-state-item-count">40</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">112</span>
+        <span class="site-state-item-count">113</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1445,12 +1459,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共1.2m字</span>
+    <span title="站点总字数">博客全站共1.3m字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">18:56</span>
+    <span title="站点阅读时长">19:04</span>
 </div>
 
 <!--
