@@ -70,6 +70,116 @@ subject.onNext("2")
 
 onNext（_ :)与on（.next（_））的作用相同。在眼睛上更容易一点。和现在2也被打印了。
 
+``` Swift
+--- Example of: PublishSubject ---
+1
+2
+```
 
+有了这个温柔的介绍，现在是时候学习所有主题。
+
+# 什么是subjects？
+
+Subjects既充当可观察者又充当观察者。您之前看过他们如何接收事件，也可以订阅。该主题收到了.next事件，并且每个收到事件后，它就会转身并将其发送给其订阅者。
+RxSwift中有四种主题类型，还有两种包装主题的中继类型：
++ PublishSubject：开始为空，仅向订阅者发出新元素。
++ BehaviorSubject：从初始值开始，然后重播它或最新的元素以
+新订户。
++ ReplaySubject：使用缓冲区大小初始化，并将维护元素的缓冲区
+达到该大小并重新播放给新订户。
++ AsyncSubject：仅在序列中最后一个.next事件，并且仅当
+主题收到一个.completed事件。这是很少使用的主题，而您
+在本书中不会使用它。为了完整起见，在此列出。
++ PublishRelay和BehaviorRelay：这些包装它们的相对主题，但仅接受.next事件。您根本无法在中继上添加.completed或.error事件，因此它们非常适合非终止序列。
+
+依次进行这些操作，您将学到更多有关主题的知识，relays，以及下一步如何使用它们。
+
+> 注意：您是否注意到了本章中介绍的其他导入RxCocoa？嗯...这是原因：这些relays取代了一个称为变量的类，该类在RxSwift中定义，但现在已弃用。但是，relays在RxCocoa，即使它们包装了RxSwift中定义的主题。这本书本章将介绍relays，因为它们与主题非常相似，但其余部分RxCocoa在后面的章节中介绍。
+
+# 处理发布元素
+
+当您只是希望订阅者收到新通知时，发布主题会派上用场从订阅点开始的事件，直到取消订阅或主题已以.completed或.error事件终止。
+在下面的大理石图中，第一行是发布主题，第二行是第三行是订户。向上的箭头表示订阅，而向下的箭头表示发出的事件。
+
+![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-3-1-1.png "")
+
+将1添加订阅后，第一个订阅者订阅，因此它没有收到事件。不过，它确实得到了2和3。而且因为第二个订阅者没有加入有趣的是，直到添加2之后，它只会得到3。
+
+返回playground，将此代码添加到同一示例的底部：
+
+```Swift
+let subscriptionTwo = subject
+    .subscribe { event in
+        print("2)", event.element ?? event)
+    }
+ ```
+
+事件具有可选的element属性，它将包含发出的元素.next事件。您可以在此处使用nil-coalescing运算符来打印元素（如果存在）是一个否则，您将打印事件。
+
+正如预期的那样，subscribeTwo尚未打印任何内容，因为它在1和2被发射了。现在添加以下代码：
+
+```Swift
+subject.onNext("3")
+```
+
+3打印两次，一次为subscriptionOne，一次为subscriptionTwo。
+
+```Swift
+3
+2) 3
+```
+
+添加此代码以终止subscriptionOne，然后将另一个.next事件添加到该对象：
+
+```Swift
+subscriptionOne.dispose()
+subject.onNext("4")
+```
+
+因为已处理subscriptionOne，所以仅为预订2）打印值4。
+
+```Swift
+2) 4
+```
+
+当发布对象收到.completed或.error事件时，也称为停止事件，它将向新订阅者发出该stop事件，并且不再发出.next事件。但是，它将停止事件重新发送给将来的订户。将此代码添加到例：
+
+```Swift
+// 1
+subject.onCompleted()
+// 2
+subject.onNext("5")
+// 3
+subscriptionTwo.dispose()
+let disposeBag = DisposeBag()
+// 4
+subject
+ .subscribe {
+    print("3)", $0.element ?? $0)
+ }.disposed(by: disposeBag)
+subject.onNext("?")
+```
+
+这是您所做的：
++ 使用on（.completed）的便捷方法，将.completed事件置于主题上。 这有效地终止了对象的可观察序列。
++ 在主题上添加另一个元素。 不过，由于主题已经终止，因此不会发出和打印。
++ 完成后，别忘了处理订阅！
++ 订阅主题，这次将其一次性用品添加到处理袋中。
+
+也许新订户3）将使主题重新投入使用吗？ 不，但是您仍然会收到.completed事件。
+
+```Swift
+2) completed
+3) completed
+```
+
+实际上，订阅一旦终止，就会将其停止事件重新发送给将来的订阅者。 因此，在代码中包括停止事件的处理程序是个好主意，不仅可以在终止时通知您，还可以在您订阅时已经终止的情况下得到通知。
+有时这可能是导致细微错误的原因，所以要当心！
+
+在对时间敏感的数据建模时（例如在在线出价应用中），您可以使用发布主题。 提醒上午10:01参加的用户，在上午9:59拍卖仅剩1分钟，这没有任何意义。 也就是说，除非您喜欢出价应用程序的1星评价。
+
+有时您想让新订阅者知道什么是最新发出的元素，即使该元素是在订阅之前发出的。 为此，您有一些选择。
+
+# Working with behavior subjects
 
 
