@@ -30,13 +30,15 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="RxSwift系列(三): 第一部分：RxSwift入门 - 3、Subjects">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-3-1-1.png">
 <meta property="article:published_time" content="2020-08-28T08:10:27.000Z">
-<meta property="article:modified_time" content="2020-08-31T08:48:46.762Z">
+<meta property="article:modified_time" content="2020-09-12T02:05:39.655Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
 <meta property="article:tag" content="RxSwift">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/rxswift-3-1-1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%203%E3%80%81Subjects/">
 
@@ -298,14 +300,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>3.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>3 分钟</span>
             </span>
             <div class="post-description">RxSwift系列(三): 第一部分：RxSwift入门 - 3、Subjects</div>
 
@@ -342,7 +344,57 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject.onNext(<span class="string">"2"</span>)</span><br></pre></td></tr></table></figure>
 
 <p>onNext（_ :)与on（.next（_））的作用相同。在眼睛上更容易一点。和现在2也被打印了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--- <span class="type">Example</span> of: <span class="type">PublishSubject</span> ---</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
 
+<p>有了这个温柔的介绍，现在是时候学习所有主题。</p>
+<h1 id="什么是subjects？"><a href="#什么是subjects？" class="headerlink" title="什么是subjects？"></a>什么是subjects？</h1><p>Subjects既充当可观察者又充当观察者。您之前看过他们如何接收事件，也可以订阅。该主题收到了.next事件，并且每个收到事件后，它就会转身并将其发送给其订阅者。<br>RxSwift中有四种主题类型，还有两种包装主题的中继类型：</p>
+<ul>
+<li>PublishSubject：开始为空，仅向订阅者发出新元素。</li>
+<li>BehaviorSubject：从初始值开始，然后重播它或最新的元素以<br>新订户。</li>
+<li>ReplaySubject：使用缓冲区大小初始化，并将维护元素的缓冲区<br>达到该大小并重新播放给新订户。</li>
+<li>AsyncSubject：仅在序列中最后一个.next事件，并且仅当<br>主题收到一个.completed事件。这是很少使用的主题，而您<br>在本书中不会使用它。为了完整起见，在此列出。</li>
+<li>PublishRelay和BehaviorRelay：这些包装它们的相对主题，但仅接受.next事件。您根本无法在中继上添加.completed或.error事件，因此它们非常适合非终止序列。</li>
+</ul>
+<p>依次进行这些操作，您将学到更多有关主题的知识，relays，以及下一步如何使用它们。</p>
+<blockquote>
+<p>注意：您是否注意到了本章中介绍的其他导入RxCocoa？嗯…这是原因：这些relays取代了一个称为变量的类，该类在RxSwift中定义，但现在已弃用。但是，relays在RxCocoa，即使它们包装了RxSwift中定义的主题。这本书本章将介绍relays，因为它们与主题非常相似，但其余部分RxCocoa在后面的章节中介绍。</p>
+</blockquote>
+<h1 id="处理发布元素"><a href="#处理发布元素" class="headerlink" title="处理发布元素"></a>处理发布元素</h1><p>当您只是希望订阅者收到新通知时，发布主题会派上用场从订阅点开始的事件，直到取消订阅或主题已以.completed或.error事件终止。<br>在下面的大理石图中，第一行是发布主题，第二行是第三行是订户。向上的箭头表示订阅，而向下的箭头表示发出的事件。</p>
+<p><img src="https://cdn.xuebaonline.com/rxswift-3-1-1.png" alt="RxSwiftPlayground"></p>
+<p>将1添加订阅后，第一个订阅者订阅，因此它没有收到事件。不过，它确实得到了2和3。而且因为第二个订阅者没有加入有趣的是，直到添加2之后，它只会得到3。</p>
+<p>返回playground，将此代码添加到同一示例的底部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> subscriptionTwo = subject</span><br><span class="line">    .subscribe &#123; event <span class="keyword">in</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"2)"</span>, event.element ?? event)</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>事件具有可选的element属性，它将包含发出的元素.next事件。您可以在此处使用nil-coalescing运算符来打印元素（如果存在）是一个否则，您将打印事件。</p>
+<p>正如预期的那样，subscribeTwo尚未打印任何内容，因为它在1和2被发射了。现在添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject.onNext(<span class="string">"3"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>3打印两次，一次为subscriptionOne，一次为subscriptionTwo。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">2</span>) <span class="number">3</span></span><br></pre></td></tr></table></figure>
+
+<p>添加此代码以终止subscriptionOne，然后将另一个.next事件添加到该对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">subscriptionOne.dispose()</span><br><span class="line">subject.onNext(<span class="string">"4"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>因为已处理subscriptionOne，所以仅为预订2）打印值4。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>) <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>当发布对象收到.completed或.error事件时，也称为停止事件，它将向新订阅者发出该stop事件，并且不再发出.next事件。但是，它将停止事件重新发送给将来的订户。将此代码添加到例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line">subject.onCompleted()</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line">subject.onNext(<span class="string">"5"</span>)</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line">subscriptionTwo.dispose()</span><br><span class="line"><span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line">subject</span><br><span class="line"> .subscribe &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"3)"</span>, $<span class="number">0</span>.element ?? $<span class="number">0</span>)</span><br><span class="line"> &#125;.disposed(by: disposeBag)</span><br><span class="line">subject.onNext(<span class="string">"?"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这是您所做的：</p>
+<ul>
+<li>使用on（.completed）的便捷方法，将.completed事件置于主题上。 这有效地终止了对象的可观察序列。</li>
+<li>在主题上添加另一个元素。 不过，由于主题已经终止，因此不会发出和打印。</li>
+<li>完成后，别忘了处理订阅！</li>
+<li>订阅主题，这次将其一次性用品添加到处理袋中。</li>
+</ul>
+<p>也许新订户3）将使主题重新投入使用吗？ 不，但是您仍然会收到.completed事件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span>) completed</span><br><span class="line"><span class="number">3</span>) completed</span><br></pre></td></tr></table></figure>
+
+<p>实际上，订阅一旦终止，就会将其停止事件重新发送给将来的订阅者。 因此，在代码中包括停止事件的处理程序是个好主意，不仅可以在终止时通知您，还可以在您订阅时已经终止的情况下得到通知。<br>有时这可能是导致细微错误的原因，所以要当心！</p>
+<p>在对时间敏感的数据建模时（例如在在线出价应用中），您可以使用发布主题。 提醒上午10:01参加的用户，在上午9:59拍卖仅剩1分钟，这没有任何意义。 也就是说，除非您喜欢出价应用程序的1星评价。</p>
+<p>有时您想让新订阅者知道什么是最新发出的元素，即使该元素是在订阅之前发出的。 为此，您有一些选择。</p>
+<h1 id="Working-with-behavior-subjects"><a href="#Working-with-behavior-subjects" class="headerlink" title="Working with behavior subjects"></a>Working with behavior subjects</h1>
     </div>
 
     
@@ -507,7 +559,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开始"><span class="nav-number">1.</span> <span class="nav-text">开始</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是subjects？"><span class="nav-number">2.</span> <span class="nav-text">什么是subjects？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#处理发布元素"><span class="nav-number">3.</span> <span class="nav-text">处理发布元素</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Working-with-behavior-subjects"><span class="nav-number">4.</span> <span class="nav-text">Working with behavior subjects</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -618,7 +670,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:08</span>
+    <span title="站点阅读时长">19:09</span>
 </div>
 
 <!--
