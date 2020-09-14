@@ -63,3 +63,17 @@ DispatchQueue.main.asyncAfter(deadline: .now()+0.5, execute:
     self.setBackgroundView(backgroundView: nil)
 })
 ```
+
+# 9、iOS-模拟器全屏（Simulator Fullscreen）
+
+iOS中模拟器支持分屏功能，只需要简单的一行命令：
+```Bash
+defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
+```
+[Fullscreen Xcode and Simulator](https://dev.to/zdnk/-fullscreen-xcode-and-simulator-42ng)
+
+# 10、ld: framework not found Xcode编译报错
+
+出现这种原因是Link Binary With Libraries还存在某些包的.a文件的引用删除即可。
+
+![ld: framework not found Xcode编译报错](https://cdn.xuebaonline.com/record-1-1-2.png "")
