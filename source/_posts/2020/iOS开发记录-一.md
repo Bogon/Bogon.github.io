@@ -77,3 +77,24 @@ defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
 出现这种原因是Link Binary With Libraries还存在某些包的.a文件的引用删除即可。
 
 ![ld: framework not found Xcode编译报错](https://cdn.xuebaonline.com/record-1-1-2.png "")
+
+# 11、UIImage显示原始颜色或渲染成任意颜色
+
+UIImage的对象有一个方法:imageWithRenderingMode:可以修改图片的渲染模式，其参数是一个枚举值，分别是：
+```Swift
+UIImageRenderingModeAutomatic        // 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  
+UIImageRenderingModeAlwaysOriginal   // 始终绘制图片原始状态，不使用Tint Color。  
+UIImageRenderingModeAlwaysTemplate   // 始终根据Tint Color绘制图片，忽略图片的颜色信息
+```
+一般导航栏上的图片会根据导航栏的TintColor渲染成统一的颜色，这样即使导航栏的颜色不同，也可以使用同一套切图。
+如果我们希望图片始终显示成原来的原色，在设置的时候，我们把渲染模式改成UIImageRenderingModeAlwaysOriginal即可。
+
+```Objc
+UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 30, 44)];
+UIImage *image = [[UIImage imageNamed:@"back"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];  
+// 设置根据TintColor渲染图片
+// [backButton setTintColor: kColorBlue];
+[backButton.imageView setTintColor:kColorBlue];  // 设置TintColor  两种都可以
+[backButton setImage:image forState:UIControlStateNormal];  
+[backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+```
