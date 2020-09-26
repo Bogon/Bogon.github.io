@@ -32,7 +32,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.xuebaonline.com/record-1-1-2.png">
 <meta property="article:published_time" content="2020-09-07T01:24:07.000Z">
-<meta property="article:modified_time" content="2020-09-12T05:05:36.495Z">
+<meta property="article:modified_time" content="2020-09-18T08:43:35.031Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -156,17 +156,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">115</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">116</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">42</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">43</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">141</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">142</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -301,14 +301,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
             <div class="post-description">iOS开发记录<一></div>
 
@@ -335,6 +335,10 @@
 <p><a href="https://dev.to/zdnk/-fullscreen-xcode-and-simulator-42ng" target="_blank" rel="noopener">Fullscreen Xcode and Simulator</a></p>
 <h1 id="10、ld-framework-not-found-Xcode编译报错"><a href="#10、ld-framework-not-found-Xcode编译报错" class="headerlink" title="10、ld: framework not found Xcode编译报错"></a>10、ld: framework not found Xcode编译报错</h1><p>出现这种原因是Link Binary With Libraries还存在某些包的.a文件的引用删除即可。</p>
 <p><img src="https://cdn.xuebaonline.com/record-1-1-2.png" alt="ld: framework not found Xcode编译报错"></p>
+<h1 id="11、UIImage显示原始颜色或渲染成任意颜色"><a href="#11、UIImage显示原始颜色或渲染成任意颜色" class="headerlink" title="11、UIImage显示原始颜色或渲染成任意颜色"></a>11、UIImage显示原始颜色或渲染成任意颜色</h1><p>UIImage的对象有一个方法:imageWithRenderingMode:可以修改图片的渲染模式，其参数是一个枚举值，分别是：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIImageRenderingModeAutomatic</span>        <span class="comment">// 根据图片的使用环境和所处的绘图上下文自动调整渲染模式。  </span></span><br><span class="line"><span class="type">UIImageRenderingModeAlwaysOriginal</span>   <span class="comment">// 始终绘制图片原始状态，不使用Tint Color。  </span></span><br><span class="line"><span class="type">UIImageRenderingModeAlwaysTemplate</span>   <span class="comment">// 始终根据Tint Color绘制图片，忽略图片的颜色信息</span></span><br></pre></td></tr></table></figure>
+<p>一般导航栏上的图片会根据导航栏的TintColor渲染成统一的颜色，这样即使导航栏的颜色不同，也可以使用同一套切图。<br>如果我们希望图片始终显示成原来的原色，在设置的时候，我们把渲染模式改成UIImageRenderingModeAlwaysOriginal即可。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIButton</span> *backButton = [[<span class="built_in">UIButton</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">44</span>)];</span><br><span class="line"><span class="built_in">UIImage</span> *image = [[<span class="built_in">UIImage</span> imageNamed:<span class="string">@"back"</span>] imageWithRenderingMode:<span class="built_in">UIImageRenderingModeAlwaysTemplate</span>];  </span><br><span class="line"><span class="comment">// 设置根据TintColor渲染图片</span></span><br><span class="line"><span class="comment">// [backButton setTintColor: kColorBlue];</span></span><br><span class="line">[backButton.imageView setTintColor:kColorBlue];  <span class="comment">// 设置TintColor  两种都可以</span></span><br><span class="line">[backButton setImage:image forState:<span class="built_in">UIControlStateNormal</span>];  </span><br><span class="line">[backButton addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(back) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</span><br></pre></td></tr></table></figure>
 
     </div>
 
@@ -437,7 +441,10 @@
     <a href="/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%203%E3%80%81Subjects/" rel="prev" title="RxSwift系列(三): 第一部分：RxSwift入门 - 3、Subjects">
       <i class="fa fa-chevron-left"></i> RxSwift系列(三): 第一部分：RxSwift入门 - 3、Subjects
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/Go%20%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E5%88%9D%E6%8E%A2(%E4%B8%80)/" rel="next" title="Go 基本初探(一)">
+      Go 基本初探(一) <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -497,7 +504,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、自定义键盘去除iPad上方的工具栏"><span class="nav-number">1.</span> <span class="nav-text">1、自定义键盘去除iPad上方的工具栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、推送播放自定义声音设置以及注意事项"><span class="nav-number">2.</span> <span class="nav-text">2、推送播放自定义声音设置以及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、UIView的重绘及布局刷新，触发刷新事件"><span class="nav-number">3.</span> <span class="nav-text">3、UIView的重绘及布局刷新，触发刷新事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除"><span class="nav-number">4.</span> <span class="nav-text">4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、NSUserDefaults存储失败原因及解析"><span class="nav-number">5.</span> <span class="nav-text">5、NSUserDefaults存储失败原因及解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、iOS-获取状态栏、导航栏、tabBar高度"><span class="nav-number">6.</span> <span class="nav-text">6、iOS 获取状态栏、导航栏、tabBar高度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、Swift4-2及以上版本-新特性详解-Hashable-和-Hasher"><span class="nav-number">7.</span> <span class="nav-text">7、Swift4.2及以上版本 新特性详解 Hashable 和 Hasher</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、Swift-延迟执行dispatch-after"><span class="nav-number">8.</span> <span class="nav-text">8、Swift 延迟执行dispatch_after</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、iOS-模拟器全屏（Simulator-Fullscreen）"><span class="nav-number">9.</span> <span class="nav-text">9、iOS-模拟器全屏（Simulator Fullscreen）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10、ld-framework-not-found-Xcode编译报错"><span class="nav-number">10.</span> <span class="nav-text">10、ld: framework not found Xcode编译报错</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、自定义键盘去除iPad上方的工具栏"><span class="nav-number">1.</span> <span class="nav-text">1、自定义键盘去除iPad上方的工具栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、推送播放自定义声音设置以及注意事项"><span class="nav-number">2.</span> <span class="nav-text">2、推送播放自定义声音设置以及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、UIView的重绘及布局刷新，触发刷新事件"><span class="nav-number">3.</span> <span class="nav-text">3、UIView的重绘及布局刷新，触发刷新事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除"><span class="nav-number">4.</span> <span class="nav-text">4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、NSUserDefaults存储失败原因及解析"><span class="nav-number">5.</span> <span class="nav-text">5、NSUserDefaults存储失败原因及解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、iOS-获取状态栏、导航栏、tabBar高度"><span class="nav-number">6.</span> <span class="nav-text">6、iOS 获取状态栏、导航栏、tabBar高度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、Swift4-2及以上版本-新特性详解-Hashable-和-Hasher"><span class="nav-number">7.</span> <span class="nav-text">7、Swift4.2及以上版本 新特性详解 Hashable 和 Hasher</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、Swift-延迟执行dispatch-after"><span class="nav-number">8.</span> <span class="nav-text">8、Swift 延迟执行dispatch_after</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、iOS-模拟器全屏（Simulator-Fullscreen）"><span class="nav-number">9.</span> <span class="nav-text">9、iOS-模拟器全屏（Simulator Fullscreen）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10、ld-framework-not-found-Xcode编译报错"><span class="nav-number">10.</span> <span class="nav-text">10、ld: framework not found Xcode编译报错</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11、UIImage显示原始颜色或渲染成任意颜色"><span class="nav-number">11.</span> <span class="nav-text">11、UIImage显示原始颜色或渲染成任意颜色</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -513,20 +520,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">141</span>
+          <span class="site-state-item-count">142</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">42</span>
+        <span class="site-state-item-count">43</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">115</span>
+        <span class="site-state-item-count">116</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -608,7 +615,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:10</span>
+    <span title="站点阅读时长">19:11</span>
 </div>
 
 <!--
