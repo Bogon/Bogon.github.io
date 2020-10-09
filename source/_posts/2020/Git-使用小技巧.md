@@ -41,6 +41,9 @@ categories:
 
 	>例如:	```git branch newbranch v1.0``` . 会以 tag v1.0创建新的分支newbranch;
 
+
+<!-- more -->
+
 3. 切换到新的分支：
 	```Bash
 	git checkout newbranch
@@ -52,8 +55,6 @@ categories:
 	```
 
 现在远程仓库也会有新创建的分支啦.
-
-<!-- more -->
 
 ### 删除分支
 1. 强制删除分支(删除本地分支（-D强制删除）)
