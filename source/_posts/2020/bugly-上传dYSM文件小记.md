@@ -378,11 +378,11 @@ Xcode 11之后的使用bugly上传*.dYSM文件的方式发生的变化。在Buil
 # 1、在本地目录下创建bin文件夹；
 # 2、将 buglySymboliOS.jar 放在该目录下；
 # 3、每次编译或者是archive之后，找到：XXXAPP.app.dSYM 将其放置到桌面上；
-# 4、修改第11行末尾的版本号；
+# 4、修改第10行末尾的版本号；
 # 5、执行该脚本上传dYSM文件；
 # 6、建议做好：*.xcarchive 文件的备份；
 
 cd ~/bin
 
-java -jar buglySymboliOS.jar -i ~/Desktop/JHTApp.app.dSYM -u -id a4364ecf00 -key fa4a3d2f-b035-4b5f-a396-661cf1fd9a8a -package com.jushuitan.new.jht -version 2.2.4
+java -jar buglySymboliOS.jar -i ~/Desktop/XXXApp.app.dSYM -u -id XXXXXX -key XXXXXXXX -package <bundleID> -version 2.2.4
 ```
