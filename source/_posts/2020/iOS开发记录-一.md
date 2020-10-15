@@ -98,3 +98,11 @@ UIImage *image = [[UIImage imageNamed:@"back"] imageWithRenderingMode:UIImageRen
 [backButton setImage:image forState:UIControlStateNormal];  
 [backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
 ```
+
+# NotificaitonCenter 发出通知的问题
+NotificationCenter.default.post 发出具体的通知事件之后，我们需要关注和注意以下几点：
+    
++ 当前发出通知的所处的线程(主线程/子线程)
++ 添加Observer的位置，接收到通知之后，刷新UI代码一定要在 ```main-thread``` 进行中
+
+**NotificationCenterde 特点可以总结为：在哪个线程发出通知，接收方会在发出通知的线程中处理通知。所以涉及到 UI 刷新的问题，一定要将该部分业务代码放置在 主线程 中。**
