@@ -761,14 +761,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.4k</span>
+              <span>8.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>8 分钟</span>
             </span>
             <div class="post-description">RxSwift系列(三): 第一部分：RxSwift入门 - 3、Subjects</div>
 
@@ -781,8 +781,8 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>你已掌握了什么是可观察对象，如何创建可观察对象，如何订阅它以及完成后如何处理。 可观察对象是RxSwift的基本组成部分，但是开发应用程序时的普遍需求是在运行时将新值手动添加到可观察对象上，然后将其发送给订阅者。 你想要的东西既可以充当可观察对象，又可以充当观察者角色。 那就是所谓的主题。</p>
-<p>在本篇中，你将学习RxSwift中不同类型的主题，了解如何处理每个主题，以及为什么要根据一些常见用例选择一个主题。 你还将学习中继，中继是围绕主题的包装。</p>
+          <p>你已掌握了什么是可观察对象，如何创建可观察对象，如何订阅它以及完成后如何处理。 可观察对象是RxSwift的基本组成部分，但是开发应用程序时的普遍需求是在运行时将新值手动添加到可观察对象上，然后将其发送给订阅者。 你想要的东西既可以充当可观察对象，又可以充当观察者角色。 那就是所谓的元素。</p>
+<p>在本篇中，你将学习RxSwift中不同类型的元素，了解如何处理每个元素，以及为什么要根据一些常见用例选择一个元素。 你还将学习中继，中继是围绕元素的包装。</p>
 <p>我们待会再拆开！</p>
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>在入门项目文件夹RxPlayground中运行./bootstrap.sh，它将打开本章的项目，然后在项目导航器中选择RxSwiftPlayground。 你将从一个简单的例子开始，为泵加注。 将以下代码添加到你的 playground ：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"PublishSubject"</span>) &#123;</span><br><span class="line">	<span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -791,7 +791,9 @@
 <p>将以下代码添加到你的示例中:</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">subject.onNext(<span class="string">"Is anyone listening?"</span>)</span><br></pre></td></tr></table></figure>
 
-<p>这将在主题上放置一个新字符串。 但是，由于没有观察者，因此尚未打印出任何内容。 通过订阅该主题来创建一个。 将以下代码添加到示例中：</p>
+<p>这将在元素上放置一个新字符串。 但是，由于没有观察者，因此尚未打印出任何内容。 通过订阅该元素来创建一个。 将以下代码添加到示例中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> subscriptionOne = subject</span><br><span class="line"> .subscribe(onNext: &#123; string <span class="keyword">in</span></span><br><span class="line"> 	<span class="built_in">print</span>(string)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>就像上一章一样，你创建了对元素的订阅，打印.next事件。 但是，nuthin仍然显示在Xcode的输出控制台中。 这不是很有趣吗？ 你很快就会了解不同的元素类型，从而了解更多有关为什么发生这种情况的信息。</p>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%203%E3%80%81Subjects/#more" rel="contents">
@@ -1518,7 +1520,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:21</span>
+    <span title="站点阅读时长">19:26</span>
 </div>
 
 <!--
