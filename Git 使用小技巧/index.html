@@ -31,7 +31,7 @@
 <meta property="og:description" content="Git 使用小技巧">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-09T00:59:12.000Z">
-<meta property="article:modified_time" content="2020-12-07T01:40:07.072Z">
+<meta property="article:modified_time" content="2020-12-07T01:42:40.917Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="git">
@@ -296,7 +296,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -367,7 +367,8 @@
 <h2 id="Reset"><a href="#Reset" class="headerlink" title="Reset"></a>Reset</h2><p>reset 到 merge 前的版本，然后再重做接下来的操作，要求每个合作者都晓得怎么将本地的 HEAD 都回滚回去：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git checkout 【 merge 操作时所在的分支】</span><br><span class="line">git reset --hard 【merge前的版本号】</span><br></pre></td></tr></table></figure>
 
-<h2 id="Revert"><a href="#Revert" class="headerlink" title="Revert"></a>Revert</h2><figure class="highlight plain"><figcaption><span>以后还有别的操作和改动时，```git``` 正好也有办法能撤销 ```merge```，用 ```git revert```：</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&#96;&#96;&#96;Bash</span><br><span class="line">$ git revert -m 【要撤销的那条merge线的编号，从1开始计算（怎么看哪条线是几啊？）】 【merge前的版本号】</span><br><span class="line">Finished one revert.</span><br><span class="line">[master 88edd6d] Revert &quot;Merge branch &#39;xxx&#x2F;post-checkout&#39;&quot;</span><br><span class="line"> 1 files changed, 0 insertions(+), 2 deletions(-)</span><br></pre></td></tr></table></figure>
+<h2 id="Revert"><a href="#Revert" class="headerlink" title="Revert"></a>Revert</h2><p>merge 以后还有别的操作和改动时，git 正好也有办法能撤销 merge，用 git revert：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git revert -m 【要撤销的那条merge线的编号，从1开始计算（怎么看哪条线是几啊？）】 【merge前的版本号】</span><br><span class="line">Finished one revert.</span><br><span class="line">[master 88edd6d] Revert <span class="string">"Merge branch 'xxx/post-checkout'"</span></span><br><span class="line"> 1 files changed, 0 insertions(+), 2 deletions(-)</span><br></pre></td></tr></table></figure>
 
 <p>撤销 <code>revert</code> 操作：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git revert [撤销merge时提交的commit的版本号，这里是88edd6d]</span><br><span class="line">Finished one revert.</span><br><span class="line">[master 268e243] Revert <span class="string">"Revert "</span>Merge branch <span class="string">'xxx/post-checkout'</span><span class="string">""</span></span><br><span class="line"> 1 files changed, 2 insertions(+), 0 deletions(-)</span><br></pre></td></tr></table></figure>
@@ -645,7 +646,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:21</span>
+    <span title="站点阅读时长">19:20</span>
 </div>
 
 <!--
