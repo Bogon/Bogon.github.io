@@ -91,3 +91,34 @@ categories:
 	git tag
 	```
 
+# 撤销操作
+
+在使用 ```git``` 过程中会出现想要撤销当前操作： ```merge``` 、 ```commit``` 等
+
+## Reset
+reset 到 merge 前的版本，然后再重做接下来的操作，要求每个合作者都晓得怎么将本地的 HEAD 都回滚回去：
+
+```Bash
+git checkout 【 merge 操作时所在的分支】
+git reset --hard 【merge前的版本号】
+```
+
+## Revert
+
+```merge``` 以后还有别的操作和改动时，```git``` 正好也有办法能撤销 ```merge```，用 ```git revert```：
+
+```Bash
+$ git revert -m 【要撤销的那条merge线的编号，从1开始计算（怎么看哪条线是几啊？）】 【merge前的版本号】
+Finished one revert.
+[master 88edd6d] Revert "Merge branch 'xxx/post-checkout'"
+ 1 files changed, 0 insertions(+), 2 deletions(-)
+```
+
+撤销 ```revert``` 操作：
+
+```Bash
+$ git revert [撤销merge时提交的commit的版本号，这里是88edd6d]
+Finished one revert.
+[master 268e243] Revert "Revert "Merge branch 'xxx/post-checkout'""
+ 1 files changed, 2 insertions(+), 0 deletions(-)
+```
