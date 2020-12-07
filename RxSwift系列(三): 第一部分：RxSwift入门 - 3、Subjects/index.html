@@ -34,7 +34,7 @@
 <meta property="og:image" content="https://cdn.xuebaonline.com/behavior_subjects-001.png">
 <meta property="og:image" content="https://cdn.xuebaonline.com/behavior_subjects-002.png.png">
 <meta property="article:published_time" content="2020-08-28T08:10:27.000Z">
-<meta property="article:modified_time" content="2020-10-29T00:54:55.169Z">
+<meta property="article:modified_time" content="2020-11-01T07:44:31.506Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -167,7 +167,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">144</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">145</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -302,7 +302,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>8.5k</span>
+              <span>8.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,7 +323,7 @@
 
       
         <p>你已掌握了什么是可观察对象，如何创建可观察对象，如何订阅它以及完成后如何处理。 可观察对象是RxSwift的基本组成部分，但是开发应用程序时的普遍需求是在运行时将新值手动添加到可观察对象上，然后将其发送给订阅者。 你想要的东西既可以充当可观察对象，又可以充当观察者角色。 那就是所谓的元素。</p>
-<p>在本篇中，你将学习RxSwift中不同类型的元素，了解如何处理每个元素，以及为什么要根据一些常见用例选择一个元素。 你还将学习中继，中继是围绕元素的包装。</p>
+<p>在本篇中，你将学习RxSwift中不同类型的元素，了解如何处理每个元素，以及为什么要根据一些常见用例选择一个元素。 你还将学习 <code>relay</code> ， <code>relay</code> 是围绕元素的包装。</p>
 <p>我们待会再拆开！</p>
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><p>在入门项目文件夹RxPlayground中运行./bootstrap.sh，它将打开本章的项目，然后在项目导航器中选择RxSwiftPlayground。 你将从一个简单的例子开始，为泵加注。 将以下代码添加到你的 playground ：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"PublishSubject"</span>) &#123;</span><br><span class="line">	<span class="keyword">let</span> subject = <span class="type">PublishSubject</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -351,13 +351,13 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">--- <span class="type">Example</span> of: <span class="type">PublishSubject</span> ---</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
 
 <p>有了这个温柔的介绍，现在是时候学习所有元素。</p>
-<h1 id="什么是subjects？"><a href="#什么是subjects？" class="headerlink" title="什么是subjects？"></a>什么是subjects？</h1><p>Subjects既充当可观察者又充当观察者。你之前看过他们如何接收事件，也可以订阅。该元素收到了.next事件，并且每个收到事件后，它就会转身并将其发送给其订阅者。<br>RxSwift中有四种元素类型，还有两种包装元素的中继类型：</p>
+<h1 id="什么是subjects？"><a href="#什么是subjects？" class="headerlink" title="什么是subjects？"></a>什么是subjects？</h1><p>Subjects既充当可观察者又充当观察者。你之前看过他们如何接收事件，也可以订阅。该元素收到了.next事件，并且每个收到事件后，它就会转身并将其发送给其订阅者。<br>RxSwift中有四种元素类型，还有两种包装元素的 <code>relay</code> 类型：</p>
 <ul>
 <li>PublishSubject：开始为空，仅向订阅者发出新元素。</li>
 <li>BehaviorSubject：从初始值开始，然后重播它或最新的元素以<br>新订户。</li>
 <li>ReplaySubject：使用缓冲区大小初始化，并将维护元素的缓冲区<br>达到该大小并重新播放给新订户。</li>
 <li>AsyncSubject：仅在序列中最后一个.next事件，并且仅当<br>元素收到一个.completed事件。这是很少使用的元素，而你<br>在本书中不会使用它。为了完整起见，在此列出。</li>
-<li>PublishRelay和BehaviorRelay：这些包装它们的相对元素，但仅接受.next事件。你根本无法在中继上添加.completed或.error事件，因此它们非常适合非终止序列。</li>
+<li>PublishRelay和BehaviorRelay：这些包装它们的相对元素，但仅接受.next事件。你根本无法在 <code>relay</code> 上添加.completed或.error事件，因此它们非常适合非终止序列。</li>
 </ul>
 <p>依次进行这些操作，你将学到更多有关元素的知识，relays，以及下一步如何使用它们。</p>
 <blockquote>
@@ -475,7 +475,7 @@
 <p>注意：如果你想知道什么是ReplayMany，它是一种内部类型，用于创建重放元素。</p>
 </blockquote>
 <p>通过使用发布，行为或重播元素，你应该能够为任何需求建模。</p>
-<h1 id="Working-with-relays"><a href="#Working-with-relays" class="headerlink" title="Working with relays"></a>Working with relays</h1><p>如前所述，中继器在保留元素的同时保持其重放行为。 与其他元素（以及通常的可观察对象）不同，你可以使用accept（_ :)方法将值添加到中继上。 换句话说，你不使用onNext（_ :)。 这是由于中继只能接受值，并且你不能在它们上添加.error或.completed事件。<br>PublishRelay包装一个PublishSubject，而BehaviorRelay包装一个BehaviorSubject。</p>
+<h1 id="Working-with-relays"><a href="#Working-with-relays" class="headerlink" title="Working with relays"></a>Working with relays</h1><p>如前所述， <code>relay</code> 器在保留元素的同时保持其重放行为。 与其他元素（以及通常的可观察对象）不同，你可以使用accept（_ :)方法将值添加到 <code>relay</code> 上。 换句话说，你不使用onNext（_ :)。 这是由于 <code>relay</code> 只能接受值，并且你不能在它们上添加.error或.completed事件。<br>PublishRelay包装一个PublishSubject，而BehaviorRelay包装一个BehaviorSubject。</p>
 <p>使 relays 与被包裹的主体区别开的是，保证 relays 永不终止。</p>
 <p>将此新示例添加到你的 <code>playground</code> ：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"PublishRelay"</span>) &#123;</span><br><span class="line"> <span class="keyword">let</span> relay = <span class="type">PublishRelay</span>&lt;<span class="type">String</span>&gt;()</span><br><span class="line"></span><br><span class="line"> <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -703,7 +703,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -798,7 +798,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:26</span>
+    <span title="站点阅读时长">19:21</span>
 </div>
 
 <!--

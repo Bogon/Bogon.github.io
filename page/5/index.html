@@ -171,7 +171,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">144</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">145</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -235,6 +235,240 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/" class="post-title-link" itemprop="url">Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-12 18:09:10" itemprop="dateCreated datePublished" datetime="2020-05-12T18:09:10+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>11k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="可变集合与不可变集合"><a href="#可变集合与不可变集合" class="headerlink" title="可变集合与不可变集合"></a><strong>可变集合与不可变集合</strong></h1><p>就像你以前阅读过的类型（例如Int或String）一样，在创建集合时，必须将其声明为常量或变量。</p>
+<p>如果集合创建后不需要更改，则应通过let将其声明为常量来使其不可变。 另外，如果你需要添加，删除或更新集合中的值，则应通过将其声明为var变量来创建可变集合。</p>
+<h2 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a><strong><em>Arrays</em></strong></h2><p>数组是你在Swift中会遇到的最常见的集合类型。 像常规变量和常量一样，对数组进行类型化，并像简单列表一样存储多个值。</p>
+<p>在创建第一个数组之前，请花一些时间详细考虑什么是数组以及为什么要使用一个数组。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AB)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types%20-%207%E3%80%81Arrays,%20Dictionaries,Sets/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/" class="post-title-link" itemprop="url">Swift Apprentice系列 (七) : 第二部分：Collection Types</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-12 18:02:08" itemprop="dateCreated datePublished" datetime="2020-05-12T18:02:08+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (七) : 第二部分：Collection Types</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>到目前为止，你基本上已经看到单个元素形式的数据。尽管元组可以包含多个数据，但你必须预先指定大小；具有三个字符串的元组与具有两个字符串的元组是完全不同的类型，并且在它们之间进行转换并不容易。在本部分中，你将了解Swift中的集合类型。集合是灵活的“容器”，可让你将任意数量的值存储在一起。</p>
+<p>Swift中有几种集合类型，但是三个重要的集合类型是数组，字典和集合。你将在这里了解这些信息：</p>
+<ul>
+<li><p>第7章，数组，字典和集合<br>  接下来，你将学习如何应用自定义操作并遍历集合类型与：</p>
+</li>
+<li><p>第8章，带有闭包的集合迭代<br>最后，你将重新访问字符串，这些字符串实际上是以下位置中的unicode字符的双向集合：</p>
+</li>
+<li><p>第9章，字符串<br>集合类型具有相似的接口，但使用情况却大不相同。在阅读这些章节时，请牢记不同之处，然后你会开始对应该在什么时候使用哪种类型有所了解。</p>
+</li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%83)%20:%20%E7%AC%AC%E4%BA%8C%E9%83%A8%E5%88%86%EF%BC%9ACollection%20Types/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1146,242 +1380,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/" class="post-title-link" itemprop="url">Advanced Swift系列(十二):  Encoding and Decoding</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-08 22:02:53" itemprop="dateCreated datePublished" datetime="2020-05-08T22:02:53+08:00">2020-05-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>31k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>28 分钟</span>
-            </span>
-            <div class="post-description">Advanced Swift系列(十二):  Encoding and Decoding</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将程序的内部数据结构序列化为某种数据交换格式，反之亦然，这是最常见的编程任务之一。 Swift将这些操作称为  <code>编码和解码</code> 。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>Codable系统</code> （以其基本  <code>“协议”</code> 命名，实际上是类型别名）是一种标准化设计，用于对所有自定义类型都可以选择的数据进行编码和解码。它围绕三个主要目标进行设计：</p>
-<ul>
-<li>→ <strong>通用性</strong> - 应该使用结构，枚举和类。</li>
-<li>→ <strong>类型安全性</strong> - 诸如JSON之类的交换格式经常被弱类型，而你的代码应使用强类型数据结构。</li>
-<li>→ <strong>减少样板文件</strong> — 开发人员必须编写尽可能小的重复“适配器代码”，以使自定义类型参与系统的编译器应自动为你生成此代码。</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/" class="post-title-link" itemprop="url">Advanced Swift系列(十一): Error Handling</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-05-08 19:27:02" itemprop="dateCreated datePublished" datetime="2020-05-08T19:27:02+08:00">2020-05-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>25k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>23 分钟</span>
-            </span>
-            <div class="post-description">Advanced Swift系列(十一): Error Handling</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为程序员，我们经常必须处理出现问题的地方：网络连接可能会断开，预期存在的文件可能不存在，依此类推。良好地处理故障是将好程序与坏程序区分开的无形因素之一，但是我们经常倾向于将错误处理视为从属任务，这是后来要添加的内容（随着最后期限的临近，这种情况通常会被削减）。</p>
-<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且我们知道了：错误处理可能会很混乱，并且编写快乐路径的代码通常会更有趣。更为重要的是，编程语言提供了一种良好的错误处理体系结构，可以支持程序员执行此任务。我们认为这样的体系结构应该提供以下一些内容：</p>
-<ul>
-<li>→ <strong>简洁</strong> 。抛出错误的代码不应淹没幸福道路的代码。</li>
-<li>→ <strong>传播</strong> 。错误发生的地方不应该接受处理。通常，如果要从错误中恢复的逻辑与错误发生的地方相距甚远，通常会更好。错误处理体系结构应该使在调用堆栈中将错误传达到适当级别变得容易。优点是使中间函数（调用引发函数，但既不引发也不处理错误的函数）易于传递错误而又不需要进行大的语法更改。</li>
-<li>→ <strong>文档</strong> 。程序员可以轻松确定发生错误的位置以及可能发生的错误。</li>
-<li>→ <strong>安全</strong> 。程序员可以忽略意外错误。</li>
-<li>→ <strong>通用性</strong> 。指定可以进行错误抛出和处理的机制</li>
-</ul>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1453,7 +1451,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">144</span>
+          <span class="site-state-item-count">145</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1548,7 +1546,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:26</span>
+    <span title="站点阅读时长">19:21</span>
 </div>
 
 <!--
