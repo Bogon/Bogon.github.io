@@ -105,7 +105,7 @@ git reset --hard 【merge前的版本号】
 
 ## Revert
 
-```merge``` 以后还有别的操作和改动时，```git``` 正好也有办法能撤销 ```merge```，用 ```git revert```：
+merge 以后还有别的操作和改动时，git 正好也有办法能撤销 merge，用 git revert：
 
 ```Bash
 $ git revert -m 【要撤销的那条merge线的编号，从1开始计算（怎么看哪条线是几啊？）】 【merge前的版本号】
