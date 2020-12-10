@@ -30,23 +30,26 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="在iOS工程中Swift代码进行约束保持团队内部代码风格一致性的实践">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_01.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_02.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_03.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_04.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_05.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_06.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_07.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/swift_lint_guild_08.png">
 <meta property="article:published_time" content="2020-11-17T01:19:13.000Z">
-<meta property="article:modified_time" content="2020-11-17T01:19:13.105Z">
+<meta property="article:modified_time" content="2020-12-10T09:44:25.394Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="Vapor">
-<meta property="article:tag" content="技术博客">
-<meta property="article:tag" content="多线程">
-<meta property="article:tag" content="操作系统">
-<meta property="article:tag" content="多并发">
-<meta property="article:tag" content="多进程">
-<meta property="article:tag" content="上海">
-<meta property="article:tag" content="北京">
-<meta property="article:tag" content="深圳">
-<meta property="article:tag" content="广州">
-<meta property="article:tag" content="武汉">
+<meta property="article:tag" content="SwiftLint">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift代码">
+<meta property="article:tag" content="代码风格">
+<meta property="article:tag" content="一致性">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/swift_lint_guild_01.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/%E5%9C%A8iOS%E5%B7%A5%E7%A8%8B%E4%B8%ADSwift%E4%BB%A3%E7%A0%81%E8%BF%9B%E8%A1%8C%E7%BA%A6%E6%9D%9F%E4%BF%9D%E6%8C%81%E5%9B%A2%E9%98%9F%E5%86%85%E9%83%A8%E4%BB%A3%E7%A0%81%E9%A3%8E%E6%A0%BC%E4%B8%80%E8%87%B4%E6%80%A7%E7%9A%84%E5%AE%9E%E8%B7%B5/">
 
@@ -163,12 +166,12 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">118</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">119</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">45</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">46</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
@@ -267,6 +270,23 @@
 
               <time title="创建时间：2020-11-17 09:19:13" itemprop="dateCreated datePublished" datetime="2020-11-17T09:19:13+08:00">2020-11-17</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SwiftLint/" itemprop="url" rel="index"><span itemprop="name">SwiftLint</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -295,14 +315,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>6.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>6 分钟</span>
             </span>
             <div class="post-description">在iOS工程中Swift代码进行约束保持团队内部代码风格一致性的实践</div>
 
@@ -315,7 +335,198 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><strong><em><code>SwiftLint</code></em></strong> 是一个用于强制检查 <code>Swift</code> 代码风格和规定的一个工具，基本上以 <a href="https://github.com/github/swift-style-guide" target="_blank" rel="noopener">GitHub’s Swift 代码风格指南</a>为基础。</p>
+<p>  SwiftLint Hook 了 <a href="http://clang.llvm.org" target="_blank" rel="noopener">Clang</a> 和 <a href="http://www.jpsim.com/uncovering-sourcekit" target="_blank" rel="noopener">SourceKit</a> 从而能够使用 <a href="http://clang.llvm.org/docs/IntroductionToTheClangAST.html" target="_blank" rel="noopener">AST</a> 来表示源代码文件的更多精确结果。</p>
+<p>  <img src="https://cdn.xuebaonline.com/swift_lint_guild_01.png" alt="image-20201210170345877"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="使用-Homebrew："><a href="#使用-Homebrew：" class="headerlink" title="使用 Homebrew："></a>使用 <a href="http://brew.sh/" target="_blank" rel="noopener">Homebrew</a>：</h3>  <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install swiftlint</span><br></pre></td></tr></table></figure>
+
+
+<a id="more"></a>
+
+
+<h3 id="使用-CocoaPods："><a href="#使用-CocoaPods：" class="headerlink" title="使用 CocoaPods："></a>使用 <a href="https://cocoapods.org" target="_blank" rel="noopener">CocoaPods</a>：</h3><p>  将如下代码添加到你的 Podfile 即可：</p>
+  <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ pod <span class="string">'SwiftLint'</span></span><br></pre></td></tr></table></figure>
+
+<p>  在下一次执行 <code>pod install</code> 时将会把 SwiftLint 的二进制文件和依赖下载到 <code>Pods/</code> 目录下并且将允许你通过 <code>${PODS_ROOT}/SwiftLint/swiftlint</code> 在 <code>Script Build Phases</code> 中调用 <code>SwiftLint</code>。</p>
+<p>  自从 <code>SwiftLint</code> 支持安装某个特定版本后，安装一个指定版本的 <code>SwiftLint</code> 是目前推荐的做法相比较于简单地选择最新版本安装的话（比如通过 <code>Homebrew</code> 安装的话）。</p>
+<p>  请注意这会将 <code>SwiftLint</code> 二进制文件、所依赖的二进制文件和 <code>Swift</code> 二进制库安装到 <code>Pods/</code> 目录下，所以不推荐将此目录添加到版本控制系统（如 <code>git</code>）中进行跟踪。</p>
+<h3 id="使用-Mint："><a href="#使用-Mint：" class="headerlink" title="使用 Mint："></a>使用 <a href="https://github.com/yonaskolb/mint" target="_blank" rel="noopener">Mint</a>：</h3>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mint install realm&#x2F;SwiftLint</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用安装包："><a href="#使用安装包：" class="headerlink" title="使用安装包："></a>使用安装包：</h3><p>  你也可以通过从<a href="https://github.com/realm/SwiftLint/releases/latest" target="_blank" rel="noopener">最新的 GitHub 发布地址</a>下载 <code>SwiftLint.pkg</code> 然后执行的方式安装 <code>SwiftLint</code>。</p>
+<h3 id="编译源代码："><a href="#编译源代码：" class="headerlink" title="编译源代码："></a>编译源代码：</h3><p>  你也可以通过 <code>Clone SwiftLint</code> 的 <code>Git</code> 仓库到本地然后执行 <code>make install</code> (Xcode 11.4+) 编译源代码的方式来安装。</p>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><h3 id="Xcode"><a href="#Xcode" class="headerlink" title="Xcode"></a>Xcode</h3><p>  整合 <code>SwiftLint</code> 到 <code>Xcode</code> 体系中去从而可以使警告和错误显示到 <code>IDE</code> 上，只需要在 <code>Xcode</code> 中添加一个新的 <code>“Run Script Phase”</code> 并且包含如下代码即可：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="built_in">which</span> swiftlint &gt;/dev/null; <span class="keyword">then</span></span><br><span class="line">  swiftlint</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint"</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<p>  <img src="https://cdn.xuebaonline.com/swift_lint_guild_02.png" alt="image-20201210170549795"></p>
+<p>  或者，脚本看起来应该像这样如果你已经通过 <code>CocoaPods</code> 安装了 <code>SwiftLint</code>：</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"<span class="variable">$&#123;PODS_ROOT&#125;</span>/SwiftLint/swiftlint"</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="AppCode"><a href="#AppCode" class="headerlink" title="AppCode"></a>AppCode</h3><p>  在 <code>AppCode</code> 中使用 <code>SwiftLint</code>，安装<a href="https://plugins.jetbrains.com/plugin/9175" target="_blank" rel="noopener">这个插件</a>并且在插件设置中配置 <code>SwiftLint</code> 的安装路径即可。<code>autocorrect</code> 操作快捷键为 <code>⌥⏎</code>。</p>
+<h3 id="Atom"><a href="#Atom" class="headerlink" title="Atom"></a>Atom</h3><p>  整合 <code>SwiftLint</code> 到 <a href="https://atom.io/" target="_blank" rel="noopener"><code>Atom</code></a> 需要从 APM 安装 <a href="https://atom.io/packages/linter-swiftlint" target="_blank" rel="noopener"><code>linter-swiftlint</code></a> 包。</p>
+<h3 id="fastlane"><a href="#fastlane" class="headerlink" title="fastlane"></a>fastlane</h3><p>  你可以用 <a href="https://docs.fastlane.tools/actions/swiftlint" target="_blank" rel="noopener"><code>fastlane官方的SwiftLint功能</code></a> 来运行SwiftLint作为你的Fastlane程序的一部分</p>
+  <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">swiftlint(</span><br><span class="line">    <span class="symbol">mode:</span> <span class="symbol">:lint</span>,                            <span class="comment"># SwiftLint模式: :lint (默认) 或者 :autocorrect</span></span><br><span class="line">    <span class="symbol">executable:</span> <span class="string">"Pods/SwiftLint/swiftlint"</span>, <span class="comment"># SwiftLint的程序路径 (可选的). 对于用CocoaPods集成SwiftLint时很重要</span></span><br><span class="line">    <span class="symbol">path:</span> <span class="string">"/path/to/lint"</span>,                  <span class="comment"># 特殊的检查路径 (可选的)</span></span><br><span class="line">    <span class="symbol">output_file:</span> <span class="string">"swiftlint.result.json"</span>,   <span class="comment"># 检查结果输出路径 (可选的)</span></span><br><span class="line">    <span class="symbol">reporter:</span> <span class="string">"json"</span>,                       <span class="comment"># 输出格式 (可选的)</span></span><br><span class="line">    <span class="symbol">config_file:</span> <span class="string">".swiftlint-ci.yml"</span>,       <span class="comment"># 配置文件的路径 (可选的)</span></span><br><span class="line">    <span class="symbol">files:</span> [                                <span class="comment"># 指定检查文件列表 (可选的)</span></span><br><span class="line">        <span class="string">"AppDelegate.swift"</span>,</span><br><span class="line">        <span class="string">"path/to/project/Model.swift"</span></span><br><span class="line">    ],</span><br><span class="line">    <span class="symbol">ignore_exit_status:</span> <span class="literal">true</span>,               <span class="comment"># 允许fastlane可以继续执行甚至是Swiftlint返回一个非0的退出状态(默认值: false)</span></span><br><span class="line">    <span class="symbol">quiet:</span> <span class="literal">true</span>,                            <span class="comment"># 不输出像‘Linting’和‘Done Linting’的状态日志 (默认值: false)</span></span><br><span class="line">    <span class="symbol">strict:</span> <span class="literal">true</span>                            <span class="comment"># 发现警告时报错? (默认值: false)</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令行"><a href="#命令行" class="headerlink" title="命令行"></a>命令行</h3>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ swiftlint <span class="built_in">help</span></span><br><span class="line">Available commands:</span><br><span class="line"></span><br><span class="line">   autocorrect  Automatically correct warnings and errors</span><br><span class="line">   <span class="built_in">help</span>         Display general or <span class="built_in">command</span>-specific <span class="built_in">help</span></span><br><span class="line">   lint         Print lint warnings and errors <span class="keyword">for</span> the Swift files <span class="keyword">in</span> the current directory (default <span class="built_in">command</span>)</span><br><span class="line">   rules        Display the list of rules and their identifiers</span><br><span class="line">   version      Display the current version of SwiftLint</span><br></pre></td></tr></table></figure>
+
+<p>  在包含有需要执行代码分析的 <code>Swift</code> 源码文件的目录下执行 <code>swiftlint</code> 命令，会对目录进行递归查找。</p>
+<p>  当使用 <code>lint</code> 或者 <code>autocorrect</code> 命令时，你可以通过添加 <code>--use-script-input-files</code> 选项并且设置以下实例变量：<code>SCRIPT_INPUT_FILE_COUNT</code> 和<br>  <code>SCRIPT_INPUT_FILE_0</code>, <code>SCRIPT_INPUT_FILE_1</code>… <code>SCRIPT_INPUT_FILE_{SCRIPT_INPUT_FILE_COUNT}</code> 的方式来指定一个文件列表（就像被 Xcode 特别是 <a href="https://github.com/norio-nomura/ExtraBuildPhase" target="_blank" rel="noopener"><code>ExtraBuildPhase</code></a> Xcode 插件修改的文件组成的列表，或者类似 Git 工作树中 <code>git ls-files -m</code> 命令显示的被修改的文件列表）。</p>
+<p>  也有类似的用来设置输入文件的环境变量以 <a href="http://indiestack.com/2014/12/speeding-up-custom-script-phases/" target="_blank" rel="noopener">自定义 Xcode script phases</a> 。</p>
+<h3 id="使用多个-Swift-版本"><a href="#使用多个-Swift-版本" class="headerlink" title="使用多个 Swift 版本"></a>使用多个 Swift 版本</h3><p>  SwiftLint 工作于 SourceKit 这一层，所以 Swift 版本发生变化时它也能继续工作！</p>
+<p>  这也是 SwiftLint 轻量化的原因，因为它不需要一个完整的 Swift 编译器，它只是与已经安装在你的电脑上的官方编译器进行通信。</p>
+<p>  你应该总是使用和你编译代码同样的工具集来执行 SwiftLint。</p>
+<p>  如果你有多套工具集或者安装了多个不同版本的 Xcode，你可能会需要覆盖 SwiftLint 默认的工具集。</p>
+<p>  下面这些命令可以控制 SwiftLint 使用哪一个 Swift 工具集来进行工作：</p>
+<ul>
+<li><p><code>$XCODE_DEFAULT_TOOLCHAIN_OVERRIDE</code></p>
+</li>
+<li><p><code>$TOOLCHAIN_DIR</code> 或者 <code>$TOOLCHAINS</code></p>
+</li>
+<li><p><code>xcrun -find swift</code></p>
+</li>
+<li><p><code>/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></p>
+</li>
+<li><p><code>/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></p>
+</li>
+<li><p><code>~/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></p>
+</li>
+<li><p><code>~/Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain</code></p>
+<p><code>sourcekitd.framework</code> 默认需要位于 <code>usr/lib/</code> 中，上面传入的路径的子目录中。</p>
+<p>你可能也给反向 DNS 符号设置了 <code>TOOLCHAINS</code> 环境变量来标记一个特定的 Swift 工具集版本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> TOOLCHAINS=com.apple.dt.toolchain.Swift_2_3 swiftlint autocorrect</span></span><br></pre></td></tr></table></figure>
+
+<p>在 Linux 上，SourceKit 默认需要位于 <code>/usr/lib/libsourcekitdInProc.so</code> 或者通过 <code>LINUX_SOURCEKIT_LIB_PATH</code> 环境变量进行指定。</p>
+<h3 id="Swift-Version-Support"><a href="#Swift-Version-Support" class="headerlink" title="Swift Version Support"></a>Swift Version Support</h3><p>这里有一份 SwiftLint 版本和对应该 Swift 版本的对照表作为参考。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left"><code>Swift</code> 版本</th>
+<th align="left">最后一个 <code>SwiftLint</code> 支持版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">Swift 1.x</td>
+<td align="left">SwiftLint 0.1.2</td>
+</tr>
+<tr>
+<td align="left">Swift 2.x</td>
+<td align="left">SwiftLint 0.18.1</td>
+</tr>
+<tr>
+<td align="left">Swift 3.x</td>
+<td align="left">SwiftLint 0.25.1</td>
+</tr>
+<tr>
+<td align="left">Swift 4.0-4.1.x</td>
+<td align="left">SwiftLint 0.28.2</td>
+</tr>
+<tr>
+<td align="left">Swift 4.2.x</td>
+<td align="left">SwiftLint 0.35.0</td>
+</tr>
+<tr>
+<td align="left">Swift 5.x</td>
+<td align="left">最新的</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="规则"><a href="#规则" class="headerlink" title="规则"></a>规则</h2><p>  你可以在 <a href="https://realm.github.io/SwiftLint/rule-directory.html" target="_blank" rel="noopener"><code>Rule Directory</code></a> 找到规则的更新列表和更多信息。</p>
+<p>  你也可以检视 <a href="Source/SwiftLintFramework/Rules"><code>Source/SwiftLintFramework/Rules</code></a> 目录来查看它们的实现。</p>
+<p>  <code>opt_in_rules</code> 默认是关闭的（即，你需要在你的配置文件中明确地打开它们）。</p>
+<p>  什么时候需要将一个规则设为 opt-in 的指南：</p>
+<ul>
+<li><p>一个可能会有许多负面作用的规则（例如 <code>empty_count</code>）</p>
+</li>
+<li><p>一个过慢的规则</p>
+</li>
+<li><p>一个不通用或者仅在某些特定场景下可用的规则（例如 <code>force_unwrapping</code>）</p>
+<h3 id="在代码中关闭某个规则"><a href="#在代码中关闭某个规则" class="headerlink" title="在代码中关闭某个规则"></a>在代码中关闭某个规则</h3><p>可以通过在一个源文件中定义一个如下格式的注释来关闭某个规则：</p>
+<p><code>// swiftlint:disable &lt;rule&gt;</code></p>
+<p>在该文件结束之前或者在定义如下格式的匹配注释之前，这条规则都会被禁用：</p>
+<p><code>// swiftlint:enable &lt;rule&gt;</code></p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable colon</span></span><br><span class="line"><span class="keyword">let</span> noWarning :<span class="type">String</span> = <span class="string">""</span> <span class="comment">// No warning about colons immediately after variable names!</span></span><br><span class="line"><span class="comment">// swiftlint:enable colon</span></span><br><span class="line"><span class="keyword">let</span> hasWarning :<span class="type">String</span> = <span class="string">""</span> <span class="comment">// Warning generated about colons immediately after variable names</span></span><br></pre></td></tr></table></figure>
+
+<p>也可以通过添加 <code>:previous</code>, <code>:this</code> 或者 <code>:next</code> 来使关闭或者打开某条规则的命令分别应用于前一行，当前或者后一行代码。</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swiftlint:disable:next force_cast</span></span><br><span class="line"><span class="keyword">let</span> noWarning = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="keyword">let</span> hasWarning = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="keyword">let</span> noWarning2 = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span> <span class="comment">// swiftlint:disable:this force_cast</span></span><br><span class="line"><span class="keyword">let</span> noWarning3 = <span class="type">NSNumber</span>() <span class="keyword">as</span>! <span class="type">Int</span></span><br><span class="line"><span class="comment">// swiftlint:disable:previous force_cast</span></span><br></pre></td></tr></table></figure>
+
+<p>执行 <code>swiftlint rules</code> 命令可以输出所有可用的规则和他们的标识符组成的列表。</p>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>可以通过在你需要执行 SwiftLint 的目录下添加一个 <code>.swiftlint.yml</code> 文件的方式来配置 SwiftLint。可以被配置的参数有：</p>
+<p>包含的规则：</p>
+</li>
+<li><p><code>disabled_rules</code>: 关闭某些默认开启的规则。</p>
+</li>
+<li><p><code>opt_in_rules</code>: 一些规则是可选的。</p>
+</li>
+<li><p><code>only_rules</code>: 不可以和 <code>disabled_rules</code> 或者 <code>opt_in_rules</code> 并列。类似一个白名单，只有在这个列表中的规则才是开启的。</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">disabled_rules:</span> <span class="comment"># 执行时排除掉的规则</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">colon</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">comma</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">control_statement</span></span><br><span class="line"><span class="attr">opt_in_rules:</span> <span class="comment"># 一些规则仅仅是可选的</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">empty_count</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">missing_docs</span></span><br><span class="line">  <span class="comment"># 可以通过执行如下指令来查找所有可用的规则:</span></span><br><span class="line">  <span class="comment"># swiftlint rules</span></span><br><span class="line"><span class="attr">included:</span> <span class="comment"># 执行 linting 时包含的路径。如果出现这个 `--path` 会被忽略。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Source</span></span><br><span class="line"><span class="attr">excluded:</span> <span class="comment"># 执行 linting 时忽略的路径。 优先级比 `included` 更高。</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Carthage</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Pods</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Source/ExcludedFolder</span></span><br><span class="line">  <span class="bullet">-</span> <span class="string">Source/ExcludedFile.swift</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 可配置的规则可以通过这个配置文件来自定义</span></span><br><span class="line"><span class="comment"># 二进制规则可以设置他们的严格程度</span></span><br><span class="line"><span class="attr">force_cast:</span> <span class="string">warning</span> <span class="comment"># 隐式</span></span><br><span class="line"><span class="attr">force_try:</span></span><br><span class="line">  <span class="attr">severity:</span> <span class="string">warning</span> <span class="comment"># 显式</span></span><br><span class="line"><span class="comment"># 同时有警告和错误等级的规则，可以只设置它的警告等级</span></span><br><span class="line"><span class="comment"># 隐式</span></span><br><span class="line"><span class="attr">line_length:</span> <span class="number">110</span></span><br><span class="line"><span class="comment"># 可以通过一个数组同时进行隐式设置</span></span><br><span class="line"><span class="attr">type_body_length:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">300</span> <span class="comment"># warning</span></span><br><span class="line">  <span class="bullet">-</span> <span class="number">400</span> <span class="comment"># error</span></span><br><span class="line"><span class="comment"># 或者也可以同时进行显式设置</span></span><br><span class="line"><span class="attr">file_length:</span></span><br><span class="line">  <span class="attr">warning:</span> <span class="number">500</span></span><br><span class="line">  <span class="attr">error:</span> <span class="number">1200</span></span><br><span class="line"><span class="comment"># 命名规则可以设置最小长度和最大程度的警告/错误</span></span><br><span class="line"><span class="comment"># 此外它们也可以设置排除在外的名字</span></span><br><span class="line"><span class="attr">type_name:</span></span><br><span class="line">  <span class="attr">min_length:</span> <span class="number">4</span> <span class="comment"># 只是警告</span></span><br><span class="line">  <span class="attr">max_length:</span> <span class="comment"># 警告和错误</span></span><br><span class="line">    <span class="attr">warning:</span> <span class="number">40</span></span><br><span class="line">    <span class="attr">error:</span> <span class="number">50</span></span><br><span class="line">  <span class="attr">excluded:</span> <span class="string">iPhone</span> <span class="comment"># 排除某个名字</span></span><br><span class="line"><span class="attr">identifier_name:</span></span><br><span class="line">  <span class="attr">min_length:</span> <span class="comment"># 只有最小长度</span></span><br><span class="line">    <span class="attr">error:</span> <span class="number">4</span> <span class="comment"># 只有错误</span></span><br><span class="line">  <span class="attr">excluded:</span> <span class="comment"># 排除某些名字</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">id</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">URL</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">GlobalAPIKey</span></span><br><span class="line"><span class="attr">reporter:</span> <span class="string">"xcode"</span> <span class="comment"># 报告类型 (xcode, json, csv, checkstyle, codeclimate, junit, html, emoji, sonarqube, markdown, github-actions-logging)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="定义自定义规则"><a href="#定义自定义规则" class="headerlink" title="定义自定义规则"></a>定义自定义规则</h4><p>你可以用如下语法在你的配置文件里定义基于正则表达式的自定义规则：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">custom_rules:</span></span><br><span class="line">  <span class="attr">pirates_beat_ninjas:</span> <span class="comment"># 规则标识符</span></span><br><span class="line">    <span class="attr">name:</span> <span class="string">"Pirates Beat Ninjas"</span> <span class="comment"># 规则名称，可选</span></span><br><span class="line">    <span class="attr">regex:</span> <span class="string">"([nN]inja)"</span> <span class="comment"># 匹配的模式</span></span><br><span class="line">    <span class="attr">match_kinds:</span> <span class="comment"># 需要匹配的语法类型，可选</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">comment</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">identifier</span></span><br><span class="line">    <span class="attr">message:</span> <span class="string">"Pirates are better than ninjas."</span> <span class="comment"># 提示信息，可选</span></span><br><span class="line">    <span class="attr">severity:</span> <span class="string">error</span> <span class="comment"># 提示的级别，可选</span></span><br><span class="line">  <span class="attr">no_hiding_in_strings:</span></span><br><span class="line">    <span class="attr">regex:</span> <span class="string">"([nN]inja)"</span></span><br><span class="line">    <span class="attr">match_kinds:</span> <span class="string">string</span></span><br></pre></td></tr></table></figure>
+
+<p>输出大概可能是这个样子的：</p>
+<p><img src="https://cdn.xuebaonline.com/swift_lint_guild_03.png" alt="image-20201210170739747"></p>
+<p>你可以通过提供一个或者多个 <code>match_kinds</code> 的方式来对匹配进行筛选，它会将含有不包括在列表中的语法类型的匹配排除掉。这里有全部可用的语法类型：</p>
+</li>
+<li><p><code>argument</code></p>
+</li>
+<li><p><code>attribute.builtin</code></p>
+</li>
+<li><p><code>attribute.id</code></p>
+</li>
+<li><p><code>buildconfig.id</code></p>
+</li>
+<li><p><code>buildconfig.keyword</code></p>
+</li>
+<li><p><code>comment</code></p>
+</li>
+<li><p><code>comment.mark</code></p>
+</li>
+<li><p><code>comment.url</code></p>
+</li>
+<li><p><code>doccomment</code></p>
+</li>
+<li><p><code>doccomment.field</code></p>
+</li>
+<li><p><code>identifier</code></p>
+</li>
+<li><p><code>keyword</code></p>
+</li>
+<li><p><code>number</code></p>
+</li>
+<li><p><code>objectliteral</code></p>
+</li>
+<li><p><code>parameter</code></p>
+</li>
+<li><p><code>placeholder</code></p>
+</li>
+<li><p><code>string</code></p>
+</li>
+<li><p><code>string_interpolation_anchor</code></p>
+</li>
+<li><p><code>typeidentifier</code></p>
+<h4 id="嵌套配置"><a href="#嵌套配置" class="headerlink" title="嵌套配置"></a>嵌套配置</h4><p><code>SwiftLint</code> 支持通过嵌套配置文件的方式来对代码分析过程进行更加细致的控制。</p>
+</li>
+<li><p>在你需要的目录引入 <code>.swiftlint.yml</code>。</p>
+</li>
+<li><p>在目录结构必要的地方引入额外的 <code>.swiftlint.yml</code> 文件。</p>
+</li>
+<li><p>每个文件被检查时会使用在文件所在目录下的或者父目录的更深层目录下的配置文件。否则根配置文件将会生效。</p>
+</li>
+<li><p><code>excluded</code> 和 <code>included</code> 在嵌套结构中会被忽略。</p>
+<h3 id="自动更正"><a href="#自动更正" class="headerlink" title="自动更正"></a>自动更正</h3><p><code>SwiftLint</code> 可以自动修正某些错误，磁盘上的文件会被一个修正后的版本覆盖。</p>
+<p>请确保在对文件执行 <code>swiftlint autocorrect</code> 之前有对它们做过备份，否则的话有可能导致重要数据的丢失。</p>
+<p>因为在执行自动更正修改某个文件后很有可能导致之前生成的代码检查信息无效或者不正确，所以当在执行代码更正时标准的检查是无法使用的。</p>
+<h2 id="SwiftLint-支持的规则"><a href="#SwiftLint-支持的规则" class="headerlink" title="SwiftLint 支持的规则"></a><code>SwiftLint</code> 支持的规则</h2><p>支持的规则列表：</p>
+</li>
+</ul>
+<p><img src="https://cdn.xuebaonline.com/swift_lint_guild_04.png" alt="image-20201210170739747"><br><img src="https://cdn.xuebaonline.com/swift_lint_guild_05.png" alt="image-20201210170739747"><br><img src="https://cdn.xuebaonline.com/swift_lint_guild_06.png" alt="image-20201210170739747"><br><img src="https://cdn.xuebaonline.com/swift_lint_guild_07.png" alt="image-20201210170739747"><br><img src="https://cdn.xuebaonline.com/swift_lint_guild_08.png" alt="image-20201210170739747"></p>
+
     </div>
 
     
@@ -402,6 +613,12 @@
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/SwiftLint/" rel="tag"><i class="fa fa-tag"></i> SwiftLint</a>
+          </div>
 
         
 
@@ -472,6 +689,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装"><span class="nav-number">1.</span> <span class="nav-text">安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Homebrew："><span class="nav-number">1.1.</span> <span class="nav-text">使用 Homebrew：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-CocoaPods："><span class="nav-number">1.2.</span> <span class="nav-text">使用 CocoaPods：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-Mint："><span class="nav-number">1.3.</span> <span class="nav-text">使用 Mint：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用安装包："><span class="nav-number">1.4.</span> <span class="nav-text">使用安装包：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译源代码："><span class="nav-number">1.5.</span> <span class="nav-text">编译源代码：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">2.</span> <span class="nav-text">用法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Xcode"><span class="nav-number">2.1.</span> <span class="nav-text">Xcode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AppCode"><span class="nav-number">2.2.</span> <span class="nav-text">AppCode</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Atom"><span class="nav-number">2.3.</span> <span class="nav-text">Atom</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fastlane"><span class="nav-number">2.4.</span> <span class="nav-text">fastlane</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#命令行"><span class="nav-number">2.5.</span> <span class="nav-text">命令行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用多个-Swift-版本"><span class="nav-number">2.6.</span> <span class="nav-text">使用多个 Swift 版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Swift-Version-Support"><span class="nav-number">2.7.</span> <span class="nav-text">Swift Version Support</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#规则"><span class="nav-number">3.</span> <span class="nav-text">规则</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在代码中关闭某个规则"><span class="nav-number">3.1.</span> <span class="nav-text">在代码中关闭某个规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配置"><span class="nav-number">3.2.</span> <span class="nav-text">配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#定义自定义规则"><span class="nav-number">3.2.1.</span> <span class="nav-text">定义自定义规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#嵌套配置"><span class="nav-number">3.2.2.</span> <span class="nav-text">嵌套配置</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自动更正"><span class="nav-number">3.3.</span> <span class="nav-text">自动更正</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SwiftLint-支持的规则"><span class="nav-number">4.</span> <span class="nav-text">SwiftLint 支持的规则</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -494,13 +712,13 @@
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">45</span>
+        <span class="site-state-item-count">46</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">118</span>
+        <span class="site-state-item-count">119</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -582,7 +800,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19:20</span>
+    <span title="站点阅读时长">19:26</span>
 </div>
 
 <!--
