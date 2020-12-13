@@ -17,8 +17,6 @@ categories:
     - [Swift 源码阅读]
 ---
 
-
-
 ​		使用一项新的技术之后，使用时间愈长就对内部实现原理愈感到好奇。基于难以压抑的好奇心，决定花点时间对这门语言一些实现一探究竟。
 
 ​		阅读源码之前需要准备一些资料：
@@ -46,7 +44,6 @@ categories:
 + 可随机访问
 
   
-
 > `Array<Element>` is like `ContiguousArray<Element>` when `Element` is not a reference type or an Objective-C existential. Otherwise, it may use an `NSArray` bridged from Cocoa for storage.
 
 源文件中的注释描述的比较清晰，如果 `Array` 中的元素为非引用类型或者非 `Objective-C` 扩展的类型，其存储和使用和使用方式与 `ContiguousArray` 一直。否则会将其桥接转换成 `NSArray` 存储。
