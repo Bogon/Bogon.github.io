@@ -2,7 +2,7 @@
 title: Swift 源码系列(一)：Array的实现原理探究
 description: Swift 源码系列(一)：Array的实现原理探究
 permalink: Swift 源码系列(一)：Array的实现原理探究
-copyright: ture
+copyright: true
 date: 2020-12-12 09:20:00
 keywords: iOS,Swift,Swift 源码,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection,Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced Classes,面试题,Swift 源码系列(一)：Array的实现原理探究
 tags:

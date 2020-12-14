@@ -2,7 +2,7 @@
 title: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions'
 description: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions'
 permalink: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions'
-copyright: ture
+copyright: true
 date: 2020-05-12 16:48:17
 keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Functions
 tags:
