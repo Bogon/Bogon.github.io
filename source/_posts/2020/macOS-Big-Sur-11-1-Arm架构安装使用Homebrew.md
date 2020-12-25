@@ -63,3 +63,60 @@ https://blog.csdn.net/JENREY/article/details/103478953
 参考：
 
 https://realazy.com/til/2020-11-21-homebrew-on-macbook-pro-m1.html
+
+# 切换国内源
+
+```Bash
+# 替换brew.git:
+ cd "$(brew --repo)"
+# 中国科大:
+ git remote set-url origin https://mirrors.ustc.edu.cn/brew.git
+# 清华大学:
+ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/brew.git
+
+# 替换homebrew-core.git:
+ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+# 中国科大:
+ git remote set-url origin https://mirrors.ustc.edu.cn/homebrew-core.git
+# 清华大学:
+ git remote set-url origin https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
+
+# 替换homebrew-bottles:
+# 中国科大:
+ echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles' >> ~/.bash_profile
+ source ~/.bash_profile
+# 清华大学:
+ echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles' >> ~/.bash_profile
+ source ~/.bash_profile
+
+# 应用生效:
+ brew update
+```
+
+# 切换阿里源
+
+```Bash
+# 替换brew.git:
+cd "$(brew --repo)"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/brew.git
+
+# 替换homebrew-core.git:
+cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+git remote set-url origin https://mirrors.aliyun.com/homebrew/homebrew-core.git
+
+# 替换homebrew-bottles:
+echo 'export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.aliyun.com/homebrew/homebrew-bottles' >> ~/.zshrc
+source ~/.zshrc
+```
+
+#  切换回官方源
+
+```Bash
+# 重置brew.git:
+ cd "$(brew --repo)"
+ git remote set-url origin https://github.com/Homebrew/brew.git
+
+# 重置homebrew-core.git:
+ cd "$(brew --repo)/Library/Taps/homebrew/homebrew-core"
+ git remote set-url origin https://github.com/Homebrew/homebrew-core.git
+```
