@@ -35,6 +35,8 @@ TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received 
 
 ```
 
+<!-- more -->
+
 ## 解决方案：
 `hexo` 在 `github` 上给出的建议：
 + 降低 `node` 版本；
