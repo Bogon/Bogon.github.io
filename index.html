@@ -406,38 +406,6 @@
 <p>所以我们希望既能够解决现有的问题，又能够在不同 <code>Node</code> 版本间切换。</p>
 </blockquote>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">FATAL Something<span class="string">'s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">TypeError [ERR_INVALID_ARG_TYPE]: The "mode" argument must be integer. Received an instance of Object</span></span><br><span class="line"><span class="string">    at copyFile (fs.js:1890:10)</span></span><br><span class="line"><span class="string">    at tryCatcher (C:\Users\Administrator\blog\node_modules\bluebird\js\release\util.js:16:23)</span></span><br><span class="line"><span class="string">    at ret (eval at makeNodePromisifiedEval (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promisify.js:184:12), &lt;anonymous&gt;:13:39)</span></span><br><span class="line"><span class="string">    at C:\Users\Administrator\blog\node_modules\hexo-deployer-git\node_modules\hexo-fs\lib\fs.js:144:39</span></span><br><span class="line"><span class="string">    at tryCatcher (C:\Users\Administrator\blog\node_modules\bluebird\js\release\util.js:16:23)</span></span><br><span class="line"><span class="string">    at Promise._settlePromiseFromHandler (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:517:31)</span></span><br><span class="line"><span class="string">    at Promise._settlePromise (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:574:18)</span></span><br><span class="line"><span class="string">    at Promise._settlePromise0 (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:619:10)</span></span><br><span class="line"><span class="string">    at Promise._settlePromises (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:699:18)</span></span><br><span class="line"><span class="string">    at Promise._fulfill (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:643:18)</span></span><br><span class="line"><span class="string">    at Promise._resolveCallback (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:437:57)</span></span><br><span class="line"><span class="string">    at Promise._settlePromiseFromHandler (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:529:17)</span></span><br><span class="line"><span class="string">    at Promise._settlePromise (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:574:18)</span></span><br><span class="line"><span class="string">    at Promise._settlePromise0 (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:619:10)</span></span><br><span class="line"><span class="string">    at Promise._settlePromises (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:699:18)</span></span><br><span class="line"><span class="string">    at Promise._fulfill (C:\Users\Administrator\blog\node_modules\bluebird\js\release\promise.js:643:18)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h2><p><code>hexo</code> 在 <code>github</code> 上给出的建议：</p>
-<ul>
-<li>降低 <code>node</code> 版本；</li>
-<li>升级最新 <code>hexo@4.2.1+</code> 。</li>
-</ul>
-<p>检查 hexo 版本信息：<code>hexo --version</code></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">hexo-cli: 3.1.0</span><br><span class="line">os: Darwin 20.4.0 darwin x64</span><br><span class="line">node: 12.16.3</span><br><span class="line">v8: 7.8.279.23-node.35</span><br><span class="line">uv: 1.34.2</span><br><span class="line">zlib: 1.2.11</span><br><span class="line">brotli: 1.0.7</span><br><span class="line">ares: 1.16.0</span><br><span class="line">modules: 72</span><br><span class="line">nghttp2: 1.40.0</span><br><span class="line">napi: 5</span><br><span class="line">llhttp: 2.0.4</span><br><span class="line">http_parser: 2.9.3</span><br><span class="line">openssl: 1.1.1g</span><br><span class="line">cldr: 36.0</span><br><span class="line">icu: 65.1</span><br><span class="line">tz: 2019c</span><br><span class="line">unicode: 12.1</span><br></pre></td></tr></table></figure>
-
-<h2 id="Node多版本管理"><a href="#Node多版本管理" class="headerlink" title="Node多版本管理"></a>Node多版本管理</h2><ul>
-<li><p>工具 <a href="https://github.com/tj/n" target="_blank" rel="noopener">n</a></p>
-</li>
-<li><p>安装</p>
-<ul>
-<li>node 命令安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g n</span><br></pre></td></tr></table></figure></li>
-<li>brew进行安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">brew install n</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>使用(版本切换)</p>
-<ul>
-<li>最新版本<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">n latest</span><br></pre></td></tr></table></figure></li>
-<li>分别 <code>sudo n 12.18.2</code>、<code>sudo n 8.17.0</code>、<code>sudo n 10.21.0</code> 之后，查看所有的node版本。<br>终端输入 <code>n</code>:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> 	ο node/12.16.3</span><br><span class="line">     node/16.2.0</span><br><span class="line"></span><br><span class="line">Use up/down arrow keys to select a version, <span class="built_in">return</span> key to install, d to delete, q to quit</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p>切换版本</p>
-<ul>
-<li>查看当前版本  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br></pre></td></tr></table></figure>
-  可看到版本信息：<code>v12.16.3</code></li>
-<li>按 <code>n</code> 之后，选择相应版本并切换，可以看到版本已经切换。</li>
-</ul>
-</li>
-</ul>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/hexo%E9%83%A8%E7%BD%B2%E5%A4%B1%E8%B4%A5/#more" rel="contents">
