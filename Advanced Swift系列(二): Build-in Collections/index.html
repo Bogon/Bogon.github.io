@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(二): Build-in Collections">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(二): Build-in Collections">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(二): Build-in Collections">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xuebaonline.com/asbc-stp1.png">
+<meta property="article:published_time" content="2020-05-05T05:44:31.000Z">
+<meta property="article:modified_time" content="2020-06-29T02:47:25.870Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content=" Swift进阶">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/asbc-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(二): Build-in Collections | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(二): Build-in Collections
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 13:44:31" itemprop="dateCreated datePublished" datetime="2020-05-05T13:44:31+08:00">2020-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(二): Build-in Collections</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在任何编程语言中，元素的 <code>集合</code> 都是最重要的数据类型之一。 对各种容器的良好语言支持对程序员的工作效率和幸福感有很大影响。  <code>Swift</code> 特别强调序列和集合-标准库的大部分内容都专门针对该主题，因此我们有时会觉得它处理的很少。 生成的模型比你可能习惯于其他语言的模型具有更高的 <code>可扩展性</code> ，但是它也相当复杂。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们将介绍 <code>Swift</code> 附带的主要 <code>集合类型</code> ，重点是如何有效地和惯用地使用它们。 在本书后面的 <code>“集合协议”</code> 一章中，我们将爬上 <code>抽象阶梯</code> ，并了解 <code>标准库</code> 中的 <code>集合协议</code> 如何工作。</p>
+<h1 id="Arrays"><a href="#Arrays" class="headerlink" title="Arrays"></a><strong>Arrays</strong></h1><h2 id="Arrays-and-Mutability"><a href="#Arrays-and-Mutability" class="headerlink" title="Arrays and Mutability"></a><strong><em>Arrays and Mutability</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>数组</code> 是 <code>Swift</code> 中最常见的 <code>集合</code> 。  <code>数组</code> 是所有具有 <strong><code>相同类型的元素的有序容器</code></strong> ，它提供对每个元素的随机访问。 例如，要创建一个数字数组，我们可以编写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The Fibonacci numbers</span></span><br><span class="line"><span class="keyword">let</span> fibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果尝试修改上面定义的数组（例如，使用 <code>append（_ :)</code> ），则会出现编译错误。 这是因为使用 <code>let</code> 将数组定义为常量。 在很多情况下，这是正确的做法。 它可以防止我们意外更改数组。 如果我们希望数组为变量，则必须使用 <code>var</code> 进行定义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mutableFibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以轻松地附加单个元素或元素序列：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mutableFibs.append(<span class="number">8</span>) </span><br><span class="line">mutableFibs.append(contentsOf: [<span class="number">13</span>, <span class="number">21</span>]) </span><br><span class="line">mutableFibs <span class="comment">// [0, 1, 1, 2, 3, 5, 8, 13, 21]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区分 <code>var</code> 和 <code>let</code> 有很多好处。 用 <code>let</code> 定义的常数是 <code>不可变的</code> ，因此更容易推论。 什么时候<br>你读了一个类似 <code>let fibs= ...</code>的声明，你知道 <code>fibs</code> 的值将永远不会改变-不变性由编译器强制执行。 这在阅读时有很大帮助<br>通过代码。 但是，请注意，这仅适用于具有 <strong>值语义</strong> 的类型。 包含对类实例的引用的 <code>let变量</code> 可确保该引用永远不会改变，即，你不能将其他对象分配给该变量。 但是，参考指向的对象可以更改。 我们将在 <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/"><strong><em><code>“结构和类”</code></em></strong></a> 一章中详细介绍这些差异。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>标准库</code> 中的所有集合类型一样， <code>数组</code> 也具有 <strong>值语义</strong> 。 将现有数组分配给另一个变量时，将复制数组内容。 例如，在以下代码片段中， <code>x</code> 从未修改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] </span><br><span class="line"><span class="keyword">var</span> y=x </span><br><span class="line">y.append(<span class="number">4</span>)</span><br><span class="line">y <span class="comment">// [1, 2, 3, 4] </span></span><br><span class="line">x <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语句 <code>var y = x</code> 复制了 <code>x</code> ，因此将 <code>4</code> 附加到 <code>y</code> 不会更改 <code>x-x</code> 的值仍为[1、2、3]。 当你将数组传递给函数时，也会发生同样的事情。 该函数接收数组的本地副本，并且所做的任何更改都不会影响调用者。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将此与 <code>Foundation</code> 中 <code>NSArray</code> 采取的可变性方法进行比较。  <code>NSArray</code> 没有变异方法-要变异数组，你需要一个 <code>NSMutableArray</code> 。 但是，仅仅因为你拥有一个不变的 <code>NSArray引用</code> 并不意味着该数组无法在你的下方进行改变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="type">NSMutableArray</span>(array: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) </span><br><span class="line"><span class="comment">// I don't want to be able to mutate b. </span></span><br><span class="line"><span class="keyword">let</span> b: <span class="type">NSArray</span> = a</span><br><span class="line"><span class="comment">// But it can still be mutated — via a. </span></span><br><span class="line">a.insert(<span class="number">4</span>, at: <span class="number">3</span>)</span><br><span class="line">b <span class="comment">// ( 1, 2, 3, 4 )</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正确的写法是在分配后手动创建一个副本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> <span class="built_in">c</span> = <span class="type">NSMutableArray</span>(array: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]) </span><br><span class="line"><span class="comment">// I don't want to be able to mutate d. </span></span><br><span class="line"><span class="keyword">let</span> d = <span class="built_in">c</span>.copy() <span class="keyword">as</span>! <span class="type">NSArray</span></span><br><span class="line"><span class="built_in">c</span>.insert(<span class="number">4</span>, at: <span class="number">3</span>) </span><br><span class="line">d <span class="comment">// ( 1, 2, 3 )</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的示例中，很明显，我们需要进行复制-毕竟是可变的。 但是，当在 <code>方法和函数</code> 之间传递数组时，这并不总是那么容易看到。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，只有一种数组类型，而 <code>可变性</code> 是通过使用 <code>var</code> 而不是 <code>let声明</code> 来控制的。 但是没有引用共享-当你使用 <code>let声明</code> 第二个数组时，可以确保它永远不会改变。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;制作如此多的副本可能会造成性能问题，但是实际上， <code>Swift标准库</code> 中的所有集合类型都是使用称为 <code>写时复制的技术</code> 实现的，<strong>该技术可确保仅在必要时才复制数据</strong>。 因此，在我们的示例中，<strong>x和y共享内部存储</strong>，直到调用点 <strong><code>y.append</code></strong> 。 在“结构和类”一章中，我们将更深入地研究 <strong>值语义</strong> ，包括如何为自己的类型实现<strong>写时复制</strong>：</p>
+<h2 id="Array-Indexing"><a href="#Array-Indexing" class="headerlink" title="Array Indexing"></a><strong><em>Array Indexing</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift Array</code> 可提供你期望的所有常规操作，例如 <code>isEmpty</code> 和 <code>count</code> 。 数组还允许通过下标直接访问特定索引处的元素，例如 <code>fibs[3]</code> 。 请记住，在通过下标获取元素之前，需要确保索引在范围之内。 提取索引3的元素，最好确保数组中至少包含四个元素。 否则，你的程序将崩溃，<br>即因致命错误而中止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 有很多使用数组的方式，而无需你计算索引：</p>
+<ul>
+<li>→是否希望遍历整个数组？ 用于数组中的x</li>
+<li>→是否想对数组的第一个元素进行总体评估？ 对于array.dropFirst（）中的x</li>
+<li>→是否想对所有最后五个要素进行评估？ 对于array.dropLast（5）中的x</li>
+<li>→想要对数组中的所有元素进行编号？ 用于array.enumerated（）中的（num，element）</li>
+<li>→是否想找到特定元素的位置？<br>如果让idx =array.􏰀rstIndex{someMatchingLogic（$ 0）}</li>
+<li>→想要在数组中转换所有元素？ array.map {someTransformation（$ 0）}</li>
+<li>→是否只想获取与特定标准匹配的元素？ array.􏰀lter{someCriteria（$ 0）}</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 希望阻止你进行 索引数学运算 的另一个迹象是，从 <code>Swift 3</code> 的语言中删除了传统的C风格的 <code>for循环</code> 。手动摆弄索引会产生很多漏洞，因此通常最好避免使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是有时你必须使用索引。 对于数组索引，期望的是，当你这样做时，你会非常仔细地考虑过索引计算背后的逻辑。 因此必须解开下标操作的值可能是过大的<br>—这意味着你不信任你的代码。 但是你确实有可能信任代码，所以你可能会求助于对结果进行强制包装，因为你知道索引必须有效。 这是（a）令人讨厌的，并且（b）是要养成的不良习惯。 当强制展开成为常规操作时，最终你将滑倒并强制展开你不想要的东西。 因此，为避免这种习惯成为常规，数组不给你选择的余地。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管可以说对下标操作进行响应以控制崩溃的下标操作可以称为不安全，但这只是安全性的一个方面。 就内存安全而言，下标是绝对安全的-标准库集合始终执行边界检查，以防止越界索引进行未经授权的内存访问。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他操作的行为有所不同。 第一个和最后一个属性返回一个可选值，如果数组为空，则为 <code>nil</code> 。  <code>first</code> 等于 <code>isEmpty</code> 吗？ 无：<code>self[0]</code>。 同样，如果你在空数组上调用 <code>removeLast</code> 方法，则会捕获该方法，而如果数组不为空，则 <code>popLast</code> 将仅删除并返回最后一个元素，否则它将不执行任何操作并返回 <code>nil</code> 。 你要使用哪一个取决于你的用例。 当你将数组作为堆栈使用时，你可能总是希望结合使用检查空和删除最后一个条目。 另一方面，如果你已经知道数组是否为空，那么处理可选对象就很麻烦了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章的后面，当我们谈论字典时，我们将再次遇到这些折衷。 此外，有一整章专门介绍可选内容。</p>
+<h2 id="转换数组"><a href="#转换数组" class="headerlink" title="转换数组"></a><strong><em>转换数组</em></strong></h2><h3 id="map"><a href="#map" class="headerlink" title="map"></a><strong><em>map</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常需要对数组中的每个值执行转换。 每个程序员都写过类似的代码数百次：创建一个新的数组，遍历现有数组中的所有元素，对一个元素执行操作，并将该操作的结果附加到新数组中。 例如，以下代码对整数数组求平方：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> squared: [<span class="type">Int</span>] = [] </span><br><span class="line"><span class="keyword">for</span> fib <span class="keyword">in</span> fibs &#123;</span><br><span class="line">    squared.append(fib * fib) </span><br><span class="line">&#125;</span><br><span class="line">squared <span class="comment">// [0, 1, 1, 4, 9, 25]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 数组具有 <code>map方法</code> ，该方法从函数世界中采用编程。 使用 <strong><em>map</em></strong> 的操作完全相同：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> squares = fibs.<span class="built_in">map</span>&#123; fib <span class="keyword">in</span> fib*fib &#125;</span><br><span class="line">squares <span class="comment">// [0, 1, 1, 4, 9, 25]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此版本具有三个主要优点。当然要短一些。错误的余地也更少了。但更重要的是，它更清楚：所有杂物都已消除。一旦习惯了无所不在地查看和使用 map ，它就可以作为信号-你看到 map 后，便会立即知道发生了什么：<strong>一个函数将应用于每个元素，并返回经过转换的元素的新数组</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不再需要使用 <code>var</code> 来声明平方，因为我们不再对它进行变异-它会从完整形成的 map 中提供，因此我们可以在适当的情况下使用 <code>let声明平方</code> 。并且由于可以从传递给 <code>map</code> 的函数中推断内容的类型，因此不再需要明确键入 <code>squares</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>map方法</code> 并不难编写-只是将for循环的样板部分包装为通用函数的问题。这是一种可能的实现方式（尽管在Swift中，它实际上是 <code>Sequence协议</code> 的扩展，我们将在Collection Protocols一章中介绍）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">map</span>&lt;T&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; <span class="type">T</span>) -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> result: [<span class="type">T</span>] = [] </span><br><span class="line">    result.reserveCapacity(<span class="built_in">count</span>) </span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span>&#123;</span><br><span class="line">        result.append(transform(x)) </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Element</code> 是数组包含的任何类型的 <code>通用占位符</code> ，而 <code>T</code> 是表示元素转换结果的 <code>新占位符</code> 。 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>map</code> 功能本身并不关心 <code>元素</code> 和 <code>T</code> 是什么。 他们可以是任何东西。 转换元素的具体 <code>类型T</code> 由 <code>调用者传递给映射的转换函数的返回类型定义</code> 。 有关通用参数的详细信息，请参见 <code>“通用”</code> 一章。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;确实，此方法的签名应为<code>func map &lt;T&gt;（__ transform：（Element）throws-&gt; T）rethrows-&gt; [T]</code>，表示映射将转换功能可能抛出的任何错误转发给调用者。 我们将在 <code>“错误”</code> 一章中对此进行详细介绍，但是在这里，为简单起见，我们省略了错误处理注释。 如果需要，你可以在 <code>GitHub</code> 的 <code>Swift</code> 存储库中检出 <code>Sequence.map</code> 的源代码。</p>
+</blockquote>
+<h3 id="用函数参数化行为"><a href="#用函数参数化行为" class="headerlink" title="用函数参数化行为"></a><strong><em>用函数参数化行为</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即使你已经熟悉 <code>map</code> ，也请花点时间考虑一下 <code>map</code> 的实现。 是什么使它如此通用却如此有用？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>map</code> 设法将 样板 与每次调用的功能区分开来，即每次调用之间都没有变化，即逻辑上如何精确转换每个元素。 它通过调用者提供的参数来完成此操作： <code>转换函数</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在整个标准库中都可以找到这种 参数化行为模式 。 例如，在 <code>Array</code> （以及其他种类的集合）上有十几个单独的方法，它们带有一个函数来自定义其行为：</p>
+<ul>
+<li>→ <strong><code>map</code></strong> and <strong><code>flatMap</code></strong> - 转换元素</li>
+<li>→ <strong><code>filter</code></strong> - 仅包含某些元素</li>
+<li>→ <strong><code>allSatisfy</code></strong> — 满足条件的测试要素</li>
+<li>→ <strong><code>reduce</code></strong> — 将元素折叠为合计值</li>
+<li>→ <strong><code>forEach</code></strong> —访问</li>
+<li>→ <strong><code>sort（by :)</code></strong>， <strong><code>sorted（by :</code></strong>) ， <strong><code>lexicographicallyPrecedes（_：by :)</code></strong> 和 <strong><code>partition（by :)</code></strong> —重新排列元素</li>
+<li>→ <strong><code>firstIndex（where :)</code></strong>，<strong><code>lastIndex（where :)</code></strong>，<strong><code>first（where :)</code></strong>，<strong><code>last（where :)</code></strong>和 <strong><code>contains（where :)</code></strong>  — 元素是否存在？</li>
+<li>→ <strong><code>min（by :)</code></strong> 和 <strong><code>max（by :)</code></strong> -查找最小的 <strong><code>mumormaximumo</code></strong> 元素</li>
+<li>→ <strong><code>elementsEqual（_：by :)</code></strong> 和 <strong><code>starts（with：by :)</code></strong>  — 比较元素到另一个元素<br>数组</li>
+<li>→ <strong><code>split（whereSeparator :)</code></strong> - 将元素分解为多个数组</li>
+<li>→ <strong><code>prefix（while :)</code></strong>- 只要条件成立，就从头开始采集元素</li>
+<li>→ <strong><code>drop（while :)</code></strong> -在条件变为真之前丢弃元素，然后返回其余元素（类似于 <code>prefix</code> ，但这返回相反的值）</li>
+<li>→ <strong><code>removeAll（where :)</code></strong> - 删除符合条件的要素</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有这些功能的目标是消除代码中不感兴趣的部分的混乱情况，例如创建新数组和对源数据进行 for循环 。取而代之的是，用一个描述正在做什么的单词来代替混乱。这将重要的代码（程序员想要表达的逻辑）带到了最前沿。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其中一些功能具有默认行为。  sort 会在元素具有可比性时按升序排序（除非另行指定），并且只要元素是等价的， contains 就可以接受一个值进行检查。这些默认值有助于使代码更具可读性。升序排序是很自然的，因此 <code>array.sort（）</code> 的含义很直观，而 <code>array.firstIndex（of：“ foo”）</code> 比 <code>array.firstIndex{$ 0 ==“ foo”}</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是在每种情况下，这些只是常见情况的简写。元素不必具有可比性或相等性，也不必比较整个元素-你可以按年龄对一组人进行排序<code>（people.sort {$ 0.age &lt;$ 1.age}）</code>或检查是否该数组包含未成年人<code>（people.contains {$ 0.age &lt;18}）</code>。你还可以比较元素的某种变换。例如，公认的低效率不区分大小写和语言环境的排序可以通过 <code>people.sort {$ 0.name.uppercased（）&lt;$ 1.name.uppercased（）</code>} 执行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有其他用途相似的功能，它们也需要指定其行为的功能，但这些功能不在标准库中。你可以轻松地自己定义它们（并且可以尝试）：</p>
+<ul>
+<li>→ <strong><code>accumulate</code></strong> - 将组合元素合并到一个运行值数组中（减少，但返回每个临时组合的数组）</li>
+<li>→ <strong><code>count（where :)</code></strong> - 计算要匹配的元素数（这应该是Swift 5.0标准库的一部分，但是由于与count属性的名称冲突而延迟；不过可能会在后续发行版中重新引入）</li>
+<li>→ <strong><code>indexs（where :)</code></strong> - 返回与条件匹配的条件（类似于 <code>firstIndex（where :)</code>，但它并不止于第一个）</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果发现自己遍历一个数组以在代码中多次执行相同或相似的任务，请考虑为 <code>Array</code> 编写一个简短的扩展。例如，以下代码将数组拆分为相邻的相等元素的组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array: [<span class="type">Int</span>] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">4</span>]</span><br><span class="line"><span class="keyword">var</span> result: [[<span class="type">Int</span>]] = array.isEmpty ? [] : [[array[<span class="number">0</span>]]]</span><br><span class="line"><span class="keyword">for</span> (previous, current) <span class="keyword">in</span> <span class="built_in">zip</span>(array, array.<span class="built_in">dropFirst</span>()) &#123;</span><br><span class="line">    <span class="keyword">if</span> previous == current &#123; </span><br><span class="line">        result[result.endIndex-<span class="number">1</span>].append(current)</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">        result.append([current])</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line">result <span class="comment">// [[1], [2, 2, 2], [3], [4, 4]]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过根据应用程序之间不同的逻辑（决定在何处拆分数组）提取成对在相邻元素对中成对循环遍历数组的代码来形式化此算法。 我们使用函数参数来允许调用者自定义后者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">split</span><span class="params">(<span class="keyword">where</span> condition: <span class="params">(Element, Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [[<span class="type">Element</span>]] &#123;</span><br><span class="line">    <span class="keyword">var</span> result: [[<span class="type">Element</span>]] = array.isEmpty ? [] : [[<span class="keyword">self</span>[<span class="number">0</span>]]] </span><br><span class="line">    <span class="keyword">for</span> (previous, current) <span class="keyword">in</span> <span class="built_in">zip</span>(<span class="keyword">self</span>, <span class="keyword">self</span>.<span class="built_in">dropFirst</span>()) &#123;</span><br><span class="line">        <span class="keyword">if</span> condition(previous, current) &#123;</span><br><span class="line">            result.append([current]) &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            result[result.endIndex-<span class="number">1</span>].append(current) &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> result &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使我们可以将 <code>for循环</code> 替换为以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parts = array.<span class="built_in">split</span> &#123; $<span class="number">0</span> != $<span class="number">1</span> &#125;</span><br><span class="line">parts <span class="comment">// [[1], [2, 2, 2], [3], [4, 4]]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者，在这种特殊情况下，我们甚至可以写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> parts2 = array.<span class="built_in">split</span>(<span class="keyword">where</span>: !=)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这具有我们为 <code>map</code> 描述的所有相同优势。 使用 <code>split（where :)</code> 的示例比使用 <code>for循环</code> 的示例更具可读性； 即使 <code>for循环</code> 很简单，你仍然必须在脑子里遍历循环，这是一个小的精神负担。 使用 <code>split（where :)</code> 引入错误的机会更少（例如，意外忘记了数组为空的情况），它允许你使用 <code>let</code> 而不是 <code>var声明</code> 结果变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本书的后面，我们将详细介绍扩展集合和使用功能。</p>
+<h3 id="Mutation-and-Stateful-Closures"><a href="#Mutation-and-Stateful-Closures" class="headerlink" title="Mutation and Stateful Closures"></a><strong><em>Mutation and Stateful Closures</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遍历数组时，可以使用 <code>map</code> 产生副作用（例如，将元素插入到一些查找表中）。 我们不建议你这样做。 看一下以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="built_in">map</span> &#123; </span><br><span class="line">    item <span class="keyword">in</span> table.insert(item)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这在看起来像数组转换的构造中隐藏了副作用（查找表的 <code>mutation</code> ）。 如果你看到以上类似的内容，那么很明显<br>使用普通的 <code>for循环</code> 而不是诸如 <code>map之类</code> 的函数的情况。 在这种情况下， <code>forEach方法</code> 也比 <code>map</code> 更合适，但是它有其自身的问题，因此我们稍后再讨论 <code>forEach</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;执行副作用不同于故意赋予封闭局部状态，这是一种特别有用的技术。 除了有用之外， <code>闭包</code> （可以捕获超出范围范围内的变量并对其进行改变的函数）的强大功能也是与 <code>高阶函数</code> 结合使用时的强大工具。 例如，可以使用 <code>map</code> 和 <code>有状态</code> 的 <code>闭包</code> 来实现上述累加函数，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accumulate</span>&lt;Result&gt;<span class="params">(<span class="number">_</span> initialResult: Result,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> nextPartialResult: <span class="params">(Result, Element)</span></span></span> -&gt; <span class="type">Result</span>) -&gt; [<span class="type">Result</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> running = initialResult <span class="keyword">return</span> <span class="built_in">map</span> &#123; next <span class="keyword">in</span></span><br><span class="line">            running = nextPartialResult(running, next)</span><br><span class="line">            <span class="keyword">return</span> running </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这将创建一个临时变量来存储运行值，然后在计算过程中使用 <code>map</code> 创建一个运行值数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].accumulate(<span class="number">0</span>, +) <span class="comment">// [1, 3, 6, 10]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，此代码假定 <code>map</code> 在整个序列上按顺序执行其转换。 就我们上面的 <code>map</code> 而言，确实如此。 但是有些实现可能会无序地转换序列，例如，同时执行元素转换的实现。 <code>map</code> 的官方标准库版本没有指定是否按顺序转换序列，尽管看起来可以这么做。</p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a><strong><em>filter</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个非常常见的操作是获取一个数组并创建一个仅包含符合特定条件的元素的新数组。 过滤器方法捕获在数组上循环并选择与给定谓词匹配的元素的模式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nums = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>]</span><br><span class="line">nums.<span class="built_in">filter</span> &#123; num <span class="keyword">in</span> num % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="comment">// [2, 4, 6, 8, 10]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以将 <code>Swift</code> 的速记符号用于闭包表达式的参数，以使其更短。 不用命名 <code>num参数</code> ，我们可以这样编写上面的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nums.<span class="built_in">filter</span> &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="comment">// [2, 4, 6, 8, 10]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于非常短的 <code>闭包</code> ，这可能更具可读性。 如果 <code>闭包</code> 更为复杂，则像我们之前所做的那样，显式命名几乎总是一个更好的主意。 这实际上是个人喜好问题，一目了然地选择更易读的选项。 一个好的经验法则是：如果闭包整齐地适合一行，则速记参数名称是一个很好的选择。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过组合 <code>map</code> 和 <code>filter</code> ，我们可以在数组上编写很多操作，而不必引入单个中间变量。 结果代码将变得更短，更易于阅读。 例如，要查找所有小于100的偶数平方，我们可以映射范围 <code>1..&lt;10</code> 以便平方其成员，然后可以滤除所有奇数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>..&lt;<span class="number">10</span>).<span class="built_in">map</span> &#123; $<span class="number">0</span> * $<span class="number">0</span> &#125;.<span class="built_in">filter</span> &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="comment">// [4, 16, 36, 64]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>filter</code> 的实现类似于 <code>map</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">filter</span><span class="params">(<span class="number">_</span> isIncluded: <span class="params">(Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [<span class="type">Element</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> result: [<span class="type">Element</span>] = []</span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span> <span class="keyword">where</span> isIncluded(x) &#123;</span><br><span class="line">            result.append(x) </span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> result </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一个快速的性能提示：如果你发现自己写了如下内容，那就停下来！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigArray.<span class="built_in">filter</span> &#123; someCondition &#125;.<span class="built_in">count</span> &gt; <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>filter</code> 将创建一个全新的数组并处理该数组中的每个元素。 但这是不必要的。 这段代码只需要检查一个元素是否匹配，在这种情况下， <code>contains（where :)</code> 就可以完成工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bigArray.<span class="built_in">contains</span> &#123; someCondition &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这要快得多，有两个原因：它不会为过滤的元素创建一个全新的数组，只是为了对它们进行计数，并且它会在找到第一个匹配项后立即退出。 通常，仅在需要所有结果时才使用 <code>filter</code> 。</p>
+<h3 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a><strong><em>reduce</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>map</code> 和 <code>filter</code> 都采用一个数组，并产生一个新的修改后的数组。 但是，有时你可能希望将所有元素组合为一个新值。 例如，总结所有元素，我们可以编写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> total = <span class="number">0</span> </span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> fibs &#123;</span><br><span class="line">    total = total + num </span><br><span class="line">&#125;</span><br><span class="line">total <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>reduce方法</code> 采用这种模式，并抽象出两个部分：初始值（在这种情况下为零），以及组合中间值（总计）和元素（num）的函数。 使用 <code>reduce</code> ，我们可以编写如下相同的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sum = fibs.<span class="built_in">reduce</span>(<span class="number">0</span>) &#123; total, num <span class="keyword">in</span> </span><br><span class="line">    total + num </span><br><span class="line">&#125; <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运算符也是函数，因此我们也可以编写相同的示例，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fibs.<span class="built_in">reduce</span>(<span class="number">0</span>, +) <span class="comment">// 12</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>reduce</code> 的输出类型不必与元素类型相同。 例如，如果要将整数列表转换为字符串，每个数字后跟一个逗号和一个空格，则可以执行以下操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fibs.<span class="built_in">reduce</span>(<span class="string">""</span>) &#123; str, num <span class="keyword">in</span> </span><br><span class="line">    str + <span class="string">"\(num), "</span> </span><br><span class="line">&#125; <span class="comment">// 0, 1, 1, 2, 3, 5,</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是 <code>reduce</code> 的实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reduce</span>&lt;Result&gt;<span class="params">(<span class="number">_</span> initialResult: Result,</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="number">_</span> nextPartialResult: <span class="params">(Result, Element)</span></span></span> -&gt; <span class="type">Result</span>) -&gt; <span class="type">Result</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> result = initialResult </span><br><span class="line">    <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span> &#123;</span><br><span class="line">        result = nextPartialResult(result, x) </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个性能提示： <code>reduce</code> 非常灵活，通常会看到它用于构建阵列和执行其他操作。 例如，你可以仅使用 <code>reduce</code> 来实现 <code>map</code> 和 <code>filter</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">map2</span>&lt;T&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; <span class="type">T</span>) -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">reduce</span>([]) &#123;</span><br><span class="line">        $<span class="number">0</span> + [transform($<span class="number">1</span>)]</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter2</span><span class="params">(<span class="number">_</span> isIncluded: <span class="params">(Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [<span class="type">Element</span>] &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">reduce</span>([]) &#123;</span><br><span class="line">        isIncluded($<span class="number">1</span>) ? $<span class="number">0</span> + [$<span class="number">1</span>] : $<span class="number">0</span> &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这很漂亮，它的好处是不需要那些讨厌的命令循环。 但是 <code>Swift</code> 不是 <code>Haskell</code> ， <code>Swift数组</code> 也不是列表。 这里发生的事情是，每次执行合并功能时，都会通过将转换后的元素或包含的元素附加到前一个元素来创建一个全新的数组。 这意味着这两个实现都是 <code>O（n2）</code> ，而不是 <code>O（n）</code> -随着数组长度的增加，这些函数所花费的时间成倍增加。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有另一个 <code>reduce</code> 的版本，它的类型不同。 更具体地说，用于组合中间结果和元素的函数将 <code>Result</code> 作为 <code>inout</code> 参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">reduce</span>&lt;Result&gt;<span class="params">(into initialResult: Result, <span class="number">_</span> updateAccumulatingResult:</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="params">(<span class="number">_</span> partialResult: <span class="keyword">inout</span> Result, Element)</span></span></span> <span class="keyword">throws</span> -&gt; () ) <span class="keyword">rethrows</span> -&gt; <span class="type">Result</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在 <code>“结构和类”</code> 一章中详细讨论 <code>inout参数</code> ，但是现在，将 <code>inout Result参数</code> 视为可变参数：我们可以在函数中对其进行修改。 这使我们能够以更有效的方式编写过滤器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter3</span><span class="params">(<span class="number">_</span> isIncluded: <span class="params">(Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; [<span class="type">Element</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">reduce</span>(into: []) &#123; result, element <span class="keyword">in</span> </span><br><span class="line">            <span class="keyword">if</span> isIncluded(element) &#123;</span><br><span class="line">                result.append(element) </span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>inout</code> 时， 编译器 不必每次都创建一个新数组，因此 <code>filter</code> 的这个版本也是 <code>O(n)</code>。 当编译器内联调用 <code>reduce(into: _ :)</code> 时，生成的代码通常与使用 <code>for循环</code> 时相同。</p>
+<h3 id="A-Flattening-map"><a href="#A-Flattening-map" class="headerlink" title="A Flattening map"></a><strong><em>A Flattening map</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，你想映射一个数组，其中转换函数将返回另一个数组而不是单个元素。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，假设我们有一个函数 <code>extractLinks</code> ，该函数接受 <code>Markdown文件</code> 并返回一个数组，其中包含文件中所有链接的 <code>URL</code> 。 函数签名如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">extractLinks</span><span class="params">(markdownFile: String)</span></span> -&gt; [<span class="type">URL</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们有一堆 <code>Markdown文件</code> ，并且想要将所有文件中的链接提取到单个数组中，我们可以尝试编写诸如 <code>markdownFiles.map(extractLinks)</code> 之类的东西。 但这会返回包含 <code>URL</code> 的 <code>array of arrays</code> ：每个文件一个 <code>array of arrays</code> 。 现在，你可以执行映射，取回一个数组，然后调用 <code>join</code> 将结果展平为单个数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> markdownFiles: [<span class="type">String</span>] = <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">let</span> nestedLinks = markdownFiles.<span class="built_in">map</span>(extractLinks) </span><br><span class="line"><span class="keyword">let</span> links = nestedLinks.joined()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>flatMap方法</code> 将映射和展平这两个操作组合到一个步骤中。 因此 <code>markdownFiles.flatMap(extractLinks)</code> 将 <code>Markdown文件</code> 数组中的所有 <code>URL</code> 作为单个数组返回。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Map\flatMap</code> 的签名几乎与map相同，不同之处在于其转换函数返回一个数组。 该实现使用 <code>append（contentsOf :)</code> 而不是<code>append（_ :)</code>来展平结果数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">flatMap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; [<span class="type">T</span>]) -&gt; [<span class="type">T</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> result: [<span class="type">T</span>] = [] </span><br><span class="line">        <span class="keyword">for</span> x <span class="keyword">in</span> <span class="keyword">self</span>&#123;</span><br><span class="line">            result.append(contentsOf: transform(x)) </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>flatMap</code> 的另一个很好的用例是组合来自不同数组的元素。 要获取两个数组中所有可能的元素对，请在一个数组上使用 <code>flatMap</code> ，然后在内部转换函数中在另一个数组上进行映射：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> suits = [<span class="string">"♠"</span>, <span class="string">"♥"</span>, <span class="string">"♣"</span>, <span class="string">"♦"</span>]</span><br><span class="line"><span class="keyword">let</span> ranks = [<span class="string">"J"</span>, <span class="string">"Q"</span>, <span class="string">"K"</span>, <span class="string">"A"</span>]</span><br><span class="line"><span class="keyword">let</span> result = suits.flatMap &#123; suit <span class="keyword">in</span></span><br><span class="line">        ranks.<span class="built_in">map</span> &#123; rank <span class="keyword">in</span> (suit, rank)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[("♠", "J"), ("♠", "Q"), ("♠", "K"), ("♠", "A"), ("♥", "J"), ("♥",</span></span><br><span class="line"><span class="comment">"Q"), ("♥", "K"), ("♥", "A"), ("♣", "J"), ("♣", "Q"), ("♣", "K"),</span></span><br><span class="line"><span class="comment">("♣", "A"), ("♦", "J"), ("♦", "Q"), ("♦", "K"), ("♦", "A")]</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-forEach-进行迭代"><a href="#使用-forEach-进行迭代" class="headerlink" title="使用 forEach 进行迭代"></a><strong><em>使用 forEach 进行迭代</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们要讨论的最后一个操作是 <code>forEach</code> 。 它几乎像 <code>for循环</code> 一样工作：传入的函数对序列中的每个元素执行一次。 与 <code>map</code> 不同， <code>forEach</code> 不会返回任何内容-它专门用于产生副作用。 首先，以机械方式将循环替换为 <code>forEach</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> element <span class="keyword">in</span> [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>] &#123; </span><br><span class="line">    <span class="built_in">print</span>(element)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].forEach &#123; element <span class="keyword">in</span> </span><br><span class="line">    <span class="built_in">print</span>(element)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这不是一个大的胜利，但是如果你要执行的操作是对集合中每个元素的单个函数调用，则可能会很方便。 将函数名传递给 <code>forEach</code> 而不是 <code>传递闭包表达式</code> 可以导致代码更清晰，更简洁。 例如，如果你要在 <code>iOS</code> 上编写视图控制器，并想向主视图添加一个子视图数组，则可以只使用 <code>theViews.forEach（view.addSubview）</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是， <code>for循环</code> 和 <code>forEach</code> 之间有一些细微的差异。 例如，如果 <code>for循环</code> 中包含 <code>return语句</code> ，则使用 <code>forEach重写</code> 它可以显着改变代码的行为。 考虑以下示例，该示例是使用带 <code>where条件</code> 的 <code>for循环</code> 编写的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Equatable</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">firstIndex</span><span class="params">(of element: Element)</span></span> -&gt; <span class="type">Int?</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> idx <span class="keyword">in</span> <span class="keyword">self</span>.<span class="built_in">indices</span> <span class="keyword">where</span> <span class="keyword">self</span>[idx] == element &#123; </span><br><span class="line">            <span class="keyword">return</span> idx</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们无法直接在 <code>forEach</code> 构造中复制 <code>where子句</code> ，因此我们可能会（错误地）使用 <code>flter重写</code> 此子句：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">firstIndex_foreach</span><span class="params">(of element: Element)</span></span> -&gt; <span class="type">Int?</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="built_in">indices</span>.<span class="built_in">filter</span> &#123; idx <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>[idx] == element &#125;.forEach &#123; idx <span class="keyword">in</span></span><br><span class="line">                <span class="keyword">return</span> idx</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>forEach闭包</code> 内部的返回值不会从外部函数中返回； 它仅从闭包本身返回。 在这种情况下，我们可能已经找到了该错误，因为编译器会生成一条警告，指出未使用 return语句 的参数，但是你不应依赖它来发现所有此类问题。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，请考虑以下示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">1</span>..&lt;<span class="number">10</span>).forEach &#123; number <span class="keyword">in</span> </span><br><span class="line">    <span class="built_in">print</span>(number) </span><br><span class="line">    <span class="keyword">if</span> number&gt;<span class="number">2</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在还不能立即打印出输入范围内的所有数字。  <code>return</code> 语句不会中断循环； 而是从 <code>闭包</code> 中返回，从而开始 <code>forEachs</code> 实现中循环的新迭代。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在某些情况下，例如上面的 <code>addSubview</code> 示例， <code>forEach</code> 可能比 <code>for循环</code> 更好。 但是，由于返回的行为不明显，因此建议不要将 <code>forEach</code> 的大多数其他用法用于其他用途。 只需使用常规的 <code>for循环</code> 即可。</p>
+<h3 id="数组切片"><a href="#数组切片" class="headerlink" title="数组切片"></a><strong><em>数组切片</em></strong></h3><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了通过下标访问数组的单个元素（例如fibs[0]）之外，我们还可以通过下标检索一系列元素。 例如，要获取除数组的第一个元素以外的所有元素，我们可以执行以下操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> slice = fibs[<span class="number">1</span>...]</span><br><span class="line">slice <span class="comment">// [1, 1, 2, 3, 5]</span></span><br><span class="line">type(of: slice) <span class="comment">// ArraySlice&lt;Int&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从第二个元素开始，这使我们获得了数组的一部分。 结果的类型是 <code>ArraySlice</code> ，而不是 <code>Array</code> 。  <code>ArraySlice</code> 是阵列视图。 它由原始数组支持，但仅提供切片视图。 因此，创建切片不会占据太多资源-不会复制数组元素。</p>
+<p><img src="https://cdn.xuebaonline.com/asbc-stp1.png" alt="ArraySlice"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>ArraySlice类型</code> 具有与 <code>Array</code> 定义的方法相同的方法（因为两者都遵循相同的协议，最重要的是 <code>Collection</code> ），因此你可以像使用数组一样使用切片。 如果确实需要将切片转换为数组，则可以从切片中构造一个新数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> newArray = <span class="type">Array</span>(slice) </span><br><span class="line">type(of: newArray) <span class="comment">// Array&lt;Int&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请务必记住，切片使用的索引与其基集合使用的索引相同，以引用特定的元素。 因此，切片索引不一定从零开始。 例如，我们上面创建的 <code>fibs[1 ...]</code> <code>slice</code> 的第一个元素在索引1处，错误地访问 <code>slice [0]</code> 将使我们的程序崩溃，并超出范围。 如果你使用索引，即使你要处理的是索引，我们也建议你始终以 <code>startIndex</code> 和 <code>endIndex属性</code> 为基础进行计算<br>普通数组，其中 <code>0</code> 和 <code>count-1</code> 也可以解决问题。 这种隐含的假设以后很容易打破，这太容易了。</p>
+</br>
+
+<h1 id="Dictionaries"><a href="#Dictionaries" class="headerlink" title="Dictionaries"></a><strong>Dictionaries</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个关键数据结构是 <strong>字典</strong> 。 <strong>词典包含具有相应值的唯一键</strong>。 通过其键检索值平均需要花费固定时间，而在数组中搜索特定元素则随数组大小线性增长。 与数组不同，<strong>字典没有顺序</strong>。 在 <code>for循环</code> 中枚举 <code>键/值对</code> 的顺序是不确定的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以下示例中，我们将字典用作智能手机应用程序中虚构设置屏幕的模型数据。 屏幕由一系列设置组成，每个单独的设置都有一个名称（我们字典中的键）和一个值。 值可以是几种数据类型之一，例如文本，数字或布尔值。 我们使用带有关联值的枚举对此建模：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Setting</span> </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> text(<span class="type">String</span>) </span><br><span class="line">    <span class="keyword">case</span> int(<span class="type">Int</span>) </span><br><span class="line">    <span class="keyword">case</span> bool(<span class="type">Bool</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> defaultSettings: [<span class="type">String</span>:<span class="type">Setting</span>] = [ </span><br><span class="line">    <span class="string">"Airplane Mode"</span>: .bool(<span class="literal">false</span>), </span><br><span class="line">    <span class="string">"Name"</span>: .text(<span class="string">"My iPhone"</span>),</span><br><span class="line">]</span><br><span class="line">defaultSettings[<span class="string">"Name"</span>] <span class="comment">// Optional(Setting.text("My iPhone"))</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们使用下标来获取设置的值。 字典查找始终返回一个可选值-当 <strong>指定的键不存在时，它返回 nil</strong> 。 将此与数组进行比较，这些<strong>数组通过使程序崩溃来响应越界访问</strong>。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典还具有一个下标，该下标带有一个索引（与通常的下标带有一个键相反），这是它们与 <code>Collection协议</code> 一致的一部分。 与数组下标一样，使用无效索引调用该下标时会捕获陷阱。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种差异的基本原理是数组索引和字典键的用法非常不同。 我们已经看到，实际上很少需要直接使用数组索引的情况。 而且，如果这样做，通常会以某种方式直接从数组派生数组索引（例如，从 <code>0 ..&lt;array.count</code> 之类的范围）； 因此，使用<strong>无效索引是程序员错误</strong>。 另一方面，字典键通常来自某些来源，而不是要订阅的字典。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与数组不同，<strong>字典也是稀疏</strong> 的。 <strong><em>键“名称”下的值的存在不会告诉你键“地址”是否也存在</em></strong>。</p>
+<h2 id="Mutating-Dictionaries"><a href="#Mutating-Dictionaries" class="headerlink" title="Mutating Dictionaries"></a><strong><em>Mutating Dictionaries</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像数组一样，使用 <code>let定义的字典是不可变的</code> ：<strong>不能 添加，删除或更改任何条目</strong> 。 就像数组一样，我们可以使用 <code>var定义可变的变体</code> 。 要从字典中删除值，我们可以使用下标将其设置为 nil 或 <code>调用removeValue（forKey :)</code>。 后者还会返回已删除的值，如果键不存在，则返回 <code>nil</code> 。 如果我们要使用不可变的字典并对其进行更改，则必须制作一个副本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> userSettings = defaultSettings </span><br><span class="line">userSettings[<span class="string">"Name"</span>] = .text(<span class="string">"Jared's iPhone"</span>) </span><br><span class="line">userSettings[<span class="string">"Do Not Disturb"</span>] = .bool(<span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请再次注意， <code>defaultSettings</code> 的<strong>值没有改变</strong>。 与删除键一样，通过下标更新的替代方法是 <code>updateValue（_：forKey :)</code> 方法，该方法返回先前的值（如果有）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> oldName = userSettings</span><br><span class="line">.updateValue(.text(<span class="string">"Jane's iPhone"</span>), forKey: <span class="string">"Name"</span>)</span><br><span class="line">userSettings[<span class="string">"Name"</span>] </span><br><span class="line"><span class="comment">// Optional(Setting.text("Jane\'s iPhone")) </span></span><br><span class="line">oldName</span><br><span class="line"> <span class="comment">// Optional(Setting.text("Jared\'s iPhone"))</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Useful-Dictionary-Methods"><a href="#Useful-Dictionary-Methods" class="headerlink" title="Useful Dictionary Methods"></a><strong><em>Useful Dictionary Methods</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们想将默认设置字典与用户已更改的任何自定义设置结合起来怎么办？ 自定义设置应覆盖默认设置，但生成的字典仍应包括尚未自定义的所有键的默认值。 本质上，我们<strong><em>要合并两个字典，其中要合并的字典会覆盖重复的键</em></strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典有一个 <strong><code>merge（_：uniquingKeysWith :)方法</code></strong> ，该方法将要合并的键值对和一个指定如何将两个值与同一键组合的函数。 我们可以使用它来将一个字典合并为另一个字典，如以下示例所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> settings = defaultSettings</span><br><span class="line"><span class="keyword">let</span> overriddenSettings: [<span class="type">String</span>:<span class="type">Setting</span>] = [<span class="string">"Name"</span>: .text(<span class="string">"Jane's iPhone"</span>)] </span><br><span class="line">settings.merge(overriddenSettings, uniquingKeysWith: &#123; $<span class="number">1</span> &#125;)</span><br><span class="line">settings</span><br><span class="line"><span class="comment">// ["Name": Setting.text("Jane\'s iPhone"), "Airplane Mode": Setting.bool(false)]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的示例中，我们使用 <code>{$1}</code> 作为组合两个值的策略。 换句话说，如果键同时存在于设置和 <code>overriddenSettings</code> 中，则使用 <code>overriddenSettings</code> 中的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以从<code>（Key，Value）</code>对序列中构造一个新字典。 如果我们保证键是唯一的，则可以使用 <code>Dictionary（uniqueKeysWithValues :)</code>。 但是，如果我们有一个键可以多次存在的序列，则需要像上面一样提供一个函数来组合相同键的两个值。 例如，要计算元素在序列中出现的频率，我们可以映射每个元素，将其与1组合，然后从所得的元素频率对中创建字典。 如果我们遇到同一键的两个值（换句话说，如果我们多次看到相同的元素），则只需使用 <code>+</code> 将 <code>frequencies</code> 相加：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Sequence</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Hashable</span> </span>&#123; <span class="keyword">var</span> frequencies: [<span class="type">Element</span>:<span class="type">Int</span>] &#123;</span><br><span class="line">    <span class="keyword">let</span> frequencyPairs = <span class="keyword">self</span>.<span class="built_in">map</span> &#123; ($<span class="number">0</span>, <span class="number">1</span>) &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">Dictionary</span>(frequencyPairs, uniquingKeysWith: +) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> frequencies = <span class="string">"hello"</span>.frequencies <span class="comment">// ["h": 1, "e": 1, "l": 2, "o": 1] frequencies.filter &#123; $0.value &gt; 1 &#125; // ["l": 2]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个有用的方法是在字典的值上映射。 因为 <code>Dictionary</code> 是一个 <code>Sequence</code> ，所以它已经具有一个产生数组的 <code>map方法</code> 。 但是，有时我们希望保持 <code>字典结构</code> 完整，只变换其值。 <code>mapValues方法</code> 执行此操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> settingsAsStrings = settings.mapValues &#123; setting -&gt; <span class="type">String</span> <span class="keyword">in</span> <span class="keyword">switch</span> setting &#123;</span><br><span class="line">    <span class="keyword">case</span> .text(<span class="keyword">let</span> text): <span class="keyword">return</span> text</span><br><span class="line">    <span class="keyword">case</span> .int(<span class="keyword">let</span> number): <span class="keyword">return</span> <span class="type">String</span>(number) </span><br><span class="line">    <span class="keyword">case</span> .bool(<span class="keyword">let</span> value): <span class="keyword">return</span> <span class="type">String</span>(value)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">settingsAsStrings <span class="comment">// ["Name": "Jane\'s iPhone", "Airplane Mode": "false"]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Hashable-Requirement"><a href="#Hashable-Requirement" class="headerlink" title="Hashable Requirement"></a><strong><em>Hashable Requirement</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>字典是哈希表</strong>。字典根据密钥的 <code>hashValue</code> 在其<strong>基础存储阵列中为其分配位置</strong>。这就是为什么 <code>Dictionary</code> 要求其 <code>Key类型符合Hashable协议</code> 的原因。标准库中的所有基本数据类型（包括字符串，整数，浮点数和布尔值）都已经具备。此外，如果其他<strong>许多类型的元素是可哈希的，则它们会自动变为可哈希的，例如数组，集合和可选对象</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了保持性能，<strong>哈希表要求存储在其中的类型提供良好的哈希函数，不会产生太多冲突</strong>。编写出色的哈希函数以将其输入均匀地分布在整个整数范围内并不容易。幸运的是，我们几乎不需要自己做。在许多情况下，编译器都可以生成<code>Hashable一致性</code>，即使这不适用于特定类型，标准库也带有自定义类型可以插入的内置哈希函数。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于<strong>结构和枚举</strong>，只要它们本身由可<code>哈希类型</code>组成，<code>Swift</code>可以自动为我们合成<code>可哈希一致性</code>。如果一个结构的所有存储属性都是可哈希的，则该结构本身可以符合 <code>Hashable</code> ，而无需我们编写手动实现。类似地，仅包含可哈希散列的关联值的枚举可以遵循（没有关联值的枚举甚至符合Hashable，而无需明确声明该符合性）。这不仅可以节省初始实施工作，而且还可以在添加或删除属性时自动使实施保持最新。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你无法利用自动的 <code>Hashable综合功能</code> （因为你正在编写一个类，或者你的自定义结构具有一个或多个出于散列目的而应被忽略的存储属性），则首先需要将 <code>Equatable类型</code> 设置为 <code>Equatable</code> 。然后，你可以实现 <code>Hashable协议的hash（into :)</code> 要求（不建议使用旧的pre-Swift 4.2以前的实现hashValue属性的方法）。此方法接收一个 <code>哈希器</code> ，该哈希器包装通用 <code>哈希函数</code> 并在客户端将数据馈入哈希函数时捕获哈希函数的状态。哈希器具有一个 <code>combination方法</code> ，该方法接受任何可哈希值。你应该通过以下方式将所有类型的基本组件送入哈希器<br>让他们一一结合。基本组成部分是构成该类型实体的属性-你通常需要排除可以延迟重新创建的瞬态属性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你应使用相同的基本组件进行相等性检查，因为以下重要不变式必须成立：<strong>两个相等的实例（由==实现定义）必须具有相同的哈希值</strong>。反之则不成立：两个具有相同哈希值的实例不一定会相等地进行比较。考虑到只有有限数量的不同哈希值，而许多可哈希类型（如字符串）实际上具有无限基数，这是有道理的。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库的通用哈希函数使用随机种子作为其输入之一。 换句话说，在每个程序执行时，字符串“abc”的哈希值将有所不同。 随机种子植入是一种安全措施，可防止有针对性的无序哈希拒绝服务攻击。 自字典并按其在哈希表中存储的顺序设置其元素的迭代，并且由于此顺序由哈希值确定，因此这意味着同一代码在每次启动时都会产生不同的迭代顺序。 如果你需要确定性的哈希值（例如用于测试），则可以通过设置环境变量 <code>SWIFT_DETERMINISTIC_HASHING = 1</code> 来禁用随机种子设置，但在生产环境中请勿这样做。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，在<strong>使用没有值语义的类型时要格外小心（例如可变对象）作为字典键</strong>。 如果你在将对象用作字典键后以某种方式对其进行了更改（即更改其哈希值和/或相等性），则你将无法在字典中再次找到该对象。 现在，词典将对象存储在错误的插槽中，从而有效地破坏了其内部存储。 值类型不是问题，因为字典中的键不会共享副本的存储空间，因此无法从外部进行改变。</p>
+</br>
+
+<h1 id="Sets"><a href="#Sets" class="headerlink" title="Sets"></a><strong>Sets</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库中的第三个主要集合类型是 <code>Set</code> 。 <strong>集合是元素的无序集合，每个元素仅出现一次</strong>。 本质上，<strong><em>你可以将集合视为仅存储键而没有值的字典</em></strong>。 与字典一样，<code>集合是通过哈希表实现的</code>，并且具有相似的性能特征和要求。 测试集合中的成员资格值是一项恒定时间操作，并且集合元素必须是可哈希的，就像字典键一样。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你需要有效地测试成员资格（对数组进行<code>O（n）</code>操作）并且元素的顺序并不重要，或者需要确保集合不包含重复项时，请使用集合而不是数组。 <code>Set</code> 符合 <code>ExpressibleByArrayLiteral协议</code>，这意味着我们可以使用以下数组文字对其进行初始化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> naturals: <span class="type">Set</span> = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>] </span><br><span class="line">naturals <span class="comment">// [2, 3, 1] </span></span><br><span class="line">naturals.<span class="built_in">contains</span>(<span class="number">3</span>) <span class="comment">// true </span></span><br><span class="line">naturals.<span class="built_in">contains</span>(<span class="number">0</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，数字2在集合中仅出现一次； 副本甚至都不会被插入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像所有集合一样，集合支持我们已经看到的常见操作：你可以遍历 <code>for循环</code> 中的元素，映射或过滤它们，并执行其他所有操作。</p>
+<h2 id="设置代数"><a href="#设置代数" class="headerlink" title="设置代数"></a><strong><em>设置代数</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顾名思义， <code>Set</code> 与 <code>集合</code> 的数学概念密切相关。 它支持你在数学课中学习的所有常见设置操作。 例如，我们可以从另一组减去一组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> iPods: <span class="type">Set</span> = [<span class="string">"iPod touch"</span>, <span class="string">"iPod nano"</span>, <span class="string">"iPod mini"</span>, <span class="string">"iPod shuffle"</span>, <span class="string">"iPod classic"</span>]</span><br><span class="line"><span class="keyword">let</span> discontinuedIPods: <span class="type">Set</span> = [<span class="string">"iPod mini"</span>, <span class="string">"iPod classic"</span>, <span class="string">"iPod nano"</span>, <span class="string">"iPod shuffle"</span>]</span><br><span class="line"><span class="keyword">let</span> currentIPods = iPods.subtracting(discontinuedIPods) <span class="comment">// ["iPod touch"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以形成两个集合的交集，即找到两个集合中的所有元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> touchscreen: <span class="type">Set</span> = [<span class="string">"iPhone"</span>, <span class="string">"iPad"</span>, <span class="string">"iPod touch"</span>, <span class="string">"iPod nano"</span>] <span class="keyword">let</span> iPodsWithTouch = iPods.intersection(touchscreen)</span><br><span class="line"><span class="comment">// ["iPod touch", "iPod nano"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者，我们可以形成两个集合的并集，即将它们合并为一个集合（当然，删除重复项）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> discontinued: <span class="type">Set</span> = [<span class="string">"iBook"</span>, <span class="string">"PowerBook"</span>, <span class="string">"Power Mac"</span>]</span><br><span class="line">discontinued.formUnion(discontinuedIPods)</span><br><span class="line">discontinued</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">["iPod shuffle", "Power Mac", "iBook", "iPod classic", "PowerBook",</span></span><br><span class="line"><span class="comment">"iPod mini", "iPod nano"] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们使用了变异变体 <code>formUnion</code> 来变异原始集合（结果，原始集合必须用var声明）。 几乎所有设置操作都具有 <code>非变异形式</code> 和 <code>变异形式</code> ，后者具有形式前缀。 要进行更多设置操作，请查看 <code>SetAlgebra协议</code> 。</p>
+<h2 id="索引集和字符集"><a href="#索引集和字符集" class="headerlink" title="索引集和字符集"></a><strong><em>索引集和字符集</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Set</code> 和 <code>OptionSet</code> 是标准库中唯一符合 <code>SetAlgebra的类型</code> ，但是 <code>Foundation</code> 中两个有趣的类型也采用了此协议： <code>IndexSet</code> 和 <code>CharacterSet</code> 。这两件事都可以追溯到很久以前的 <code>Swift</code> 时代。现在，这些和其他 <code>Objective-C类</code> 作为功能齐全的值类型被桥接到 <code>Swift</code> 中的方式（在此过程中采用通用的标准库协议）是很棒的，因为它们会使 <code>Swift开发人员</code> 立即感到熟悉。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>IndexSet</code> 代表一组正整数值。当然，你可以使用 <code>Set&lt;Int&gt;</code> 来完成此任务，但是 <code>IndexSet</code> 的存储效率更高，因为它内部使用了一系列范围。假设你有一个包含1,000个元素的表视图，并且想使用一个集合来管理用户选择的行的索引。<code>Set&lt;Int&gt;</code> 最多需要存储1,000个元素，具体取决于选择的行数。另一方面， <code>IndexSet</code> 存储连续的范围 ，因此表中前500行的选择仅需要存储两个整数（选择的上下限）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，作为 <code>IndexSet的用户</code> ，你不必担心内部结构，因为它完全隐藏在熟悉的 <code>SetAlgebra</code> 和 <code>Collection接口</code> 后面。 （除非你想直接在范围上工作，也就是说， <code>IndexSet</code> 通过其本身是一个集合的 <code>rangeView属性</code> 向它们公开一个视图。）例如，你可以向索引集添加一些范围，然后映射到索引好像它们是个人成员一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> <span class="built_in">indices</span> = <span class="type">IndexSet</span>()</span><br><span class="line"><span class="built_in">indices</span>.insert(integersIn: <span class="number">1</span>..&lt;<span class="number">5</span>)</span><br><span class="line"><span class="built_in">indices</span>.insert(integersIn: <span class="number">11</span>..&lt;<span class="number">15</span>)</span><br><span class="line"><span class="keyword">let</span> evenIndices = <span class="built_in">indices</span>.<span class="built_in">filter</span> &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="comment">// [2, 4, 12, 14]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>CharacterSet</code> 是存储一组 <code>Unicode代码点</code> 的等效方法。 通常用于检查特定字符串是否仅包含来自特定字符子集的字符，例如字母数字或十进制数字。 但是，与 <code>IndexSet</code> 不同， <code>CharacterSet</code> 不是集合。 从 <code>Objective-C</code> 导入的 <code>CharacterSet</code> 名称在 <code>Swift</code> 中是不幸的，因为 <code>CharacterSet</code> 与 <code>Swift</code> 的 <code>Character类型</code> 不兼容。 更好的名称是 <code>UnicodeScalarSet</code> 。 我们将在 <code>“字符串”</code> 一章中进一步讨论 <code>CharacterSet</code> 。</p>
+<h2 id="在闭包内部使用Set"><a href="#在闭包内部使用Set" class="headerlink" title="在闭包内部使用Set"></a><strong>在闭包内部使用Set</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>字典和集合</code> 可以是在函数内部使用的非常方便的数据结构，即使你没有将它们暴露给调用者也是如此。 例如，如果要在 <code>Sequence</code> 上编写扩展名以检索序列中的所有唯一元素，则可以轻松地将元素放入集合中并返回其内容。 但是，这将不稳定：由于集合没有定义的顺序，因此输入元素可能会在结果中重新排序。 为了解决这个问题，我们可以编写一个扩展，通过使用内部Set进行记录来维护顺序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Sequence</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Hashable</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">unique</span><span class="params">()</span></span> -&gt; [<span class="type">Element</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> seen: <span class="type">Set</span>&lt;<span class="type">Element</span>&gt; = [] </span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">filter</span> &#123; element <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> seen.<span class="built_in">contains</span>(element) &#123; </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125;<span class="keyword">else</span>&#123; </span><br><span class="line">                seen.insert(element) <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">12</span>,<span class="number">1</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">4</span>,<span class="number">6</span>].unique() <span class="comment">// [1, 2, 3, 12, 4, 5, 6]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的方法使我们能够找到序列中的所有唯一元素，同时仍然保持原始顺序（约束条件是元素必须是可哈希的）。 在闭包内部，我们传递给 <code>filter</code> ，我们引用在闭包外部定义的变量，从而在闭包的多次迭代中保持状态。 在 <code>“函数”</code> 一章中，我们将更详细地介绍这种技术。</p>
+</br>
+
+<h1 id="Ranges"><a href="#Ranges" class="headerlink" title="Ranges"></a><strong>Ranges</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Ranges是值的间隔</strong>，由其上下限定义。 你可以使用以下两个范围运算符来创建范围：<code>..&lt;</code> 用于不包含上限的半开范围，而 <code>...</code> 用于包含两个范围的封闭范围：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 0 to 9, 10 is not included.</span></span><br><span class="line"><span class="keyword">let</span> singleDigitNumbers = <span class="number">0</span>..&lt;<span class="number">10</span> <span class="type">Array</span>(singleDigitNumbers) <span class="comment">// [0, 1, 2, 3, 4, 5, 6, 7, 8, 9] // "z" is included.</span></span><br><span class="line"><span class="keyword">let</span> lowercaseLetters = <span class="type">Character</span>(<span class="string">"a"</span>)...<span class="type">Character</span>(<span class="string">"z"</span>)</span><br><span class="line"><span class="type">There</span> are also <span class="keyword">prefix</span> and <span class="keyword">postfix</span> variants of these operators, which are used to express one-sided ranges:</span><br><span class="line"><span class="keyword">let</span> fromZero = <span class="number">0</span>...</span><br><span class="line"><span class="keyword">let</span> upToZ = ..&lt;<span class="type">Character</span>(<span class="string">"z"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有五种不同的具体类型代表范围，每种类型捕获对值的不同约束。 两种最基本的类型是 <code>Range</code> （使用 ..&lt;创建的半开范围 ）和 <code>ClosedRange</code> （使用…创建的）。 两者都有一个通用的 <code>Bound参数</code> ：<strong>唯一的要求是Bound必须是Comparable</strong>。 例如，上面的 <code>lowercaseLetter</code> s表达式的类型为<code>ClosedRange&lt;Character&gt;</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;范围上最基本的操作是测试它是否包含某些元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">singleDigitNumbers.<span class="built_in">contains</span>(<span class="number">9</span>) <span class="comment">// true lowercaseLetters.overlaps("c"..&lt;"f") // true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;半开和封闭范围有单独的类型，因为两者都有一个位置：</p>
+<ul>
+<li>→ <code>Onlyahalf-openrange</code> 可以表示一个空间隔（当降低时，<br>上限相等，如5 .. &lt;5）。</li>
+<li>→ 只能在一个封闭范围内包含其元素类型的最大值（例如0 …Int.max）。 半开范围总是要求至少一个可表示的值大于该范围内的最大值。</li>
+</ul>
+<h2 id="Countable-Ranges"><a href="#Countable-Ranges" class="headerlink" title="Countable Ranges"></a><strong><em>Countable Ranges</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;范围似乎很自然地适合作为序列或集合。 实际上，你可以遍历整数范围或将其视为集合：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">10</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(i)"</span>, terminator: <span class="string">" "</span>)</span><br><span class="line">&#125; </span><br><span class="line"><span class="comment">// 0 1 2 3 4 5 6 7 8 9 singleDigitNumbers.last // Optional(9)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是并非所有范围都可以这种方式使用。 例如，编译器不会让我们迭代一系列字符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error: Type 'Character' does not conform to protocol 'Strideable'.</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">c</span> <span class="keyword">in</span> lowercaseLetters &#123; </span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（对字符进行迭代的原因并不像看起来与 <code>Unicode</code> 一样简单。在 <code>“字符串”</code> 一章中将详细讨论此问题。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里发生了什么？ 范围仅在其元素类型符合 <code>Strideable</code> 时（即你可以通过添加偏移量从一个元素跳转到另一元素）且步幅步骤本身是整数，才有条件地符合 <code>collection协议</code> 。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Range</span>: <span class="title">Sequence</span> <span class="title">where</span> <span class="title">Bound</span>: <span class="title">Strideable</span>, <span class="title">Bound</span>.<span class="title">Stride</span>: <span class="title">SignedInteger</span> </span>&#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Range</span>: <span class="title">Collection</span>, <span class="title">BidirectionalCollection</span>,<span class="title">RandomAccessCollection</span></span></span><br><span class="line"><span class="class"><span class="title">where</span> <span class="title">Bound</span>: <span class="title">Strideable</span>, <span class="title">Bound</span>.<span class="title">Stride</span>: <span class="title">SignedInteger</span> </span>&#123; <span class="comment">/* ... */</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（我们将在 <code>“collection协议”</code> 一章中深入介绍 <code>“Sequence”</code> <code>，“collection”</code> ， <code>“双向collection”</code> 和 <code>“随机访问collection”协议</code> 。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;换句话说，范围必须是可计数的，以便对其进行迭代。可计数范围（即与约束匹配）的有效边界包括整数和指针类型，但<strong>不包括浮点类型，因为该类型的跨度受到整数约束</strong>。如果需要迭代连续的浮点值，则可以使用 <code>stride（from：to：by）</code> 和 <code>stride（from：through：by）</code> 函数创建这样的序列。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift 4.1和4.2中引入条件协议一致性之前，标准库包括名为 <code>CountableRange</code> 和 <code>CountableClosedRange</code> 的具体类型，用于区分 <code>可计数范围</code> 和 <code>不可计数范围</code> 。这些名称仍作为类型别名存在，以实现向后兼容。你还可以将它们用作一系列范围加约束的简写，如标准库中的注释所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Note: this is not for compatibility only; it is considered useful</span></span><br><span class="line"><span class="comment">// shorthand.</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="type">CountableRange</span>&lt;<span class="type">Bound</span>: <span class="type">Strideable</span>&gt; = <span class="type">Range</span>&lt;<span class="type">Bound</span>&gt;</span><br><span class="line"><span class="keyword">where</span> <span class="type">Bound</span>.<span class="type">Stride</span> : <span class="type">SignedInteger</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Partial-Ranges"><a href="#Partial-Ranges" class="headerlink" title="Partial Ranges"></a><strong><em>Partial Ranges</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用 <code>...</code> 或 <code>..&lt;</code> 作为前缀或后缀运算符来构造部分范围。 这些范围之所以称为局部范围，是因为它们缺少边界之一。 例如， <code>0 ...</code> 描述了一个从零开始且没有上限的范围。 共有三种：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fromA: <span class="type">PartialRangeFrom</span>&lt;<span class="type">Character</span>&gt; = <span class="type">Character</span>(<span class="string">"a"</span>)...</span><br><span class="line"><span class="keyword">let</span> throughZ: <span class="type">PartialRangeThrough</span>&lt;<span class="type">Character</span>&gt; = ...<span class="type">Character</span>(<span class="string">"z"</span>) <span class="keyword">let</span> upto10: <span class="type">PartialRangeUpTo</span>&lt;<span class="type">Int</span>&gt; = ..&lt;<span class="number">10</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>CountableRange</code> 是具有可跨越元素类型的范围的类型别名一样 <code>CountablePartialRangeFrom</code> 是 <code>PartialRangeFrom</code> 的类型别名，但约束更严格。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们迭代可计数的 <code>PartialRangeFrom</code> 时，迭代从 <code>lowerBound</code> 开始并重复调用 <code>advanced（by：1）</code> 。 如果在 <code>for循环</code> 中使用此范围，则必须小心添加中断条件，以免最终陷入无限循环（否则计数器溢出时会崩溃）。 无论 <code>PartialRangeThrough</code> 和 <code>PartialRangeUpTo</code> 如何迭代，无论它们的元素类型是否可跨越，都因为它们没有下限而无法迭代。</p>
+<h2 id="Range-Expressions"><a href="#Range-Expressions" class="headerlink" title="Range Expressions"></a><strong><em>Range Expressions</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有五个范围类型均符合 <code>RangeExpression协议</code> 。 该协议本身很小，足以在本书中印刷。 它允许你询问元素是否包含在范围内，并给出一个集合，它可以为你计算完全指定的范围：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">RangeExpression</span> </span>&#123;</span><br><span class="line">    <span class="keyword">associatedtype</span> <span class="type">Bound</span>: <span class="type">Comparable</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">contains</span><span class="params">(<span class="number">_</span> element: Bound)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">relative</span>&lt;C&gt;<span class="params">(to collection: C)</span></span> -&gt; <span class="type">Range</span>&lt;<span class="type">Bound</span>&gt;</span><br><span class="line">    <span class="keyword">where</span> <span class="type">C</span>: <span class="type">Collection</span>, <span class="type">Self</span>.<span class="type">Bound</span> == <span class="type">C</span>.<span class="type">Index</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于缺少下界的部分范围， <code>relative（to :)</code> 方法将集合的 <code>startIndex</code> 添加为下界。 对于缺少上限的部分范围，该方法将使用集合的 <code>endIndex</code> 。 部分范围使切片集合的语法非常紧凑：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] </span><br><span class="line">arr[<span class="number">2</span>...] <span class="comment">// [3, 4] </span></span><br><span class="line">arr[..&lt;<span class="number">1</span>] <span class="comment">// [1]</span></span><br><span class="line">arr[<span class="number">1</span>...<span class="number">2</span>] <span class="comment">// [2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;之所以可行，是因为 <code>Collection协议</code> 中的相应下标声明采用 <code>RangeExpression</code> 而不是五个具体范围类型之一。 你甚至可以忽略两个边界，以获取整个集合的一部分：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">arr[...] <span class="comment">// [1, 2, 3, 4]</span></span><br><span class="line">type(of: arr[...]) <span class="comment">// ArraySlice&lt;Int&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（这是标准库中的一种特殊情况。这种无界范围尚不是有效的 <code>RangeExpression</code> ，但最终应成为一个范围。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果可能，请尝试复制标准库的方法，并使你自己的函数采用 <code>RangeExpressio</code> n而不是具体的范围类型。 并非总是可能的，因为除非你处于集合的上下文中，否则该协议不会使你能够访问范围的边界，但是如果是这样，则可以为 <code>API</code> 的使用者提供更大的自由来传递任何形式的 他们喜欢的范围表达。</p>
+</br>
+
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们看到了许多不同的集合：<code>数组</code>，<code>字典</code>，<code>集合</code>，<code>索引集</code>和<code>范围</code>。 我们还研究了每个集合所具有的许多方法。 我们了解了 <code>Swift</code> 的内置集合如何使你可以通过 <code>let和var</code> 控制 <code>可变性</code> ，还了解了如何理解所有不同的 <code>Range类型</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在 <code>“Collection协议”</code> 中重新访问本章的主题，在此我们将深入讨论 <code>Swift</code> 的 <code>Collection所基于的协议</code> 。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/" title="Advanced Swift系列(二): Build-in Collections">https://www.xuebaonline.com/Advanced Swift系列(二): Build-in Collections/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Build-in-Collections/" rel="tag"><i class="fa fa-tag"></i> Build-in Collections</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%80):%20Swift%20%E7%AE%80%E4%BB%8B/" rel="prev" title="Advanced Swift系列(一): Swift 简介">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(一): Swift 简介
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" rel="next" title="Advanced Swift系列(三):  Optionals">
+      Advanced Swift系列(三):  Optionals <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Arrays"><span class="nav-number">1.</span> <span class="nav-text">Arrays</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Arrays-and-Mutability"><span class="nav-number">1.1.</span> <span class="nav-text">Arrays and Mutability</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Array-Indexing"><span class="nav-number">1.2.</span> <span class="nav-text">Array Indexing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转换数组"><span class="nav-number">1.3.</span> <span class="nav-text">转换数组</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#map"><span class="nav-number">1.3.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用函数参数化行为"><span class="nav-number">1.3.2.</span> <span class="nav-text">用函数参数化行为</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Mutation-and-Stateful-Closures"><span class="nav-number">1.3.3.</span> <span class="nav-text">Mutation and Stateful Closures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter"><span class="nav-number">1.3.4.</span> <span class="nav-text">filter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reduce"><span class="nav-number">1.3.5.</span> <span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Flattening-map"><span class="nav-number">1.3.6.</span> <span class="nav-text">A Flattening map</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-forEach-进行迭代"><span class="nav-number">1.3.7.</span> <span class="nav-text">使用 forEach 进行迭代</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数组切片"><span class="nav-number">1.3.8.</span> <span class="nav-text">数组切片</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dictionaries"><span class="nav-number">2.</span> <span class="nav-text">Dictionaries</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Mutating-Dictionaries"><span class="nav-number">2.1.</span> <span class="nav-text">Mutating Dictionaries</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Useful-Dictionary-Methods"><span class="nav-number">2.2.</span> <span class="nav-text">Useful Dictionary Methods</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hashable-Requirement"><span class="nav-number">2.3.</span> <span class="nav-text">Hashable Requirement</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Sets"><span class="nav-number">3.</span> <span class="nav-text">Sets</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置代数"><span class="nav-number">3.1.</span> <span class="nav-text">设置代数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#索引集和字符集"><span class="nav-number">3.2.</span> <span class="nav-text">索引集和字符集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在闭包内部使用Set"><span class="nav-number">3.3.</span> <span class="nav-text">在闭包内部使用Set</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ranges"><span class="nav-number">4.</span> <span class="nav-text">Ranges</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Countable-Ranges"><span class="nav-number">4.1.</span> <span class="nav-text">Countable Ranges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Partial-Ranges"><span class="nav-number">4.2.</span> <span class="nav-text">Partial Ranges</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Range-Expressions"><span class="nav-number">4.3.</span> <span class="nav-text">Range Expressions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概括"><span class="nav-number">5.</span> <span class="nav-text">概括</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

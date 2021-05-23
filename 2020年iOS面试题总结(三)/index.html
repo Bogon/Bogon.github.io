@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="2020年iOS面试题总结(三)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年iOS面试题总结(三)">
+<meta property="og:url" content="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="2020年iOS面试题总结(三)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-21T02:41:19.000Z">
+<meta property="article:modified_time" content="2020-05-26T12:30:31.660Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Advanced Classes">
+<meta property="article:tag" content="面试题">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>2020年iOS面试题总结(三) | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年iOS面试题总结(三)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-21 10:41:19" itemprop="dateCreated datePublished" datetime="2020-05-21T10:41:19+08:00">2020-05-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">iOS面试题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">2020年iOS面试题总结(三)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="基础题"><a href="#基础题" class="headerlink" title="基础题"></a><a href="https://www.jianshu.com/c/31a515b57aef" target="_blank" rel="noopener">基础题</a></h1><ul>
+<li><p><a href="https://www.jianshu.com/p/6bcef7ebc8af" target="_blank" rel="noopener">[self class] 和 [super class] 区别</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5c43108be51d4552437677b3" target="_blank" rel="noopener">iOS 中的事件传递和响应机制-原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/28d8bc145d47" target="_blank" rel="noopener">iOS array 与 set 的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/c68cc81ef763" target="_blank" rel="noopener">说一说你对关联对象的理解</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/19f280afcb24" target="_blank" rel="noopener">说一说Runtime，谈谈你对他的了解</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/bf998b2538b9" target="_blank" rel="noopener">SDWebImage实现原理是什么？ 它是如何解决tableView的复用时出现图片错乱问题的呢？</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5c406d97e51d4552475fe178" target="_blank" rel="noopener">为什么必须在主线程操作UI</a></p>
+</li>
+</ul>
+<h1 id="runtime相关问题"><a href="#runtime相关问题" class="headerlink" title="runtime相关问题"></a>runtime相关问题</h1><a id="more"></a>
+
+<h2 id="结构模型"><a href="#结构模型" class="headerlink" title="结构模型"></a>结构模型</h2><ul>
+<li><p><a href="""">介绍下runtime的内存模型（isa、对象、类、metaclass、结构体的存储信息等）</a></p>
+</li>
+<li><p><a href="""">为什么要设计metaclass</a></p>
+</li>
+<li><p><a href="""">class_copyIvarList &amp; class_copyPropertyList 区别</a></p>
+</li>
+<li><p><a href="""">class_rw_t 和 class_ro_t 的区别</a></p>
+</li>
+<li><p><a href="""">category如何被加载的,两个category的load方法的加载顺序，两个category的同名方法的加载顺序</a></p>
+</li>
+<li><p><a href="""">category &amp; extension区别，能给NSObject添加Extension吗，结果如何</a></p>
+</li>
+<li><p><a href="""">消息转发机制，消息转发机制和其他语言的消息机制优劣对比</a></p>
+</li>
+<li><p><a href="""">在方法调用的时候，方法查询-&gt; 动态解析-&gt; 消息转发 之前做了什么</a></p>
+</li>
+<li><p><a href="""">IMP、SEL、Method的区别和使用场景</a></p>
+</li>
+<li><p><a href="""">load、initialize方法的区别什么？在继承关系中他们有什么区别</a></p>
+</li>
+<li><p><a href="""">说说消息转发机制的优劣</a></p>
+</li>
+</ul>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a>内存管理</h2><ul>
+<li><p><a href=""""><code>weak</code>的实现原理？<code>SideTable</code>的结构是什么样的</a></p>
+</li>
+<li><p><a href="""">关联对象的应用？系统如何实现关联对象的</a></p>
+</li>
+<li><p><a href="""">关联对象的如何进行内存管理的？关联对象如何实现<code>weak</code>属性</a></p>
+</li>
+<li><p><a href=""""><code>Autoreleasepool</code>的原理？所使用的的数据结构是什么</a></p>
+</li>
+<li><p><a href=""""><code>ARC</code>的实现原理？<code>ARC</code>下对<code>retain</code> &amp; <code>release</code>做了哪些优化</a></p>
+</li>
+<li><p><a href=""""><code>ARC</code>下哪些情况会造成内存泄漏</a></p>
+</li>
+<li><p><a href="""">Method Swizzle注意事项</a></p>
+</li>
+</ul>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><ul>
+<li><p><a href="""">属性修饰符<code>atomic</code>的内部实现是怎么样的?能保证线程安全吗</a></p>
+</li>
+<li><p><a href=""""><code>iOS</code> 中内省的几个方法有哪些？内部实现原理是什么</a></p>
+</li>
+<li><p><a href=""""><code>class</code>、<code>objc_getClass</code>、<code>object_getclass</code> 方法有什么区别?</a></p>
+</li>
+</ul>
+<h2 id="NSNotification相关"><a href="#NSNotification相关" class="headerlink" title="NSNotification相关"></a>NSNotification相关</h2><ul>
+<li><p><a href="""">实现原理（结构设计、通知如何存储的、<code>name&amp;observer&amp;SEL</code>之间的关系等）</a></p>
+</li>
+<li><p><a href="""">通知的发送时同步的，还是异步的</a></p>
+</li>
+<li><p><a href=""""><code>NSNotificationCenter</code>接受消息和发送消息是在一个线程里吗？如何异步发送消息</a></p>
+</li>
+<li><p><a href=""""><code>NSNotificationQueue</code>是异步还是同步发送？在哪个线程响应</a></p>
+</li>
+<li><p><a href=""""><code>NSNotificationQueue</code>和<code>runloop</code>的关系</a></p>
+</li>
+<li><p><a href="""">如何保证通知接收的线程在主线程</a></p>
+</li>
+<li><p><a href="""">页面销毁时不移除通知会崩溃吗</a></p>
+</li>
+<li><p><a href="""">多次添加同一个通知会是什么结果？多次移除通知呢</a></p>
+</li>
+<li><p><a href="""">下面的方式能接收到通知吗？为什么</a></p>
+</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 发送通知</span></span><br><span class="line">[[<span class="built_in">NSNotificationCenter</span> defaultCenter] addObserver:<span class="keyword">self</span> selector:<span class="keyword">@selector</span>(handleNotification:) name:<span class="string">@"TestNotification"</span> object:@<span class="number">1</span>];</span><br><span class="line"><span class="comment">// 接收通知</span></span><br><span class="line">[<span class="built_in">NSNotificationCenter</span>.defaultCenter postNotificationName:<span class="string">@"TestNotification"</span> object:<span class="literal">nil</span>];</span><br></pre></td></tr></table></figure>
+
+<h1 id="面试题目"><a href="#面试题目" class="headerlink" title="面试题目"></a>面试题目</h1><ul>
+<li><p><a href="https://www.jianshu.com/p/ab7c89fc266a" target="_blank" rel="noopener">iOS面试题：聊下HTTP post的body体使用form-urlencoded和multipart/form-data的区别。</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/de756c7009ed" target="_blank" rel="noopener">iOS面试题：让你设计一种机制检测UIViewController的内存泄漏，你会怎么做？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8a1eed46d572" target="_blank" rel="noopener">iOS面试题：通过[UIImage imageNamed:]生成的对象什么时候被释放？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/eab6b6433924" target="_blank" rel="noopener">iOS面试题：applicationWillEnterForeground和applicationDidBecomeActive都会在哪些场景下被调用？举例越多越好。</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/aaeb814753f5" target="_blank" rel="noopener">iOS面试题：dSYM你是如何分析的</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/046958ba9fdd" target="_blank" rel="noopener">iOS面试题：多线程有哪几种？你更倾向于哪一种？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d026e0c3105d" target="_blank" rel="noopener">iOS面试题：单例的弊端</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/998f06517eba" target="_blank" rel="noopener">iOS面试题：App启动过慢，你可能想到的因素有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/b4c59f85c12e" target="_blank" rel="noopener">iOS面试题：怎么防止反编译？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0f771e4d57a5" target="_blank" rel="noopener">iOS面试题：TCP和UDP的区别与联系</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/60a28d1ccf46" target="_blank" rel="noopener">iOS面试题：TCP连接的三次握手</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/7e88985ef1d9" target="_blank" rel="noopener">iOS面试题：Scoket连接和HTTP连接的区别：</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3080174a5eb3" target="_blank" rel="noopener">iOS面试题：HTTP协议的特点，关于HTTP请求GET和POST的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/817ece923ac3" target="_blank" rel="noopener">iOS面试题：ASIHttpRequest、AFNetWorking之间的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/038efb2f606f" target="_blank" rel="noopener">iOS面试题：XML数据解析方式各有什么不同，JSON解析有哪些框架？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8ad1afac20fe" target="_blank" rel="noopener">iOS面试题：<code>SVN</code>的使用</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d7df139b0f15" target="_blank" rel="noopener">iOS面试题：如何进行网络消息推送</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2713aaa354eb" target="_blank" rel="noopener">iOS面试题：网络七层协议</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/284d3bb193e5" target="_blank" rel="noopener">iOS面试题：关键字volatile有什么含意?并给出三个不同的例子：</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/52cf413b1bea" target="_blank" rel="noopener">iOS面试题：property属性的修饰符的作用</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/615ac0a6a1ec" target="_blank" rel="noopener">iOS面试题：XIB与Storyboards的优缺点</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/4b4bd4e3feff" target="_blank" rel="noopener">iOS面试题：内存的使用和优化的注意事项</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/6e9b3fa27ae2" target="_blank" rel="noopener">iOS面试题：基于CTMediator的组件化方案，有哪些核心组成？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/ce9c45360d57" target="_blank" rel="noopener">iOS面试题：为什么CTMediator方案优于基于Router的方案？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2a43e194ad28" target="_blank" rel="noopener">iOS面试题：MVVM设计模式</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/df3c118cfbb0" target="_blank" rel="noopener">iOS面试题：weak修饰的释放则自动被置为nil的实现原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/afb516bc4519" target="_blank" rel="noopener">iOS面试题：HTTPS的加密原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/cde95701266d" target="_blank" rel="noopener">iOS面试题：你认为开发中那些导致crash?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5094686d3e13" target="_blank" rel="noopener">iOS面试题：分析下SDWebImage</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2f1ef81e2b6d" target="_blank" rel="noopener">iOS面试题：SEL和Method和IMP分别说下再谈下对IMP的理解?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5a282e96ce2f" target="_blank" rel="noopener">iOS面试题：Autorelease的原理 ?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/709cc61105f7" target="_blank" rel="noopener">iOS面试题：ARC的工作原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/9b3c3b8c42c1" target="_blank" rel="noopener">用户需要上传和下载一个重要的资料文件，应该如何判断用户本次是否上传成功和下载成功了?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d1943078af97" target="_blank" rel="noopener">iOS面试题：isa指针的作用</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/45c56d05bc9f" target="_blank" rel="noopener">iOS面试题：与 NSURLConnection 相比，NSURLsession 改进哪些?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a759440eec5a" target="_blank" rel="noopener">iOS面试题：使用drawRect有什么影响？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0781cea3530c" target="_blank" rel="noopener">iOS面试题：什么时候会报unrecognized selector的异常？如何避免?</a> ✨✨✨✨✨</p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/fa982b71ca1f" target="_blank" rel="noopener">iOS面试题：iOS中常用的数据存储方式有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/95d069f6022d" target="_blank" rel="noopener">iOS面试题：描述一个ViewController的生命周期</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a3dc95f9d6e3" target="_blank" rel="noopener">iOS面试题：Block中可以修改全局变量，全局静态变量，局部静态变量吗？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/bf998b2538b9" target="_blank" rel="noopener">iOS面试题：SDWebImage实现原理是什么？ 它是如何解决tableView的复用时出现图片错乱问题的呢？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/527736ee25cc" target="_blank" rel="noopener">iOS面试题：AFNetworking 底层原理分析</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/9a36568c440c" target="_blank" rel="noopener">iOS面试题：描述下SDWebImage里面给UIImageView加载图片的逻辑</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/52947f0c862a" target="_blank" rel="noopener">iOS面试题：分析json、xml 的区别? json、xml 解析 式的底层是如何让处理的</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3fa382a9d4d7" target="_blank" rel="noopener">iOS面试题：对程序性能的优化你有什么建议?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0df00d750a7b" target="_blank" rel="noopener">iOS面试题：讲讲iOS事件响应链的原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/80090864f325" target="_blank" rel="noopener">iOS面试题：假如Controller太臃肿，如何优化?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/bcc34cc2975a" target="_blank" rel="noopener">iOS面试题：介绍下App启动的完成过程？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8f1207e60bb8" target="_blank" rel="noopener">iOS面试题：哈希原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0af43f100ad5" target="_blank" rel="noopener">iOS面试题：哈希存储过程</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/46f086b402d8" target="_blank" rel="noopener">iOS面试题：NSDate\CFAbsoluteTimeGetCurrent\CACurrentMediaTime的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/37b907cbd0e3" target="_blank" rel="noopener">iOS面试题：讲一下MVC和MVVM，MVP？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/63e705feb8b3" target="_blank" rel="noopener">iOS面试题：为什么代理要用weak？代理的delegate和dataSource有什么区别？block和代理的区别?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3420f78cd370" target="_blank" rel="noopener">iOS面试题：进程和线程的区别？同步异步的区别？并行和并发的区别？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d5a7ffb79d9e" target="_blank" rel="noopener">iOS面试题：如何提升 tableview 的流畅度？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d617bbf4242d" target="_blank" rel="noopener">iOS面试题：编程中的六大设计原则？</a>✨✨✨✨✨✨</p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/00fb6fae0dc0" target="_blank" rel="noopener">iOS面试题：NSOperation 与 GCD 的主要区别？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/630697f3491c" target="_blank" rel="noopener">iOS面试题：请说明并比较以下关键词：strong, weak, assign, copy</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/ed8261c5bf7d" target="_blank" rel="noopener">iOS面试题：Socket原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/731ff79eafce" target="_blank" rel="noopener">iOS面试题：请说明并比较以下关键词：<strong>weak，</strong>block</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/eb2436c9189a" target="_blank" rel="noopener">iOS面试题：什么是ARC？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2e67d1819d5d" target="_blank" rel="noopener">iOS面试题：ARC的底层原理，怎么实现自动释放的，和MRC的区别是什么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/b5698b67e910" target="_blank" rel="noopener">iOS面试题：苹果为什么推出ARC？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/43110d69a919" target="_blank" rel="noopener">iOS面试题：有了线程，你觉得为什么还要有runloop？，runloop和线程有什么关系？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/9a670004759c" target="_blank" rel="noopener">iOS面试题：objc中向一个nil对象发送消息将会发生什么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0fb8502e9129" target="_blank" rel="noopener">iOS面试题：常用的设计模式</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/4475b2e1f9ae" target="_blank" rel="noopener">iOS面试题：单例会有什么弊端？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/380d15262054" target="_blank" rel="noopener">iOS面试题：你会如何存储用户的一些敏感信息，如登录的token</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a42c3c381351" target="_blank" rel="noopener">iOS面试题：UIScrollView大概是如何实现的，它是如何捕捉、响应手势的？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a15a357df57e" target="_blank" rel="noopener">iOS面试题：如何实现夜间模式？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/e7d4e308ecdb" target="_blank" rel="noopener">iOS面试题：如何捕获异常？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/765217675114" target="_blank" rel="noopener">iOS面试题：frame与center bounds的关系</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/74a84a696140" target="_blank" rel="noopener">iOS面试题：通知中心的实现原理?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/c8c6cf97d149" target="_blank" rel="noopener">iOS面试题：断点续传如何实现的？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/b1c55cf8f480" target="_blank" rel="noopener">iOS面试题：通知，代理，KVO的区别，以及通知的多线程问题</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/58c99ddd4879" target="_blank" rel="noopener">iOS面试题：你一般是如何优化你的APP的?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f6af5443f59f" target="_blank" rel="noopener">iOS面试题：push Notification原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5428c8742329" target="_blank" rel="noopener">iOS面试题：iOS 中内省的几个方法？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/fea799096cf7" target="_blank" rel="noopener">class方法和objc_getClass方法有什么区别?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/960eec2bfa64" target="_blank" rel="noopener">iOS面试题：一个int变量被__block修饰与否的区别？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2bd51fd0016a" target="_blank" rel="noopener">iOS面试题：什么是离屏渲染？什么情况下会触发？该如何应对?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/dc8e051b9dd7" target="_blank" rel="noopener">iOS面试题：反射是什么？可以举出几个应用场景么?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/730eb6096cad" target="_blank" rel="noopener">iOS面试题：关联对象有什么应用，系统如何管理关联对象？其被释放的时候需要手动将其指针置空么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0afda1f23782" target="_blank" rel="noopener">iOS面试题：Autoreleasepool所使用的数据结构是什么？AutoreleasePoolPage结构体了解么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/52fc8ab1ae79" target="_blank" rel="noopener">iOS面试题：KVC的赋值和取值过程是怎样的？KVO原理是什么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/61e0ce4e221d" target="_blank" rel="noopener">iOS面试题：iOS中UITableViewCell的重用机制原理？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/6453468ef06c" target="_blank" rel="noopener">iOS面试题：RunLoop剖析</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/6870d4c17c77" target="_blank" rel="noopener">iOS面试题：内存管理、自动释放池与循环引用</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/61aa1062a27b" target="_blank" rel="noopener">iOS面试题：剖析Block</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/ff9095de1753" target="_blank" rel="noopener">iOS面试题：SDWebImage原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d568a7e078e9" target="_blank" rel="noopener">iOS面试题：如何高性能的给 UIImageView 加个圆角?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0ece8c39b36b" target="_blank" rel="noopener">iOS面试题：了解CoreData</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/6b5249973e5f" target="_blank" rel="noopener">iOS面试题：简述内存管理基本原则</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a6146b5764de" target="_blank" rel="noopener">iOS面试题：GCD死锁问题解读</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0185d9099bbc" target="_blank" rel="noopener">iOS面试题：谈一谈网络中的 session 和 cookie?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a7c2672b744a" target="_blank" rel="noopener">iOS面试题：UIWindow，UIView，CALayer的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3d0e8b8586f6" target="_blank" rel="noopener">iOS面试题：事件传递和响应机制</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a697465ec2f1" target="_blank" rel="noopener">iOS面试题：UIView block动画实现原理</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d0bc12a63ccf" target="_blank" rel="noopener">iOS面试题：MVVM和MVC的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/d07e310d1b5c" target="_blank" rel="noopener">iOS面试题：NSCache，NSDictionary，NSArray的区别</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/852cbb7f1ffc" target="_blank" rel="noopener">iOS 应用导航模式有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/12f82e1dd34d" target="_blank" rel="noopener">iOS 中持久化方式有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a4fb5a65915a" target="_blank" rel="noopener">iOS 单元测试框架有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/de610310370b" target="_blank" rel="noopener">iSO 7层协议，tcp四层协议及如何对应的?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/1bc8205c0904" target="_blank" rel="noopener">iOS 你在项目中用过 runtime 吗？举个例子</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/516606198698" target="_blank" rel="noopener">iOS 什么是ARC？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/64520f3e79d3" target="_blank" rel="noopener">iOS 说明并比较关键词：atomatic, nonatomic</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/64866e2d5394" target="_blank" rel="noopener">iOS 说明并比较关键词：strong, weak, assign, copy</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/1248359d3681" target="_blank" rel="noopener">iOS 说明并比较关键词：<strong>weak，</strong>block</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/u/6313f5c2a6cd" target="_blank" rel="noopener">iOS 什么情况下会出现循环引用？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a9420d8bcf40" target="_blank" rel="noopener">iOS 类（class）和结构体（struct）有什么区别？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2ea8bd7a372b" target="_blank" rel="noopener">iOS 什么是KVO和KVC?他们的使用场景是什么？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/439ff6fe8463" target="_blank" rel="noopener">iOS 通知和协议有哪些不同之处?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a620b8ae7ab7" target="_blank" rel="noopener">iOS 应用有哪些方式保存本地数据？他们都应用在哪些场景？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/05a52fe3f1f8" target="_blank" rel="noopener">iOS 内存的使用和优化的注意事项?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2325034faf24" target="_blank" rel="noopener">iOS UIViewController的完整生命周期?</a></p>
+</li>
+<li><p><a href="""">iOS 队列和多线程的使用原理?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2381d9952458" target="_blank" rel="noopener">iOS SQLite中常用的SQL语句?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f972e0db785a" target="_blank" rel="noopener">iOS frame和bounds有什么不同？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f00f804a4237" target="_blank" rel="noopener">iOS view的touch事件有哪些？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/53100391a920" target="_blank" rel="noopener">iOS 中的响应者链的工作原理?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3cbc79424fb8" target="_blank" rel="noopener">iOS property属性的修饰符的作用?</a></p>
+</li>
+<li><p><a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="noopener">iOS 对于Run Loop的理解?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f512d8f2fa41" target="_blank" rel="noopener">iOS @synthesize、@dynamic的理解?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/2876bfe92df4" target="_blank" rel="noopener">iOS 对瀑布流的理解?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a92c0283f243" target="_blank" rel="noopener">iOS 单例模式理解与使用?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/251f2d187cb9" target="_blank" rel="noopener">iOS 对沙盒的理解?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3cc3f5125b39" target="_blank" rel="noopener">iOS 三方库SDWebImage原理?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/832573834fa3" target="_blank" rel="noopener">iSO 网络七层协议?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/e347f999ed95" target="_blank" rel="noopener">iOS 如何进行网络消息推送?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/db179f838db7" target="_blank" rel="noopener">iOS SVN的使用?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/b1b77d804254" target="_blank" rel="noopener">iOS 简述APP发布的上架流程?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/c0b577bd08ed?appinstall=0" target="_blank" rel="noopener">iOS 如何进行真机调试?</a></p>
+</li>
+<li><p><a href="""">iOS XML数据解析方式各有什么不同，JSON解析有哪些框架？</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/ba7a7de52992" target="_blank" rel="noopener">iOS ASIHttpRequest、AFNetWorking之间的区别?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/53221092eee7" target="_blank" rel="noopener">iOS HTTP协议的特点，关于HTTP请求GET和POST的区别?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8f61bc641d9d" target="_blank" rel="noopener">iOS Scoket连接和HTTP连接的区别?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5218202e13ff" target="_blank" rel="noopener">iOS TCP连接的三次握手?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/02a18debdd10" target="_blank" rel="noopener">iOS TCP和UDP的区别与联系?</a></p>
+</li>
+<li><p><a href="""">iOS Apple设备尺寸和编程尺寸?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/9b448c8ecc8d" target="_blank" rel="noopener">iOS 线程与进程的区别和联系?</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/sunka1982/article/details/46881135" target="_blank" rel="noopener">iOS 定时器与线程的区别?</a></p>
+</li>
+<li><p><a href="""">iOS 使用block有什么好处？使用NSTimer写出一个使用block显示（在UILabel上）秒表的代码?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/5e44d1c9f6fd" target="_blank" rel="noopener">iOS 解决cell重用的问题?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/4118793c88df" target="_blank" rel="noopener">iOS 怎样使用performSelector传入3个以上参数，其中一个为结构体?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/4c9112f8625d" target="_blank" rel="noopener">iOS 解释self = [super init]方法?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/e310d3711615" target="_blank" rel="noopener">iOS 在某个方法中 self.name = _name，name = _name 它 们有区别吗,为什么?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/84ccd9eac508" target="_blank" rel="noopener">iOS Core Data的6成员对象?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/a620b8ae7ab7" target="_blank" rel="noopener">iOS iOS 开发中数据持久性有哪几种?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/cd6bbb713851" target="_blank" rel="noopener">iOS isMemberOfClass 和 isKindOfClass 联系与区别?</a></p>
+</li>
+<li><p><a href="""">iOS @public、@protected、@private 它们的含义与作用?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/f92c778e4db8" target="_blank" rel="noopener">iOS #include与#import的区别、*<em>#import *</em>与@class 的区别?</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/xushuxuan_blog/article/details/10115219" target="_blank" rel="noopener">iOS static、self、super关键字的作用?</a></p>
+</li>
+<li><p><a href="""">iOS NSNotification、Block、Delegate和KVO的区别?</a></p>
+</li>
+<li><p><a href="""">iOS 代理的作用?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8700685b3c91" target="_blank" rel="noopener">iOS 键路径(keyPath)、键值编码（KVC）、键值观察（KVO）?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/8700685b3c91" target="_blank" rel="noopener">iOS 循环引用的产生原因，以及解决方法?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/c234e1cd403b" target="_blank" rel="noopener">iOS 类别的作用?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/041ec360a3be" target="_blank" rel="noopener">iOS 简述类目category优点和缺点?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/3687fd93dbbc" target="_blank" rel="noopener">iOS 简述内存管理基本原则?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/0033032d970e" target="_blank" rel="noopener">iOS OC的理解与特性?</a></p>
+</li>
+<li><p><a href="https://www.jianshu.com/p/609c320cccd3" target="_blank" rel="noopener">iOS 你在项目中用过 GCD 吗？举个例子</a></p>
+</li>
+</ul>
+<h1 id="组件化"><a href="#组件化" class="headerlink" title="组件化"></a>组件化</h1><ul>
+<li><p><a href="https://juejin.im/entry/5baaf45cf265da0afb334b25" target="_blank" rel="noopener">组件化、插件化</a></p>
+</li>
+<li><p><a href="https://halfrost.com/ios_router/" target="_blank" rel="noopener">iOS 组件化</a></p>
+</li>
+<li><p><a href="https://juejin.im/post/5ab85a346fb9a028e52dd16e" target="_blank" rel="noopener">iOS 组件化 —— 路由设计思路分析</a></p>
+</li>
+<li><p><a href="http://www.cocoachina.com/articles/30034" target="_blank" rel="noopener">在腾讯面试，被问到组件化如何实现，组件化与插件化的差别在哪里，该怎么选型？</a></p>
+</li>
+</ul>
+<p>WebView与原生交互</p>
+<p>单元测试</p>
+<p>swift 面向协议编程</p>
+<p>函数式编程</p>
+<h1 id="自动化打包"><a href="#自动化打包" class="headerlink" title="自动化打包"></a>自动化打包</h1><ul>
+<li><a href="https://www.jianshu.com/p/447be2517418" target="_blank" rel="noopener">脚本打包原理</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)/" title="2020年iOS面试题总结(三)">https://www.xuebaonline.com/2020年iOS面试题总结(三)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> iOS面试题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)/" rel="prev" title="2020年iOS面试题总结(二)">
+      <i class="fa fa-chevron-left"></i> 2020年iOS面试题总结(二)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations/" rel="next" title="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">
+      Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础题"><span class="nav-number">1.</span> <span class="nav-text">基础题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#runtime相关问题"><span class="nav-number">2.</span> <span class="nav-text">runtime相关问题</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#结构模型"><span class="nav-number">2.1.</span> <span class="nav-text">结构模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内存管理"><span class="nav-number">2.2.</span> <span class="nav-text">内存管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.3.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NSNotification相关"><span class="nav-number">2.4.</span> <span class="nav-text">NSNotification相关</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#面试题目"><span class="nav-number">3.</span> <span class="nav-text">面试题目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化"><span class="nav-number">4.</span> <span class="nav-text">组件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动化打包"><span class="nav-number">5.</span> <span class="nav-text">自动化打包</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

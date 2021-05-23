@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp2.png">
+<meta property="article:published_time" content="2020-05-28T09:24:44.000Z">
+<meta property="article:modified_time" content="2020-05-28T10:10:49.504Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Enumerations">
+<meta property="article:tag" content="Protocols">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-28 17:24:44" itemprop="dateCreated datePublished" datetime="2020-05-28T17:24:44+08:00">2020-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>10 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在本系列中，你学习了三种命名类型：结构，类和枚举。 还有另一种要学习的命名类型：协议。</p>
+<p>与其他命名类型不同，协议不会定义你直接实例化的任何内容。 相反，它们定义实际具体类型符合的接口或蓝图。 使用协议，你可以定义一组具体类型可以实现的通用属性和行为。</p>
+<p>从本系列开始，你就一直在幕后使用协议。 在本章中，你将学习有关协议的详细信息，并了解它们为何对Swift编程至关重要。</p>
+<h1 id="协议介绍"><a href="#协议介绍" class="headerlink" title="协议介绍"></a>协议介绍</h1><p>定义协议的方式与定义任何其他命名类型一样。 在游乐场中输入以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<p>关键字协议后跟协议名称，后跟带有协议成员的花括号。 你会发现最大的区别是该协议不包含任何实现。</p>
+<p>这意味着你无法直接实例化Vehicle：</p>
+<p><img src="https://cdn.xuebaonline.com/sasb-protocol-stp1.png" alt="协议实例化失败示例"></p>
+<p>而是<strong>使用协议在其他类型上强制使用方法和属性</strong>。 你在此处定义的概念类似于车辆的概念-它可以加速和停止。</p>
+<h1 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h1><p><strong>协议可以由类，结构或枚举采用-当另一种类型采用协议时，则必须实现该协议中定义的方法和属性。 一旦类型实现了协议的所有成员，就说该类型符合该协议</strong>。</p>
+<p>声明你的类型符合协议的方式。 在操场上，定义一个符合Vehicle的新类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Unicycle</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> peddling = <span class="literal">false</span></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span> &#123;</span><br><span class="line">    peddling = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    peddling = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你在命名类型的名称后加上冒号，并遵循要遵循的协议名称。 该语法可能看起来很熟悉，因为它与使一个类继承自另一个类所使用的语法相同。 在此示例中，Unicycle符合Vehicle协议。</p>
+<p>请注意，它看起来像类继承，但不是。 结构和枚举也可以使用此语法符合协议。</p>
+<p>如果你要从上面的Unicycle类中删除stop（）的定义，由于Unicycle尚未完全符合Vehicle协议，Swift将显示错误。</p>
+<p><img src="https://cdn.xuebaonline.com/sasb-protocol-stp2.png" alt="协议"></p>
+<p>稍后，我们将详细介绍实现协议的细节，但是首先，你将了解定义协议时可以实现的目标。</p>
+<h1 id="协议中的方法"><a href="#协议中的方法" class="headerlink" title="协议中的方法"></a>协议中的方法</h1><p>在上面的Vehicle协议中，你定义了一对方法，accelate（）和stop（），所有与Vehicle相符的类型都必须实现。</p>
+<p>你可以在协议上定义方法，就像在带参数和返回值的任何类，结构或枚举上定义方法一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Direction</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">left</span></span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">right</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">DirectionalVehicle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">turn</span><span class="params">(<span class="number">_</span> direction: Direction)</span></span> </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">description</span><span class="params">()</span></span> -&gt; <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有一些差异需要注意。 你实际上并未定义方法的任何实现。 这是为了帮助你强制接口和代码严格分离，因为该协议本身并不假设任何符合该协议的类型的实现细节。</p>
+<p>另外，协议中定义的方法不能包含默认参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">OptionalDirectionVehicle</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Build error!</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">turn</span><span class="params">(<span class="number">_</span> direction: Direction = .<span class="keyword">left</span>)</span></span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要将方向作为可选参数提供，你将明确定义方法的两个版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">OptionalDirectionVehicle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">turn</span><span class="params">()</span></span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">turn</span><span class="params">(<span class="number">_</span> direction: Direction)</span></span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请记住，当你遵循OptionalDirectionVehicle时，将需要同时实现turn()和turn(_ :)。 如果你仅使用默认参数实现一个函数，则Xcode不会满意，它将要求你添加其他方法。</p>
+<blockquote>
+<p>注意：这并不是真正创建带有可选参数的方法。 要完全实现这一点，协议扩展是你想要的。 你将在第25章“基于协议的编程”中了解更多有关它们的信息。</p>
+</blockquote>
+<h1 id="协议中的属性"><a href="#协议中的属性" class="headerlink" title="协议中的属性"></a>协议中的属性</h1><p>你还可以在协议中定义属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">VehicleProperties</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> weight: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在协议中定义属性时，必须将它们显式标记为get或get set，这与声明计算属性的方式有些相似。 但是，就像方法一样，你不包含任何属性实现。</p>
+<p>你必须在属性上标记get和set的事实表明，协议不知道属性的实现，这意味着它不对属性的存储进行任何假设。 你可以将这些属性要求实现为计算属性或常规变量。 协议所要求的全部是，如果该属性仅具有get要求，则该属性是可读的；如果同时具有get和set要求，则该属性是可读且可写的。</p>
+<p>即使该属性仅具有获取要求，你仍然可以将其实现为存储属性或可读写计算属性，因为协议中的要求仅为最低要求。</p>
+<h1 id="协议中的初始化器"><a href="#协议中的初始化器" class="headerlink" title="协议中的初始化器"></a>协议中的初始化器</h1><p>虽然协议本身无法初始化，但是它们可以声明符合类型的初始化器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> value: <span class="type">Double</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">  <span class="keyword">init</span>(initialAmount: <span class="type">Double</span>)</span><br><span class="line">  <span class="keyword">init</span>?(transferAccount: <span class="type">Account</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的“帐户”协议中，你将两个初始化程序定义为协议的一部分。 这的行为与你预期的很相似，因为任何符合Account的类型都必须具有这些初始化程序。 <strong>如果你使用带有类类型的必需初始化程序来遵守协议，则这些初始化程序必须使用required关键字</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BitcoinAccount</span>: <span class="title">Account</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> value: <span class="type">Double</span></span><br><span class="line">  <span class="keyword">required</span> <span class="keyword">init</span>(initialAmount: <span class="type">Double</span>) &#123;</span><br><span class="line">    value = initialAmount</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(transferAccount: <span class="type">Account</span>) &#123; </span><br><span class="line">        <span class="keyword">guard</span> transferAccount.value &gt; <span class="number">0.0</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        value = transferAccount.value </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> accountType: <span class="type">Account</span>.<span class="type">Type</span> = <span class="type">BitcoinAccount</span>.<span class="keyword">self</span></span><br><span class="line"><span class="keyword">let</span> account = accountType.<span class="keyword">init</span>(initialAmount: <span class="number">30.00</span>) </span><br><span class="line"><span class="keyword">let</span> transferAccount = accountType.<span class="keyword">init</span>(transferAccount: account)!</span><br></pre></td></tr></table></figure>
+
+<h1 id="协议继承"><a href="#协议继承" class="headerlink" title="协议继承"></a>协议继承</h1><p>车辆协议包含一组可应用于任何类型车辆的方法，例如自行车，汽车，雪地摩托甚至飞机！</p>
+<p>你可能希望定义一个协议，该协议包含车辆的所有质量，但也特定于带轮车辆。 为此，你可以拥有从其他协议继承的协议，就像你可以拥有从其他类继承的类一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">WheeledVehicle</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> numberOfWheels: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> wheelSize: <span class="type">Double</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，你标记为符合WheeledVehicle协议的任何类型都将在括号中定义所有成员，以及Vehicle的所有成员。 与子类一样，你标记为WheeledVehicle的任何类型与协议Vehicle都具有is-a关系。</p>
+<h1 id="实现协议"><a href="#实现协议" class="headerlink" title="实现协议"></a>实现协议</h1><p>如你所见，当你声明自己的类型符合协议时，你必须实现协议中声明的所有要求：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bike</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> peddling = <span class="literal">false</span></span><br><span class="line">  <span class="keyword">var</span> brakesApplied = <span class="literal">false</span></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span> &#123;</span><br><span class="line">    peddling = <span class="literal">true</span></span><br><span class="line">    brakesApplied = <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">    peddling = <span class="literal">false</span></span><br><span class="line">    brakesApplied = <span class="literal">true</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Bike类实现了Vehicle中定义的所有方法。 如果未定义accelerator()或stop()，则会收到一个生成错误。</p>
+<p><strong>定义协议可确保任何符合协议的类型都将具有你在协议中定义的所有成员</strong>。</p>
+<h1 id="实现属性"><a href="#实现属性" class="headerlink" title="实现属性"></a>实现属性</h1><p>回想一下，协议中的属性附带有一个get（可能）和set的要求，并且一致的类型必须至少符合这些要求。</p>
+<p>将自行车升级到轮式车辆：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bike</span>: <span class="title">WheeledVehicle</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> numberOfWheels = <span class="number">2</span></span><br><span class="line">    <span class="keyword">var</span> wheelSize = <span class="number">16.0</span> </span><br><span class="line">    <span class="keyword">var</span> peddling = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">var</span> brakesApplied = <span class="literal">false</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span> &#123;</span><br><span class="line">        peddling = <span class="literal">true</span></span><br><span class="line">        brakesApplied = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        peddling = <span class="literal">false</span></span><br><span class="line">        brakesApplied = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>numberOfWheels常数满足get要求。 wheelSize变量同时满足获取和设置要求。</p>
+<p>协议只要你实现它们，就不在乎你如何实现它们的要求。 你可以选择实现获取要求的方法是：</p>
+<ul>
+<li>常量存储的属性。</li>
+<li>变量存储属性。</li>
+<li>只读的计算属性。</li>
+<li>读写计算属性。</li>
+</ul>
+<p>用于实现get和set属性的选择仅限于变量存储属性或读写计算属性。</p>
+<h1 id="协议中的关联类型"><a href="#协议中的关联类型" class="headerlink" title="协议中的关联类型"></a>协议中的关联类型</h1><p>你还可以将关联的类型添加为协议成员。 在协议中使用associatedtype时，你只是在说明该协议中使用了一种类型，而没有指定其应为哪种类型。 由协议采用者决定确切的类型。</p>
+<p>这使你可以为类型赋予任意名称，而无需确切指定最终将成为哪种类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">associatedtype</span> <span class="type">WeightType</span></span><br><span class="line">  <span class="keyword">var</span> weight: <span class="type">WeightType</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将权重类型的决定委托给具体的实现。 你可以在下面的两个示例中查看其工作方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HeavyThing</span>: <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This heavy thing only needs integer accuracy</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">WeightType</span> = <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> weight: <span class="type">Int</span> &#123; <span class="number">100</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LightThing</span>: <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This light thing needs decimal places</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">WeightType</span> = <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> weight: <span class="type">Double</span> &#123; <span class="number">0.0025</span> &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这些示例中，你将使用typealias明确显示关联的类型。 通常不需要这样做，因为编译器经常可以推断出类型。 在前面的示例中，权重的类型使关联类型明确，因此你可以删除类型别名。</p>
+<p>你可能已经注意到，WeightCalculatable的合同现在会根据采用类型中相关类型的选择而变化。 请注意，这会阻止你将协议用作简单的变量类型，因为编译器无法提前知道WeightType是什么。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Build error!</span></span><br><span class="line"><span class="comment">// protocol 'WeightCalculatable' can only be used as a generic </span></span><br><span class="line"><span class="comment">// constraint because it has Self or associated type requirements.</span></span><br><span class="line"><span class="keyword">let</span> weightedThing: <span class="type">WeightCalculatable</span> = <span class="type">LightThing</span>()</span><br></pre></td></tr></table></figure>
+
+<p>你将在下一章中全面了解泛型约束。</p>
+<h1 id="实现多种协议"><a href="#实现多种协议" class="headerlink" title="实现多种协议"></a>实现多种协议</h1><p>一个类只能从单个类继承-这是“单个继承”的属性。 相反，可以使一个类（结构或枚举）符合你想要的多种协议！</p>
+<p>假设没有创建从Vehicle继承的WheeledVehicle协议，而是让Wheeled拥有了自己的协议。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Wheeled</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> numberOfWheels: <span class="type">Int</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">  <span class="keyword">var</span> wheelSize: <span class="type">Double</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Bike</span>: <span class="title">Vehicle</span>, <span class="title">Wheeled</span> </span>&#123;</span><br><span class="line">  <span class="comment">// Implement both Vehicle and Wheeled</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>协议支持“多重一致性”，因此你可以将任意数量的协议应用于定义的类型。 在上面的示例中，Bike类现在必须实现Vehicle和Wheeled协议中定义的所有成员。</p>
+<h1 id="协议组成"><a href="#协议组成" class="headerlink" title="协议组成"></a>协议组成</h1><p>在上一节中，你学习了如何实现多种协议。 有时你需要一个函数来采用必须符合多种协议的数据类型。 这就是协议组成的来源。想象一下，你需要一个需要访问Vehicle协议的stop（）函数和Wheeled协议的numberOfWheels属性的函数。 你可以使用＆组成运算符执行此操作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">roundAndRound</span><span class="params">(transportation: Vehicle &amp; Wheeled)</span></span> &#123; </span><br><span class="line">    transportation.stop()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"The brakes are being applied to</span></span><br><span class="line"><span class="string">        \(transportation.numberOfWheels) wheels."</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">roundAndRound(transportation: <span class="type">Bike</span>())</span><br><span class="line"><span class="comment">// The brakes are being applied to 2 wheels.</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="扩展和协议一致性"><a href="#扩展和协议一致性" class="headerlink" title="扩展和协议一致性"></a>扩展和协议一致性</h1><p>你还可以使用带有扩展名的协议。 这样，你就可以将协议一致性添加到不一定要拥有的类型中。 考虑下面的简单示例，该示例向String添加了自定义协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Reflective</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> typeName: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span>: <span class="title">Reflective</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> typeName: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="string">"I’m a String"</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> title = <span class="string">"Swift Apprentice!"</span> </span><br><span class="line">title.typeName <span class="comment">// I’m a String</span></span><br></pre></td></tr></table></figure>
+
+<p>即使String是标准库的一部分，你仍然可以使String符合Reflective协议。</p>
+<p>使用扩展的另一个优点是，你可以将<strong>协议采用与必要的方法和属性很好地组合在一起，而不必让大量的协议弄乱你的类型定义</strong>。</p>
+<p>以下代码将Vehicle的采用划分为AnotherBike的扩展：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnotherBike</span>: <span class="title">Wheeled</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> peddling = <span class="literal">false</span></span><br><span class="line">    <span class="keyword">let</span> numberOfWheels = <span class="number">2</span></span><br><span class="line">    <span class="keyword">var</span> wheelSize = <span class="number">16.0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AnotherBike</span>: <span class="title">Vehicle</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">accelerate</span><span class="params">()</span></span> &#123;</span><br><span class="line">            peddling = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">stop</span><span class="params">()</span></span> &#123;</span><br><span class="line">        peddling = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该扩展对通过Vehicle加速和停止。 如果要从AnotherBike中删除Vehicle协议，则只需删除完全采用该协议的扩展名即可。</p>
+<blockquote>
+<p>注意：<strong>你不能在扩展程序中声明存储的属性</strong>。 你仍然可以在原始类型声明中声明存储的属性，并使协议符合扩展中采用的任何协议，但是由于扩展的限制，在扩展中完全实现协议并不总是可能的。</p>
+</blockquote>
+<h1 id="要求参考语义"><a href="#要求参考语义" class="headerlink" title="要求参考语义"></a>要求参考语义</h1><p>值类型（结构和枚举）和引用类型（类）都可以采用协议，因此你可能想知道协议是否具有引用或值语义。</p>
+<p>事实是……这取决于！ 如果你将一个类或结构的实例分配给协议类型的变量，则该实例或结构的实例将表达与其定义的类型相匹配的值或引用语义。</p>
+<p>为了说明，请以下面的简单命名示例协议为例，该协议以结构和类的形式实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Named</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ClassyName</span>: <span class="title">Named</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line"><span class="keyword">self</span>.name = name &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">StructyName</span>: <span class="title">Named</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要给Named变量分配引用类型的实例，则会看到引用语义的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> named: <span class="type">Named</span> = <span class="type">ClassyName</span>(name: <span class="string">"Classy"</span>)</span><br><span class="line"><span class="keyword">var</span> copy = named</span><br><span class="line">named.name = <span class="string">"Still Classy"</span> named.name <span class="comment">// Still Classy </span></span><br><span class="line">copy.name <span class="comment">// Still Classy</span></span><br></pre></td></tr></table></figure>
+
+<p>同样，如果分配值类型的实例，则会看到值语义的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">named = <span class="type">StructyName</span>(name: <span class="string">"Structy"</span>)</span><br><span class="line">copy = named</span><br><span class="line">named.name = <span class="string">"Still Structy?"</span> named.name <span class="comment">// Still Structy? </span></span><br><span class="line">copy.name <span class="comment">// Structy</span></span><br></pre></td></tr></table></figure>
+
+<p>情况并非总是如此清晰。 你会注意到，在大多数情况下，<strong>Swift将优先使用值语义而不是引用语义</strong>。 如果你要设计一个协议专门供类采用，那么最好在将该协议用作类型时要求Swift使用引用语义。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Named</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span> &#123; <span class="keyword">get</span> <span class="keyword">set</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过使用上面的类约束，你指示仅类可以采用此协议。 这清楚表明Swift应该使用引用语义。</p>
+<blockquote>
+<p>注意：你可以在第24章“值类型和值语义”中了解有关值类型和引用类型语义之间区别的更多信息。</p>
+</blockquote>
+<h1 id="协议：不止语法"><a href="#协议：不止语法" class="headerlink" title="协议：不止语法"></a>协议：不止语法</h1><p>如你所见，协议使你可以为一致性类型指定许多语法要求。 但是，它们不能（也永远不会）让你指定编译器可以检查的所有可能的要求。 例如，协议可能需要为操作指定复杂性要求（O（1）vs O（n））。 它只能通过在注释中说明来做到这一点。 对你而言，重要的是要理解协议正确符合的所有要求。</p>
+<h1 id="标准库中的协议"><a href="#标准库中的协议" class="headerlink" title="标准库中的协议"></a>标准库中的协议</h1><p>Swift标准库广泛使用协议，可能会让你感到惊讶。 了解协议在Swift中所扮演的角色可以帮助你编写干净，解耦的“ Swifty”代码。</p>
+<h2 id="Equatable"><a href="#Equatable" class="headerlink" title="Equatable"></a>Equatable</h2><p>一些最简单的代码使用==运算符比较两个整数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a = <span class="number">5</span></span><br><span class="line"><span class="keyword">let</span> b = <span class="number">5</span></span><br><span class="line">a == b <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以对字符串执行相同的操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> swiftA = <span class="string">"Swift"</span></span><br><span class="line"><span class="keyword">let</span> swiftB = <span class="string">"Swift"</span></span><br><span class="line">swiftA == swiftB <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>但是你不能在任何类型上使用==。 假设你编写了一个类来代表团队的记录，并想确定两个记录是否相等：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Record</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> wins: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> losses: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>(wins: <span class="type">Int</span>, losses: <span class="type">Int</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.wins = wins</span><br><span class="line">        <span class="keyword">self</span>.losses = losses </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> recordA = <span class="type">Record</span>(wins: <span class="number">10</span>, losses: <span class="number">5</span>)</span><br><span class="line"><span class="keyword">let</span> recordB = <span class="type">Record</span>(wins: <span class="number">10</span>, losses: <span class="number">5</span>)</span><br><span class="line">recordA == recordB <span class="comment">// Build error!</span></span><br></pre></td></tr></table></figure>
+
+<p>你不能将==运算符应用于刚定义的类。 但是，对等式运算符的使用并不仅仅是为Int和String之类的标准Swift类型保留的“魔术”； 它们是结构，就像Record。 这意味着你可以将此操作符的使用扩展到你自己的代码！</p>
+<p>Int和String都符合标准库中的Equatable协议，该协议定义了一个静态方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: <span class="keyword">Self</span>, rhs: <span class="keyword">Self</span>)</span></span> -&gt; <span class="type">Bool</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以像下面这样将此协议应用于Record：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Record</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Record, rhs: Record)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        lhs.wins == rhs.wins &amp;&amp;</span><br><span class="line">        lhs.losses == rhs.losses </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你正在定义（或重载）==运算符以比较两个Record实例。 在这种情况下，如果两个记录的胜负次数相同，则它们相等。</p>
+<p>现在，你可以使用==运算符比较两种Record类型，就像使用String或Int一样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">recordA == recordB <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Comparable"><a href="#Comparable" class="headerlink" title="Comparable"></a>Comparable</h2><p>相等的子协议是可比较的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Comparable</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> &lt;(lhs: Self, rhs: Self) -&gt; <span class="title">Bool</span> </span></span><br><span class="line"><span class="function">    <span class="title">static</span> <span class="title">func</span> &lt;=(lhs: Self, rhs: Self) -&gt; <span class="title">Bool</span> </span></span><br><span class="line"><span class="function">    <span class="title">static</span> <span class="title">func</span> &gt;=<span class="params">(lhs: <span class="keyword">Self</span>, rhs: <span class="keyword">Self</span>)</span></span> -&gt; <span class="type">Bool</span> </span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> &gt;<span class="params">(lhs: <span class="keyword">Self</span>, rhs: <span class="keyword">Self</span>)</span></span> -&gt; <span class="type">Bool</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除了等于运算符==，Comparable还要求你为类型重载比较运算符&lt;，&lt;=，&gt;和&gt; =。 实际上，你通常只提供&lt;，因为标准库可以使用==和&lt;的实现为你实现&lt;=，&gt;和&gt; =。</p>
+<p>使记录采用可比性，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Record</span>: <span class="title">Comparable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> &lt;(lhs: Record, rhs: Record) -&gt; <span class="title">Bool</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> lhs.wins == rhs.wins &#123;</span><br><span class="line">            <span class="keyword">return</span> lhs.losses &gt; rhs.losses </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lhs.wins &lt; rhs.wins </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果第一条记录的获胜次数少于第二条记录，或者获胜次数相等但损失次数更多，则此实现&lt;认为一条记录比另一条记录少。</p>
+<h2 id="“free”功能"><a href="#“free”功能" class="headerlink" title="“free”功能"></a>“free”功能</h2><p>虽然==和&lt;本身很有用，但是Swift库为符合Equatable和Comparable的类型提供了许多“免费”函数和方法。</p>
+<p>对于你定义的任何包含Comparable类型的集合（例如Array），你都可以访问标准库一部分的方法，例如sort（）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> teamA = <span class="type">Record</span>(wins: <span class="number">14</span>, losses: <span class="number">11</span>)</span><br><span class="line"><span class="keyword">let</span> teamB = <span class="type">Record</span>(wins: <span class="number">23</span>, losses: <span class="number">8</span>)</span><br><span class="line"><span class="keyword">let</span> teamC = <span class="type">Record</span>(wins: <span class="number">23</span>, losses: <span class="number">9</span>)</span><br><span class="line"><span class="keyword">var</span> leagueRecords = [teamA, teamB, teamC]</span><br><span class="line">leagueRecords.<span class="built_in">sort</span>()</span><br><span class="line"><span class="comment">// &#123;wins 14, losses 11&#125; </span></span><br><span class="line"><span class="comment">// &#123;wins 23, losses 9&#125;</span></span><br><span class="line"><span class="comment">// &#123;wins 23, losses 8&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于你为Record提供了比较两个值的功能，因此标准库包含了对Records数组进行排序所需的所有信息！ 如你所见，实现Comparable和Equatable可为你提供大量工具：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">leagueRecords.<span class="built_in">max</span>() <span class="comment">// &#123;wins 23, losses 8&#125; </span></span><br><span class="line">leagueRecords.<span class="built_in">min</span>() <span class="comment">// &#123;wins 14, losses 11&#125; </span></span><br><span class="line">leagueRecords.starts(with: [teamA, teamC]) <span class="comment">// true </span></span><br><span class="line">leagueRecords.<span class="built_in">contains</span>(teamA) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="其他有用的协议"><a href="#其他有用的协议" class="headerlink" title="其他有用的协议"></a>其他有用的协议</h2><p>虽然学习整个Swift标准库对于你作为Swift开发人员的成功并不重要，但还有一些其他重要协议对几乎所有项目都是有用的。</p>
+<h3 id="Hashable"><a href="#Hashable" class="headerlink" title="Hashable"></a>Hashable</h3><p>哈希协议是Equatable的子协议，它是你要用作字典关键字的任何类型的要求。 对于值类型（结构，枚举），编译器将自动为你生成Equatable和Hashable一致性，但是对于引用（类）类型，你需要自己进行操作。 幸运的是，这很容易。</p>
+<p>哈希值可帮助你快速查找集合中的元素。 为了使其工作，等于==的值还必须具有相同的哈希值。 由于哈希值的数量有限，因此非相等值具有相同哈希值的可能性很有限。 哈希值背后的数学非常复杂，但是你可以让Swift为你处理细节。 只要确保你使用哈希器将==比较中包含的所有内容也合并在一起即可。</p>
+<p>例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> email: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(email: <span class="type">String</span>, firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.email = email</span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Student</span>: <span class="title">Hashable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Student, rhs: Student)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        lhs.email == rhs.email &amp;&amp; lhs.firstName == rhs.firstName &amp;&amp; lhs.lastName == rhs.lastName</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">hash</span><span class="params">(into hasher: <span class="keyword">inout</span> Hasher)</span></span> &#123; </span><br><span class="line">        hasher.combine(email) hasher.combine(firstName) hasher.combine(lastName)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你使用电子邮件，名字和姓氏作为平等的基础。 哈希的一个很好的实现是使用所有这些属性，方法是使用传入的Hasher类型将它们组合在一起。hash对正确组合值进行了繁重的工作。</p>
+<p>现在，你可以将学生类型用作字典中的键：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> john = <span class="type">Student</span>(email: <span class="string">"johnny.appleseed@apple.com"</span>, firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> lockerMap = [john: <span class="string">"14B"</span>]</span><br></pre></td></tr></table></figure>
+
+<h3 id="CustomStringConvertible"><a href="#CustomStringConvertible" class="headerlink" title="CustomStringConvertible"></a>CustomStringConvertible</h3><p>非常方便的CustomStringConvertible协议可帮助你记录和调试实例。</p>
+<p>当你在诸如Student之类的实例上调用print（）时，Swift打印出模糊的描述：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(john)</span><br><span class="line"><span class="comment">// Student</span></span><br></pre></td></tr></table></figure>
+
+<p>好像你还不知道那样！ CustomStringConvertible协议仅具有描述属性要求。 此属性可自定义实例在print（）语句和调试器中的显示方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">CustomStringConvertible</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> description: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过在Student类型上采用CustomStringConvertible，可以提供更具可读性的表示形式。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Student</span>: <span class="title">CustomStringConvertible</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="string">"\(firstName) \(lastName)"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(john)</span><br><span class="line"><span class="comment">// Johnny Appleseed</span></span><br></pre></td></tr></table></figure>
+
+<p>CustomDebugStringConvertible与CustomStringConvertible相似：它的行为与CustomStringConvertible完全相同，只是它还定义了debugDescription。 结合使用CustomDebugStringConvertible和debugPrint（）可以仅在调试配置中打印到输出。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ul>
+<li><p>协议定义了类，结构和枚举可以采用的契约。</p>
+</li>
+<li><p>通过采用协议，要求通过以下方式符合协议的类型实现协议的所有方法和属性。</p>
+</li>
+<li><p>类型可以采用任何数量的协议，从而允许子类不允许的准多重继承。</p>
+</li>
+<li><p>你可以将扩展名用于协议采用和一致性。</p>
+</li>
+<li><p>Swift标准库广泛使用协议。 你可以使用许多例如你自己命名的类型上的Equatable和Hashable。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/" title="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">https://www.xuebaonline.com/Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Protocols/" rel="tag"><i class="fa fa-tag"></i> Protocols</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations/" rel="prev" title="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B9%9D)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2017%E3%80%81Generics/" rel="next" title="Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 - 17、Generics">
+      Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 - 17、Generics <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#协议介绍"><span class="nav-number">1.</span> <span class="nav-text">协议介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议语法"><span class="nav-number">2.</span> <span class="nav-text">协议语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议中的方法"><span class="nav-number">3.</span> <span class="nav-text">协议中的方法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议中的属性"><span class="nav-number">4.</span> <span class="nav-text">协议中的属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议中的初始化器"><span class="nav-number">5.</span> <span class="nav-text">协议中的初始化器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议继承"><span class="nav-number">6.</span> <span class="nav-text">协议继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现协议"><span class="nav-number">7.</span> <span class="nav-text">实现协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现属性"><span class="nav-number">8.</span> <span class="nav-text">实现属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议中的关联类型"><span class="nav-number">9.</span> <span class="nav-text">协议中的关联类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现多种协议"><span class="nav-number">10.</span> <span class="nav-text">实现多种协议</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议组成"><span class="nav-number">11.</span> <span class="nav-text">协议组成</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#扩展和协议一致性"><span class="nav-number">12.</span> <span class="nav-text">扩展和协议一致性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#要求参考语义"><span class="nav-number">13.</span> <span class="nav-text">要求参考语义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#协议：不止语法"><span class="nav-number">14.</span> <span class="nav-text">协议：不止语法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#标准库中的协议"><span class="nav-number">15.</span> <span class="nav-text">标准库中的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Equatable"><span class="nav-number">15.1.</span> <span class="nav-text">Equatable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Comparable"><span class="nav-number">15.2.</span> <span class="nav-text">Comparable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“free”功能"><span class="nav-number">15.3.</span> <span class="nav-text">“free”功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他有用的协议"><span class="nav-number">15.4.</span> <span class="nav-text">其他有用的协议</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hashable"><span class="nav-number">15.4.1.</span> <span class="nav-text">Hashable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CustomStringConvertible"><span class="nav-number">15.4.2.</span> <span class="nav-text">CustomStringConvertible</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">16.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

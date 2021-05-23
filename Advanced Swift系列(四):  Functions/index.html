@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(四):  Functions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(四):  Functions">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(四):  Functions">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-06T10:53:44.000Z">
+<meta property="article:modified_time" content="2020-05-07T01:12:13.574Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Functions">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(四):  Functions | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(四):  Functions
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-06 18:53:44" itemprop="dateCreated datePublished" datetime="2020-05-06T18:53:44+08:00">2020-05-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>53k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>48 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(四):  Functions</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a><strong>总览</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在打开本章之前，让我们回顾一下有关功能的要点。如果你已经熟悉一流的功能，请随时跳到下一部分。但是，如果你甚至不确定它们，请通读以下内容。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要了解 <code>Swift中的函数</code> 和 <code>闭包</code> ，你实际上需要理解三件事，大致按此重要性顺序排列：</p>
+<ul>
+<li>1.可以将函数分配给变量，并传入和传出其他函数作为参数，就像 <code>Int</code> 或 <code>String</code> 一样。</li>
+<li>2.函数可以捕获存在于其本地范围之外的变量。</li>
+<li>3.有两种创建功能的功能–使用 <code>关键字</code> 或 <code>{}</code>。 <code>Swift</code>调用后一个闭包表达式。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，刚接触闭包主题的人会以相反的顺序来讲，可能会错过这些要点之一，或者他们将 <code>闭包</code> 和 <code>闭包表达</code> 这两个术语混为一谈，这可能会引起很多混乱。这是三足凳，如果你错过了以上三点之一，当你尝试坐下时会跌倒。</p>
+<h2 id="可以将函数分配给变量，并可以将其他函数作为参数传入和传出"><a href="#可以将函数分配给变量，并可以将其他函数作为参数传入和传出" class="headerlink" title="可以将函数分配给变量，并可以将其他函数作为参数传入和传出"></a><strong><em>可以将函数分配给变量，并可以将其他函数作为参数传入和传出</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与许多现代语言一样，在 <code>Swift</code> 中，功能被称为 <code>“一流的对象”</code> 。 你可以将函数分配给变量，也可以将它们传入和传出其他函数，以供以后调用。</p>
+<a id="more"></a>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是最重要的了解。 对于函数式编程，“获取”类似于在C语言中的“获取”指针。如果你不太了解这一部分，那么其他所有内容都将成为噪音。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从一个简单地输出整数的函数开始：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printInt</span><span class="params">(i: Int)</span></span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"You passed \(i)."</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要将函数分配给变量 <code>funVar</code> ，我们仅使用函数名称作为值。 请注意，函数名称后没有括号：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> funVar = printInt</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以使用 <code>funVar变量</code> 调用 <code>printInt函数</code> 。 注意使用变量名称后的括号：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">funVar(<span class="number">2</span>) <span class="comment">// You passed 2.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同样值得注意的是，我们不能在 <code>funVar</code> 调用中包含参数标签，而 <code>printInt</code> 调用则需要参数标签，就像<code>printInt（i：2）</code> 一样。  <code>Swift</code> 仅允许在函数声明中使用参数标签； 标签未包含在函数的类型中。 这意味着你目前无法将参数标签分配给函数类型的变量，尽管在以后的 <code>Swift版本</code> 中这可能会发生变化。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以编写一个以函数作为参数的函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">useFunction</span><span class="params">(function: <span class="params">(Int)</span></span></span> -&gt; () ) &#123; </span><br><span class="line">    function(<span class="number">3</span>)</span><br><span class="line">&#125;</span><br><span class="line">useFunction(function: printInt) <span class="comment">// You passed 3.</span></span><br><span class="line">useFunction(function: funVar) <span class="comment">// You passed 3.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为什么能够处理这么大的功能呢？ 因为它使你能够轻松编写 <code>“高阶”函数</code> ，这些函数将函数作为参数并以有用的方式应用它们，如我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><strong><code>“内置集合”</code></strong></a> 一章中所见。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;函数还可以返回其他函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">returnFunc</span><span class="params">()</span></span> -&gt; (<span class="type">Int</span>) -&gt; <span class="type">String</span> &#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">innerFunc</span><span class="params">(i: Int)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"You passed \(i)."</span> </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> innerFunc</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> myFunc = returnFunc() myFunc(<span class="number">3</span>) <span class="comment">// You passed 3.</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="函数可以捕获存在于其局部范围之外的变量"><a href="#函数可以捕获存在于其局部范围之外的变量" class="headerlink" title="函数可以捕获存在于其局部范围之外的变量"></a><strong><em>函数可以捕获存在于其局部范围之外的变量</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当函数引用超出其范围的变量时，这些变量将被捕获并留在它们周围，否则它们将超出范围并被销毁。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了看到这一点，让我们重新访问 <code>returnFunc函数</code> ，但是添加一个每次调用时都会增加的计数器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">counterFunc</span><span class="params">()</span></span> -&gt; (<span class="type">Int</span>) -&gt; <span class="type">String</span> &#123; </span><br><span class="line">    <span class="keyword">var</span> counter = <span class="number">0</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">innerFunc</span><span class="params">(i: Int)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        counter += i <span class="comment">// counter is captured</span></span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Running total: \(counter)"</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> innerFunc </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，<code>counter</code>（作为 <code>counterFunc</code> 的局部变量）会在 <code>return语句</code> 之后超出范围，并被销毁。 相反，由于它是由 <code>innerFunc</code> 捕获的，因此Swift运行时将使其保持活动状态，直到捕获它的函数被销毁为止。 我们可以多次调用内部函数，并且看到运行总数增加了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> f = counterFunc() </span><br><span class="line">f(<span class="number">3</span>) <span class="comment">// Running total: 3 </span></span><br><span class="line">f(<span class="number">4</span>) <span class="comment">// Running total: 7</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果再次调用 <code>counterFunc()</code> ，将创建并捕获一个新的 <code>counter变量</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> g = counterFunc() </span><br><span class="line">g(<span class="number">2</span>) <span class="comment">// Running total: 2 </span></span><br><span class="line">g(<span class="number">2</span>) <span class="comment">// Running total: 4</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这不会影响我们的第一个功能，该功能仍然具有自己捕获的counter版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">f(<span class="number">2</span>) <span class="comment">// Running total: 9</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将这些函数及其捕获的变量组合起来，就像具有单个方法（函数）和某些成员变量（捕获的变量）的类实例一样。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编程术语中，<strong>函数和捕获变量的环境的组合称为闭包</strong>。 因此，上面的f和g是闭包的示例，因为它们捕获并使用在其外部声明的非局部变量（计数器）。</p>
+<h2 id="可以使用-语法为闭包表达式声明函数"><a href="#可以使用-语法为闭包表达式声明函数" class="headerlink" title="可以使用{}语法为闭包表达式声明函数"></a><strong>可以使用{}语法为闭包表达式声明函数</strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，你可以通过两种方式定义函数。 一种是使用 <code>func关键字</code> 。 另一种方法是使用 <code>闭包表达式</code> 。 考虑使用以下简单函数将数字加倍：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doubler</span><span class="params">(i: Int)</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="keyword">return</span> i*<span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].<span class="built_in">map</span>(doubler) <span class="comment">// [2, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是使用闭包表达式语法编写的相同函数。 和以前一样，我们可以将其传递给 <code>map</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> doublerAlt = &#123; (i: <span class="type">Int</span>) -&gt; <span class="type">Int</span> <span class="keyword">in</span> <span class="keyword">return</span> i*<span class="number">2</span> &#125; </span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].<span class="built_in">map</span>(doublerAlt) <span class="comment">// [2, 4, 6, 8]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以将声明为 <code>闭包表达式的函数</code> 视为 <code>函数文字</code> ，就像 <code>1</code> 和 <code>“hello”</code> 是整数和字符串文字一样。 它们也是匿名的-它们没有命名，与func关键字不同。 可以使用它们的唯一方法是在创建它们时将它们分配给变量（就像我们在doubler中所做的那样），或者将它们传递给另一个函数或方法。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用匿名函数的第三种方式：你可以直接在内部调用函数，作为定义该函数的同一表达式的一部分。 这对于定义初始化需要多行的属性很有用。 我们将在下面的惰性属性部分中看到一个示例。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>闭包表达式</code> 声明的 <code>doubler</code> 和之前使用 <strong>func关键字声明的doubler完全等效</strong> ，除了上面提到的参数标签处理方式不同。 与某些语言不同，它们甚至存在于相同的<code>“命名空间”</code>中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为什么 <code>{}</code> 语法有用呢？ 为什么不每次都使用<code>func</code>？ 好吧，它可以紧凑得多，尤其是在编写快速函数以传递给其他函数（例如map）时。 这是我们的doubler <code>map</code>示例，其格式简短得多：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span> &#123; $<span class="number">0</span> * <span class="number">2</span> &#125; <span class="comment">// [2, 4, 6]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这看起来非常不同，因为我们利用了 <code>Swift</code> 的多项功能来制作代码更简洁。 在这里，它们一一对应：</p>
+<ul>
+<li><p>1.如果你要传递的闭包参数不正确，则无需先将其存储在本地变量中。可以认为这就像将数字表达式（例如5 * i）传递给以Int作为参数的函数一样。</p>
+</li>
+<li><p>2.如果编译器可以从上下文中推断出类型，则无需指定它。在我们的示例中，传递给map的函数采用一个Int（根据数组元素的类型推断）并返回一个Int（根据乘法表达式的类型推断）。</p>
+</li>
+<li><p>3.如果closureexpression的主体包含与leexpression相同的值，它将自动返回该表达式的值，你可以不使用该返回值。</p>
+</li>
+<li><p>4.Swift自动为该函数的参数提供缩写名称-第一个为 $0 ，第二个为 $1 ，依此类推。</p>
+</li>
+<li><p>5.如果无法执行该函数的闭包表达式，则可以将表达式移到函数调用括号之外。如果你有多行闭包表达式，那么这种尾随的闭包语法非常有用，因为它更类似于常规函数定义或其他块语句，例如 if expr {}。</p>
+</li>
+<li><p>6.最后，如果功能没有其他说法，则可以关闭在函数名称后的所有括号之间都不要加上括号。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用这些规则，我们可以将下面的表达式简化为上面所示的形式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>( &#123; (i: <span class="type">Int</span>) -&gt; <span class="type">Int</span> <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span> &#125; ) </span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>( &#123; i <span class="keyword">in</span> <span class="keyword">return</span> i * <span class="number">2</span> &#125; )</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>( &#123; i <span class="keyword">in</span> i * <span class="number">2</span> &#125; )</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>( &#123; $<span class="number">0</span> * <span class="number">2</span> &#125; )</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>() &#123; $<span class="number">0</span> * <span class="number">2</span> &#125; </span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>].<span class="built_in">map</span>&#123;$<span class="number">0</span>*<span class="number">2</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你不熟悉 <code>Swift</code> 的语法以及一般的 <code>函数式编程</code> ，那么这些紧凑的函数声明乍一看似乎令人生畏。但是随着你对语法和函数式编程风格的逐渐熟悉，它们会开始变得更加自然，并且你将欣赏消除混乱的功能，从而可以更清楚地看到代码在做什么。一旦你习惯于阅读这样编写的代码，与使用常规for循环编写的等效代码相比，一目了然地进行解析。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时， <code>Swift</code> 需要帮助来 <code>推断类型</code> 。有时，你可能会出错，并且类型不是你认为应该的。如果你在尝试提供 <code>闭包表达式</code> 时遇到神秘的错误，最好写出完整的表格（上面的第一个版本）并附上类型。在许多情况下，这将有助于弄清问题出在哪里。完成长格式编译后，再次将类型一一取出，直到编译器抱怨为止。如果错误是你的错误，则将在此过程中修复你的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 也会坚持让你有时更露骨。例如，你不能完全忽略输入参数。假设你想要一个随机数数组。一种快速的方法是使用仅生成随机数的函数映射范围。但是，你必须提供一个参数。在这种情况下，你可以使用 <code>_</code> 来指示编译器你确认有一个参数，但是你并不关心它是什么：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">0</span>..&lt;<span class="number">3</span>).<span class="built_in">map</span> &#123; <span class="number">_</span> <span class="keyword">in</span> <span class="type">Int</span>.random(<span class="keyword">in</span>: <span class="number">1</span>..&lt;<span class="number">100</span>) &#125; <span class="comment">// [3, 63, 60]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你需要显式键入变量时，不必在闭包内进行操作 closure表达。 例如，尝试定义不带任何类型的 <code>isEven</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isEven = &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面，将 <code>isEven</code> 的类型推断为 <code>（Int）-&gt; Bool</code>，就像让 <code>i = 1</code> 推断为 <code>Int</code> 一样，因为 <code>Int</code> 是整数文字的默认类型。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是因为标准库中的类型别名 <code>IntegerLiteralType</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">ExpressibleByIntegerLiteral</span> </span>&#123; <span class="keyword">associatedtype</span> <span class="type">IntegerLiteralType</span></span><br><span class="line"><span class="comment">/// Create an instance initialized to `value`. init(integerLiteral value: IntegerLiteralType)</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/// The default type for an otherwise-unconstrained integer literal.</span></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">IntegerLiteralType</span> = <span class="type">Int</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要定义自己的类型别名，它将覆盖默认的别名，然后更改此行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">change this behavior:</span><br><span class="line"><span class="keyword">typealias</span> <span class="type">IntegerLiteralType</span> = <span class="type">UInt32</span> <span class="keyword">let</span> i = <span class="number">1</span> <span class="comment">// i will be of type UInt32.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这几乎肯定是一个坏主意。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，如果你需要另一版本的 <code>isEven版本</code> ，则可以在<strong>闭包表达式</strong>中键入参数和返回值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isEvenAlt = &#123; (i: <span class="type">Int8</span>) -&gt; <span class="type">Bool</span> <span class="keyword">in</span> i % <span class="number">2</span> == <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是你也可以从闭包外部提供上下文：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> isEvenAlt2: (<span class="type">Int8</span>) -&gt; <span class="type">Bool</span> = &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; </span><br><span class="line"><span class="keyword">let</span> isEvenAlt3 = &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="keyword">as</span> (<span class="type">Int8</span>) -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于闭包表达式最常用于现有输入或输出类型的某些上下文中，因此通常不需要添加显式类型，但是知道你可以执行此操作很有用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，最好将isEven的通用版本定义为适用于任何整数的计算属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">BinaryInteger</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> isEven: <span class="type">Bool</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span> % <span class="number">2</span> == <span class="number">0</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，我们可以选择将所有Integer类型的isEven变量定义为自由函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isEven</span>&lt;T: BinaryInteger&gt;<span class="params">(<span class="number">_</span> i: T)</span></span> -&gt; <span class="type">Bool</span> &#123; returni%<span class="number">2</span>==<span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想将该自由函数分配给变量，那么这也就意味着你必须锁定它正在操作的特定类型。 变量不能包含通用函数-只能是特定的一个：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> int8IsEven: (<span class="type">Int8</span>) -&gt; <span class="type">Bool</span> = isEven</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于命名的最后一点。 请务必记住，用 <code>func</code> 声明的函数可以是闭包，就像用 <code>{}</code> 声明的函数一样。 请记住，<strong>闭包是与任何捕获的变量组合的函数</strong>。 虽然用<strong>{}创建的函数称为闭包表达式</strong>，但人们通常将此语法称为<strong>闭包</strong>。 但是请不要感到困惑，并认为使用闭包表达式语法声明的函数与其他函数不同-没什么不同。 它们既是函数，也可以是闭包。</p>
+<h1 id="Flexibility-through-Functions"><a href="#Flexibility-through-Functions" class="headerlink" title="Flexibility through Functions"></a><strong>Flexibility through Functions</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><strong><em><code>“内置集合”</code></em></strong></a>一章中，我们讨论了通过将函数作为参数传递来对行为进行参数化。 让我们来看另一个例子：排序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift中对集合进行排序很简单：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> myArray = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">2</span>] </span><br><span class="line">myArray.sorted() <span class="comment">// [1, 2, 3]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共有四种排序方法：<code>非变异变体sorted(by :)</code> 和 <code>变异sor(by :)</code> ，对于默认不以升序对可比较事物进行排序且不带参数的版本，将其乘以2。 对于最常见的情况，你只需要 <code>sorted()</code> 。 而且，如果你想以其他顺序排序，只需提供一个函数即可：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">myArray.sorted(by: &gt;) <span class="comment">// [3, 2, 1]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你的元素不符合 <code>Comparable</code> , 但你还可以提供函数像元组一样有一个 <code>&lt;运算符</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> numberStrings = [(<span class="number">2</span>, <span class="string">"two"</span>), (<span class="number">1</span>, <span class="string">"one"</span>), (<span class="number">3</span>, <span class="string">"three"</span>)] </span><br><span class="line">numberStrings.<span class="built_in">sort</span>(by: &lt;)</span><br><span class="line">numberStrings <span class="comment">// [(1, "one"), (2, "two"), (3, "three")]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者，如果你想按一些任意条件排序，则可以提供更复杂的功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> animals = [<span class="string">"elephant"</span>, <span class="string">"zebra"</span>, <span class="string">"dog"</span>] animals.sorted &#123; lhs, rhs <span class="keyword">in</span></span><br><span class="line"><span class="keyword">let</span> l = lhs.reversed()</span><br><span class="line"><span class="keyword">let</span> r = rhs.reversed()</span><br><span class="line"><span class="keyword">return</span> l.lexicographicallyPrecedes(r)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// ["zebra", "dog", "elephant"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是最后一项功能-使用任何比较功能对集合进行排序的能力-使Swift排序如此强大。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将此与<code>Objective-C</code>中的排序方式进行比较。如果要使用<code>Foundation</code>对数组进行排序，则会遇到一长串不同的选项：有些排序方法将选择器，块或函数指针作为比较谓词，或者可以传入<code>NSSortDescriptors</code>数组定义排序标准。所有这些功能都提供了很大的灵活性和功能，但是却以复杂性为代价-无法选择 <strong>“仅根据默认顺序进行常规排序”</strong> 。 <code>Foundation</code>中的某些变体（例如，将块作为比较谓词的方法）与<code>Swift</code>的<code>sorted（by :)</code>方法基本相同；其他版本（例如带有排序描述符数组的版本）则充分利用了<code>Objective-C</code>的动态特性，从而获得了一种非常灵活和强大的（如果是弱类型的）<code>API</code>，该<code>API</code>无法直接移植到<code>Swift</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code>中仍然支持<code>选择器</code>和<code>动态调度</code>，但是<code>Swift标准库</code>倾向于使用基于<code>函数</code>的方法。在本节中，我们将演示如何<strong>使用函数作为参数以及将函数作为数据如何以完全类型安全的方式复制相同的功能</strong>。让我们看一个受苹果文档中<code>“排序描述符编程主题”</code>指南启发的复杂示例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们首先定义一个<code>Person</code>类型。因为我们想展示<code>Objective-C</code>强大的运行时系统是如何工作的，所以我们必须使该对象成为<code>NSObject子类</code>（在纯<code>Swift</code>中，结构可能是更好的选择）。我们还使用<code>@objcMembers</code>对该类进行注释，以使所有成员对<code>Objective-C</code>可见：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@objc</span>Members</span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> first: <span class="type">String</span> </span><br><span class="line">    <span class="keyword">let</span> last: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> yearOfBirth: <span class="type">Int</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(first: <span class="type">String</span>, last: <span class="type">String</span>, yearOfBirth: <span class="type">Int</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.first = first</span><br><span class="line">        <span class="keyword">self</span>.last = last</span><br><span class="line">        <span class="keyword">self</span>.yearOfBirth = yearOfBirth</span><br><span class="line">        <span class="comment">// super.init() implicitly called here</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还定义了一系列具有不同姓名和出生年月的人：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> people = [</span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"Emily"</span>, last: <span class="string">"Young"</span>, yearOfBirth: <span class="number">2002</span>), </span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"David"</span>, last: <span class="string">"Gray"</span>, yearOfBirth: <span class="number">1991</span>), </span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"Robert"</span>, last: <span class="string">"Barnes"</span>, yearOfBirth: <span class="number">1985</span>), </span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"Ava"</span>, last: <span class="string">"Barnes"</span>, yearOfBirth: <span class="number">2000</span>), </span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"Joanne"</span>, last: <span class="string">"Miller"</span>, yearOfBirth: <span class="number">1994</span>), </span><br><span class="line"><span class="type">Person</span>(first: <span class="string">"Ava"</span>, last: <span class="string">"Barnes"</span>, yearOfBirth: <span class="number">1998</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们要首先按姓氏，然后按名字，最后按出生年份对这个数组进行排序。 订购应遵守用户的语言环境设置。 <code>NSSortDescriptor</code>对象描述了如何对对象进行排序，我们可以使用它们来表示各个排序标准（使用<code>localizedStandardCompare</code>作为符合区域设置的比较器方法）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lastDescriptor = <span class="type">NSSortDescriptor</span>(key: #keyPath(<span class="type">Person</span>.last), ascending: <span class="literal">true</span>,</span><br><span class="line">selector: #selector(<span class="type">NSString</span>.localizedStandardCompare(<span class="number">_</span>:)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstDescriptor = <span class="type">NSSortDescriptor</span>(key: #keyPath(<span class="type">Person</span>.first), ascending: <span class="literal">true</span>,</span><br><span class="line">selector: #selector(<span class="type">NSString</span>.localizedStandardCompare(<span class="number">_</span>:)))</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> yearDescriptor = <span class="type">NSSortDescriptor</span>(key: #keyPath(<span class="type">Person</span>.yearOfBirth), ascending: <span class="literal">true</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要对数组进行排序，我们可以在<code>NSArray</code>上使用<code>sortedArray（using :)</code>方法。 这需要一个排序描述符列表。 为了确定两个元素的顺序，该方法首先使用第一个排序描述符并使用该结果。 但是，如果根据第一个描述符，两个元素相等，则使用第二个描述符，依此类推：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> descriptors = [lastDescriptor, firstDescriptor, yearDescriptor]</span><br><span class="line">(people <span class="keyword">as</span> <span class="type">NSArray</span>).sortedArray(using: descriptors)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Ava Barnes (1998), Ava Barnes (2000), Robert Barnes (1985),</span></span><br><span class="line"><span class="comment">David Gray (1991), Joanne Miller (1994), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;排序描述符使用了<code>Objective-C</code>的两个运行时功能：首先，键是一个<code>Objective-C</code>的键路径，它实际上只是一个包含属性名称链表的字符串。不要将这些与<code>Swift 4</code>中引入的<code>Swift</code>的本机（强类型）键路径混淆。我们将在下文中对后者进行更多说明。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Objective-C</code>运行时的第二个功能是<code>键值编码</code>，它可以在运行时查找键的值。选择器参数带有一个选择器（它实际上也只是描述方法名称的字符串）。在运行时，选择器用于查找比较功能，当比较两个对象时，使用该比较功能比较键的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是运行时编程的一种很酷的用法，尤其是当你意识到可以例如在用户单击列标题的情况下在运行时构建排序描述符数组时。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们如何使用<code>Swift</code>的排序功能来复制此功能？复制排序的各个部分很简单-例如，如果你想使用<code>localizedStandardCompare</code>对数组进行排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> strings = [<span class="string">"Hello"</span>, <span class="string">"hallo"</span>, <span class="string">"Hallo"</span>, <span class="string">"hello"</span>]</span><br><span class="line">strings.<span class="built_in">sort</span> &#123; $<span class="number">0</span>.localizedStandardCompare($<span class="number">1</span>) == .orderedAscending &#125; strings <span class="comment">// ["hallo", "Hallo", "hello", "Hello"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你只想使用一个对象的单个属性进行排序，那也很简单：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">people.sorted &#123; $<span class="number">0</span>.yearOfBirth &lt; $<span class="number">1</span>.yearOfBirth &#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Robert Barnes (1985), David Gray (1991), Joanne Miller (1994),</span></span><br><span class="line"><span class="comment">Ava Barnes (1998), Ava Barnes (2000), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，当将可选属性与<code>localizedStandardCompare</code>之类的方法结合使用时，这种方法效果不佳–丑陋得很快。 例如，考虑按文件扩展名对文件名数组进行排序（使用<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/"><strong><em><code>“可选”</code></em></strong></a>一章中的fileExtension属性）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> files = [<span class="string">"one"</span>, <span class="string">"file.h"</span>, <span class="string">"file.c"</span>, <span class="string">"test.h"</span>] </span><br><span class="line">files.<span class="built_in">sort</span> &#123; l, r <span class="keyword">in</span> r.fileExtension.flatMap &#123;</span><br><span class="line">    l.fileExtension?.localizedStandardCompare($<span class="number">0</span>) &#125; == .orderedAscending </span><br><span class="line">&#125;</span><br><span class="line">files <span class="comment">// ["one", "file.c", "file.h", "test.h"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这很丑。 稍后，我们将使排序时使用可选选项更加容易。 但是，到目前为止，我们甚至都没有尝试过按多个属性进行排序。 要按姓氏，然后按名字排序，我们可以使用标准库的<code>lexicographicallyPrecedes</code>方法。 这需要两个序列，并通过遍历每一对元素直到找到一个不相等的元素来执行电话簿样式的比较。 因此，我们可以构建元素的两个数组并使用<code>lexicographicallyPrecedes</code>进行比较。 此方法还需要一个函数来执行比较，因此我们将对<code>localizedStandardCompare</code>的使用放在函数中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">people.sorted &#123; p0, p1 <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">left</span> = [p0.last, p0.first]</span><br><span class="line">    <span class="keyword">let</span> <span class="keyword">right</span> = [p1.last, p1.first]</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">left</span>.lexicographicallyPrecedes(<span class="keyword">right</span>) &#123;</span><br><span class="line">        $<span class="number">0</span>.localizedStandardCompare($<span class="number">1</span>) == .orderedAscending </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Ava Barnes (2000), Ava Barnes (1998), Robert Barnes (1985),</span></span><br><span class="line"><span class="comment">David Gray (1991), Joanne Miller (1994), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此，我们几乎以几乎相同的行数复制了原始排序的功能。 但是仍然有很多改进的余地：每次比较的数组构建效率都很低，比较是硬编码的，使用这种方法我们无法真正按照<code>yearOfBirth</code>进行排序。</p>
+<h1 id="Functions-as-Data"><a href="#Functions-as-Data" class="headerlink" title="Functions as Data"></a><strong>Functions as Data</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们退后一步，而不是编写一个我们可以用来排序的更复杂的函数。 上面的排序描述符更加清晰，但是它们使用运行时编程。 我们编写的函数未使用运行时编程，但编写（和读取）起来并不那么容易。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>排序描述符是描述对象顺序的一种方式</strong>。 代替将信息存储为类，我们可以定义一个函数来描述对象的顺序。 最简单的定义是采用两个对象，如果顺序正确，则返回 <code>true</code> 。 这也正是标准库的<code>sort（by :)</code>和<code>sorted（by :)</code>方法作为参数的类型。 让我们定义一个通用类型别名来描述<code>排序描述符</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A sorting predicate that returns `true` if the first</span></span><br><span class="line"><span class="comment">/// value should be ordered before the second. </span></span><br><span class="line"><span class="keyword">typealias</span> <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; = (<span class="type">Root</span>, <span class="type">Root</span>) -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，我们可以定义一个排序描述符，该描述符按出生年份比较两个<code>Person</code>对象，或者一个按姓氏排序的排序描述符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sortByYear: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = &#123; </span><br><span class="line">    $<span class="number">0</span>.yearOfBirth &lt; $<span class="number">1</span>.yearOfBirth </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> sortByLastName: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = &#123;</span><br><span class="line">    $<span class="number">0</span>.last.localizedStandardCompare($<span class="number">1</span>.last) == .orderedAscending </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无需手动编写排序描述符，我们可以编写一个生成它们的函数。 我们不得不两次写相同的属性是不好的：在<code>sortByLastName</code>中，我们很容易犯了一个错误，并且意外地将 <code>$0.last</code> 与 <code>$1.first</code> 进行了比较。 另外，编写这些排序描述符也很麻烦； 要按名字排序，最简单的方法是复制并粘贴<code>sortByLastName</code>定义并进行修改。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了可以复制和粘贴外，我们还可以使用带有类似于<code>NSSortDescriptor</code>的接口定义函数，而无需进行运行时编程。 此函数将函数键作为第一个参数：给定要排序的数组元素，它返回排序描述符正在处理的属性的值。 然后使用<code>areInIncreasingOrder</code>函数比较两个值。 最后，即使类型别名稍微掩盖了这个事实，返回类型也是一个函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Builds a `SortDescriptor` function from a sorting predicate</span></span><br><span class="line"><span class="comment">/// and a `key` function that, given an element to compare, produces /// the value that should be used by the sorting predicate.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">key: @escaping <span class="params">(Root)</span></span></span> -&gt; <span class="type">Value</span>,</span><br><span class="line">by areInIncreasingOrder: @escaping (<span class="type">Value</span>, <span class="type">Value</span>) -&gt; <span class="type">Bool</span>) -&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; areInIncreasingOrder(key($<span class="number">0</span>), key($<span class="number">1</span>))  &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键功能描述了如何深入到<code>Root类型</code>的元素并提取与一个特定排序步骤相关的<code>Value类型</code>的值。 它与<code>Swift 4</code>中引入的<code>Swift</code>本机键路径有很多共通之处，这就是我们借用通用参数命名的原因—根和值—来自<code>KeyPath类型</code>。 在本章的后面，我们将讨论如何使用<code>Swift</code>的键路径重写排序描述符。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这允许我们以不同的方式定义 <code>sortByYear</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sortByYearAlt: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = sortDescriptor(key: &#123; $<span class="number">0</span>.yearOfBirth &#125;, by: &lt;)</span><br><span class="line">people.sorted(by: sortByYearAlt)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Robert Barnes (1985), David Gray (1991), Joanne Miller (1994),</span></span><br><span class="line"><span class="comment">Ava Barnes (1998), Ava Barnes (2000), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们甚至可以定义一个适用于所有<code>Comparable类型</code>的重载变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">(key: @escaping <span class="params">(Root)</span></span></span> -&gt; <span class="type">Value</span>) -&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; <span class="keyword">where</span> <span class="type">Value</span>: <span class="type">Comparable</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">return</span> &#123; key($<span class="number">0</span>) &lt; key($<span class="number">1</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> sortByYearAlt2: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; =</span><br><span class="line">sortDescriptor(key: &#123; $<span class="number">0</span>.yearOfBirth &#125;)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的两个<code>sortDescriptor变体</code>都可以使用返回布尔值的函数，因为这是标准库的比较谓词约定。 另一方面，像<code>localizedStandardCompare</code>这样的<code>Foundation API</code>则希望使用三向比较结果值（升序，降序或相等）。 添加对此的支持也很容易：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">( key: @escaping <span class="params">(Root)</span></span></span> -&gt; <span class="type">Value</span>, ascending: <span class="type">Bool</span> = <span class="literal">true</span>,</span><br><span class="line">by comparator: @escaping (<span class="type">Value</span>) -&gt; (<span class="type">Value</span>) -&gt; <span class="type">ComparisonResult</span>)</span><br><span class="line">-&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; lhs, rhs <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">let</span> order: <span class="type">ComparisonResult</span> = ascending</span><br><span class="line">        ? .orderedAscending</span><br><span class="line">        : .orderedDescending</span><br><span class="line">        <span class="keyword">return</span> comparator(key(lhs))(key(rhs)) == order</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使我们能够以更短更清楚的方式编写<code>sortByFirstName</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sortByFirstName: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; =</span><br><span class="line">sortDescriptor(key: &#123; $<span class="number">0</span>.first &#125;, by: <span class="type">String</span>.localizedStandardCompare)</span><br><span class="line">people.sorted(by: sortByFirstName)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Ava Barnes (2000), Ava Barnes (1998), David Gray (1991),</span></span><br><span class="line"><span class="comment">Emily Young (2002), Joanne Miller (1994), Robert Barnes (1985)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此<code>SortDescriptor</code>与<code>NSSortDescriptor</code>变体一样具有表现力，但类型安全，并且不依赖于运行时编程。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前，我们只能使用单个<code>SortDescriptor函数</code>对数组进行排序。 如果你回想起基于<code>NSSortDescriptor</code>的示例，我们使用了<code>NSArray.sortedArray（using :)</code>方法对具有多个比较运算符的数组进行排序。 我们可以轻松地向<code>Array</code>甚至<code>Sequence协议</code>添加类似的方法。 但是，我们必须添加两次：一次用于<code>sort的变异变体</code>，一次用于<code>sort的非变异变体</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们采用了不同的方法，因此我们不必编写更多扩展：我们编写了一个将多个排序描述符合并为一个排序描述符的函数。 它的工作方式类似于<code>sortedArray（using :)</code>方法：首先，它尝试第一个描述符并使用该比较结果。 但是，如果结果相等，它将使用第二个描述符，依此类推，直到描述符用完为止：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">combine</span>&lt;Root&gt;</span></span><br><span class="line"><span class="function"><span class="params">(sortDescriptors: [SortDescriptor&lt;Root&gt;])</span></span> -&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; &#123; </span><br><span class="line">    <span class="keyword">return</span> &#123; lhs, rhs <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">for</span> areInIncreasingOrder <span class="keyword">in</span> sortDescriptors &#123;</span><br><span class="line">            <span class="keyword">if</span> areInIncreasingOrder(lhs, rhs) &#123; <span class="keyword">return</span> <span class="literal">true</span> &#125;</span><br><span class="line">            <span class="keyword">if</span> areInIncreasingOrder(rhs, lhs) &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们终于可以复制初始示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> combined: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = combine(</span><br><span class="line">sortDescriptors: [sortByLastName, sortByFirstName, sortByYear]</span><br><span class="line">)</span><br><span class="line">people.sorted(by: combined)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Ava Barnes (1998), Ava Barnes (2000), Robert Barnes (1985),</span></span><br><span class="line"><span class="comment">David Gray (1991), Joanne Miller (1994), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们最终获得了与<code>Foundation版本</code>相同的行为和功能，但是我们的解决方案更安全，并且在<code>Swift</code>中更加惯用。由于<code>Swift版本</code>不依赖运行时编程，因此编译器还可以更好地对其进行优化。另外，我们可以将其与结构或<code>非Objective-C</code>对象一起使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于函数的方法的一个缺点是函数是不透明的。我们可以使用<code>NSSortDescriptor</code>并将其打印到控制台，然后获得有关排序描述符的一些信息：<code>键路径，选择器名称和排序顺序</code>。我们基于功能的方法无法做到这一点。如果需要这些信息很重要，我们可以将函数包装在结构或类中，并存储其他调试信息。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种将<code>函数用作数据的方法</code>（将它们存储在数组中并在运行时构建这些数组）开辟了新的动态行为水平，这是一种像<code>Swift</code>这样的面向静态类型的面向编译时的语言仍然可以复制其中一些内容的方法。诸如<code>Objective-C</code>或<code>Ruby</code>之类的语言的动态行为。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还看到了编写结合其他功能的功能的有用性，这是功能编程的组成部分之一。例如，我们的<code>Combine（sortDescriptors :)</code>函数采用了一组排序描述符，并将它们组合为一个排序描述符。这是一项非常强大的技术，具有许多不同的应用程序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，我们甚至可以编写一个自定义运算符来组合两个排序函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> &lt;||&gt; : <span class="type">LogicalDisjunctionPrecedence</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> &lt;||&gt;&lt;A&gt;<span class="params">(lhs: @escaping <span class="params">(A,A)</span></span></span> -&gt; <span class="type">Bool</span>, rhs: @escaping (<span class="type">A</span>,<span class="type">A</span>) -&gt; <span class="type">Bool</span>)</span><br><span class="line">-&gt; (<span class="type">A</span>,<span class="type">A</span>) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">return</span>&#123; x,yin</span><br><span class="line">        <span class="keyword">if</span> lhs(x, y) &#123; <span class="keyword">return</span> <span class="literal">true</span> &#125;</span><br><span class="line">        <span class="keyword">if</span> lhs(y, x) &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">        <span class="comment">// Otherwise they're the same, so we check for the second condition. </span></span><br><span class="line">        <span class="keyword">if</span> rhs(x, y) &#123; <span class="keyword">return</span> <span class="literal">true</span> &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在大多数情况下，编写自定义运算符不是一个好主意。 自定义运算符通常比函数难读，因为运算符没有易于解释的名称。 但是，当少量使用它们时，它们可能会非常强大。 上面的运算符允许我们重写组合的排序示例，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> combinedAlt = sortByLastName &lt;||&gt; sortByFirstName &lt;||&gt; sortByYear people.sorted(by: combinedAlt)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[Ava Barnes (1998), Ava Barnes (2000), Robert Barnes (1985),</span></span><br><span class="line"><span class="comment">David Gray (1991), Joanne Miller (1994), Emily Young (2002)] */</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这读起来很清楚，也许也比替代方法更简洁地表达了代码的意图，但前提是你（和代码的所有其他阅读者）已经深深理解了操作员的含义。与自定义运算符相比，我们更喜欢<code>Combine（sortDescriptors :)</code>函数。在呼叫站点更清晰，最终使代码更具可读性。除非你编写的是特定于域的高度代码，否则自定义运算符可能会过分杀人。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Foundation版本</code>与我们的版本相比仍然具有一个功能优势：它可以处理可选内容，而无需编写更多代码。例如，如果我们将<code>Person</code>的最后一个属性设为可选字符串，则无需在使用<code>NSSortDescriptor</code>的排序代码中进行任何更改。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基于函数的版本需要一些额外的代码。你可能会猜到接下来会发生什么：我们再一次编写一个接受一个函数并返回一个函数的函数。我们可以使用一个常规的比较函数（例如<code>localizedStandardCompare</code>），该函数对两个字符串起作用，然后将其转换为一个对两个字符串进行可选的函数。如果两个值均为零，则它们相等。如果左侧为零，但右侧不是，则它们在上升，反之亦然。最后，如果它们都不为零，我们可以使用<code>compare函数</code>对它们进行比较：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lift</span>&lt;A&gt;<span class="params">(<span class="number">_</span> compare: @escaping <span class="params">(A)</span></span></span> -&gt; (<span class="type">A</span>) -&gt; <span class="type">ComparisonResult</span>) -&gt; (<span class="type">A?</span>) -&gt; (<span class="type">A?</span>) -&gt; <span class="type">ComparisonResult</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; lhsin &#123; rhs <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">switch</span> (lhs, rhs) &#123;</span><br><span class="line">                <span class="keyword">case</span> (<span class="literal">nil</span>, <span class="literal">nil</span>): <span class="keyword">return</span> .orderedSame </span><br><span class="line">                <span class="keyword">case</span> (<span class="literal">nil</span>, <span class="number">_</span>): <span class="keyword">return</span> .orderedAscending </span><br><span class="line">                <span class="keyword">case</span> (<span class="number">_</span>, <span class="literal">nil</span>): <span class="keyword">return</span> .orderedDescending </span><br><span class="line">                <span class="keyword">case</span> <span class="keyword">let</span> (l?, r?): <span class="keyword">return</span> compare(l)(r)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使我们可以将常规比较函数<code>“提升”</code>到可选对象的域中，并且可以与我们的<code>sortDescriptor</code>函数一起使用。 如果你从前回想起<code>files数组</code>，则通过<code>fileExtension</code>对其进行排序确实很丑陋，因为我们不得不处理可选参数。 但是，有了我们的新举升功能，它又可以干净了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> compare = lift(<span class="type">String</span>.localizedStandardCompare)</span><br><span class="line"><span class="keyword">let</span> result = files.sorted(by: sortDescriptor(key: &#123; $<span class="number">0</span>.fileExtension &#125;,</span><br><span class="line">by: compare))</span><br><span class="line">result <span class="comment">// ["one", "file.c", "file.h", "test.h"]</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以为返回布尔的函数编写类似版本的<code>lift</code>。 正如我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/"><strong><em><code>“可选内容”</code></em></strong></a>一章中看到的那样，标准库不再提供诸如<code>&gt;的比较运算符</code>作为可选内容。 删除它们是因为如果你不小心使用它们可能会导致令人惊讶的结果。 布尔值的<code>lift</code>变量使你可以轻松使用现有的运算符，并在需要功能时使其成为可选函数。</p>
+</blockquote>
+<h1 id="Functions-as-Delegates"><a href="#Functions-as-Delegates" class="headerlink" title="Functions as Delegates"></a><strong>Functions as Delegates</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Delegates</code> 他们无处不在。 这条消息深深打入了<code>Objective-C（和Java）</code>程序员的脑海：<strong>使用协议（接口）进行回调</strong>。 你定义一个<code>协议</code>，你的<code>所有者实现该协议</code>，然后将其注册为你的委托，以便获取回调。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果委托协议仅包含一个方法，则可以将存储委托对象的属性替换为直接存储回调函数的属性。 但是，要记住一些折衷方案。</p>
+<h2 id="Delegates-Cocoa-Style"><a href="#Delegates-Cocoa-Style" class="headerlink" title="Delegates, Cocoa Style"></a><strong><em>Delegates, Cocoa Style</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，以与<code>Cocoa</code>定义其无数个委托协议相同的方式创建一个协议。 来自<code>Objective-C</code>的大多数程序员多次编写这样的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">AlertViewDelegate</span>: <span class="title">AnyObject</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonTapped</span><span class="params">(atIndex: Int)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>AlertViewDelegate</code>被定义为<code>仅类协议</code>（通过从<code>AnyObject</code>继承），因为我们希望我们的<code>AlertView类</code>保留对委托的弱引用。 这样，我们就不必担心引用周期。 <code>AlertView</code>永远不会强烈保留其委托，因此，即使委托（直接或间接）对警报视图有很强的引用，一切都很好。 如果委托被取消初始化，则委托属性将自动变为nil：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlertView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> buttons: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">AlertViewDelegate?</span></span><br><span class="line">    <span class="keyword">init</span>(buttons: [<span class="type">String</span>] = [<span class="string">"OK"</span>, <span class="string">"Cancel"</span>]) &#123; </span><br><span class="line">        <span class="keyword">self</span>.buttons = buttons</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fire</span><span class="params">()</span></span> &#123; </span><br><span class="line">        delegate?.buttonTapped(atIndex: <span class="number">1</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们处理课程时，这种模式非常有效。 例如，假设我们有一个<code>ViewController类</code>，该类初始化警报视图并将其自身设置为委托。 由于该代表被标记为弱者，因此我们无需担心循环引用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">AlertViewDelegate</span> </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> alert: <span class="type">AlertView</span></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        alert = <span class="type">AlertView</span>(buttons: [<span class="string">"OK"</span>, <span class="string">"Cancel"</span>]) </span><br><span class="line">        alert.delegate = <span class="keyword">self</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonTapped</span><span class="params">(atIndex index: Int)</span></span> &#123; </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Button tapped: \(index)"</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常的做法是始终将代表属性标记为 <strong><em><code>weak</code></em></strong>。 这个约定使内存管理的推理变得非常容易，因为实现委托协议的类不必担心创建<code>循环引用</code>。</p>
+<h2 id="使用结构的Delegate"><a href="#使用结构的Delegate" class="headerlink" title="使用结构的Delegate"></a><strong><em>使用结构的Delegate</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时我们可能想要一个由结构体实现的委托协议。 使用<code>AlertViewDelegate</code>的当前定义，这是不可能的，因为它是仅类的协议。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过不将<code>AlertViewDelegate</code>定义为仅<code>类协议</code>来放松其定义。 另外，我们将<code>buttonTapped（atIndex :)</code>方法标记为变异。 这样，当方法被调用时，结构可以自行变异：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">AlertViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">buttonTapped</span><span class="params">(atIndex: Int)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还必须更改<code>AlertView</code>，因为委托属性不能再弱了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlertView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> buttons: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">var</span> delegate: <span class="type">AlertViewDelegate?</span></span><br><span class="line">    <span class="keyword">init</span>(buttons: [<span class="type">String</span>] = [<span class="string">"OK"</span>, <span class="string">"Cancel"</span>]) &#123; </span><br><span class="line">        <span class="keyword">self</span>.buttons = buttons</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fire</span><span class="params">()</span></span> &#123; </span><br><span class="line">        delegate?.buttonTapped(atIndex: <span class="number">1</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们为委托属性分配一个对象，则将强引用该对象。 特别是在与<code>Delegate</code>合作时， <code>strong reference</code> 意味着我们很有可能在某个时候引入循环引用。 但是，我们现在可以使用结构。 例如，我们可以创建一个记录所有按钮点击的结构：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TapLogger</span>: <span class="title">AlertViewDelegate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> taps: [<span class="type">Int</span>] = []</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">buttonTapped</span><span class="params">(atIndex index: Int)</span></span> &#123;</span><br><span class="line">        taps.append(index) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;起初，似乎一切正常。 我们可以创建一个警报视图和一个记录器，然后将两者连接起来。如果我们在触发事件后查看<code>logger.taps</code>，则该数组仍为空：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> alert = <span class="type">AlertView</span>() </span><br><span class="line"><span class="keyword">var</span> logger = <span class="type">TapLogger</span>() </span><br><span class="line">alert.delegate = logger </span><br><span class="line">alert.fire()</span><br><span class="line">logger.taps <span class="comment">// []</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们分配给 <code>alert.delegate</code> 时，<code>Swift</code>复制了该结构。 因此，这些 <code>taps</code> 不是记录在记录器中，而是记录在<code>alert.delegate</code>中。 更糟糕的是，当我们分配值时，我们失去了价值的类型。 为了获取信息，我们需要使用条件类型转换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> theLogger = alert.delegate <span class="keyword">as</span>? <span class="type">TapLogger</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(theLogger.taps)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [1]</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;显然，这种方法行不通。 使用类时，创建引用循环很容易；使用结构时，原始值不会发生突变。 简而言之：使用结构时，委托协议没有多大意义。</p>
+<h2 id="用函数代替-Delegates"><a href="#用函数代替-Delegates" class="headerlink" title="用函数代替 Delegates"></a><strong><em>用函数代替 Delegates</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果委托协议仅定义了一个方法，我们可以简单地将委托属性替换为直接存储回调函数的属性。 在我们的情况下，这可以是一个可选的 <code>buttonTapped属性</code> ，默认情况下为<code>nil</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AlertView</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> buttons: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">var</span> buttonTapped: ((<span class="number">_</span> buttonIndex: <span class="type">Int</span>) -&gt; ())?</span><br><span class="line">    <span class="keyword">init</span>(buttons: [<span class="type">String</span>] = [<span class="string">"OK"</span>, <span class="string">"Cancel"</span>]) &#123; </span><br><span class="line">        <span class="keyword">self</span>.buttons = buttons</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fire</span><span class="params">()</span></span> &#123; </span><br><span class="line">        buttonTapped?(<span class="number">1</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;函数类型的<code>（_ buttonIndex：Int）-&gt;（）</code>表示法有点奇怪，因为内部名称 <code>buttonIndex</code> 与代码中的其他地方无关。 上面我们提到，不幸的是，函数类型没有参数标签； 但是，它们可以具有显式的空白参数标签和内部参数名称。 这是经过官方批准的解决方法，可以在函数类型标签中提供参数以用于文档编制，直到Swift支持更好的方法为止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;和以前一样，我们可以创建一个<code>logger结构</code>，然后创建一个警报视图实例和一个<code>logger</code>变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TapLogger</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> taps: [<span class="type">Int</span>] = []</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">logTap</span><span class="params">(index: Int)</span></span> &#123; </span><br><span class="line">        taps.append(index)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> alert = <span class="type">AlertView</span>() </span><br><span class="line"><span class="keyword">var</span> logger = <span class="type">TapLogger</span>()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，我们不能简单地将 <code>logTap方法</code> 分配给 <code>buttonTapped属性</code> 。 Swift编译器告诉我们“不允许部分应用<code>&#39;mutating&#39;方法”</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert.buttonTapped = logger.logTap <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的代码中，尚不清楚应在作业中执行什么操作。 记录器是否被复制？ 还是应该buttonTapped改变原始变量（即记录器被捕获）？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使这项工作有效，我们必须将赋值的右边包装在一个闭包中。 这样做的好处是非常清楚地表明，我们现在正在捕获原始的logger变量（而不是值），并且正在对其进行突变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert.buttonTapped = &#123; logger.logTap(index: $<span class="number">0</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个好处是，现在取消了命名的耦合：回调属性称为<code>buttonTapped</code>，而实现该属性的函数称为<code>logTap</code>。 除了方法之外，我们还可以指定一个匿名函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">alert.buttonTapped = &#123; <span class="built_in">print</span>(<span class="string">"Button \($0) was tapped"</span>) &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将回调与类结合使用时，有一些警告。 让我们回到我们的视图控制器示例。 在其初始值设定项中，视图控制器现在可以将其<code>buttonTapped方法</code>分配给警报视图的回调处理程序，而不必将自己分配为警报视图的委托：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span> </span>&#123; </span><br><span class="line">    <span class="keyword">let</span> alert: <span class="type">AlertView</span></span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        alert = <span class="type">AlertView</span>(buttons: [<span class="string">"OK"</span>, <span class="string">"Cancel"</span>]) </span><br><span class="line">        alert.buttonTapped = <span class="keyword">self</span>.buttonTapped(atIndex:)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buttonTapped</span><span class="params">(atIndex index: Int)</span></span> &#123; </span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"Button tapped: \(index)"</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>alert.buttonTapped = self.buttonTapped（atIndex :)</code>行看起来像是一个无辜的任务，但是请注意：我们刚刚创建了一个引用循环！ 对对象的实例方法的每个引用（例如示例中的<code>self.buttonTapped</code>）都隐式捕获对象。 要了解为什么必须这样做，请考虑警报视图的角度：当警报视图调用存储在其<code>buttonTapped属性</code>中的回调函数时，该函数必须以某种方式“知道”它需要调用哪个对象的实例方法，即 仅存储对<code>ViewController.buttonTapped（atIndex :)</code>的引用而不知道实例是不够的。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以将<code>self.buttonTapped（atIndex :)</code>缩短为<code>self.buttonTapped</code>或仅仅为<code>buttonTapped</code>; 所有这三个都指同一个功能。 可以省略参数标签，只要这样做不会造成歧义。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了避免强引用，通常需要将方法调用包装在另一个弱捕获对象的闭包中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">alert.buttonTapped = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] index <span class="keyword">in</span> </span><br><span class="line">    <span class="keyword">self</span>?.buttonTapped(atIndex: index)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样，警报视图就不会强烈引用视图控制器。 如果我们可以保证警报视图的生命周期与视图控制器相关联，那么另一种选择是使用无所有权而不是弱项。 弱，如果警报视图超出视图控制器，则在调用函数时<code>self</code>在闭包内为<code>nil</code>。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你查看了<code>ViewController.buttonTapped</code>表达式的类型，你会注意到它是<code>（ViewController）-&gt;（Int）-&gt;（）</code>。 发生什么事了？在幕后，实例方法被建模为以下函数：<br>给定实例，返回另一个函数，然后对该函数进行操作实例。 <code>someVC.buttonTapped</code>实际上只是编写<code>ViewController.buttonTapped（someVC）</code>的另一种方式-这两个表达式都返回一个<code>（Int）-&gt;（）</code>类型的函数，而该函数是一个已强烈捕获<code>someVC实例</code>的闭包。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如我们所见，<code>协议和回调函数</code>之间存在一定的权衡。协议增加了一些冗长性，但是具有弱委托的纯类协议无需担心引入引用循环。用函数替换委托可以增加很多灵活性，并允许你使用结构和匿名函数。但是，在处理类时，需要注意不要引入引用循环。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同样，当你需要多个紧密相关的回调函数时（例如，为表视图提供数据时），将它们按协议分组在一起而不是单独进行回调会很有帮助。另一方面，当使用协议时，单个类型必须实现所有方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要取消注册委托或函数回调，我们可以简单地将其设置为nil。当我们的类型存储委托或回调数组时该怎么办？使用基于类的委托，我们可以简单地从委托列表中删除一个对象。使用回调函数，这并不是那么简单。我们无法添加功能，因此需要添加额外的基础架构以进行注销。</p>
+<h2 id="输入参数和突变方法"><a href="#输入参数和突变方法" class="headerlink" title="输入参数和突变方法"></a><strong><em>输入参数和突变方法</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>Swift</code>中<code>inout参数</code>前面使用的<code>“＆”</code>可能会给你印象，特别是如果你具有<code>C</code>或<code>C ++</code>背景的话，<code>inout参数</code>本质上是通过<strong>引用</strong>。 但事实并非如此。 <code>inout</code>是<strong><em>按值传递和复制回传，而不是按引用传递</em></strong>。 引用Swift编程语言：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inout参数具有一个值，该值传递给函数，由函数修改，然后从函数传递回以替换原始值。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了了解可以将哪种表达式作为<code>inout参数传递</code>，我们需要区分左值和右值。 左值描述内存位置。 <code>lvalue</code>是“左值”的缩写，因为左值是可以出现在赋值左侧的表达式。 例如，<code>array [0]</code>是一个左值，因为它描述了数组中第一个元素的存储位置。 右值描述一个值。 2 + 2是一个值，它描述了值4。 你不能在赋值语句的左侧输入2 + 2或4。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于<code>inout参数</code>，你只能传递左值，因为突变右值没有意义。 在常规函数和方法中使用inout参数时，需要明确地传入它们：每个左值都必须以<code>＆</code>开头。 例如，当我们调用增量函数（需要一个<code>inout Int</code>）时，我们可以通过在变量前面加上一个<code>＆符号</code>来传递变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">increment</span><span class="params">(value: <span class="keyword">inout</span> Int)</span></span> &#123; </span><br><span class="line">    value += <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> i=<span class="number">0</span> </span><br><span class="line">increment(value: &amp;i)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果使用<code>let定义变量</code>，则不能将其用作左值。 这是有道理的，因为我们不允许对<code>let变量</code>进行突变； 我们只能使用“可变”左值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> y:<span class="type">Int</span> = <span class="number">0</span> </span><br><span class="line">increment(value: &amp;y) <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了变量之外，还有一些其他东西也是左值。 例如，我们还可以传入数组下标（如果使用var定义了数组）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>] </span><br><span class="line">increment(value: &amp;array[<span class="number">0</span>]) </span><br><span class="line">array <span class="comment">// [1, 1, 2]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，这适用于每个下标（包括你自己的自定义下标），只要它们都定义了get和set即可。 同样，我们可以将属性用作左值，但前提是它们必须同时定义get和set：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> x: <span class="type">Int</span> </span><br><span class="line">    <span class="keyword">var</span> y: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> point = <span class="type">Point</span>(x: <span class="number">0</span>, y: <span class="number">0</span>) </span><br><span class="line">increment(value: &amp;point.x) </span><br><span class="line">point <span class="comment">// Point(x: 1, y: 0)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果属性是只读的（即，只有get可用），我们不能将其用作<code>inout参数</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> squaredDistance: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> x*x + y*y </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">increment(value: &amp;point.squaredDistance) <span class="comment">// Error</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;运算符也可以取<code>inout值</code>，但为简单起见，在调用时不需要“与”号； 我们只指定左值。 例如，让我们重新添加后缀增量运算符，该运算符在Swift 3中已删除：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">postfix</span> <span class="function"><span class="keyword">func</span> ++<span class="params">(x: <span class="keyword">inout</span> Int)</span></span> &#123; </span><br><span class="line">    x+=<span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line">point.x++</span><br><span class="line">point <span class="comment">// Point(x: 2, y: 0)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;变异算子甚至可以与可选链结合使用。 在这里，我们将增量操作链接到字典下标访问：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dictionary = [<span class="string">"one"</span>: <span class="number">1</span>] </span><br><span class="line">dictionary[<span class="string">"one"</span>]?++ </span><br><span class="line">dictionary[<span class="string">"one"</span>] <span class="comment">// Optional(2)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，如果键查询返回nil，则不会执行++运算符。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器可以优化<code>inout变量</code>以通过引用传递，而不是复制进出。 但是，文档中明确指出我们不应该依赖此行为。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在下一章<code>“结构和类”</code>中回到<code>inout</code>，在这里我们将探讨采用<code>inout参数</code>的变异方法和函数之间的相似之处。</p>
+<h2 id="嵌套函数和inout"><a href="#嵌套函数和inout" class="headerlink" title="嵌套函数和inout"></a><strong><em>嵌套函数和inout</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以在嵌套函数内使用<code>inout参数</code>，但是<code>Swift</code>会确保你的用法是安全的。 例如，你可以定义一个嵌套函数（<code>使用func或使用闭包表达式</code>）并安全地更改<code>inout参数</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">incrementTenTimes</span><span class="params">(value: <span class="keyword">inout</span> Int)</span></span> &#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">inc</span><span class="params">()</span></span> &#123;</span><br><span class="line">        value += <span class="number">1</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">10</span> &#123; </span><br><span class="line">        inc()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> x=<span class="number">0</span> </span><br><span class="line">incrementTenTimes(value: &amp;x) </span><br><span class="line">x <span class="comment">// 10</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，不允许你使该<code>inout参数</code>转义（在本章的最后，我们将详细讨论<code>转义函数</code>）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">escapeIncrement</span><span class="params">(value: <span class="keyword">inout</span> Int)</span></span> -&gt; () -&gt; () &#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">inc</span><span class="params">()</span></span> &#123;</span><br><span class="line">        value += <span class="number">1</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Error: nested function cannot capture inout parameter // and escape.</span></span><br><span class="line">    <span class="keyword">return</span> inc</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;鉴于<code>inout值</code>在函数返回之前被复制回去，因此这是有道理的。 如果我们以后能以某种方式修改它，应该怎么办？ 该值是否应该在某个时候复制回去？ 如果源不存在怎么办？ 让编译器验证这一点对安全至关重要。</p>
+<h2 id="When-amp-Doesn’t-Mean-inout"><a href="#When-amp-Doesn’t-Mean-inout" class="headerlink" title="When &amp; Doesn’t Mean inout"></a><strong><em>When &amp; Doesn’t Mean inout</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;说到不安全的函数，你应该了解<code>＆</code>的其他含义：<strong>将函数参数转换为不安全的指针</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果函数将<code>UnsafeMutablePointer</code>作为参数，则可以使用<code>＆</code>将变量传递给它，类似于使用<code>inout参数</code>的方式。 但是在这里，你实际上是通过<strong>引用传递的-实际上是通过指针传递的</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是增量，写成<code>采用不安全的可变指针</code>而不是<code>inout</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">incref</span><span class="params">(pointer: UnsafeMutablePointer&lt;Int&gt;)</span></span> -&gt; () -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="comment">// Store a copy of the pointer in a closure.</span></span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">        pointer.pointee += <span class="number">1</span></span><br><span class="line">        <span class="keyword">return</span> pointer.pointee </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们将在后面的章节中讨论的那样，Swift数组隐式地衰减到指针，以使C的互操作性变得轻松愉快。 现在，假设你传入一个超出范围的数组，然后再调用结果函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fun: () -&gt; <span class="type">Int</span> </span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> array = [<span class="number">0</span>]</span><br><span class="line">    fun = incref(pointer: &amp;array) </span><br><span class="line">&#125;</span><br><span class="line">fun()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这打开了令人兴奋的未定义行为的世界。 在测试中，以上代码在每次运行时都打印不同的值：有时为0，有时为1，有时为140362397107840 —有时会导致运行时崩溃。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这里的道义是：知道你要传递的内容。 附加<code>＆</code>时，你可能正在调用安全的 <code>Swift inout语义</code>，或者将可怜的变量转换为不安全指针的残酷世界。 在处理不安全的指针时，请特别注意变量的生命周期。 我们将在“互操作性”一章中对此进行更详细的介绍。</p>
+<h2 id="Properties"><a href="#Properties" class="headerlink" title="Properties"></a><strong><em>Properties</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有两种不同于常规方法的特殊方法：<code>计算属性和下标</code>。 计算属性看起来像常规属性，但是它<br>不使用任何内存来存储其值。 取而代之的是，每次访问属性时都会动态计算该值。 计算属性实际上只是一种具有异常定义和调用约定的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看看定义属性的各种方法。 我们将从代表GPS轨迹的结构开始。 它将所有记录的点存储在称为record的数组中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> CoreLocation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">GPSTrack</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> record: [(<span class="type">CLLocation</span>, <span class="type">Date</span>)] = []</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们想让record属性对外部只读，而对内部只读，则可以使用 <code>private（set）</code> 或<code>fileprivate（set）</code>修饰符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">GPSTrack</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> record: [(<span class="type">CLLocation</span>, <span class="type">Date</span>)] = []</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;要访问<span class="type">GPS</span>轨迹中的所有时间戳，我们创建一个计算属性：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">GPSTrack</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Returns all the timestamps for the GPS track.</span></span><br><span class="line">    <span class="comment">/// - Complexity: O(*n*), where *n* is the number of points recorded. </span></span><br><span class="line">    <span class="keyword">var</span> timestamps: [<span class="type">Date</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> record.<span class="built_in">map</span> &#123; $<span class="number">0.1</span> &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于我们未指定设置器，因此<code>timestamps属性为只读</code>。 结果未缓存； 每次你访问该属性时，它都会计算结果。 《Swift API设计指南》建议你记录每个非 O(1) 的计算属性的复杂性，因为调用者可能会假设访问属性需要花费固定时间。</p>
+<h2 id="Change-Observers"><a href="#Change-Observers" class="headerlink" title="Change Observers"></a><strong><em>Change Observers</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以实现<code>willSet</code>和<code>didSet</code>处理程序，以使属性和变量在每次设置属性时都被调用（即使值不变）。 分别在存储新值之前和之后立即调用它们。 一种有用的情况是使用<code>Interface Builder</code>时：我们可以实现<code>didSet</code>来了解何时连接<code>IBOutlet</code>，然后可以在处理程序中执行其他配置。 例如，如果我们想在标签可用时设置标签的文本颜色，则可以执行以下操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SettingsController</span>: <span class="title">UIViewController</span> </span>&#123; </span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> label: <span class="type">UILabel?</span> &#123;</span><br><span class="line">        <span class="keyword">didSet</span> &#123;</span><br><span class="line">            label?.textColor = .black</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;必须在属性的声明位置定义观察者-你不能在扩展名中追溯添加观察者。 因此，它们是该类型设计人员的工具，而不是用户的工具。 <code>willSet和didSet</code>处理程序本质上是<strong>定义一对属性的简写：一个提供存储的私有存储属性，以及一个公共计算属性，其<code>setter</code>在将值存储到存储属性之前和/或之后执行附加工作。</strong> 这与<code>Foundation</code>中的键值观察机制有根本的区别，<strong>Foundation中的键值观察机制通常由对象的使用者用来观察内部变化</strong>，而无论类的设计者是否打算这样做。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，你可以<strong>覆盖子类中的属性以添加观察者</strong>。 这是一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Robot</span> </span>&#123; </span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">State</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> stopped, movingForward, turningRight, turningLeft </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> state = <span class="type">State</span>.stopped </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ObservableRobot</span>: <span class="title">Robot</span> </span>&#123; </span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> state: <span class="type">State</span> &#123;</span><br><span class="line">        <span class="keyword">willSet</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"Transitioning from \(state) to \(newValue)"</span>)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> robot = <span class="type">ObservableRobot</span>()</span><br><span class="line">robot.state = .movingForward </span><br><span class="line"><span class="comment">// Transitioning from stopped to movingForward</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这仍然与变更观察者作为类型的内部特征的本质保持一致。 如果不允许，则子类可以通过使用执行其他工作的计算后的<code>setter覆盖存储</code>的属性来达到相同的效果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些功能的实现反映了用法上的差异。 <code>KVO</code>使用<code>Objective-C运行时将观察者动态添加到类的setter中</code>，这在当前版本的<code>Swift</code>中是不可能实现的，尤其是对于<code>值类型</code>。 <code>Swift</code>中的<strong>属性观察是纯粹的编译时功能</strong>。</p>
+<h2 id="惰性存储属性"><a href="#惰性存储属性" class="headerlink" title="惰性存储属性"></a><strong><em>惰性存储属性</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>惰性地初始化值</strong>是一种常见的模式，<code>Swift</code>具有一个特殊的<code>关键字lazy来定义惰性属性</code>。 请注意，必须始终将惰性属性声明为<code>var</code>，因为直到 <strong><em>初始化完成后才可能设置其初始值</em></strong>。 <code>Swift</code>有一个严格的规则，即在实例的初始化完成之前，让常量必须具有一个值。 惰性修饰符是记忆的一种非常特定的形式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，如果我们有一个显示<code>GPSTrack</code>的视图控制器，则可能需要一个轨迹的预览图像。 通过使该属性变得懒惰，我们可以将昂贵的图像生成推迟到第一次访问该属性时：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GPSTrackViewController</span>: <span class="title">UIViewController</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> track: <span class="type">GPSTrack</span> = <span class="type">GPSTrack</span>()</span><br><span class="line"></span><br><span class="line">    <span class="built_in">lazy</span> <span class="keyword">var</span> preview: <span class="type">UIImage</span> = &#123; </span><br><span class="line">        <span class="keyword">for</span> point <span class="keyword">in</span> track.record &#123;</span><br><span class="line">        <span class="comment">// Do some expensive computation.</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">UIImage</span>(<span class="comment">/* ... */</span>) &#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，我们是如何定义<code>lazy属性</code>的：它是一个闭包表达式，它返回要存储的值（在本例中为图像）。 首次访问该属性时，将执行闭包（请注意结尾处的括号），并将其返回值存储在该属性中。 这是懒惰属性的常见模式，该属性需要初始化多个衬垫。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于惰性变量需要存储，因此我们需要在<code>GPSTrackViewController</code>的定义中定义惰性属性。 与计算属性不同，<strong>扩展中无法定义存储属性和惰性属性</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果<code>track</code>属性更改，则预览不会自动失效。 让我们看一个更简单的例子，看看发生了什么。 我们有一个<code>Point结构</code>，并将<code>distanceFromOrigin</code>存储为一个惰性计算属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> x: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> y: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="built_in">lazy</span> <span class="keyword">var</span> distanceFromOrigin: <span class="type">Double</span></span><br><span class="line">    = (x*x + y*y).squareRoot()</span><br><span class="line">    <span class="keyword">init</span>(x: <span class="type">Double</span>, y: <span class="type">Double</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.x = x</span><br><span class="line">        <span class="keyword">self</span>.y = y</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建点时，我们可以访问<code>distanceFromOrigin属性</code>，它将计算值并将其存储以供重用。 但是，如果我们随后更改<code>x</code>值，则该值不会反映在<code>distanceFromOrigin</code>中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> point = <span class="type">Point</span>(x: <span class="number">3</span>, y: <span class="number">4</span>) </span><br><span class="line">point.distanceFromOrigin <span class="comment">// 5.0 </span></span><br><span class="line">point.x += <span class="number">10</span> </span><br><span class="line">point.distanceFromOrigin <span class="comment">// 5.0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请务必注意这一点。 解决该问题的一种方法是在<code>x</code>和<code>y</code>的<code>didSet属性观察器</code>中重新计算<code>distanceFromOrigin</code>，但是<code>distanceFromOrigin</code>不再是真正的懒惰了：它会在x或y每次更改时进行计算。 当然，在此示例中，解决方案很简单：我们应该从一开始就将<code>distanceFromOrigin</code>设置为常规的（非延迟）计算属性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>访问惰性属性</code>是一项变异操作，因为该属性的初始值是在首次访问时设置的。 当一个结构包含一个惰性属性时，访问该惰性属性的结构的任何所有者都必须因此将包含该结构的变量声明为<code>var</code>，因为访问该属性意味着有可能对其容器进行突变。 因此，这是不允许的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> immutablePoint = <span class="type">Point</span>(x: <span class="number">3</span>, y: <span class="number">4</span>) </span><br><span class="line">immutablePoint.distanceFromOrigin</span><br><span class="line"><span class="comment">// Error: Cannot use mutating getter on immutable value.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;强制所有想要访问惰性属性的Point类型用户使用var是一个巨大的不便，这通常会使<strong>惰性属性不适用于结构</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，请注意，<code>lazy关键字不会执行任何线程同步</code>。如果在计算该值之前多个线程同时访问一个惰性属性，则该计算可能会执行一次以上，同时还会产生任何副作用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift的开源时代初期，Swift团队提出了一种使用<code>“行为”注释属性</code>的通用机制。 <code>Property</code> 行为从未得到实施，但是这个想法在2019年以所谓的 Property 代表提案的形式返回。如果实现，则可以将当前的原始语言功能（如属性观察器和惰性属性）从编译器移至标准库（或第三方库），从而使编译器的复杂性降低，并允许所有开发人员添加自己的属性实现模式。 <code>Property</code> 代表提案未通过其最初的Swift Evolution审查，但我们可能会在以后的Swift版本中看到此功能或类似功能。</p>
+<h1 id="下标"><a href="#下标" class="headerlink" title="下标"></a><strong>下标</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经在标准库中看到了下标。 例如，我们可以像这样执行字典查找：<code>dictionary [key]</code>。 这些下标在很大程度上是函数和计算属性的混合体，具有自己的特殊语法。 像函数一样，它们也接受参数。 像计算的属性一样，它们可以是只读的（使用get）或读写的（使用get set）。 就像普通函数一样，我们可以通过提供具有不同类型的多个变体（属性无法实现）来重载它们。 例如，数组默认具有两个下标-一个用于访问单个元素，另一个用于获取切片（准确地说，这些是在<code>Collection协议</code>中声明的）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> fibs = [<span class="number">0</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>] </span><br><span class="line"><span class="keyword">let</span> first = fibs[<span class="number">0</span>] <span class="comment">// 0 </span></span><br><span class="line">fibs[<span class="number">1</span>..&lt;<span class="number">3</span>] <span class="comment">// [1, 1]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义下标"><a href="#自定义下标" class="headerlink" title="自定义下标"></a><strong><em>自定义下标</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以为自己的类型添加下标支持，也可以使用新的下标重载来扩展现有类型。 举例来说，让我们定义一个<code>Collection</code>下标，该下标接受一个索引列表并返回这些索引处所有元素的数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Collection</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span>(<span class="built_in">indices</span> indexList: <span class="type">Index</span>...) -&gt; [<span class="type">Element</span>] &#123;</span><br><span class="line">        <span class="keyword">var</span> result: [<span class="type">Element</span>] = [] </span><br><span class="line">        <span class="keyword">for</span> index <span class="keyword">in</span> indexList &#123;</span><br><span class="line">            result.append(<span class="keyword">self</span>[index]) </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> result </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，我们如何使用显式参数标签将下标与标准库中的下标区分开。 三个点表示<code>indexList</code>是可变参数。 调用方可以传递零个或多个指定类型（此处是集合的索引类型）的逗号分隔值。 在函数内部，参数可以作为数组使用。</p>
+<p>我们可以这样使用新的下标：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Array</span>(<span class="string">"abcdefghijklmnopqrstuvwxyz"</span>)[<span class="built_in">indices</span>: <span class="number">7</span>, <span class="number">4</span>, <span class="number">11</span>, <span class="number">11</span>, <span class="number">14</span>] <span class="comment">// ["h", "e", "l", "l", "o"]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="高级下标"><a href="#高级下标" class="headerlink" title="高级下标"></a><strong><em>高级下标</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下标不限于单个参数。 我们已经看到了一个带多个参数的下标示例：带键和默认值的字典下标。 如果你有兴趣，请在Swift源代码中查看其实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下标的参数或返回类型也可以是通用的。 考虑类型为[String：Any]的异构字典：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> japan: [<span class="type">String</span>: <span class="type">Any</span>] = [ </span><br><span class="line">    <span class="string">"name"</span>: <span class="string">"Japan"</span>, </span><br><span class="line">    <span class="string">"capital"</span>: <span class="string">"Tokyo"</span>,</span><br><span class="line">    <span class="string">"population"</span>: <span class="number">126_440_000</span>, </span><br><span class="line">    <span class="string">"coordinates"</span>: [</span><br><span class="line">        <span class="string">"latitude"</span>: <span class="number">35.0</span>,</span><br><span class="line">        <span class="string">"longitude"</span>: <span class="number">139.0</span></span><br><span class="line">    ]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想在此字典中更改嵌套值，例如 坐标的纬度，你会发现这并不容易：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error: Type 'Any' has no subscript members.</span></span><br><span class="line">japan[<span class="string">"coordinates"</span>]?[<span class="string">"latitude"</span>] = <span class="number">36.0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好的，这是可以理解的。 表达式<code>japan [“coordinate”]</code>的类型为 <code>Any?</code> ，因此<br>你可能会在应用嵌套下标之前尝试将其转换为字典：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error: Cannot assign to immutable expression.</span></span><br><span class="line">(japan[<span class="string">"coordinates"</span>] <span class="keyword">as</span>? [<span class="type">String</span>: <span class="type">Double</span>])?[<span class="string">"latitude"</span>] = <span class="number">36.0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这不仅变得很难看，而且也行不通。 问题是你无法通过类型转换（表达式）来对变量进行突变<code>Japan [“coordinates”] as? [String：Double]</code> 不再是左值。 你必须先将嵌套字典存储在本地变量中，然后对该变量进行突变，然后将本地变量分配回顶级关键字。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过使用通用下标扩展<code>Dictionary</code>来做得更好，该通用下标将所需的目标类型作为第二个参数并尝试在下标实现中进行强制转换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Dictionary</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span>&lt;<span class="type">Result</span>&gt;(key: <span class="type">Key</span>, <span class="keyword">as</span> type: <span class="type">Result</span>.<span class="type">Type</span>) -&gt; <span class="type">Result?</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">self</span>[key] <span class="keyword">as</span>? <span class="type">Result</span></span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            <span class="comment">// Delete existing value if caller passed nil.</span></span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> value = newValue <span class="keyword">else</span> &#123; </span><br><span class="line">                <span class="keyword">self</span>[key] = <span class="literal">nil</span></span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// Ignore if types don't match.</span></span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> value2 = value <span class="keyword">as</span>? <span class="type">Value</span> <span class="keyword">else</span> &#123; </span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">self</span>[key] = value2 </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于我们不再需要向下转换下标返回的值，因此突变操作将转到顶级字典变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">japan[<span class="string">"coordinates"</span>, <span class="keyword">as</span>: [<span class="type">String</span>: <span class="type">Double</span>].<span class="keyword">self</span>]?[<span class="string">"latitude"</span>] = <span class="number">36.0</span> </span><br><span class="line">japan[<span class="string">"coordinates"</span>] <span class="comment">// Optional(["longitude": 139.0, "latitude": 36.0])</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通用下标使这成为可能，但你会注意到此示例中的最终语法仍然很丑陋。 Swift通常不太适合处理像该字典这样的异构集合。 在大多数情况下，最好为数据定义自己的自定义类型（例如，此处为“国家/地区”结构），并将这些类型与<code>Codable兼容</code>，以将值与数据传输格式进行相互转换。</p>
+<h1 id="Key-Paths"><a href="#Key-Paths" class="headerlink" title="Key Paths"></a><strong>Key Paths</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift 4</code>在语言中增加了<strong>关键路径</strong>的概念。key路径是对属性的未调用引用，类似于未应用的方法引用。关键路径在<code>Swift</code>的类型系统中填补了一个相当大的漏洞；以前，无法以引用方法（例如<code>String.uppercased</code>）的方式引用类型的属性（例如<code>String.count</code>）。尽管使用了相同的名称，但是<code>Swift</code>的键路径与<code>Objective-C</code>和<code>Foundation</code>中使用的键路径有很大不同。稍后我们将有更多话要说。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键路径表达式以反斜杠开头，例如 <code>\String.count</code>。必须使用<strong>反斜杠来区分键路径和可能存在的同名类型属性</strong>（假设<code>String</code>也具有静态<code>count属性</code>，那么<code>String.count</code>将返回该属性的值）。<code>类型推断</code>也可以在键路径表达式中使用：如果编译器可以从上下文中推断类型名称，则可以省略类型名称，这会导致 <code>\.count</code>。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;鉴于键路径和函数类型引用是如此紧密地相关，因此不幸的是，<code>Swift</code>的语法不同。即使这样，Swift团队也表示有兴趣在将来的版本中为函数类型引用采用反斜杠语法。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顾名思义，<strong>键路径描述了从根值开始的贯穿值层次结构的路径</strong>。例如，给定以下“人员”和“地址”类型，<code>\Person.address.street</code>是解析人员街道地址的关键路径：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Address</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> street: <span class="type">String</span> </span><br><span class="line">    <span class="keyword">var</span> city: <span class="type">String</span> </span><br><span class="line">    <span class="keyword">var</span> zipCode: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> address: <span class="type">Address</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> streetKeyPath = \<span class="type">Person</span>.address.street</span><br><span class="line"><span class="comment">// Swift.WritableKeyPath&lt;Person, Swift.String&gt;</span></span><br><span class="line"><span class="keyword">let</span> nameKeyPath = \<span class="type">Person</span>.name <span class="comment">// Swift.KeyPath&lt;Person, Swift.String&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>key路径可以由存储和计算的属性的任意组合以及可选的链接运算符组成</strong>。 编译器会自动为所有类型生成一个新的<code>[keyPath：]</code>下标。 你可以使用此下标“调用”key路径，即在给定实例上访问其描述的属性。 因此，<code>“Hello”[keyPath: \.count]</code>等效于 <code>“Hello” .count</code> 。 或者，对于我们当前的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> simpsonResidence = <span class="type">Address</span>(street: <span class="string">"1094 Evergreen Terrace"</span>, city: <span class="string">"Springfield"</span>, zipCode: <span class="number">97475</span>)</span><br><span class="line"><span class="keyword">var</span> lisa = <span class="type">Person</span>(name: <span class="string">"Lisa Simpson"</span>, address: simpsonResidence) </span><br><span class="line">lisa[keyPath: nameKeyPath] <span class="comment">// Lisa Simpson</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你看一下上面两个键路径变量的类型，你会注意到 <code>nameKeyPath</code> 的类型为 <code>KeyPath &lt;Person，String&gt;</code>（即可以应用于Person并产生String的强类型键路径） ，而streetKeyPath的类型为WritableKeyPath。 因为形成后一个键路径的所有属性都是可变的，所以键路径本身允许基础值的改变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lisa[keyPath: streetKeyPath] = <span class="string">"742 Evergreen Terrace"</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对nameKeyPath进行相同操作会产生错误，因为底层property是不可变的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键路径不仅可以描述属性，我们也可以使用它们来描述下标。 例如，以下语法可用于提取数组中第二个人值的名称：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bart = <span class="type">Person</span>(name: <span class="string">"Bart Simpson"</span>, address: simpsonResidence) </span><br><span class="line"><span class="keyword">let</span> people = [lisa, bart]</span><br><span class="line">people[keyPath: \.[<span class="number">1</span>].name] <span class="comment">// Bart Simpson</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相同的语法也可以用于在关键路径中包括字典下标。</p>
+<h2 id="关键路径可以用函数建模"><a href="#关键路径可以用函数建模" class="headerlink" title="关键路径可以用函数建模"></a><strong><em>关键路径可以用函数建模</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从基本类型<code>Root</code>映射到<code>Value类型</code>的属性的密钥路径与类型<code>（Root）-&gt; Value</code>的函数非常相似，或者对于可写密钥路径，有一对用于获取和设置值的函数。 相对于此类功能（语法除外）的主要好处是，它们是值。 你可以测试键路径是否相等并将它们用作字典键（它们符合<code>Hashable</code>），并且可以确保键路径是无状态的，这与可能捕获可变状态的函数不同。 正常功能无法实现所有这些功能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过将一个key路径附加到另一个key路径，也可以构成key路径。 请注意，类型必须匹配：如果你以从A到B的键路径开头，则附加的键路径必须具有B的根类型，然后生成的键路径将从A映射到附加键路径的值类型， 说C：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// KeyPath&lt;Person, String&gt; + KeyPath&lt;String, Int&gt; = KeyPath&lt;Person, Int&gt;</span></span><br><span class="line"><span class="keyword">let</span> nameCountKeyPath = nameKeyPath.appending(path: \.<span class="built_in">count</span>) </span><br><span class="line"><span class="comment">// Swift.KeyPath&lt;Person, Swift.Int&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们重新编写本章前面的排序描述符，以使用键路径代替函数。 我们之前将<code>sortDescriptor</code>定义为采用函数，（根）-&gt;值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; = (<span class="type">Root</span>, <span class="type">Root</span>) -&gt; <span class="type">Bool</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">(key: @escaping <span class="params">(Root)</span></span></span> -&gt; <span class="type">Value</span>)</span><br><span class="line">-&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; <span class="keyword">where</span> <span class="type">Value</span>: <span class="type">Comparable</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; key($<span class="number">0</span>) &lt; key($<span class="number">1</span>) &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Usage</span></span><br><span class="line"><span class="keyword">let</span> streetSD: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = sortDescriptor &#123; $<span class="number">0</span>.address.street &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以添加一个变体，用于从键路径构造排序描述符。 我们使用下标以获取值的关键路径：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">(key: KeyPath&lt;Root, Value&gt;)</span></span> -&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; <span class="keyword">where</span> <span class="type">Value</span>: <span class="type">Comparable</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> &#123; $<span class="number">0</span>[keyPath: key] &lt; $<span class="number">1</span>[keyPath: key] &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Usage</span></span><br><span class="line"><span class="keyword">let</span> streetSDKeyPath: <span class="type">SortDescriptor</span>&lt;<span class="type">Person</span>&gt; = sortDescriptor(key: \.address.street)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;虽然有一个采用关键路径的<code>sortDescriptor构造函数</code>很有用，但它并没有为我们提供灵活性功能。 关键路径依赖于可比值。 仅使用关键路径，我们就无法轻松地按不同的谓词进行排序（例如，执行不区分大小写的本地化比较）。</p>
+<h2 id="可写关键路径"><a href="#可写关键路径" class="headerlink" title="可写关键路径"></a><strong><em>可写关键路径</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可写关键路径是特殊的。 你可以使用它来读取或写入值。 因此，它等效于一对函数：一个用于获取属性<code>((Root) -&gt; Value)</code>，另一个用于设置属性 <code>((inout Root，Value) -&gt; Void)</code> 。 可写关键路径比只读关键路径要大得多。 首先，它们以简洁的语法捕获了大量代码。 将<code>streetKeyPath</code>与等效的<code>getter</code>和<code>setter</code>对进行比较：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> streetKeyPath = \<span class="type">Person</span>.address.street</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> getStreet: (<span class="type">Person</span>) -&gt; <span class="type">String</span> = &#123; person <span class="keyword">in</span> </span><br><span class="line">    <span class="keyword">return</span> person.address.street</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> setStreet: (<span class="keyword">inout</span> <span class="type">Person</span>, <span class="type">String</span>) -&gt; () = &#123; person, newValue <span class="keyword">in</span></span><br><span class="line">    person.address.street = newValue </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Setter usage</span></span><br><span class="line">lisa[keyPath: streetKeyPath] = <span class="string">"1234 Evergreen Terrace"</span> </span><br><span class="line">setStreet(&amp;lisa, <span class="string">"1234 Evergreen Terrace"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可写键路径对于数据绑定特别有用，在数据绑定中，你想将两个属性彼此绑定：当属性一更改时，属性二应自动更新，反之亦然。例如，你可以将<code>model.name</code>属性绑定到<code>textField.text</code>。 <code>API</code>的用户需要指定如何读取和写入<code>model.name</code>和<code>textField.text</code>，而关键路径仅用于捕获和写入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还需要一种观察属性变化的方法。为此，我们在<code>Cocoa</code>中使用键值观察机制，这意味着该示例仅适用于类，并且仅适用于<code>Apple平台</code>。 <code>Foundation</code>提供了一种类型安全的<code>KVO API</code>，该<code>API</code>隐藏了<code>Objective-C键路径</code>的字符串类型世界。 <code>NSObject</code>方法<code>observe（_：options：changeHandler :)</code>观察键路径（作为强类型<code>Swift键路径</code>传递），并在属性更改时调用更改处理程序。<strong>不要忘记将你要观察的任何属性标记为<code>@objc动态</code></strong>。否则，KVO将无法正常工作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的目标是在两个<code>NSObject之间实现双向绑定</code>，但让我们从单向绑定开始：每当观察到的<code>self</code>属性发生变化时，我们也会更改另一个对象。关键路径使我们可以使代码在所涉及的特定属性上通用—调用者指定了两个对象和两个关键路径，此方法将处理其余的工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSObjectProtocol</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">NSObject</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">observe</span>&lt;A, Other&gt;<span class="params">(<span class="number">_</span> keyPath: KeyPath&lt;<span class="keyword">Self</span>, A&gt;, writeTo other: Other, <span class="number">_</span> otherKeyPath: ReferenceWritableKeyPath&lt;Other, A&gt;)</span></span> -&gt; <span class="type">NSKeyValueObservation</span> <span class="keyword">where</span> <span class="type">A</span>: <span class="type">Equatable</span>, <span class="type">Other</span>: <span class="type">NSObjectProtocol</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> observe(keyPath, options: .new) &#123; <span class="number">_</span>, change <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> newValue = change.newValue, other[keyPath: otherKeyPath] != newValue <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="comment">// prevent endless feedback loop &#125;</span></span><br><span class="line">            other[keyPath: otherKeyPath] = newValue</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此代码段中有很多要解压的内容。 首先，我们在<code>NSObject</code>的每个子类上定义此方法，然后通过扩展<code>NSObjectProtocol</code>（而不是NSObject）来使用<code>Self</code>。 <code>ReferenceWritableKeyPath</code>就像<code>WritableKeyPath</code>一样，但是它也允许我们编写使用<code>let声明</code>的引用变量（与其他变量一样）。 （我们稍后将对此进行详细说明。）为避免不必要的写入，我们仅在值更改后才写入其他值。 <code>NSKeyValueObservation</code>返回值是调用者可以用来控制观察的生存期的令牌：当释放该对象或调用者调用其<code>invalidate</code>方法时，观察停止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;给定<code>observe（_：writeTo：__ :)</code>，双向绑定非常简单； 我们在两个对象上都调用<code>observe</code>，并返回两个观察标记：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSObjectProtocol</span> <span class="title">where</span> <span class="title">Self</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">bind</span>&lt;A, Other&gt;<span class="params">(<span class="number">_</span> keyPath: ReferenceWritableKeyPath&lt;<span class="keyword">Self</span>,A&gt;, to other: Other, <span class="number">_</span> otherKeyPath: ReferenceWritableKeyPath&lt;Other,A&gt;)</span></span> -&gt;  (<span class="type">NSKeyValueObservation</span>, <span class="type">NSKeyValueObservation</span>) <span class="keyword">where</span> <span class="type">A</span>: <span class="type">Equatable</span>, <span class="type">Other</span>: <span class="type">NSObject</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> one = observe(keyPath, writeTo: other, otherKeyPath)</span><br><span class="line">        <span class="keyword">let</span> two = other.observe(otherKeyPath, writeTo: <span class="keyword">self</span>, keyPath) <span class="keyword">return</span> (one,two)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以构造两个不同的对象-Person和TextField，并将name和text属性彼此绑定：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="meta">@objc</span> <span class="keyword">dynamic</span> <span class="keyword">var</span> name: <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextField</span>: <span class="title">NSObject</span> </span>&#123;</span><br><span class="line">    <span class="meta">@objc</span> <span class="keyword">dynamic</span> <span class="keyword">var</span> text: <span class="type">String</span> = <span class="string">""</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> person = <span class="type">Person</span>()</span><br><span class="line"><span class="keyword">let</span> textField = <span class="type">TextField</span>()</span><br><span class="line"><span class="keyword">let</span> observation = person.bind(\.name, to: textField, \.text) person.name = <span class="string">"John"</span></span><br><span class="line">textField.text <span class="comment">// John</span></span><br><span class="line">textField.text = <span class="string">"Sarah"</span></span><br><span class="line">person.name <span class="comment">// Sarah</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你来自函数式编程，那么可写的键路径可能会让你想起镜头。 它们紧密相关：从<code>WritableKeypath &lt;Root，Value&gt;</code>，你可以创建<code>Lens &lt;Root，Value&gt;</code>。 镜头在纯函数式语言（例如Haskell或PureScript）中很有用，但在Swift中却没有那么有用，因为Swift内置了可变性。</p>
+</blockquote>
+<h2 id="关键路径层次结构"><a href="#关键路径层次结构" class="headerlink" title="关键路径层次结构"></a><strong><em>关键路径层次结构</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;密钥路径有五种不同的类型，每种都为前一种增加了更多的精度和功能：</p>
+<ul>
+<li>→ <strong>AnyKeyPath</strong> 类似于功能类型<code>（Any）-&gt; Any?</code>。</li>
+<li>→ <strong>PartialKeyPath<Source></strong> 类似于<code>typeoffunction（Source）-&gt; Any?</code>。</li>
+<li>→ <strong>KeyPath&lt;Source，Target&gt;</strong> 与 <code>typeoffunction（Source）-&gt; Target</code>相似。</li>
+<li>→ <strong>WritableKeyPath&lt;Source，Target&gt;</strong> 与一对功能类型类似<code>（Source）-&gt;Target</code>和<code>(Source，Target) -&gt; ()</code>。</li>
+<li>→ <strong>ReferenceWritableKeyPath&lt;Source，Target&gt;</strong> 与类型为 <code>(Source) -&gt;Target</code>和 <code>(Source，Target) -&gt; ()</code> 的一对函数相似。第二个函数可以用<code>Target</code>更新<code>Source</code>值，并且仅在<code>Source</code>是引用类型时才起作用。必须区分<code>WritableKeyPath</code>和<code>\ReferenceWritableKeyPath</code>，因为前者的设置者必须将参数<code>inout传入</code>。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当前，此关键路径层次结构被实现为类层次结构。理想情况下，这些将是<code>协议</code>，但是Swift的泛型系统缺少一些使之可行的功能。故意将类层次结构保持关闭状态，以便在将来的发行版中对此进行更改而不会破坏现有代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们之前所看到的，关键路径与函数不同：<strong>它们遵循Hashable</strong>，将来也可能遵循<code>Codable</code>。这就是为什么我们说<code>AnyKeyPath</code>类似于函数<code>（Any）-&gt; Any</code>。虽然我们可以将键路径转换为其相应的功能，但我们并不总是朝着另一个方向发展。</p>
+<h2 id="与Objective-C相比的关键路径"><a href="#与Objective-C相比的关键路径" class="headerlink" title="与Objective-C相比的关键路径"></a><strong><em>与Objective-C相比的关键路径</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>Foundation</code>和<code>Objective-C</code>中，关键路径被建模为字符串（我们称这些<code>Foundation</code>关键路径是为了将它们与Swift的关键路径区分开）。由于<code>Foundation键路径是字符串</code>，因此它们没有附加任何类型信息。从某种意义上讲，它们类似于<code>AnyKeyPath</code>。如果基础密钥路径拼写错误，格式不正确，或者类型不匹配，则程序可能会崩溃。 （Swift中的#keyPath指令有助于解决拼写错误；编译器可以检查是否存在具有指定名称的属性。）Swift的<code>KeyPath</code>，<code>WritableKeypath</code>和<code>ReferenceWritableKeyPath</code>在构造上是正确的：它们不能被拼写错误并且它们不会允许输入类型错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当功能可能更好时，许多<code>Cocoa API</code>使用（基础）键路径。这在某种程度上是一个历史产物：<code>匿名函数</code>（或块，正如<code>Objective-C</code>所称的）是一个相对较新的功能，而关键路径的存在时间更长。在将块添加到<code>Objective-C</code>之前，要表示类似于功能<code>{$ 0.address.street}</code>的东西并不容易，只是使用关键路径<code>“address.street”</code>。</p>
+<h2 id="未来发展方向"><a href="#未来发展方向" class="headerlink" title="未来发展方向"></a><strong><em>未来发展方向</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关键路径仍在积极讨论中，未来它们可能会变得更加强大。 一种可能的功能是通过可编码协议进行序列化。 这将使我们能够将关键路径保留在磁盘上，通过网络发送它们，等等。 一旦我们可以访问关键路径的结构，就可以进行自省。 例如，我们可以使用键路径的结构来构造类型正确的数据库查询。 如果类型可以自动提供指向其属性的键路径数组，则可以用作<code>运行时反射API</code>的基础。</p>
+<h1 id="Autoclosures"><a href="#Autoclosures" class="headerlink" title="Autoclosures"></a><strong>Autoclosures</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们都熟悉逻辑<code>AND运算符&amp;&amp;</code>如何评估其参数。 它首先评估其左操作数，如果评估结果为<code>false</code>，则立即返回。 仅当左侧操作数的值为<code>true</code>时，才对右侧操作数的值进行评估。 毕竟，如果左操作数的计算结果为false，则整个表达式都无法计算为true。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此行为称为<code>短路</code>。 例如，如果我们要检查条件是否满足数组的第一个元素，则可以编写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> evens = [<span class="number">2</span>,<span class="number">4</span>,<span class="number">6</span>]</span><br><span class="line"><span class="keyword">if</span> !evens.isEmpty &amp;&amp; evens[<span class="number">0</span>] &gt; <span class="number">10</span> &#123;</span><br><span class="line"><span class="comment">// Perform some work.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的代码段中，我们依赖于短路：只有在第一个条件成立的情况下才会进行数组查找。 如果没有短路，此代码将在空数组上崩溃。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编写此特定示例的更好方法是使用if let绑定：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> first = evens.first, first &gt; <span class="number">10</span> &#123; </span><br><span class="line">    <span class="comment">// Perform some work.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是短路的另一种形式：仅当第一个条件成功时才评估第二个条件。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在几乎所有语言中，<code>&amp;&amp;</code> 和 <code>||</code> 都会短路 语言中内置了运算符。 但是，通常无法定义自己的具有相同行为的运算符或函数。 如果语言支持一流的功能，我们可以通过提供匿名功能而不是值来伪造短路。 例如，假设我们要在Swift中定义一个 <code>and函数</code> ，使其具有与<code>&amp;&amp;运算符</code>相同的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">and</span><span class="params">(<span class="number">_</span> l: Bool, <span class="number">_</span> r: <span class="params">()</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; <span class="type">Bool</span> &#123; </span><br><span class="line">    <span class="keyword">guard</span> l <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> r()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的函数首先检查l的值，如果l的值为false，则返回false。 仅当l为true时，它才返回闭包r中的值。 但是，使用它比使用<code>&amp;&amp;运算符</code>稍微麻烦一些，因为正确的操作数现在必须是一个函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> and(!evens.isEmpty, &#123; evens[<span class="number">0</span>] &gt; <span class="number">10</span> &#125;) &#123; </span><br><span class="line">    <span class="comment">// Perform some work.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift具有一个很好的功能，可以使其更漂亮。 我们可以使用<code>@autoclosure属性</code>来告诉编译器它应该在闭包表达式中包装一个特定的参数。 和的定义与上面几乎相同，除了添加的<code>@autoclosure</code>批注：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">and</span><span class="params">(<span class="number">_</span> l: Bool, <span class="number">_</span> r: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; <span class="type">Bool</span> &#123; </span><br><span class="line">    <span class="keyword">guard</span> l <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="literal">false</span> &#125;</span><br><span class="line">    <span class="keyword">return</span> r()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，and的用法现在要简单得多，因为我们不需要将第二个参数包装在闭包中。 我们可以像调用常规Bool参数一样调用它，并且编译器透明地将参数包装在闭包表达式中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> and(!evens.isEmpty, evens[<span class="number">0</span>] &gt; <span class="number">10</span>) &#123;</span><br><span class="line">     <span class="comment">// Perform some work.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使我们能够定义自己的具有短路行为的函数和运算符。 例如，像<code>??</code>这样的运算符 和<code>！？</code> （如“可选”一章中定义的）现在很容易编写。 在标准库中，<code>assert</code>和<code>fatalError</code>之类的函数也使用自动关闭功能，以便仅在真正需要时才评估参数。 通过将断言条件的评估从调用位置推迟到断言函数的主体，可以将这些潜在的昂贵操作完全剥离到不需要它们的优化构建中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编写日志记录功能时，自动关闭也可以派上用场。 例如，下面是你编写自己的日志函数的方法，该函数仅在条件为<code>true</code>时才评估日志消息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">log</span><span class="params">(ifFalse condition: Bool, message: @autoclosure <span class="params">()</span></span></span> -&gt; (<span class="type">String</span>),</span><br><span class="line">file: <span class="type">String</span> = #file, function: <span class="type">String</span> = #function, line: <span class="type">Int</span> = #line) &#123;</span><br><span class="line">    <span class="keyword">guard</span> !condition <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Assertion failed: \(message()), \(file):\(function) (line \(line))"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这意味着你可以在作为消息参数传递的表达式中执行昂贵的计算，如果不使用该值，则不会产生评估成本。 日志功能还使用调试标识符<code>＃file</code>，<code>＃function</code>和 <code>#line</code>。 他们是当作为默认参数传递给函数时特别有用，因为它们将在调用站点上<code>接收文件名，函数名和行号的值</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，请谨慎使用自动关闭功能。 他们的行为违反了正常的预期-例如，如果由于表达式包含在自动闭合中而没有执行表达式的副作用。 引用Apple的Swift书：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过度使用自动关闭功能会使你的代码难以理解。 上下文和函数名称应清楚表明评估被推迟。</p>
+</blockquote>
+<h1 id="escaping-批注"><a href="#escaping-批注" class="headerlink" title="@escaping 批注"></a><strong>@escaping 批注</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能已经注意到，编译器要求你在某些闭包表达式中（而不是在其他闭包表达式中）明确声明要访问self。例如，我们需要在网络请求的完成处理程序中使用显式的<code>self</code>，而不必在传递给 <code>map或filter</code> 的闭包中对<code>self</code>进行显式的显示。两者之间的区别在于，闭包是存储供以后使用（如网络请求），还是仅在函数范围内同步使用（如<code>map和filter</code>）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果将闭包存储在某个地方（例如存储在某个属性中）以供以后调用，则称该<code>闭包正在转义</code>。相反，从<strong>不离开函数本地范围的闭包是不可转义的</strong>。使用转义，编译器迫使我们明确地在闭包表达式中使用<code>self</code>，因为无意间强力捕获self是引用周期最常见的原因之一。无法转义的闭包无法创建永久的引用循环，因为在返回定义的函数时，该循环会自动销毁。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;默认情况下，<strong>闭包参数是不转义的</strong>。如果要存储闭包以供以后使用，则需要将闭包参数标记为 <strong><em><code>@escaping</code></em></strong>。编译器将对此进行验证：除非你将闭包参数标记为<code>@escaping</code>，否则它<strong>将不允许你存储闭包</strong>（例如，将其返回给调用者）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在排序描述符示例中，有多个函数参数需要 <strong>@escaping属性</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">sortDescriptor</span>&lt;Root, Value&gt;<span class="params">( key: @escaping <span class="params">(Root)</span></span></span> -&gt; <span class="type">Value</span>, by areInIncreasingOrder: @escaping (<span class="type">Value</span>, <span class="type">Value</span>) -&gt; <span class="type">Bool</span>) -&gt; <span class="type">SortDescriptor</span>&lt;<span class="type">Root</span>&gt; &#123;</span><br><span class="line">    <span class="type">Overusing</span> autoclosures can make your code hard to understand. <span class="type">The</span> context and function name should make it clear that evaluation <span class="keyword">is</span> being deferred.</span><br><span class="line">    <span class="keyword">return</span> &#123; areInIncreasingOrder(key($<span class="number">0</span>), key($<span class="number">1</span>)) &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift 3之前，是另一回事：转义是默认设置，你可以选择将结束标记为<code>@noescape</code>。 当前行为更好，因为默认情况下它是安全的：现在需要一个函数参数明确注释以表示参考循环的潜力。 <code>@escaping</code>注释是对开发人员调用该函数的警告。 编译器还可以更好地优化非转义的闭包，使快速路径成为必要时必须明确偏离的规范。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>请注意，默认情况下的非转义规则仅适用于功能参数</strong>，然后<strong>仅适用于紧邻参数位置的功能类型</strong>。 这意味着具<strong>有函数类型的存储属性始终在转义</strong>（这很有意义）。 令人惊讶的是，对于用作参数但包装在其他类型（例如元组或可选）中的函数也是如此。 由于在这种情况下闭包不再是立即参数，因此它会<strong>自动转义</strong>。 因此，你无法编写带有函数参数的函数，其中参数既是可选参数也是非转义参数。 在许多情况下，可以通过为闭包提供默认值来避免使参数成为可选参数。 如果不可能，一种解决方法是使用重载来编写该函数的两个变体-一个带有可选的（转义）函数参数，而另一个带有非可选的，非转义参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">transform</span><span class="params">(<span class="number">_</span> input: Int, with f: <span class="params">(<span class="params">(Int)</span></span></span></span> -&gt; <span class="type">Int</span>)?) -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Using optional overload"</span>)</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> f = f <span class="keyword">else</span> &#123; <span class="keyword">return</span> input &#125;</span><br><span class="line">    <span class="keyword">return</span> f(input)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">transform</span><span class="params">(<span class="number">_</span> input: Int, with f: <span class="params">(Int)</span></span></span> -&gt; <span class="type">Int</span>) -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Using non-optional overload"</span>)</span><br><span class="line">    <span class="keyword">return</span> f(input)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样，用<code>nil参数</code>（或可选类型的变量）调用函数将使用可选变量，而传递文字闭包表达式将调用非转义，非可选重载：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">transform(<span class="number">10</span>, with: <span class="literal">nil</span>) <span class="comment">// Using optional overload</span></span><br><span class="line">transform(<span class="number">10</span>) &#123; $<span class="number">0</span> * $<span class="number">0</span> &#125; <span class="comment">// Using non-optional overload</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="withoutActuallyEscaping"><a href="#withoutActuallyEscaping" class="headerlink" title="withoutActuallyEscaping"></a><strong><em>withoutActuallyEscaping</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会遇到这样的情况，你知道闭包无法逃脱，但编译器无法证明它，从而迫使你添加<code>@escaping</code>批注。 为了说明这一点，让我们看一下标准库文档中的示例。 我们在<code>Array</code>上编写了<code>allSatisfy方法</code>的自定义实现，该方法在内部使用数组的惰性视图（不要与上面讨论的惰性属性混淆）。 然后，我们将过滤器应用于惰性视图，并检查是否有任何元素通过过滤器（即，至少有一个元素不满足谓词）。 我们的第一次尝试导致编译错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">allSatisfy2</span><span class="params">(<span class="number">_</span> predicate: <span class="params">(Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="comment">// Error: Closure use of non-escaping parameter 'predicate' // may allow it to escape.</span></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.<span class="built_in">lazy</span>.<span class="built_in">filter</span>(&#123; !predicate($<span class="number">0</span>) &#125;).isEmpty</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在<code>“Collection协议”</code>一章中详细介绍<code>延迟CollectionAPI</code>。 到目前为止，只要知道惰性视图就可以将后续转换（例如传递给filter的闭包）存储在内部属性中，以便以后应用。 这要求传入的任何闭包都必须转义，这是导致错误的原因，因为我们的谓词参数是不转义的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过用<code>@escaping注释参数</code>来解决此问题，但是在这种情况下，我们知道闭包不会逃脱，因为惰性集合视图的生命周期与函数的生命周期绑定在一起。 <code>Swift</code>为这种情况提供了逃生舱口，其形式为<code>noActuallyEscaping</code>函数。 它允许你将非转义的闭包传递给期望转义的函数。 这样可以编译并正常工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">allSatisfy2</span><span class="params">(<span class="number">_</span> predicate: <span class="params">(Element)</span></span></span> -&gt; <span class="type">Bool</span>) -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> withoutActuallyEscaping(predicate) &#123; escapablePredicate <span class="keyword">in</span>  </span><br><span class="line">            <span class="keyword">self</span>.<span class="built_in">lazy</span>.<span class="built_in">filter</span> &#123; !escapablePredicate($<span class="number">0</span>) &#125;.isEmpty</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> areAllEven = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].allSatisfy2 &#123; $<span class="number">0</span> % <span class="number">2</span> == <span class="number">0</span> &#125; <span class="comment">// false </span></span><br><span class="line"><span class="keyword">let</span> areAllOneDigit = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>].allSatisfy2 &#123; $<span class="number">0</span> &lt; <span class="number">10</span> &#125; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，懒惰的实现并没有比<code>allSatisfy</code>的标准库的实现效率更高，后者使用简单的for循环，并且不需要<code>ActuallyEscaping</code>就不需要。 懒惰的实现仅用于演示以下情况：我们知道闭包不会逃逸，但编译器无法证明这一点。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，你使用的是不使用“实际转义”功能进入不安全区域。 允许闭包的副本从调用中转义到<code>withoutActuallyEscaping</code>会导致未定义的行为。</p>
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;函数是<code>Swift</code>中的一流对象。 将函数视为数据可以使我们的代码更灵活。 我们已经看到了如何用简单的函数代替运行时编程。 我们比较了实现委托的不同方法。 我们已经研究了变异函数和inout参数，以及计算属性（实际上是一种特殊的函数）。 最后，我们讨论了<code>@autoclosure</code>和<code>@escaping属性</code>。 在有关 <strong><em><code>泛型和协议</code></em></strong> 的章节中，我们将提出更多在Swift中使用函数的方式，以获得更大的灵活性。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/" title="Advanced Swift系列(四):  Functions">https://www.xuebaonline.com/Advanced Swift系列(四):  Functions/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Functions/" rel="tag"><i class="fa fa-tag"></i> Functions</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" rel="prev" title="Advanced Swift系列(三):  Optionals">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(三):  Optionals
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/" rel="next" title="Advanced Swift系列(五): Structs and Classes">
+      Advanced Swift系列(五): Structs and Classes <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#总览"><span class="nav-number">1.</span> <span class="nav-text">总览</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#可以将函数分配给变量，并可以将其他函数作为参数传入和传出"><span class="nav-number">1.1.</span> <span class="nav-text">可以将函数分配给变量，并可以将其他函数作为参数传入和传出</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数可以捕获存在于其局部范围之外的变量"><span class="nav-number">1.2.</span> <span class="nav-text">函数可以捕获存在于其局部范围之外的变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可以使用-语法为闭包表达式声明函数"><span class="nav-number">1.3.</span> <span class="nav-text">可以使用{}语法为闭包表达式声明函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Flexibility-through-Functions"><span class="nav-number">2.</span> <span class="nav-text">Flexibility through Functions</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions-as-Data"><span class="nav-number">3.</span> <span class="nav-text">Functions as Data</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Functions-as-Delegates"><span class="nav-number">4.</span> <span class="nav-text">Functions as Delegates</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Delegates-Cocoa-Style"><span class="nav-number">4.1.</span> <span class="nav-text">Delegates, Cocoa Style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用结构的Delegate"><span class="nav-number">4.2.</span> <span class="nav-text">使用结构的Delegate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用函数代替-Delegates"><span class="nav-number">4.3.</span> <span class="nav-text">用函数代替 Delegates</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#输入参数和突变方法"><span class="nav-number">4.4.</span> <span class="nav-text">输入参数和突变方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#嵌套函数和inout"><span class="nav-number">4.5.</span> <span class="nav-text">嵌套函数和inout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#When-amp-Doesn’t-Mean-inout"><span class="nav-number">4.6.</span> <span class="nav-text">When &amp; Doesn’t Mean inout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Properties"><span class="nav-number">4.7.</span> <span class="nav-text">Properties</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Change-Observers"><span class="nav-number">4.8.</span> <span class="nav-text">Change Observers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#惰性存储属性"><span class="nav-number">4.9.</span> <span class="nav-text">惰性存储属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#下标"><span class="nav-number">5.</span> <span class="nav-text">下标</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义下标"><span class="nav-number">5.1.</span> <span class="nav-text">自定义下标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级下标"><span class="nav-number">5.2.</span> <span class="nav-text">高级下标</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Key-Paths"><span class="nav-number">6.</span> <span class="nav-text">Key Paths</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#关键路径可以用函数建模"><span class="nav-number">6.1.</span> <span class="nav-text">关键路径可以用函数建模</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可写关键路径"><span class="nav-number">6.2.</span> <span class="nav-text">可写关键路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键路径层次结构"><span class="nav-number">6.3.</span> <span class="nav-text">关键路径层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与Objective-C相比的关键路径"><span class="nav-number">6.4.</span> <span class="nav-text">与Objective-C相比的关键路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#未来发展方向"><span class="nav-number">6.5.</span> <span class="nav-text">未来发展方向</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autoclosures"><span class="nav-number">7.</span> <span class="nav-text">Autoclosures</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#escaping-批注"><span class="nav-number">8.</span> <span class="nav-text">@escaping 批注</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#withoutActuallyEscaping"><span class="nav-number">8.1.</span> <span class="nav-text">withoutActuallyEscaping</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概括"><span class="nav-number">9.</span> <span class="nav-text">概括</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="揭秘 WordPress Hook 系统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="揭秘 WordPress Hook 系统">
+<meta property="og:url" content="https://www.xuebaonline.com/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="揭秘 WordPress Hook 系统">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-26T09:50:08.000Z">
+<meta property="article:modified_time" content="2020-05-01T02:48:50.560Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="UIKit">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="抽象">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="模块">
+<meta property="article:tag" content="WordPress">
+<meta property="article:tag" content="重构">
+<meta property="article:tag" content="Hook">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>揭秘 WordPress Hook 系统 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          揭秘 WordPress Hook 系统
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-26 17:50:08" itemprop="dateCreated datePublished" datetime="2020-04-26T17:50:08+08:00">2020-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">揭秘 WordPress Hook 系统</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你一直在使用 <code>WordPress</code> 开发网站（包括插件和主题开发），那么你可能已经听说过以下术语：<code>挂钩</code>，<code>操作</code>和<code>过滤器</code>。 这些是 <code>WordPress</code> 使用的 <a href="https://en.wikipedia.org/wiki/Event-driven_architecture" target="_blank" rel="noopener"><code>事件驱动架构模式(英文：Event-driven architecture)</code></a> 的一部分。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你是 <code>WordPress</code> 开发的新手还是发现难以理解基本概念？ 我不能推荐足够高的 <a href="https://www.sitepoint.com/author/scodrington/" target="_blank" rel="noopener"><code>Simon Codrington</code></a> 的 <code>WordPress</code> 插件开发简介教程。 他在解释 <code>动作</code> 和 <code>过滤器</code> 方面做得很出色。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我将揭开 <code>WordPress</code> 钩子系统的神秘面纱，不遗余力。 事不宜迟，让我们开始吧。</p>
+<a id="more"></a>
+
+</br>
+
+<h1 id="挂钩，动作，过滤器。-这些是什么？"><a href="#挂钩，动作，过滤器。-这些是什么？" class="headerlink" title="挂钩，动作，过滤器。 这些是什么？"></a><strong>挂钩，动作，过滤器。 这些是什么？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>“挂钩”</code>基本上是由 <code>WordPress</code> 核心，主题和插件在 <code>PHP</code> 执行或解释的各个阶段触发的事件。 当这些事件被触发时，挂钩或附加到它们的所有函数和/或类方法均以其正确顺序执行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>挂钩</code>有两种形式，<code>动作</code>和<code>过滤器</code>。 前者用于在流程执行的各个阶段添加和删除功能部件，而后者则用于修改各种功能部件和实现的行为。 如果你仍然不了解，请不要担心。 当我们开始在下面看到一些代码示例时，你将看到。</p>
+</br>
+
+<h1 id="WordPress中Hook系统的重要性"><a href="#WordPress中Hook系统的重要性" class="headerlink" title="WordPress中Hook系统的重要性"></a><strong>WordPress中Hook系统的重要性</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>钩子系统</code> 在 <code>WordPress</code> 中的重要性仅仅是可扩展性。 它使添加和删除功能以及调整/修改 <code>WordPress</code> 核心，插件和主题中功能的实现成为可能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你编写可扩展的插件和主题时，其他开发人员无需编辑核心源代码就可以改进和扩展它们。</p>
+</br>
+
+<h1 id="深入研究WordPress挂钩系统"><a href="#深入研究WordPress挂钩系统" class="headerlink" title="深入研究WordPress挂钩系统"></a><strong>深入研究WordPress挂钩系统</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>WordPress</code> 执行的各个阶段，通常会使用 <code>do_actions（）</code>和<code>a pply_filters（）</code> <code>PHP</code> 函数来触发大量事件。 这些事件可以通过 <code>add_action（）</code>和 <code>add_filter（）</code>进行订阅或挂接。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意使用“普通”一词。 还有其他触发事件的方法。 我们将在本教程的第二部分中对此进行探讨。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下是插件中操作的示例。 在我的 <code>ProfilePress</code> 用户注册插件中成功注册用户后，将触发此操作。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Fires after a user registration is completed.</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * @param int $form_id ID of the registration form.</span></span><br><span class="line"><span class="comment"> * @param mixed $user_data array of registered user info.</span></span><br><span class="line"><span class="comment"> * @param int $user_id ID of the registered user.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">do_action( 'pp_after_registration', $form_id, $user_data, $user_id );</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>WordPress</code> 执行期间，将处理与该操作关联的所有功能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过滤器挂钩的一个示例是 <code>WordPress</code> 核心中的 <code>the_content</code> ，它过滤每个帖子内容。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Filter the post content.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@since</span> 0.71</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> string $content Content of the current post.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   $content = apply_filters( <span class="string">'the_content'</span>, $content );</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="做个笔记"><a href="#做个笔记" class="headerlink" title="做个笔记"></a><strong>做个笔记</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>do_action（）</code>中，第一个参数是动作挂钩的名称，后续参数是可供挂钩到动作的函数使用的变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在<code>apply_filters（）</code>中，第一个参数是过滤器挂钩的名称，第二个参数是修改或应用连接到过滤器的函数的数据或值。 后面的参数是挂钩到过滤器的函数可用的变量/值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不用担心，当我们检查代码示例时，所有这些将更有意义。</p>
+<br>
+
+<h1 id="动作挂钩示例"><a href="#动作挂钩示例" class="headerlink" title="动作挂钩示例"></a><strong>动作挂钩示例</strong></h1><h2 id="实例1"><a href="#实例1" class="headerlink" title="实例1"></a><strong><em>实例1</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;试一下我的 <code>ProfilePress</code> 插件的 <code>pp_after_registration</code> 操作； 假设我们要实现一项功能，使用户在注册后会立即收到一条 <code>SMS</code>（通过称为 <code>Dolio</code> 的消息传递服务），欢迎他们访问你的网站。 我们的函数挂钩可以采用以下形式：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">add_action( <span class="string">'pp_after_registration'</span>, <span class="string">'send_users_welcome_sms'</span>, <span class="number">20</span>, <span class="number">3</span> );</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">send_users_welcome_sms</span><span class="params">( $form_id, $user_data, $user_id )</span> </span>&#123;</span><br><span class="line">    <span class="keyword">global</span> $service_locator;</span><br><span class="line"></span><br><span class="line">    $username    = $user_data[<span class="string">'username'</span>];</span><br><span class="line">    $firstName   = $user_data[<span class="string">'first_name'</span>];</span><br><span class="line">    $lastName    = $user_data[<span class="string">'last_name'</span>];</span><br><span class="line">    $phoneNumber = $user_data[<span class="string">'phone_number'</span>];</span><br><span class="line"></span><br><span class="line">    $text = <span class="string">&lt;&lt;&lt;SMS_CONTENT</span></span><br><span class="line"><span class="string">Hello <span class="subst">$firstName</span> <span class="subst">$lastName</span>, Welcome to SitePoint. "\r\n"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">User ID: <span class="subst">$user_id</span> "\r\n"</span></span><br><span class="line"><span class="string">Username: <span class="subst">$username</span> "\r\n"</span></span><br><span class="line"><span class="string">Password: The password you sign up with "\r\n"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">SMS_CONTENT;</span></span><br><span class="line"></span><br><span class="line">    $dolio = $service_locator-&gt;get( <span class="string">'dolio_sdk'</span> );</span><br><span class="line">    $dolio-&gt;phone_number( $phoneNumber );</span><br><span class="line">    $dolio-&gt;sms_content( $text );</span><br><span class="line">    $dolio-&gt;send();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面代码中 <code>add_action</code> 的第三个参数是挂钩优先级，该挂钩优先级指定了挂钩到 <code>pp_after_registration</code> 动作的函数的执行顺序。 将其保留为空将默认为10。而第四个参数指定函数挂钩将接受的参数数量。 如果为空，则默认为1。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我省略了第四个参数，因此默认为1，则<code>$ user_data</code>和<code>$ user_id</code>变量将为<code>null</code>，因为我们只告诉函数仅接受一个参数。</p>
+<h2 id="实例2"><a href="#实例2" class="headerlink" title="实例2"></a><strong><em>实例2</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>WordPress</code> 包含以下动作挂钩- <code>wp_head</code> 和 <code>wp_footer</code> ，它们分别在<code>head</code>标签和前端的<code>body</code>标签之前触发。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些挂钩可用于在那些关键位置显示脚本和数据。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看看一些代码示例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下代码使用 <code>wp_head</code> 将 <code>Google</code> 的站点验证元标记添加到 <code>WordPress</code> 前端的标头中。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">add_action( <span class="string">'wp_head'</span>, <span class="string">'google_site_verification'</span> );</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">google_site_verification</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;meta name="google-site-verification" content="ytl89rlFsAzH7dWLs_U2mdlivbrr_jgV4Gq7wClHDUJ8" /&gt;'</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有挂钩函数都将是匿名的，而不是命名函数，以避免不必要的函数名称重复。 例如，上面的 <code>Google</code> 网站验证元标记的代码将变为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_action( <span class="string">'wp_head'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;meta name="google-site-verification" content="ytl89rlFsAzH7dWLs_U2mdlivbrr_jgV4Gq7wClHDUJ8" /&gt;'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的代码使用 <code>wp_footer</code> 在 <code>WordPress</code> 前端的页脚区域中添加 <code>JavaScript</code> 。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">add_action( <span class="string">'wp_footer'</span>, <span class="function"><span class="keyword">function</span> <span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">echo</span> <span class="string">'&lt;script type="text/javascript" src="http://example.com/wp-content/plugins/site-specific-plugin/hello-bar.js"&gt;&lt;/script&gt;'</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>动作钩子代码示例足够多，让我们看看过滤器。</em></strong></p>
+</br>
+
+<h1 id="滤钩示例"><a href="#滤钩示例" class="headerlink" title="滤钩示例"></a><strong>滤钩示例</strong></h1><h2 id="示例1"><a href="#示例1" class="headerlink" title="示例1"></a><strong><em>示例1</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们正在开发一个广告插入器插件，该插件将以编程方式在每个帖子内容前后插入广告，因此我们需要 <code>the_content</code> 过滤器。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以下代码在每个帖子内容前后都包含“我们喜欢 <code>SitePoint</code> ”文字。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">add_filter( <span class="string">'the_content'</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="params">( $content )</span> </span>&#123;</span><br><span class="line">        $text = sprintf( <span class="string">'&lt;div class="notice alert"&gt;%s&lt;/div&gt;'</span>, __( <span class="string">'We love SitePoint'</span>, <span class="string">'sp'</span> ) );</span><br><span class="line">        $content = $text . $content . $text;</span><br><span class="line">        <span class="keyword">return</span> $content;</span><br><span class="line">    &#125;);</span><br></pre></td></tr></table></figure>
+
+<p><strong>代码说明</strong>：<code>$text</code> 变量的内容与&lt;div class =“ notice alert”&gt;我们喜欢SitePoint &lt;/ div&gt;一样，尽管它已经国际化，所以可以本地化。 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，函数参数 <code>$content</code> 是提供帖子内容的变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，我们在帖子内容前后添加自定义文本，将结果数据保存到 <code>$content</code> 中，然后返回。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意：所有滤镜挂钩函数都必须在操作或修改后返回变量参数。</p>
+<h2 id="示例2"><a href="#示例2" class="headerlink" title="示例2"></a><strong><em>示例2</em></strong></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将看到的另一个过滤器示例是 <code>the_title</code> 。 以下是 <code>wp-includes/post-template.php</code> 的158行中的定义方式。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Filter the post title.</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@since</span> 0.71</span></span><br><span class="line"><span class="comment">    *</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> string $title The post title.</span></span><br><span class="line"><span class="comment">    * <span class="doctag">@param</span> int    $id    The post ID.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">return</span> apply_filters( <span class="string">'the_title'</span>, $title, $id );</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的代码通过在其后面附加 <code>-WeLoveSitePoint</code> 来仅修改 ID 为 5978的帖子的标题。 这要归功于 <code>$id</code> 参数。</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">add_filter( <span class="string">'the_title'</span>, <span class="function"><span class="keyword">function</span> <span class="params">( $title, $id )</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ( $id == <span class="string">'5978'</span> ) &#123;</span><br><span class="line">            $title .= <span class="string">' - WeLoveSitePoint'</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> $title;</span><br><span class="line"></span><br><span class="line">    &#125;, <span class="number">10</span>, <span class="number">2</span> </span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a><strong>总结</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>WordPress</code> 之所以继续成为领先的内容管理系统的原因是其可扩展性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>WordPress Hook</code> 系统使 <code>WordPress</code> 可以转换为功能强大的 <code>Web</code> 应用程序，无论是 <code>WooCommerce</code> 的电子商务商店，<code>bbPress</code> 的论坛还是 <code>BuddyPress</code> 的社交网站。</p>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/%E6%8F%AD%E7%A7%98%20WordPress%20Hook%20%E7%B3%BB%E7%BB%9F/" title="揭秘 WordPress Hook 系统">https://www.xuebaonline.com/揭秘 WordPress Hook 系统/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+              <a href="/tags/UIKit/" rel="tag"><i class="fa fa-tag"></i> UIKit</a>
+              <a href="/tags/Modules-And-Hooks/" rel="tag"><i class="fa fa-tag"></i> Modules And Hooks</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%E4%B8%AD%E7%9A%84%E6%A8%A1%E5%9D%97%E5%92%8C%E6%8C%82%E9%92%A9/" rel="prev" title="Swift中的模块和挂钩">
+      <i class="fa fa-chevron-left"></i> Swift中的模块和挂钩
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E4%BD%9C%E4%B8%BASwift%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%EF%BC%8C%E5%A6%82%E4%BD%95%E6%8F%90%E4%BE%9B%E6%9B%B4%E5%A5%BD%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%9F/" rel="next" title="作为Swift开发人员，如何提供更好的用户体验？">
+      作为Swift开发人员，如何提供更好的用户体验？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#挂钩，动作，过滤器。-这些是什么？"><span class="nav-number">1.</span> <span class="nav-text">挂钩，动作，过滤器。 这些是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#WordPress中Hook系统的重要性"><span class="nav-number">2.</span> <span class="nav-text">WordPress中Hook系统的重要性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入研究WordPress挂钩系统"><span class="nav-number">3.</span> <span class="nav-text">深入研究WordPress挂钩系统</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#做个笔记"><span class="nav-number">4.</span> <span class="nav-text">做个笔记</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动作挂钩示例"><span class="nav-number">5.</span> <span class="nav-text">动作挂钩示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#实例1"><span class="nav-number">5.1.</span> <span class="nav-text">实例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例2"><span class="nav-number">5.2.</span> <span class="nav-text">实例2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#滤钩示例"><span class="nav-number">6.</span> <span class="nav-text">滤钩示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#示例1"><span class="nav-number">6.1.</span> <span class="nav-text">示例1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例2"><span class="nav-number">6.2.</span> <span class="nav-text">示例2</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

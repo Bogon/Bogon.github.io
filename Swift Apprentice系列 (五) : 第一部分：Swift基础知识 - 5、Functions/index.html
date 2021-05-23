@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-f-stp1.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-f-stp2.png">
+<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-f-stp3.png">
+<meta property="article:published_time" content="2020-05-12T08:48:17.000Z">
+<meta property="article:modified_time" content="2020-12-14T02:21:01.046Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Functions">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-f-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">126</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">53</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">152</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-12 16:48:17" itemprop="dateCreated datePublished" datetime="2020-05-12T16:48:17+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>函数是许多编程语言的核心部分。 简而言之，函数可以让你定义执行任务的代码块。 然后，只要你的应用需要执行该任务，就可以运行该函数，而不必在各处复制和粘贴相同的代码。</p>
+<p>在本章文中，你将学习如何编写自己的函数，并直接了解Swift如何使它们易于使用。</p>
+<h1 id="函数基础"><a href="#函数基础" class="headerlink" title="函数基础"></a><strong>函数基础</strong></h1><p>假设你有一个经常需要打印姓名的应用程序。 你可以编写一个函数来做到这一点：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMyName</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"My name is 123."</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码称为函数声明。 你可以使用func关键字定义一个函数。 之后是函数的名称，后跟括号。 你将在下一部分中详细了解这些括号的必要性。</p>
+<a id="more"></a>
+
+<p>括号后是一个大括号，接着是要在函数中运行的代码，然后是一个大括号。 定义函数后，可以像这样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">printMyName()</span><br></pre></td></tr></table></figure>
+
+<p>打印出以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">My</span> name <span class="keyword">is</span> <span class="number">123</span>.</span><br></pre></td></tr></table></figure>
+
+<p>如果你怀疑你已经在上一章中使用过某个功能，那是对的！ print确实是一项功能，它可以将你提供给控制台的文本打印出来。 这将很好地引导至下一部分，在该部分中，你将学习如何将数据传递给函数以及如何将数据取回。</p>
+<h2 id="函数参数"><a href="#函数参数" class="headerlink" title="函数参数"></a><strong><em>函数参数</em></strong></h2><p>在前面的示例中，该函数仅打印出一条消息。 很好，但是有时你需要对函数进行参数化，这使函数根据通过其参数传递给它的数据而执行不同的操作。</p>
+<p>例如，考虑以下功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOfFive</span><span class="params">(value: Int)</span></span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(value) * 5 = \(value * 5)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">printMultipleOfFive(value: <span class="number">10</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你可以在函数名称，名称为value和类型为Int的括号内看到一个参数的定义。 在任何函数中，括号都包含所谓的参数列表。 在声明和调用函数时都需要这些括号，即使参数列表为空。 此功能将打印出任何给定的5的倍数。 在该示例中，你使用参数10调用该函数，因此该函数将输出以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span> * <span class="number">5</span> = <span class="number">50</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：注意不要混淆术语“parameter”和“argument”。 函数在其parameters列表中声明其参数。 调用函数时，你将值作为函数arguments的参数提供。</p>
+</blockquote>
+<p>你可以更进一步，使功能更通用。 使用两个参数，该函数可以打印出任意两个值的倍数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(multiplier: Int, andValue: Int)</span></span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(multiplier) * \(andValue) = \(multiplier *</span></span><br><span class="line"><span class="string">andValue)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">printMultipleOf(multiplier: <span class="number">4</span>, andValue: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在，在函数名称后面的括号内有两个参数：一个名为乘数，另一个名为andValue，两者均为Int类型。</p>
+<p>请注意，调用函数时，需要将参数列表中的标签应用于自变量。 在上面的示例中，你需要将multiplier：放在乘数之前，将andValue：放在要相乘的值之前。</p>
+<p>在Swift中，你应该尝试使函数调用像句子一样读起来。 在上面的示例中，你将阅读以下代码的最后一行：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Print</span> multiple of multiplier <span class="number">4</span> and value <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以通过为参数指定其他外部名称来使其更加清晰。 例如，你可以更改andValue参数的名称：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(multiplier: Int, and value: Int)</span></span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(multiplier) * \(value) = \(multiplier * value)"</span>) </span><br><span class="line">&#125;</span><br><span class="line">printMultipleOf(multiplier: <span class="number">4</span>, and: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>你可以通过在参数名称前面写入外部名称来分配其他名称。 在此示例中，参数的内部名称现在为value，而函数调用中的外部名称（参数标签）现在为and。 你可以按以下方式阅读新通话：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Print</span> multiple of multiplier <span class="number">4</span> and <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>下图说明了函数声明中外部和内部名称的来源：</p>
+<p><img src="https://cdn.xuebaonline.com/sasb-f-stp1.png" alt="playground"></p>
+<p>其背后的想法是允许你以类似句子的方式使函数调用可读，但在函数本身内仍具有表达性名称。 你可能像这样编写了上面的函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(multiplier: Int, and: Int)</span></span></span><br></pre></td></tr></table></figure>
+
+<p>这在函数调用时具有很好的可读性，效果相同。 但是，现在函数内部的参数也称为and。 在长函数中，拥有这样一个通用名称的参数可能会造成混淆。</p>
+<p>如果你完全不需要外部名称，则可以使用下划线_，如前几章所述：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(<span class="number">_</span> multiplier: Int, and value: Int)</span></span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(multiplier) * \(value) = \(multiplier * value)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">printMultipleOf(<span class="number">4</span>, and: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这使其更具可读性。 现在，函数调用如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Print</span> multiple of <span class="number">4</span> and <span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<p>如果愿意，可以更进一步，并将_用作所有参数，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(<span class="number">_</span> multiplier: Int, <span class="number">_</span> value: Int)</span></span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(multiplier) * \(value) = \(multiplier * value)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">printMultipleOf(<span class="number">4</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，所有参数都没有外部名称。 但这说明了如何明智地使用下划线。 在这里，你的表达式仍然可以理解，但是在没有外部参数名称的情况下，带有许多参数的更复杂的函数可能会变得混乱和笨拙。 想象一下，如果一个函数有五个参数！</p>
+<p>你还可以为参数提供默认值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(<span class="number">_</span> multiplier: Int, <span class="number">_</span> value: Int = <span class="number">1</span>)</span></span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"\(multiplier) * \(value) = \(multiplier * value)"</span>)</span><br><span class="line">&#125;</span><br><span class="line">printMultipleOf(<span class="number">4</span>)</span><br></pre></td></tr></table></figure>
+
+<p>差异是第二个参数之后的= 1，这意味着如果第二个参数未提供任何值，则默认为1。</p>
+<p>因此，此代码显示以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">4</span>*<span class="number">1</span>=<span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>当你希望参数在大多数情况下都是一个特定值时，使用默认值会很有用，并且在调用函数时可以简化代码。</p>
+<h2 id="返回值"><a href="#返回值" class="headerlink" title="返回值"></a><strong><em>返回值</em></strong></h2><p>到目前为止，你已经看到的所有功能都执行了一个简单的任务：打印出一些东西。 函数也可以返回一个值。 函数的调用者可以将返回值分配给变量或常量，或直接在表达式中使用它。</p>
+<p>这意味着你可以使用函数来处理数据。 你只需通过参数输入数据，对其进行操作然后返回即可。</p>
+<p>定义返回值的函数的方法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiply</span><span class="params">(<span class="number">_</span> number: Int, by multiplier: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> number * multiplier</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> result = multiply(<span class="number">4</span>, by: <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>要声明一个函数返回一个值，你可以在括号组之后和左括号之前添加一个-&gt;，后跟返回值的类型。 在此示例中，该函数返回一个Int。</p>
+<p>在函数内部，你可以使用return语句返回值。 在此示例中，你将返回两个参数的乘积。</p>
+<p>也可以通过使用元组返回多个值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiplyAndDivide</span><span class="params">(<span class="number">_</span> number: Int, by factor: Int)</span></span> -&gt; (product: <span class="type">Int</span>, quotient: <span class="type">Int</span>) &#123;</span><br><span class="line">  <span class="keyword">return</span> (number * factor, number / factor)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> results = multiplyAndDivide(<span class="number">4</span>, by: <span class="number">2</span>) </span><br><span class="line"><span class="keyword">let</span> product = results.product</span><br><span class="line"><span class="keyword">let</span> quotient = results.quotient</span><br></pre></td></tr></table></figure>
+
+<p>此函数返回两个参数的乘积和商：它返回一个元组，其中包含两个带有适当成员值名称的Int值。<br>通过元组返回多个值的能力是使使用Swift成为一种乐趣的众多原因之一。 正如你很快就会看到的那样，它是一项非常有用的功能。</p>
+<p>实际上，你可以通过删除返回值来简化这两个函数，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiply</span><span class="params">(<span class="number">_</span> number: Int, by multiplier: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">  number * multiplier</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">multiplyAndDivide</span><span class="params">(<span class="number">_</span> number: Int, by factor: Int)</span></span> -&gt; (product: <span class="type">Int</span>, quotient: <span class="type">Int</span>) &#123;</span><br><span class="line">  (number * factor, number / factor)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以执行此操作，因为该函数是单个语句。 如果函数中包含更多行代码，则你将无法执行此操作。 此功能背后的想法是，在如此简单的功能中，它是如此明显，并且返回方式会影响可读性。</p>
+<p>对于更长的函数，你需要返回，因为你可能会使函数在许多不同的地方返回。</p>
+<h2 id="高级参数处理"><a href="#高级参数处理" class="headerlink" title="高级参数处理"></a><strong><em>高级参数处理</em></strong></h2><p>默认情况下，函数参数是常量，这意味着它们不能被修改。 为了说明这一点，请考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">incrementAndPrint</span><span class="params">(<span class="number">_</span> value: Int)</span></span> &#123; </span><br><span class="line">    value += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这会导致错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Left</span> side of <span class="keyword">mutating</span> <span class="keyword">operator</span> isn't mutable: 'value' <span class="keyword">is</span> a '<span class="keyword">let</span>'</span><br><span class="line">constant</span><br></pre></td></tr></table></figure>
+
+<p>参数值等效于用let声明的常量。 因此，当函数尝试对其进行递增时，编译器将发出错误。</p>
+<p>需要注意的重要一点是，<strong>Swift在将值传递给函数之前先将其复制，这种行为称为“按值传递”</strong>。</p>
+<blockquote>
+<p>注意：按值传递和复制是你到目前为止在本书中看到的所有类型的标准行为。 在第13章“类”中，你将看到将事物传递给函数的另一种方法。</p>
+</blockquote>
+<p>通常你想要这种行为。 理想情况下，函数不会更改其参数。 如果确实如此，那么你将无法确定参数的值，并且可能在代码中做出错误的假设，从而导致错误的数据。</p>
+<p>有时，你确实希望让函数直接更改参数，这种行为称为 <strong>“复制入复制出”</strong> 或 <strong>“按值调用结果”</strong>。 你可以这样做：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">incrementAndPrint</span><span class="params">(<span class="number">_</span> value: <span class="keyword">inout</span> Int)</span></span> &#123; </span><br><span class="line">    value += <span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(value)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在参数类型指示该参数应复制到该函数中使用的本地副本之前，先输入inout，然后在该函数返回时将其复制回。</p>
+<p>你需要对函数调用进行一些微调以完成此示例。 在参数前添加与号（＆），以便在函数调用处清楚你正在使用复制输入复制输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> value = <span class="number">5</span></span><br><span class="line">incrementAndPrint(&amp;value)</span><br><span class="line"><span class="built_in">print</span>(value)</span><br></pre></td></tr></table></figure>
+
+<p>现在，该函数可以根据需要更改值。 本示例将打印以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span> </span><br><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>函数递增值，函数完成后将保留其修改后的数据</strong>。 值进入函数并再次返回，因此关键字为<strong>inout</strong>。</p>
+<p>在某些情况下，<strong>编译器可以将输入复制输出复制简化为所谓的“按引用传递”</strong>。 参数值未复制到参数中。 相反，该参数将保留对原始值存储器的引用。 此优化可满足复制入复制的所有要求，同时消除了对复制的需求。</p>
+<h1 id="重载"><a href="#重载" class="headerlink" title="重载"></a><strong>重载</strong></h1><p>你是否注意到在前面的示例中，如何对多个不同的功能使用相同的功能名称？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(multiplier: Int, andValue: Int)</span></span> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(multiplier: Int, and value: Int)</span></span> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(<span class="number">_</span> multiplier: Int, and value: Int)</span></span> </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printMultipleOf</span><span class="params">(<span class="number">_</span> multiplier: Int, <span class="number">_</span> value: Int)</span></span></span><br></pre></td></tr></table></figure>
+
+<p><strong>这称为重载，可让你使用单个名称定义相似的函数</strong>。</p>
+<p>但是，编译器仍必须能够分辨出这些函数之间的区别。 每当你调用一个函数时，都应该始终清楚要调用哪个函数。 这通常是<strong>通过参数列表中的差异来实现</strong>的：</p>
+<ul>
+<li>不同数量的参数。</li>
+<li>不同的参数类型。</li>
+<li>不同的外部参数名称，例如printMultipleOf的情况。 </li>
+</ul>
+<p>你还可以根据其他返回类型重载函数名称，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getValue</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="number">31</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">getValue</span><span class="params">()</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">  <span class="string">"Matt Galloway"</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">在这里，有两个称为`getValue()` 的函数，它们返回不同的类型。 一个为<span class="type">Int</span>，另一个为<span class="type">String</span>。</span><br><span class="line"></span><br><span class="line">使用这些要复杂一些。 考虑以下：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="keyword">let</span> value = getValue()</span><br></pre></td></tr></table></figure>
+
+<p>Swift如何知道要调用哪个<code>getValue()</code>？ 答案是，不是。 而且它将打印以下错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: ambiguous use of 'getValue()'</span><br></pre></td></tr></table></figure>
+
+<p>无法知道该调用谁。 这是鸡和蛋的情况。 目前尚不清楚什么是类型值，因此Swift不知道要调用哪个getValue()或getValue()的返回类型。</p>
+<p>为了解决这个问题，你可以声明你想要的值是什么类型，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> valueInt: <span class="type">Int</span> = getValue()</span><br><span class="line"><span class="keyword">let</span> valueString: <span class="type">String</span> = getValue()</span><br></pre></td></tr></table></figure>
+
+<p>这将在第一个实例中正确调用getValue()的Int版本，在第二个实例中正确调用getValue()的String版本。</p>
+<p>值得注意的是，应谨慎使用重载。 仅将重载用于行为相关且相似的函数。</p>
+<p>如上例所示，当仅返回类型被重载时，你松开类型推断，因此不建议这样做。</p>
+<h1 id="函数用作变量"><a href="#函数用作变量" class="headerlink" title="函数用作变量"></a><strong>函数用作变量</strong></h1><p>这可能令人惊讶，但是Swift中的函数仅仅是另一种数据类型。 你可以将它们分配给变量和常量，就像可以使用任何其他类型的值（例如Int或String）一样。</p>
+<p>要查看其工作原理，请考虑以下功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">add</span><span class="params">(<span class="number">_</span> a: Int, <span class="number">_</span> b: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    a+b </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此函数采用两个参数并返回其值的总和。 你可以将此函数分配给变量，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> function = add</span><br></pre></td></tr></table></figure>
+
+<p>此处，变量的名称为function，其类型推断为(Int, Int) -&gt;<br>Int 你分配给它的add函数的Int值。</p>
+<p>注意函数类型<code>（Int，Int）-&gt; Int</code>的编写方式与你在函数声明中编写参数列表并返回类型。</p>
+<p>在此，函数变量是具有两个Int参数并返回Int的函数类型。</p>
+<p>现在，你可以像使用add一样使用function变量，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">function(<span class="number">4</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>返回6。</p>
+<p>现在考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">subtract</span><span class="params">(<span class="number">_</span> a: Int, <span class="number">_</span> b: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    a-b </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你声明另一个接受两个Int参数并返回Int的函数。 你可以将函数变量从before设置为新的减法函数，因为参数列表和减法的返回类型与函数变量的类型兼容。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">function = subtract</span><br><span class="line">function(<span class="number">4</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这次，对函数的调用返回2。</p>
+<p>可以将函数分配给变量的事实很方便，因为这意味着你可以将功能传递给其他功能。 这是一个实际的例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">printResult</span><span class="params">(<span class="number">_</span> function: <span class="params">(Int, Int)</span></span></span> -&gt; <span class="type">Int</span>, <span class="number">_</span> a: <span class="type">Int</span>, <span class="number">_</span> b: <span class="type">Int</span>) &#123;</span><br><span class="line">  <span class="keyword">let</span> result = function(a, b)</span><br><span class="line">  <span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br><span class="line">printResult(add, <span class="number">4</span>, <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>printResult具有三个参数：</p>
+<ul>
+<li><ol>
+<li>function是具有两个Int参数并返回一个Int的函数类型，这样声明：（Int，Int）-&gt; Int。</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>a是Int类型的。</li>
+</ol>
+</li>
+<li><ol start="3">
+<li>b是Int类型。</li>
+</ol>
+</li>
+</ul>
+<p>printResult调用传入的函数，并向其中传递两个Int参数。 然后将结果打印到控制台：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">6</span></span><br></pre></td></tr></table></figure>
+
+<p>能够将功能传递给其他功能非常有用，并且可以帮助你编写可重用的代码。 你不仅可以传递数据进行操作，还可以将函数作为参数传递，这也意味着你可以灵活地执行代码。</p>
+<h2 id="无返回值"><a href="#无返回值" class="headerlink" title="无返回值"></a><strong><em>无返回值</em></strong></h2><p>某些功能永远不会将控制权返回给调用者。例如，考虑一个旨在使应用程序崩溃的函数。也许这听起来很奇怪，所以让我解释一下：如果应用程序将要使用损坏的数据，通常最好崩溃而不是继续进入未知的潜在危险状态。函数fatalError（“终止原因”）是此类函数的示例。它会打印出致命错误的原因，然后停止执行以防止进一步损坏。</p>
+<p>不可返回函数的另一个示例是处理事件循环的函数。事件循环是每个现代应用程序的核心，它们从用户那里获取输入并在屏幕上显示事物。事件循环服务来自用户的请求，然后将这些事件传递给应用程序代码，这又导致信息显示在屏幕上。然后，循环循环返回并为下一个事件服务。</p>
+<p>这些事件循环通常是通过调用一个永不返回的函数在应用程序中启动的。对iOS或macOS应用进行编码后，遇到<code>UIApplicationMain</code>或<code>NSApplicationMain</code>时，请回头考虑本段。</p>
+<p>Swift会向编译器抱怨一个函数永远不会返回，就像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">noReturn</span><span class="params">()</span></span> -&gt; <span class="type">Never</span> &#123; </span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>请注意特殊的返回类型从不，表示该函数将永不返回。</p>
+<p>如果你编写此代码，则会出现以下错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">返回类型为'<span class="type">Never'</span>的无人居住的函数在所有路径上都缺少对另一个永不返回函数的调用</span><br></pre></td></tr></table></figure>
+
+<p>这是一个漫长的说法，即该函数在返回自身之前不会调用另一个“不返回”函数。 当到达末尾时，该函数返回到调用它的位置，这违反了Never返回类型的约定。</p>
+<p>无法返回的粗略但诚实的函数实现如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">infiniteLoop</span><span class="params">()</span></span> -&gt; <span class="type">Never</span> &#123; </span><br><span class="line">    <span class="keyword">while</span> <span class="literal">true</span> &#123;</span><br><span class="line">    </span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可能想知道为什么要打扰这种特殊的返回类型。 之所以有用，是因为编译器知道该函数永远不会返回，因此可以在生成调用该函数的代码时进行某些优化。 从本质上讲，调用该函数的代码无需在该函数调用后进行任何操作，因为它知道该函数永远不会在应用程序终止之前终止。</p>
+<h2 id="编写好的函数"><a href="#编写好的函数" class="headerlink" title="编写好的函数"></a><strong><em>编写好的函数</em></strong></h2><p>函数使你可以解决许多问题。 最好做一个简单的任务，使它们更容易混合，匹配和建模为更复杂的行为。</p>
+<p>使功能易于使用和理解！ 给它们定义明确的输入，每次产生相同的输出。 你会发现，独立进行良好，干净，简单的功能的推理和测试更加容易。</p>
+<h1 id="给函数添加注释"><a href="#给函数添加注释" class="headerlink" title="给函数添加注释"></a><strong>给函数添加注释</strong></h1><p>所有优秀的软件开发人员都记录其代码。 ：]</p>
+<p>对函数进行文档记录是确保以后再返回代码或与他人共享时可以理解的重要步骤，而无需仔细阅读代码。</p>
+<p>幸运的是，Swift提供了一种非常简单的方法来记录功能，这些功能与Xcode的代码完成和其他功能很好地集成在一起。</p>
+<p>它使用Swift之外许多其他语言使用的事实上的Doxygen注释标准。 让我们看一下如何记录函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Calculates the average of three values</span></span><br><span class="line"><span class="comment">/// - Parameters:</span></span><br><span class="line"><span class="comment">/// - a: The first value.</span></span><br><span class="line"><span class="comment">/// - b: The second value.</span></span><br><span class="line"><span class="comment">/// - c: The third value.</span></span><br><span class="line"><span class="comment">/// - Returns: The average of the three values.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">calculateAverage</span><span class="params">(of a: Double, and b: Double, and <span class="built_in">c</span>: Double)</span></span> -&gt; <span class="type">Double</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> total = a + b + <span class="built_in">c</span></span><br><span class="line">  <span class="keyword">let</span> average = total / <span class="number">3</span></span><br><span class="line">  <span class="keyword">return</span> average</span><br><span class="line">&#125;</span><br><span class="line">calculateAverage(of: <span class="number">1</span>, and: <span class="number">3</span>, and: <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+
+<p>你可以使用Triple- /代替通常的double //。 然后第一行是函数功能的描述。 接下来是参数列表，最后是返回值的描述。</p>
+<p>如果你忘记了文档注释的格式，只需突出显示该功能，然后在Xcode中按“ Option-Command- /”即可。 Xcode编辑器将为你插入一个注释模板，然后你可以填写。</p>
+<p>创建此类代码文档时，你会发现注释将Xcode中的字体从通常的等宽字体更改为。 整洁吧？ 是的，但是还有更多。</p>
+<p>首先，代码完成时会显示你的文档，如下所示：</p>
+<p><img src="https://cdn.xuebaonline.com/sasb-f-stp2.png" alt="playground"></p>
+<p>另外，你还可以按住Option键并单击函数名，然后在方便的弹出框中显示你的文档，如下所示：</p>
+<p><img src="https://cdn.xuebaonline.com/sasb-f-stp3.png" alt="playground"></p>
+<p>这两个都是非常有用的，你应该考虑记录所有功能，尤其是那些经常使用或复杂的功能。 将来，你稍后会感谢你。 ：]</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li>你可以使用一个函数来定义一个任务，该任务可以执行多次，而无需多次编写代码。</li>
+<li>函数可以采用零个或多个参数，并可以选择返回一个值。</li>
+<li>你可以在函数参数中添加外部名称以更改你使用的标签在函数调用中，也可以使用下划线表示无标签。</li>
+<li>参数作为常量传递，除非你将其标记为inout，在这种情况下，它们将被复制和复制。</li>
+<li>函数可以使用不同的参数使用相同的名称。 这称为超载。</li>
+<li>函数可以具有特殊的从不返回类型，以通知Swift该函数将永不退出。</li>
+<li>你可以将函数分配给变量，然后将其传递给其他函数。</li>
+<li>努力创建功能明确的名称，并具有可重复输入和输出的一项工作。</li>
+<li>可以通过使用///在函数前面加上注释部分来创建函数文档。</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%205%E3%80%81Functions/" title="Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions">https://www.xuebaonline.com/Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Functions/" rel="tag"><i class="fa fa-tag"></i> Functions</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%204%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="prev" title="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%206%E3%80%81Optionals/" rel="next" title="Swift Apprentice系列 (六) : 第一部分：Swift基础知识 - 6、Optionals">
+      Swift Apprentice系列 (六) : 第一部分：Swift基础知识 - 6、Optionals <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#函数基础"><span class="nav-number">1.</span> <span class="nav-text">函数基础</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#函数参数"><span class="nav-number">1.1.</span> <span class="nav-text">函数参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#返回值"><span class="nav-number">1.2.</span> <span class="nav-text">返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级参数处理"><span class="nav-number">1.3.</span> <span class="nav-text">高级参数处理</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#重载"><span class="nav-number">2.</span> <span class="nav-text">重载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数用作变量"><span class="nav-number">3.</span> <span class="nav-text">函数用作变量</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无返回值"><span class="nav-number">3.1.</span> <span class="nav-text">无返回值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写好的函数"><span class="nav-number">3.2.</span> <span class="nav-text">编写好的函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#给函数添加注释"><span class="nav-number">4.</span> <span class="nav-text">给函数添加注释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">5.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="https://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">152</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">53</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">126</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.3</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.3m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20:05</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
