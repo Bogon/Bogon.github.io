@@ -1,3 +1,4 @@
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <!-- side ad -->
 <ins class="adsbygoogle"
      style="display:block"
