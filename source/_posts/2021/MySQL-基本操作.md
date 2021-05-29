@@ -19,7 +19,7 @@ categories:
 
 数据库是存放数据的仓库
 
- ![1536628113363](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628113363.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628113363.png)
 
 <!--more-->
 
@@ -37,7 +37,7 @@ categories:
 
 #### **1.3.2.1 层次模型**
 
- ![1536628336467](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628336467.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628336467.png)
 
  缺点：
 
@@ -49,7 +49,7 @@ categories:
 
 网状模型解决了层次数据的数据不完整的问题，但是没有解决层次模型的导航问题。
 
- ![1536628485678](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628485678.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628485678.png)
 
 ### 1.3.3 第二代数据库：关系型数据库
 
@@ -59,7 +59,7 @@ categories:
 
 2. 表与表之间通过公共字段来建立关系
 
-![1536628687644](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628687644.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628687644.png)
 
 
 优点：解决了导航问题，并且数据完整性得到解决
@@ -76,51 +76,49 @@ categories:
 
 ### 1.4.1 获取安装文件
 
- ![1536629260375](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629260375.png) 
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629260375.png) 
 
 ### 1.4.2 双击安装
 
- ![1536629329271](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629329271.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629329271.png)
 
- ![1536629355783](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629355783.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629355783.png)
 
- ![1536629428241](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629428241.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629428241.png)
 
- ![1536629613825](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629613825.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629613825.png)
 
-![1536629634342](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629634342.png)
-![1536629705861](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629705861.png)
-![1536629719332](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629719332.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629634342.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629705861.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629719332.png)
 
- ![1536629774124](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629774124.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629774124.png)
 
- ![1536629790901](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629790901.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629790901.png)
 
- ![1536629803448](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629803448.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629803448.png)
 
- ![1536629813638](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629813638.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629813638.png)
 
- ![1536629824430](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629824430.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629824430.png)
 
- ![1536629839409](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629839409.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629839409.png)
 
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629900552.png)
 
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629997349.png)
 
- ![1536629900552](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629900552.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630150575.png)
 
- ![1536629997349](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629997349.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630241363.png)
 
- ![1536630150575](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630150575.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630387833.png)
 
- ![1536630150575](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630241363.png)
-
- ![1536630241363](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630387833.png)
-
- ![1536630440697](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630440697.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630440697.png)
 
 ### 1.4.3 MySQL目录
 
- ![1536630746684](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630746684.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630746684.png)
 
  
 
@@ -130,7 +128,7 @@ categories:
 
 控制面板项——管理工具——服务，选择相应服务，右键执行操作。
 
- ![1536631118948](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631118948.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631118948.png)
 
 ### 1.5.2 方法二：通过命令行启动\关闭
 
@@ -138,7 +136,7 @@ net start 服务名：		启动MySQL服务
 
 net stop 服务器：		      关闭MySQL服务
 
- ![1536631301616](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631301616.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631301616.png)
 
 ```
  注意：必须通过管理员身份启动命令行
@@ -177,17 +175,17 @@ password：密码		-p
 port：端口			-P
 ```
 
-![1536633424017](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633424017.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633424017.png)
 
 ***
 
- ![1536633591923](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633591923.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633591923.png)
 
 ```
 多学一招：如果MySQL服务器在本地，IP地址可以省略；如果MySQL服务器用的是3306端口，-P也是可以省略
 ```
 
- ![1536633758241](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633758241.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633758241.png)
 
  
 
@@ -388,16 +386,6 @@ Database changed
 ```mysql
 show tables
 ```
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -995,11 +983,11 @@ DCL（Data Control Language）数据库控制语言,是用来设置或更改数�
 
 引擎是myisam，一个表对应三个文件
 
- ![1536654269605](images/1536654269605.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654269605.png)
 
 引擎是innodb,一个表对应一个表结构文件
 
- ![1536654519700](images/1536654519700.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654519700.png)
 
 所有的innodb引擎的数据统一的存放在data\ibdata1文件中。如果数据量很大，MySQL会自动的创建ibdata2，ibdata3，…，目的就是为了便于管理。
 
@@ -1021,7 +1009,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 插入中文报错
 
-![1536656529642](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656529642.png)
+![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656529642.png)
 
 ***
 
@@ -1029,33 +1017,33 @@ Query OK, 0 rows affected (0.00 sec)
 
 客户端通过GBK发送的命令
 
- ![1536656722512](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656722512.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656722512.png)
 
 但是，服务用utf8解释命令
 
- ![1536656805867](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656805867.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656805867.png)
 
 设置服务器，用gbk字符编码接受客户端发来的命令
 
- ![1536656911674](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656911674.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656911674.png)
 
 测试：插入中文，成功
 
- ![1536656946064](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656946064.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656946064.png)
 
 查询数据，发现数据乱码
 
- ![1536657018441](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657018441.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657018441.png)
 
 原因：以utf返回的结果，客户端用gbk来接受
 
 解决：服务器用gbk返回数据
 
- ![1536657091653](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657091653.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657091653.png)
 
 再次测试，查询数据
 
-  ![1536657126082](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657126082.png)
+  ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657126082.png)
 
 
 
@@ -1063,5 +1051,5 @@ Query OK, 0 rows affected (0.00 sec)
 
 多学一招：我们只要设置“set names 字符编码”，就可以更改character_set_client、character_set_results的值。
 
- ![1536657249850](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657249850.png)
+ ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657249850.png)
  
