@@ -8,11 +8,9 @@ keywords: linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性,数据�
 tags:
     - [MySQL]
     - [数据库]
-    - [GO]
 categories:
     - [MySQL]
     - [数据库]
-	- [GO]
 ---
 
 ## 1.1  今日目标
