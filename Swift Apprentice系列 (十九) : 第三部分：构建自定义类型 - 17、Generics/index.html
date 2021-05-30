@@ -32,11 +32,11 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 - 17、Generics">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-Generics-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-Generics-stp2.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-Generics-stp3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-Generics-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-Generics-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-Generics-stp3.png">
 <meta property="article:published_time" content="2020-05-28T10:14:55.000Z">
-<meta property="article:modified_time" content="2020-05-28T10:46:03.095Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:16.893Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -63,7 +63,7 @@
 <meta property="article:tag" content="Protocols">
 <meta property="article:tag" content="Generics">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-Generics-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-Generics-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B9%9D)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2017%E3%80%81Generics/">
 
@@ -373,7 +373,7 @@
 <p>在这种情况下，除了你总是不断地更新一种类型以反映另一种类型的努力之外，没有其他方法可以强制这种关系。 如果你添加了PetKind.snake但忘记添加EnumKeeperKind.snakeKeeper，那么事情将一发不可收拾。</p>
 <p>但是，使用KeeperKind，你可以通过PetKind类型的属性显式建立关系。 每个可能的PetKind值都暗示一个对应的KeeperKind值。 或者，你可以说，可能的PetKind值集定义了可能的KeeperKind值集。</p>
 <p>总而言之，你可以这样描述关系：</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-Generics-stp1.png" alt="建立关系示例"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-Generics-stp1.png" alt="建立关系示例"></p>
 <h2 id="其他类型定义的类型"><a href="#其他类型定义的类型" class="headerlink" title="其他类型定义的类型"></a>其他类型定义的类型</h2><p>上面的模型从根本上通过改变类型的值来工作。 现在，考虑通过另一种方式对宠物到饲养员系统进行建模。</p>
 <p>假设你没有定义代表各种宠物的单一类型PetKind，而是选择为出售的每种宠物定义不同的类型。</p>
 <p>如果你采用的是面向对象的风格，那就是一个合理的选择，在这种风格中，你可以为每种宠物使用不同的方法来模拟宠物的行为。 然后，你将具有以下优势：</p>
@@ -385,14 +385,14 @@
 <p>但这不好。 这种方法与手动定义KeeperKind值的并行枚举具有完全相同的问题-它依赖于你为每种宠物强制实施一种饲养员的必需域关系。</p>
 <p>你真正想要的是一种声明关系的方法，就像你为值建立的关系一样。</p>
 <p>你想声明每种可能的宠物类型都暗示着相应的饲养员类型的存在，你要描述的对应关系如下：</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-Generics-stp2.png" alt="建立关系示例"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-Generics-stp2.png" alt="建立关系示例"></p>
 <p>你想确定每种可能的宠物类型都定义了一个相应的饲养员类型。 但是你不想手动执行此操作。 你想要一种为所有管家自动定义一组新类型的方法。</p>
 <p>事实证明，这正是泛型的用途！</p>
 <h1 id="泛型类型剖析"><a href="#泛型类型剖析" class="headerlink" title="泛型类型剖析"></a>泛型类型剖析</h1><p><strong>泛型提供了一种使用一组类型定义一组新类型的机制</strong>。 在你的示例中，你可以为管家定义通用类型，如下所示：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Keeper</span>&lt;<span class="title">Animal</span>&gt; </span>&#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <p>根据需要，此定义立即定义所有相应的keeper类型：</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-Generics-stp3.png" alt="建立关系示例"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-Generics-stp3.png" alt="建立关系示例"></p>
 <p>你可以通过创建它们的值并在初始化程序中指定整个类型来验证这些类型是真实的：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> aCatKeeper = <span class="type">Keeper</span>&lt;<span class="type">Cat</span>&gt;()</span><br></pre></td></tr></table></figure>
 

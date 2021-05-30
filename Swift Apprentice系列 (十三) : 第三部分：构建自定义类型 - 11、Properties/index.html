@@ -32,10 +32,10 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 - 11、Properties">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-p-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-p-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-p-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-p-stp2.png">
 <meta property="article:published_time" content="2020-05-13T05:26:55.000Z">
-<meta property="article:modified_time" content="2020-06-29T02:47:25.853Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:09.758Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -58,7 +58,7 @@
 <meta property="article:tag" content="结构体">
 <meta property="article:tag" content="Properties">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-p-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-p-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2011%E3%80%81Properties/">
 
@@ -358,7 +358,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Contact</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> fullName: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> emailAddress: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>你可以一遍又一遍地使用此结构，让你构建联系人数组，每个联系人都有不同的值。 你要存储的属性是个人的全名和电子邮件地址。</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-p-stp1.png" alt="playground"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-p-stp1.png" alt="playground"></p>
 <p>这些是Contact结构的属性。 你为每种数据类型都提供一种数据类型，但是由于计划在初始化时分配值，因此选择不分配默认值。 毕竟，每个Contact实例的值都将不同。</p>
 <p>请记住，Swift会根据你在结构中定义的属性为你自动创建一个初始化程序：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = <span class="type">Contact</span>(fullName: <span class="string">"Grace Murray"</span>, emailAddress: <span class="string">"grace@navy.mil"</span>)</span><br></pre></td></tr></table></figure>
@@ -385,7 +385,7 @@
 <h1 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a><strong>计算属性</strong></h1><p>存储的属性当然是最常见的，但是也有一些要计算的属性，这仅表示它们在返回值之前执行计算。</p>
 <p><strong>虽然存储的属性可以是常量或变量</strong>，但必须将计算的属性定义为变量。</p>
 <p>计算属性还必须包括类型，因为编译器需要知道作为返回值的期望值。</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-p-stp2.png" alt="playground"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-p-stp2.png" alt="playground"></p>
 <p>电视的测量值是计算属性的理想用例。 电视屏幕尺寸的行业定义不是屏幕的高度或宽度，而是对角线尺寸：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">TV</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> height: <span class="type">Double</span></span><br><span class="line">  <span class="keyword">var</span> width: <span class="type">Double</span></span><br><span class="line">  <span class="comment">// 1</span></span><br><span class="line">  <span class="keyword">var</span> diagonal: <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="keyword">let</span> result = (height * height + width * width).squareRoot().rounded()</span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">Int</span>(result)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">让我们一次一步地通过这段代码：</span><br><span class="line"></span><br><span class="line">+ <span class="number">1</span>.你将<span class="type">Int</span>类型用于对角线属性。尽管高度和宽度均为<span class="type">Double</span>，但电视尺寸通常会标榜为不错的整数，例如<span class="number">50</span>英寸而不是<span class="number">49.52</span>英寸。你可以使用大括号将计算所得属性的计算括起来，而不是像通常为存储的属性分配值那样分配赋值运算符=。</span><br><span class="line"></span><br><span class="line">+ <span class="number">2</span>.正如你在本书前面所看到的，几何图形可以派上用场；一旦有了宽度和高度，就可以使用勾股定理来计算对角线的长度。你可以使用四舍五入的方法使用标准规则对值进行四舍五入：如果十进制为<span class="number">0.5</span>或更大，则将其四舍五入；否则，将四舍五入。否则，它会四舍五入。</span><br><span class="line"></span><br><span class="line">+ <span class="number">3</span>.现在你已经获得了适当的四舍五入数字，你可以将其作为整数返回。如果不先四舍五入就将结果直接转换为<span class="type">Int</span>，结果将被截断，因此<span class="number">109.99</span>将变成<span class="number">109</span>。</span><br><span class="line"></span><br><span class="line">计算属性不存储任何值；它们根据计算返回值。从结构外部，可以像存储属性一样访问计算属性。</span><br><span class="line">使用电视尺寸计算进行测试：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"> <span class="keyword">var</span> tv = <span class="type">TV</span>(height: <span class="number">53.93</span>, width: <span class="number">95.87</span>) <span class="keyword">let</span> size = tv.diagonal <span class="comment">// 110</span></span><br></pre></td></tr></table></figure>
 

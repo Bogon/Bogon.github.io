@@ -32,10 +32,10 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-protocol-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-protocol-stp2.png">
 <meta property="article:published_time" content="2020-05-28T09:24:44.000Z">
-<meta property="article:modified_time" content="2020-05-28T10:10:49.504Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:21.992Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -61,7 +61,7 @@
 <meta property="article:tag" content="Enumerations">
 <meta property="article:tag" content="Protocols">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/sasb-protocol-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-protocol-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/">
 
@@ -357,7 +357,7 @@
 
 <p>关键字协议后跟协议名称，后跟带有协议成员的花括号。 你会发现最大的区别是该协议不包含任何实现。</p>
 <p>这意味着你无法直接实例化Vehicle：</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-protocol-stp1.png" alt="协议实例化失败示例"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-protocol-stp1.png" alt="协议实例化失败示例"></p>
 <p>而是<strong>使用协议在其他类型上强制使用方法和属性</strong>。 你在此处定义的概念类似于车辆的概念-它可以加速和停止。</p>
 <h1 id="协议语法"><a href="#协议语法" class="headerlink" title="协议语法"></a>协议语法</h1><p><strong>协议可以由类，结构或枚举采用-当另一种类型采用协议时，则必须实现该协议中定义的方法和属性。 一旦类型实现了协议的所有成员，就说该类型符合该协议</strong>。</p>
 <p>声明你的类型符合协议的方式。 在操场上，定义一个符合Vehicle的新类：</p>
@@ -366,7 +366,7 @@
 <p>你在命名类型的名称后加上冒号，并遵循要遵循的协议名称。 该语法可能看起来很熟悉，因为它与使一个类继承自另一个类所使用的语法相同。 在此示例中，Unicycle符合Vehicle协议。</p>
 <p>请注意，它看起来像类继承，但不是。 结构和枚举也可以使用此语法符合协议。</p>
 <p>如果你要从上面的Unicycle类中删除stop（）的定义，由于Unicycle尚未完全符合Vehicle协议，Swift将显示错误。</p>
-<p><img src="https://cdn.xuebaonline.com/sasb-protocol-stp2.png" alt="协议"></p>
+<p><img src="http://cdn.xuebaonline.com/sasb-protocol-stp2.png" alt="协议"></p>
 <p>稍后，我们将详细介绍实现协议的细节，但是首先，你将了解定义协议时可以实现的目标。</p>
 <h1 id="协议中的方法"><a href="#协议中的方法" class="headerlink" title="协议中的方法"></a>协议中的方法</h1><p>在上面的Vehicle协议中，你定义了一对方法，accelate（）和stop（），所有与Vehicle相符的类型都必须实现。</p>
 <p>你可以在协议上定义方法，就像在带参数和返回值的任何类，结构或枚举上定义方法一样：</p>

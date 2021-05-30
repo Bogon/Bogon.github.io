@@ -32,10 +32,10 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift 5使用UIImagePickerController拾取图像">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/uc-stp1.jpg">
-<meta property="og:image" content="https://cdn.xuebaonline.com/uc-stp2-1.jpg">
+<meta property="og:image" content="http://cdn.xuebaonline.com/uc-stp1.jpg">
+<meta property="og:image" content="http://cdn.xuebaonline.com/uc-stp2-1.jpg">
 <meta property="article:published_time" content="2020-04-28T07:22:56.000Z">
-<meta property="article:modified_time" content="2020-06-29T02:47:25.871Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:54.776Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -43,7 +43,7 @@
 <meta property="article:tag" content="用户体验">
 <meta property="article:tag" content="拾取图像">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/uc-stp1.jpg">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/uc-stp1.jpg">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%205%E4%BD%BF%E7%94%A8UIImagePickerController%E6%8B%BE%E5%8F%96%E5%9B%BE%E5%83%8F/">
 
@@ -353,7 +353,7 @@
 </br>
 
 <h1 id="获取隐私权限"><a href="#获取隐私权限" class="headerlink" title="获取隐私权限"></a><strong>获取隐私权限</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今，隐私非常重要，因此你必须在应用程序 <code>Info.plist</code> 文件中添加两个重要的键，否则最终将导致可怕的崩溃！ ⚠️</p>
-<p><img src="https://cdn.xuebaonline.com/uc-stp1.jpg" alt="Info.plist"></p>
+<p><img src="http://cdn.xuebaonline.com/uc-stp1.jpg" alt="Info.plist"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于你要获取一些私人数据，因此必须向用户（和 <code>Apple</code> ）提供说明消息，说明该应用为何要求访问相机和照片库。  <code>NSCameraUsageDescription</code> 用于相机， <code>NSPhotoLibraryUsageDescription</code> 键用于照片库访问。 这两个值都应该是一个简单的字符串，该字符串将向用户解释你为什么需要他/她的裸照。 谨慎很重要！ 🔒</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;key&gt;<span class="type">NSCameraUsageDescription</span>&lt;/key&gt;</span><br><span class="line">&lt;string&gt;<span class="type">This</span> app wants to take pictures.&lt;/string&gt;</span><br><span class="line">&lt;key&gt;<span class="type">NSPhotoLibraryUsageDescription</span>&lt;/key&gt;</span><br><span class="line">&lt;string&gt;<span class="type">This</span> app wants to use your photos.&lt;/string&gt;</span><br></pre></td></tr></table></figure>
 
@@ -379,7 +379,7 @@
 </br>
 
 <h1 id="如何使用图像选择器类？"><a href="#如何使用图像选择器类？" class="headerlink" title="如何使用图像选择器类？"></a><strong>如何使用图像选择器类？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;好了，现在你可以拍照了。 我做了一个简单的视图控制器，向你展示了一个真正的快速示例。 你只需要一个 <code>UIImageView</code> 和一个 <code>UIButton</code> 。</p>
-<p><img src="https://cdn.xuebaonline.com/uc-stp2-1.jpg" alt="UIImageView"></p>
+<p><img src="http://cdn.xuebaonline.com/uc-stp2-1.jpg" alt="UIImageView"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，这是示例视图控制器的代码。 没什么了不起的，我只是将控制器作为 <code>ImagePicker</code> 的 <code>presentationController</code> 进行传递，因此它可以在此之上呈现 <code>UIImagePickerController</code> 。 我将代表从表示控制器中分离出来，因为有时会派上用场。 🤷‍♂️</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">var</span> imageView: <span class="type">UIImageView!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> imagePicker: <span class="type">ImagePicker!</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.imagePicker = <span class="type">ImagePicker</span>(presentationController: <span class="keyword">self</span>, delegate: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">showImagePicker</span><span class="params">(<span class="number">_</span> sender: UIButton)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.imagePicker.present(from: sender)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ViewController</span>: <span class="title">ImagePickerDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">didSelect</span><span class="params">(image: UIImage?)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.imageView.image = image</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

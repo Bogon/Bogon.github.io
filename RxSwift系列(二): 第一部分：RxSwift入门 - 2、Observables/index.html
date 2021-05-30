@@ -32,24 +32,24 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="RxSwift系列(二): 第一部分：RxSwift入门 - 2、Observables">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-2.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-3.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-4.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-5.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-6.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-7.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-8.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-9.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2-10.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-4.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-5.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-6.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-7.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-8.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-9.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2-10.png">
 <meta property="article:published_time" content="2020-08-27T08:28:22.000Z">
-<meta property="article:modified_time" content="2020-09-11T01:06:32.019Z">
+<meta property="article:modified_time" content="2021-05-30T10:53:03.511Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
 <meta property="article:tag" content="RxSwift">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/rxswift-1-2-1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/rxswift-1-2-1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/RxSwift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%202%E3%80%81Observables/">
 
@@ -340,7 +340,7 @@
 
 <p>引导过程将花费几秒钟； 请记住，每次你要打开此playground项目时，都需要重复上述步骤。 你不能直接打开playground文件或工作区。</p>
 <p>在“项目”导航器中选择“ RxSwiftPlayground”，你应该看到以下内容：</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-1.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-1.png" alt="RxSwiftPlayground"></p>
 <p>在Project导航器中的Sources文件夹中向下滚动Playground页面，然后选择SupportCode.swift。 它包含以下辅助函数示例（of :)：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">example</span><span class="params">(of description: String, action: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">"\n--- Example of:"</span>, description, <span class="string">"---"</span>)</span><br><span class="line">	action()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -348,16 +348,16 @@
 <p>但是，在你深入了解这一点之前，现在可能是回答问题的好时机：什么是Observables？</p>
 <h1 id="什么是Observables？"><a href="#什么是Observables？" class="headerlink" title="什么是Observables？"></a>什么是Observables？</h1><p>Observables是Rx的核心。 你将花费一些时间来讨论什么是Observables，如何创建Observables物以及如何使用它们。</p>
 <p>你会看到“Observables”，“可观察的序列”和“序列”在Rx中互换使用。 而且，实际上，它们都是同一件事。 你甚至可能会偶尔看到偶尔出现的“信息流”，特别是来自不同反应式编程环境来RxSwift的开发人员。 “ Stream”也指同一件事，但是在RxSwift中，所有很酷的孩子都称其为序列(sequence)，而不是流。 在RxSwift中…</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-2.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-2.png" alt="RxSwiftPlayground"></p>
 <p>…或适用于序列的内容。 可观察对象只是一个序列，具有一些特殊功能。 这些权力之一（实际上是最重要的权力）是异步的。 可观察对象在一段时间内会产生事件，该过程称为发射。 事件可以包含值，例如数字或自定义类型的实例，或者它们可以被识别为手势，例如轻击。</p>
 <p>概念化的最佳方法之一是使用大理石图，这些图只是在时间轴上绘制的值。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-3.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-3.png" alt="RxSwiftPlayground"></p>
 <p>左右箭头代表时间，而带数字的圆圈代表序列的元素。 元素1将被发射，一段时间将被发射，然后2和3将被发射。 你问多少时间？ 它可能在可观察对象的整个生命周期中的任何时候出现，从而使你进入可观察对象的生命周期。</p>
 <h1 id="Observables的生命周期"><a href="#Observables的生命周期" class="headerlink" title="Observables的生命周期"></a>Observables的生命周期</h1><p>在上一个大理石图中，可观察到的发射了三个元素。 当可观察对象发出一个元素时，它会在下一个事件中发出它。</p>
 <p>这是另一个大理石图，这次包括一个竖线，代表此可观察道路的尽头。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-4.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-4.png" alt="RxSwiftPlayground"></p>
 <p>该可观察的对象发出三个轻击事件，然后结束。 这被称为完成事件，因为它已终止。 例如，也许水龙头在被忽略的景象上。 重要的是可观察对象已经终止，并且不再发出任何东西。 这是正常终止。 但是，有时候情况可能会出错。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-5.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-5.png" alt="RxSwiftPlayground"></p>
 <p>该大理石图发生错误； 它由红色X表示。Observable发出了一个错误事件，其中包含错误。 这与可观察项通常以完成事件终止时没有什么不同。 如果一个可观察对象发出一个错误事件，它也会被终止并且不能再发出其他任何事件。</p>
 <p>快速回顾一下：</p>
 <ul>
@@ -382,9 +382,9 @@
 
 <p>这次，你没有明确指定类型。 你可能会认为，因为你给了它几个整数，所以[Int]的类型是Observable。</p>
 <p>按住Option键并单击observable2以显示其推断的类型，你会看到它是Int的Observable，而不是数组：</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-6.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-6.png" alt="RxSwiftPlayground"></p>
 <p>这是因为of运算符采用可变参数，而Swift能够基于该参数推断Observable的类型。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-7.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-7.png" alt="RxSwiftPlayground"></p>
 <p>如果你要创建一个可观察的数组，则只需将数组传递。<br>将此代码添加到示例的底部：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> observable3 = <span class="type">Observable</span>.of([one, two, three])</span><br></pre></td></tr></table></figure>
 
@@ -413,7 +413,7 @@
 <p>注意：只要有输出，控制台就会自动出现，但是你可以通过从菜单中选择“视图”▸“调试区域”▸“激活控制台”来手动显示它。 这是操场上的打印语句显示其输出的地方。</p>
 </blockquote>
 <p>按住Option键单击“订阅”运算符，你会看到它使用了一个转义闭包，该闭包采用了Int类型的Event，并且不返回任何内容，subscribe返回了Disposable。 你很快就会涉及一次性用品。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-8.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-8.png" alt="RxSwiftPlayground"></p>
 <p>订阅的结果是可观察到的每个事件都会打印出来。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">--- Example of: subscribe ---</span><br><span class="line">next(1)</span><br><span class="line">next(2)</span><br><span class="line">next(3)</span><br><span class="line">completed</span><br></pre></td></tr></table></figure>
 
@@ -486,7 +486,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"create"</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</span><br><span class="line"></span><br><span class="line">    <span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; observer <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>create运算符采用一个名为subscribe的参数。 它的工作是提供可观察的调用订阅的实现。 换句话说，它定义了将发送给订户的所有事件。 按住Option键单击“创建”。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-9.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-9.png" alt="RxSwiftPlayground"></p>
 <p>subscription参数是一个转义的闭包，它使用AnyObserver并返回Disposable。 AnyObserver是一种通用类型，它有助于将值添加到可观察序列上，然后将其发送给订户。</p>
 <p>将create的实现更改为以下内容：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; observer <span class="keyword">in</span></span><br><span class="line"> <span class="comment">// 1</span></span><br><span class="line"> observer.onNext(<span class="string">"1"</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 2</span></span><br><span class="line"> observer.onCompleted()</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 3</span></span><br><span class="line"> observer.onNext(<span class="string">"?"</span>)</span><br><span class="line"></span><br><span class="line"> <span class="comment">// 4</span></span><br><span class="line"> <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -543,7 +543,7 @@
 <p>Completable将仅发出.completed或.error事件。它不发出任何值。当你只关心操作成功完成或失败（例如文件写入）时，可以使用completable。</p>
 <p>最后，也许是“单一且可完成”的混搭。它可以发出.success（value）、. completed或.error。如果你需要执行一个可能成功或失败的操作，并且有选择地返回成功值，那么Maybe是你的方便之选。</p>
 <p>你将有机会在第4章“实践中的可观察对象和主题”及以后的内容中进一步研究特质。现在，你将学习一个基本示例，该示例使用单个示例从Playground的Resources文件夹中名为Copyright.txt的文本文件中加载一些文本，因为谁不时会不喜欢某些法文？</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2-10.png" alt="RxSwiftPlayground"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2-10.png" alt="RxSwiftPlayground"></p>
 <p>将此示例添加到你的 playground：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">example(of: <span class="string">"Single"</span>) &#123;</span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">let</span> disposeBag = <span class="type">DisposeBag</span>()</span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">FileReadError</span>: <span class="title">Error</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> fileNotFound, unreadable, encodingFailed</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">loadText</span><span class="params">(from name: String)</span></span> -&gt; <span class="type">Single</span>&lt;<span class="type">String</span>&gt; &#123;</span><br><span class="line">        <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">return</span> <span class="type">Single</span>.create &#123; single <span class="keyword">in</span></span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 

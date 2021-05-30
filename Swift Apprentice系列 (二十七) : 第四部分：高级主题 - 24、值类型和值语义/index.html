@@ -32,11 +32,11 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (二十七) : 第四部分：高级主题 - 24、值类型和值语义">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sa-vr-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sa-vr-stp2.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/sa-vr-stp3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sa-vr-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sa-vr-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sa-vr-stp3.png">
 <meta property="article:published_time" content="2020-06-21T07:42:40.000Z">
-<meta property="article:modified_time" content="2020-06-21T08:19:48.089Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:37.549Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -70,7 +70,7 @@
 <meta property="article:tag" content="内存管理">
 <meta property="article:tag" content="值类型和值语义">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/sa-vr-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sa-vr-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2024%E3%80%81%E5%80%BC%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC%E8%AF%AD%E4%B9%89/">
 
@@ -363,7 +363,7 @@
 <a id="more"></a>
 
 <h2 id="引用类型"><a href="#引用类型" class="headerlink" title="引用类型"></a>引用类型</h2><p>引用类型使用按引用分配。 当变量是引用类型时，将实例分配给变量会将其设置为引用该实例。 如果另一个变量已经在引用该实例，则这两个变量在赋值后现在都引用同一实例，如下所示：</p>
-<p><img src="https://cdn.xuebaonline.com/sa-vr-stp1.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/sa-vr-stp1.png" alt="&quot;&quot;"></p>
 <p><strong>由于两个变量都指向同一实例，因此你可以使用一个变量来更改该实例，并在另一个实例中查看更改的效果。</strong></p>
 <p>假设你经营一家油漆店，将油漆卖给风景画家，画家和建筑商。 你正在构建库存应用程序以跟踪涂料。</p>
 <p>从简单的颜色和油漆抽象开始：</p>
@@ -377,7 +377,7 @@
 <p>实际上，这两个变量现在相互依赖。 任何变量的值就是它所引用的实例的值。 这两个变量引用相同的实例，因此每个变量的值取决于另一个变量的值。 改变一个可能会改变另一个。 这两个变量是同一存储桶的两个名称。</p>
 <h2 id="值类型"><a href="#值类型" class="headerlink" title="值类型"></a>值类型</h2><p>但是，<strong><em>值类型使用按副本分配</em></strong>。 将实例分配给值类型的变量将复制该实例并设置该变量以容纳该新实例。 因此，<strong>在每次分配后，变量都拥有一个实例，该实例拥有全部所有权</strong>。</p>
 <p>外观如下：</p>
-<p><img src="https://cdn.xuebaonline.com/sa-vr-stp2.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/sa-vr-stp2.png" alt="&quot;&quot;"></p>
 <p>在上面的示例中，Color是一种值类型，因此将值分配给wallBlue会创建azure持有的实例的副本。</p>
 <p>现在，每个变量都是独立的，因此你不必担心其他变量可能会对其进行更改。 例如，假设画家的口味发生了变化，他们决定在深色的蓝色阴影下墙壁看起来更好。 如果调用方法wallBlue.darken（）来更改wallBlue的颜色，则不会影响天蓝色的含义。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Color</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">darken</span><span class="params">()</span></span> &#123;</span><br><span class="line">        red *= <span class="number">0.9</span>; green *= <span class="number">0.9</span>; blue *= <span class="number">0.9</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> azure = <span class="type">Color</span>.blue</span><br><span class="line"><span class="keyword">var</span> wallBlue = azure</span><br><span class="line">azure <span class="comment">// r: 0.0 g: 0.0 b: 1.0</span></span><br><span class="line">wallBlue.darken()</span><br><span class="line">azure <span class="comment">// r: 0.0 g: 0.0 b: 1.0 (unaffected)</span></span><br></pre></td></tr></table></figure>
@@ -432,7 +432,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> artPlan = <span class="type">PaintingPlan</span>()</span><br><span class="line"><span class="keyword">let</span> housePlan = artPlan</span><br><span class="line">artPlan.bucket.color <span class="comment">// =&gt; blue</span></span><br><span class="line"><span class="comment">// for house-painting only we fill the bucket with green paint housePlan.</span></span><br><span class="line">bucket.color = <span class="type">Color</span>.green</span><br><span class="line">artPlan.bucket.color <span class="comment">// =&gt; green. oops!</span></span><br></pre></td></tr></table></figure>
 
 <p>这是由于油漆桶实例的隐式结构共享：</p>
-<p><img src="https://cdn.xuebaonline.com/sa-vr-stp3.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/sa-vr-stp3.png" alt="&quot;&quot;"></p>
 <p>由于这种结构上的共享，PaintingPlan是一种值类型，但缺少值语义。</p>
 <h3 id="写时复制来拯救"><a href="#写时复制来拯救" class="headerlink" title="写时复制来拯救"></a>写时复制来拯救</h3><p>解决办法是什么？ 第一步在于认识到<strong>值语义是相对于访问级别定义的</strong>。 <strong>值的语义取决于你可以对变量进行哪些更改，以及如何对其进行查看，这取决于设置器的访问级别和变量类型的变异函数</strong>。 因此，类型可以为所有客户端代码（例如，可以访问内部或公共成员）提供值语义，同时不为可以访问其私有成员的代码提供值语义。</p>
 <p>因此，在混合类型中保留值语义的技巧是定义类型，以使其用户永远无法看到突变对所包含的引用类型属性的影响。 本示例将可变引用类型设为私有，并提供一个控制读写的接口：</p>

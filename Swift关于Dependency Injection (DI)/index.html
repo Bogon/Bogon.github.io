@@ -32,10 +32,10 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift关于Dependency Injection (DI)">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/di-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/di-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/di-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/di-stp2.png">
 <meta property="article:published_time" content="2020-04-25T09:13:51.000Z">
-<meta property="article:modified_time" content="2020-06-29T02:47:26.343Z">
+<meta property="article:modified_time" content="2021-05-30T10:51:34.156Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="UIKit">
@@ -46,7 +46,7 @@
 <meta property="article:tag" content="重构">
 <meta property="article:tag" content=" dependency injection design pattern">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/di-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/di-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/">
 
@@ -418,7 +418,7 @@
 </br>
 
 <h1 id="COMPOSITION-ROOT"><a href="#COMPOSITION-ROOT" class="headerlink" title="COMPOSITION ROOT"></a><strong>COMPOSITION ROOT</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>COMPOSITION ROOT</code> 是将应用程序不同层的组件连接在一起的地方。 拥有复合根的主要目的是将配置逻辑与我们其余的代码分开，并以通用的方式在定义明确的位置进行配置。 拥有一段代码，单个职责就是配置其他组件。 创建依赖关系并将其注入到构造函数或属性中只能在“合成根目录”中完成。</p>
-<p><img src="https://cdn.xuebaonline.com/di-stp1.png" alt="COMPOSITION ROOT"></p>
+<p><img src="http://cdn.xuebaonline.com/di-stp1.png" alt="COMPOSITION ROOT"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 理想情况下，应用程序中应该有一个<code>COMPOSITION ROOT</code>，并且它应该靠近应用程序入口点。 就像这张图一样。 但是不必使用单个方法或类来实现。 它可以包含所需的多个类和方法，直到它们在同一组件层中在一起为止。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是VIPER示例应用程序中 <code>COMPOSITION ROOT</code> 的示例实现。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDependencies</span> </span>&#123;</span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        configureDependencies()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">configureDependencies</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// Root Level Classes</span></span><br><span class="line">        <span class="keyword">let</span> coreDataStore = <span class="type">CoreDataStore</span>()</span><br><span class="line">        <span class="keyword">let</span> clock = <span class="type">DeviceClock</span>()</span><br><span class="line">        <span class="keyword">let</span> rootWireframe = <span class="type">RootWireframe</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// List Module Classes</span></span><br><span class="line">        <span class="keyword">let</span> listPresenter = <span class="type">ListPresenter</span>()</span><br><span class="line">        <span class="keyword">let</span> listDataManager = <span class="type">ListDataManager</span>()</span><br><span class="line">        <span class="keyword">let</span> listInteractor = <span class="type">ListInteractor</span>(dataManager: listDataManager, clock: clock)</span><br><span class="line">        ...    </span><br><span class="line">        listInteractor.output = listPresenter</span><br><span class="line">        listPresenter.listInteractor = listInteractor</span><br><span class="line">        listPresenter.listWireframe = listWireframe</span><br><span class="line">        listWireframe.addWireframe = addWireframe</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -477,7 +477,7 @@
 <blockquote>
 <p><strong><em>Interfaces are not abstractions - Mark Seeman</em></strong> </p>
 </blockquote>
-<p><img src="https://cdn.xuebaonline.com/di-stp2.png" alt="Interfaces&amp;&amp;abstractions"></p>
+<p><img src="http://cdn.xuebaonline.com/di-stp2.png" alt="Interfaces&amp;&amp;abstractions"></p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你在构造函数中传递依赖项或使用属性或方法注入时-您应将其作为抽象传递（同样，不必使用协议）。 如果使用 <code>ambinet</code>上下文，则相同。 它不仅是一些共享的静态实例，还应该是抽象的。</p>
 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，依赖注入和松散耦合不仅可以通过依赖注入模式来实现，而且可以通过依赖反转原理以及使用抽象对依赖关系进行建模来实现。</p>
 </br>
@@ -720,8 +720,8 @@
           <div class="post-tags">
               <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
               <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
-              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
               <a href="/tags/UIKit/" rel="tag"><i class="fa fa-tag"></i> UIKit</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
               <a href="/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 依赖注入设计模式</a>
               <a href="/tags/Dependency-Injection/" rel="tag"><i class="fa fa-tag"></i> Dependency Injection</a>
           </div>

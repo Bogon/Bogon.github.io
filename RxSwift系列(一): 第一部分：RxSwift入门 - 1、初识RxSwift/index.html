@@ -32,23 +32,23 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="RxSwift系列(一): 第一部分：RxSwift入门 - 1、初识RxSwift">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-2.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-3.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-4.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-5.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-6.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-7.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-8.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/rxswift-1-9.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-4.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-5.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-6.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-7.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-8.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/rxswift-1-9.png">
 <meta property="article:published_time" content="2020-08-26T08:37:53.000Z">
-<meta property="article:modified_time" content="2020-09-18T08:44:43.164Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:59.424Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
 <meta property="article:tag" content="RxSwift">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/rxswift-1-1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/rxswift-1-1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/RxSwift%E7%B3%BB%E5%88%97(%E4%B8%80):%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ARxSwift%E5%85%A5%E9%97%A8%20-%201%E3%80%81%E5%88%9D%E8%AF%86RxSwift/">
 
@@ -374,7 +374,7 @@
 <p>毕竟，你的应用代码会根据各种外部因素（例如用户输入，网络活动或其他操作系统事件）而以不同的方式运行。每次用户启动你的应用程序时，代码可能会以完全不同的顺序运行，具体取决于这些外部因素。好吧，除了有大量的机器人测试你的应用程序的情况之外，你可以期望所有事件都将通过精确的，致命的机器人同步发生。）</p>
 <p>我们绝对不是在说写好的异步代码是不可能的。毕竟，上面列出的Apple出色的API非常先进，非常专业，并且与其他平台相比，它具有强大的功能。</p>
 <p>问题在于，复杂的异步代码变得很难编写，部分原因是Apple的SDK提供了多种API：</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-1.png" alt="Apple&#39;s_SDK"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-1.png" alt="Apple&#39;s_SDK"></p>
 <p>使用委托要求你采用一种特定的模式，另一种用于闭包，另一种用于订 NotificationCenter的方法，依此类推。 由于所有异步API都没有通用语言，因此请阅读并理解代码及其执行的推理变得困难。</p>
 <p>为了结束本文的讨论并使讨论更加深入，你将比较两段代码：一个同步代码和一个异步代码。</p>
 <h1 id="同步代码"><a href="#同步代码" class="headerlink" title="同步代码"></a>同步代码</h1><p>你已经做了很多次对数组的每个元素执行操作的事情。 这是应用程序逻辑的非常简单但可靠的构建块，因为它保证了两件事：它同步执行，并且在你对其进行迭代时，集合是不可变的。</p>
@@ -409,7 +409,7 @@
 <p>每当你修改存储在磁盘上的数据或更新屏幕上的标签文本时，都会引起副作用。</p>
 <p>副作用本身并不坏。 毕竟，引起副作用是任何程序的最终目标！ 你需要在程序完成执行后以某种方式更改世界的状态。</p>
 <p>运行一段时间，什么也不做，会导致一个相当无用的应用程序。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-2.png" alt="Side_Effects"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-2.png" alt="Side_Effects"></p>
 <p>产生副作用的重要方面是以受控方式进行的。 你需要能够确定哪些代码段会产生副作用，以及哪些代码会简单地处理和输出数据。</p>
 <p>RxSwift尝试通过解决以下几个概念来解决上面列出的问题。</p>
 <h2 id="4-声明性代码"><a href="#4-声明性代码" class="headerlink" title="4.声明性代码"></a>4.声明性代码</h2><p>在命令式编程中，你可以随意更改状态。 在函数式编程中，你的目标是尽量减少导致副作用的代码。 由于你没有生活在一个完美的世界中，所以平衡就在中间。 RxSwift结合了命令式代码和功能性代码的一些最佳方面。</p>
@@ -451,11 +451,11 @@
 </li>
 </ul>
 <p>在讨论随时间推移发出的异步事件时，你可以在时间轴上可视化可观察到的整数序列，如下所示：</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-3.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-3.png" alt="Observable"></p>
 <p>一个Observable可以发出的三个可能事件的简单约定是Rx中的任何事物。 由于它是如此通用，因此你甚至可以使用它来创建最复杂的应用程序逻辑。</p>
 <p>由于可观察合约没有对可观察者或观察者的性质做任何假设，因此使用事件序列是最终的解耦实践。</p>
 <p>你无需使用委托协议或注入闭包以允许你的类彼此对话。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-4.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-4.png" alt="Observable"></p>
 <p>要了解一些现实情况，你将研究两种不同的可观察序列：有限和无限。</p>
 <h2 id="有限的可观察序列"><a href="#有限的可观察序列" class="headerlink" title="有限的可观察序列"></a>有限的可观察序列</h2><p>一些可观察到的序列发出零，一个或多个值，并且在稍后一点成功终止或错误终止。</p>
 <p>在iOS应用中，考虑从Internet下载文件的代码：</p>
@@ -477,7 +477,7 @@
 <p>•你将类作为观察者添加到NotificationCenter的UIDeviceOrientationDidChange通知中。</p>
 <p>•然后，你需要提供一个方法回调来处理方向更改。 它需要从UIDevice获取当前方向，并相应地对最新值做出反应。</p>
 <p>这种方向变化的序列没有自然的终点。 只要有设备，就有可能发生方向变化的序列。 此外，由于该序列实际上是无限的，因此在你开始观察该序列时，总是会有一个初始值。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-5.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-5.png" alt="Observable"></p>
 <p>用户可能从不旋转设备，但这并不意味着事件序列已终止。 这只是意味着没有事件发出。</p>
 <p>在RxSwift中，你可以编写如下代码来处理设备方向：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIDevice</span>.rx.orientation</span><br><span class="line"> .subscribe(onNext: &#123; current <span class="keyword">in</span></span><br><span class="line"> 	<span class="keyword">switch</span> current &#123;</span><br><span class="line"> 		<span class="keyword">case</span> .landscape:</span><br><span class="line"> 			<span class="comment">// Re-arrange UI for landscape</span></span><br><span class="line"> 		<span class="keyword">case</span> .portrait:</span><br><span class="line"> 			<span class="comment">// Re-arrange UI for portrait</span></span><br><span class="line"> 	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
@@ -492,7 +492,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">UIDevice</span>.rx.orientation</span><br><span class="line"> .<span class="built_in">filter</span> &#123; value <span class="keyword">in</span></span><br><span class="line"> 	<span class="keyword">return</span> value != .landscape</span><br><span class="line"> &#125;</span><br><span class="line"> .<span class="built_in">map</span> &#123; <span class="number">_</span> <span class="keyword">in</span></span><br><span class="line"> 	<span class="keyword">return</span> <span class="string">"Portrait is the best!"</span></span><br><span class="line"> &#125;</span><br><span class="line"> .subscribe(onNext: &#123; string <span class="keyword">in</span></span><br><span class="line"> 	showAlert(text: string)</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
 
 <p>每次UIDevice.rx.orientation生成.landscape或.portrait值时，Rx都会将几个运算符应用于该发出的数据。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-6.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-6.png" alt="Observable"></p>
 <p>首先，过滤器只会让非.landscape的值通过。 如果设备处于横向模式，则订阅代码将不会执行，因为过滤器将抑制这些事件。</p>
 <p>对于.portrait值，地图运算符将采用Orientation类型输入并将其转换为String输出-文本“ Portrait is best！”。</p>
 <p>最后，通过订阅，你可以订阅产生的下一个事件，这次事件带有一个String值，然后调用一种方法来在屏幕上显示带有该文本的警报。</p>
@@ -505,7 +505,7 @@
 <p>ConcurrentDispatchQueueScheduler将同时运行你的代码，而OperationQueueScheduler将允许你在给定的OperationQueue上安排订阅。</p>
 <p>多亏了RxSwift，你可以在不同的调度程序上调度同一预订的不同工作，以实现最佳性能。</p>
 <p>RxSwift将充当你的订阅（位于左侧）和调度程序（位于右侧）之间的调度程序，将工作片段发送到正确的上下文，并无缝地允许它们彼此使用。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-7.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-7.png" alt="Observable"></p>
 <p>要阅读此图，请按照在不同调度程序中进行调度的顺序（1、2、3，…）遵循有色工作。 例如：</p>
 <p>•蓝色网络订阅以一段代码（1）开始，该代码在基于自定义OperationQueue的调度程序上运行。</p>
 <p>•该块输出的数据用作下一个块（2）的输入，该块在不同的调度程序上运行，该调度程序在并发后台GCD队列中。</p>
@@ -517,7 +517,7 @@
 <p>需要注意的是，你绝对不必从头开始一个项目就可以使其成为一个响应式应用程序。你可以迭代重构现有项目的片段，或者在为应用程序构建新功能时简单地使用RxSwift。</p>
 <p>微软的MVVM体系结构是专门为在提供数据绑定的平台上创建的事件驱动软件开发的。RxSwift和MVVM绝对可以很好地配合使用，在本书结尾处，你将研究该模式以及如何使用RxSwift实施该模式。</p>
 <p>MVVM和RxSwift一起使用的原因是ViewModel允许你公开Observable <T>属性，你可以将这些属性直接绑定到View控制器的粘合代码中的UIKit控件。 这使得将模型数据绑定到UI非常容易表示和编码：</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-8.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-8.png" alt="Observable"></p>
 <p>本书中的所有其他示例都使用MVC架构，以使示例代码保持简单易懂。</p>
 <h1 id="RxCocoa"><a href="#RxCocoa" class="headerlink" title="RxCocoa"></a>RxCocoa</h1><p>RxSwift是通用的，与平台无关的Rx规范的实现。因此，它对任何可可或UIKit特定的类一无所知。</p>
 <p>RxCocoa是RxSwift的配套库，其中包含专门用于UIKit和Cocoa开发的所有类。 除了提供一些高级类之外，RxCocoa还向许多UI组件添加了响应式扩展，以便你可以开箱即用地订阅各种UI事件。</p>
@@ -525,7 +525,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">toggleSwitch.rx.isOn</span><br><span class="line"> .subscribe(onNext: &#123; isOn <span class="keyword">in</span></span><br><span class="line"> 	<span class="built_in">print</span>(isOn ? <span class="string">"It's ON"</span> : <span class="string">"It's OFF"</span>)</span><br><span class="line"> &#125;)</span><br></pre></td></tr></table></figure>
 
 <p>RxCocoa将rx.isOn属性（以及其他属性）添加到UISwitch类中，以便你可以将有用事件订阅为反应性Observable序列。</p>
-<p><img src="https://cdn.xuebaonline.com/rxswift-1-9.png" alt="Observable"></p>
+<p><img src="http://cdn.xuebaonline.com/rxswift-1-9.png" alt="Observable"></p>
 <p>此外，RxCocoa将rx命名空间添加到UITextField，URLSession，UIViewController等中，甚至允许你在此命名空间下定义自己的反应式扩展，你将在本系列的后面部分中详细了解。</p>
 
     </div>

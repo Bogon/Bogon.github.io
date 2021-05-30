@@ -32,10 +32,10 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Swift Apprentice系列 (二十九) : 第四部分：高级主题 - 26、高级协议和泛型">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/as-agp-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/as-agp-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/as-agp-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/as-agp-stp2.png">
 <meta property="article:published_time" content="2020-06-21T08:46:48.000Z">
-<meta property="article:modified_time" content="2020-06-21T09:18:17.615Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:40.973Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -71,7 +71,7 @@
 <meta property="article:tag" content="面向协议编程(OOP)">
 <meta property="article:tag" content="高级协议和泛型">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/as-agp-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/as-agp-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B9%9D)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2026%E3%80%81%E9%AB%98%E7%BA%A7%E5%8D%8F%E8%AE%AE%E5%92%8C%E6%B3%9B%E5%9E%8B/">
 
@@ -391,7 +391,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">associatedtype</span> <span class="type">WeightType</span>: <span class="type">Numeric</span></span><br><span class="line">  <span class="keyword">var</span> weight: <span class="type">WeightType</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>这将使字符串和猫的体重类型无效：</p>
-<p><img src="https://cdn.xuebaonline.com/as-agp-stp1.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/as-agp-stp1.png" alt="&quot;&quot;"></p>
 <p>现在，你可以编写在计算中使用权重的通用函数。 为什么不开始善加利用呢？ 这样写：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> +<span class="params">(<span class="keyword">left</span>: <span class="keyword">Self</span>, <span class="keyword">right</span>: <span class="keyword">Self</span>)</span></span> -&gt; <span class="type">WeightType</span> &#123;</span><br><span class="line">        <span class="keyword">left</span>.weight + <span class="keyword">right</span>.weight </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> heavy1 = <span class="type">HeavyThing</span>()</span><br><span class="line"><span class="keyword">var</span> heavy2 = <span class="type">HeavyThing</span>()</span><br><span class="line">heavy1 + heavy2 <span class="comment">// 200</span></span><br><span class="line"><span class="keyword">var</span> light1 = <span class="type">LightThing</span>()</span><br><span class="line">heavy1 + light1 <span class="comment">// the compiler detects your coding error</span></span><br></pre></td></tr></table></figure>
 
@@ -463,7 +463,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">VeryHeavyThing</span>: <span class="title">WeightCalculatable</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This heavy thing only needs integer accuracy</span></span><br><span class="line">    <span class="keyword">typealias</span> <span class="type">WeightType</span> = <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> weight: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="number">9001</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> heavyList = [<span class="type">HeavyThing</span>(), <span class="type">VeryHeavyThing</span>()] <span class="comment">// error</span></span><br></pre></td></tr></table></figure>
 
 <p>Xcode现在建议你将此数组声明为[Any]：</p>
-<p><img src="https://cdn.xuebaonline.com/as-agp-stp2.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/as-agp-stp2.png" alt="&quot;&quot;"></p>
 <p>任何对象都可以代表任何类型，因此它可用于创建异构数组。 但是，它确实要付出代价。</p>
 <p>如果你不想完全丢失有关元素的所有类型信息怎么办？ 可能可以使用as？测试每个元素，但这变得非常混乱且容易出错。 在此示例中，你知道两个重物都具有相同的关联类型Int。 你能以某种方式利用这些知识吗？</p>
 <p>这就是抢救<strong>类型擦除</strong>的地方。</p>

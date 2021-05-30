@@ -32,14 +32,14 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Vapor系列 (二) :  Hello Vapor！">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp1.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp2.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp4.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp5.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp6.png">
-<meta property="og:image" content="https://cdn.xuebaonline.com/vapor-2-stp3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp4.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp5.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp6.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/vapor-2-stp3.png">
 <meta property="article:published_time" content="2020-06-21T12:19:30.000Z">
-<meta property="article:modified_time" content="2020-06-22T13:01:21.201Z">
+<meta property="article:modified_time" content="2021-05-30T10:50:48.940Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -77,7 +77,7 @@
 <meta property="article:tag" content="Vapor4.0">
 <meta property="article:tag" content="Hello Vapor">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.xuebaonline.com/vapor-2-stp1.png">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/vapor-2-stp1.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%8C)%20:%20%20Hello%20Vapor%EF%BC%81/">
 
@@ -399,13 +399,13 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift package init --<span class="built_in">type</span>=executable</span><br></pre></td></tr></table></figure>
 
 <p>此命令将创建一个新的可执行项目。 让我们看一下文件结构。</p>
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp1.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp1.png" alt="&quot;&quot;"></p>
 <p>默认情况下，“源”文件夹将用作生成源。 每个目标在Sources目录中都有其专用的位置。 在这里可以放置您的Swift文件。 在我们的例子中，myProject目标只有一个名为main.swift的源文件。 这是我们的可执行myProject目标的主要入口点。</p>
 <p>我现在不想过多地谈论Tests目录，您应该只知道测试目标的源文件位于Tests文件夹下。 有专门的章节说明了使用Vapor的新测试框架进行测试的所有内容。</p>
 <p>您可以使用以下命令来构建和运行该应用程序：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift run VaporLearning</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp2.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp2.png" alt="&quot;&quot;"></p>
 <p>这将打印出著名的“你好，世界！” 文本。 您也可以通过打开Package.swift文件从Xcode运行项目，或者可以生成专用的项目文件。 您可以在下面的几节中详细了解差异。</p>
 <h1 id="了解包清单文件"><a href="#了解包清单文件" class="headerlink" title="了解包清单文件"></a>了解包清单文件</h1><p><a href="https://theswiftdev.com/the-swift-package-manifest-file/" target="_blank" rel="noopener"><strong><em><code>清单文件</code></em></strong></a> 始终以打包工具版本声明行开头。接下来，您必须导入PackageDescription框架，这将允许您定义有关软件包的一些详细信息。程序包定义始终以名称开头。 （可选）您可以通过添加platform参数来缩小支持的版本。 Vapor 4仅支持macOS 10.15，因此需要在软件包文件中包含此文件。软件包清单中还有其他三个重要部分。</p>
 <p>程序包可以具有外部依赖性。您可以通过添加本地或远程git存储库URL在依赖项部分下指定这些URL。您还应该明确告诉所需的软件包版本。每个软件包都应遵循语义版本约定。可以从仅包含较小更改的特定版本使用版本，您可以使用分支，也可以确切地说出您要使用哪个版本。有很多可能性来设置所需的正确选项。</p>
@@ -424,14 +424,14 @@
 <p>如果您按Xcode中的播放按钮，则可以运行第一个Vapor应用程序。 您可以使用命令行来构建和运行该应用程序：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift run VaporLearning</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp4.png" alt="&quot;&quot;"></p>
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp5.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp4.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp5.png" alt="&quot;&quot;"></p>
 <p>run命令将首先构建程序包，然后将执行VaporLearning产品。 或者，您可以先构建应用程序，然后手动从构建文件夹运行它：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">swift build ./.build/debug/myProject</span><br></pre></td></tr></table></figure>
 
 <p>在您喜欢的浏览器中访问<a href="http://localhost:8080/。" target="_blank" rel="noopener">http://localhost:8080/。</a> 您应该看到Hello Vapor！信息。 恭喜，您刚完成了第一个Vapor应用程序。</p>
 <h1 id="工作目录"><a href="#工作目录" class="headerlink" title="工作目录"></a>工作目录</h1><p>如果通过Xcode运行项目，则可能需要设置自定义工作目录，否则应用程序将在被诅咒的位置DerivedData中查找资产。 如果您使用带有默认配置的模板引擎或公共文件中间件，这可能会导致一些问题，因为系统找不到正确的路由。 为了解决这个问题，您只需单击停止按钮旁边的目标名称，然后选择“编辑方案…”菜单项。 选择左侧的“运行”菜单项，然后单击“选项”选项卡。</p>
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp6.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp6.png" alt="&quot;&quot;"></p>
 <p>单击“使用自定义工作目录”复选框，然后选择要使用的文件夹。 现在，如果再次构建，框架将使用所选目录来加载资源文件，您应该注意到相关警告从控制台输出中消失了。</p>
 <h1 id="Vapor工具箱"><a href="#Vapor工具箱" class="headerlink" title="Vapor工具箱"></a>Vapor工具箱</h1><p>使用Swift Package Manager入门Vapor并不是引导新Vapor项目的唯一方法。 有一个名为Vapor toolbox的项目，您可以安装该项目以节省一些时间。 您可以在所有受支持的平台上从源代码构建工具箱：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/vapor/toolbox.git </span><br><span class="line"><span class="built_in">cd</span> toolbox</span><br><span class="line">git checkout &lt;desired version&gt;</span><br><span class="line">swift build -c release --<span class="built_in">disable</span>-sandbox</span><br><span class="line">mv .build/release/vapor /usr/<span class="built_in">local</span>/bin</span><br></pre></td></tr></table></figure>
@@ -445,7 +445,7 @@
 <p>您应该注意，vapor4尚未完全准备就绪。 如果您使用brew安装工具箱，则可能必须安装beta版本，否则vapor命令将默认情况下使用Vapor 3项目模板。 另一个选择是将–branch = 4标志传递给上面的命令，以使用最新的v4模板。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vapor new VaporLearning --branch=4</span><br></pre></td></tr></table></figure>
 
-<p><img src="https://cdn.xuebaonline.com/vapor-2-stp3.png" alt="&quot;&quot;"></p>
+<p><img src="http://cdn.xuebaonline.com/vapor-2-stp3.png" alt="&quot;&quot;"></p>
 <p>它会向您询问有关Fluent的信息，这是ORM层，但是现在您可以回答no，并且在没有数据库连接支持的情况下生成starter项目。</p>
 <p>该工具箱是用于创建新项目的非常方便的辅助工具。 您可以通过分叉原始api模板存储库来使用自己的模板，但这不是必需的。</p>
 <p>Vapor工具箱还为常见任务提供快捷方式和帮助。 您还可以使用vapor build命令来构建您的项目，然后运行Steam来执行它。 如果您不想弄乱makefile或直接与Swift Package Manager工具进行交互，则这很有用。 如果要了解有关工具箱的更多信息，可以输入vapor –help。</p>
