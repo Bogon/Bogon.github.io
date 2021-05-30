@@ -97,7 +97,7 @@ let typeInferredInt = 42
 
 有时检查变量或常量的推断类型很有用。 你可以在操场上通过按住`Option键`并单击变量或常量的名称来执行此操作。 Xcode将显示如下所示的弹出框：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp1.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp1.png "")
 
 Xcode通过给你声明没有类型推断时必须使用的声明来告诉你推断的类型。 在这种情况下，类型为Int。
 
@@ -109,7 +109,7 @@ let typeInferredDouble = 3.14159
 
 按住Option键单击会显示以下内容：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp2.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp2.png "")
 
 由此可见，类型推断并不是魔术。 Swift只是在很容易地做你的大脑。 不使用类型推断的编程语言常常会感到冗长，因为每次声明变量或常量时都需要指定通常显而易见的类型。
 
@@ -180,21 +180,21 @@ let wantADouble = 3.0\
 
 例如，考虑`cafe`这个词。 `Unicode`标准告诉我们，该单词的字母应映射为数字，如下所示：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp3.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp3.png "")
 
 与每个字符关联的数字称为代码点。 因此，在上面的示例中，c使用代码点99，a使用代码点97，依此类推。
 
 当然，Unicode不仅适用于英语中使用的简单拉丁字符，例如c，a，f和e。 它还使你可以映射来自世界各地语言的字符。 你可能已经知道，caf这个词源于法语，它被写成café。 Unicode映射这些字符的方式如下：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp4.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp4.png "")
 
 这是一个使用汉字的示例（根据Google翻译，这表示“计算机编程”）：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp5.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp5.png "")
 
 你可能听说过表情符号，它们是可以在文字中使用的小图片。 这些图片实际上只是普通字符，并且也通过Unicode映射。 例如：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp6.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp6.png "")
 
 这只是两个字符。 这些代码点的数量非常大，但每个代码点仍然仅仅是一个代码点。 计算机认为这些与其他两个字符没有区别。
 
@@ -414,11 +414,11 @@ let (x4, y4, _) = coordinates3D
 
 如果你的代码正在与使用这些更精确大小之一的另一软件进行交互，或者你需要针对存储大小进行优化，则这些功能将非常有用。
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp7.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp7.png "")
 
 你一直使用Double来代表小数。 Swift提供的Float类型具有比Double小的范围和精度，但需要一半的存储空间。 现代硬件已经针对Double进行了优化，因此除非有充分的理由使用Float，否则它应该是你的首选。
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp8.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp8.png "")
 
 
 大多数时候，你只会使用Int和Double来表示数字，但是有时你可能会偶尔遇到其他类型。
@@ -466,7 +466,7 @@ Swift真正的最大特点之一是它使用所谓的**协议将类型通用性*
 
 在整数的情况下，功能可以如下所示：
 
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-to-stp9.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-to-stp9.png "")
 
 箭头表示符合（有时称为通过）协议。 虽然此图未显示整数类型遵循的所有协议，但它使你可以了解事物的组织方式。
 

@@ -26,7 +26,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们经常使用简单的框图来说明应用程序的体系结构。 例如，`Apple`的`Model-View-Controller（MVC）`模式描述了三层：模型，视图和控制器层。
 
-![MVC](https://cdn.xuebaonline.com/aain-stp1.png "MVC 体系结构")
+![MVC](http://cdn.xuebaonline.com/aain-stp1.png "MVC 体系结构")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上图中的块显示了模式的不同命名层-MVC项目中编写的大多数代码都适合这些层之一。 箭头显示各层如何连接。
 

@@ -29,17 +29,17 @@ categories:
 
 使用 ```SecureCRT ``` 提供的远程登录功能连接 ```Ubuntu``` 服务器的配置信息：
 
-![SecureCRT](https://cdn.xuebaonline.com/swift-1stop.png "")
+![SecureCRT](http://cdn.xuebaonline.com/swift-1stop.png "")
 
 使用 ```SecureCRT``` 终端使用系统自带的远程登录功能连接 ```Ubuntu``` 服务器：
 
-![使用SecureCRT](https://cdn.xuebaonline.com/swift-2stp.png "")
+![使用SecureCRT](http://cdn.xuebaonline.com/swift-2stp.png "")
 
-![使用SecureCRT](https://cdn.xuebaonline.com/swift-3stp.png "")
+![使用SecureCRT](http://cdn.xuebaonline.com/swift-3stp.png "")
 
 使用 ```iTerm2``` 终端使用系统自带的远程登录功能连接Ubuntu 服务器：
 
-![iTerm2](https://cdn.xuebaonline.com/swift-4stp.png "")
+![iTerm2](http://cdn.xuebaonline.com/swift-4stp.png "")
 
 查看当前服务器系统版本：
 
@@ -64,7 +64,7 @@ sudo apt-get install libcurl3 libpython2.7 libpython2.7-dev
 
 找到对应系统以及对应版本[下载链接](https://swift.org/builds/swift-5.2.2-release/ubuntu1804/swift-5.2.2-RELEASE/swift-5.2.2-RELEASE-ubuntu18.04.tar.gz)：
 
-![下载链接](https://cdn.xuebaonline.com/swift-5stp.png "")
+![下载链接](http://cdn.xuebaonline.com/swift-5stp.png "")
 
 可以采用两种下载方式：
 
@@ -106,7 +106,7 @@ swift -version
 
 + 如果出现 ``` Command 'swift' not found ...``` 该提示，关闭连接终端，重新连接服务器，再次执行上述命令。
 
-![installSuccess](https://cdn.xuebaonline.com/swift-6stp.png "")
+![installSuccess](http://cdn.xuebaonline.com/swift-6stp.png "")
 
 # **运行 ``` Swift ``` 程序**
 ## 在终端运行程序，简单测试环境是否达建成功。
@@ -129,7 +129,7 @@ var a = 12, b = 13, c = a + b
 ``` swift
 :exit
 ```
-![Swift](https://cdn.xuebaonline.com/swift-7stp.png "")
+![Swift](http://cdn.xuebaonline.com/swift-7stp.png "")
 
 # **总结**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;完成 ``` Swift``` 在 ```Ubuntu``` 环境下的配置，接下来可以配置 ```Vapor 4.0``` 的开发环境。

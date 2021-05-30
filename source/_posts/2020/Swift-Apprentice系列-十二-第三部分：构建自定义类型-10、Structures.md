@@ -31,7 +31,7 @@ categories:
 
 假设你住在一个名为Pizzaville的小镇。 如你所料，Pizzaville以其惊人的比萨而闻名。 你拥有Pizzaville最受欢迎（最快）的比萨外卖餐厅-“ Swift Pizza”。
 
-![playground](https://cdn.xuebaonline.com/sasb-struct-stp1.png "")
+![playground](http://cdn.xuebaonline.com/sasb-struct-stp1.png "")
 
 作为一家餐厅的所有者，你的送货区域有限。 你想编写一个程序来计算潜在客户是否在交付驱动程序的范围内。 程序的第一个版本可能如下所示：
 
@@ -56,7 +56,7 @@ func isInDeliveryRange(location: (x: Int, y: Int)) -> Bool {
 
 很简单吧？ distance(from：to :)将计算你与披萨的距离。 isInDeliveryRange(location :)仅在你距离不太远的情况下才会返回true。
 
-![playground](https://cdn.xuebaonline.com/sasb-struct-stp2.png "")
+![playground](http://cdn.xuebaonline.com/sasb-struct-stp2.png "")
 
 成功的比萨外卖业务最终可能会扩展到多个地点，这给可交付使用的计算器带来了轻微的变化。 用以下代码替换现有代码：
 
@@ -83,7 +83,7 @@ isInDeliveryRange(location :)检查两个位置，以查看是否可以从任一
 
 最终，不断增长的客户数量将迫使该公司扩展业务，不久后可能会发展到总共10家门店！ 那呢 你是否不断更新功能以检查所有这些坐标和范围集？
 
-![playground](https://cdn.xuebaonline.com/sasb-struct-stp2.png "")
+![playground](http://cdn.xuebaonline.com/sasb-struct-stp2.png "")
 
 
 你可能会短暂考虑创建一个x/y坐标元组数组来跟踪你的披萨餐厅，但这既难以阅读又难以维护。 幸运的是，Swift提供了其他工具来帮助你简化问题。

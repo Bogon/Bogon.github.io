@@ -59,7 +59,7 @@ git clone https://github.com/vapor/toolbox.git
 ```
 
 
-![Toolbox](https://cdn.xuebaonline.com/tl-1stp.png "")
+![Toolbox](http://cdn.xuebaonline.com/tl-1stp.png "")
 
 
 ## 编译 ```Vapor``` 可执行文件
@@ -79,7 +79,7 @@ swift build -c release
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于获取的源代码中缺少部分文件，期间或存在报错发现 ```Toolbox``` 中没有 ```LinuxMain.swift``` 文件在 ```Tests``` 文件夹中，这时我们进入到 ```XCTest``` 文件夹中。
 
-![Vapor](https://cdn.xuebaonline.com/tl-2stp.png "")
+![Vapor](http://cdn.xuebaonline.com/tl-2stp.png "")
 
 
 
@@ -117,7 +117,7 @@ XCTMain([testCase(AppTests.allTests)])
 swift build -c release
 ```
 
-![Vapor](https://cdn.xuebaonline.com/tl-3stp.png "")
+![Vapor](http://cdn.xuebaonline.com/tl-3stp.png "")
 
 找到编译成功的 ```Vapor``` 文件
 
@@ -132,7 +132,7 @@ find . -name vapor
 >这时会看到输出一个类似如下的文件夹 ```.build/x86_64-unknown-linux/release/vapor``` ,这个文件夹里就是我们要使用到的文件 ```Vapor``` 。
 
 
-![Vapor](https://cdn.xuebaonline.com/tl-4stp.png "")
+![Vapor](http://cdn.xuebaonline.com/tl-4stp.png "")
 
 配置 ```Vapor``` 的环境变量
 
@@ -150,7 +150,7 @@ sudo cp vapor /usr/local/bin/
 vapor --help
 ```
 
-![Vaporhelp](https://cdn.xuebaonline.com/tl-5stp.png "")
+![Vaporhelp](http://cdn.xuebaonline.com/tl-5stp.png "")
 
 # **总结**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;至此 ```Vapor 4.0``` 的环境配置已经完成。由于 ```3.0``` 和 ```4.0``` 版本差异比较大，在配置方面也有差异。在创建项目时更需要加上 ```branch=4``` 等。后续会加入：创建第一个 ```Hello World``` 工程。

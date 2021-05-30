@@ -194,7 +194,7 @@ final class MyApiService: ApiServiceInterface {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你从一个新项目开始，则默认情况下将有一个主要（非测试）目标。 你可以通过右键单击目标来复制它。 让我们做两次。
 
-![Production](https://cdn.xuebaonline.com/ws-stp1.png "")
+![Production](http://cdn.xuebaonline.com/ws-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我通常为目标和方案名称加上后缀，但生产环境除外，在生产环境中，我使用“基本名称”而不使用``` -Production``` 后缀。
 

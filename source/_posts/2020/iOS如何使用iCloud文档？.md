@@ -27,14 +27,14 @@ categories:
 <!-- more -->
 
 
-![UIDocument类](https://cdn.xuebaonline.com/iu-stp1.png "")
+![UIDocument类](http://cdn.xuebaonline.com/iu-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一步是启用 ```iCloud功能``` ，它将为你生成一个新的权利文件。 另外，你还必须在 ```Apple开发者网站``` 上为 ```appID启用``` ```iCloud应用程序服务``` 。 你还应该分配将用于存储数据的 ```iCloud容器``` 。 只需单击几下，但你必须手动执行此操作。 💩
 
 > **```提示：```**\
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你需要有效的 ```Apple Developer Program``` 成员身份才能设置高级应用程序功能，例如 ```iCloud支持``` 。 因此，你必须每年支付$99。 🤑
 
-![UIDocument类](https://cdn.xuebaonline.com/iu-stp2.png "")
+![UIDocument类](http://cdn.xuebaonline.com/iu-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，我相信现在你已经有了启用 ```iCloud功能``` 和应用程序服务的正确的 ```iOS应用程序标识符``` 。 下一步是最后一步，你必须将这几行添加到 ```Info.plist``` 文件中，以便定义要使用的 ```iCloud驱动器容器（文件夹名称）``` 。 请注意，一个应用程序可以有多个容器。
 
@@ -157,6 +157,6 @@ brctl log --wait --shorten
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出日志将告诉你同步期间实际发生的情况。
 
-![UIDocument类](https://cdn.xuebaonline.com/iu-stp3.png "")
+![UIDocument类](http://cdn.xuebaonline.com/iu-stp3.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我建议你检查 ```brctl``` 命令的手动输入，因为还有其他一些标志可以调试问题更加容易。 🤐

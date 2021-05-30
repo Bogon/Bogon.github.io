@@ -22,11 +22,11 @@ categories:
 
 假设你有一个要写入文件的实例。 实例本身无法按原样写入文件，因此你需要将其编码为另一种表示形式，例如字节流：
 
-![""](https://cdn.xuebaonline.com/sp-ed-stp1.png "")
+![""](http://cdn.xuebaonline.com/sp-ed-stp1.png "")
 
 数据编码并保存到文件后，可以使用解码器随时将其转换为实例：
 
-![""](https://cdn.xuebaonline.com/sp-ed-stp2.png "")
+![""](http://cdn.xuebaonline.com/sp-ed-stp2.png "")
 
 
 

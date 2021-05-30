@@ -554,7 +554,7 @@ type(of: slice) // ArraySlice<Int>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从第二个元素开始，这使我们获得了数组的一部分。 结果的类型是 ```ArraySlice``` ，而不是 ```Array``` 。  ```ArraySlice``` 是阵列视图。 它由原始数组支持，但仅提供切片视图。 因此，创建切片不会占据太多资源-不会复制数组元素。
 
-![ArraySlice](https://cdn.xuebaonline.com/asbc-stp1.png "")
+![ArraySlice](http://cdn.xuebaonline.com/asbc-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```ArraySlice类型``` 具有与 ```Array``` 定义的方法相同的方法（因为两者都遵循相同的协议，最重要的是 ```Collection``` ），因此你可以像使用数组一样使用切片。 如果确实需要将切片转换为数组，则可以从切片中构造一个新数组：
 

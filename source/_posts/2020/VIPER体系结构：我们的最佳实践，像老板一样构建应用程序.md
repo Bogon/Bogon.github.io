@@ -36,7 +36,7 @@ categories:
 
 # **真正的VIPER模块解耦的项目结构**
 
-![真正的VIPER模块解耦的项目结构](https://cdn.xuebaonline.com/va-stp1.png "VIPER的iOS文件夹结构")
+![真正的VIPER模块解耦的项目结构](http://cdn.xuebaonline.com/va-stp1.png "VIPER的iOS文件夹结构")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你会看到，我们将所有 ```VIPER``` 的模块保持尽可能的分离，从而使我们免于在项目扩展或规格更改时遇到的麻烦。 如果删除其中任何一个，则仅在引用该模型的路由器上会出现一些错误，而在 ```Views``` , ```Presenters```, ```Interactors```,``` Data Managers``` , ```Entity``` 上则不会。
 

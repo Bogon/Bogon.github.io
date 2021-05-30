@@ -73,7 +73,7 @@ Package.swift
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，该库的源代码将被复制到应用程序的源代码中。 这将导致一个较大的可执行文件，它将花费更多的时间来加载，因此二进制文件的启动时间会更慢。 哦，我是否提到过，如果你尝试多次链接同一库，由于符号重复，该过程将失败？
 
-![静态链接](https://cdn.xuebaonline.com/sf-stp1.png "")
+![静态链接](http://cdn.xuebaonline.com/sf-stp1.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种方法也有优点，例如，可执行文件将始终包含正确版本的库，并且仅将那些真正使用过的部分复制到主应用程序中，因此你不必加载全部内容，但是 在某些情况下，似乎动态链接会更好。
 
@@ -81,7 +81,7 @@ Package.swift
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ```动态库``` 未嵌入到二进制源中，而是在运行时加载的。 这意味着，由于使用了轻量级的二进制文件，因此应用程序可以更小，并且启动时间可以大大缩短。 免费提供的动态库可以与多个可执行文件共享，因此它们可以减少内存占用。 这就是为什么有时将它们称为共享库的原因。
 
-![动态链接](https://cdn.xuebaonline.com/sf-stp2.png "")
+![动态链接](http://cdn.xuebaonline.com/sf-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，如果动态库不可用-或可用，但该版本不兼容-你的应用程序将无法运行或崩溃。 另一方面，这可能是一个优势，因为动态库的作者可以发布修补程序，而你的应用程序可以从中受益，而无需重新编译。
 
@@ -357,7 +357,7 @@ lipo -info Console.framework/Console
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你只需要将全新的框架嵌入到要使用的项目中并设置一些路径即可。 
 
-![静态链接](https://cdn.xuebaonline.com/sf-stp3.png "")
+![静态链接](http://cdn.xuebaonline.com/sf-stp3.png "")
 
 ## ***提交至App Store***
 

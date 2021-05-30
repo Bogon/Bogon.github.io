@@ -104,7 +104,7 @@ RxSwift中有四种元素类型，还有两种包装元素的 ```relay``` 类型
 当你只是希望订阅者收到新通知时，发布元素会派上用场从订阅点开始的事件，直到取消订阅或元素已以.completed或.error事件终止。
 在下面的大理石图中，第一行是发布元素，第二行是第三行是订户。向上的箭头表示订阅，而向下的箭头表示发出的事件。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-3-1-1.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-3-1-1.png "")
 
 将1添加订阅后，第一个订阅者订阅，因此它没有收到事件。不过，它确实得到了2和3。而且因为第二个订阅者没有加入有趣的是，直到添加2之后，它只会得到3。
 
@@ -187,7 +187,7 @@ subject.onNext("?")
 
 行为元素的工作方式与发布元素类似，不同之处在于行为元素将重播新订户的最新.next事件。 看看这个大理石图：
 
-![Behavior Subjects](https://cdn.xuebaonline.com/behavior_subjects-001.png "")
+![Behavior Subjects](http://cdn.xuebaonline.com/behavior_subjects-001.png "")
 
 从顶部开始的第一行是元素。 第二行的第一个订阅者在1之后但2之前订阅，因此订阅后立即获得1，然后在元素发出时获得2和3。 同样，第二个订阅者在2之后但3之前订阅，因此它立即得到2，然后在发出时得到3。
 
@@ -289,7 +289,7 @@ subject
 
 下图显示了一个缓冲区大小为2的重播元素。
 
-![Behavior Subjects](https://cdn.xuebaonline.com/behavior_subjects-002.png.png "")
+![Behavior Subjects](http://cdn.xuebaonline.com/behavior_subjects-002.png.png "")
 
 第一个订阅者（中线）已经订阅了重放元素（顶行），因此它会在元素发出时得到它们。 第二个订阅者（底行）在2之后订阅，因此它被重播1和2。
 请记住，使用重播元素时，此缓冲区将保留在内存中。 你绝对可以在这里开枪，例如，如果为某种类型的重播元素设置了较大的缓冲区大小，则其实例每个实例都占用大量内存，例如图像。

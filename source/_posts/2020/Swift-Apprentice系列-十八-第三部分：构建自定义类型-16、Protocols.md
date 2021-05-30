@@ -40,7 +40,7 @@ protocol Vehicle {
 
 这意味着你无法直接实例化Vehicle：
 
-![协议实例化失败示例](https://cdn.xuebaonline.com/sasb-protocol-stp1.png "")
+![协议实例化失败示例](http://cdn.xuebaonline.com/sasb-protocol-stp1.png "")
 
 而是**使用协议在其他类型上强制使用方法和属性**。 你在此处定义的概念类似于车辆的概念-它可以加速和停止。
 
@@ -68,7 +68,7 @@ func stop() {
 
 如果你要从上面的Unicycle类中删除stop（）的定义，由于Unicycle尚未完全符合Vehicle协议，Swift将显示错误。
 
-![协议](https://cdn.xuebaonline.com/sasb-protocol-stp2.png "")
+![协议](http://cdn.xuebaonline.com/sasb-protocol-stp2.png "")
 
 稍后，我们将详细介绍实现协议的细节，但是首先，你将了解定义协议时可以实现的目标。
 

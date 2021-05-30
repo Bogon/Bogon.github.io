@@ -82,7 +82,7 @@ class CustomView: View {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，这里的 ```initialize``` 方法只是将 ```self``` 的所有者加载到 ```nib``` 文件中。 加载过程完成后，将使用 ```xib文件``` 中的适当值填充出口指针。 我们需要做的最后一件事。 甚至 ```xib文件``` 中的视图都 ```“以编程方式”``` 连接到我们的自定义视图对象，但从视觉上看并不是这样。 因此，我们必须将容器视图添加到视图层次结构中。 🤐
 
-![xib文件](https://cdn.xuebaonline.com/xu-stp1.jpg "")
+![xib文件](http://cdn.xuebaonline.com/xu-stp1.jpg "")
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要使用自定义视图对象，只需在视图控制器内部从该对象创建一个新实例，最后随意将其添加为子视图！
@@ -120,7 +120,7 @@ class ViewController: UIViewController {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一件事。 如果你不喜欢以编程方式处理视图，或者只是不想弄乱 ```loadView``` 方法，只需将其完全删除即可。 接下来，将 ```@IBOutlet``` 关键字放在自定义视图类变量之前。 使用 ```IB``` 打开情节提要，然后将新的 ```UIView``` 元素拖放到控制器上并连接自定义视图插座。 💫
 
-![xib文件](https://cdn.xuebaonline.com/xu-stp2.png "")
+![xib文件](http://cdn.xuebaonline.com/xu-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们来谈谈 ```IBAction``` ，它们的工作原理与你期望使用控制器时完全相同。 你可以简单地将按钮连接到自定义视图，然后将操作委派给自定义视图类。 如果要将触摸或特定操作转发给控制器，则应使用委托模式或使用简单的块。 😎
 
@@ -169,7 +169,7 @@ class CustomView: UIView {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像这次使用表或集合视图单元格一样，你必须在视图对象而不是文件所有者上设置自定义视图类。 你必须连接网点，基本上你已完成了所有工作。 🤞
 
-![xib文件](https://cdn.xuebaonline.com/xu-stp3.png "")
+![xib文件](http://cdn.xuebaonline.com/xu-stp3.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从现在开始，你应该始终在自定义视图对象上使用实例化方法。 好消息是该函数是通用的，返回正确的实例类型，并且高度可重用。 哦，顺便说一句。 我已经提到了坏消息...🤪
 

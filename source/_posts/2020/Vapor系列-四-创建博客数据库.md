@@ -415,11 +415,11 @@ public func configure(_ app: Application) throws {
 swift run Run migrate
 ```
 
-![""](https://cdn.xuebaonline.com/vapor-4-stp2.png "")
+![""](http://cdn.xuebaonline.com/vapor-4-stp2.png "")
 
 或者，您可以在Xcode的“编辑方案”菜单下设置命令行参数：
 
-![""](https://cdn.xuebaonline.com/vapor-4-stp1.png "")
+![""](http://cdn.xuebaonline.com/vapor-4-stp1.png "")
 
 如果使用此迁移参数运行该应用程序，则会看到提示，您必须确认迁移。您可以通过在运行应用程序时提供--auto-migrate标志作为额外的参数来跳过确认。
 

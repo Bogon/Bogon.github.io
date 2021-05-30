@@ -76,7 +76,7 @@ defaults write com.apple.iphonesimulator AllowFullscreenMode -bool YES
 
 出现这种原因是Link Binary With Libraries还存在某些包的.a文件的引用删除即可。
 
-![ld: framework not found Xcode编译报错](https://cdn.xuebaonline.com/record-1-1-2.png "")
+![ld: framework not found Xcode编译报错](http://cdn.xuebaonline.com/record-1-1-2.png "")
 
 # 11、UIImage显示原始颜色或渲染成任意颜色
 

@@ -127,7 +127,7 @@ protocol WeightCalculatable {
 
 这将使字符串和猫的体重类型无效：
 
-![""](https://cdn.xuebaonline.com/as-agp-stp1.png "")
+![""](http://cdn.xuebaonline.com/as-agp-stp1.png "")
 
 现在，你可以编写在计算中使用权重的通用函数。 为什么不开始善加利用呢？ 这样写：
 
@@ -400,7 +400,7 @@ var heavyList = [HeavyThing(), VeryHeavyThing()] // error
 
 Xcode现在建议你将此数组声明为[Any]：
 
-![""](https://cdn.xuebaonline.com/as-agp-stp2.png "")
+![""](http://cdn.xuebaonline.com/as-agp-stp2.png "")
 
 任何对象都可以代表任何类型，因此它可用于创建异构数组。 但是，它确实要付出代价。
 

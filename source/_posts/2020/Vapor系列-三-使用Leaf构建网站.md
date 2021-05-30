@@ -271,9 +271,9 @@ func routes(_ app: Application) throws {
 }
 ```
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp1.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp1.png "")
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp2.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp2.png "")
 
 render方法的第一个参数是叶子文件的名称（不带扩展名）。作为第二个参数，您可以传递符合可编码协议的任何内容。它是一个通用参数，因此我们可以使用字符串，可编码对象数组或任何符合协议要求的东西。通常，我创建一个本地Context结构，因为这是您传递的视图上下文，但是有时我将其称为视图模型。
 
@@ -410,9 +410,9 @@ public func configure(_ app: Application) throws {
 
 运行该应用程序，您应该会看到一个不错的小主页，该主页使用了通过模板引擎组合在一起的两个模板文件。
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp3.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp3.png "")
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp4.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp4.png "")
 
 # 博客列表
 
@@ -577,7 +577,7 @@ struct BlogRepository {
 如果将可编码项的数组传递给视图上下文对象，则可以使用#for标记对它们进行迭代。 如果数组中的元素是对象，则可以通过点表示法访问它们的属性。 否则，您可以简单地打印出给定名称的值。 您可以使用#if标签检查变量是否存在，＃else部分是可选的，但是在Leaf中，您始终必须使用#end[tag]闭包来关闭标签。
 运行该应用程序并导航到/blog页面，您应该看到帖子列表。
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp5.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp5.png "")
 
 # 博客条目页面
 
@@ -663,7 +663,7 @@ fature的好处是您可以使用功能方法对其进行转换。它们的工�
 
 使用Xcode或命令行构建并运行该应用程序。 在浏览器窗口中，单击其中一篇博客文章，希望您应该能够阅读全文。
 
-![""](https://cdn.xuebaonline.com/vapor-3-stp6.png "")
+![""](http://cdn.xuebaonline.com/vapor-3-stp6.png "")
 
 从SEO角度来看，这种方法非常好，因为URL干净。 这是排名中最重要的因素之一。 作为实践，您可以使用一些其他元信息来扩展index.leaf模板，以支持丰富的预览。
 

@@ -484,7 +484,7 @@ while true {
 + 你使用布尔数据类型Bool表示对与错。
 + 全部返回布尔值的比较运算符为：\
 \
-![computer的工作方式](https://cdn.xuebaonline.com/sasb-bcf-stp1.png "")
+![computer的工作方式](http://cdn.xuebaonline.com/sasb-bcf-stp1.png "")
 
 + 你可以使用布尔逻辑（&&和||）组合比较条件。
 + 你使用if语句根据条件做出简单的决定。

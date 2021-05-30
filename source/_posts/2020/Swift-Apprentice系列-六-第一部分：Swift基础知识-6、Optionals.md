@@ -69,7 +69,7 @@ Swift引入了一个全新的可选类型，该类型处理值可能为零的可
 
 可以将可选内容视为一个框：它要么只包含一个值，要么为空。 如果不包含值，则表示包含nil。 盒子本身总是存在的。 它总是在那里供你打开并查看内部。
 
-![playground](https://cdn.xuebaonline.com/sasb-o-stp1.png "")
+![playground](http://cdn.xuebaonline.com/sasb-o-stp1.png "")
 
 另一方面，字符串或整数周围没有此框。 相反，总会有一个值，例如“ hello”或42。请记住，非可选类型必须保证具有实际值。
 
@@ -100,7 +100,7 @@ errorCode = nil
 
 此图可以帮助你直观地了解正在发生的事情：
 
-![playground](https://cdn.xuebaonline.com/sasb-o-stp2.png "")
+![playground](http://cdn.xuebaonline.com/sasb-o-stp2.png "")
 
 
 可选框始终存在。 当你为变量分配100时，你将在该框中填充值。 当你为变量分配nil时，你将清空该框。

@@ -73,7 +73,7 @@ Apple在iOS SDK中提供了许多API，可帮助你编写异步代码。
 
 问题在于，复杂的异步代码变得很难编写，部分原因是Apple的SDK提供了多种API：
 
-![Apple's_SDK](https://cdn.xuebaonline.com/rxswift-1-1.png "")
+![Apple's_SDK](http://cdn.xuebaonline.com/rxswift-1-1.png "")
 
 使用委托要求你采用一种特定的模式，另一种用于闭包，另一种用于订 NotificationCenter的方法，依此类推。 由于所有异步API都没有通用语言，因此请阅读并理解代码及其执行的推理变得困难。
 
@@ -176,7 +176,7 @@ override func viewDidAppear(_ animated: Bool) {
 
 运行一段时间，什么也不做，会导致一个相当无用的应用程序。
 
-![Side_Effects](https://cdn.xuebaonline.com/rxswift-1-2.png "")
+![Side_Effects](http://cdn.xuebaonline.com/rxswift-1-2.png "")
 
 产生副作用的重要方面是以受控方式进行的。 你需要能够确定哪些代码段会产生副作用，以及哪些代码会简单地处理和输出数据。
 
@@ -243,7 +243,7 @@ ObservableType协议（Observable<T>符合）非常简单。
 
 在讨论随时间推移发出的异步事件时，你可以在时间轴上可视化可观察到的整数序列，如下所示：
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-3.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-3.png "")
 
 一个Observable可以发出的三个可能事件的简单约定是Rx中的任何事物。 由于它是如此通用，因此你甚至可以使用它来创建最复杂的应用程序逻辑。
 
@@ -251,7 +251,7 @@ ObservableType协议（Observable<T>符合）非常简单。
 
 你无需使用委托协议或注入闭包以允许你的类彼此对话。
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-4.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-4.png "")
 
 要了解一些现实情况，你将研究两种不同的可观察序列：有限和无限。
 
@@ -301,7 +301,7 @@ API.download（file :)返回一个Observable <Data>实例，当大量数据通�
 
 这种方向变化的序列没有自然的终点。 只要有设备，就有可能发生方向变化的序列。 此外，由于该序列实际上是无限的，因此在你开始观察该序列时，总是会有一个初始值。
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-5.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-5.png "")
 
 用户可能从不旋转设备，但这并不意味着事件序列已终止。 这只是意味着没有事件发出。
 
@@ -350,7 +350,7 @@ UIDevice.rx.orientation
 
 每次UIDevice.rx.orientation生成.landscape或.portrait值时，Rx都会将几个运算符应用于该发出的数据。
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-6.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-6.png "")
 
 首先，过滤器只会让非.landscape的值通过。 如果设备处于横向模式，则订阅代码将不会执行，因为过滤器将抑制这些事件。
 
@@ -378,7 +378,7 @@ ConcurrentDispatchQueueScheduler将同时运行你的代码，而OperationQueueS
 
 RxSwift将充当你的订阅（位于左侧）和调度程序（位于右侧）之间的调度程序，将工作片段发送到正确的上下文，并无缝地允许它们彼此使用。
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-7.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-7.png "")
 
 要阅读此图，请按照在不同调度程序中进行调度的顺序（1、2、3，...）遵循有色工作。 例如：
 
@@ -404,7 +404,7 @@ RxSwift将充当你的订阅（位于左侧）和调度程序（位于右侧）�
 
 MVVM和RxSwift一起使用的原因是ViewModel允许你公开Observable <T>属性，你可以将这些属性直接绑定到View控制器的粘合代码中的UIKit控件。 这使得将模型数据绑定到UI非常容易表示和编码：
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-8.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-8.png "")
 
 本书中的所有其他示例都使用MVC架构，以使示例代码保持简单易懂。
 
@@ -425,6 +425,6 @@ toggleSwitch.rx.isOn
 
 RxCocoa将rx.isOn属性（以及其他属性）添加到UISwitch类中，以便你可以将有用事件订阅为反应性Observable序列。
 
-![Observable](https://cdn.xuebaonline.com/rxswift-1-9.png "")
+![Observable](http://cdn.xuebaonline.com/rxswift-1-9.png "")
 
 此外，RxCocoa将rx命名空间添加到UITextField，URLSession，UIViewController等中，甚至允许你在此命名空间下定义自己的反应式扩展，你将在本系列的后面部分中详细了解。

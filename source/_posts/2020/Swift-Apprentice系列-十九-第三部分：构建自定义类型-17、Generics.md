@@ -77,7 +77,7 @@ enum EnumKeeperKind {
 
 总而言之，你可以这样描述关系：
 
-![建立关系示例](https://cdn.xuebaonline.com/sasb-Generics-stp1.png "")
+![建立关系示例](http://cdn.xuebaonline.com/sasb-Generics-stp1.png "")
 
 ## 其他类型定义的类型
 
@@ -105,7 +105,7 @@ class KeeperForDogs {}
 
 你想声明每种可能的宠物类型都暗示着相应的饲养员类型的存在，你要描述的对应关系如下：
 
-![建立关系示例](https://cdn.xuebaonline.com/sasb-Generics-stp2.png "")
+![建立关系示例](http://cdn.xuebaonline.com/sasb-Generics-stp2.png "")
 
 你想确定每种可能的宠物类型都定义了一个相应的饲养员类型。 但是你不想手动执行此操作。 你想要一种为所有管家自动定义一组新类型的方法。
 
@@ -121,7 +121,7 @@ class Keeper<Animal> {}
 
 根据需要，此定义立即定义所有相应的keeper类型：
 
-![建立关系示例](https://cdn.xuebaonline.com/sasb-Generics-stp3.png "")
+![建立关系示例](http://cdn.xuebaonline.com/sasb-Generics-stp3.png "")
 
 你可以通过创建它们的值并在初始化程序中指定整个类型来验证这些类型是真实的：
 

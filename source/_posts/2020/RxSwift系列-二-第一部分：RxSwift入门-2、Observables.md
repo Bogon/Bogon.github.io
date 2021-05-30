@@ -31,7 +31,7 @@ categories:
 
 在“项目”导航器中选择“ RxSwiftPlayground”，你应该看到以下内容：
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-1.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-1.png "")
 
 在Project导航器中的Sources文件夹中向下滚动Playground页面，然后选择SupportCode.swift。 它包含以下辅助函数示例（of :)：
 
@@ -52,13 +52,13 @@ Observables是Rx的核心。 你将花费一些时间来讨论什么是Observabl
 
 你会看到“Observables”，“可观察的序列”和“序列”在Rx中互换使用。 而且，实际上，它们都是同一件事。 你甚至可能会偶尔看到偶尔出现的“信息流”，特别是来自不同反应式编程环境来RxSwift的开发人员。 “ Stream”也指同一件事，但是在RxSwift中，所有很酷的孩子都称其为序列(sequence)，而不是流。 在RxSwift中...
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-2.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-2.png "")
 
 ...或适用于序列的内容。 可观察对象只是一个序列，具有一些特殊功能。 这些权力之一（实际上是最重要的权力）是异步的。 可观察对象在一段时间内会产生事件，该过程称为发射。 事件可以包含值，例如数字或自定义类型的实例，或者它们可以被识别为手势，例如轻击。
 
 概念化的最佳方法之一是使用大理石图，这些图只是在时间轴上绘制的值。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-3.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-3.png "")
 
 左右箭头代表时间，而带数字的圆圈代表序列的元素。 元素1将被发射，一段时间将被发射，然后2和3将被发射。 你问多少时间？ 它可能在可观察对象的整个生命周期中的任何时候出现，从而使你进入可观察对象的生命周期。
 
@@ -68,11 +68,11 @@ Observables是Rx的核心。 你将花费一些时间来讨论什么是Observabl
 
 这是另一个大理石图，这次包括一个竖线，代表此可观察道路的尽头。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-4.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-4.png "")
 
 该可观察的对象发出三个轻击事件，然后结束。 这被称为完成事件，因为它已终止。 例如，也许水龙头在被忽略的景象上。 重要的是可观察对象已经终止，并且不再发出任何东西。 这是正常终止。 但是，有时候情况可能会出错。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-5.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-5.png "")
 
 该大理石图发生错误； 它由红色X表示。Observable发出了一个错误事件，其中包含错误。 这与可观察项通常以完成事件终止时没有什么不同。 如果一个可观察对象发出一个错误事件，它也会被终止并且不能再发出其他任何事件。
 
@@ -136,11 +136,11 @@ let observable2 = Observable.of(one, two, three)
 
 按住Option键并单击observable2以显示其推断的类型，你会看到它是Int的Observable，而不是数组：
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-6.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-6.png "")
 
 这是因为of运算符采用可变参数，而Swift能够基于该参数推断Observable的类型。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-7.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-7.png "")
 
 如果你要创建一个可观察的数组，则只需将数组传递。
 将此代码添加到示例的底部：
@@ -219,7 +219,7 @@ observable.subscribe { event in
 
 按住Option键单击“订阅”运算符，你会看到它使用了一个转义闭包，该闭包采用了Int类型的Event，并且不返回任何内容，subscribe返回了Disposable。 你很快就会涉及一次性用品。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-8.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-8.png "")
 
 订阅的结果是可观察到的每个事件都会打印出来。
 
@@ -440,7 +440,7 @@ example(of: "create") {
 
 create运算符采用一个名为subscribe的参数。 它的工作是提供可观察的调用订阅的实现。 换句话说，它定义了将发送给订户的所有事件。 按住Option键单击“创建”。
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-9.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-9.png "")
 
 subscription参数是一个转义的闭包，它使用AnyObserver并返回Disposable。 AnyObserver是一种通用类型，它有助于将值添加到可观察序列上，然后将其发送给订户。
 
@@ -642,7 +642,7 @@ Completable将仅发出.completed或.error事件。它不发出任何值。当�
 
 你将有机会在第4章“实践中的可观察对象和主题”及以后的内容中进一步研究特质。现在，你将学习一个基本示例，该示例使用单个示例从Playground的Resources文件夹中名为Copyright.txt的文本文件中加载一些文本，因为谁不时会不喜欢某些法文？
 
-![RxSwiftPlayground](https://cdn.xuebaonline.com/rxswift-1-2-10.png "")
+![RxSwiftPlayground](http://cdn.xuebaonline.com/rxswift-1-2-10.png "")
 
 将此示例添加到你的 playground：
 

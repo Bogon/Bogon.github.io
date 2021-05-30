@@ -31,7 +31,7 @@ let valid = names.flatMap { $0 }
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Xcode 9.3``` 显示了以这种方式使用 ```flatMap``` 的弃用警告：
 
-![flatMap](https://cdn.xuebaonline.com/rfc-stp1.png "")
+![flatMap](http://cdn.xuebaonline.com/rfc-stp1.png "")
 
 <!-- more -->
 

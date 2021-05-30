@@ -50,7 +50,7 @@ let john = Person(firstName: "Johnny", lastName: "Appleseed")
 
 但是，你还可以看到类和结构之间的一些区别：上面的类定义了一个将firstName和lastName都设置为初始值的初始化程序。 与结构不同，**类不会自动提供成员初始化器-这意味着你必须自己提供它**。 如果你忘记提供初始化程序，Swift编译器会将其标记为错误：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp1.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp1.png "")
 
 除了默认初始化外，类和结构的初始化规则非常相似。 类初始化程序是标记为init的函数，并且必须在init结束之前为所有存储的属性分配初始值。
 
@@ -74,7 +74,7 @@ var var1 = SimplePerson(name: "John")
 
 在内存中看起来像这样：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp2.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp2.png "")
 
 如果要创建一个新变量var2并为其分配var1的值：
 
@@ -84,7 +84,7 @@ var var2 = var1
 
 然后，var1和var2内部的引用将引用内存中的相同位置：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp3.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp3.png "")
 
 相反，将结构作为值类型存储实际值，从而可以直接访问它。 用以下结构替换SimplePerson类实现：
 
@@ -96,11 +96,11 @@ struct SimplePerson {
 
 在内存中，该变量不会引用内存中的位置，但该值将排他地属于var1：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp4.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp4.png "")
 
 在这种情况下，赋值var var2 = var1将复制var1的值：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp5.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp5.png "")
 
 值类型和引用类型各有其独特的优点和缺点。 在本章的后面，你将考虑在给定情况下使用哪种类型的问题。 现在，让我们研究一下类和结构如何在后台运行。
 
@@ -118,7 +118,7 @@ struct SimplePerson {
 
 也许你已经弄清楚了它与结构和类的关系。看一下下图：
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp6.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp6.png "")
 
 + 创建类的实例时，你的代码请求堆上的一块内存来存储实例本身。 这是图表右侧实例中的名字和姓氏。 它将内存的地址存储在堆栈上的命名变量中； 这就是存储在图表左侧的参考。
 
@@ -264,7 +264,7 @@ jane.recordGrade(math)
 
 前面的示例可能会让你想知道即使jane被定义为常量，如何也可以对其进行修改。 定义常量时，不能更改常量的值。 如果你回想起有关值类型与引用类型的讨论，请务必记住，对于引用类型，该值是一个引用。
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp7.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp7.png "")
 
 红色“ reference1”的值是存储在jane中的值。 此值是一个引用，并且因为jane被声明为常量，所以此引用是常量。 如果你试图将另一个学生分配给简，则会出现编译器错误：
 
@@ -282,7 +282,7 @@ jane = Student(firstName: "John", lastName: "Appleseed")
 
 在将另一个Student分配给jane之后，jane后面的参考值将更新为指向新的Student对象。
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp8.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp8.png "")
 
 由于没有东西会引用原始的“ Jane”对象，因此它的内存将被释放以在其他地方使用。 你将在第23章“内存管理”中了解更多信息。
 
@@ -294,7 +294,7 @@ jane = Student(firstName: "John", lastName: "Appleseed")
 
 你可以利用此优势。 也许你将学生实例传递给运动队，成绩单和班级名册。 想象所有这些实体都需要知道学生的成绩，并且由于它们都指向同一个实例，因此当实例记录它们时，它们都会看到新的成绩。
 
-![playground](https://cdn.xuebaonline.com/sasb-c-stp9.png "")
+![playground](http://cdn.xuebaonline.com/sasb-c-stp9.png "")
 
 **共享的结果是类实例具有状态**。 状态变化有时可能很明显，但往往不是。
 

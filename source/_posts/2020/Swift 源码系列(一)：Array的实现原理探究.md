@@ -1303,7 +1303,7 @@ public init() {
 
 对 `_Buffer` 数据结构分析，其定义是：
 
-![](https://cdn.xuebaonline.com/array_im_01.png)
+![](http://cdn.xuebaonline.com/array_im_01.png)
 
 
 

@@ -25,7 +25,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你不熟悉 ```UICollectionView``` ，建议立即熟悉此类。 它们是 ```Apple``` 和其他第三方开发人员提供的许多应用程序的基本构建块。 就像 ```UITableView``` 一样。 结合 ```IB``` 和 ```Swift``` 代码快速了解和使用它们。 💻
 
-![UICollectionView](https://cdn.xuebaonline.com/ug-stp1.png "")
+![UICollectionView](http://cdn.xuebaonline.com/ug-stp1.png "")
 
 <!-- more -->
 
@@ -40,7 +40,7 @@ categories:
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你仍然想使用 ```IB``` ，这是绝对入门的真正快速教程：
 
-![IB](https://cdn.xuebaonline.com/ug-stp2.png "")
+![IB](http://cdn.xuebaonline.com/ug-stp2.png "")
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建第一个基于 ```UICollectionView``` 的屏幕的主要步骤如下：
 
@@ -252,7 +252,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout {
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以像创建 ```section headers``` 一样完全地创建 ```section footers``` ，因此这就是我这次只关注 ```section headers``` 的原因，因为从字面上看，你只需要更改一个字即可使用 ```section footers``` 。 ⚽️
 
-![footers](https://cdn.xuebaonline.com/ug-stp3.png "")
+![footers](http://cdn.xuebaonline.com/ug-stp3.png "")
 
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你只需要创建两个 ```xib``` 文件，一个用于单元格，一个用于头文件。 请注意，你可以使用完全相同的集合视图单元格来在 ```section``` 标题中显示内容，但这是一个演示，因此让我们处理两个不同的项目。 你甚至不必从 ```IB``` 设置重用标识符，因为我们必须在源代码中注册我们的可重用视图，因此只需设置单元类并连接你的 ```outlets``` 即可。
@@ -454,7 +454,7 @@ self.collectionView.reloadData()
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;恭喜，你已完成第一个 ```collection``` 视图。 仅需几行代码，你便拥有了 ```ROCK SOLID ```代码，可在大多数情况下为你提供帮助！ 😎
 
-![collection](https://cdn.xuebaonline.com/ug-stp4.png "")
+![collection](http://cdn.xuebaonline.com/ug-stp4.png "")
 
 </br>
 

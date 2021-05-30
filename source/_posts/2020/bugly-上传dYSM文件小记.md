@@ -17,12 +17,12 @@ categories:
 
 Xcode 11之后的使用bugly上传*.dYSM文件的方式发生的变化。在Build Phases中添加脚本上传出现了APP.dYSM未上传到Bugly后台的情况。
 
-![](https://cdn.xuebaonline.com/bugly-01.png )
+![](http://cdn.xuebaonline.com/bugly-01.png )
 
 需要注意2点：
 1. 在Bugly官网提供的脚本中，会出现获取不到版本号的情况，因为在Xcode11之后回去版本参数做了调整：
 
-	![](https://cdn.xuebaonline.com/bugly-02.png )
+	![](http://cdn.xuebaonline.com/bugly-02.png )
 	
 + 获取版本号：$(CURRENT_PROJECT_VERSION)
 + 获取Build版本号：$(MARKETING_VERSION)

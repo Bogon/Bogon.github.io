@@ -116,7 +116,7 @@ swift package init --type=executable
 
 此命令将创建一个新的可执行项目。 让我们看一下文件结构。
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp1.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp1.png "")
 
 默认情况下，“源”文件夹将用作生成源。 每个目标在Sources目录中都有其专用的位置。 在这里可以放置您的Swift文件。 在我们的例子中，myProject目标只有一个名为main.swift的源文件。 这是我们的可执行myProject目标的主要入口点。
 
@@ -128,7 +128,7 @@ swift package init --type=executable
 swift run VaporLearning
 ```
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp2.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp2.png "")
 
 这将打印出著名的“你好，世界！” 文本。 您也可以通过打开Package.swift文件从Xcode运行项目，或者可以生成专用的项目文件。 您可以在下面的几节中详细了解差异。
 
@@ -199,9 +199,9 @@ try app.run()
 swift run VaporLearning
 ```
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp4.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp4.png "")
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp5.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp5.png "")
 
 run命令将首先构建程序包，然后将执行VaporLearning产品。 或者，您可以先构建应用程序，然后手动从构建文件夹运行它：
 
@@ -214,7 +214,7 @@ swift build ./.build/debug/myProject
 # 工作目录
 如果通过Xcode运行项目，则可能需要设置自定义工作目录，否则应用程序将在被诅咒的位置DerivedData中查找资产。 如果您使用带有默认配置的模板引擎或公共文件中间件，这可能会导致一些问题，因为系统找不到正确的路由。 为了解决这个问题，您只需单击停止按钮旁边的目标名称，然后选择“编辑方案...”菜单项。 选择左侧的“运行”菜单项，然后单击“选项”选项卡。
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp6.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp6.png "")
 
 单击“使用自定义工作目录”复选框，然后选择要使用的文件夹。 现在，如果再次构建，框架将使用所选目录来加载资源文件，您应该注意到相关警告从控制台输出中消失了。
 
@@ -248,7 +248,7 @@ vapor new VaporLearning
 vapor new VaporLearning --branch=4
 ```
 
-![""](https://cdn.xuebaonline.com/vapor-2-stp3.png "")
+![""](http://cdn.xuebaonline.com/vapor-2-stp3.png "")
 
 它会向您询问有关Fluent的信息，这是ORM层，但是现在您可以回答no，并且在没有数据库连接支持的情况下生成starter项目。
 

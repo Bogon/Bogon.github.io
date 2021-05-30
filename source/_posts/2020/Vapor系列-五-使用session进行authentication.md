@@ -376,7 +376,7 @@ struct UserFrontendController {
 
 我们还可以检查loginView方法中是否存在登录用户，然后将浏览器重定向到另一个端点，甚至获取用户数据并呈现不同的视图，我不会在此处添加此逻辑，但我将显示您如何在其他控制器中执行此操作。 以后随时实施它是一个好习惯。
 
-![""](https://cdn.xuebaonline.com/vapor-5-stp1.png "")
+![""](http://cdn.xuebaonline.com/vapor-5-stp1.png "")
 
 # 我是经过认证的吗？
 
@@ -511,7 +511,7 @@ input.submit:hover {
 
 启动服务器，然后尝试使用预先创建的用户帐户登录。 您还可以调出检查器并查看本地cookie存储。 每次您执行注销操作时，会话标识符都应更改。
 
-![""](https://cdn.xuebaonline.com/vapor-5-stp2.png "")
+![""](http://cdn.xuebaonline.com/vapor-5-stp2.png "")
 
 # 更好的视图层次
 

@@ -35,7 +35,7 @@ categories:
 
 **数组是相同类型的值的有序集合**。 数组中的元素为零索引，这意味着第一个元素的索引为0，第二个元素的索引为1，依此类推。 知道了这一点，你可以得出最后一个元素的索引是数组中值的数量减去一。
 
-![playground](https://cdn.xuebaonline.com/sasb-ads-stp1.png "")
+![playground](http://cdn.xuebaonline.com/sasb-ads-stp1.png "")
 
 此数组中有五个元素，索引为0–4。
 
@@ -385,7 +385,7 @@ print(sumOfElements(in: scores))
 
 如下图所示，**键是唯一的**。 相同的键不能在字典中出现两次，但是不同的键可能指向相同的值。 **所有键必须具有相同的类型，并且所有值都必须具有相同的类型**。
 
-![playground](https://cdn.xuebaonline.com/sasb-ads-stp2.png "")
+![playground](http://cdn.xuebaonline.com/sasb-ads-stp2.png "")
 
 当你想通过标识符查找值时，字典很有用。 例如，本书的目录将章节名称映射到其页码，从而可以轻松跳至你要阅读的章节。
 
@@ -587,7 +587,7 @@ Swift字典对键有类型要求。**key必须是可哈希的**，否则会出�
 
 **集合是相同类型的唯一值的无序集合**。 当你要确保某个项目在集合中出现的次数不超过一次并且项目的顺序不重要时，这可能非常有用。
 
-![playground](https://cdn.xuebaonline.com/sasb-ads-stp3.png "")
+![playground](http://cdn.xuebaonline.com/sasb-ads-stp3.png "")
 
 上面的“设置”插图中有4个字符串。 请注意，这些元素没有顺序。
 

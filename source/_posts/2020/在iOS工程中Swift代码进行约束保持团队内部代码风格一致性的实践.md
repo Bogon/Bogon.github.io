@@ -19,7 +19,7 @@ categories:
 
   SwiftLint Hook 了 [Clang](http://clang.llvm.org) 和 [SourceKit](http://www.jpsim.com/uncovering-sourcekit) 从而能够使用 [AST](http://clang.llvm.org/docs/IntroductionToTheClangAST.html) 来表示源代码文件的更多精确结果。
 
-  ![image-20201210170345877](https://cdn.xuebaonline.com/swift_lint_guild_01.png)
+  ![image-20201210170345877](http://cdn.xuebaonline.com/swift_lint_guild_01.png)
 
   
 
@@ -76,7 +76,7 @@ categories:
   fi
   ```
 
-  ![image-20201210170549795](https://cdn.xuebaonline.com/swift_lint_guild_02.png)
+  ![image-20201210170549795](http://cdn.xuebaonline.com/swift_lint_guild_02.png)
 
   或者，脚本看起来应该像这样如果你已经通过 `CocoaPods` 安装了 `SwiftLint`：
 
@@ -309,7 +309,7 @@ categories:
 
   输出大概可能是这个样子的：
 
-  ![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_03.png)
+  ![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_03.png)
 
   你可以通过提供一个或者多个 `match_kinds` 的方式来对匹配进行筛选，它会将含有不包括在列表中的语法类型的匹配排除掉。这里有全部可用的语法类型：
 
@@ -354,9 +354,9 @@ categories:
 
   支持的规则列表：
 
-![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_04.png)
-![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_05.png)
-![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_06.png)
-![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_07.png)
-![image-20201210170739747](https://cdn.xuebaonline.com/swift_lint_guild_08.png)
+![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_04.png)
+![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_05.png)
+![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_06.png)
+![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_07.png)
+![image-20201210170739747](http://cdn.xuebaonline.com/swift_lint_guild_08.png)
 
