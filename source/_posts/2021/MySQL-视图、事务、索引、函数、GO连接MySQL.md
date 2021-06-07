@@ -56,7 +56,7 @@ categories:
 
 例题
 
-```mysql
+ ```SQL
 方法一：
 mysql> select stuname,stusex,writtenexam,labexam from stuinfo inner join stumarks on stuinfo.stuno=stumarks.stuno;
 +----------+--------+-------------+---------+
@@ -124,7 +124,7 @@ inner join 表3 on 表2.公共字段=表3.公共字段
 
 例题
 
-```mysql
+ ```SQL
 mysql> select stuname,writtenexam,labexam from stuinfo left join stumarks on stuinfo.stuno=stumarks.stuno;
 +----------+-------------+---------+
 | stuname  | writtenexam | labexam |
@@ -157,7 +157,7 @@ select * from 表2 left join 表1 on 表1.公共字段=表2.公共字段   是�
 
 例题
 
-```mysql
+ ```SQL
 mysql> select stuname,writtenexam,labexam from stuinfo right join stumarks on stuinfo.stuno=stumarks.stuno;
 +----------+-------------+---------+
 | stuname  | writtenexam | labexam |
@@ -185,7 +185,7 @@ select * from 表2 right join 表1 on 表1.公共字段=表2.公共字段  是�
 
 插入测试数据
 
-```mysql
+ ```SQL
 mysql> create table t1(
     -> id int,
     -> name varchar(10)
@@ -205,7 +205,7 @@ mysql> insert into t2 values (1,88),(2,99);
 
 1、如果没有连接表达式返回的是笛卡尔积
 
-```mysql
+ ```SQL
 mysql> select * from t1 cross join t2;   # 返回笛卡尔积
 +------+-------+------+-------+
 | id   | name  | id   | score |
@@ -219,7 +219,7 @@ mysql> select * from t1 cross join t2;   # 返回笛卡尔积
 
 2、如果有连接表达式等价于内连接
 
-```mysql
+ ```SQL
 mysql> select * from t1 cross join t2 where t1.id=t2.id;
 +------+-------+------+-------+
 | id   | name  | id   | score |
@@ -243,7 +243,7 @@ mysql> select * from t1 cross join t2 where t1.id=t2.id;
 
 例题：
 
-```mysql
+ ```SQL
 # 自然内连接
 mysql> select * from stuinfo natural join stumarks;
 +--------+----------+--------+--------+---------+------------+---------+-------------+---------+
@@ -326,7 +326,7 @@ mysql> select * from stuinfo natural right join stumarks;
 
 2. using()也会对连接字段进行整理，整理方式和自然连接是一样的。
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo inner join stumarks using(stuno);   # using指定字段
 +--------+----------+--------+--------+---------+------------+---------+-------------+---------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress | examNo  | writtenExam | labExam |
@@ -349,7 +349,7 @@ mysql> select * from stuinfo inner join stumarks using(stuno);   # using指定�
 
 语法
 
-```mysql
+ ```SQL
 语法：select 语句 where 条件 (select … from 表)
 ```
 
@@ -360,7 +360,7 @@ mysql> select * from stuinfo inner join stumarks using(stuno);   # using指定�
 
 1、查找笔试80分的学生
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where stuno=(select stuno from stumarks where writtenexam=80);
 +--------+---------+--------+--------+---------+------------+
 | stuNo  | stuName | stuSex | stuAge | stuSeat | stuAddress |
@@ -371,7 +371,7 @@ mysql> select * from stuinfo where stuno=(select stuno from stumarks where writt
 
 2、查找笔试最高分的学生
 
-```mysql
+ ```SQL
 # 方法一：
 mysql> select * from stuinfo where stuno=(select stuno from stumarks order by writtenexam desc limit
  1);
@@ -402,7 +402,7 @@ mysql> select * from stuinfo where stuno=(select stuno from stumarks where writt
 
 1、查找笔试成绩及格的同学
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where stuno in (select stuno from stumarks where writtenexam>=60);
 +--------+----------+--------+--------+---------+------------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress |
@@ -416,7 +416,7 @@ mysql> select * from stuinfo where stuno in (select stuno from stumarks where wr
 
 2、查询不及格的同学
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where stuno  in (select stuno from stumarks where writtenexam<=60);
 +--------+----------+--------+--------+---------+------------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress |
@@ -428,7 +428,7 @@ mysql> select * from stuinfo where stuno  in (select stuno from stumarks where w
 
 3、查询没有通过的同学（不及格，缺考）
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where stuno  not in (select stuno from stumarks where writtenexam>=60);
 +--------+----------+--------+--------+---------+------------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress |
@@ -445,7 +445,7 @@ mysql> select * from stuinfo where stuno  not in (select stuno from stumarks whe
 
 1、	如果有人笔试超过80分就显示所有的学生
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where exists (select * from stumarks where writtenexam>=80);
 +--------+----------+--------+--------+---------+------------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress |
@@ -462,7 +462,7 @@ mysql> select * from stuinfo where exists (select * from stumarks where writtene
 
 2、	如果没有人超过80分就显示所有的学生
 
-```mysql
+ ```SQL
 mysql> select * from stuinfo where not exists (select * from stumarks where writtenexam>=80);
 Empty set (0.02 sec)
 ```
@@ -477,7 +477,7 @@ Empty set (0.02 sec)
 
 例题：查询成绩最高的男生和女生
 
-```mysql
+ ```SQL
 mysql> select stuname,stusex,ch from stu where (stusex,ch) in (select stusex,max(ch) from stu group by stusex);
 +----------+--------+------+
 | stuname  | stusex | ch   |
@@ -491,7 +491,7 @@ mysql> select stuname,stusex,ch from stu where (stusex,ch) in (select stusex,max
 
 例题：查询成绩最高的男生和女生
 
-```mysql
+ ```SQL
 mysql> select stuname,stusex,ch from (select * from stu order by ch desc) as t group by stusex;
 +----------+--------+------+
 | stuname  | stusex | ch   |
@@ -515,7 +515,7 @@ mysql> select stuname,stusex,ch from (select * from stu order by ch desc) as t g
 
 语法
 
-```mysql
+ ```SQL
 create [or replace] view 视图的名称
 as
 	select语句
@@ -523,7 +523,7 @@ as
 
 例题：
 
-```mysql
+ ```SQL
 mysql> create view vw_stu
     -> as
     -> select stuname,stusex,writtenexam,labexam from stuinfo inner join stumarks using(stuno);
@@ -538,7 +538,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 视图是一张虚拟表，视图的用法和表的用法一样
 
-```mysql
+ ```SQL
 mysql> select * from vw_stu;
 +----------+--------+-------------+---------+
 | stuname  | stusex | writtenexam | labexam |
@@ -559,13 +559,13 @@ Rows matched: 1  Changed: 1  Warnings: 0
 
 语法：
 
-```mysql
+ ```SQL
 desc 视图名
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> desc vw_stu;
 +-------------+-------------+------+-----+---------+-------+
 | Field       | Type        | Null | Key | Default | Extra |
@@ -581,7 +581,7 @@ mysql> desc vw_stu;
 
 语法：
 
-```mysql
+ ```SQL
 show create view 视图名
 ```
 
@@ -591,7 +591,7 @@ show create view 视图名
 
 #### 1.4.5	显示所有视图
 
-```mysql
+ ```SQL
  #方法一：
 mysql> show tables;
 +------------------+
@@ -643,7 +643,7 @@ Max_data_length: NULL
 
 语法：
 
-```mysql
+ ```SQL
 alter view 视图名
 as
 	select 语句
@@ -651,7 +651,7 @@ as
 
 例题：
 
-```mysql
+ ```SQL
 mysql> alter view vw_stu
     -> as
     -> select * from stuinfo;
@@ -662,13 +662,13 @@ Query OK, 0 rows affected (0.00 sec)
 
 语法：
 
-```mysql
+ ```SQL
 drop view [if exists] 视图1,视图2,…
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> drop view vw_stu;
 Query OK, 0 rows affected (0.00 sec)
 ```
@@ -683,7 +683,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 场景：找出语文成绩最高的男生和女生
 
-```mysql
+ ```SQL
 mysql> select * from (select * from stu order by ch desc) as t group by stusex;
 +--------+----------+--------+--------+---------+------------+------+------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress | ch   | math |
@@ -695,7 +695,7 @@ mysql> select * from (select * from stu order by ch desc) as t group by stusex;
 
 我们可以将子查询封装到视图中
 
-```mysql
+ ```SQL
 mysql> create view vw_stu
     -> as
     -> select * from stu order by ch desc;
@@ -704,7 +704,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 可以将上面的子查询更改成视图，但是，结果和上面不一样
 
-```mysql
+ ```SQL
 mysql> select * from vw_stu group by stusex;
 +--------+---------+--------+--------+---------+------------+------+------+
 | stuNo  | stuName | stuSex | stuAge | stuSeat | stuAddress | ch   | math |
@@ -724,7 +724,7 @@ mysql> select * from vw_stu group by stusex;
 
 解决：在创建视图的时候指定视图的算法
 
-```mysql
+ ```SQL
 create algorithm=temptable view 视图名
 as
 	select 语句
@@ -732,7 +732,7 @@ as
 
 指定算法创建视图   
 
-```mysql
+ ```SQL
 mysql> create algorithm=temptable view vw_stu
     -> as
     ->  select * from stu order by ch desc;
@@ -754,7 +754,7 @@ mysql> select * from vw_stu group by stusex;   # 结果是一致的
 
 插入测试数据
 
-```mysql
+ ```SQL
 mysql> create table bank(
     -> cardid char(4) primary key,
     -> money int
@@ -768,7 +768,7 @@ Records: 2  Duplicates: 0  Warnings: 0
 
 #### 1.5.1	事务操作
 
-```mysql
+ ```SQL
 开启事务：start transaction或begin [work]
 提交事务：commit
 回滚事务：rollback
@@ -776,7 +776,7 @@ Records: 2  Duplicates: 0  Warnings: 0
 
 例题：
 
-```mysql
+ ```SQL
 mysql> delimiter //            # 更改定界符
 
 mysql> start transaction;			# 开启事务
@@ -800,14 +800,14 @@ mysql> rollback //  # 回滚事务
 
 语法：
 
-```mysql
+ ```SQL
 设置回滚点： savepoint 回滚点名
 回滚到回滚点： rollback to 回滚点
 ```
 
 例题：
 
-```mysql
+ ```SQL
 mysql>  start transaction;
 Query OK, 0 rows affected (0.00 sec)
 
@@ -866,14 +866,14 @@ mysql> select * from bank ;
 
 语法：
 
-```mysql
+ ```SQL
 create index [索引名] on 表名 （字段名）
 alter table 表名 add index [索引的名称] （列名）
 ```
 
 例题：
 
-```mysql
+ ```SQL
 # 创建索引方法一
 mysql> create index ix_stuname on stuinfo(stuname);
 Query OK, 0 rows affected (0.08 sec)
@@ -895,7 +895,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 #### 1.6.3	创建唯一索引
 
-```mysql
+ ```SQL
 语法一：create unique index 索引名 on 表名 （字段名）
 语法二：alter table 表名 add unqiue [index] [索引的名称] （列名）
 语法三：创建表的时候添加唯一索引，和创建唯一键是一样的。
@@ -903,7 +903,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 例题
 
-```mysql
+ ```SQL
 # 方法一：
 mysql> create unique index UQ_stuname on stu(stuname);
 Query OK, 0 rows affected (0.06 sec)
@@ -927,13 +927,13 @@ Query OK, 0 rows affected (0.01 sec)
 
 语法
 
-```mysql
+ ```SQL
 drop index 索引名 on 表名
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> drop index ix_stuname on stuinfo;
 Query OK, 0 rows affected (0.03 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -952,7 +952,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 #### 1.7.1  数字类
 
-```mysql
+ ```SQL
 mysql> select rand();			# 生成随机数
 +---------------------+
 | rand()              |
@@ -1007,7 +1007,7 @@ mysql> select truncate(3.1415926,3);	# 截取数字
 
 #### 1.7.2 字符串类
 
-```mysql
+ ```SQL
 mysql> select ucase('i am a boy!');		# 转成大写
 +----------------------+
 | ucase('i am a boy!') |
@@ -1103,7 +1103,7 @@ mysql> select char_length('锄禾日当午');		# 字符个数
 
 #### 1.7.3 时间类
 
-```mysql
+ ```SQL
 mysql> select unix_timestamp();	#获取时间戳
 +------------------+
 | unix_timestamp() |
@@ -1170,7 +1170,7 @@ mysql> select cast(now() as date),cast(now() as time);   # 将now()转成日期�
 
 #### 1.7.4 加密函数
 
-```mysql
+ ```SQL
 +----------------------------------+------------------------------------------+
 | md5('root')                      | sha('root')                              |
 +----------------------------------+------------------------------------------+
@@ -1183,13 +1183,13 @@ mysql> select cast(now() as date),cast(now() as time);   # 将now()转成日期�
 
 语法
 
-```mysql
+ ```SQL
 if(表达式,值1,值2)
 ```
 
 例题：
 
-```mysql
+ ```SQL
 mysql> select if(10%2=0,'偶数','奇数');
 +--------------------------+
 | if(10%2=0,'偶数','奇数')        |
@@ -1227,7 +1227,7 @@ mysql> select stuname,ch,math,if(ch>=60 && math>=60,'通过','不通过') '是�
 
 例题一：
 
-```mysql
+ ```SQL
 mysql> prepare stmt from 'select * from stuinfo';	# 创建预处理
 Query OK, 0 rows affected (0.00 sec)
 Statement prepared
@@ -1249,7 +1249,7 @@ mysql> execute stmt;	# 执行预处理
 
 例题二：传递参数
 
-```mysql
+ ```SQL
 mysql> delimiter // 
 mysql> prepare stmt from 'select * from stuinfo where stuno=?' // -- ?是位置占位符
 Query OK, 0 rows affected (0.00 sec)
@@ -1276,7 +1276,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 例题三：传递多个参数
 
-```mysql
+ ```SQL
 mysql> prepare stmt from 'select * from stuinfo where stusex=? and stuaddress=?'  //
 Query OK, 0 rows affected (0.00 sec)
 Statement prepared
@@ -1308,7 +1308,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 语法：
 
-```mysql
+ ```SQL
 create procedure 存储过程名(参数)
 begin
 	//sql语句
@@ -1319,7 +1319,7 @@ end;
 
 例题
 
-```mysql
+ ```SQL
 mysql> delimiter //
 mysql> create procedure proc()     -- 创建存储过程
     -> begin
@@ -1332,13 +1332,13 @@ Query OK, 0 rows affected (0.00 sec)
 
 语法：
 
-```mysql
+ ```SQL
 call 存储过程名()
 ```
 
 例题：
 
-```mysql
+ ```SQL
 mysql> call proc() //     -- 调用存储过程
 +--------+----------+--------+--------+---------+------------+
 | stuNo  | stuName  | stuSex | stuAge | stuSeat | stuAddress |
@@ -1358,26 +1358,26 @@ mysql> call proc() //     -- 调用存储过程
 
 语法
 
-```mysql
+ ```SQL
 drop procedure [if exists] 存储过程名
 ```
 
 例题：
 
-```mysql
+ ```SQL
 mysql> drop procedure proc //    -- 删除存储过程
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 #### 1.7.5  查看存储过程的信息
 
-```mysql
+ ```SQL
 show create procedure 存储过程名\G
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> show create procedure proc \G
 *************************** 1. row ***************************
            Procedure: proc
@@ -1394,7 +1394,7 @@ collation_connection: gbk_chinese_ci
 
 #### 1.7.6 显示所有的存储过程
 
-```mysql
+ ```SQL
 mysql> show procedure status \G
 ```
 
@@ -1406,7 +1406,7 @@ mysql> show procedure status \G
 
 例题一：传递学号，获取对应的信息
 
-```mysql
+ ```SQL
 mysql> create procedure proc(in param varchar(10))   -- 输入参数
     -> select * from stuinfo where stuno=param //
 Query OK, 0 rows affected (0.00 sec)
@@ -1422,7 +1422,7 @@ mysql> call proc('s25301') //
 
 例题二：查找同桌
 
-```mysql
+ ```SQL
 mysql> create procedure proc(name varchar(10))
     -> begin
     -> declare seat tinyint;   -- 声明局部变量
@@ -1453,7 +1453,7 @@ mysql> call proc('李文才') //
 
 例题三：输出参数
 
-```mysql
+ ```SQL
 mysql> create procedure proc(num int, out result int)  //out 表示输出参数
     -> begin
     -> set result=num*num;
@@ -1476,7 +1476,7 @@ mysql> select @result //
 
 例题四：输入输出参数
 
-```mysql
+ ```SQL
 mysql> create procedure proc(inout num int)  #  inout 表示是输入输出参数
     -> begin
     -> set num=num*num;
@@ -1563,7 +1563,7 @@ ping()方法才是连接数据库
 
 ​	创建测试表
 
-```mysql
+ ```SQL
 mysql> create table stu(
     -> id int primary key,
     -> name varchar(10)
@@ -1573,7 +1573,7 @@ Query OK, 0 rows affected (0.02 sec)
 
 操作数据
 
-```mysql
+ ```SQL
 package main
 
 import (
@@ -1631,7 +1631,7 @@ func main(){
 
 1、	显示地区及每个地区参加考试的人数，并按人数降序排列。
 
-```mysql
+ ```SQL
 select stuaddress,count(writtenexam) c from stuinfo left join stumarks using(stuno) group by stuaddress order by c desc;
 ```
 
@@ -1639,13 +1639,13 @@ select stuaddress,count(writtenexam) c from stuinfo left join stumarks using(stu
 
 方法一：过滤
 
-```mysql
+ ```SQL
 select stuaddress,count(writtenexam) c from stuinfo left join stumarks using(stuno) group by stuaddress having c>0;
 ```
 
 方法二：链接查询
 
-```mysql
+ ```SQL
 select distinct stuaddress c from stuinfo right join stumarks using(stuno) ;
 ```
 
@@ -1653,19 +1653,19 @@ select distinct stuaddress c from stuinfo right join stumarks using(stuno) ;
 
 方法一：
 
-```mysql
+ ```SQL
 select stusex,count() from stuinfo where stusex='男' union select stusex,count() from stuinfo where stusex='女';
 ```
 
 方法二：
 
-```mysql
+ ```SQL
 select sum(stusex='男') 男,sum(stusex='女') 女 from stuinfo;
 ```
 
 4、	显示每个地区的男生和女生和总人数
 
-```mysql
+ ```SQL
 select stuaddress,count(stusex) 总人数, sum(stusex='男') 男,sum(stusex='女') 女 from stuinfo group by stuaddress
 ```
 

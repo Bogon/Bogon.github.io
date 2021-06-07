@@ -95,6 +95,28 @@ categories:
 
 在使用 ```git``` 过程中会出现想要撤销当前操作： ```merge``` 、 ```commit``` 等
 
+## 查看提交的log
+
+```Bash
+git reflog
+```
+
+```
+39d4aad4 (HEAD -> Feature_v2.2.8.1, origin/Feature_v2.2.8.1) 
+d142095a HEAD@{1}: commit (merge): merge: v2.2.8 -> v2.2.8.1
+39d4aad4 (HEAD -> Feature_v2.2.8.1, origin/Feature_v2.2.8.1) HEAD@{2}: checkout: mo
+8f428017 (origin/Feature_v2.2.8, Feature_v2.2.8) HEAD@{3}:
+268ec08b HEAD@{4}: commit: refactor: 
+aa7851ff HEAD@{5}: checkout: moving from Feature_v2.2.8.1 to 
+39d4aad4 (HEAD -> Feature_v2.2.8.1, origin/Feature_v2.2.8.1) 
+1d7f575b HEAD@{7}: checkout: moving from Feature_v2.2.8 to 
+aa7851ff HEAD@{8}: commit: feature:
+f4664271 HEAD@{9}: checkout: moving from Feature_v2.2.8.1 to 
+1d7f575b HEAD@{10}: checkout: moving from 
+```
+
+> `39d4aad4` 作为基线号
+
 ## Reset
 reset 到 merge 前的版本，然后再重做接下来的操作，要求每个合作者都晓得怎么将本地的 HEAD 都回滚回去：
 

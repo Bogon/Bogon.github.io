@@ -50,7 +50,7 @@ categories:
 
  例题
 
-```mysql
+ ```SQL
 mysql> create table stu(
     -> id smallint unsigned auto_increment primary key comment '主键',
     -> age tinyint unsigned not null comment '年龄',
@@ -75,7 +75,7 @@ mysql> desc stu;
 脚下留心：必须结合zerofill才起作用
 ```
 
-```mysql
+ ```SQL
 mysql> create table stu(
     -> id int(5),
     -> age int(5) zerofill   # 填充前导0
@@ -120,7 +120,7 @@ D：小数位数
 
  例题；
 
-```mysql
+ ```SQL
 mysql> create table t1(
     -> num1 float(5,2),   #总位数是5，小数位数是2，那么整数位数是3，
     -> num2 double(4,1)
@@ -147,7 +147,7 @@ mysql> select * from t1;
 
 语法：decimal(M,D)
 
- ```mysql
+```SQL
 mysql> create table t4(
     -> num decimal(20,19)
     -> );
@@ -165,7 +165,7 @@ mysql> select * from t4;
 1 row in set (0.00 sec)
  ```
 
-```mysql
+```SQL
 多学一招：
 1、定点数是变长的，大致每9个数字用4个字节来存储。定点数之所以能保存精确的小数，因为整数和小数是分开存储的。占用的资源比浮点数要多。
 2、定点数和浮点数都支持显示宽度和无符号数。
@@ -206,7 +206,7 @@ mysql> select * from t4;
 
 1、从集合中选择一个数据（单选）
 
- ```mysql
+  ```SQL
 mysql> create table t8(
     -> name varchar(20),
     -> sex enum('男','女','保密')   # 枚举
@@ -234,7 +234,7 @@ mysql> select * from t8;
 
   ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536721403493.png)
 
-```mysql
+ ```SQL
 mysql> select sex+0 from t8;
 +-------+
 | sex+0 |
@@ -246,7 +246,7 @@ mysql> select sex+0 from t8;
 
 3、既然枚举在数据库内部存储的是整数，那么可以直接插入数字
 
- ```mysql
+  ```SQL
 mysql> insert into t8 values ('rose',3);  # 可以直接插入数字
 Query OK, 1 row affected (0.00 sec)
 
@@ -279,7 +279,7 @@ mysql> select * from t8;
 
 从集合中选择一些数据（多选）
 
- ```mysql
+  ```SQL
 mysql> create table t9(
     -> hobby set('爬山','读书','游泳','敲代码')
     -> );
@@ -304,7 +304,7 @@ ERROR 1265 (01000): Data truncated for column 'hobby' at row 1
 
 ***
 
-```mysql
+ ```SQL
 思考：已知集合占用8个字节，最多可以表示几个选项？
 
 答：8个字节=64位，一个位表示1个选项，最多可以表示64个选项。
@@ -324,7 +324,7 @@ ERROR 1265 (01000): Data truncated for column 'hobby' at row 1
 
 1、datetime   格式：年-月-日 小时:分钟:秒
 
- ```mysql
+  ```SQL
 mysql> create table t10(
     -> field datetime
     -> );
@@ -351,7 +351,7 @@ mysql> select * from t10;
 
 2、date 日期格式
 
-```mysql
+ ```SQL
 mysql> create table t11(
     -> field date
     -> );
@@ -373,7 +373,7 @@ mysql> select * from t11;
 timestamp类型和 datetime类型在表现上是一样的。他们的区别：
 datetime是从1到9999，而timestamp从1970年~2038年，2038年01月19日11:14:07秒以后就超出timestamp范围了。
 
-```mysql
+ ```SQL
 mysql> create table t12(
     -> field timestamp
     -> );
@@ -403,7 +403,7 @@ mysql> select * from t12;
 
 因为只占用1个字节，最多只能表示255个年份，范围是1901-2155之间的年份
 
-```mysql
+ ```SQL
 mysql> create table t13(
     -> field year
     -> );
@@ -423,7 +423,7 @@ ERROR 1264 (22003): Out of range value for column 'field' at row 1
 
 5、time    表示时间或时间间隔，范围是-838:59:59~838:59:59
 
- ```mysql
+  ```SQL
 mysql> create table t14(
     -> field time
     -> );
@@ -445,7 +445,7 @@ mysql>
 
 多学一招：time支持以天的方式插入
 
-```mysql
+ ```SQL
 mysql> insert into t14 values ('10 10:10:10');
 Query OK, 1 row affected (0.02 sec)
 
@@ -464,7 +464,7 @@ mysql> select * from t14;
 
 MySQL不支持boolean类型，true和false在数据库中对应1和0。
 
- ```mysql
+  ```SQL
 mysql> create table t15(
     -> field boolean
     -> );
@@ -522,7 +522,7 @@ not null：不可以为空
 
  2、default关键字用来插入默认值
 
- ```mysql
+  ```SQL
 mysql> create table t16(
     -> id int unsigned,
     -> addr varchar(20) not null default '地址不详'
@@ -575,7 +575,7 @@ mysql> select * from t16;
 
 方法一：创建表的时候添加主键
 
-```mysql
+ ```SQL
 mysql> create table t17(
     -> id varchar(5) primary key,   # 创建主键
     -> name varchar(10) not null
@@ -606,7 +606,7 @@ ERROR 1048 (23000): Column 'id' cannot be null
 
 方法二：创建表的时候添加主键
 
-```mysql
+ ```SQL
 mysql> create table t18(
     -> id int,
     -> name varchar(10),
@@ -626,7 +626,7 @@ mysql> desc t18;
 
 方法三：更改表的时候添加主键
 
-```mysql
+ ```SQL
 mysql> create table t20(
     -> id int,
     -> name varchar(10)
@@ -699,7 +699,7 @@ mysql> desc t20;
 
 方法一：创建表的时候添加唯一键
 
- ```mysql
+  ```SQL
 mysql> create table t22(
     -> id int primary key,
     -> name varchar(20) unique,    #通过unique添加唯一键
@@ -718,7 +718,7 @@ ERROR 1062 (23000): Duplicate entry '上海' for key 'addr'
 
 还有一种方法
 
-```mysql
+ ```SQL
 mysql> create table t26(
     -> id int,
     -> name varchar(20),
@@ -734,7 +734,7 @@ Query OK, 0 rows affected (0.06 sec)
 
 方法二：修改表的时候添加唯一键
 
-```mysql
+ ```SQL
 mysql> create table t23(
     -> id int primary key,
     -> name varchar(20)
@@ -748,7 +748,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 一次添加多个唯一键
 
-```mysql
+ ```SQL
 mysql> create table t24(
     -> id int primary key,
     -> name varchar(20),
@@ -763,7 +763,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 添加组合唯一键
 
-```mysql
+ ```SQL
 mysql> create table t25(
     -> id int primary key,
     -> name varchar(20),
@@ -778,7 +778,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 #### 1.13.2查看唯一键
 
- ```mysql
+  ```SQL
 mysql> show create table t26\G
 *************************** 1. row ***************************
        Table: t26
@@ -807,7 +807,7 @@ Create Table: CREATE TABLE `t25` (
 
 添加唯一键，给唯一键取名
 
-```mysql
+ ```SQL
 mysql> create table t27(
     -> name varchar(20)
     -> );
@@ -831,7 +831,7 @@ Create Table: CREATE TABLE `t27` (
 
 通过唯一键的名字来删除唯一键
 
-```mysql
+ ```SQL
 语法：alter table 表名 drop index 唯一键名称
 ```
 
@@ -909,7 +909,7 @@ Create Table: CREATE TABLE `t27` (
 
 方法一：创建表的时候添加外键
 
- ```mysql
+  ```SQL
 create table stuinfo(
 	stuno char(4) primary key,
 	name varchar(10) not null
@@ -924,7 +924,7 @@ create table stumarks(
 
  方法二：修改表的时候添加外键
 
-```mysql
+ ```SQL
 mysql> create table stuinfo(
     ->  stuno char(4) primary key,
     ->  name varchar(10) not null
@@ -956,13 +956,13 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 通过外键的名字删除外键
 
-```mysql
+ ```SQL
 语法：alter table 表名 drop foreign key 外键名
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> alter table stumarks drop foreign key stumarks_ibfk_1;
 Query OK, 0 rows affected (0.02 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -980,13 +980,13 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 一般来说：主表删除的时候，从表置空操作，主表更新的时候，从表级联操作。
 
-```mysql
+ ```SQL
 语法：foreign key(外键) references 主表(关键字段)[主表删除是的动作][主表更新时候的动作]
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> create table stuinfo(
     -> stuno char(4) primary key,
     -> name varchar(10) not null

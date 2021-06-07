@@ -191,7 +191,7 @@ port：端口			-P
 
 ## 1.8 关闭连接
 
-```mysql
+ ```SQL
 方法一：exit
 
 方法二：quit
@@ -209,7 +209,7 @@ port：端口			-P
 
 ### 1.9.1  显示数据库
 
-```mysql
+```SQL
  语法：show databases
  
  mysql> show databases;
@@ -233,27 +233,27 @@ port：端口			-P
 
 ### 1.9.2  创建数据库
 
-```mysql
+```SQL
 语法：create database [if not exists] `数据名` [字符编码]
 ```
 
 创建数据库：
 
-```mysql
+```SQL
 mysql> create database stu;
 Query OK, 1 row affected (0.09 sec)
 ```
 
 如果创建的数据库已存在，就会报错
 
-```mysql
+```SQL
 mysql> create database stu;
 ERROR 1007 (HY000): Can't create database 'stu'; database exists
 ```
 
 解决：创建数据库的时候判断一下数据库是否存在，如果不存在再创建
 
- ```mysql
+ ```SQL
 mysql> create database if not exists stu;
 Query OK, 1 row affected, 1 warning (0.00 sec)
  ```
@@ -262,7 +262,7 @@ Query OK, 1 row affected, 1 warning (0.00 sec)
 
  解决：在特殊字符、关键字行加上反引号
 
- ```mysql
+ ```SQL
 mysql> create database `create`;
 Query OK, 1 row affected (0.05 sec)
  ```
@@ -273,7 +273,7 @@ Query OK, 1 row affected (0.05 sec)
 
 创建数据库的时候可以指定字符编码
 
- ```mysql
+ ```SQL
 mysql> create database teacher charset=gbk;
 Query OK, 1 row affected (0.01 sec)
 gbk		简体中文
@@ -287,20 +287,20 @@ utf8：	通用字符编码
 
 ### 1.9.3 删除数据库
 
-```mysql
+ ```SQL
 语法：drop database [if exists] 数据库名
 ```
 
 删除数据库
 
-```mysql
+ ```SQL
 mysql> drop database teacher;
 Query OK, 0 rows affected (0.00 sec)
 ```
 
 如果删除的数据库不存在，会报错
 
-```mysql
+ ```SQL
 mysql> drop database teacher;
 ERROR 1008 (HY000): Can't drop database 'teacher'; database doesn't exist
 mysql>
@@ -308,18 +308,18 @@ mysql>
 
  解决：删除之前判断一下，如果存在就删除
 
- ```mysql
+ ```SQL
 mysql> drop database if exists teacher;
 Query OK, 0 rows affected, 1 warning (0.00 sec)
  ```
 
 ### 1.9.4 显示创建数据库的SQL语句
 
-```mysql
+ ```SQL
 语法：show create database 数据库名
 ```
 
-```mysql
+ ```SQL
 mysql> show create database stu;
 +----------+--------------------------------------------------------------+
 | Database | Create Database                                              |
@@ -343,13 +343,13 @@ mysql> show create database teacher;
 
 语法：
 
-```mysql
+ ```SQL
 alter database 数据库名 charset=字符编码
 ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> alter database teacher charset=utf8;
 Query OK, 1 row affected (0.00 sec)
 
@@ -366,13 +366,13 @@ mysql> show create database teacher;
 
 语法：
 
-```mysql
+ ```SQL
 use 数据库名
 ```
 
 选择数据库
 
-```mysql
+ ```SQL
 mysql> use stu;
 Database changed
 ```
@@ -383,7 +383,7 @@ Database changed
 
 语法：
 
-```mysql
+ ```SQL
 show tables
 ```
 
@@ -393,7 +393,7 @@ show tables
 
 语法：
 
-```mysql
+ ```SQL
 create table [if not exists] 表名(
     字段名 数据类型 [null|not null] [auto_increment] [primary key] [comment],
     字段名 数据类型 [default]…
@@ -402,7 +402,7 @@ create table [if not exists] 表名(
 
 单词
 
-```mysql
+ ```SQL
 null | not null   	空|非空
 default	          	默认值
 auto_increment    	自动增长
@@ -413,7 +413,7 @@ engine           	引擎   innodb  myisam  memory  引擎是决定数据存储�
 
 创建简单的表
 
- ```mysql
+ ```SQL
 mysql> create database itcast;
 Query OK, 1 row affected (0.00 sec)
 
@@ -439,7 +439,7 @@ mysql> show tables;
 
  创建复杂的表
 
- ```mysql
+ ```SQL
 mysql> set names gbk;   # 设置字符编码
 Query OK, 0 rows affected (0.05 sec)
 
@@ -455,7 +455,7 @@ Query OK, 0 rows affected (0.09 sec)
 
 多学一招：create table 数据库名.表名，用于给指定的数据库创建表
 
- ```mysql
+ ```SQL
 mysql> create table data.stu(  #给data数据库中创建stu表
     -> id int,
     -> name varchar(10));
@@ -466,13 +466,13 @@ Query OK, 0 rows affected (0.00 sec)
 
 语法：
 
-```mysql
+ ```SQL
 show create table 表名
 ```
 
 显示创建teacher表的语句
 
-```mysql
+ ```SQL
 mysql> show create table teacher;
 +---------+--------------------------------------------------------------------------
 -------------------------------------------------------------------------------------
@@ -497,7 +497,7 @@ mysql> show create table teacher;
 
 将两个字段竖着排列           show create table `表名`\G
 
- ```mysql
+ ```SQL
 mysql> show create table teacher\G;
 *************************** 1. row ***************************
        Table: teacher
@@ -516,13 +516,13 @@ Create Table: CREATE TABLE `teacher` (
 
 语法：
 
-```mysql
+ ```SQL
 desc[ribe] 表名
 ```
 
 查看teacher表的结构
 
-```mysql
+ ```SQL
 mysql> describe teacher;
 +-------+--------------+------+-----+----------+----------------+
 | Field | Type         | Null | Key | Default  | Extra          |
@@ -550,20 +550,20 @@ mysql> desc teacher;
 
 语法：
 
-```mysql
+ ```SQL
 drop table [if exists] 表1，表2,… 
 ```
 
 删除表
 
-```mysql
+ ```SQL
 mysql> drop table stu;
 Query OK, 0 rows affected (0.08 sec)
 ```
 
 如果删除一个不存在的表就会报错，删除的时候可以判断一下，存在就删除。
 
-```mysql
+ ```SQL
 mysql> drop table stu;
 ERROR 1051 (42S02): Unknown table 'stu'
 
@@ -573,14 +573,14 @@ Query OK, 0 rows affected, 1 warning (0.00 sec)
 
 可以一次删除多个表
 
- ```mysql
+ ```SQL
 mysql> drop table a1,a2;
 Query OK, 0 rows affected (0.00 sec)
  ```
 
 ### 1.10.6  修改表
 
-```mysql
+ ```SQL
 语法：alter table 表名
 ```
 
@@ -588,7 +588,7 @@ Query OK, 0 rows affected (0.00 sec)
 
 例题一：添加字段
 
- ```mysql
+ ```SQL
 mysql> alter table teacher add age int;
 Query OK, 0 rows affected (0.09 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -608,7 +608,7 @@ mysql> desc teacher;
 
 例题二：在第一个位置上添加字段
 
-```mysql
+ ```SQL
 mysql> alter table teacher add email varchar(30) first;
 Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -628,7 +628,7 @@ mysql> desc teacher;
 
 例题三：在指定的字段后添加字段
 
-```mysql
+ ```SQL
 mysql> alter table teacher add sex varchar(2) after name;
 Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -650,7 +650,7 @@ mysql> desc teacher;
 
 2、删除字段：alter table 表 drop [column] 字段名
 
- ```mysql
+ ```SQL
 mysql> alter table teacher drop email;
 Query OK, 0 rows affected (0.06 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -660,7 +660,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
  将字段sex改为xingbie，数据类型为int
 
-```mysql
+ ```SQL
 mysql> alter table teacher change sex xingbie int;
 Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -670,7 +670,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 将性别的数据类型改为varchar(2)
 
- ```mysql
+ ```SQL
 mysql> alter table teacher modify xingbie varchar(2);
 Query OK, 0 rows affected (0.00 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -678,7 +678,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 5、修改引擎：alter table 表名 engine=引擎名
 
- ```mysql
+ ```SQL
 mysql> alter table teacher engine=myisam;
 Query OK, 0 rows affected (0.05 sec)
 Records: 0  Duplicates: 0  Warnings: 0
@@ -686,7 +686,7 @@ Records: 0  Duplicates: 0  Warnings: 0
 
 6、修改表名：alter table 表名 rename to 新表名
 
- ```mysql
+ ```SQL
 mysql> alter table teacher rename to stu;
 Query OK, 0 rows affected (0.00 sec)
 
@@ -701,13 +701,13 @@ mysql> show tables;
 
 ### 1.10.5 复制表
 
-```mysql
+ ```SQL
 语法一：create table 新表 select 字段 from 旧表
 ```
 
  特点：不能复制父表的主键，能够复制父表的数据
 
-```mysql
+ ```SQL
 mysql> create table stu1 select * from stu;
 Query OK, 1 row affected (0.06 sec)
 Records: 1  Duplicates: 0  Warnings: 0
@@ -732,13 +732,13 @@ mysql> desc stu1;    #  主键没有复制
 4 rows in set (0.00 sec)
 ```
 
-```mysql
+ ```SQL
 语法二：create table 新表 like 旧表
 ```
 
 特点：只能复制表结构，不能复制表数据
 
-```mysql
+ ```SQL
 Query OK, 0 rows affected (0.00 sec)
 
 mysql> select * from stu2;   # 数据没有复制
@@ -760,7 +760,7 @@ mysql> desc stu2;   # 主键复制了
 
 创建测试表
 
-```mysql
+ ```SQL
 mysql> create table stu(
     -> id int auto_increment primary key comment '主键',
     -> name varchar(20) not null,
@@ -774,65 +774,65 @@ Query OK, 0 rows affected (0.01 sec)
 
 #### 插入一条数据
 
-```mysql
+ ```SQL
 语法：insert into 表名 (字段名, 字段名,…) values (值1, 值1,…)
 ```
 
 例题一：插入数据
 
-```mysql
+ ```SQL
 mysql> insert into stu (id,name,addr,score) values (1,'tom','上海',88);
 Query OK, 1 row affected (0.11 sec)
 ```
 
 例题二：插入的字段可以和表的字段顺序不一致。值的顺序必须和插入字段的顺序一致。
 
-```mysql
+ ```SQL
 mysql> insert into stu (name,score,addr,id) values ('berry',77,'北京',2);
 Query OK, 1 row affected (0.00 sec)
 ```
 
 例题三：可以插入部分字段，但是，非空字段必须插入
 
-```mysql
+ ```SQL
 mysql> insert into stu (id,name,addr) values (3,'ketty','上海');
 ```
 
 例题四：自动增长字段不用插入，数据库会自动插入增长的数字
 
-```mysql
+ ```SQL
 mysql> insert into stu (name,addr) values ('rose','北京');
 Query OK, 1 row affected (0.00 sec)
 ```
 
 例题五：自动增长列的值插入null即可
 
-```mysql
+ ```SQL
 mysql> insert into stu (id,name,addr,score) values (null,'李白','上海',66);
 Query OK, 1 row affected (0.00 sec)
 ```
 
 例题六：插入值的顺序和个数与表字段的顺序和个数一致，插入的字段可以省略
 
-```mysql
+ ```SQL
 mysql> insert into stu values (null,'杜甫','北京',null);
 Query OK, 1 row affected (0.00 sec)
 ```
 
 例题七：通过default关键字插入默认值
 
-```mysql
+ ```SQL
 mysql> insert into stu values (null,'李清照',default,66);
 ```
 
-```mysql
+ ```SQL
 脚下留心：
 1、插入字段的顺序与值的顺序必须一致
 ```
 
 #### 插入多条数据
 
- ```mysql
+ ```SQL
 mysql> insert into stu values (null,'辛弃疾',default,66),(null,'岳飞','河南',77);
 Query OK, 2 rows affected (0.00 sec)
 Records: 2  Duplicates: 0  Warnings: 0
@@ -842,43 +842,43 @@ Records: 2  Duplicates: 0  Warnings: 0
 
 语法：
 
-```mysql
+ ```SQL
 update 表名 set 字段=值 [where 条件] 
 ```
 
 例题一：将1号学生的地址改成山东
 
- ```mysql
+ ```SQL
 mysql> update stu set addr='山东' where id=1
  ```
 
 例题二：将ketty的成绩改为99
 
-```mysql
+ ```SQL
 mysql> update stu set score=99 where name='ketty';
 ```
 
 例题三：将berry地址改成上海，成绩改成66
 
-```mysql
+ ```SQL
 mysql> update stu set addr='上海',score=66 where name='berry';
 ```
 
 例题四：将上海的学生成绩改为60
 
-```mysql
+ ```SQL
 mysql> update stu set score=60 where addr='上海';
 ```
 
 例题五：条件可以省略，如果省略，更改所有数据（将所有数据的地址改为湖南，成绩改为70）
 
-```mysql
+ ```SQL
 mysql> update stu set addr='湖南',score=70;
 ```
 
 例题六：将2、3的学生成绩改为65
 
-```mysql
+ ```SQL
 mysql> update stu set score=65 where id=2 or id=3;
 ```
 
@@ -886,25 +886,25 @@ mysql> update stu set score=65 where id=2 or id=3;
 
 语法
 
-```mysql
+ ```SQL
 delete from 表名 [where 条件] 
 ```
 
 例题一：删除学号是1号的学生
 
- ```mysql
+ ```SQL
 mysql> delete from stu where id=1;
  ```
 
 例题二：删除成绩小于等于65分的
 
- ```mysql
+ ```SQL
 mysql> delete from stu where score<=65;
  ```
 
 例题三：删除表中所有记录
 
- ```mysql
+ ```SQL
 mysql> delete from stu;
  ```
 
@@ -912,13 +912,13 @@ mysql> delete from stu;
 
 语法：
 
- ```mysql 
+ ```SQL 
 truncate table 表名
  ```
 
 例题
 
-```mysql
+ ```SQL
 mysql> truncate table stu;
 Query OK, 0 rows affected (0.00 sec)
 ```
@@ -933,13 +933,13 @@ truncate table：将原表销毁，再创建一个同结构的新表。就清空
 
 语法：
 
-```mysql
+ ```SQL
 select 列名 from 表
 ```
 
 例题：
 
-```mysql
+ ```SQL
 mysql> select name,score from stu;
 +------+-------+
 | name | score |
@@ -999,7 +999,7 @@ DCL（Data Control Language）数据库控制语言,是用来设置或更改数�
 
 创建测试数据库
 
-```mysql
+ ```SQL
 mysql> create table stu(
     -> id int primary key,
     -> name varchar(20)
