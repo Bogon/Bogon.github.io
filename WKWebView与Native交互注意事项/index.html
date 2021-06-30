@@ -33,7 +33,7 @@
 <meta property="og:description" content="WKWebView与Native交互注意事项">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-20T01:22:53.000Z">
-<meta property="article:modified_time" content="2021-05-20T01:22:53.878Z">
+<meta property="article:modified_time" content="2021-06-18T02:13:10.717Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -175,7 +175,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">157</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">159</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -297,7 +297,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>665</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -317,7 +317,17 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p><a href="https://zhuanlan.zhihu.com/p/24990222" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/24990222</a></p>
+<p>h5页面占用内存过大时，会引起白屏。解决方法如下：</p>
+<p>解决方法一：借助 WKNavigtionDelegate<br>当h5页面即将白屏时，会调用- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0){<br>}方法，我们只需在这个方法中重新加载webview即可，此时url不为空。</p>
+<ul>
+<li>(void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0){<br>[webView reload];<br>}<br>解决方法二：检测 webView.title 是否为空<br>有时白屏不会调用方法一的方法，另一种现象是当webview白屏时，webview.title =nil.我们可以在viewWillAppear方法中判断title是否为nil。进而重新加载webview</li>
+</ul>
+<ul>
+<li>(void)viewWillAppear:(BOOL)animated {<br>  [super viewWillAppear:animated];<br>  if (self.webView.title == nil) {        <pre><code>[self.webView reload];</code></pre>  }<br>}</li>
+</ul>
+<p>作者：iOS程序媛ing<br>链接：<a href="https://www.jianshu.com/p/06b5fa4b9489" target="_blank" rel="noopener">https://www.jianshu.com/p/06b5fa4b9489</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+
     </div>
 
     
@@ -502,7 +512,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">157</span>
+          <span class="site-state-item-count">159</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -607,7 +617,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21:15</span>
+    <span title="站点阅读时长">21:18</span>
 </div>
 
 <!--
