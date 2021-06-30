@@ -15,7 +15,7 @@ categories:
     - [开发技巧]
 ---
 
-# 开发技巧——01 创建仅执行次的代码片段
+# 开发技巧01 创建仅执行次的代码片段
 
 ```Swift
 /// 代码定义
@@ -28,7 +28,7 @@ lazy var onceCode: Void = { [weak self] in
 onceCode
 ```
 
-# 开发技巧——02 xcrun: error: unable to find utility "xctest"
+# 开发技巧02 xcrun: error: unable to find utility "xctest"
 
 在使用 `Vapor`  作为服务端框架式，在执行 `swift package update` 时，有时会收到如下错误：
 ``` Bash
@@ -40,3 +40,126 @@ onceCode
 ```Bash
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 ```
+
+# 开发技巧03 调整导航栏item边距办法
+
+
+# 开发技巧04 UIGestureRecognizer 视图添加手势之后，指定子视图响应事件
+例如：只希望添加手势的视图响应事件，其他子视图均不响应事件
+```Swift
+/// add  UITapGestureRecognizer
+let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapEvent))
+tap.delegate = self
+view.isUserInteractionEnabled = true
+view.addGestureRecognizer(tap)
+
+/// fliter enable reponse view
+/// MARK: - UIGestureRecognizerDelegate
+extension xxxxxxController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let m_xxxxxxView: xxxxxxView = getxxxxxxView()
+        if touch.view?.isDescendant(of: m_xxxxxxView) ?? false {
+            return false
+        }
+        
+        let m_xxxxxxComponent: xxxxxxComponent = getxxxxxxComponent()
+        if touch.view?.isDescendant(of: m_xxxxxxComponent) ?? false {
+            return false
+        }
+        return true
+    }
+}
+```
+
+# 开发技巧05 pod install 安装失败部分库提示：443
+例如：在安装过程中，会出现部分三方库提示：443
+
+在`Podfile`中增加或删除某个`pod`后, 也是使用这个命令. 而不是`pod update`.
+
+每次运行`pod install`命令, 下载并安装新的`pod`时, 它会为`Podfile.lock`文件中的每个`pod`写入已安装的版本. 此文件跟踪每个`pod`的已安装版本并锁定这些版本(`.lock`命名因此而来).
+
+当运行`pod install`，它只解析`Podfile.lock`中尚未列在其中的`pod`的依赖库.
+
+对于已经在`Podfile.lock`中列出的`pod`, `Podfile.lock`不会尝试检查是否有更新的版本.
+
+对于尚未在`Podfile.lock`中列出的`pod`, 会搜索与`Podfile`（如中所述`pod 'MyPod', '~>1.2'`）匹配的版本或最新的版本.
+
+> 注: 第一次运行 `pod install` 的时候, `.xcworkspace` 项目和 `Pods` 目录还不存在, `pod install` 命令也会创建.
+> `xcworkspace` 和 `Pods` 目录, 但这是 `pod instal`l 命令的顺带作用，而不是它的主要作用.
+
+建议使用如下命令安装：
+```Bash
+pod install --verbose --no-repo-update
+```
+
+# 开发技巧06 **Swiftgen 创建图片管理**
+[Swiftgen](https://github.com/SwiftGen/SwiftGen)安装方式和官网给出的使用方法。
+根据个人习惯和工程经验，推荐下面方式来使用 `Swiftgen`。
+
++ 通过 `Homebrew` 安装 `Swiftgen`：
+    ```Bash
+    $ brew update
+    $ brew install swiftgen
+    ```
++ 创建 配置文件
+
+    现在项目中与图片资源文件夹同级目录下创建一个 `swiftgen.yml` (或者使用命令：`swiftgen config init`)。格式如下：
+    
+    ```Yaml
+        strings:
+        inputs: Resources/Base.lproj
+        outputs:
+            - templateName: structured-swift5
+            output: Generated/Strings.swift
+        xcassets:
+        inputs:
+            - Resources/Images.xcassets
+            - Resources/MoreImages.xcassets
+            - Resources/Colors.xcassets
+        outputs:
+            - templateName: swift5
+            output: Generated/Assets.swift
+    ```
+
+    也可以简化配置文件如下：
+    ```Yaml
+    xcassets:
+      inputs: Assets.xcassets
+      outputs:
+        templateName: swift5
+        output: Generated/Images.swift
+    ```
+
++ 在终端执行如下命令完成对资源的初始化：
+    ```Bash
+    swiftgen config lint
+    ```
+
+    或者是在项目 ```Yaml``` 配置文件所在位置添加执行脚本文件 ```generate_images.sh``` ：
+    ```Bash
+    swiftgen config lint
+    ```
+
++ 执行脚本文件之后如果出现如下提示信息，那么限制性最下方语句生成文件夹和文件：
+    ```Bash 提示信息
+    Linting swiftgen.yml
+    > Common parent directory used for all input paths:  <none>
+    > Common parent directory used for all output paths: <none>
+    > 1 entry for command xcassets:
+        $ swiftgen xcassets --templateName swift5 --output Generated/Images.swift Assets.xcassets
+    ```
+
+    执行完提示命令之后会出现如下提示：
+    ```Bash
+     $ swiftgen xcassets --templateName swift5 --output Generated/Images.swift Assets.xcassets
+        > swiftgen: warning: This command is deprecated in favor of `swiftgen run xcassets`
+        File written: Generated/Images.swift
+    ```
+    
++ 即表示创建成功，可以使用直接使用了，在项目中使用该资源的案例如下：
+    ```Bash
+    Asset.texting.image  语法格式如下：Asset.(Assets.xcassets 中图片名称).image
+    ```
+
++ 如此便完成的 `Swiftgen` 整体设置。
+
