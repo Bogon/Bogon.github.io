@@ -41,8 +41,34 @@ onceCode
 sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
 ```
 
-# 开发技巧03 调整导航栏item边距办法
+<!--more-->
 
+# 开发技巧03 调整导航栏item边距办法
+iOS 11之后的版本在实际的工程实践中会出现调整导航栏左右按钮距离左右边框的间距，总是会出现距离左右边距 `8px`，具体形成这种结果的原因可以使用一些辅助工具查看一下导航的图层，但是操作图层又过于繁琐。下面给出一个简单的实现：
+> 控件布局是可以超出父控件距离的，也就是说,可以使用一个 `UIView` 包裹真正用于显示的 `View` ,然后将 `子View` 的 `x` 设置偏移也就可以解决了。
+
+实现代码示例，具体的实现看各自工程实践经验( `extension`, `NavigationItem`, `NavigationBar`)：
+```Swift
+import UIKit
+
+extension UIViewController{
+  func setNavigatorLeftItem(customView:UIView) {
+        var view:UIView
+        if #available(iOS 11, *){
+            let padding:CGFloat = 20
+            let frame = customView.frame
+            view = UIView(frame: CGRect(x: 0, y: 0, width: frame.width + padding, height: frame.height))
+            customView.frame = customView.frame.offsetBy(dx: -padding, dy: 0)
+            view.addSubview(customView)
+            
+        }else{
+            view = customView
+        }
+        let item = UIBarButtonItem.init(customView: view)
+        self.navigationItem.leftBarButtonItem = item
+    }
+}
+```
 
 # 开发技巧04 UIGestureRecognizer 视图添加手势之后，指定子视图响应事件
 例如：只希望添加手势的视图响应事件，其他子视图均不响应事件
