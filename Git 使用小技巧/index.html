@@ -33,7 +33,7 @@
 <meta property="og:description" content="Git 使用小技巧">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-10-09T00:59:12.000Z">
-<meta property="article:modified_time" content="2021-06-03T02:58:36.290Z">
+<meta property="article:modified_time" content="2021-07-08T01:29:15.560Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="Git">
 <meta property="article:tag" content="git">
@@ -298,7 +298,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>2.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -381,6 +381,30 @@
 
 <p>撤销 <code>revert</code> 操作：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git revert [撤销merge时提交的commit的版本号，这里是88edd6d]</span><br><span class="line">Finished one revert.</span><br><span class="line">[master 268e243] Revert <span class="string">"Revert "</span>Merge branch <span class="string">'xxx/post-checkout'</span><span class="string">""</span></span><br><span class="line"> 1 files changed, 2 insertions(+), 0 deletions(-)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">合并时遇到冲突想取消操作，恢复index，用git merge --abort</span><br><span class="line">git reset --hard 可以回退到某个提交</span><br><span class="line">git revert可以撤销某个提交，撤销会产生一个新的提交</span><br><span class="line"></span><br><span class="line">git rebase还木有仔细研究过。</span><br></pre></td></tr></table></figure>
+
+<h2 id="merge-合并分支"><a href="#merge-合并分支" class="headerlink" title="merge 合并分支"></a>merge 合并分支</h2><p>合并分支一般遵循下面几个步骤即可完成合并：</p>
+<ul>
+<li>切换到目标分支；</li>
+<li>将待合并的分支拉取到目标分支(此时待合并分支的内容已经合并到本地目标分支中)；<blockquote>
+<p>合并之后会出冲突现象，查看冲突的内容，保留必要的代码即可；解决完冲突之后，将冲突文件标记为冲突已解。</p>
+</blockquote>
+</li>
+<li><strong><em>将合并后的内容提交到远程代码仓库</em></strong>。<blockquote>
+<p>这一步尤为重要，在使用不熟练的情况在合并未出现冲突的情况下，很容易忘记将本地内容提交到远程仓库。</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="查看远程分支"><a href="#查看远程分支" class="headerlink" title="查看远程分支"></a>查看远程分支</h2><ul>
+<li>查看本地和远程仓库的所有分支: <code>git branch -a</code> ；</li>
+<li>查看远程仓库的分支: <code>git branch -r</code> ；</li>
+</ul>
+<h2 id="与远程分支同步"><a href="#与远程分支同步" class="headerlink" title="与远程分支同步"></a>与远程分支同步</h2><ul>
+<li>本地所有分支与远程保持同步： <code>git fetch --all</code> ;</li>
+<li>拉取所有分支代码: <code>git pull --all</code> ;</li>
+</ul>
+
     </div>
 
     
@@ -554,7 +578,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分支管理"><span class="nav-number">1.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根据现有的tag创建新的分支"><span class="nav-number">1.1.</span> <span class="nav-text">根据现有的tag创建新的分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.1.2.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tag管理"><span class="nav-number">1.1.3.</span> <span class="nav-text">tag管理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销操作"><span class="nav-number">2.</span> <span class="nav-text">撤销操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看提交的log"><span class="nav-number">2.1.</span> <span class="nav-text">查看提交的log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reset"><span class="nav-number">2.2.</span> <span class="nav-text">Reset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Revert"><span class="nav-number">2.3.</span> <span class="nav-text">Revert</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分支管理"><span class="nav-number">1.</span> <span class="nav-text">分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#根据现有的tag创建新的分支"><span class="nav-number">1.1.</span> <span class="nav-text">根据现有的tag创建新的分支</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建分支"><span class="nav-number">1.1.1.</span> <span class="nav-text">创建分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除分支"><span class="nav-number">1.1.2.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tag管理"><span class="nav-number">1.1.3.</span> <span class="nav-text">tag管理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#撤销操作"><span class="nav-number">2.</span> <span class="nav-text">撤销操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看提交的log"><span class="nav-number">2.1.</span> <span class="nav-text">查看提交的log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Reset"><span class="nav-number">2.2.</span> <span class="nav-text">Reset</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Revert"><span class="nav-number">2.3.</span> <span class="nav-text">Revert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#merge-合并分支"><span class="nav-number">2.4.</span> <span class="nav-text">merge 合并分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看远程分支"><span class="nav-number">2.5.</span> <span class="nav-text">查看远程分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#与远程分支同步"><span class="nav-number">2.6.</span> <span class="nav-text">与远程分支同步</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -675,7 +699,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21:18</span>
+    <span title="站点阅读时长">21:19</span>
 </div>
 
 <!--
