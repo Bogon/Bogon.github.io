@@ -144,3 +144,27 @@ Finished one revert.
 [master 268e243] Revert "Revert "Merge branch 'xxx/post-checkout'""
  1 files changed, 2 insertions(+), 0 deletions(-)
 ```
+
+```
+合并时遇到冲突想取消操作，恢复index，用git merge --abort
+git reset --hard 可以回退到某个提交
+git revert可以撤销某个提交，撤销会产生一个新的提交
+
+git rebase还木有仔细研究过。
+```
+
+## merge 合并分支
+合并分支一般遵循下面几个步骤即可完成合并：
++ 切换到目标分支；
++ 将待合并的分支拉取到目标分支(此时待合并分支的内容已经合并到本地目标分支中)；
+	> 合并之后会出冲突现象，查看冲突的内容，保留必要的代码即可；解决完冲突之后，将冲突文件标记为冲突已解。
++ ***将合并后的内容提交到远程代码仓库***。
+	> 这一步尤为重要，在使用不熟练的情况在合并未出现冲突的情况下，很容易忘记将本地内容提交到远程仓库。
+	
+## 查看远程分支
++ 查看本地和远程仓库的所有分支: `git branch -a` ；
++ 查看远程仓库的分支: `git branch -r` ；
+
+## 与远程分支同步
++ 本地所有分支与远程保持同步： `git fetch --all` ;
++ 拉取所有分支代码: `git pull --all` ;
