@@ -32,4 +32,4 @@ h5页面占用内存过大时，会引起白屏。解决方法如下：
 }
 ```
 
-+ `WkWebview` 使用比较复杂的地方便在于 `iOS 9.0 ~ iOS 14.0` 的 `cookie` 管理问题。从`WKWebview` 引入到目前对 `cookie` 的管理机制存在一定的差异，在这种差异之下管理cookie就存在
++ `WkWebview` 使用比较复杂的地方便在于 `iOS 9.0 ~ iOS 14.0` 的 `cookie` 管理问题。从`WKWebview` 引入到目前对 `cookie` 的管理机制存在一定的差异，在这种差异之下管理cookie就存在。
