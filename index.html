@@ -267,6 +267,23 @@
 
               <time title="创建时间：2021-06-28 09:30:07" itemprop="dateCreated datePublished" datetime="2021-06-28T09:30:07+08:00">2021-06-28</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7/" itemprop="url" rel="index"><span itemprop="name">开发技巧</span></a>
+                </span>
+            </span>
 
           
   
@@ -1174,7 +1191,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>679</span>
+              <span>794</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1199,16 +1216,6 @@
 <li>解决方法一：借助 <code>WKNavigtionDelegate</code><br>当h5页面即将白屏时，会调用 <code>- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView NS_AVAILABLE(10_11, 9_0){}</code> 方法，我们只需在这个方法中重新加载 <code>webview</code> 即可，此时 <code>url</code> 不为空。</li>
 </ul>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (void)webViewWebContentProcessDidTerminate:(<span class="type">WKWebView</span> *)webView <span class="type">NS_AVAILABLE</span>(<span class="number">10_11</span>, <span class="number">9_0</span>)&#123;</span><br><span class="line">    [webView reload];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>解决方法二：检测 <code>webView.title</code> 是否为空<br>有时白屏不会调用方法一的方法，另一种现象是当 <code>webview</code> 白屏时，<code>webview.title = nil</code> . 我们可以在 <code>viewWillAppear</code> 方法中判断 <code>title</code> 是否为 <code>nil</code> 。进而重新加载 <code>webview</code> 。</li>
-</ul>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">- (void)viewWillAppear:(<span class="type">BOOL</span>)animated &#123;</span><br><span class="line">    [<span class="keyword">super</span> viewWillAppear:animated];</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.webView.title == <span class="literal">nil</span>) &#123;        </span><br><span class="line">        [<span class="keyword">self</span>.webView reload];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><code>WkWebview</code> 使用比较复杂的地方便在于 <code>iOS 9.0 ~ iOS 14.0</code> 的 <code>cookie</code> 管理问题。从<code>WKWebview</code> 引入到目前对 <code>cookie</code> 的管理机制存在一定的差异，在这种差异之下管理cookie就存在。</li>
-</ul>
-
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/WKWebView%E4%B8%8ENative%E4%BA%A4%E4%BA%92%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/#more" rel="contents">
