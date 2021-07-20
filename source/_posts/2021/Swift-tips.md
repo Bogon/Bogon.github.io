@@ -189,3 +189,16 @@ pod install --verbose --no-repo-update
 
 + 如此便完成的 `Swiftgen` 整体设置。
 
+# 开发技巧07 **App 锁屏、解锁监听**
+官网提供了两个事件分别用于监听锁屏和解锁。
+```Swift 
+/// screen locked
+func applicationProtectedDataWillBecomeUnavailable(_ application: UIApplication) {
+    /// TODO……
+}
+
+/// screen unlock
+func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
+    /// TODO……
+}
+```
