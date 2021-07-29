@@ -40,7 +40,7 @@ h5页面占用内存过大时，会引起白屏。解决方法如下：
 + `WKWebView` 添加 `Web` 调试控制台
 原生 `WKWebView` 在加载本地或者是远程页面时，需要在客户端调试远程 `Web` 页面，这是可以使用腾讯技术团队提供的 [vConsole](https://github.com/Tencent/vConsole)， 在客户端进行集成就可在客户端看到网页中的各种信息，方便与原生和网页端的调试。
 在客户端集成要做的事情很简单，无需网页端集成，按照如下步骤即可完成设置，在手机端打开控制台：
-    + 打开 ![`vConsole`](https://unpkg.com/vconsole/dist/vconsole.min.js) 地址，无需对代码做任何处理，直接保存重命名比如: `vConsole.js`，并在文件末尾添加如下语句保存；
+    + 打开 [`vConsole`](https://unpkg.com/vconsole/dist/vconsole.min.js) 地址，无需对代码做任何处理，直接保存重命名比如: `vConsole.js`，并在文件末尾添加如下语句保存；
         ```JS
         let vConsole = new VConsole();console.log("test");
         ```
