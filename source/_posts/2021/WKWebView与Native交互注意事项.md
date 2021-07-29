@@ -53,3 +53,75 @@ h5页面占用内存过大时，会引起白屏。解决方法如下：
         m_userContentController.addUserScript(m_vConsoleScript)
         ```
     + 完成设置，可以使用控制台进行前端调试。
+        ![](https://raw.githubusercontent.com/Bogon/mysql_manual/main/5blog_images/b_wk_01.png)
+
+
++ 拦截 `WKWebview` 中的弹窗( `alert()`、`promt`)
+需要给其挂上代理 `wkWebView.uiDelegate = self` ，然后实现下方代理 `(WKUIDelegate)` 方法：
+```Swift
+/*! @abstract Notifies your app that the DOM window object's close() method completed successfully.
+  @param webView The web view invoking the delegate method.
+  @discussion Your app should remove the web view from the view hierarchy and update
+  the UI as needed, such as by closing the containing browser tab or window.
+  */
+func webViewDidClose(_ webView: WKWebView) {
+    /// TODO……
+}
+
+/*! @abstract Displays a JavaScript alert panel.
+    @param webView The web view invoking the delegate method.
+    @param message The message to display.
+    @param frame Information about the frame whose JavaScript initiated this
+    call.
+    @param completionHandler The completion handler to call after the alert
+    panel has been dismissed.
+    @discussion For user security, your app should call attention to the fact
+    that a specific website controls the content in this panel. A simple forumla
+    for identifying the controlling website is frame.request.URL.host.
+    The panel should have a single OK button.
+    
+    If you do not implement this method, the web view will behave as if the user selected the OK button.
+    */
+func webView(_ webView: WKWebView, runJavaScriptAlertPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping () -> Void) {
+    completionHandler()     /// must implement, othervise crash
+}
+
+/*! @abstract Displays a JavaScript confirm panel.
+    @param webView The web view invoking the delegate method.
+    @param message The message to display.
+    @param frame Information about the frame whose JavaScript initiated this call.
+    @param completionHandler The completion handler to call after the confirm
+    panel has been dismissed. Pass YES if the user chose OK, NO if the user
+    chose Cancel.
+    @discussion For user security, your app should call attention to the fact
+    that a specific website controls the content in this panel. A simple forumla
+    for identifying the controlling website is frame.request.URL.host.
+    The panel should have two buttons, such as OK and Cancel.
+
+    If you do not implement this method, the web view will behave as if the user selected the Cancel button.
+    */
+func webView(_ webView: WKWebView, runJavaScriptConfirmPanelWithMessage message: String, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (Bool) -> Void) {
+    completionHandler(true)
+}
+
+/*! @abstract Displays a JavaScript text input panel.
+ @param webView The web view invoking the delegate method.
+ @param prompt The prompt to display.
+ @param defaultText The initial text to display in the text entry field.
+ @param frame Information about the frame whose JavaScript initiated this call.
+ @param completionHandler The completion handler to call after the text
+ input panel has been dismissed. Pass the entered text if the user chose
+ OK, otherwise nil.
+ @discussion For user security, your app should call attention to the fact
+ that a specific website controls the content in this panel. A simple forumla
+ for identifying the controlling website is frame.request.URL.host.
+ The panel should have two buttons, such as OK and Cancel, and a field in
+ which to enter text.
+
+ If you do not implement this method, the web view will behave as if the user selected the Cancel button.
+ */
+func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt: String, defaultText: String?, initiatedByFrame frame: WKFrameInfo, completionHandler: @escaping (String?) -> Void) {
+    completionHandler(nil)
+    
+}
+```
