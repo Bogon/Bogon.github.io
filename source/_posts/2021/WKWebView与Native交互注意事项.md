@@ -4,9 +4,13 @@ description: WKWebView与Native交互注意事项
 permalink: WKWebView与Native交互注意事项
 copyright: true
 date: 2021-05-20 09:22:53
-keywords:
+keywords: iOS,Swift,WKWebView
 tags:
+    - [WKWebView]
+    - [Swift]
 categories:
+    - [WKWebView]
+    - [Swift]
 ---
 
 h5页面占用内存过大时，会引起白屏。解决方法如下：
@@ -125,3 +129,4 @@ func webView(_ webView: WKWebView, runJavaScriptTextInputPanelWithPrompt prompt:
     
 }
 ```
+
