@@ -7,11 +7,9 @@ date: 2021-07-31 13:10:45
 keywords: linux,mysql,Linux,MySQL,MySQL学习,ubuntu,go
 tags:
     - [MySQL]
-	- [go]
     - [数据库]
 categories:
     - [MySQL]
-	- [go]
     - [数据库]
 ---
 
