@@ -44,9 +44,11 @@ categories:
 		socket   = /var/run/mysqld/mysqld.sock
 		```
 
-<!--more-->
-
 	+ 打开 `mysql`
+	
+		<!--more-->
+
+		使用如下命令打开 `Mysql` :
 		```Bash
 		mysql -udebian-sys-maint -p 
 		```
@@ -107,6 +109,7 @@ categories:
 	![](https://github.com/Bogon/mysql_manual/blob/main/goMysql/gm_1.png?raw=true)
 
 + 安装 `Mysql`
+按照如下命令，按顺序执行即可完成 `Mysql` 安装：
 	```Bash
 	# 更新软件源
 	sudo apt-get update
