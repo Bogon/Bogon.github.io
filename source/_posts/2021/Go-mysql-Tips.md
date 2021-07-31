@@ -11,7 +11,7 @@ tags:
     - [数据库]
 categories:
     - [MySQL]
-    - [go]
+	- [go]
     - [数据库]
 ---
 
