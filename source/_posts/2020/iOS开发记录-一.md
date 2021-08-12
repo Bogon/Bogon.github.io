@@ -118,3 +118,17 @@ lazy var onceCode: Void = { [weak self] in
 
 }()
 ```
+
+# 14、`Pod install --repo-update --verbose` 大面积报错
+
+安装之后出现一些类库开始大面积报错，主要原因就是安装的 `pods` 类库在多次代码变更合并等操作造成在主工程记录中丢失、hash值变化，都会导致版本安装不一致而造成看是安装了但是一直报错的问题。
+具体如下图所示：
+
+
+```Swift
+lazy var onceCode: Void = { [weak self] in
+         // 写下想要执行一次的代码
+        log("onceCode……")
+
+}()
+```
