@@ -34,7 +34,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://cdn.xuebaonline.com/record-1-1-2.png">
 <meta property="article:published_time" content="2020-09-07T01:24:07.000Z">
-<meta property="article:modified_time" content="2021-05-30T10:53:16.037Z">
+<meta property="article:modified_time" content="2021-08-02T02:34:44.125Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -303,7 +303,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.4k</span>
+              <span>2.6k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -349,6 +349,9 @@
 </ul>
 <p><strong>NotificationCenterde 特点可以总结为：在哪个线程发出通知，接收方会在发出通知的线程中处理通知。所以涉及到 UI 刷新的问题，一定要将该部分业务代码放置在 主线程 中。</strong></p>
 <h1 id="13、Swift-只执行一次的代码"><a href="#13、Swift-只执行一次的代码" class="headerlink" title="13、Swift 只执行一次的代码"></a>13、Swift 只执行一次的代码</h1><p>声明仅执行一次：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> onceCode: <span class="type">Void</span> = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">         <span class="comment">// 写下想要执行一次的代码</span></span><br><span class="line">        log(<span class="string">"onceCode……"</span>)</span><br><span class="line"></span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<h1 id="14、Pod-install-repo-update-verbose-大面积报错"><a href="#14、Pod-install-repo-update-verbose-大面积报错" class="headerlink" title="14、Pod install --repo-update --verbose 大面积报错"></a>14、<code>Pod install --repo-update --verbose</code> 大面积报错</h1><p>安装之后出现一些类库开始大面积报错，主要原因就是安装的 <code>pods</code> 类库在多次代码变更合并等操作造成在主工程记录中丢失、hash值变化，都会导致版本安装不一致而造成看是安装了但是一直报错的问题。<br>具体如下图所示：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> onceCode: <span class="type">Void</span> = &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] <span class="keyword">in</span></span><br><span class="line">         <span class="comment">// 写下想要执行一次的代码</span></span><br><span class="line">        log(<span class="string">"onceCode……"</span>)</span><br><span class="line"></span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
     </div>
 
@@ -524,7 +527,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、自定义键盘去除iPad上方的工具栏"><span class="nav-number">1.</span> <span class="nav-text">1、自定义键盘去除iPad上方的工具栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、推送播放自定义声音设置以及注意事项"><span class="nav-number">2.</span> <span class="nav-text">2、推送播放自定义声音设置以及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、UIView的重绘及布局刷新，触发刷新事件"><span class="nav-number">3.</span> <span class="nav-text">3、UIView的重绘及布局刷新，触发刷新事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除"><span class="nav-number">4.</span> <span class="nav-text">4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、NSUserDefaults存储失败原因及解析"><span class="nav-number">5.</span> <span class="nav-text">5、NSUserDefaults存储失败原因及解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、iOS-获取状态栏、导航栏、tabBar高度"><span class="nav-number">6.</span> <span class="nav-text">6、iOS 获取状态栏、导航栏、tabBar高度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、Swift4-2及以上版本-新特性详解-Hashable-和-Hasher"><span class="nav-number">7.</span> <span class="nav-text">7、Swift4.2及以上版本 新特性详解 Hashable 和 Hasher</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、Swift-延迟执行dispatch-after"><span class="nav-number">8.</span> <span class="nav-text">8、Swift 延迟执行dispatch_after</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、iOS-模拟器全屏（Simulator-Fullscreen）"><span class="nav-number">9.</span> <span class="nav-text">9、iOS-模拟器全屏（Simulator Fullscreen）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10、ld-framework-not-found-Xcode编译报错"><span class="nav-number">10.</span> <span class="nav-text">10、ld: framework not found Xcode编译报错</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11、UIImage显示原始颜色或渲染成任意颜色"><span class="nav-number">11.</span> <span class="nav-text">11、UIImage显示原始颜色或渲染成任意颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12、NotificaitonCenter-发出通知的问题"><span class="nav-number">12.</span> <span class="nav-text">12、NotificaitonCenter 发出通知的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13、Swift-只执行一次的代码"><span class="nav-number">13.</span> <span class="nav-text">13、Swift 只执行一次的代码</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1、自定义键盘去除iPad上方的工具栏"><span class="nav-number">1.</span> <span class="nav-text">1、自定义键盘去除iPad上方的工具栏</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2、推送播放自定义声音设置以及注意事项"><span class="nav-number">2.</span> <span class="nav-text">2、推送播放自定义声音设置以及注意事项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、UIView的重绘及布局刷新，触发刷新事件"><span class="nav-number">3.</span> <span class="nav-text">3、UIView的重绘及布局刷新，触发刷新事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、iOS-UIWebView-和-WKWebView-的-cookie-获取-设置-删除"><span class="nav-number">4.</span> <span class="nav-text">4、iOS UIWebView 和 WKWebView 的 cookie 获取,设置,删除</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5、NSUserDefaults存储失败原因及解析"><span class="nav-number">5.</span> <span class="nav-text">5、NSUserDefaults存储失败原因及解析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6、iOS-获取状态栏、导航栏、tabBar高度"><span class="nav-number">6.</span> <span class="nav-text">6、iOS 获取状态栏、导航栏、tabBar高度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7、Swift4-2及以上版本-新特性详解-Hashable-和-Hasher"><span class="nav-number">7.</span> <span class="nav-text">7、Swift4.2及以上版本 新特性详解 Hashable 和 Hasher</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#8、Swift-延迟执行dispatch-after"><span class="nav-number">8.</span> <span class="nav-text">8、Swift 延迟执行dispatch_after</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#9、iOS-模拟器全屏（Simulator-Fullscreen）"><span class="nav-number">9.</span> <span class="nav-text">9、iOS-模拟器全屏（Simulator Fullscreen）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#10、ld-framework-not-found-Xcode编译报错"><span class="nav-number">10.</span> <span class="nav-text">10、ld: framework not found Xcode编译报错</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#11、UIImage显示原始颜色或渲染成任意颜色"><span class="nav-number">11.</span> <span class="nav-text">11、UIImage显示原始颜色或渲染成任意颜色</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#12、NotificaitonCenter-发出通知的问题"><span class="nav-number">12.</span> <span class="nav-text">12、NotificaitonCenter 发出通知的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#13、Swift-只执行一次的代码"><span class="nav-number">13.</span> <span class="nav-text">13、Swift 只执行一次的代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#14、Pod-install-repo-update-verbose-大面积报错"><span class="nav-number">14.</span> <span class="nav-text">14、Pod install --repo-update --verbose 大面积报错</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -645,7 +648,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21:24</span>
+    <span title="站点阅读时长">21:25</span>
 </div>
 
 <!--
