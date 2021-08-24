@@ -33,7 +33,7 @@
 <meta property="og:description" content="Swift tips">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-15T01:27:13.000Z">
-<meta property="article:modified_time" content="2021-07-17T02:44:31.076Z">
+<meta property="article:modified_time" content="2021-08-24T02:02:04.880Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
@@ -325,7 +325,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
+              <span>4.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -408,6 +408,16 @@
 </ul>
 <h1 id="开发技巧07-App-锁屏、解锁监听"><a href="#开发技巧07-App-锁屏、解锁监听" class="headerlink" title="开发技巧07 App 锁屏、解锁监听"></a>开发技巧07 <strong>App 锁屏、解锁监听</strong></h1><p>官网提供了两个事件分别用于监听锁屏和解锁。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// screen locked</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">applicationProtectedDataWillBecomeUnavailable</span><span class="params">(<span class="number">_</span> application: UIApplication)</span></span> &#123;</span><br><span class="line">    <span class="comment">/// TODO……</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// screen unlock</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">applicationProtectedDataDidBecomeAvailable</span><span class="params">(<span class="number">_</span> application: UIApplication)</span></span> &#123;</span><br><span class="line">    <span class="comment">/// TODO……</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="开发技巧08-could-not-execute-support-code-to-read-Objective-C-class-data-in-the-process"><a href="#开发技巧08-could-not-execute-support-code-to-read-Objective-C-class-data-in-the-process" class="headerlink" title="开发技巧08 could not execute support code to read Objective-C class data in the process."></a>开发技巧08 <strong>could not execute support code to read Objective-C class data in the process.</strong></h1><p>在开发过程中很少出现此类错误，但是也会偶尔出现如下问题：<code>warning: could not load any Objective-C class information. This will significantly reduce the quality of type information available.</code><br>原因分析：一般是 <strong><em>死循环</em></strong> 引起此类问题，遇到此类问题记得排查方法调用上是否引起了循环调用。</p>
+<blockquote>
+<p>懒加载的时候: 一定不要用self., 若用 self. 会造成死循环。</p>
+</blockquote>
+<h1 id="开发技巧09-极光推送设置别名，退出登录设置别名依然会收到推送信息"><a href="#开发技巧09-极光推送设置别名，退出登录设置别名依然会收到推送信息" class="headerlink" title="开发技巧09 极光推送设置别名，退出登录设置别名依然会收到推送信息"></a>开发技巧09 <strong>极光推送设置别名，退出登录设置别名依然会收到推送信息</strong></h1><p>在使用别名的推送设置中，我们会使用一下用户个人信息中的一个唯一标识来设置该用户的在极光推送系统的中的唯一标识，下面代码是设置用户别名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 设置推送别名</span></span><br><span class="line"><span class="type">JPUSHService</span>.setAlias(<span class="string">"唯一标识"</span>, completion: &#123; (index, alias, idx) <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"index = \(index), alias = \(alias ?? "</span><span class="literal">nil</span> - <span class="literal">nil</span><span class="string">"), idx = \(idx)"</span>)</span><br><span class="line">&#125;, seq: <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+<p>遇到的问题：在用户退出登录，我们期望退出登录的用户设别不需要收到该别名的推送。<br>而事实上极光 API 设置别名的规则是：<strong><em>这个接口是覆盖逻辑，而不是增量逻辑。即新的调用会覆盖之前的设置。</em></strong> 所以我们设置为空字符串并不能清除该设备在极光系统里的标识。<br>解决办法：我们需要设置一个在本业务系统中永远不会推送到的字符串作为别名来覆盖这个设备在激极光系统里的标识。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// 设置推送别名  设置一个永远不会推送到别名</span></span><br><span class="line"><span class="type">JPUSHService</span>.setAlias(<span class="string">"0000000000"</span>, completion: &#123; (index, alias, idx) <span class="keyword">in</span></span><br><span class="line">    <span class="comment">//print("index = \(index), alias = \(alias ?? "nil - nil"), idx = \(idx)")</span></span><br><span class="line">&#125;, seq: <span class="number">1</span>)</span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -583,7 +593,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧01-创建仅执行次的代码片段"><span class="nav-number">1.</span> <span class="nav-text">开发技巧01 创建仅执行次的代码片段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧02-xcrun-error-unable-to-find-utility-“xctest”"><span class="nav-number">2.</span> <span class="nav-text">开发技巧02 xcrun: error: unable to find utility “xctest”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧03-调整导航栏item边距办法"><span class="nav-number">3.</span> <span class="nav-text">开发技巧03 调整导航栏item边距办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧04-UIGestureRecognizer-视图添加手势之后，指定子视图响应事件"><span class="nav-number">4.</span> <span class="nav-text">开发技巧04 UIGestureRecognizer 视图添加手势之后，指定子视图响应事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧05-pod-install-安装失败部分库提示：443"><span class="nav-number">5.</span> <span class="nav-text">开发技巧05 pod install 安装失败部分库提示：443</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧06-Swiftgen-创建图片管理"><span class="nav-number">6.</span> <span class="nav-text">开发技巧06 Swiftgen 创建图片管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧07-App-锁屏、解锁监听"><span class="nav-number">7.</span> <span class="nav-text">开发技巧07 App 锁屏、解锁监听</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧01-创建仅执行次的代码片段"><span class="nav-number">1.</span> <span class="nav-text">开发技巧01 创建仅执行次的代码片段</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧02-xcrun-error-unable-to-find-utility-“xctest”"><span class="nav-number">2.</span> <span class="nav-text">开发技巧02 xcrun: error: unable to find utility “xctest”</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧03-调整导航栏item边距办法"><span class="nav-number">3.</span> <span class="nav-text">开发技巧03 调整导航栏item边距办法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧04-UIGestureRecognizer-视图添加手势之后，指定子视图响应事件"><span class="nav-number">4.</span> <span class="nav-text">开发技巧04 UIGestureRecognizer 视图添加手势之后，指定子视图响应事件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧05-pod-install-安装失败部分库提示：443"><span class="nav-number">5.</span> <span class="nav-text">开发技巧05 pod install 安装失败部分库提示：443</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧06-Swiftgen-创建图片管理"><span class="nav-number">6.</span> <span class="nav-text">开发技巧06 Swiftgen 创建图片管理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧07-App-锁屏、解锁监听"><span class="nav-number">7.</span> <span class="nav-text">开发技巧07 App 锁屏、解锁监听</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧08-could-not-execute-support-code-to-read-Objective-C-class-data-in-the-process"><span class="nav-number">8.</span> <span class="nav-text">开发技巧08 could not execute support code to read Objective-C class data in the process.</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#开发技巧09-极光推送设置别名，退出登录设置别名依然会收到推送信息"><span class="nav-number">9.</span> <span class="nav-text">开发技巧09 极光推送设置别名，退出登录设置别名依然会收到推送信息</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -704,7 +714,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21:25</span>
+    <span title="站点阅读时长">21:26</span>
 </div>
 
 <!--
