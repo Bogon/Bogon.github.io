@@ -202,3 +202,26 @@ func applicationProtectedDataDidBecomeAvailable(_ application: UIApplication) {
     /// TODO……
 }
 ```
+
+# 开发技巧08 **could not execute support code to read Objective-C class data in the process.**
+在开发过程中很少出现此类错误，但是也会偶尔出现如下问题：`warning: could not load any Objective-C class information. This will significantly reduce the quality of type information available.`
+原因分析：一般是 ***死循环*** 引起此类问题，遇到此类问题记得排查方法调用上是否引起了循环调用。
+> 懒加载的时候: 一定不要用self., 若用 self. 会造成死循环。
+
+# 开发技巧09 **极光推送设置别名，退出登录设置别名依然会收到推送信息**
+在使用别名的推送设置中，我们会使用一下用户个人信息中的一个唯一标识来设置该用户的在极光推送系统的中的唯一标识，下面代码是设置用户别名：
+```Swift
+/// 设置推送别名
+JPUSHService.setAlias("唯一标识", completion: { (index, alias, idx) in
+    print("index = \(index), alias = \(alias ?? "nil - nil"), idx = \(idx)")
+}, seq: 1)
+```
+遇到的问题：在用户退出登录，我们期望退出登录的用户设别不需要收到该别名的推送。
+而事实上极光 API 设置别名的规则是：***这个接口是覆盖逻辑，而不是增量逻辑。即新的调用会覆盖之前的设置。*** 所以我们设置为空字符串并不能清除该设备在极光系统里的标识。
+解决办法：我们需要设置一个在本业务系统中永远不会推送到的字符串作为别名来覆盖这个设备在激极光系统里的标识。
+```Swift
+/// 设置推送别名  设置一个永远不会推送到别名
+JPUSHService.setAlias("0000000000", completion: { (index, alias, idx) in
+    //print("index = \(index), alias = \(alias ?? "nil - nil"), idx = \(idx)")
+}, seq: 1)
+```
