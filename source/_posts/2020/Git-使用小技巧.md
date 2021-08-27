@@ -168,3 +168,16 @@ git rebase还木有仔细研究过。
 ## 与远程分支同步
 + 本地所有分支与远程保持同步： `git fetch --all` ;
 + 拉取所有分支代码: `git pull --all` ;
+
+# git push提交到远程报错
+进行远程提交报错：
+```Bash
+Username for 'https://github.com': 
+Password for 'https://Bogon@github.com':
+remote: Support for password authentication was removed on August 13, 2021. Please use a personal access token instead.
+remote: Please see https://github.blog/2020-12-15-token-authentication-requirements-for-git-operations/ for more information.
+fatal: Authentication failed for 'https://github.com/xxx/xxx.git/'
+
++ 原因
+从2021年8月13日，GitHub不再支持用密码提交代码。
+```

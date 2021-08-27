@@ -225,3 +225,8 @@ JPUSHService.setAlias("0000000000", completion: { (index, alias, idx) in
     //print("index = \(index), alias = \(alias ?? "nil - nil"), idx = \(idx)")
 }, seq: 1)
 ```
+
+# 开发技巧10 **真机调试包在Xcode中的地址**
+`Xcode` 真机调试包在系统中的地址: 
+```/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport```
+
