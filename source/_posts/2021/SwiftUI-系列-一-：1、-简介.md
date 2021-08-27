@@ -1,5 +1,5 @@
 ---
-title: SwiftUI 系列(一)：1、 简介
+title: SwiftUI 系列(一)_1、 简介
 description: SwiftUI 系列(一)：1、 简介
 permalink: SwiftUI 系列(一)：1、 简介
 copyright: true
