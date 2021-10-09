@@ -105,6 +105,8 @@ struct ContentView_Previews : PreviewProvider {
 
 + **Canvas** 和 **Minimap** :要获得完整的**SwiftUI**体验，你至少需要**Xcode 11**和**macOS 10.15**。然后你就可以在**canvas**中预览应用的视图，以及代码编辑器。此外，你还可以使用你的代码的**Minimap**:它不会出现在我的截图中，因为我隐藏了它: **Editor long ▸ HideMinimap**。
 
-•修改器:你可以调用修改器方法来修改前景色、字体、填充等等，而不是设置UIKit对象的属性或属性。
++ **Modifiers**:你可以调用修改器方法来修改前景色、字体、填充等等，而不是设置**UIKit**对象的属性或属性。
 
-•容器视图:如果你以前使用过堆栈视图，你会发现在SwiftUI中使用HStack和VStack容器视图创建这个应用的UI非常容易。还有其他容器视图，包括ZStack和Group。你将在第7章“介绍堆栈和容器”中了解它们。 
++ **Container views**:如果你以前使用过堆栈视图，你会发现在**SwiftUI**中使用**HStack**和**VStack**容器视图创建这个应用的**UI**非常容易。还有其他容器视图，包括**ZStack**和**Group**。将在后面文章中`“介绍堆栈和容器”`中了解它们。 
+
+除了**Container views**，还有许多你知道并喜欢的**UIKit**对象的**SwiftUI**视图，如文本，按钮和滑块。工具栏中的+按钮显示**SwiftUI**视图和修改 类库，以及媒体和代码片段。

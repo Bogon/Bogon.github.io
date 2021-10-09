@@ -230,3 +230,73 @@ JPUSHService.setAlias("0000000000", completion: { (index, alias, idx) in
 `Xcode` 真机调试包在系统中的地址: 
 ```/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/DeviceSupport```
 
+# 开发技巧11 ***使用类库 PromiseKit ***
+小技巧：使用类似的类库时候，需要注意，安装 `Core` 之后，按需引入相应的模块，防止无用类库过多引起的包大小问题。
+```Bash
+-> PromiseKit (6.15.3)
+   Promises for Swift & ObjC.
+   pod 'PromiseKit', '~> 6.15.3'
+   - Homepage: http://mxcl.dev/PromiseKit/
+   - Source:   https://github.com/mxcl/PromiseKit.git
+   - Versions: 6.15.3, 6.15.2, 6.15.1, 6.15.0, 6.14.0, 6.13.1, 6.13.0, 6.12.0, 6.11.0, 6.10.0, 6.9.0, 6.8.5, 6.8.4, 6.8.3, 6.8.2, 6.8.1, 6.8.0, 6.7.1, 6.7.0, 6.6.1, 6.6.0, 6.5.3,
+   6.5.2, 6.5.1, 6.5.0, 6.4.1, 6.4.0, 6.3.5, 6.3.4, 6.3.3, 6.3.0, 6.2.8, 6.2.7, 6.2.6, 6.2.5, 6.2.4, 6.2.3, 6.2.1, 6.2.0, 6.1.2, 6.1.1, 6.1.0, 6.0.3, 6.0.2, 6.0.1, 6.0.0, 4.5.2,
+   4.5.1, 4.5.0, 4.4.4, 4.4.3, 4.4.2, 4.4.0, 4.3.2, 4.3.1, 4.2.2, 4.2.0, 4.1.7, 4.1.4, 4.1.3, 4.1.2, 4.1.0, 4.0.5, 4.0.4, 4.0.3, 4.0.1, 4.0.0, 3.5.3, 3.5.2, 3.5.1, 3.5.0, 3.4.4,
+   3.4.3, 3.4.2, 3.4.1, 3.4.0, 3.3.0, 3.2.1, 3.2.0, 3.1.1, 3.1.0, 3.0.3, 3.0.2, 3.0.1, 3.0.0, 2.2.1, 2.2.0, 2.1.3, 2.1.2, 2.1.1, 2.1.0, 2.0.6, 2.0.5, 2.0.4, 2.0.3, 2.0.2, 2.0.1,
+   2.0.0, 1.7.7, 1.7.6, 1.7.5, 1.7.4, 1.7.2, 1.7.1, 1.7.0, 1.6.0, 1.5.3, 1.5.2, 1.5.1, 1.5.0, 1.4.3, 1.4.2, 1.4.1, 1.4.0, 1.3.0, 1.2.5, 1.2.4, 1.2.3, 1.2.2, 1.2, 1.0.3, 1.0.2,
+   1.0.1, 1.0, 0.9.21, 0.9.19, 0.9.18, 0.9.17.1, 0.9.17, 0.9.16.6, 0.9.16.5, 0.9.16.4, 0.9.16.3, 0.9.16.2, 0.9.16.1, 0.9.16, 0.9.15.3, 0.9.15.2, 0.9.15.1, 0.9.15, 0.9.14.3,
+   0.9.14.2, 0.9.14.1, 0.9.14, 0.9.13.2, 0.9.13.1, 0.9.13, 0.9.11.1, 0.9.11, 0.9.10, 0.9.9, 0.9.8.1, 0.9.8, 0.9.7.5, 0.9.7.4, 0.9.7.3, 0.9.7.2, 0.9.7.1, 0.9.7, 0.9.6, 0.9.5,
+   0.9.4, 0.9.3, 0.9.2, 0.9.1, 0.9.0 [edu-git-cocoapods-specs repo]
+   - Subspecs:
+     - PromiseKit/Accounts (6.15.3)
+     - PromiseKit/Alamofire (6.15.3)
+     - PromiseKit/AddressBook (6.15.3)
+     - PromiseKit/AssetsLibrary (6.15.3)
+     - PromiseKit/AVFoundation (6.15.3)
+     - PromiseKit/Bolts (6.15.3)
+     - PromiseKit/CloudKit (6.15.3)
+     - PromiseKit/CoreBluetooth (6.15.3)
+     - PromiseKit/CorePromise (6.15.3)
+     - PromiseKit/CoreLocation (6.15.3)
+     - PromiseKit/EventKit (6.15.3)
+     - PromiseKit/Foundation (6.15.3)
+     - PromiseKit/HealthKit (6.15.3)
+     - PromiseKit/HomeKit (6.15.3)
+     - PromiseKit/MapKit (6.15.3)
+     - PromiseKit/MessageUI (6.15.3)
+     - PromiseKit/OMGHTTPURLRQ (6.15.3)
+     - PromiseKit/Photos (6.15.3)
+     - PromiseKit/QuartzCore (6.15.3)
+     - PromiseKit/Social (6.15.3)
+     - PromiseKit/StoreKit (6.15.3)
+     - PromiseKit/SystemConfiguration (6.15.3)
+     - PromiseKit/UIKit (6.15.3)
+     - PromiseKit/UIImagePickerController (6.15.3)
+     - PromiseKit/WatchConnectivity (6.15.3)
+```
+
+```
+structures use the stack(栈) and classes use the heap(堆)。
+```
+
+```Generics
+This design both preserves type information and constrains the arguments to be the same type as the return type. 
+```
+
+```@autoclosure
+Decorating a parameter type with @autoclosure causes the compiler to wrap arguments in a closure automatically. 
+```
+
+``` Rethrows
+func ifelse<V>(_ condition: Bool,
+               _ valueTrue: @autoclosure () throws -> V,
+               _ valueFalse: @autoclosure () throws -> V) rethrows -> V {
+  condition ? try valueTrue() : try valueFalse()
+}
+
+Rethrows propagates the error of any failing closure to the caller. If none of the closure parameters throw, it deduces the function is non-throwing and doesn’t need to be marked with try.
+```
+
+```@inlinable
+You don’t want to pay the cost of an extra layer of abstraction, and the implementation will never change, so it makes sense to mark the function @inlinable. This added keyword hints to the compiler that the body of the method should be directly included in the client code without the overhead of calling a function.
+```
+swiftc -O -emit-assembly ifelse.swift > ifelse.asm
