@@ -173,7 +173,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">163</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">167</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -237,6 +237,111 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%20%E4%BD%BF%E7%94%A8session%E8%BF%9B%E8%A1%8Cauthentication/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%20%E4%BD%BF%E7%94%A8session%E8%BF%9B%E8%A1%8Cauthentication/" class="post-title-link" itemprop="url">Vapor系列 (五) :  使用session进行authentication</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-23 09:11:32" itemprop="dateCreated datePublished" datetime="2020-06-23T09:11:32+08:00">2020-06-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vapor-4-0/" itemprop="url" rel="index"><span itemprop="name">Vapor 4.0</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%20%E4%BD%BF%E7%94%A8session%E8%BF%9B%E8%A1%8Cauthentication/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%20%E4%BD%BF%E7%94%A8session%E8%BF%9B%E8%A1%8Cauthentication/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">Vapor系列 (五) :  使用session进行authentication</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>在本章中，我们将集中精力构建基于会话的Web身份验证层。 用户将能够使用表单登录，并且将借助于会话cookie和使用Fluent的持久会话存储来检测已经登录的用户。 本章的最后一部分是关于重构我们的视图层，并为将在下一章中实现的更健壮的表单构建解决方案做准备。</p>
+<h1 id="用户模块"><a href="#用户模块" class="headerlink" title="用户模块"></a>用户模块</h1><p>如果我们希望能够使用给定的电子邮件和密码组合登录，则必须为用户对象创建一个模型。 我们将使用以下UserModel实体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* FILE:</span></span><br><span class="line"><span class="comment">* Sources/App/Modules/User/Models/UserModel.swift */</span></span><br><span class="line"><span class="keyword">import</span> Vapor </span><br><span class="line"><span class="keyword">import</span> Fluent</span><br><span class="line"></span><br><span class="line"><span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">UserModel</span>: <span class="title">Model</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> schema = <span class="string">"user_users"</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">FieldKeys</span> </span>&#123;</span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">var</span> email: <span class="type">FieldKey</span> &#123; <span class="string">"email"</span> &#125; </span><br><span class="line">        <span class="keyword">static</span> <span class="keyword">var</span> password: <span class="type">FieldKey</span> &#123; <span class="string">"password"</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// MARK: - fields</span></span><br><span class="line">    @<span class="type">ID</span>() <span class="keyword">var</span> id: <span class="type">UUID?</span></span><br><span class="line">    @<span class="type">Field</span>(key: <span class="type">FieldKeys</span>.email) <span class="keyword">var</span> email: <span class="type">String</span> </span><br><span class="line">    @<span class="type">Field</span>(key: <span class="type">FieldKeys</span>.password) <span class="keyword">var</span> password: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(id: <span class="type">UserModel</span>.<span class="type">IDValue?</span> = <span class="literal">nil</span>, email: <span class="type">String</span>, password: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.id = id</span><br><span class="line">        <span class="keyword">self</span>.email = email </span><br><span class="line">        <span class="keyword">self</span>.password = password</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Vapor%E7%B3%BB%E5%88%97%20(%E4%BA%94)%20:%20%20%E4%BD%BF%E7%94%A8session%E8%BF%9B%E8%A1%8Cauthentication/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1231,121 +1336,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2021%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2021%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" class="post-title-link" itemprop="url">Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-21 13:59:21" itemprop="dateCreated datePublished" datetime="2020-06-21T13:59:21+08:00">2020-06-21</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2021%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2021%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>14k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>13 分钟</span>
-            </span>
-            <div class="post-description">Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>所有程序员，特别是熟练的程序员，都需要担心错误处理。 没有错的耻辱。 它们并不意味着你是一个不好的程序员。 关于错误处理，仅表示你承认自己无法控制一切。</p>
-<p>在本章中，你将学习错误处理的基础知识：错误处理的内容，实现方式以及何时担心它。</p>
-<h1 id="什么是错误处理？"><a href="#什么是错误处理？" class="headerlink" title="什么是错误处理？"></a>什么是错误处理？</h1><p>错误处理是优雅地失败的艺术。 你可以完全控制自己的代码，但不能完全控制自己代码之外的任何内容。 这包括用户输入，网络连接以及你的应用需要访问的所有外部文件。</p>
-<p>想象你在沙漠中，然后决定上网。 你距最近的热点只有数英里。 你没有手机信号。 你打开你的互联网浏览器。 怎么了？ 你的浏览器会死死地永远挂在那儿，还是会立即提醒你无法访问互联网的事实？</p>
-<p>在设计应用程序的用户体验以及类和结构的界面时，需要考虑这些因素。 考虑可能出什么问题，以及你希望应用如何响应。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E5%9B%9B)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2021%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1417,7 +1407,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">163</span>
+          <span class="site-state-item-count">167</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1522,7 +1512,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">21:29</span>
+    <span title="站点阅读时长">21:40</span>
 </div>
 
 <!--
