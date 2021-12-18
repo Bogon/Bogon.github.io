@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-enum-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-enum-stp2.png">
+<meta property="article:published_time" content="2020-05-22T08:50:49.000Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:12.222Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift 5.0">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Enumerations">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-enum-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-22 16:50:49" itemprop="dateCreated datePublished" datetime="2020-05-22T16:50:49+08:00">2020-05-22</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>作为开发人员的一天，你会意识到自己被笔记本电脑俘虏了。 决心打破常规，你将决定徒步跋涉长途跋涉。 当然，你需要一张将要遇到的地形图。 既然是21世纪，并且你精通Swift，那么你将完成一个最终项目：一个自定义地图应用。</p>
+<p>在你进行编码时，你认为如果可以将基本方向表示为变量（北，南，东，西），那将会很不错。 但是用代码实现此目的的最佳方法是什么？</p>
+<p>你可以将每个值表示为整数，如下所示：</p>
+<ul>
+<li>North:1</li>
+<li>South:2</li>
+<li>East:3</li>
+<li>West:4</li>
+</ul>
+<p>你可以看到，如果你或你的用户碰巧以不同的顺序思考这些指示，那么如何迅速将其弄糊涂。 “ 3又意味着什么？” 为了缓解这种情况，你可以将值表示为字符串，如下所示：</p>
+<ul>
+<li>North:”north” </li>
+<li>South:”south” </li>
+<li>East:”east”</li>
+<li>West:”west”</li>
+</ul>
+<span id="more"></span>
+
+<p>但是，字符串的麻烦在于该值可以是任何字符串。如果你的应用收到“启动”而不是“北方”的通知，该怎么办？此外，输入“ nrth”这样的错字也很容易。</p>
+<p>如果有一种方法可以创建一组相关的，经过编译器检查的值，那不是很好吗？如果你发现自己朝着…方向前进，则需要使用枚举。</p>
+<p><strong>枚举是定义普通类型并允许你以类型安全的方式使用值的相关值的列表</strong>。如果你的代码需要一个方向指令，并且你尝试传递诸如10.7之类的浮点数或诸如“ Souuth”之类的拼写错误的方向，则编译器将捕获你的错误。</p>
+<p>除了基本指示外，其他相关值的好例子还有颜色（黑色，红色，蓝色），名片套装（心形，黑桃色，球棒，菱形）和角色（管理员，编辑者，读者）。</p>
+<p>Swift中的枚举比其他语言（例如C或Objective-C）更强大。它们与你在前几章中了解的结构和类类型共享功能。枚举可以具有方法和计算的属性，同时充当便利的状态机。</p>
+<p>在本章中，你将学习枚举的工作原理以及何时有用。作为奖励，你最终将发现什么是可选的。提示：它们是用枚举实现的！</p>
+<h1 id="你的第一个枚举"><a href="#你的第一个枚举" class="headerlink" title="你的第一个枚举"></a>你的第一个枚举</h1><p>你的挑战：构建一个功能，该功能将根据月份确定学校的学期。 解决此问题的一种方法是使用字符串数组，并将学期与switch语句匹配：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> months <span class="operator">=</span> [<span class="string">&quot;January&quot;</span>, <span class="string">&quot;February&quot;</span>, <span class="string">&quot;March&quot;</span>, <span class="string">&quot;April&quot;</span>, <span class="string">&quot;May&quot;</span>,</span><br><span class="line">              <span class="string">&quot;June&quot;</span>, <span class="string">&quot;July&quot;</span>, <span class="string">&quot;August&quot;</span>, <span class="string">&quot;September&quot;</span>, <span class="string">&quot;October&quot;</span>,</span><br><span class="line">              <span class="string">&quot;November&quot;</span>, <span class="string">&quot;December&quot;</span>]</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semester</span>(<span class="params">for</span> <span class="params">month</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> month &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;August&quot;</span>, <span class="string">&quot;September&quot;</span>, <span class="string">&quot;October&quot;</span>, <span class="string">&quot;November&quot;</span>, <span class="string">&quot;December&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Autumn&quot;</span></span><br><span class="line">        <span class="keyword">case</span> <span class="string">&quot;January&quot;</span>, <span class="string">&quot;February&quot;</span>, <span class="string">&quot;March&quot;</span>, <span class="string">&quot;April&quot;</span>, <span class="string">&quot;May&quot;</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Spring&quot;</span></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Not in the school year&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">semester(for: <span class="string">&quot;April&quot;</span>) <span class="comment">// Spring</span></span><br></pre></td></tr></table></figure>
+
+<p>在playground上运行此代码，你可以看到该函数正确返回“ Spring”。 但是正如我在简介中提到的那样，你可以轻松地键入一个字符串。 解决此问题的更好方法是枚举。</p>
+<h1 id="声明一个枚举"><a href="#声明一个枚举" class="headerlink" title="声明一个枚举"></a>声明一个枚举</h1><p>要声明枚举，请列出所有可能的成员值作为case子句：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Month</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> january</span><br><span class="line">  <span class="keyword">case</span> february</span><br><span class="line">  <span class="keyword">case</span> march</span><br><span class="line">  <span class="keyword">case</span> april</span><br><span class="line">  <span class="keyword">case</span> may</span><br><span class="line">  <span class="keyword">case</span> june</span><br><span class="line">  <span class="keyword">case</span> july</span><br><span class="line">  <span class="keyword">case</span> august</span><br><span class="line">  <span class="keyword">case</span> september</span><br><span class="line">  <span class="keyword">case</span> october</span><br><span class="line">  <span class="keyword">case</span> november</span><br><span class="line">  <span class="keyword">case</span> december</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此代码创建一个名为Month的新枚举，其中包含12个可能的成员值。 普遍接受的最佳做法是像属性一样，以一个小写的首字母开头每个成员值。</p>
+<p>你可以通过将case子句折叠成一行来简化代码，每个值之间用逗号分隔：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Month</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> january, february, march, april, may, june, july, august,</span><br><span class="line">  september, october, november, december</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看起来既时髦又简单。 到目前为止，一切都很好。</p>
+<h1 id="解密函数中的枚举"><a href="#解密函数中的枚举" class="headerlink" title="解密函数中的枚举"></a>解密函数中的枚举</h1><p>你可以重写确定学期的函数，以便它使用枚举值而不是字符串匹配。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semester</span>(<span class="params">for</span> <span class="params">month</span>: <span class="type">Month</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> month &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="type">Month</span>.august, <span class="type">Month</span>.september, <span class="type">Month</span>.october, <span class="type">Month</span>.november, <span class="type">Month</span>.december: </span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Autumn&quot;</span></span><br><span class="line">        <span class="keyword">case</span> <span class="type">Month</span>.january, <span class="type">Month</span>.february, <span class="type">Month</span>.march, <span class="type">Month</span>.april, <span class="type">Month</span>.may:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Spring&quot;</span></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Not in the school year&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于Swift是强类型的并且使用类型推断，因此可以通过在编译器已经知道类型的地方删除枚举名称来<br>简化semester（for :)。 保留点前缀，但丢失枚举名称，如以下switch语句内的情况所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semester</span>(<span class="params">for</span> <span class="params">month</span>: <span class="type">Month</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> month &#123;</span><br><span class="line">        <span class="keyword">case</span> .august, .september, .october, .november, .december:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Autumn&quot;</span></span><br><span class="line">        <span class="keyword">case</span> .january, .february, .march, .april, .may:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Spring&quot;</span></span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Not in the school year&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外，请记住，switch语句必须包含所有情况。 否则，编译器会警告你。 当案例模式为String元素时，你需要一个默认的case，因为不可能创建案例来匹配每个可能的String值。 但是，枚举可以匹配的值有限。 因此，如果对于枚举的每个成员值都有大小写，则可以安全地删除switch语句的默认大小写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">semester</span>(<span class="params">for</span> <span class="params">month</span>: <span class="type">Month</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> month &#123;</span><br><span class="line">        <span class="keyword">case</span> .august, .september, .october, .november, .december:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Autumn&quot;</span></span><br><span class="line">        <span class="keyword">case</span> .january, .february, .march, .april, .may:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Spring&quot;</span> </span><br><span class="line">        <span class="keyword">case</span> .june, .july:</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;Summer&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>更具可读性。 摆脱默认设置还有另一个巨大的好处。 如果在将来的更新中，有人在.Mone枚举中添加了.undecember或.duodecember，则编译器会自动将此标志和其他任何switch语句标记为非穷举性，从而使你可以处理此特定情况。</p>
+<p>你可以在playground上测试此功能，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> month <span class="operator">=</span> <span class="type">Month</span>.april </span><br><span class="line">semester(for: month) <span class="comment">// &quot;Spring&quot;</span></span><br><span class="line"></span><br><span class="line">month <span class="operator">=</span> .september </span><br><span class="line">semester(for: month) <span class="comment">// &quot;Autumn&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>month的变量声明使用完整的枚举类型和值。 在第二个分配中，可以使用速记.september，因为编译器已经知道类型。 最后，你将两个月都传递给semester（for :)，其中switch语句分别返回字符串“ Spring”和“ Autumn”。</p>
+<h1 id="代码完成可防止输入错误"><a href="#代码完成可防止输入错误" class="headerlink" title="代码完成可防止输入错误"></a>代码完成可防止输入错误</h1><p>使用枚举而不是字符串的另一个优点是，你的成员值永远不会出现错字。 Xcode提供代码完成功能：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-enum-stp1.png" alt="代码提示"></p>
+<p>而且，如果你确实错误拼写了一个枚举值，则编译器将抱怨一个错误，这样一来，即使你不认识自己的错误，也不会走得太远：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-enum-stp2.png" alt="代码提示"></p>
+<h1 id="Raw-values"><a href="#Raw-values" class="headerlink" title="Raw values"></a>Raw values</h1><p>与C中的枚举值不同，默认情况下，Swift枚举值不由整数支持。 这意味着一月本身就是值。</p>
+<p>但是你可以简单地通过在枚举声明中声明原始值来将原始值与每个枚举用例相关联：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Month</span>: <span class="title">Int</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+<p>Swift枚举非常灵活：你可以指定其他原始值类型，例如String，Float或Character。 与C语言一样，如果你使用整数并且没有像在此处那样指定值，那么Swift将自动分配值0、1、2和更高。</p>
+<p>在这种情况下，一月份的原始值最好是1，而不是0。要指定自己的原始值，请使用=赋值运算符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Month</span>: <span class="title">Int</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> january <span class="operator">=</span> <span class="number">1</span>, february <span class="operator">=</span> <span class="number">2</span>, march <span class="operator">=</span> <span class="number">3</span>, april <span class="operator">=</span> <span class="number">4</span>, may <span class="operator">=</span> <span class="number">5</span>,</span><br><span class="line">  june <span class="operator">=</span> <span class="number">6</span>, july <span class="operator">=</span> <span class="number">7</span>, august <span class="operator">=</span> <span class="number">8</span>, september <span class="operator">=</span> <span class="number">9</span>,</span><br><span class="line">  october <span class="operator">=</span> <span class="number">10</span>, november <span class="operator">=</span> <span class="number">11</span>, december <span class="operator">=</span> <span class="number">12</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该代码为每个枚举情况分配一个整数值。</p>
+<p>这里还有一个方便的捷径：如果你提供第一个值，编译器将自动增加值，而忽略其余的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Month</span>: <span class="title">Int</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> january <span class="operator">=</span> <span class="number">1</span>, february, march, april, may, june, july,</span><br><span class="line">  august, september, october, november, december</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以单独使用枚举值，如果不想，则永远不要引用原始值。 但是，如果你确实需要原始值，它们将在幕后出现！</p>
+<h1 id="获取原始值"><a href="#获取原始值" class="headerlink" title="获取原始值"></a>获取原始值</h1><p>具有原始值的枚举实例具有方便的rawValue属性。 设置好原始值后，你的枚举将具有一定的顺序感，并且你可以计算出冬季休假前的剩余月份数：</p>
+<h2 id="用原始值初始化"><a href="#用原始值初始化" class="headerlink" title="用原始值初始化"></a>用原始值初始化</h2><p>你可以使用原始值通过初始化程序实例化枚举值。 你可以使用init（rawValue :)进行此操作，但是如果以后尝试使用该值，则会收到错误消息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fifthMonth <span class="operator">=</span> <span class="type">Month</span>(rawValue: <span class="number">5</span>)</span><br><span class="line">monthsUntilWinterBreak(from: fifthMonth) <span class="comment">// Error: not unwrapped</span></span><br></pre></td></tr></table></figure>
+
+<p>无法保证枚举中存在你提交的原始值，因此初始化程序会返回一个可选值。 带有rawValue：参数的枚举初始值设定项是可失败的初始值设定项，这意味着如果出现问题，初始值设定项将返回nil。</p>
+<p>如果你在自己的项目中使用这些原始值初始值设定项，请记住它们会返回可选项。 如果不确定原始值是否正确，则需要检查nil或使用可选绑定。 在这种情况下，值5必须正确，因此强制打开可选的包装是适当的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> fifthMonth <span class="operator">=</span> <span class="type">Month</span>(rawValue: <span class="number">5</span>)<span class="operator">!</span></span><br><span class="line">monthsUntilWinterBreak(from: fifthMonth) <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+
+<p>这样更好！ 你使用了感叹号！来强制打开可选包装。 现在没有错误了，monthsUntilWinterBreak（from :)返回7。</p>
+<h1 id="字符串原始值"><a href="#字符串原始值" class="headerlink" title="字符串原始值"></a>字符串原始值</h1><p>与增加Int原始值的便捷技巧类似，如果你指定String的原始值类型，则会获得另一种自动转换。 假设你正在构建一个新闻应用程序，其中每个部分都有标签。 每个部分都有一个图标。 图标是部署枚举的好机会，因为它们的性质有限，它们是：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Icon</span>: <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> music</span><br><span class="line">    <span class="keyword">case</span> sports</span><br><span class="line">    <span class="keyword">case</span> weather</span><br><span class="line">    <span class="keyword">var</span> filename: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="comment">// 2</span></span><br><span class="line">        <span class="string">&quot;<span class="subst">\(rawValue)</span>.png&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> icon <span class="operator">=</span> <span class="type">Icon</span>.weather icon.filename <span class="comment">// weather.png</span></span><br></pre></td></tr></table></figure>
+
+<p>这是这段代码中发生的事情：</p>
+<ul>
+<li>1.枚举使用String原始值类型。</li>
+<li>2.在枚举定义内调用rawValue等效于调用self.rawValue。 由于原始值是一个字符串，因此你可以使用它来构建文件名。</li>
+</ul>
+<p>请注意，你不必为每个成员值指定一个字符串。 如果你将枚举的原始值类型设置为String而不自己指定任何原始值，则编译器将使用枚举用例名称作为原始值。 filename计算属性将为你生成一个图像资产名称。 现在，你可以在应用中获取并显示标签图标的图像。</p>
+<p>接下来，让我们跳回到处理数字原始值，并学习如何将枚举用于银行业务。</p>
+<h2 id="无序原始值"><a href="#无序原始值" class="headerlink" title="无序原始值"></a>无序原始值</h2><p>整数原始值不必按递增顺序排列。 硬币是一个很好的用例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Coin</span>: <span class="title">Int</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> penny <span class="operator">=</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">case</span> nickel <span class="operator">=</span> <span class="number">5</span></span><br><span class="line">  <span class="keyword">case</span> dime <span class="operator">=</span> <span class="number">10</span></span><br><span class="line">  <span class="keyword">case</span> quarter <span class="operator">=</span> <span class="number">25</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以实例化此类型的值并照常访问其原始值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> coin <span class="operator">=</span> <span class="type">Coin</span>.quarter </span><br><span class="line">coin.rawValue <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="关联值"><a href="#关联值" class="headerlink" title="关联值"></a>关联值</h1><p>关联值将Swift枚举的表现力提升到了一个新水平。 它们使你可以将自定义值（或多个值）与每个枚举case相关联。</p>
+<p>以下是关联值的一些独特品质：</p>
+<ul>
+<li>1.每个枚举案例都有零个或多个关联值。</li>
+<li>2.每个枚举案例的关联值都有其自己的数据类型。</li>
+<li>3.你可以使用标签名称定义关联的值，就像命名函数参数一样。</li>
+</ul>
+<p>枚举可以具有原始值或关联值，但不能同时具有两者。</p>
+<p>在最后一个小型运动中，你定义了一个硬币钱包。 假设你将钱拿到银行存了。 然后，你可以去ATM取款：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> balance <span class="operator">=</span> <span class="number">100</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">withdraw</span>(<span class="params">amount</span>: <span class="type">Int</span>)</span> &#123;</span><br><span class="line">    balance <span class="operator">-=</span> amount </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自动柜员机绝不会让你提取的资金超过你的提款额，因此需要一种方法让你知道交易是否成功。 你可以将其实现为具有关联值的枚举：</p>
+<p>每个案例都有一个必填的值。 对于成功案例，关联的Int将保持新余额； 对于错误情况，关联的String将具有某种错误消息。</p>
+<p>然后，你可以重写withdraw函数以使用枚举案例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">withdraw</span>(<span class="params">amount</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">WithdrawalResult</span> &#123; </span><br><span class="line">    <span class="keyword">if</span> amount <span class="operator">&lt;=</span> balance &#123;</span><br><span class="line">        balance <span class="operator">-=</span> amount</span><br><span class="line">        <span class="keyword">return</span> .success(newBalance: balance) </span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> .error(message: <span class="string">&quot;Not enough money!&quot;</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在你可以执行提款并处理结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> withdraw(amount: <span class="number">99</span>)</span><br><span class="line"><span class="keyword">switch</span> result &#123;</span><br><span class="line">    <span class="keyword">case</span> .success(<span class="keyword">let</span> newBalance):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Your new balance is: <span class="subst">\(newBalance)</span>&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> .error(<span class="keyword">let</span> message):</span><br><span class="line">        <span class="built_in">print</span>(message)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意你如何使用let绑定读取关联的值。 关联值不是你可以自由访问的属性，因此你需要像这样的绑定才能读取它们。 请记住，新绑定的常量newBalance和message对于切换条件而言是本地的。 尽管通常会这样做，但它们不必与关联值具有相同的名称。</p>
+<p>你会在调试控制台中看到“你的新余额为：1”。</p>
+<p>许多现实环境通过访问枚举中的关联值来起作用。 例如，Internet服务器经常使用枚举来区分请求类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">HTTPMethod</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> <span class="keyword">get</span></span><br><span class="line">  <span class="keyword">case</span> post(body: <span class="type">String</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在银行帐户示例中，你想在枚举中检查多个值。 在只有一个的地方，可以在if case或guard case语句中使用模式匹配。 运作方式如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> request <span class="operator">=</span> <span class="type">HTTPMethod</span>.post(body: <span class="string">&quot;Hi there&quot;</span>) </span><br><span class="line"><span class="keyword">guard</span> <span class="keyword">case</span> .post(<span class="keyword">let</span> body) <span class="operator">=</span> request <span class="keyword">else</span> &#123;</span><br><span class="line">  <span class="built_in">fatalError</span>(<span class="string">&quot;No message was posted&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(body)</span><br></pre></td></tr></table></figure>
+
+<p>在此代码中，guard - case 检查以查看请求是否包含枚举后案例，如果是，则读取并绑定关联的值。</p>
+<p>你还将看到在错误处理中使用的枚举。 银行帐户示例有多种情况，但只有一种通用错误情况以及关联的字符串。 在第21章“错误处理”中，你将了解如何设置具有多种情况的枚举以涵盖单个错误情况。</p>
+<h1 id="枚举作为状态机"><a href="#枚举作为状态机" class="headerlink" title="枚举作为状态机"></a>枚举作为状态机</h1><p>枚举是状态机的一个示例，这意味着它一次只能是单个枚举值，而永远不能是单个枚举值。 友好的交通信号灯很好地说明了这一概念：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">TrafficLight</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> red, yellow, green</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> trafficLight <span class="operator">=</span> <span class="type">TrafficLight</span>.red</span><br></pre></td></tr></table></figure>
+
+<p>正常工作的交通信号灯永远不会同时变成红色和绿色。 你可以在其他现代设备中观察此状态机的行为，这些设备遵循预定的操作序列以响应一系列事件。 状态机的示例包括：</p>
+<ul>
+<li>当客户存入适当金额的钱时，自动售货机分发苏打水。</li>
+<li>电梯，可在下降之前使骑手从较高的楼层落下。</li>
+<li>密码锁需要按正确的顺序输入密码。</li>
+</ul>
+<p>为了正常运行，这些设备取决于枚举的保证，即一次只能处于一种状态。</p>
+<h1 id="遍历所有Case"><a href="#遍历所有Case" class="headerlink" title="遍历所有Case"></a>遍历所有Case</h1><p>有时你想遍历枚举中的所有情况。 这很容易做到：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Pet</span>: <span class="title">CaseIterable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> cat, dog, bird, turtle, fish, hamster</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> pet <span class="keyword">in</span> <span class="type">Pet</span>.allCases &#123;</span><br><span class="line">    <span class="built_in">print</span>(pet) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>遵循CaseIterable协议时，枚举将获得一个名为allCases的类方法，该方法可让你按声明的顺序遍历每种情况。 打印：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cat</span><br><span class="line">dog</span><br><span class="line">bird</span><br><span class="line">turtle</span><br><span class="line">fish</span><br><span class="line">hamster</span><br></pre></td></tr></table></figure>
+
+<h1 id="没有任何情况的枚举"><a href="#没有任何情况的枚举" class="headerlink" title="没有任何情况的枚举"></a>没有任何情况的枚举</h1><p>在第12章“方法”中，你学习了如何为一组相关类型方法创建名称空间。 该章中的示例如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Math</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">factorial</span>(<span class="params">of</span> <span class="params">number</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        (<span class="number">1</span><span class="operator">...</span>number).reduce(<span class="number">1</span>, <span class="operator">*</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> factorial <span class="operator">=</span> <span class="type">Math</span>.factorial(of: <span class="number">6</span>) <span class="comment">// 720</span></span><br></pre></td></tr></table></figure>
+
+<p>你当时可能尚未意识到的一件事是，你可以创建Math的实例，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> math <span class="operator">=</span> <span class="type">Math</span>()</span><br></pre></td></tr></table></figure>
+
+<p>数学实例没有任何用途，因为它完全是空的。 它没有任何存储的属性。 在这种情况下，更好的设计实际上是将Math从结构转换为枚举：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Math</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">factorial</span>(<span class="params">of</span> <span class="params">number</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        (<span class="number">1</span><span class="operator">...</span>number).reduce(<span class="number">1</span>, <span class="operator">*</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> factorial <span class="operator">=</span> <span class="type">Math</span>.factorial(of: <span class="number">6</span>) <span class="comment">// 720</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，如果你尝试创建实例，则编译器将给你一个错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> math <span class="operator">=</span> <span class="type">Math</span>() <span class="comment">// ERROR: No accessible initializers</span></span><br></pre></td></tr></table></figure>
+
+<p>没有案例的枚举有时称为 <strong>uninhabited types</strong> 或 <strong>bottom types</strong> 。</p>
+<p>正如你在本章开始所学到的那样，枚举功能非常强大。 他们可以执行结构可以执行的大多数操作，包括使用自定义初始化程序，计算的属性和方法。 但是，为了创建枚举的实例，必须将成员值分配为状态。 如果没有成员值，那么你将无法创建实例。</p>
+<p>在这种情况下（适合双关语），它非常适合你。 没有理由拥有Math的实例。 你应该做出设计决定，即永远不会存在该类型的实例。</p>
+<p>这样可以防止将来的开发人员意外创建实例，并有助于按预期的方式强制使用它。 因此，总而言之，如果存在无价值的实例会造成混淆，请选择一种不区分大小写的枚举。</p>
+<h1 id="Optionals"><a href="#Optionals" class="headerlink" title="Optionals"></a>Optionals</h1><p>由于你已经完成了有关枚举的课程，因此现在是时候让你了解一个小秘密了。 Swift语言功能一直在你的鼻子下面一直使用枚举：可选！ 在本节中，你将探讨其基本机制。</p>
+<p>可选的行为就像容器中什么都没有的容器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> age: <span class="type">Int</span>?</span><br><span class="line">age <span class="operator">=</span> <span class="number">17</span></span><br><span class="line">age <span class="operator">=</span> <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<p>Optionals实际上是两种情况的枚举：</p>
+<ul>
+<li>.none表示没有价值。</li>
+<li>.some表示存在一个值，该值作为关联值附加到枚举案例中。</li>
+</ul>
+<p>你已经看到，你可以通过带有switch语句的可选内容提取关联的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> age &#123; </span><br><span class="line">    <span class="keyword">case</span> .none:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;No value&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> .some(<span class="keyword">let</span> value):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Got a value: <span class="subst">\(value)</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你会在调试控制台中看到“ No value”消息。</p>
+<p>尽管可选变量实际上是幕后的枚举，但是Swift使用可选绑定，？来隐藏实现细节。 和！ 运算符，以及诸如nil之类的关键字。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> optionalNil: <span class="type">Int</span>? <span class="operator">=</span> .none </span><br><span class="line">optionalNil <span class="operator">==</span> <span class="literal">nil</span> <span class="comment">// true </span></span><br><span class="line">optionalNil <span class="operator">==</span> .none <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你在playground上尝试此操作，将会看到nil和.none是等效的。</p>
+<p>在第17章“泛型”中，你将学到更多有关可选的基本机制的知识，包括如何编写自己的代码以使其与可选的功能相同。</p>
+<p>现在你知道了可选选项的工作原理，下次需要值容器时，你将拥有正确的工具来完成这项工作。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ul>
+<li><strong>枚举</strong>是定义通用类型的互斥情况的列表。</li>
+<li>枚举为老式整数值提供了类型安全的替代方法。</li>
+<li>你可以使用枚举来处理响应，存储状态和封装值。</li>
+<li>CaseIterable使你可以循环浏览所有案例。</li>
+<li><strong>Uninhabited enumerations</strong> 的枚举可用作名称空间，并防止创建实例。</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%B8%83)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2015%E3%80%81Enumerations" title="Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations">https://www.xuebaonline.com/Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Enumerations/" rel="tag"><i class="fa fa-tag"></i> Enumerations</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%89)" rel="prev" title="2020年iOS面试题总结(三)">
+      <i class="fa fa-chevron-left"></i> 2020年iOS面试题总结(三)
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols" rel="next" title="Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols">
+      Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.</span> <span class="nav-text">你的第一个枚举</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A3%B0%E6%98%8E%E4%B8%80%E4%B8%AA%E6%9E%9A%E4%B8%BE"><span class="nav-number">2.</span> <span class="nav-text">声明一个枚举</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%A3%E5%AF%86%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84%E6%9E%9A%E4%B8%BE"><span class="nav-number">3.</span> <span class="nav-text">解密函数中的枚举</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%8C%E6%88%90%E5%8F%AF%E9%98%B2%E6%AD%A2%E8%BE%93%E5%85%A5%E9%94%99%E8%AF%AF"><span class="nav-number">4.</span> <span class="nav-text">代码完成可防止输入错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Raw-values"><span class="nav-number">5.</span> <span class="nav-text">Raw values</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8E%9F%E5%A7%8B%E5%80%BC"><span class="nav-number">6.</span> <span class="nav-text">获取原始值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%94%A8%E5%8E%9F%E5%A7%8B%E5%80%BC%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">6.1.</span> <span class="nav-text">用原始值初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8E%9F%E5%A7%8B%E5%80%BC"><span class="nav-number">7.</span> <span class="nav-text">字符串原始值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%BA%8F%E5%8E%9F%E5%A7%8B%E5%80%BC"><span class="nav-number">7.1.</span> <span class="nav-text">无序原始值</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E5%80%BC"><span class="nav-number">8.</span> <span class="nav-text">关联值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE%E4%BD%9C%E4%B8%BA%E7%8A%B6%E6%80%81%E6%9C%BA"><span class="nav-number">9.</span> <span class="nav-text">枚举作为状态机</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%81%8D%E5%8E%86%E6%89%80%E6%9C%89Case"><span class="nav-number">10.</span> <span class="nav-text">遍历所有Case</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E4%BB%BB%E4%BD%95%E6%83%85%E5%86%B5%E7%9A%84%E6%9E%9A%E4%B8%BE"><span class="nav-number">11.</span> <span class="nav-text">没有任何情况的枚举</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optionals"><span class="nav-number">12.</span> <span class="nav-text">Optionals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%82%B9"><span class="nav-number">13.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

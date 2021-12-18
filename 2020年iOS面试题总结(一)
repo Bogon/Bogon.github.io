@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="2020年iOS面试题总结(一)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2020年iOS面试题总结(一)">
+<meta property="og:url" content="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="2020年iOS面试题总结(一)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp5.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp6.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp7.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp8.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp9.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/2020-ms-stp10.png">
+<meta property="article:published_time" content="2020-05-19T00:03:00.000Z">
+<meta property="article:modified_time" content="2021-05-30T10:54:15.908Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="iOS面试题">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/2020-ms-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>2020年iOS面试题总结(一) | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2020年iOS面试题总结(一)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-19 08:03:00" itemprop="dateCreated datePublished" datetime="2020-05-19T08:03:00+08:00">2020-05-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" itemprop="url" rel="index"><span itemprop="name">iOS面试题</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">2020年iOS面试题总结(一)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Objective-C-部分"><a href="#Objective-C-部分" class="headerlink" title="Objective-C 部分"></a>Objective-C 部分</h1><h2 id="OC对象的本质"><a href="#OC对象的本质" class="headerlink" title="OC对象的本质"></a>OC对象的本质</h2><h3 id="一个OC对象占用多少内存"><a href="#一个OC对象占用多少内存" class="headerlink" title="一个OC对象占用多少内存?"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5d7890faf265da03c34c275c">一个OC对象占用多少内存?</a></h3><p>系统分配了16个字节给NSObject对象（通过malloc_size函数获得）。</p>
+<p>但NSObject对象内部只使用了8个字节的空间（64bit环境下，可以通过class_getInstanceSize函数获得）。</p>
+<ul>
+<li>OC对象 最少占用 16 个字节内存 .</li>
+<li>当对象中包含属性, 会按属性占用内存开辟空间. 在结构体内存分配原则下自动偏移和补齐 .</li>
+<li>对象最终满足 16 字节对齐标准 .</li>
+<li>属性最终满足 8 字节对齐标准 .</li>
+<li>可以通过 #pragma pack() 自定义对齐方式 .</li>
+</ul>
+<h3 id="对象的isa指针指向哪里？"><a href="#对象的isa指针指向哪里？" class="headerlink" title="对象的isa指针指向哪里？"></a><a target="_blank" rel="noopener" href="https://xiaozhuanlan.com/topic/9705362814">对象的isa指针指向哪里？</a></h3><p>instance对象的isa指向class对象</p>
+<span id="more"></span>
+
+<p>class对象的isa指向meta-class对象</p>
+<p>meta-class对象的isa指向基类的meta-class对象</p>
+<h3 id="OC的类信息存放在哪里？"><a href="#OC的类信息存放在哪里？" class="headerlink" title="OC的类信息存放在哪里？"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/aa7ccadeca88">OC的类信息存放在哪里？</a></h3><p>对象方法、属性、成员变量、协议信息，存放在class对象中</p>
+<p>类方法，存放在meta-class对象中</p>
+<p>成员变量的具体值，存放在instance对象</p>
+<h2 id="KVO本质"><a href="#KVO本质" class="headerlink" title="KVO本质"></a>KVO本质</h2><h3 id="iOS用什么方式实现对一个对象的KVO？-KVO的本质是什么？"><a href="#iOS用什么方式实现对一个对象的KVO？-KVO的本质是什么？" class="headerlink" title="iOS用什么方式实现对一个对象的KVO？(KVO的本质是什么？)"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5adab70cf265da0b736d37a8">iOS用什么方式实现对一个对象的KVO？(KVO的本质是什么？)</a></h3><p>表述方案一：</p>
+<ul>
+<li>利用RuntimeAPI动态生成一个子类，并且让instance对象的isa指向这个全新的子类</li>
+<li>当修改instance对象的属性时，会调用Foundation的_NSSetXXXValueAndNotify函数<pre><code>  willChangeValueForKey:
+</code></pre>
+  父类原来的setter<pre><code>  didChangeValueForKey:
+</code></pre>
+</li>
+<li>内部会触发监听器（Oberser）的监听方法(observeValueForKeyPath:ofObject:change:context:）</li>
+</ul>
+<p>表述方案二：<br>当一个对象使用了KVO监听，iOS系统会修改这个对象的isa指针，改为指向一个全新的通过Runtime动态创建的子类，子类拥有自己的set方法实现，set方法实现内部会顺序调用willChangeValueForKey方法、原来的setter方法实现、didChangeValueForKey方法，而didChangeValueForKey方法内部又会调用监听器的observeValueForKeyPath:ofObject:change:context:监听方法。</p>
+<h3 id="如何手动触发KVO？"><a href="#如何手动触发KVO？" class="headerlink" title="如何手动触发KVO？"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5adab70cf265da0b736d37a8">如何手动触发KVO？</a></h3><p>手动调用willChangeValueForKey:和didChangeValueForKey:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 实现</span><br><span class="line">- (void)viewDidLoad &#123;</span><br><span class="line">[super viewDidLoad];</span><br><span class="line"></span><br><span class="line">    Person *person = [[Person alloc]init];;</span><br><span class="line">    [p addObserver:self forKeyPath:@&quot;name&quot; options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];</span><br><span class="line">    [p willChangeValueForKey:@&quot;name&quot;];</span><br><span class="line">    [p didChangeValueForKey:@&quot;name&quot;];</span><br><span class="line">&#125;</span><br><span class="line">-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary&lt;NSKeyValueChangeKey,id&gt; *)change context:(void *)context&#123;</span><br><span class="line">    NSLog(@&quot;被观测对象：%@, 被观测的属性：%@, 值的改变: %@\n, 携带信息:%@&quot;, object, keyPath, change, context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<p><strong>被监听的属性的值被修改时，就会自动触发KVO。如果想要手动触发KVO，则需要我们自己调用willChangeValueForKey和didChangeValueForKey方法即可在不改变属性值的情况下手动触发KVO，并且这两个方法缺一不可。</strong></p>
+<h3 id="直接-修改成员变量-会触发KVO么？"><a href="#直接-修改成员变量-会触发KVO么？" class="headerlink" title="直接 修改成员变量 会触发KVO么？"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5b46e5955188251abd7d1676">直接 <em><strong>修改成员变量</strong></em> 会触发KVO么？</a></h3><p>不会触发KVO</p>
+<ul>
+<li>KVC 对属性赋值时候 是会在这个类里边 去查找 _age  isAge setAge setIsAge 等方法的 ,最终会调用属性的 setter 方法 ,那么如果添加了 KVO 还是会被触发的 .</li>
+<li>相反 设置成员变量  _age 由于不会触发 setter 方法 ,因此不会去触发 KVO 相关的代码 .</li>
+</ul>
+<h3 id="通过KVC修改属性会触发KVO么？"><a href="#通过KVC修改属性会触发KVO么？" class="headerlink" title="通过KVC修改属性会触发KVO么？"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5c2189dee51d454517589c8b">通过KVC修改属性会触发KVO么？</a></h3><p>会触发KVO</p>
+<p>KVC在赋值时候,内部会触发监听器（Oberser）的监听方法(observeValueForKeyPath:ofObject:change:context:） 发送通知.</p>
+<h4 id="setValue-forKey-的原理"><a href="#setValue-forKey-的原理" class="headerlink" title="setValue:forKey:的原理"></a><em><strong>setValue:forKey:的原理</strong></em></h4><p><img src="http://cdn.xuebaonline.com/2020-ms-stp1.png" alt="setValue:forKey:的原理"></p>
+<h4 id="valueForKey-的原理"><a href="#valueForKey-的原理" class="headerlink" title="valueForKey:的原理"></a><em><strong>valueForKey:的原理</strong></em></h4><p><img src="http://cdn.xuebaonline.com/2020-ms-stp2.png" alt="valueForKey:的原理"></p>
+<h2 id="KVC-原理"><a href="#KVC-原理" class="headerlink" title="KVC 原理"></a>KVC 原理</h2><h3 id="KVC的赋值和取值过程是怎样的？原理是什么？"><a href="#KVC的赋值和取值过程是怎样的？原理是什么？" class="headerlink" title="KVC的赋值和取值过程是怎样的？原理是什么？"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5c2189dee51d454517589c8b">KVC的赋值和取值过程是怎样的？原理是什么？</a></h3><p>KVC的全称是Key-Value Coding，俗称“键值编码”，可以通过一个key来访问某个属性<br>调用 setValue:forKey:</p>
+<ul>
+<li><p>setKey,_setKey  -&gt;找到了则进行赋值,未找到调用 accessInstanceVarlableDirctly 是否运行 修改值,返回YES</p>
+</li>
+<li><p>调用_key, _isKey, key, isKey 进行赋值</p>
+</li>
+</ul>
+<h2 id="Category原理探究"><a href="#Category原理探究" class="headerlink" title="Category原理探究"></a>Category原理探究</h2><h3 id="Category的使用场合是什么？"><a href="#Category的使用场合是什么？" class="headerlink" title="Category的使用场合是什么？"></a>Category的使用场合是什么？</h3><ul>
+<li>在不修改原有类代码的情况下,为类添对象方法或者类方法</li>
+<li>或者为类关联新的属性</li>
+<li>分解庞大的类文件</li>
+</ul>
+<p>使用场合:</p>
+<ul>
+<li>添加实例方法</li>
+<li>添加类方法</li>
+<li>添加协议</li>
+<li>添加属性</li>
+<li>关联成员变量</li>
+</ul>
+<h3 id="Category的实现原理"><a href="#Category的实现原理" class="headerlink" title="Category的实现原理"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5c0332ba6fb9a049d4418cac">Category的实现原理</a></h3><p>Category编译之后的底层结构是struct category_t，里面存储着分类的对象方法、类方法、属性、协议信息</p>
+<p>在程序运行的时候，runtime会将Category的数据，合并到类信息中（类对象、元类对象中）</p>
+<h3 id="Category和Class-Extension的区别是什么？"><a href="#Category和Class-Extension的区别是什么？" class="headerlink" title="Category和Class Extension的区别是什么？"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/9e827a1708c6">Category和Class Extension的区别是什么？</a></h3><p>Class Extension在编译的时候，它的数据就已经包含在类信息中</p>
+<p>Category是在运行时，才会将数据合并到类信息中</p>
+<h3 id="Category中有load方法吗？load方法是什么时候调用的？load-方法能继承吗？"><a href="#Category中有load方法吗？load方法是什么时候调用的？load-方法能继承吗？" class="headerlink" title="Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？"></a>Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</h3><ul>
+<li><p>有load方法</p>
+</li>
+<li><p>load方法在runtime加载类、分类的时候调用</p>
+</li>
+<li><p>load方法可以继承，但是一般情况下不会主动去调用load方法，都是让系统自动调用</p>
+</li>
+</ul>
+<h3 id="initialize方法如何调用-以及调用时机"><a href="#initialize方法如何调用-以及调用时机" class="headerlink" title="initialize方法如何调用,以及调用时机"></a>initialize方法如何调用,以及调用时机</h3><ul>
+<li><p>当类第一次收到消息的时候会调用类的initialize方法</p>
+</li>
+<li><p>是通过 runtime 的消息机制 objc_msgSend(obj,@selector()) 进行调用的</p>
+</li>
+<li><p>优先调用分类的 initialize, 如果没有分类会调用 子类的,如果子类未实现则调用 父类的</p>
+</li>
+</ul>
+<h3 id="load、initialize方法的区别什么？它们在category中的调用的顺序？以及出现继承时他们之间的调用过程？"><a href="#load、initialize方法的区别什么？它们在category中的调用的顺序？以及出现继承时他们之间的调用过程？" class="headerlink" title="load、initialize方法的区别什么？它们在category中的调用的顺序？以及出现继承时他们之间的调用过程？"></a>load、initialize方法的区别什么？它们在category中的调用的顺序？以及出现继承时他们之间的调用过程？</h3><ul>
+<li><p>load 是类加载到内存时候调用, 优先父类-&gt;子类-&gt;分类</p>
+</li>
+<li><p>initialize 是类第一次收到消息时候调用,优先分类-&gt;子类-&gt;父类</p>
+</li>
+<li><p>同级别和编译顺序有关系</p>
+</li>
+<li><p>load 方法是在 main 函数之前调用的</p>
+</li>
+</ul>
+<h3 id="Category能否添加成员变量？如果可以，如何给Category添加成员变量？"><a href="#Category能否添加成员变量？如果可以，如何给Category添加成员变量？" class="headerlink" title="Category能否添加成员变量？如果可以，如何给Category添加成员变量？"></a>Category能否添加成员变量？如果可以，如何给Category添加成员变量？</h3><ul>
+<li><p>不能直接给Category添加成员变量，但是可以间接实现Category有成员变量的效果</p>
+</li>
+<li><p>Category是发生在运行时,编译完毕,类的内存布局已经确定,无法添加成员变量(Category的底层数据结构也没有成员变量的结构) <strong>可以通过 runtime 动态的关联属性</strong></p>
+</li>
+</ul>
+<h2 id="Block-原理"><a href="#Block-原理" class="headerlink" title="Block 原理"></a>Block 原理</h2><h3 id="block的原理是怎样的？本质是什么？"><a href="#block的原理是怎样的？本质是什么？" class="headerlink" title="block的原理是怎样的？本质是什么？"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5b0181e15188254270643e88">block的原理是怎样的？本质是什么？</a></h3><ul>
+<li><p>block 本质其实是OC对象</p>
+</li>
+<li><p>block 内部封装了函数调用以及调用环境</p>
+</li>
+</ul>
+<h3 id="block的作用是什么？有什么使用注意点？"><a href="#block的作用是什么？有什么使用注意点？" class="headerlink" title="__block的作用是什么？有什么使用注意点？"></a>__block的作用是什么？有什么使用注意点？</h3><ul>
+<li><p>如果需要在 block 内部修改外部的 局部变量的值,就需要使用__block 修饰(全局变量和静态变量不需要加__block 可以修改)</p>
+</li>
+<li><p>__block 修饰以后,局部变量的数据结构就会发生改变,底层会变成一个结构体的对象,结构内部会声明 一个 __block修饰变量的成员, 并且将 __block修饰变量的地址保存到堆内存中. 后面如果修改 这个变量的值,可以通过 isa 指针找到这个结构体,进来修改 这个变量的值;</p>
+</li>
+<li><p>可以在 block 内部修改 变量的值</p>
+</li>
+</ul>
+<h3 id="block的属性修饰词为什么是copy？使用block有哪些使用注意？"><a href="#block的属性修饰词为什么是copy？使用block有哪些使用注意？" class="headerlink" title="block的属性修饰词为什么是copy？使用block有哪些使用注意？"></a>block的属性修饰词为什么是copy？使用block有哪些使用注意？</h3><ul>
+<li><p>block 一旦没有进行copy操作，就不会在堆上</p>
+</li>
+<li><p>使用注意：循环引用问题 (外部使用__weak 解决)</p>
+</li>
+</ul>
+<h3 id="block在修改NSMutableArray，需不需要添加-block？"><a href="#block在修改NSMutableArray，需不需要添加-block？" class="headerlink" title="block在修改NSMutableArray，需不需要添加__block？"></a>block在修改NSMutableArray，需不需要添加__block？</h3><ul>
+<li><p>如果是操作 NSMutableArray 对象不需要,因为 block 内部拷贝了 NSMutableArray对象的内存地址,实际是通过内存地址操作的</p>
+</li>
+<li><p>如果 NSMutableArray 对象要重新赋值,就需要加__block</p>
+</li>
+</ul>
+<h3 id="Block-内部为什么不能修改局部变量-需要加-block"><a href="#Block-内部为什么不能修改局部变量-需要加-block" class="headerlink" title="Block 内部为什么不能修改局部变量,需要加__block"></a>Block 内部为什么不能修改局部变量,需要加__block</h3><ul>
+<li><p>通过查看Block 源码,可以发现, block 内部如果单纯使用 外部变量, 会在 block 内部创建同样的一个变量,并且将 外部变量的值引用过来..(只是将外部变量值拷贝到 block 内部), 内部这个变量和外部 实际已经没关系了</p>
+</li>
+<li><p>从另一方面分析,block 本质也是一个 函数指针, 外部的变量也是一个局部变量,很有可能 block 在使用这个变量时候,外部变量已经释放了,会造成错误</p>
+</li>
+<li><p>加了__block 以后, 会将外部变量的内存拷贝到堆中, 内存由 block 去管理.</p>
+</li>
+</ul>
+<h2 id="OC-的消息机制"><a href="#OC-的消息机制" class="headerlink" title="OC 的消息机制"></a><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1332241">OC 的消息机制</a></h2><h3 id="讲一下-OC-的消息机制"><a href="#讲一下-OC-的消息机制" class="headerlink" title="讲一下 OC 的消息机制"></a>讲一下 OC 的消息机制</h3><ul>
+<li><p>OC中的方法调用其实都是转成了objc_msgSend函数的调用，给receiver（方法调用者）发送了一条消息（selector方法名）</p>
+</li>
+<li><p>objc_msgSend底层有3大阶段: 消息发送（当前类、父类中查找）、动态方法解析、消息转发</p>
+</li>
+</ul>
+<h3 id="消息发送流程"><a href="#消息发送流程" class="headerlink" title="消息发送流程"></a>消息发送流程</h3><ul>
+<li><p>当我们的一个 receiver(实例对象)收到消息的时候, 会通过 isa 指针找到 他的类对象, 然后在类对象方法列表中查找 对应的方法实现,如果 未找到,则会通过 superClass 指针找到其父类的类对象, 找到则返回,未找打则会一级一级往上查到,最终到NSObject 对象, 如果还是未找到就会进行动态方法解析</p>
+</li>
+<li><p>类方法调用同上,只不过 isa 指针找到元类对象;</p>
+</li>
+</ul>
+<h3 id="动态方法解析机制"><a href="#动态方法解析机制" class="headerlink" title="动态方法解析机制"></a>动态方法解析机制</h3><p>当我们发送消息未找到方法实现,就会进入第二步,动态方法解析: 代码实现如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">//  动态方法绑定- 实例法法调用</span><br><span class="line">+ (BOOL)resolveInstanceMethod:(SEL)sel&#123;</span><br><span class="line">    if (sel == @selector(run)) &#123;</span><br><span class="line">        Method method = class_getInstanceMethod(self, @selector(test));</span><br><span class="line">        class_addMethod(self, sel, method_getImplementation(method), method_getTypeEncoding(method));</span><br><span class="line">        return YES;</span><br><span class="line">    &#125;</span><br><span class="line">    return [super resolveInstanceMethod:sel];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 类方法调用</span><br><span class="line">+(BOOL) resolveClassMethod:(SEL)sel....</span><br></pre></td></tr></table></figure>
+
+<h3 id="消息转发机制流程"><a href="#消息转发机制流程" class="headerlink" title="消息转发机制流程"></a>消息转发机制流程</h3><p>未找到动态方法绑定,就会进行消息转发阶段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">// 快速消息转发- 指定消息处理对象</span><br><span class="line">- (id)forwardingTargetForSelector:(SEL)aSelector&#123;</span><br><span class="line">    if (aSelector == @selector(run)) &#123;</span><br><span class="line">        return [Student new];</span><br><span class="line">    &#125;</span><br><span class="line">    return  [super forwardingTargetForSelector:aSelector];</span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">// 标准消息转发-消息签名</span><br><span class="line">- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector&#123;</span><br><span class="line">    if(aSelector == @selector(run))</span><br><span class="line">    &#123;</span><br><span class="line">        return [NSMethodSignature signatureWithObjCTypes:&quot;v@:&quot;];</span><br><span class="line">    &#125;</span><br><span class="line">    return [super methodSignatureForSelector:aSelector];</span><br><span class="line">&#125;</span><br><span class="line">- (void)forwardInvocation:(NSInvocation *)anInvocation&#123;</span><br><span class="line">   //内部逻辑自己处理 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5ac0a6116fb9a028de44d717">Runtime</a></h2><ul>
+<li>Objective-C runtime是一个<code>运行时</code>库，它为Objective-C语言的动态特性提供支持，我们所写的OC代码在运行时都转成了runtime相关的代码，类转换成C语言对应的结构体，方法转化为C语言对应的函数，发消息转成了C语言对应的函数调用。通过了解runtime以及源码,可以更加深入的了解OC其特性和原理</li>
+</ul>
+<h3 id="什么是Runtime？平时项目中有用过么？"><a href="#什么是Runtime？平时项目中有用过么？" class="headerlink" title="什么是Runtime？平时项目中有用过么？"></a>什么是Runtime？平时项目中有用过么？</h3><ul>
+<li><p>OC是一门动态性比较强的编程语言，允许很多操作推迟到程序运行时再进行</p>
+</li>
+<li><p>OC的动态性就是由Runtime来支撑和实现的，Runtime是一套C语言的API，封装了很多动态性相关的函数</p>
+</li>
+<li><p>平时编写的OC代码，底层都是转换成了Runtime API进行调用</p>
+</li>
+</ul>
+<h3 id="runtime具体应用"><a href="#runtime具体应用" class="headerlink" title="runtime具体应用"></a>runtime具体应用</h3><ul>
+<li><p>利用关联对象（AssociatedObject）给分类添加属性</p>
+</li>
+<li><p>遍历类的所有成员变量（修改textfield的占位文字颜色、字典转模型、自动归档解档）</p>
+</li>
+<li><p>交换方法实现（交换系统的方法）</p>
+</li>
+<li><p>利用消息转发机制解决方法找不到的异常问题</p>
+</li>
+</ul>
+<h3 id="self-class-和-super-class-的区别"><a href="#self-class-和-super-class-的区别" class="headerlink" title="[self class] 和 [super class] 的区别"></a>[self class] 和 [super class] 的区别</h3><p><img src="http://cdn.xuebaonline.com/2020-ms-stp3.png" alt="的区别"></p>
+<p>[self class] 和 [super class] 都是给当前类返送消息,spuer 表示在父类中查找<br>[self superClass]  和 [super superclass] 也是也当前类发消息,返回父类</p>
+<p>第一个打印:<br>    MJStudent / MJStudent/ MJerson / MJPerson</p>
+<figure class="highlight plaintext"><figcaption><span>表示对象是否为当前类或者子类的 类型</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">```isMemberOfClass``` 表示是否为当前类的的类型</span><br><span class="line">```isMemberOfClass``` 分为- 对象方法 和+ 类方法2中</span><br><span class="line">```- (bool)isMemberOfClass;``` 比较的是类对象</span><br><span class="line">```+ (bool)isMemberOfClass;``` 比较的是元类</span><br><span class="line"></span><br><span class="line">第二个打印:</span><br><span class="line">    1 ,0, 0, 0</span><br><span class="line"></span><br><span class="line">## [RunLoop](https://juejin.im/post/5add46606fb9a07abf721d1d &quot;&quot;)</span><br><span class="line"></span><br><span class="line">### 讲讲 RunLoop，项目中有用到吗？</span><br><span class="line"></span><br><span class="line">- runloop运行循环,保证程序一直运行,主线程默认开启</span><br><span class="line">- 用于处理线程上的各种事件,定时器等</span><br><span class="line">- 可以提高程序性能,节约CPU资源,有事情做就做,没事情做就让线程休眠</span><br><span class="line"></span><br><span class="line">应用范畴:</span><br><span class="line">    定时器,事件响应,手势识别,界面刷新,以及autoreleasePool 等等</span><br><span class="line"></span><br><span class="line">### runloop内部实现逻辑？</span><br><span class="line"></span><br><span class="line">![runloop内部实现逻辑](http://cdn.xuebaonline.com/2020-ms-stp4.png &quot;&quot;)</span><br><span class="line"></span><br><span class="line">实际上 RunLoop 就是这样一个函数，其内部是一个 do-while 循环。当你调用 CFRunLoopRun() 时，线程就会一直停留在这个循环里；直到超时或被手动停止，该函数才会返回。</span><br><span class="line"></span><br><span class="line">### runloop和线程的关系？</span><br><span class="line"></span><br><span class="line">- 每条线程都有唯一的一个与之对应的RunLoop对象</span><br><span class="line"></span><br><span class="line">- RunLoop保存在一个全局的Dictionary里，线程作为key，RunLoop作为value</span><br><span class="line"></span><br><span class="line">- 线程刚创建时并没有RunLoop对象，RunLoop会在第一次获取它时创建</span><br><span class="line"></span><br><span class="line">- RunLoop会在线程结束时销毁</span><br><span class="line"></span><br><span class="line">- 主线程的RunLoop已经自动获取（创建），子线程默认没有开启RunLoop</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">### timer 与 runloop 的关系？</span><br><span class="line"></span><br><span class="line">timer 定时器,是基于 runloop 来实现的, runloop 在运行循环当中,监听到了定制器 就会执行;所以 timer 需要添加到 runloop 中去, 注意子线程的 runloop 默认是不开启的,如果在子线程执行 timer 需要手动开启 runloop</span><br><span class="line"></span><br><span class="line">### 程序中添加每3秒响应一次的NSTimer，当拖动tableview时timer可能无法响应要怎么解决？</span><br><span class="line"></span><br><span class="line">将 timer 对象添加到 runloop 中,并修改 runloop 的运行 mode</span><br><span class="line"></span><br><span class="line">``` Objective-C</span><br><span class="line">NSTimer *timer = [NSTimer timerWithTimeInterval:1 repeats:YES block:nil];</span><br><span class="line">[[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];</span><br></pre></td></tr></table></figure>
+
+<h3 id="runloop-是怎么响应用户操作的，-具体流程是什么样的？"><a href="#runloop-是怎么响应用户操作的，-具体流程是什么样的？" class="headerlink" title="runloop 是怎么响应用户操作的， 具体流程是什么样的？"></a>runloop 是怎么响应用户操作的， 具体流程是什么样的？</h3><ul>
+<li>source1 捕捉用户触摸事件</li>
+<li>source0 去处理触摸时间</li>
+</ul>
+<h3 id="说说runLoop的几种状态"><a href="#说说runLoop的几种状态" class="headerlink" title="说说runLoop的几种状态"></a>说说runLoop的几种状态</h3><p>添加Observer监听RunLoop的所有状态</p>
+<p><img src="http://cdn.xuebaonline.com/2020-ms-stp5.png" alt="说说runLoop的几种状态"></p>
+<ul>
+<li>kCFRunLoopEntry = (1UL &lt;&lt; 0),           // 即将进入Loop</li>
+<li>kCFRunLoopBeforeTimers = (1UL &lt;&lt; 1),    //即将处理Timer</li>
+<li>kCFRunLoopBeforeSources = (1UL &lt;&lt; 2),   //即将处理Source</li>
+<li>kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5),   //即将进入休眠</li>
+<li>kCFRunLoopAfterWaiting = (1UL &lt;&lt; 6),    //刚从休眠中唤醒</li>
+<li>kCFRunLoopExit = (1UL &lt;&lt; 7),            //即将退出Loop</li>
+<li>kCFRunLoopAllActivities = 0x0FFFFFFFU   //所有状态改变</li>
+</ul>
+<h3 id="runloop的mode作用是什么？"><a href="#runloop的mode作用是什么？" class="headerlink" title="runloop的mode作用是什么？"></a>runloop的mode作用是什么？</h3><p>runloop 只能在一种 mode 下运行, 做不同的事情,runloop 会切换到对应的 model 下来执行,默认是  kCFRunLoopDefaultMode 如果视图滑动再回切换到  UITrackingRunLoopMode,如果需要在多种 mode 下运行则需要手动设置 kCFRunLoopCommonModes;</p>
+<ul>
+<li><p>kCFRunLoopDefaultMode：App的默认Mode，通常主线程是在这个Mode下运行</p>
+</li>
+<li><p>UITrackingRunLoopMode：界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响</p>
+</li>
+<li><p>UIInitializationRunLoopMode: 在刚启动 App 时第进入的第一个 Mode，启动完成后就不再使用，会切换到kCFRunLoopDefaultMode</p>
+</li>
+<li><p>GSEventReceiveRunLoopMode: 接受系统事件的内部 Mode，通常用不到</p>
+</li>
+<li><p>kCFRunLoopCommonModes: 这是一个占位用的Mode，作为标记kCFRunLoopDefaultMode和UITrackingRunLoopMode用，并不是一种真正的Mode </p>
+</li>
+</ul>
+<h3 id="如何实现一个常驻线程"><a href="#如何实现一个常驻线程" class="headerlink" title="如何实现一个常驻线程"></a>如何实现一个常驻线程</h3><ul>
+<li>创建RunLoop</li>
+<li>向RunLoop中添加port、source等来保证RunLoop不退出</li>
+<li>启动RunLoop</li>
+</ul>
+<h2 id="多线程"><a href="#多线程" class="headerlink" title="多线程"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/7649fad15cdb">多线程</a></h2><p>同一时间,CPU 只能处理理一条线程, 只有一条线程在⼯工作 多线程并发执行,其实是 CPU 快速的在多条线程之间调度(切换) 如果 CPU 调度线程的时间⾜够快, 就造成了多线程并发执⾏的假象</p>
+<ul>
+<li><p>优势</p>
+<pre><code>  充分发挥多核处理器的优势，将不同线程任务分配给不同的处理器，真正进入“⾏行 计算”状态
+</code></pre>
+</li>
+<li><p>弊端 </p>
+<pre><code>  新线程会消耗内存控件和cpu时间，线程太多会降低系统行性能。
+</code></pre>
+</li>
+</ul>
+<h3 id="iOS的多线程方案有哪几种？你更倾向于哪一种？"><a href="#iOS的多线程方案有哪几种？你更倾向于哪一种？" class="headerlink" title="iOS的多线程方案有哪几种？你更倾向于哪一种？"></a>iOS的多线程方案有哪几种？你更倾向于哪一种？</h3><p><img src="http://cdn.xuebaonline.com/2020-ms-stp6.png" alt="iOS的多线程方案"></p>
+<p>倾向于GCD ,简单灵活,使用方便</p>
+<h3 id="你在项目中用过-GCD-吗？"><a href="#你在项目中用过-GCD-吗？" class="headerlink" title="你在项目中用过 GCD 吗？"></a>你在项目中用过 GCD 吗？</h3><p>使用过</p>
+<p>GCD中有2个用来执行任务的函数</p>
+<ul>
+<li><p>用同步的方式执行任务</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dispatch_sync(dispatch_queue_t queue, dispatch_block_t block);</span><br><span class="line">queue：队列</span><br><span class="line">block：任务</span><br></pre></td></tr></table></figure></li>
+<li><p>用异步的方式执行任务</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dispatch_async(dispatch_queue_t queue, dispatch_block_t block);</span><br></pre></td></tr></table></figure>
+
+<h3 id="GCD-的队列类型"><a href="#GCD-的队列类型" class="headerlink" title="GCD 的队列类型"></a>GCD 的队列类型</h3><p>GCD的队列可以分为2大类型</p>
+<ul>
+<li><p>并发队列（Concurrent Dispatch Queue）</p>
+<p>  可以让多个任务并发（同时）执行（自动开启多个线程同时执行任务）</p>
+<p>  并发功能只有在异步（dispatch_async）函数下才有效</p>
+</li>
+<li><p>串行队列（Serial Dispatch Queue）</p>
+<p>  让任务一个接着一个地执行（一个任务执行完毕后，再执行下一个任务）</p>
+</li>
+</ul>
+<h3 id="说一下-OperationQueue-和-GCD-的区别，以及各自的优势"><a href="#说一下-OperationQueue-和-GCD-的区别，以及各自的优势" class="headerlink" title="说一下 OperationQueue 和 GCD 的区别，以及各自的优势"></a>说一下 OperationQueue 和 GCD 的区别，以及各自的优势</h3><ul>
+<li><p> GCD是纯C语⾔言的API，NSOperationQueue是基于GCD的OC版本封装</p>
+</li>
+<li><p> GCD只⽀支持FIFO的队列列，NSOperationQueue可以很⽅方便便地调整执⾏行行顺序、设置最⼤大并发数量量</p>
+</li>
+<li><p> NSOperationQueue可以在轻松在Operation间设置依赖关系，⽽而GCD 需要写很 多的代码才能实现</p>
+</li>
+<li><p> NSOperationQueue⽀支持KVO，可以监测operation是否正在执⾏行行 (isExecuted)、 是否结束(isFinished)，是否取消(isCanceld)</p>
+</li>
+<li><p> GCD的执⾏行行速度⽐NSOperationQueue快 任务之间不不太互相依赖:GCD 任务之间 有依赖\或者要监听任务的执⾏行行情况:NSOperationQueue</p>
+</li>
+</ul>
+<h3 id="线程安全的处理手段有哪些？"><a href="#线程安全的处理手段有哪些？" class="headerlink" title="线程安全的处理手段有哪些？"></a>线程安全的处理手段有哪些？</h3><ul>
+<li>加锁</li>
+<li>同步执行</li>
+</ul>
+<h3 id="OC你了解的锁有哪些？在你回答基础上进行二次提问"><a href="#OC你了解的锁有哪些？在你回答基础上进行二次提问" class="headerlink" title="OC你了解的锁有哪些？在你回答基础上进行二次提问?"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5e96b624f265da47d6452215">OC你了解的锁有哪些？在你回答基础上进行二次提问?</a></h3><p><code>os_unfair_lock</code>  ios10 开始<br><code>OSSpinLock</code>      ios10 废弃<br><code>dispatch_semaphore</code>   建议使用,性能也比较好<br><code>dispatch_mutex</code><br><code>dispatch_queue</code>   串行<br><code>NSLock</code>  对 mutex 封装<br><code>@synchronized</code> 性能最差</p>
+<h4 id="追问一：自旋和互斥对比？"><a href="#追问一：自旋和互斥对比？" class="headerlink" title="追问一：自旋和互斥对比？"></a>追问一：自旋和互斥对比？</h4><ul>
+<li><p>什么情况使用自旋锁比较划算？</p>
+<ul>
+<li>预计线程等待锁的时间很短</li>
+<li>加锁的代码（临界区）经常被调用，但竞争情况很少发生</li>
+<li>CPU资源不紧张</li>
+<li>多核处理器</li>
+</ul>
+</li>
+<li><p>什么情况使用互斥锁比较划算？</p>
+<ul>
+<li>预计线程等待锁的时间较长</li>
+<li>单核处理器</li>
+<li>临界区有IO操作</li>
+<li>临界区代码复杂或者循环量大</li>
+<li>临界区竞争非常激烈  </li>
+</ul>
+</li>
+</ul>
+<h4 id="追问二：使用以上锁需要注意哪些？"><a href="#追问二：使用以上锁需要注意哪些？" class="headerlink" title="追问二：使用以上锁需要注意哪些？"></a>追问二：使用以上锁需要注意哪些？</h4><ul>
+<li>注意死锁</li>
+<li>在串行队列使用同步,容易造成死锁</li>
+</ul>
+<h4 id="追问三：用C-OC-C-，任选其一，实现自旋或互斥？口述即可！"><a href="#追问三：用C-OC-C-，任选其一，实现自旋或互斥？口述即可！" class="headerlink" title="追问三：用C/OC/C++，任选其一，实现自旋或互斥？口述即可！"></a>追问三：用C/OC/C++，任选其一，实现自旋或互斥？口述即可！</h4><p>两种锁的加锁原理：</p>
+<ul>
+<li><p>互斥锁：线程会从sleep（加锁）——&gt;running（解锁），过程中有上下文的切换，cpu的抢占，信号的发送等开销。</p>
+</li>
+<li><p>自旋锁：线程一直是running(加锁——&gt;解锁)，死循环检测锁的标志位</p>
+</li>
+</ul>
+<h4 id="请问下面代码的打印结果是什么？"><a href="#请问下面代码的打印结果是什么？" class="headerlink" title="请问下面代码的打印结果是什么？"></a>请问下面代码的打印结果是什么？</h4><p><img src="http://cdn.xuebaonline.com/2020-ms-stp7.png" alt="请问下面代码的打印结果是什么？"></p>
+<p>打印 1,3</p>
+<p>performSelector after 是基于 timer 定制器,定时器又是基于 runloop 实现的</p>
+<p>任务2在子线程中,子线程默认 runloop 是不开启的,所以不执行2</p>
+<h4 id="请问下面代码的打印结果是什么？-1"><a href="#请问下面代码的打印结果是什么？-1" class="headerlink" title="请问下面代码的打印结果是什么？"></a>请问下面代码的打印结果是什么？</h4><p><img src="http://cdn.xuebaonline.com/2020-ms-stp8.png" alt="请问下面代码的打印结果是什么？"></p>
+<p>打印1</p>
+<p>start 执行完,线程就销毁了.任务 test 没法执行了</p>
+<h3 id="使用CADisplayLink、NSTimer有什么注意点？"><a href="#使用CADisplayLink、NSTimer有什么注意点？" class="headerlink" title="使用CADisplayLink、NSTimer有什么注意点？"></a>使用CADisplayLink、NSTimer有什么注意点？</h3><ul>
+<li><p>CADisplayLink 保证调用频率和刷帧频率一直,60FPS, 不用设置时间间隔,每秒钟60次</p>
+<ul>
+<li>可以使用 proxy 代理解决循环引用</li>
+</ul>
+</li>
+<li><p>CADisplayLink、NSTimer会对target产生强引用，如果target又对它们产生强引用，那么就会引发循环引用</p>
+</li>
+</ul>
+<h2 id="内存管理"><a href="#内存管理" class="headerlink" title="内存管理"></a><a target="_blank" rel="noopener" href="https://juejin.im/post/5abe543bf265da23784064dd">内存管理</a></h2><h3 id="介绍下内存的几大区域"><a href="#介绍下内存的几大区域" class="headerlink" title="介绍下内存的几大区域"></a>介绍下内存的几大区域</h3><ul>
+<li><p>低地址-&gt; 高地址</p>
+</li>
+<li><p>保留-&gt;代码段-&gt;数据段(字符串常量,已初始化全局数据,未初始化数据)&gt;堆-&gt;栈内存-&gt; 内核区域</p>
+</li>
+<li><p>代码段: 编译之后的代码</p>
+</li>
+<li><p>数据段: 字符串常量,已经初始化的全局变量,或者静态变量,未初始化的全局变量,静态变量</p>
+</li>
+<li><p>堆 (低&gt;高)  通过 alloc malloc calloc 动态分配的内存</p>
+</li>
+<li><p>栈 (高地址 从 低地址)  函数调用开销()</p>
+</li>
+</ul>
+<h3 id="讲一下你对-iOS-内存管理的理解"><a href="#讲一下你对-iOS-内存管理的理解" class="headerlink" title="讲一下你对 iOS 内存管理的理解"></a>讲一下你对 iOS 内存管理的理解</h3><ul>
+<li><p>在iOS中，使用引用计数来管理OC对象的内存</p>
+</li>
+<li><p>一个新创建的OC对象引用计数默认是1，当引用计数减为0，OC对象就会销毁，释放其占用的内存空间</p>
+</li>
+<li><p>调用retain会让OC对象的引用计数+1，调用release会让OC对象的引用计数-1</p>
+</li>
+<li><p>内存管理的经验总结</p>
+<ul>
+<li>当调用alloc、new、copy、mutableCopy方法返回了一个对象，在不需要这个对象时，要调用release或者autorelease来释放它</li>
+<li>想拥有某个对象，就让它的引用计数+1；不想再拥有某个对象，就让它的引用计数-1</li>
+</ul>
+</li>
+<li><p>可以通过以下私有函数来查看自动释放池的情况</p>
+<pre><code>  `extern void _objc_autoreleasePoolPrint(void);`
+</code></pre>
+</li>
+</ul>
+<h3 id="ARC-都帮我们做了什么？"><a href="#ARC-都帮我们做了什么？" class="headerlink" title="ARC 都帮我们做了什么？"></a>ARC 都帮我们做了什么？</h3><p>LLVM + Runtime 会为我们代码自动插入 retain 和 release 以及 autorelease等代码,不需要我们手动管理</p>
+<h3 id="weak指针的实现原理"><a href="#weak指针的实现原理" class="headerlink" title="weak指针的实现原理"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/3c5e335341e0">weak指针的实现原理</a></h3><ul>
+<li><p>Runtime维护了一个weak表，用于存储指向某个对象的所有weak指针。weak表其实是一个hash（哈希）表，Key是所指对象的地址，Value是weak指针的地址（这个地址的值是所指对象的地址）数组。</p>
+</li>
+<li><p>runtime对注册的类， 会进行布局，对于weak对象会放入一个hash表中。 用weak指向的对象内存地址作为key，当此对象的引用计数为0的时候会dealloc，假如weak指向的对象内存地址是a，那么就会以a为键， 在这个weak表中搜索，找到所有以a为键的weak对象，从而设置为nil。</p>
+</li>
+</ul>
+<h3 id="autorelease对象在什么时机会被调用release"><a href="#autorelease对象在什么时机会被调用release" class="headerlink" title="autorelease对象在什么时机会被调用release"></a>autorelease对象在什么时机会被调用release</h3><p>iOS在主线程的Runloop中注册了2个Observer</p>
+<ul>
+<li><p>第1个<code>Observer</code>监听了<code>kCFRunLoopEntry</code>事件，会调用<code>objc_autoreleasePoolPush()</code></p>
+</li>
+<li><p>第2个<code>Observer</code></p>
+<ul>
+<li><p>监听了<code>kCFRunLoopBeforeWaiting</code>事件，会调用<code>objc_autoreleasePoolPop()</code>、<code>objc_autoreleasePoolPush()</code></p>
+</li>
+<li><p>监听了<code>kCFRunLoopBeforeExit</code>事件，会调用<code>objc_autoreleasePoolPop()</code></p>
+</li>
+<li><p><code>objc_autoreleasePoolPop()</code>调用时候回给 <code>pool</code> 中的对象发送一次 <code>release</code> 消息</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="方法里有局部对象，-出了方法后会立即释放吗"><a href="#方法里有局部对象，-出了方法后会立即释放吗" class="headerlink" title="方法里有局部对象， 出了方法后会立即释放吗"></a>方法里有局部对象， 出了方法后会立即释放吗</h3><ul>
+<li>如果是普通的 局部对象 会立即释放</li>
+<li>如果是放在了 autoreleasePool 自动释放池,则会等runloop 循环,进入休眠前释放</li>
+</ul>
+<h3 id="思考以下2段代码能发生什么事？有什么区别？"><a href="#思考以下2段代码能发生什么事？有什么区别？" class="headerlink" title="思考以下2段代码能发生什么事？有什么区别？"></a>思考以下2段代码能发生什么事？有什么区别？</h3><p><img src="http://cdn.xuebaonline.com/2020-ms-stp9.png" alt="思考以下2段代码能发生什么事？有什么区别？"></p>
+<ul>
+<li>第一个内存会暴涨,self.name 会不停的创建</li>
+<li>第二个内存固定,会使用 Tagged Pointer 将值存在地址中</li>
+</ul>
+<h3 id="你在项目中是怎么优化内存的？"><a href="#你在项目中是怎么优化内存的？" class="headerlink" title="你在项目中是怎么优化内存的？"></a>你在项目中是怎么优化内存的？</h3><p>内存优化可以从 <strong>内存泄漏</strong> 和 <strong>内存开销</strong> 2方面入口</p>
+<ul>
+<li><p>减少内存泄露</p>
+<ul>
+<li>可以使用静态分析以及instruments的leaks 分析</li>
+<li>注意 NStimer 以及 block ,delegate 等的使用,避免循环引用</li>
+</ul>
+</li>
+<li><p>降低内存使用峰值</p>
+<ul>
+<li><p>关于图片加载占用内存问题：imageNamed: 方法会在内存中缓存图片，用于常用的图片。<br>imageWithContentsOfFile: 方法在视图销毁的时候会释放图片占用的内存，适合不常用的大图等。</p>
+</li>
+<li><p>tableView cell 尽量使用重用机制,减少额外的开销</p>
+</li>
+<li><p>tableView 列表图片展示尽量使用缩略图</p>
+</li>
+<li><p>延迟加载对象,节约内存开销</p>
+</li>
+<li><p>避免短时间大量创建对象,配合 autoreleasePool 减少内存峰值</p>
+</li>
+<li><p>重用大开销对象,比如: NSDateFormatter和NSCalendar</p>
+</li>
+<li><p>加载 html 尽量使用 wkwebView</p>
+</li>
+<li><p>单例使用不易过多</p>
+</li>
+<li><p>线程最大并发数</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="APP优化"><a href="#APP优化" class="headerlink" title="APP优化"></a><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/25c8505c486e">APP优化</a></h2><h3 id="优化你是从哪几方面着手？"><a href="#优化你是从哪几方面着手？" class="headerlink" title="优化你是从哪几方面着手？"></a>优化你是从哪几方面着手？</h3><ul>
+<li>卡顿优化</li>
+<li>启动优化</li>
+<li>耗电量优化</li>
+<li>app 瘦身</li>
+</ul>
+<p>CPU 占用率、 内存使用情况、网络状况监控、启动时闪退、卡顿、FPS、使用时崩溃、耗电量监控、流量监控….</p>
+<h3 id="列表卡顿的原因可能有哪些？你平时是怎么优化的？"><a href="#列表卡顿的原因可能有哪些？你平时是怎么优化的？" class="headerlink" title="列表卡顿的原因可能有哪些？你平时是怎么优化的？"></a>列表卡顿的原因可能有哪些？你平时是怎么优化的？</h3><ul>
+<li><p>最常用的就是cell的重用， 注册重用标识符</p>
+<ul>
+<li>如果不重用cell时，每当一个cell显示到屏幕上时，就会重新创建一个新的cell；<br>— 如果有很多数据的时候，就会堆积很多cell。<br>— 如果重用cell，为cell创建一个ID，每当需要显示cell 的时候，都会先去缓冲池中寻找可循环利用的cell，如果没有再重新创建cell</li>
+</ul>
+</li>
+<li><p>避免cell的重新布局<br> — cell的布局填充等操作 比较耗时，一般创建时就布局好<br> — 如可以将cell单独放到一个自定义类，初始化时就布局好</p>
+</li>
+<li><p>提前计算并缓存cell的属性及内容<br>  — 当我们创建cell的数据源方法时，编译器并不是先创建cell 再定cell的高度<br>  — 而是先根据内容一次确定每一个cell的高度，高度确定后，再创建要显示的cell，滚动时，每当cell进入凭虚都会计算高度，提前估算高度告诉编译器，编译器知道高度后，紧接着就会创建cell，这时再调用高度的具体计算方法，这样可以方式浪费时间去计算显示以外的cell</p>
+</li>
+<li><p>减少cell中控件的数量<br> — 尽量使cell得布局大致相同，不同风格的cell可以使用不用的重用标识符，初始化时添加控件，<br> — 不适用的可以先隐藏</p>
+</li>
+<li><p>不要使用ClearColor，无背景色，透明度也不要设置为0<br> — 渲染耗时比较长</p>
+</li>
+<li><p>使用局部更新<br> — 如果只是更新某组的话，使用reloadSection进行局部更新</p>
+</li>
+<li><p>加载网络数据，下载图片，使用异步加载，并缓存</p>
+</li>
+<li><p>少使用addView 给cell动态添加view</p>
+</li>
+<li><p>按需加载cell，cell滚动很快时，只加载范围内的cell</p>
+</li>
+<li><p>不要实现无用的代理方法，tableView只遵守两个协议</p>
+</li>
+<li><p>缓存行高：estimatedHeightForRow不能和HeightForRow里面的layoutIfNeed同时存在，这两者同时存在才会出现“窜动”的bug。所以我的建议是：只要是固定行高就写预估行高来减少行高调用次数提升性能。如果是动态行高就不要写预估方法了，用一个行高的缓存字典来减少代码的调用次数即可</p>
+</li>
+<li><p>不要做多余的绘制工作。在实现drawRect:的时候，它的rect参数就是需要绘制的区域，这个区域之外的不需要进行绘制。例如上例中，就可以用CGRectIntersectsRect、CGRectIntersection或CGRectContainsRect判断是否需要绘制image和text，然后再调用绘制方法。</p>
+</li>
+<li><p>预渲染图像。当新的图像出现时，仍然会有短暂的停顿现象。解决的办法就是在bitmap context里先将其画一遍，导出成UIImage对象，然后再绘制到屏幕；</p>
+</li>
+<li><p>使用正确的数据结构来存储数据。</p>
+</li>
+</ul>
+<h3 id="app-启动优化"><a href="#app-启动优化" class="headerlink" title="app 启动优化"></a>app 启动优化</h3><ul>
+<li><p>pre-main 之前</p>
+<ul>
+<li>排查无用的动态库(定期清理)</li>
+<li>减少ObjC类（项目中不适用的的库，废弃的代码等）、方法（selector）、分类（category）的数量、无用的库</li>
+<li>少在类的+load方法里做事情，尽量把这些事情推迟到+initiailize1.</li>
+</ul>
+</li>
+<li><p>main 函数之后的 didFinishLaunchingWithOptions 加载完之前</p>
+<ul>
+<li>不影响用户体验的操作,做延迟加载,不要全部放在  didFinishLaunchingWithOptions中去做</li>
+<li>版本更新,一些三方初始化,不需要在 didFinishLaunchingWithOptions 初始化的放到,界面展示完以后再初始化</li>
+<li>一些网络请求延迟 请求..</li>
+<li>一些业务逻辑延迟 加载</li>
+<li>初始化第三方 SDK</li>
+<li>配置 APP 运行需要的环境</li>
+<li>自己的一些工具类的初始化</li>
+</ul>
+</li>
+</ul>
+<h3 id="app-耗电量优化"><a href="#app-耗电量优化" class="headerlink" title="app 耗电量优化"></a>app 耗电量优化</h3><ul>
+<li><p>不要频繁的刷新页面,能刷新1行cell最好只刷新一行,尽量不要使用reloadData.</p>
+</li>
+<li><p>选择正确的集合</p>
+<ul>
+<li>NSArray,使用index来查找很快(插入和删除很慢)</li>
+<li>字典,使用键来查找很快</li>
+<li>NSSets,是无序的,用键查找很快,插入/删除很快</li>
+</ul>
+</li>
+<li><p>少用运算获得圆角,必须要用圆角的话,不如把图片本身就做成圆角</p>
+</li>
+<li><p>懒加载,不要一次性创建所有的subview,而是需要时才创建.</p>
+</li>
+<li><p>重用机制</p>
+</li>
+<li><p>图片处理</p>
+<ul>
+<li>图片与imageView相同大小,避免多余运算</li>
+<li>可以使用整副的图片,增加应用体积,但是节省CPU</li>
+<li>可调大小的图片,可以省去一些不必要的空间</li>
+<li>CALayer,CoreGraphics,甚至OpenGL来绘制,消耗CPU</li>
+</ul>
+</li>
+<li><p>cache,cache,cache(缓存所有需要的)</p>
+<ul>
+<li>服务器相应结果的缓存(图片)</li>
+<li>复杂计算结果的缓存(UITableView的行高)</li>
+</ul>
+</li>
+<li><p>尽量少用透明或半透明,会产生额外的运算.</p>
+</li>
+<li><p>使用ARC减少内存失误,dealloc需要重写并对属性置为nil</p>
+</li>
+<li><p>避免庞大的xib,storyBoard,尽量使用纯代码开发</p>
+</li>
+<li><p>CPU层面</p>
+<ul>
+<li>Timer的时间间隔不宜太短,满足需求即可</li>
+<li>线程适量,不宜过多,不要阻塞主线程</li>
+<li>优化算法,减少循环次数</li>
+<li>定位和蓝牙按需取用,定位之后要关闭或降低定位频率</li>
+<li>一些硬件的使用,不使用就关掉</li>
+</ul>
+</li>
+</ul>
+<h3 id="app-的包瘦身"><a href="#app-的包瘦身" class="headerlink" title="app 的包瘦身"></a>app 的包瘦身</h3><p><img src="http://cdn.xuebaonline.com/2020-ms-stp10.png" alt="app 的包瘦身"></p>
+<h2 id="APP-架构"><a href="#APP-架构" class="headerlink" title="APP 架构"></a><a target="_blank" rel="noopener" href="https://casatwy.com/iosying-yong-jia-gou-tan-kai-pian.html">APP 架构</a></h2><h3 id="讲讲-MVC、MVVM、MVP，以及你在项目里具体是怎么写的？"><a href="#讲讲-MVC、MVVM、MVP，以及你在项目里具体是怎么写的？" class="headerlink" title="讲讲 MVC、MVVM、MVP，以及你在项目里具体是怎么写的？"></a>讲讲 MVC、MVVM、MVP，以及你在项目里具体是怎么写的？</h3><ul>
+<li><p>MVC  Model-view-controller 数据-视图-控制器     </p>
+<ul>
+<li>一般控制器用于管理数据和视图, 数据和视图交互都是通过控制器来进行的.视图和数据进行了解耦, 但是我们日常使用经常会将模型绑定给视图.模型封装在视图内部,外部不用管理视图内部业务逻辑,这数据 mvc 的变种, 控制器只给视图模型数据就好了. 缺点是视图和 模型有耦合;</li>
+</ul>
+</li>
+<li><p>MVVM Model-view-viewModel  模型-视图-视图模型</p>
+<ul>
+<li>view 和 model 的交互通过viewmodel 来进行交互,实现数据的双向绑定</li>
+</ul>
+</li>
+<li><p>MVP  Model-view - Presenter  模型-视图-主持人</p>
+<ul>
+<li>view 和 model 的交互通过Presenter,controller通过Presenter来管理 model 和 View</li>
+</ul>
+</li>
+</ul>
+<h3 id="你自己用过哪些设计模式？"><a href="#你自己用过哪些设计模式？" class="headerlink" title="你自己用过哪些设计模式？"></a>你自己用过哪些设计模式？</h3><p>结合自己项目来讲吧</p>
+<h3 id="一般开始做一个项目，你的架构是如何思考的？"><a href="#一般开始做一个项目，你的架构是如何思考的？" class="headerlink" title="一般开始做一个项目，你的架构是如何思考的？"></a>一般开始做一个项目，你的架构是如何思考的？</h3><ul>
+<li>根据模块,使用 mvc 功能划分..结合自己项目讲比较容易</li>
+<li>涉及到东西也比较多,比较杂,大到整个项目架构,小到一个 view 的架构;没具体的答案</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)" title="2020年iOS面试题总结(一)">https://www.xuebaonline.com/2020年iOS面试题总结(一)</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/iOS%E9%9D%A2%E8%AF%95%E9%A2%98/" rel="tag"><i class="fa fa-tag"></i> iOS面试题</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes" rel="prev" title="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%BA%8C)" rel="next" title="2020年iOS面试题总结(二)">
+      2020年iOS面试题总结(二) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Objective-C-%E9%83%A8%E5%88%86"><span class="nav-number">1.</span> <span class="nav-text">Objective-C 部分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#OC%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.1.</span> <span class="nav-text">OC对象的本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E4%B8%AAOC%E5%AF%B9%E8%B1%A1%E5%8D%A0%E7%94%A8%E5%A4%9A%E5%B0%91%E5%86%85%E5%AD%98"><span class="nav-number">1.1.1.</span> <span class="nav-text">一个OC对象占用多少内存?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%B9%E8%B1%A1%E7%9A%84isa%E6%8C%87%E9%92%88%E6%8C%87%E5%90%91%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="nav-number">1.1.2.</span> <span class="nav-text">对象的isa指针指向哪里？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OC%E7%9A%84%E7%B1%BB%E4%BF%A1%E6%81%AF%E5%AD%98%E6%94%BE%E5%9C%A8%E5%93%AA%E9%87%8C%EF%BC%9F"><span class="nav-number">1.1.3.</span> <span class="nav-text">OC的类信息存放在哪里？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO%E6%9C%AC%E8%B4%A8"><span class="nav-number">1.2.</span> <span class="nav-text">KVO本质</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS%E7%94%A8%E4%BB%80%E4%B9%88%E6%96%B9%E5%BC%8F%E5%AE%9E%E7%8E%B0%E5%AF%B9%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84KVO%EF%BC%9F-KVO%E7%9A%84%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.1.</span> <span class="nav-text">iOS用什么方式实现对一个对象的KVO？(KVO的本质是什么？)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%8B%E5%8A%A8%E8%A7%A6%E5%8F%91KVO%EF%BC%9F"><span class="nav-number">1.2.2.</span> <span class="nav-text">如何手动触发KVO？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%B4%E6%8E%A5-%E4%BF%AE%E6%94%B9%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F-%E4%BC%9A%E8%A7%A6%E5%8F%91KVO%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.3.</span> <span class="nav-text">直接 修改成员变量 会触发KVO么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%9A%E8%BF%87KVC%E4%BF%AE%E6%94%B9%E5%B1%9E%E6%80%A7%E4%BC%9A%E8%A7%A6%E5%8F%91KVO%E4%B9%88%EF%BC%9F"><span class="nav-number">1.2.4.</span> <span class="nav-text">通过KVC修改属性会触发KVO么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setValue-forKey-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">setValue:forKey:的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#valueForKey-%E7%9A%84%E5%8E%9F%E7%90%86"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">valueForKey:的原理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVC-%E5%8E%9F%E7%90%86"><span class="nav-number">1.3.</span> <span class="nav-text">KVC 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#KVC%E7%9A%84%E8%B5%8B%E5%80%BC%E5%92%8C%E5%8F%96%E5%80%BC%E8%BF%87%E7%A8%8B%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F%E5%8E%9F%E7%90%86%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.3.1.</span> <span class="nav-text">KVC的赋值和取值过程是怎样的？原理是什么？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Category%E5%8E%9F%E7%90%86%E6%8E%A2%E7%A9%B6"><span class="nav-number">1.4.</span> <span class="nav-text">Category原理探究</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E5%90%88%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.4.1.</span> <span class="nav-text">Category的使用场合是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.4.2.</span> <span class="nav-text">Category的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E5%92%8CClass-Extension%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.4.3.</span> <span class="nav-text">Category和Class Extension的区别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E4%B8%AD%E6%9C%89load%E6%96%B9%E6%B3%95%E5%90%97%EF%BC%9Fload%E6%96%B9%E6%B3%95%E6%98%AF%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E8%B0%83%E7%94%A8%E7%9A%84%EF%BC%9Fload-%E6%96%B9%E6%B3%95%E8%83%BD%E7%BB%A7%E6%89%BF%E5%90%97%EF%BC%9F"><span class="nav-number">1.4.4.</span> <span class="nav-text">Category中有load方法吗？load方法是什么时候调用的？load 方法能继承吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#initialize%E6%96%B9%E6%B3%95%E5%A6%82%E4%BD%95%E8%B0%83%E7%94%A8-%E4%BB%A5%E5%8F%8A%E8%B0%83%E7%94%A8%E6%97%B6%E6%9C%BA"><span class="nav-number">1.4.5.</span> <span class="nav-text">initialize方法如何调用,以及调用时机</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#load%E3%80%81initialize%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%E4%BB%80%E4%B9%88%EF%BC%9F%E5%AE%83%E4%BB%AC%E5%9C%A8category%E4%B8%AD%E7%9A%84%E8%B0%83%E7%94%A8%E7%9A%84%E9%A1%BA%E5%BA%8F%EF%BC%9F%E4%BB%A5%E5%8F%8A%E5%87%BA%E7%8E%B0%E7%BB%A7%E6%89%BF%E6%97%B6%E4%BB%96%E4%BB%AC%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B0%83%E7%94%A8%E8%BF%87%E7%A8%8B%EF%BC%9F"><span class="nav-number">1.4.6.</span> <span class="nav-text">load、initialize方法的区别什么？它们在category中的调用的顺序？以及出现继承时他们之间的调用过程？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Category%E8%83%BD%E5%90%A6%E6%B7%BB%E5%8A%A0%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%EF%BC%9F%E5%A6%82%E6%9E%9C%E5%8F%AF%E4%BB%A5%EF%BC%8C%E5%A6%82%E4%BD%95%E7%BB%99Category%E6%B7%BB%E5%8A%A0%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="nav-number">1.4.7.</span> <span class="nav-text">Category能否添加成员变量？如果可以，如何给Category添加成员变量？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Block-%E5%8E%9F%E7%90%86"><span class="nav-number">1.5.</span> <span class="nav-text">Block 原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#block%E7%9A%84%E5%8E%9F%E7%90%86%E6%98%AF%E6%80%8E%E6%A0%B7%E7%9A%84%EF%BC%9F%E6%9C%AC%E8%B4%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.5.1.</span> <span class="nav-text">block的原理是怎样的？本质是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%E7%82%B9%EF%BC%9F"><span class="nav-number">1.5.2.</span> <span class="nav-text">__block的作用是什么？有什么使用注意点？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block%E7%9A%84%E5%B1%9E%E6%80%A7%E4%BF%AE%E9%A5%B0%E8%AF%8D%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AFcopy%EF%BC%9F%E4%BD%BF%E7%94%A8block%E6%9C%89%E5%93%AA%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%B3%A8%E6%84%8F%EF%BC%9F"><span class="nav-number">1.5.3.</span> <span class="nav-text">block的属性修饰词为什么是copy？使用block有哪些使用注意？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#block%E5%9C%A8%E4%BF%AE%E6%94%B9NSMutableArray%EF%BC%8C%E9%9C%80%E4%B8%8D%E9%9C%80%E8%A6%81%E6%B7%BB%E5%8A%A0-block%EF%BC%9F"><span class="nav-number">1.5.4.</span> <span class="nav-text">block在修改NSMutableArray，需不需要添加__block？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-%E5%86%85%E9%83%A8%E4%B8%BA%E4%BB%80%E4%B9%88%E4%B8%8D%E8%83%BD%E4%BF%AE%E6%94%B9%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F-%E9%9C%80%E8%A6%81%E5%8A%A0-block"><span class="nav-number">1.5.5.</span> <span class="nav-text">Block 内部为什么不能修改局部变量,需要加__block</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OC-%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6"><span class="nav-number">1.6.</span> <span class="nav-text">OC 的消息机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8B-OC-%E7%9A%84%E6%B6%88%E6%81%AF%E6%9C%BA%E5%88%B6"><span class="nav-number">1.6.1.</span> <span class="nav-text">讲一下 OC 的消息机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E5%8F%91%E9%80%81%E6%B5%81%E7%A8%8B"><span class="nav-number">1.6.2.</span> <span class="nav-text">消息发送流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E6%96%B9%E6%B3%95%E8%A7%A3%E6%9E%90%E6%9C%BA%E5%88%B6"><span class="nav-number">1.6.3.</span> <span class="nav-text">动态方法解析机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E8%BD%AC%E5%8F%91%E6%9C%BA%E5%88%B6%E6%B5%81%E7%A8%8B"><span class="nav-number">1.6.4.</span> <span class="nav-text">消息转发机制流程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime"><span class="nav-number">1.7.</span> <span class="nav-text">Runtime</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRuntime%EF%BC%9F%E5%B9%B3%E6%97%B6%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%9C%89%E7%94%A8%E8%BF%87%E4%B9%88%EF%BC%9F"><span class="nav-number">1.7.1.</span> <span class="nav-text">什么是Runtime？平时项目中有用过么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runtime%E5%85%B7%E4%BD%93%E5%BA%94%E7%94%A8"><span class="nav-number">1.7.2.</span> <span class="nav-text">runtime具体应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#self-class-%E5%92%8C-super-class-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">1.7.3.</span> <span class="nav-text">[self class] 和 [super class] 的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runloop-%E6%98%AF%E6%80%8E%E4%B9%88%E5%93%8D%E5%BA%94%E7%94%A8%E6%88%B7%E6%93%8D%E4%BD%9C%E7%9A%84%EF%BC%8C-%E5%85%B7%E4%BD%93%E6%B5%81%E7%A8%8B%E6%98%AF%E4%BB%80%E4%B9%88%E6%A0%B7%E7%9A%84%EF%BC%9F"><span class="nav-number">1.7.4.</span> <span class="nav-text">runloop 是怎么响应用户操作的， 具体流程是什么样的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4runLoop%E7%9A%84%E5%87%A0%E7%A7%8D%E7%8A%B6%E6%80%81"><span class="nav-number">1.7.5.</span> <span class="nav-text">说说runLoop的几种状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#runloop%E7%9A%84mode%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.7.6.</span> <span class="nav-text">runloop的mode作用是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E4%B8%80%E4%B8%AA%E5%B8%B8%E9%A9%BB%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.7.7.</span> <span class="nav-text">如何实现一个常驻线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="nav-number">1.8.</span> <span class="nav-text">多线程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS%E7%9A%84%E5%A4%9A%E7%BA%BF%E7%A8%8B%E6%96%B9%E6%A1%88%E6%9C%89%E5%93%AA%E5%87%A0%E7%A7%8D%EF%BC%9F%E4%BD%A0%E6%9B%B4%E5%80%BE%E5%90%91%E4%BA%8E%E5%93%AA%E4%B8%80%E7%A7%8D%EF%BC%9F"><span class="nav-number">1.8.1.</span> <span class="nav-text">iOS的多线程方案有哪几种？你更倾向于哪一种？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E7%94%A8%E8%BF%87-GCD-%E5%90%97%EF%BC%9F"><span class="nav-number">1.8.2.</span> <span class="nav-text">你在项目中用过 GCD 吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD-%E7%9A%84%E9%98%9F%E5%88%97%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.8.3.</span> <span class="nav-text">GCD 的队列类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E4%B8%80%E4%B8%8B-OperationQueue-%E5%92%8C-GCD-%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%8C%E4%BB%A5%E5%8F%8A%E5%90%84%E8%87%AA%E7%9A%84%E4%BC%98%E5%8A%BF"><span class="nav-number">1.8.4.</span> <span class="nav-text">说一下 OperationQueue 和 GCD 的区别，以及各自的优势</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%A4%84%E7%90%86%E6%89%8B%E6%AE%B5%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">1.8.5.</span> <span class="nav-text">线程安全的处理手段有哪些？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OC%E4%BD%A0%E4%BA%86%E8%A7%A3%E7%9A%84%E9%94%81%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E5%9C%A8%E4%BD%A0%E5%9B%9E%E7%AD%94%E5%9F%BA%E7%A1%80%E4%B8%8A%E8%BF%9B%E8%A1%8C%E4%BA%8C%E6%AC%A1%E6%8F%90%E9%97%AE"><span class="nav-number">1.8.6.</span> <span class="nav-text">OC你了解的锁有哪些？在你回答基础上进行二次提问?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%BD%E9%97%AE%E4%B8%80%EF%BC%9A%E8%87%AA%E6%97%8B%E5%92%8C%E4%BA%92%E6%96%A5%E5%AF%B9%E6%AF%94%EF%BC%9F"><span class="nav-number">1.8.6.1.</span> <span class="nav-text">追问一：自旋和互斥对比？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%BD%E9%97%AE%E4%BA%8C%EF%BC%9A%E4%BD%BF%E7%94%A8%E4%BB%A5%E4%B8%8A%E9%94%81%E9%9C%80%E8%A6%81%E6%B3%A8%E6%84%8F%E5%93%AA%E4%BA%9B%EF%BC%9F"><span class="nav-number">1.8.6.2.</span> <span class="nav-text">追问二：使用以上锁需要注意哪些？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%BF%BD%E9%97%AE%E4%B8%89%EF%BC%9A%E7%94%A8C-OC-C-%EF%BC%8C%E4%BB%BB%E9%80%89%E5%85%B6%E4%B8%80%EF%BC%8C%E5%AE%9E%E7%8E%B0%E8%87%AA%E6%97%8B%E6%88%96%E4%BA%92%E6%96%A5%EF%BC%9F%E5%8F%A3%E8%BF%B0%E5%8D%B3%E5%8F%AF%EF%BC%81"><span class="nav-number">1.8.6.3.</span> <span class="nav-text">追问三：用C&#x2F;OC&#x2F;C++，任选其一，实现自旋或互斥？口述即可！</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E9%97%AE%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%93%E5%8D%B0%E7%BB%93%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.8.6.4.</span> <span class="nav-text">请问下面代码的打印结果是什么？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AF%B7%E9%97%AE%E4%B8%8B%E9%9D%A2%E4%BB%A3%E7%A0%81%E7%9A%84%E6%89%93%E5%8D%B0%E7%BB%93%E6%9E%9C%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F-1"><span class="nav-number">1.8.6.5.</span> <span class="nav-text">请问下面代码的打印结果是什么？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8CADisplayLink%E3%80%81NSTimer%E6%9C%89%E4%BB%80%E4%B9%88%E6%B3%A8%E6%84%8F%E7%82%B9%EF%BC%9F"><span class="nav-number">1.8.7.</span> <span class="nav-text">使用CADisplayLink、NSTimer有什么注意点？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86"><span class="nav-number">1.9.</span> <span class="nav-text">内存管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%8B%E5%86%85%E5%AD%98%E7%9A%84%E5%87%A0%E5%A4%A7%E5%8C%BA%E5%9F%9F"><span class="nav-number">1.9.1.</span> <span class="nav-text">介绍下内存的几大区域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E4%B8%80%E4%B8%8B%E4%BD%A0%E5%AF%B9-iOS-%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86%E7%9A%84%E7%90%86%E8%A7%A3"><span class="nav-number">1.9.2.</span> <span class="nav-text">讲一下你对 iOS 内存管理的理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARC-%E9%83%BD%E5%B8%AE%E6%88%91%E4%BB%AC%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">1.9.3.</span> <span class="nav-text">ARC 都帮我们做了什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#weak%E6%8C%87%E9%92%88%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="nav-number">1.9.4.</span> <span class="nav-text">weak指针的实现原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#autorelease%E5%AF%B9%E8%B1%A1%E5%9C%A8%E4%BB%80%E4%B9%88%E6%97%B6%E6%9C%BA%E4%BC%9A%E8%A2%AB%E8%B0%83%E7%94%A8release"><span class="nav-number">1.9.5.</span> <span class="nav-text">autorelease对象在什么时机会被调用release</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%B3%95%E9%87%8C%E6%9C%89%E5%B1%80%E9%83%A8%E5%AF%B9%E8%B1%A1%EF%BC%8C-%E5%87%BA%E4%BA%86%E6%96%B9%E6%B3%95%E5%90%8E%E4%BC%9A%E7%AB%8B%E5%8D%B3%E9%87%8A%E6%94%BE%E5%90%97"><span class="nav-number">1.9.6.</span> <span class="nav-text">方法里有局部对象， 出了方法后会立即释放吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%9D%E8%80%83%E4%BB%A5%E4%B8%8B2%E6%AE%B5%E4%BB%A3%E7%A0%81%E8%83%BD%E5%8F%91%E7%94%9F%E4%BB%80%E4%B9%88%E4%BA%8B%EF%BC%9F%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="nav-number">1.9.7.</span> <span class="nav-text">思考以下2段代码能发生什么事？有什么区别？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E4%B8%AD%E6%98%AF%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96%E5%86%85%E5%AD%98%E7%9A%84%EF%BC%9F"><span class="nav-number">1.9.8.</span> <span class="nav-text">你在项目中是怎么优化内存的？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP%E4%BC%98%E5%8C%96"><span class="nav-number">1.10.</span> <span class="nav-text">APP优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E5%8C%96%E4%BD%A0%E6%98%AF%E4%BB%8E%E5%93%AA%E5%87%A0%E6%96%B9%E9%9D%A2%E7%9D%80%E6%89%8B%EF%BC%9F"><span class="nav-number">1.10.1.</span> <span class="nav-text">优化你是从哪几方面着手？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%97%E8%A1%A8%E5%8D%A1%E9%A1%BF%E7%9A%84%E5%8E%9F%E5%9B%A0%E5%8F%AF%E8%83%BD%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F%E4%BD%A0%E5%B9%B3%E6%97%B6%E6%98%AF%E6%80%8E%E4%B9%88%E4%BC%98%E5%8C%96%E7%9A%84%EF%BC%9F"><span class="nav-number">1.10.2.</span> <span class="nav-text">列表卡顿的原因可能有哪些？你平时是怎么优化的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-%E5%90%AF%E5%8A%A8%E4%BC%98%E5%8C%96"><span class="nav-number">1.10.3.</span> <span class="nav-text">app 启动优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-%E8%80%97%E7%94%B5%E9%87%8F%E4%BC%98%E5%8C%96"><span class="nav-number">1.10.4.</span> <span class="nav-text">app 耗电量优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#app-%E7%9A%84%E5%8C%85%E7%98%A6%E8%BA%AB"><span class="nav-number">1.10.5.</span> <span class="nav-text">app 的包瘦身</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#APP-%E6%9E%B6%E6%9E%84"><span class="nav-number">1.11.</span> <span class="nav-text">APP 架构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%B2%E8%AE%B2-MVC%E3%80%81MVVM%E3%80%81MVP%EF%BC%8C%E4%BB%A5%E5%8F%8A%E4%BD%A0%E5%9C%A8%E9%A1%B9%E7%9B%AE%E9%87%8C%E5%85%B7%E4%BD%93%E6%98%AF%E6%80%8E%E4%B9%88%E5%86%99%E7%9A%84%EF%BC%9F"><span class="nav-number">1.11.1.</span> <span class="nav-text">讲讲 MVC、MVVM、MVP，以及你在项目里具体是怎么写的？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%A0%E8%87%AA%E5%B7%B1%E7%94%A8%E8%BF%87%E5%93%AA%E4%BA%9B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%EF%BC%9F"><span class="nav-number">1.11.2.</span> <span class="nav-text">你自己用过哪些设计模式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%88%AC%E5%BC%80%E5%A7%8B%E5%81%9A%E4%B8%80%E4%B8%AA%E9%A1%B9%E7%9B%AE%EF%BC%8C%E4%BD%A0%E7%9A%84%E6%9E%B6%E6%9E%84%E6%98%AF%E5%A6%82%E4%BD%95%E6%80%9D%E8%80%83%E7%9A%84%EF%BC%9F"><span class="nav-number">1.11.3.</span> <span class="nav-text">一般开始做一个项目，你的架构是如何思考的？</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

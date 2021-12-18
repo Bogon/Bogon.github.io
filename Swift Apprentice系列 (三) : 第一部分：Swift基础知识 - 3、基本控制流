@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-bcf-stp1.png">
+<meta property="article:published_time" content="2020-05-11T13:47:54.000Z">
+<meta property="article:modified_time" content="2021-05-30T10:52:25.910Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift 5.0">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="基本控制流">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-bcf-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-11 21:47:54" itemprop="dateCreated datePublished" datetime="2020-05-11T21:47:54+08:00">2020-05-11</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>编写计算机程序时，你需要能够告诉计算机在不同情况下应该做什么。 例如，如果用户点击加法按钮，计算器应用将需要做一件事，而如果用户点击减法按钮，则计算器应用将需要做另一件事。</p>
+<p>用计算机编程术语来说，这个概念称为控制流，之所以这样命名，是因为程序的流是由各种方法控制的。 在本章中，你将学习如何使用语法控制流程来制定程序中的决策和重复执行任务。 你还将了解布尔值（代表真值和假值），以及如何使用它们比较数据。</p>
+<h1 id="比较运算符"><a href="#比较运算符" class="headerlink" title="比较运算符"></a><strong>比较运算符</strong></h1><p>你现在已经看到了几种类型，例如Int，Double和String。 在这里，你将了解另一种类型，可以通过比较运算符比较值。</p>
+<span id="more"></span>
+
+<p>当执行比较时（例如，寻找两个数字中的较大者），答案是对还是错。 Swift为此提供了一种数据类型！ 它被称为布尔（Bool），是布尔（Boolean）的缩写，在一个名叫乔治·布尔（George Boole）的聪明人发明了围绕真假概念的整个数学领域之后。</p>
+<p>这是在Swift中使用布尔值的方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> yes: <span class="type">Bool</span> <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">let</span> no: <span class="type">Bool</span> <span class="operator">=</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>而且由于Swift的类型推断，你可以省去类型注释：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> yes <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line"><span class="keyword">let</span> no <span class="operator">=</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>布尔值只能是<code>true</code>或<code>false</code>，用关键字true和false表示。 在上面的代码中，你使用关键字设置每个常量的状态。</p>
+<h1 id="布尔运算符"><a href="#布尔运算符" class="headerlink" title="布尔运算符"></a><strong>布尔运算符</strong></h1><p>布尔通常用于比较值。 例如，你可能有两个值，并且想知道它们是否相等：它们是（true）或不是（false）。</p>
+<p>在Swift中，你可以使用等于运算符执行此操作，该运算符由<code>==</code>表示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> doesOneEqualTwo <span class="operator">=</span> (<span class="number">1</span> <span class="operator">==</span> <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>Swift推断dosOneEqualTwo是Bool。 显然，1不等于2，因此dosOneEqualTwo将为false。<br>同样，你可以使用 <strong>!=运算符</strong> 找出两个值是否不相等：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> doesOneNotEqualTwo <span class="operator">=</span> (<span class="number">1</span> <span class="operator">!=</span> <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>这次比较是正确的，因为1不等于2，所以OneNotEqualTwo也将是正确的。</p>
+<p>前缀 <code>!运算符</code>，也称为<code>非运算符</code>，将true切换为false，将false切换为true。 编写以上内容的另一种方法是：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> alsoTrue <span class="operator">=</span> <span class="operator">!</span>(<span class="number">1</span> <span class="operator">==</span> <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>因为1不等于2，所以（1 == 2）为假，然后！ 将其翻转为真实。<br>另外两个运算符可让你确定一个值是大于（&gt;）还是小于（&lt;）另一个值。 你可能会从数学中学到这些：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> isOneGreaterThanTwo <span class="operator">=</span> (<span class="number">1</span> <span class="operator">&gt;</span> <span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> isOneLessThanTwo <span class="operator">=</span> (<span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span>)</span><br></pre></td></tr></table></figure>
+
+<p>而且不是火箭科学能得出的结论是，OneOneGreaterThanTwo将等于false，isOneLessThanTwo将等于true。</p>
+<p>还有一个运算符，可让你测试一个值是否小于或等于另一个值：<code>&lt;=</code>。 它是<code>&lt;</code>和<code>==</code>的组合，因此如果第一个值小于或等于第二个值，则将返回true。</p>
+<p>同样，有一个运算符可让你测试一个值是否大于或等于另一个值-你可能已经猜到它是<code>&gt;=</code>。</p>
+<h1 id="布尔逻辑"><a href="#布尔逻辑" class="headerlink" title="布尔逻辑"></a><strong>布尔逻辑</strong></h1><p>上面的每个示例仅测试一种情况。 当乔治·布尔（George Boole）发明布尔运算符时，他的计划远不及这些不起眼的开始。 他发明了布尔逻辑，使你可以组合多个条件以形成一个结果。</p>
+<p>合并条件的一种方法是使用AND。 当你将两个布尔值与在一起时，结果是另一个布尔值。 如果两个输入布尔值均为true，则结果为true。 否则，结果为假。</p>
+<p>在Swift中，布尔AND的运算符是&amp;&amp;，使用方式如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> and <span class="operator">=</span> <span class="literal">true</span> <span class="operator">&amp;&amp;</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，将为真。 如果右侧的任何一个值为false，则和将为false。</p>
+<p>组合条件的另一种方法是使用OR。 当你将两个布尔值或在一起时，如果输入布尔值中的任何一个为true，则结果为true。 仅当两个输入布尔值均为假时，结果才为假。</p>
+<p>在Swift中，布尔值OR的运算符是<code>||</code>，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> or <span class="operator">=</span> <span class="literal">true</span> <span class="operator">||</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，还是将是真的。 如果右侧的两个值均为false，则或为false。 如果两者都是正确的，那么或仍然正确。</p>
+<p>在Swift中，布尔逻辑通常应用于多个条件。 也许你想确定两个条件是否成立？ 在这种情况下，你将使用AND。 如果你仅关心两个条件之一是否成立，则可以使用OR。</p>
+<p>例如，考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> andTrue <span class="operator">=</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">&amp;&amp;</span> <span class="number">4</span> <span class="operator">&gt;</span> <span class="number">3</span></span><br><span class="line"><span class="keyword">let</span> andFalse <span class="operator">=</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">&amp;&amp;</span> <span class="number">3</span> <span class="operator">&gt;</span> <span class="number">4</span></span><br><span class="line"><span class="keyword">let</span> orTrue <span class="operator">=</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">||</span> <span class="number">3</span> <span class="operator">&gt;</span> <span class="number">4</span></span><br><span class="line"><span class="keyword">let</span> orFalse <span class="operator">=</span> <span class="number">1</span> <span class="operator">==</span> <span class="number">2</span> <span class="operator">||</span> <span class="number">3</span> <span class="operator">==</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>这些条件中的每一个都测试两个单独的条件，并将它们与AND或OR组合在一起。</p>
+<p>也可以使用布尔逻辑来组合两个以上的比较。 例如，你可以像这样形成一个复杂的比较：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> andOr <span class="operator">=</span> (<span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">&amp;&amp;</span> <span class="number">3</span> <span class="operator">&gt;</span> <span class="number">4</span>) <span class="operator">||</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">4</span></span><br></pre></td></tr></table></figure>
+
+<p>括号消除了表达式的歧义。 首先，Swift计算括号内的子表达式，然后按照以下步骤计算完整表达式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. (<span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">&amp;&amp;</span> <span class="number">3</span> <span class="operator">&gt;</span> <span class="number">4</span>) <span class="operator">||</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">4</span> </span><br><span class="line"><span class="number">2</span>. (<span class="literal">true</span> <span class="operator">&amp;&amp;</span> <span class="literal">false</span>) <span class="operator">||</span> <span class="literal">true</span> </span><br><span class="line"><span class="number">3</span>. <span class="literal">false</span> <span class="operator">||</span> <span class="literal">true</span></span><br><span class="line"><span class="number">4</span>. <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="字符串相等"><a href="#字符串相等" class="headerlink" title="字符串相等"></a><strong>字符串相等</strong></h1><p>有时你想确定两个字符串是否相等。 例如，一个在照片中给动物命名的儿童游戏需要确定玩家是否正确回答。</p>
+<p>在Swift中，你可以使用标准等于运算符==比较字符串，其方式与比较数字完全相同。 例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> guess <span class="operator">=</span> <span class="string">&quot;dog&quot;</span></span><br><span class="line"><span class="keyword">let</span> dogEqualsCat <span class="operator">=</span> guess <span class="operator">==</span> <span class="string">&quot;cat&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>这里，dogEqualsCat是一个布尔值，在这种情况下等于false，因为“ dog”不等于“ cat”。 简单！</p>
+<p>就像数字一样，你不仅可以比较是否相等，还可以确定一个值大于或小于另一个值。 例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> order <span class="operator">=</span> <span class="string">&quot;cat&quot;</span> <span class="operator">&lt;</span> <span class="string">&quot;dog&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>此语法检查一个字符串是否按字母顺序排在另一个字符串之前。 在这种情况下，顺序等于true，因为“ cat”在“ dog”之前。</p>
+<blockquote>
+<p>注意：你将在第9章“字符串”中了解有关字符串相等的更多信息。 当字符串包含特殊字符时，会出现一些有趣的事情。</p>
+</blockquote>
+<h1 id="切换布尔"><a href="#切换布尔" class="headerlink" title="切换布尔"></a><strong>切换布尔</strong></h1><p>布尔通常用于表示“开”或“关”状态。 在这种情况下，通常会在状态之间切换状态。 例如，你可以使用布尔（Bool）来表示应用程序中电灯开关的状态，并在状态“开”和“关”之间切换。</p>
+<p>对于这些情况，有一种简便的方法可以将布尔从正确转换为错误，然后再返回。 像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">var</span> switchState <span class="operator">=</span> <span class="literal">true</span></span><br><span class="line">switchState.toggle() <span class="comment">// switchState = false </span></span><br><span class="line">switchState.toggle() <span class="comment">// switchState = true</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，名为switchState的变量从true开始。 然后，一次切换后，它变为假。 再次切换之后，将其再次设置为true。</p>
+<blockquote>
+<p>注意：这里的toggle（）是对函数的调用。 你将在第5章“函数”中详细了解这些内容，并在第12章“方法”中将其应用于类型。</p>
+</blockquote>
+<h1 id="if语句"><a href="#if语句" class="headerlink" title="if语句"></a><strong>if语句</strong></h1><p>控制程序流的第一种也是最常见的方法是使用if语句，该语句仅在满足特定条件时才允许程序执行操作。 例如，考虑以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">2</span> <span class="operator">&gt;</span> <span class="number">1</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Yes, 2 is greater than 1.&quot;</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个简单的if语句。 如果条件为真，则该语句将在花括号之间执行代码。 如果条件为假，则该语句将不会在花括号之间执行代码。 就这么简单！</p>
+<p>你可以扩展if语句以提供代码，以防条件变为假。 这称为else子句。 这是一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> animal <span class="operator">=</span> <span class="string">&quot;Fox&quot;</span></span><br><span class="line"><span class="keyword">if</span> animal <span class="operator">==</span> <span class="string">&quot;Cat&quot;</span> <span class="operator">||</span> animal <span class="operator">==</span> <span class="string">&quot;Dog&quot;</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Animal is a house pet.&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Animal is not a house pet.&quot;</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，如果动物等于“猫”或“狗”，则该语句将运行第一段代码。 如果animal不等于“ Cat”或“ Dog”，则该语句将在if语句的else部分中运行该块，并将以下内容打印到调试区域：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Animal</span> <span class="keyword">is</span> not a house pet.</span><br></pre></td></tr></table></figure>
+
+<p>但是，如果使用if语句，则可以做得更多。 有时你要检查一种情况，然后再检查另一种情况。 这是else-if起作用的地方，它将另一个if语句嵌套在前一个if语句的else子句中。</p>
+<p>你可以这样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hourOfDay <span class="operator">=</span> <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> timeOfDay <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">if</span> hourOfDay <span class="operator">&lt;</span> <span class="number">6</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;Early morning&quot;</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> hourOfDay <span class="operator">&lt;</span> <span class="number">12</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;Morning&quot;</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> hourOfDay <span class="operator">&lt;</span> <span class="number">17</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;Afternoon&quot;</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> hourOfDay <span class="operator">&lt;</span> <span class="number">20</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;Evening&quot;</span></span><br><span class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> hourOfDay <span class="operator">&lt;</span> <span class="number">24</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;Late evening&quot;</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">  timeOfDay <span class="operator">=</span> <span class="string">&quot;INVALID HOUR!&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(timeOfDay)</span><br></pre></td></tr></table></figure>
+
+<p>这些嵌套的if语句一个接一个地测试多个条件，直到找到真实条件为止。 无论随后的else-if条件是否为真，仅执行与该第一个真条件相关的代码。 换句话说，你的条件顺序很重要！</p>
+<p>你可以在末尾添加else子句，以处理没有条件成立的情况。如果不需要，则else子句是可选的；在此示例中，你确实需要它，以确保在打印时timeOfDay具有有效值。</p>
+<p>在此示例中，if语句采用代表一天中某个小时的数字，并将其转换为代表该小时所属的一天中的一部分的字符串。使用24小时制，按顺序检查语句，一次检查一次：</p>
+<ul>
+<li>首先检查小时是否小于6。如果是，则表示清晨。</li>
+<li>如果小时数不少于6，则语句继续执行第一个else -if语句，在该语句中检查小时数是否小于12。</li>
+<li>然后，如果条件证明是错误的，则该语句将检查小时数，以查看小时数是否小于17，然后小于20，然后小于24。</li>
+<li>最后，如果小时数超出范围，该语句会将信息打印到控制台。</li>
+</ul>
+<p>在上面的代码中，hourOfDay常数为12。因此，代码将输出以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Afternoon</span></span><br></pre></td></tr></table></figure>
+
+<p>请注意，即使hourOfDay &lt;20和hourOfDay &lt;24条件也都为true，该语句仅执行条件为true的第一个块； 在这种情况下，使用hourOfDay &lt;17条件的块。</p>
+<h1 id="短路"><a href="#短路" class="headerlink" title="短路"></a><strong>短路</strong></h1><p>关于if语句的一个重要事实是，当多个布尔条件由AND（&amp;&amp;）或OR（||）分隔时会发生什么。</p>
+<p>考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">1</span> <span class="operator">&gt;</span> <span class="number">2</span> <span class="operator">&amp;&amp;</span> name <span class="operator">==</span> <span class="string">&quot;Matt Galloway&quot;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>if语句的第一个条件 1&gt; 2为false。 因此，整个表达永远不可能是真实的。</p>
+<p>因此，Swift甚至不会费心检查表达式的第二部分，即名称检查。 同样，请考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="number">1</span> <span class="operator">&lt;</span> <span class="number">2</span> <span class="operator">||</span> name <span class="operator">==</span> <span class="string">&quot;Matt Galloway&quot;</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于1 &lt;2为真，因此整个表达式也必须为真。 因此，再次不执行名称检查。 当你开始处理更复杂的数据类型时，这将派上用场。</p>
+<h1 id="封装变量"><a href="#封装变量" class="headerlink" title="封装变量"></a><strong>封装变量</strong></h1><p>if语句引入了一个新的概念范围，这是一种通过使用花括号封装变量的方法。 假设你要计算向客户收取的费用。 这是你达成的交易：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">You</span> earn <span class="variable">$25</span> <span class="keyword">for</span> every hour up to <span class="number">40</span> hours, and <span class="variable">$50</span> <span class="keyword">for</span> every hour thereafter.</span><br></pre></td></tr></table></figure>
+
+<p>使用Swift，你可以通过以下方式计算费用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hoursWorked <span class="operator">=</span> <span class="number">45</span></span><br><span class="line"><span class="keyword">var</span> price <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">if</span> hoursWorked <span class="operator">&gt;</span> <span class="number">40</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> hoursOver40 <span class="operator">=</span> hoursWorked <span class="operator">-</span> <span class="number">40</span> </span><br><span class="line">    price <span class="operator">+=</span> hoursOver40 <span class="operator">*</span> <span class="number">50</span> </span><br><span class="line">    hoursWorked <span class="operator">-=</span> hoursOver40</span><br><span class="line">&#125;</span><br><span class="line">price <span class="operator">+=</span> hoursWorked <span class="operator">*</span> <span class="number">25</span></span><br><span class="line"><span class="built_in">print</span>(price)</span><br></pre></td></tr></table></figure>
+
+<p>这段代码会计算小时数，并检查是否超过40小时。如果是，代码将计算40小时以上的小时数并将其乘以$ 50，然后将结果加到价格中。 然后，代码从工作小时数中减去40个小时以上的小时数。 它将剩余的工作时间乘以$ 25，然后将其加到总价中。</p>
+<p>在上面的示例中，结果如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1250</span></span><br></pre></td></tr></table></figure>
+
+<p>有趣的是if语句中的代码。 有一个新的小时数声明声明hoursOver40，用于存储超过40的小时数。显然，你可以在if语句中使用它。 但是，如果你尝试在上述代码的末尾使用它，会发生什么？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">...</span></span><br><span class="line"><span class="built_in">print</span>(price)</span><br><span class="line"><span class="built_in">print</span>(hoursOver40)</span><br></pre></td></tr></table></figure>
+
+<p>这将导致以下错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Use</span> of unresolved identifier &#x27;hoursOver40&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>此错误通知你，只允许在其创建范围内使用<code>hoursOver40</code>常量。 在这种情况下，if语句引入了一个新的作用域，因此当该作用域完成时，你将无法再使用该常数。</p>
+<p>但是，每个作用域都可以使用其父作用域中的变量和常量。 在上面的示例中，if语句内部的范围使用你在父范围中创建的<code>price</code>和<code>hoursWorked</code>变量。</p>
+<h1 id="三元条件运算符"><a href="#三元条件运算符" class="headerlink" title="三元条件运算符"></a><strong>三元条件运算符</strong></h1><p>现在，我想介绍一个新的运算符，你在“类型和运算”中没有看到过。 它称为三元条件运算符，与if语句相关。</p>
+<p>如果要确定两个变量的最小值和最大值，可以使用if语句，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a <span class="operator">=</span> <span class="number">5</span></span><br><span class="line"><span class="keyword">let</span> b <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> min: <span class="type">Int</span></span><br><span class="line"><span class="keyword">if</span> a <span class="operator">&lt;</span> b &#123;</span><br><span class="line">    min <span class="operator">=</span> a </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    min <span class="operator">=</span> b </span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">let</span> max: <span class="type">Int</span></span><br><span class="line"><span class="keyword">if</span> a <span class="operator">&gt;</span> b &#123;</span><br><span class="line">    max <span class="operator">=</span> a</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    max <span class="operator">=</span> b </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>到现在为止，你已经知道了它是如何工作的，但是其中有很多代码。 如果可以将其缩小到几行，那不是很好吗？ 好吧，多亏三元条件运算符，你可以！</p>
+<p>三元条件运算符接受条件并返回两个值之一，具体取决于条件是对还是错。 语法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="operator">&lt;</span><span class="type">CONDITION</span><span class="operator">&gt;</span>) <span class="operator">?</span> <span class="operator">&lt;</span><span class="type">TRUE</span> <span class="type">VALUE</span><span class="operator">&gt;</span> : <span class="operator">&lt;</span><span class="type">FALSE</span> <span class="type">VALUE</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>你可以使用此运算符重写上面的长代码块，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> a <span class="operator">=</span> <span class="number">5</span></span><br><span class="line"><span class="keyword">let</span> b <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">let</span> min <span class="operator">=</span> a <span class="operator">&lt;</span> b <span class="operator">?</span> a : b</span><br><span class="line"><span class="keyword">let</span> max <span class="operator">=</span> a <span class="operator">&gt;</span> b <span class="operator">?</span> a : b</span><br></pre></td></tr></table></figure>
+
+<p>在第一个示例中，条件是<code>a&lt;b</code>。 如果为true，则分配回min的结果将为a的值； 如果为假，则结果为b的值。</p>
+<p>我相信你会同意这简单得多！ 这是一个有用的运算符，你会经常使用它。</p>
+<h1 id="Loops"><a href="#Loops" class="headerlink" title="Loops"></a><strong>Loops</strong></h1><p>循环是Swift多次执行代码的方式。 在本节中，你将学习一种循环类型：while循环。 如果你知道另一种编程语言，就会发现一些概念，甚至可能是熟悉的语法。</p>
+<h2 id="while循环"><a href="#while循环" class="headerlink" title="while循环"></a><em><strong>while循环</strong></em></h2><p>当条件为真时，while循环将重复一段代码。 你可以通过以下方式创建while循环：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">while</span> <span class="operator">&lt;</span><span class="type">CONDITION</span><span class="operator">&gt;</span> &#123;</span><br><span class="line">    <span class="operator">&lt;</span><span class="type">LOOP</span> <span class="type">CODE</span><span class="operator">&gt;</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环检查每次迭代的条件。 如果条件为真，则循环执行并继续进行另一个迭代。 如果条件为假，则循环停止。 就像if语句，而while循环引入了作用域。</p>
+<p>最简单的while循环采用以下形式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="literal">true</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一个while循环，永远不会结束，因为条件始终为true。 当然，你永远不会编写这样的while循环，因为你的程序将永远旋转！ 这种情况称为无限循环，虽然它可能不会导致程序崩溃，但很可能会导致计算机死机。</p>
+<p>这是while循环的更有用的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> sum <span class="operator">&lt;</span> <span class="number">1000</span> &#123;</span><br><span class="line">  sum <span class="operator">=</span> sum <span class="operator">+</span> (sum <span class="operator">+</span> <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该代码计算出一个数学序列，直到该值大于1000。</p>
+<p>循环执行如下：</p>
+<ul>
+<li>在迭代1之前：sum = 1，循环条件= true</li>
+<li>迭代1之后：sum = 3，循环条件= true</li>
+<li>迭代2之后：sum = 7，循环条件= true</li>
+<li>迭代3之后：sum = 15，循环条件= true</li>
+<li>迭代4之后：sum = 31，循环条件= true</li>
+<li>迭代5之后：sum = 63，循环条件= true</li>
+<li>迭代6之后：sum = 127，循环条件= true</li>
+<li>迭代7之后：sum = 255，循环条件= true</li>
+<li>迭代8之后：sum = 511，循环条件= true</li>
+<li>迭代9之后：sum = 1023，循环条件= false</li>
+</ul>
+<p>在第九次迭代之后，sum变量为1023，因此sum &lt;1000的循环条件变为假。 此时，循环停止。</p>
+<h2 id="重复循环"><a href="#重复循环" class="headerlink" title="重复循环"></a><em><strong>重复循环</strong></em></h2><p>while循环的一种变体称为repeat-while循环。 它与while循环的不同之处在于，条件是在循环的末尾而不是开始时求值的。 你可以这样构造一个<code>repeat-while循环</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">repeat</span> &#123;</span><br><span class="line">  <span class="operator">&lt;</span><span class="type">LOOP</span> <span class="type">CODE</span><span class="operator">&gt;</span></span><br><span class="line">&#125; <span class="keyword">while</span> <span class="operator">&lt;</span><span class="type">CONDITION</span><span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这是上一部分的示例，但是使用了一个while循环：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">  sum <span class="operator">=</span> sum <span class="operator">+</span> (sum <span class="operator">+</span> <span class="number">1</span>)</span><br><span class="line">&#125; <span class="keyword">while</span> sum <span class="operator">&lt;</span> <span class="number">1000</span></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，结果与之前相同。 但是，情况并非总是如此-在不同的情况下，你可能会得到不同的结果。</p>
+<p>考虑以下while循环：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> sum <span class="operator">&lt;</span> <span class="number">1</span> &#123;</span><br><span class="line">  sum <span class="operator">=</span> sum <span class="operator">+</span> (sum <span class="operator">+</span> <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>考虑相应的<code>repeat-while循环</code>，该循环使用相同的条件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">repeat</span> &#123;</span><br><span class="line">  sum <span class="operator">=</span> sum <span class="operator">+</span> (sum <span class="operator">+</span> <span class="number">1</span>)</span><br><span class="line">&#125; <span class="keyword">while</span> sum <span class="operator">&lt;</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>对于常规while循环，从一开始就sum&lt;1为假。 这意味着将无法到达循环的主体！ sum的值等于1，因为该循环不会执行任何迭代。</p>
+<p>在重复循环的情况下，总和等于3，因为循环执行一次。</p>
+<h2 id="打破循环"><a href="#打破循环" class="headerlink" title="打破循环"></a><em><strong>打破循环</strong></em></h2><p>有时你想尽早摆脱困境。 你可以使用break语句执行此操作，该语句立即停止循环的执行，并在循环后继续执行代码。</p>
+<p>例如，考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">while</span> <span class="literal">true</span> &#123;</span><br><span class="line">    sum <span class="operator">=</span> sum <span class="operator">+</span> (sum <span class="operator">+</span> <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">if</span> sum <span class="operator">&gt;=</span> <span class="number">1000</span> &#123;</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，循环条件为真，因此循环通常会永远迭代。 但是，中断表示一旦总和大于或等于1000，while循环将退出。</p>
+<p>你已经了解了如何以不同的方式编写相同的循环，这说明在计算机编程中，通常有许多方法可以达到相同的结果。</p>
+<p>你应该选择最容易阅读的方法，并以最佳方式传达你的意图。 你将通过足够的时间和实践来内部采用这种方法。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li><p>你使用布尔数据类型Bool表示对与错。</p>
+</li>
+<li><p>全部返回布尔值的比较运算符为：<br><br><img src="http://cdn.xuebaonline.com/sasb-bcf-stp1.png" alt="computer的工作方式"></p>
+</li>
+<li><p>你可以使用布尔逻辑（&amp;&amp;和||）组合比较条件。</p>
+</li>
+<li><p>你使用if语句根据条件做出简单的决定。</p>
+</li>
+<li><p>在if语句中使用else和else-if，将决策范围扩展到单个条件之外。</p>
+</li>
+<li><p>短路确保仅评估布尔表达式的最少必需部分。</p>
+</li>
+<li><p>你可以使用三元运算符（a？b：c）代替简单的if语句。</p>
+</li>
+<li><p>变量和常量属于某个范围，超出范围不能使用他们。 范围从其父级继承可见变量和常量。</p>
+</li>
+<li><p>while循环使你可以多次执行特定任务，直到满足条件为止。</p>
+</li>
+<li><p>重复循环始终至少执行一次循环。</p>
+</li>
+<li><p>break语句使你可以跳出循环。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%B8%89)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%203%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81" title="Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流">https://www.xuebaonline.com/Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="tag"><i class="fa fa-tag"></i> 基本控制流</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%202%E3%80%81%E7%B1%BB%E5%9E%8B%E4%B8%8E%E6%93%8D%E4%BD%9C" rel="prev" title="Swift Apprentice系列 (二) : 第一部分：Swift基础知识 - 2、类型与操作">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (二) : 第一部分：Swift基础知识 - 2、类型与操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%9B%9B)%20:%20%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86%20-%204%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81" rel="next" title="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">
+      Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AF%94%E8%BE%83%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.</span> <span class="nav-text">比较运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">2.</span> <span class="nav-text">布尔运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E9%80%BB%E8%BE%91"><span class="nav-number">3.</span> <span class="nav-text">布尔逻辑</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E7%AD%89"><span class="nav-number">4.</span> <span class="nav-text">字符串相等</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%87%E6%8D%A2%E5%B8%83%E5%B0%94"><span class="nav-number">5.</span> <span class="nav-text">切换布尔</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#if%E8%AF%AD%E5%8F%A5"><span class="nav-number">6.</span> <span class="nav-text">if语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%9F%AD%E8%B7%AF"><span class="nav-number">7.</span> <span class="nav-text">短路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%81%E8%A3%85%E5%8F%98%E9%87%8F"><span class="nav-number">8.</span> <span class="nav-text">封装变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E5%85%83%E6%9D%A1%E4%BB%B6%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">9.</span> <span class="nav-text">三元条件运算符</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Loops"><span class="nav-number">10.</span> <span class="nav-text">Loops</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#while%E5%BE%AA%E7%8E%AF"><span class="nav-number">10.1.</span> <span class="nav-text">while循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E5%BE%AA%E7%8E%AF"><span class="nav-number">10.2.</span> <span class="nav-text">重复循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%93%E7%A0%B4%E5%BE%AA%E7%8E%AF"><span class="nav-number">10.3.</span> <span class="nav-text">打破循环</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E7%82%B9"><span class="nav-number">11.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

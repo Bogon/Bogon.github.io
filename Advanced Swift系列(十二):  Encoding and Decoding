@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(十二):  Encoding and Decoding">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(十二):  Encoding and Decoding">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(十二):  Encoding and Decoding">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-08T14:02:53.000Z">
+<meta property="article:modified_time" content="2020-05-09T03:48:03.498Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift 5.0">
+<meta property="article:tag" content="Encoding and Decoding">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(十二):  Encoding and Decoding | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(十二):  Encoding and Decoding
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 22:02:53" itemprop="dateCreated datePublished" datetime="2020-05-08T22:02:53+08:00">2020-05-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>31k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>28 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(十二):  Encoding and Decoding</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将程序的内部数据结构序列化为某种数据交换格式，反之亦然，这是最常见的编程任务之一。 Swift将这些操作称为  <code>编码和解码 </code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>Codable系统 </code> （以其基本  <code>“协议” </code> 命名，实际上是类型别名）是一种标准化设计，用于对所有自定义类型都可以选择的数据进行编码和解码。它围绕三个主要目标进行设计：</p>
+<ul>
+<li>→ <strong>通用性</strong> - 应该使用结构，枚举和类。</li>
+<li>→ <strong>类型安全性</strong> - 诸如JSON之类的交换格式经常被弱类型，而你的代码应使用强类型数据结构。</li>
+<li>→ <strong>减少样板文件</strong> — 开发人员必须编写尽可能小的重复“适配器代码”，以使自定义类型参与系统的编译器应自动为你生成此代码。</li>
+</ul>
+<span id="more"></span>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;类型通过  <code>遵循可编码和/或可解码协议 </code> 声明其被（反）序列化的能力。这些协议中的每一个都只有一个要求—   <code>Encodable </code> 定义了一个  <code>encode（to :) </code> 方法，其中值对自身进行编码，而  <code>Decodable </code> 指定用于从序列化数据创建实例的初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A type that can encode itself to an external representation.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Encodable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Encodes this value into the given encoder. </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/// A type that can decode itself from an external representation.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Creates a new instance by decoding from the given decoder. </span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为大多数采用一种的类型也将采用另一种，所以标准库提供了  <code>Codable类型 </code> 别名作为这两种方法的简写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="type">Codable</span> <span class="operator">=</span> <span class="type">Decodable</span> &amp; <span class="type">Encodable</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有基本的标准库类型（包括Bool，数字类型和字符串）都是开箱即用的，包括可选项，数组，字典，集合和范围在内，都可以进行编码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可编码元素。最后，苹果框架使用的许多常见数据类型（包括数据，日期，URL，CGPoint和CGRect）都采用了  <code>Codable </code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拥有可编码类型的值后，你可以创建一个编码器，并告诉编码器将该值序列化为目标格式，例如JSON。在相反的方向上，解码器获取序列化的数据，然后将其转换回原始类型的实例。从表面上看，对应的编码器和解码器协议并不比可编码和可解码复杂得多。编码器或解码器的中心任务是管理存储序列化数据的容器的层次结构。除非你编写自己的编码器，否则你几乎不必直接与  <code>Encoder </code> 和  <code>Decoder协议 </code> 进行交互，但是，当你要自定义自己的类型如何编码自己时，需要了解此结构和三种容器。我们将在下面看到许多示例。</p>
+<h1 id="最小的例子"><a href="#最小的例子" class="headerlink" title="最小的例子"></a><strong>最小的例子</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从一个最小的示例开始，该示例说明了如何使用  <code>Codable系统 </code> 将自定义类型的实例编码为  <code>JSON </code> 。</p>
+<h2 id="自动整合"><a href="#自动整合" class="headerlink" title="自动整合"></a><em><strong>自动整合</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使自己的类型之一成为可编码就像将其与  <code>Codable </code> 兼容一样容易。 如果所有类型的存储属性本身都是可编码的，则  <code>Swift编译器 </code> 将自动生成实现  <code>Encodable </code> 和  <code>Decodable协议 </code> 的代码。 此协调结构存储GPS位置：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Coordinate</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> latitude: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> longitude: <span class="type">Double</span></span><br><span class="line">    <span class="comment">// Nothing to implement here.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为两个存储的属性都已经是可编码的，所以采用可编码协议足以满足编译器的要求。 同样，我们现在可以编写一个利用  <code>Coordinate </code> 的  <code>Codable一致性 </code> 的地标结构：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">Coordinate</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器合成的代码不可见，但是在本章稍后，我们将对其进行逐段分析。现在，将生成的代码像对待标准库中协议的默认实现那样对待，例如  <code>Sequence.drop（while :) </code> -你可以免费获得默认行为，但是可以选择提供自己的实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;代码生成与  <code>“默认” </code> 默认实现之间唯一的实质区别是后者是标准库的一部分，而可编码代码合成的逻辑则存在于编译器中。将代码移动到标准库中将需要比  <code>Swift </code> 当前具有更多功能的反射API，即使它们存在，运行时反射也将带来其自身的权衡（例如，反射通常较慢）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管如此，将尽可能多的语言定义移出编译器并移入库仍然是  <code>Swift </code> 的既定目标。总有一天，我们可能会获得一个强大的宏系统，该宏系统的功能足以将整个  <code>Codable系统 </code> 移至标准库中，但这至少要等上几年。在此之前，编译器代码合成是解决此问题的一种务实解决方案，并且它具有除  <code>Codable </code> 之外的其他应用程序-相同的设计用于结构和枚举的自动  <code>Equatable </code> 和  <code>Hashable </code> 一致性，以及用于枚举的  <code>CaseIterable一致性 </code> 。</p>
+<h1 id="Encoding"><a href="#Encoding" class="headerlink" title="Encoding"></a><strong>Encoding</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift随附了两个内置编码器  <code>JSONEncoder </code> 和  <code>PropertyListEncoder </code> （它们是在  <code>Foundation </code> 中定义的，而不是在标准库中定义的）。 此外，可编码类型与  <code>Cocoa </code> 的  <code>NSKeyedArchiver </code> 兼容。 我们将重点介绍  <code>JSONEncoder </code> ，因为JSON是最常见的格式。<br>这是我们如何将一组地标值编码为JSON的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> places <span class="operator">=</span> [</span><br><span class="line"><span class="type">Placemark</span>(name: <span class="string">&quot;Berlin&quot;</span>, coordinate:</span><br><span class="line"><span class="type">Coordinate</span>(latitude: <span class="number">52</span>, longitude: <span class="number">13</span>)), <span class="type">Placemark</span>(name: <span class="string">&quot;Cape Town&quot;</span>, coordinate: <span class="type">Coordinate</span>(latitude: <span class="operator">-</span><span class="number">34</span>, longitude: <span class="number">18</span>))</span><br><span class="line">]</span><br><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> encoder <span class="operator">=</span> <span class="type">JSONEncoder</span>()</span><br><span class="line">    <span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try</span> encoder.encode(places) <span class="comment">// 129 bytes </span></span><br><span class="line">    <span class="keyword">let</span> jsonString <span class="operator">=</span> <span class="type">String</span>(decoding: jsonData, as: <span class="type">UTF8</span>.<span class="keyword">self</span>)</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    [&#123;&quot;name&quot;:&quot;Berlin&quot;,&quot;coordinate&quot;:&#123;&quot;longitude&quot;:13,&quot;latitude&quot;:52&#125;&#125;, &#123;&quot;name&quot;:&quot;Cape Town&quot;,&quot;coordinate&quot;:&#123;&quot;longitude&quot;:18,&quot;latitude&quot;:-34&#125;&#125;] */</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际的编码步骤极其简单：创建和（可选）配置编码器，并将其值传递给编码器。   <code>JSON编码器 </code> 以  <code>Data实例 </code> 的形式返回字节的集合，然后我们将其转换为要显示的字符串。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了用于配置输出格式（按字母顺序对漂亮打印和/或键进行排序）的属性外，  <code>JSONEncoder </code> 还提供了用于格式化日期（包括  <code>ISO 8601 </code> 或  <code>Unix纪元时间戳 </code> ）和数据值的自定义选项。（例如Base64），以及应如何处理特殊的浮点值（无穷大和NaN）。我们甚至可以使用编码器的  <code>keyEncodingStrategy </code> 选项来指定应将密钥转换为蛇形格式，或者可以指定自己的自定义密钥转换函数。这些选项始终适用于要编码的值的整个层次结构，即，你不能使用它们来指定一种类型的  <code>Date </code> 应该遵循与另一种类型不同的编码方案。如果需要这种粒度，则必须为受影响的类型编写自定义的  <code>Codable </code> 实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;值得注意的是，所有这些配置选项都是特定于  <code>JSONEncoder </code> 的。其他编码器将具有不同的选项（或根本没有）。甚至  <code>encode（_ :)方法 </code> 也是特定于编码器的，并且未在任何协议中定义。其他编码器可能会决定将  <code>String </code> 甚至  <code>URL </code> 返回到编码文件，而不是返回  <code>Data值 </code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，  <code>JSONEncoder </code> 甚至不符合  <code>Encoder协议 </code> 。而是封装了一个名为  <code>_JSONEncoder </code> 的私有类，该类实现了  <code>协议并完成了实际的编码工作 </code> 。之所以这样设计，是因为顶级编码器应提供与在编码过程中传递给可编码类型的  <code>Encoder对象 </code> 完全不同的API（即，一种用于启动编码过程的方法）。清晰地分离这些任务意味着客户端只能访问在任何给定情况下都合适的API-例如，可编码类型不能在编码过程的中间重新配置编码器，因为公共配置  <code>API </code> 仅在顶部显示电平编码器。</p>
+<h1 id="Decoding"><a href="#Decoding" class="headerlink" title="Decoding"></a><strong>Decoding</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>JSONEncoder </code> 的解码对应项是  <code>JSONDecoder </code> 。 解码遵循与编码相同的模式：<strong>创建一个解码器并将其传递给某些东西进行解码</strong>。   <code>JSONDecoder </code> 期望一个包含  <code>UTF-8编码 </code> 的  <code>JSON文本 </code> 的  <code>Data实例 </code> ，但是正如我们在编码器中看到的那样，其他解码器可能具有不同的接口：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> decoder <span class="operator">=</span> <span class="type">JSONDecoder</span>()</span><br><span class="line">    <span class="keyword">let</span> decoded <span class="operator">=</span> <span class="keyword">try</span> decoder.decode([<span class="type">Placemark</span>].<span class="keyword">self</span>, from: jsonData)</span><br><span class="line">    <span class="comment">// [Berlin (lat: 52.0, lon: 13.0), Cape Town (lat: -34.0, lon: 18.0)] type(of: decoded) // Array&lt;Placemark&gt;</span></span><br><span class="line">    decoded <span class="operator">==</span> places <span class="comment">// true</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，  <code>decoder.decode（_：from :) </code> 具有两个参数。除了输入数据，我们还必须指定我们希望返回的类型（此处为  <code>[Placemark] .self </code> ）。这允许完全编译时类型的安全。从弱类型的JSON数据到我们在代码中使用的具体数据类型的繁琐转换是在幕后进行的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使解码类型成为解码方法的显式参数是一个有意的设计选择。这并不是严格必要的，因为编译器可以在许多情况下自动推断正确的类型，但是Swift团队认为，提高清晰度和避免歧义比最大程度的简洁更为重要。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与编码相比，错误处理在解码期间极为重要。可能出错的事情太多了，从丢失数据（  <code>JSON </code> 输入中缺少必填字段），键入不匹配项（服务器意外将数字编码为字符串）到完全损坏的数据。查看有关  <code>DecodingError类型 </code> 的文档，以了解可能发生的其他错误。</p>
+<h1 id="编码过程"><a href="#编码过程" class="headerlink" title="编码过程"></a><strong>编码过程</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你只想使用  <code>Codable系统 </code> ，并且默认行为适合你，则可以立即停止阅读。 但是要了解如何自定义类型的获取方式编码，我们需要更深入地挖掘。 编码过程如何工作？ 当我们将类型与  <code>Codable </code> 一致时，编译器实际上会合成什么代码？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你启动编码过程时，编码器将调用自身的实参作为值，然后调用被编码值的  <code>encode（to：Encoder） </code> 方法。 然后，值的责任是将其自己编码为合适的任何格式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的示例中，我们将一个地标值数组传递给JSON编码器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try</span> encoder.encode(places)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码器（或更确切地说，它的私有主力  <code>_JSONEncoder </code> ）现在将调用  <code>place.encode（to：self） </code> 。 数组如何知道如何以编码器可以理解的格式对自身进行编码？</p>
+<h2 id="Containers"><a href="#Containers" class="headerlink" title="Containers"></a><em><strong>Containers</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看一下编码器协议，看看编码器提供的接口与要编码的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A type that can encode values into a native format for external representation.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">Encoder</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// The path of coding keys taken to get to this point in encoding. </span></span><br><span class="line">    <span class="keyword">var</span> codingPath: [<span class="type">CodingKey</span>] &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// Any contextual information set by the user for encoding.</span></span><br><span class="line">    <span class="keyword">var</span> userInfo: [<span class="type">CodingUserInfoKey</span>: <span class="keyword">Any</span>] &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// Returns an encoding container appropriate for holding</span></span><br><span class="line">    <span class="comment">/// multiple values keyed by the given key type.</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">container</span>&lt;<span class="type">Key</span>: <span class="type">CodingKey</span>&gt;(<span class="params">keyedBy</span> <span class="params">type</span>: <span class="type">Key</span>.<span class="keyword">Type</span>)</span> -&gt; <span class="type">KeyedEncodingContainer</span>&lt;<span class="type">Key</span>&gt;</span><br><span class="line">    <span class="comment">/// Returns an encoding container appropriate for holding </span></span><br><span class="line">    <span class="comment">/// multiple unkeyed values.</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">unkeyedContainer</span>()</span> -&gt; <span class="type">UnkeyedEncodingContainer</span> </span><br><span class="line">    <span class="comment">/// Returns an encoding container appropriate for holding </span></span><br><span class="line">    <span class="comment">/// a single primitive value.</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">singleValueContainer</span>()</span> -&gt; <span class="type">SingleValueEncodingContainer</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;暂时忽略  <code>encodingPath </code> 和  <code>userInfo </code> ，显然<strong>Encoder本质上是编码容器的提供者</strong>。 容器是编码器存储区中的沙盒视图。 通过为每个要编码的值创建一个新容器，编码器可以确保这些值不会覆盖彼此的数据。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;共有三种类型的容器：</p>
+<ul>
+<li><p>→ <strong>Keyedcontainers</strong> 编码键值对。想一想  <code>keyedcontain </code> 时代的一种特殊字典。密钥容器是迄今为止最流行的容器。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;键控编码容器中的键是强类型的，这提供了类型安全性和自动完成功能。编码器在编写其目标格式（例如JSON）时最终会将密钥转换为字符串（或整数），但这对客户端代码而言是隐藏的。更改类型提供的键是自定义其编码方式的最简单方法。我们将在下面看到一个示例。</p>
+</li>
+<li><p>→ <strong>Unkeyed</strong> 容器依次编码多个值，省略键。请考虑编码值的数组。因为没有用于标识值的键，所以解码容器必须注意以与编码顺序相同的顺序对值进行解码。</p>
+</li>
+<li><p>→ <strong>单值容器</strong> 将其编码为单值。你要使用这些完全由单个属性定义的类型。示例包括基本类型，例如  <code>Int </code> 或  <code>RawRepresentable </code> 可作为基本值的枚举。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于这三种容器类型中的每一种，都有一个协议定义了容器通过其接收要编码的值的接口。这是  <code>SingleValueEncodingContainer </code> 的定义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A container that can support the storage and direct encoding of a single /// non-keyed value.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">SingleValueEncodingContainer</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// The path of coding keys taken to get to this point in encoding.</span></span><br><span class="line">    <span class="keyword">var</span> codingPath: [<span class="type">CodingKey</span>] &#123; <span class="keyword">get</span> &#125; </span><br><span class="line">    <span class="comment">/// Encodes a null value.</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encodeNil</span>()</span> <span class="keyword">throws</span></span><br><span class="line">    <span class="comment">/// Base types.</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Bool</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int8</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int16</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int32</span>)</span> <span class="keyword">throws</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Int64</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UInt</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UInt8</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UInt16</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UInt32</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UInt64</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Float</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">Double</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>&lt;<span class="type">T</span>: <span class="type">Encodable</span>&gt;(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">T</span>)</span> <span class="keyword">throws</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，该协议主要为各种类型声明了一系列的  <code>encode（_ :) </code> 重载：  <code>Bool </code> ，  <code>String </code> ，  <code>整数 </code> 和  <code>浮点类型 </code> 。 还有一种用于编码空值的变体。 每个编码器和解码器都必须支持这些原始类型，并且所有可编码类型最终都必须可简化为这些类型之一。 引入  <code>Codable系统 </code> 的Swift Evolution提议说：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些重载为可编码内容提供了强大的静态类型保证（防止意外尝试对无效类型进行编码），并提供了用户可以依赖的所有编码器和解码器通用的原始类型列表。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何不是基本类型之一的值都将导致通用的  <code>encode&lt;T：Encodable&gt; </code> 重载。 在该容器中，容器最终将调用参数的  <code>encode（to：Encoder） </code> 方法，并且整个过程将从上一层向下开始，直到只剩下原始类型。 但是容器可以自由地处理具有特殊要求的类型。 例如，此时  <code>_JSONEncoder </code> 检查是否正在编码必须遵循已配置的编码策略的  <code>Data值 </code> ，例如  <code>Base64 </code> （Data的默认行为是将自身编码为UInt8字节的无密钥容器）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>UnkeyedEncodingContainer </code> 和  <code>KeyedEncodingContainerProtocol </code> 具有与  <code>SingleValueEncodingContainer </code> 相同的结构，但是它们提供了一些其他功能，例如能够创建嵌套容器。 如果要为另一种数据格式编写编码器和解码器，则大部分工作都包括实现这些容器。</p>
+<h1 id="值如何自我编码"><a href="#值如何自我编码" class="headerlink" title="值如何自我编码"></a><strong>值如何自我编码</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回到我们的示例，我们正在编码的顶级类型是  <code>Array&lt;Placemark&gt; </code> 。 一个无密钥的容器是一个数组的完美匹配（毕竟，数组是一个顺序的值列表），因此该数组向编码器要求一个。 然后，数组在其元素上进行迭代，并将每个元素编码到容器中。 以下是此过程在代码中的外观：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span>: <span class="title">Encodable</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Encodable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.unkeyedContainer() </span><br><span class="line">        <span class="keyword">for</span> element <span class="keyword">in</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">try</span> container.encode(element) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数组元素是地标实例。 我们已经看到，对于非基本类型，容器将继续调用每个值的  <code>encode（to :) </code> 方法。</p>
+<h1 id="综合代码"><a href="#综合代码" class="headerlink" title="综合代码"></a><strong>综合代码</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们添加  <code>Codable一致性 </code> 时，这将使我们进入编译器为  <code>Placemark结构 </code> 合成的代码。 让我们逐步介绍它。</p>
+<h2 id="Coding-Keys"><a href="#Coding-Keys" class="headerlink" title="Coding Keys"></a><em><strong>Coding Keys</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器生成的第一件事是一个名为  <code>CodingKeys </code> 的私有嵌套枚举：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark</span> </span>&#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> name</span><br><span class="line">        <span class="keyword">case</span> coordinate</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;枚举为该结构的每个存储属性都包含一个格。 这些案例是密钥编码容器的密钥。 与字符串键相比，这些强类型键更安全，更方便使用，因为编译器会发现拼写错误。 但是，编码器最终必须能够将键转换为字符串或整数以进行存储。 处理这些转换是  <code>CodingKey协议 </code> 的任务：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A type that can be used as a key for encoding and decoding.</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// The string to use in a named collection (e.g. a string-keyed dictionary). </span></span><br><span class="line">    <span class="keyword">var</span> stringValue: <span class="type">String</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="comment">/// The value to use in an integer-indexed collection</span></span><br><span class="line">    <span class="comment">/// (e.g. an int-keyed dictionary).</span></span><br><span class="line">    <span class="keyword">var</span> intValue: <span class="type">Int</span>? &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    <span class="function"><span class="keyword">init?</span>(<span class="params">stringValue</span>: <span class="type">String</span>)</span></span><br><span class="line">    <span class="function"><span class="keyword">init?</span>(<span class="params">intValue</span>: <span class="type">Int</span>)</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有键必须提供字符串表示形式。 （可选）键类型还可以提供与整数之间的转换。 编码器可以选择使用整数键（如果效率更高），但是他们也可以随意忽略它们并坚持使用字符串键（就像  <code>JSONEncoder </code> 一样）。 默认的编译器综合代码仅生成字符串键。</p>
+<h2 id="encode-to-方法"><a href="#encode-to-方法" class="headerlink" title="encode(to :)方法"></a><em><strong>encode(to :)方法</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是编译器为  <code>Placemark结构 </code> 的  <code>encode(to :) </code> 方法生成的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">try</span> container.encode(name, forKey: .name)</span><br><span class="line">        <span class="keyword">try</span> container.encode(coordinate, forKey: .coordinate)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与数组版本的主要区别在于，  <code>Placemark </code> 会将其自身编码为键控容器。对于大多数具有多个属性的  <code>复合数据类型（结构和类 </code> ），键控容器是正确的选择（值得注意的例外：  <code>Range </code> 使用非键控容器对上下限进行编码）。请注意，当代码请求键控容器时，代码如何将  <code>CodingKeys.self </code> 传递给编码器。所有后续将命令编码到此容器中必须指定相同类型的  <code>key </code> 。由于键类型通常是所编码类型的私有键，因此在手动实现  <code>encode(to :) </code> 方法时几乎不可能意外地使用另一种类型的编码键。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码过程的最终结果是一棵嵌套容器的树，  <code>JSON编码器 </code> 可以将其转换为其目标格式：带键的容器成为JSON对象  <code>(&#123;...&#125;） </code> ，无键容器成为  <code>JSON数组 </code> （  <code>[...] </code> ），单值容器根据其数据类型转换为数字，布尔值，字符串或  <code>null </code> 。</p>
+<h2 id="init-from-初始化器"><a href="#init-from-初始化器" class="headerlink" title="init(from :)初始化器"></a><em><strong>init(from :)初始化器</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编当我们从  <code>try json.decode（[:Placemark].self, jsonData） </code> 调用  <code>try解码器 </code> 时，解码器会使用  <code>Decodable </code> 中定义的初始化程序创建我们传入的类型的实例（此处为  <code>[Placemark] </code> ）。 像编码器一样，解码器管理一棵解码容器树，该容器可以是三种常见的类型中的任何一种：有键，无键或单值容器。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，将解码的每个值递归地遍历容器层次结构，并使用从其容器中解码的值初始化其属性。 如果在任何步骤都抛出错误（例如，由于类型不匹配或缺少值），则整个过程将失败并显示错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是由编译器生成的解码初始值设定项查找地标的方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>)</span><br><span class="line">        name <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .name)</span><br><span class="line">        coordinate <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">Coordinate</span>.<span class="keyword">self</span>, forKey: .coordinate)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="手动符合"><a href="#手动符合" class="headerlink" title="手动符合"></a><strong>手动符合</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你的类型有特殊要求，则始终可以自己实现可编码和可解码要求。 很好的是，自动代码合成不是一无所有的东西-你可以选择要覆盖的内容，并从编译器中获取其余内容。</p>
+<h2 id="自定义编码键"><a href="#自定义编码键" class="headerlink" title="自定义编码键"></a><em><strong>自定义编码键</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;控制类型如何编码自身的最简单方法是编写自定义  <code>CodingKeys枚举 </code> （顺便说一句，它不一定是枚举，尽管只有枚举可以获取  <code>CodingKey协议 </code> 的综合实现）。 提供自定义编码键是更改类型编码方式的非常简单和声明性的方式。 它使我们能够：</p>
+<ul>
+<li>→ 通过给出一个人为的字符串值来重命名编码输出中的字段，</li>
+<li>→ 通过从枚举中删除所有键来跳过所有字段。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要分配不同的名称，我们还必须给枚举一个显式的  <code>String原始值类型 </code> 。 例如，这会将名称映射到  <code>JSON </code> 输出中的  <code>“标签” </code> ，同时保持坐标映射不变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark2</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">Coordinate</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> name <span class="operator">=</span> <span class="string">&quot;label&quot;</span></span><br><span class="line">        <span class="keyword">case</span> coordinate</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Compiler-synthesized encode and decode methods</span></span><br><span class="line">    <span class="comment">// will use overridden CodingKeys.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且这将跳过地标的名称，仅对  <code>GPS </code> 坐标进行编码，因为我们没有在枚举中包含名称键：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark3</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;(Unknown)&quot;</span> </span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">Coordinate</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> coordinate </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意我们必须分配给  <code>name属性 </code> 的默认值。 没有它，当编译器检测到无法在初始值设定项中为名称分配值时，  <code>Decodable </code> 的代码生成将失败。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编码过程中的跳过属性对于瞬态值非常有用，这些瞬态值可以轻松地重新计算或存储起来并不重要，例如缓存或备忘录化的昂贵计算。 编译器足够聪明，可以自行过滤掉  <code>惰性属性 </code> ，但是如果你将常规存储的属性用于瞬态值，则可以自己进行操作。</p>
+<h2 id="自定义encoding-to-和init-from-实现"><a href="#自定义encoding-to-和init-from-实现" class="headerlink" title="自定义encoding(to :)和init(from :)实现"></a><em><strong>自定义encoding(to :)和init(from :)实现</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你需要更多控制权，则总是可以选择自己实现  <code>encode（to :) </code> 或  <code>init（from :) </code> 。 例如，考虑解码器如何处理可选值。   <code>JSONEncoder </code> 和  <code>JSONDecoder </code> 可以开箱即用地处理可选项。 也就是说，如果目标类型的属性是可选的，那么如果输入数据中不存在相应的值，则解码器将正确跳过它。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是地标类型的另一种定义，其中的坐标属性是可选的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark4</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">Coordinate</span>?</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们的服务器可以向我们发送缺少“坐标”字段的JSON数据：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> validJSONInput <span class="operator">=</span> <span class="string">&quot;&quot;&quot; [</span></span><br><span class="line"><span class="string">&#123; &quot;name&quot; : &quot;Berlin&quot; &#125;,</span></span><br><span class="line"><span class="string">&#123; &quot;name&quot; : &quot;Cape Town&quot; &#125; ]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们要求  <code>JSONDecoder </code> 将输入解码为  <code>Placemark4 </code> 值数组时，它将自动将坐标值设置为  <code>nil </code> 。 到目前为止，一切都很好。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，  <code>JSONDecoder </code> 对于输入数据的结构可能会非常挑剔，即使与预期格式的微小偏差也会触发解码错误。 现在假设服务器已配置为发送一个空的  <code>JSON对象 </code> 以表示缺少的可选值，因此它将发送以下  <code>JSON </code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> invalidJSONInput <span class="operator">=</span> <span class="string">&quot;&quot;&quot; </span></span><br><span class="line"><span class="string">[</span></span><br><span class="line"><span class="string">    &#123;</span></span><br><span class="line"><span class="string">        &quot;name&quot; : &quot;Berlin&quot;, </span></span><br><span class="line"><span class="string">        &quot;coordinate&quot;: &#123;&#125;</span></span><br><span class="line"><span class="string">    &#125; </span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们尝试对此进行解码时，期望坐标对象内的“纬度”和“经度”字段的解码器会越过空对象并失败，并出现  <code>.keyNotFound </code> 错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> inputData <span class="operator">=</span> invalidJSONInput.data(using: .utf8)<span class="operator">!</span></span><br><span class="line">    <span class="keyword">let</span> decoder <span class="operator">=</span> <span class="type">JSONDecoder</span>()</span><br><span class="line">    <span class="keyword">let</span> decoded <span class="operator">=</span> <span class="keyword">try</span> decoder.decode([<span class="type">Placemark4</span>].<span class="keyword">self</span>, from: inputData)</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">    <span class="comment">// The data couldn’t be read because it is missing.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使此工作有效，我们可以覆盖  <code>Decodable初始化 </code> 程序并显式捕获我们期望的错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark4</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">Coordinate</span>?</span><br><span class="line">    <span class="comment">// encode(to:) is still synthesized by compiler.</span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .name) </span><br><span class="line">        <span class="keyword">do</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.coordinate <span class="operator">=</span> <span class="keyword">try</span> container.decodeIfPresent(<span class="type">Coordinate</span>.<span class="keyword">self</span>, forKey: .coordinate)</span><br><span class="line">        &#125; <span class="keyword">catch</span> <span class="type">DecodingError</span>.keyNotFound &#123; </span><br><span class="line">            <span class="keyword">self</span>.coordinate <span class="operator">=</span> <span class="literal">nil</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，解码器可以成功解码错误的JSON：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> inputData <span class="operator">=</span> invalidJSONInput.data(using: .utf8)<span class="operator">!</span></span><br><span class="line">    <span class="keyword">let</span> decoder <span class="operator">=</span> <span class="type">JSONDecoder</span>()</span><br><span class="line">    <span class="keyword">let</span> decoded <span class="operator">=</span> <span class="keyword">try</span> decoder.decode([<span class="type">Placemark4</span>].<span class="keyword">self</span>, from: inputData) decoded <span class="comment">// [Berlin (nil)]</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，其他错误，例如完全损坏的输入数据或名称字段的任何问题，仍会抛出。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果只影响一种或两种类型，但这种扩展不能很好地进行，则这种自定义选项是不错的选择。 如果一种类型具有多种属性，则即使你只需要自定义一个字段，也必须为每个字段编写手动代码。 有关在Codable系统范围内如何处理混乱数据的更多提示，你可能需要阅读Dave Lyon关于该主题的文章。 Dave针对此问题提出了一个<a target="_blank" rel="noopener" href="http://davelyon.net/2017/08/16/jsondecoder-in-the-real-world"><em><strong><code>基于通用协议的解决方案</code></strong></em></a>。 而且，如果你可以控制输入，那么总要从源头上解决问题（使服务器发送有效的JSON）总比在后期处理格式错误的数据要好。</p>
+<h1 id="常见编码任务"><a href="#常见编码任务" class="headerlink" title="常见编码任务"></a><strong>常见编码任务</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本节中，我们将讨论你可能希望使用  <code>Codable系统 </code> 解决的一些常见任务，以及可能遇到的潜在问题。</p>
+<h2 id="使你无法编码的类型"><a href="#使你无法编码的类型" class="headerlink" title="使你无法编码的类型"></a><em><strong>使你无法编码的类型</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们要用  <code>Core Location框架 </code> 中的  <code>CLLocationCoordinate2D </code> 替换我们的  <code>Coordinate类型 </code> 。   <code>CLLocationCoordinate2D </code> 具有与  <code>Coordinate </code> 完全相同的结构，因此不要重新发明轮子是有意义的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;问题在于  <code>CLLocationCoordinate2D </code> 不符合  <code>Codable </code> 。 结果，编译器现在（正确）抱怨它不再能够合成  <code>Placemark5 </code> 的  <code>Codable一致性 </code> ，因为其属性之一不是  <code>Codable </code> 本身：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> CoreLocation</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark5</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">CLLocationCoordinate2D</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Error: cannot automatically synthesize &#x27;Decodable&#x27;/&#x27;Encodable&#x27; </span></span><br><span class="line"><span class="comment">// because &#x27;CLLocationCoordinate2D&#x27; does not conform.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管类型是在另一个模块中定义的，但我们可以使  <code>CLLocationCoordinate2D编码 </code> 吗？ 在扩展中添加缺少的一致性会产生错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CLLocationCoordinate2D</span>: <span class="title">Codable</span> </span>&#123; &#125;</span><br><span class="line"><span class="comment">// Error: implementation of &#x27;Encodable&#x27; cannot be automatically </span></span><br><span class="line"><span class="comment">// synthesized in an extension in a different file to the type.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Swift只会针对类型定义本身或在同一文件的扩展名中指定的一致性生成代码-在这种情况下，我们必须手动实现协议</strong>。 但是，即使不存在此限制，将追溯编码添加到我们不拥有的类型中也不是一个好主意。 如果Apple决定在将来的SDK版本中自己提供一致性该怎么办？ Apple的实现方式可能与我们的实现方式不兼容，这意味着使用我们的版本编码的值无法使用Apple的代码进行解码，反之亦然。 这是一个问题，因为解码器无法知道应该使用哪种实现，它只能看到应该解码  <code>CLLocationCoordinate2D类型 </code> 的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;苹果公司的一名开发人员  <code>Itai Ferber </code> 编写了  <code>Codable系统 </code> 的大部分代码，他给出了以下建议：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我实际上会更进一步，建议你每次打算使用  <code>Encodable或Decodable </code> 扩展别人的类型时，几乎都应该为它编写一个包装器结构，除非你有合理的保证，该类型将永远不会尝试符合 这些协议本身。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在下一节中，我们将看到一个使用包装器结构的示例。 对于我们当前的问题，我们来看一个稍有不同（但同样安全）的解决方案：我们将为  <code>Placemark5 </code> 提供我们自己的  <code>Codable实现 </code> ，在该实现中，我们将直接对纬度和经度值进行编码。 这有效地对编码器和解码器隐藏了  <code>CLLocationCoordinate2D类型 </code> 的存在； 从他们的角度看，好像纬度和经度属性是直接在  <code>Placemark5 </code> 上定义的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Placemark5</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> name</span><br><span class="line">        <span class="keyword">case</span> latitude <span class="operator">=</span> <span class="string">&quot;lat&quot;</span> </span><br><span class="line">        <span class="keyword">case</span> longitude <span class="operator">=</span> <span class="string">&quot;lon&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">try</span> container.encode(name, forKey: .name)</span><br><span class="line">        <span class="comment">// Encode latitude and longitude separately.</span></span><br><span class="line">        <span class="keyword">try</span> container.encode(coordinate.latitude, forKey: .latitude) </span><br><span class="line">        <span class="keyword">try</span> container.encode(coordinate.longitude, forKey: .longitude)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .name)</span><br><span class="line">        <span class="comment">// Reconstruct CLLocationCoordinate2D from lat/lon. </span></span><br><span class="line">        <span class="keyword">self</span>.coordinate <span class="operator">=</span> <span class="type">CLLocationCoordinate2D</span>(</span><br><span class="line">            latitude: <span class="keyword">try</span> container.decode(<span class="type">Double</span>.<span class="keyword">self</span>, forKey: .latitude),</span><br><span class="line">            longitude: <span class="keyword">try</span> container.decode(<span class="type">Double</span>.<span class="keyword">self</span>, forKey: .longitude))</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个示例为我们提供了一个很好的思路，即如果编译器没有为我们生成每种类型的代码，那么就必须为每种类型编写样板代码（并且此处仍缺少  <code>CodingKey协议 </code> 的综合实现）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另外，我们可以使用嵌套容器对坐标进行编码。   <code>KeyedDecodingContainer </code> 有一个名为  <code>nestedContainer（keyedBy：forKey :) </code> 的方法，该方法创建一个单独的带键容器（具有单独的编码键类型）并将其存储在提供的键下。 我们将为嵌套键添加第二个枚举，并将纬度和经度值编码到嵌套容器中（此处仅显示  <code>Encodable实现 </code> ；   <code>Decodable </code> 遵循相同的模式）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark6</span>: <span class="title">Encodable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">CLLocationCoordinate2D</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> name</span><br><span class="line">        <span class="keyword">case</span> coordinate</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// The coding keys for the nested container.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CoordinateCodingKeys</span>: <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> latitude</span><br><span class="line">        <span class="keyword">case</span> longitude</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">    <span class="keyword">try</span> container.encode(name, forKey: .name)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> coordinateContainer <span class="operator">=</span> container.nestedContainer( keyedBy: <span class="type">CoordinateCodingKeys</span>.<span class="keyword">self</span>, forKey: .coordinate)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">try</span> coordinateContainer.encode(coordinate.latitude, forKey: .latitude)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">try</span> coordinateContainer.encode(coordinate.longitude, forKey: .longitude)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用这种方法，我们将可以有效地重新创建在原始  <code>Placemark结构 </code> 中使用  <code>Coordinate类型 </code> 进行编码的方式，而无需将嵌套类型完全暴露给  <code>Codable系统 </code> 。 在两种情况下，生成的  <code>JSON </code> 是相同的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，我们必须为这两种选择编写的代码量很大。 对于此特定示例，我们建议采用另一种方法，即坚持使用我们自定义的  <code>Coordinate结构 </code> 进行存储和  <code>Codable一致性 </code> ，并将  <code>CLLocationCoordinate2D类型 </code> 作为计算属性公开给客户端。 由于  <code>_coordinate私有属性 </code> 是可编码的，因此我们免费获得  <code>可编码的一致 </code> 性； 我们要做的就是在  <code>CodingKeys枚举 </code> 中重命名其键。 而且，面向客户的坐标属性具有客户所需的类型，但是  <code>Codable系统 </code> 将忽略它，因为它是计算属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Placemark7</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> _coordinate: <span class="type">Coordinate</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> coordinate: <span class="type">CLLocationCoordinate2D</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="type">CLLocationCoordinate2D</span>(latitude: _coordinate.latitude, longitude: _coordinate.longitude) </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            _coordinate <span class="operator">=</span> <span class="type">Coordinate</span>(latitude: newValue.latitude,</span><br><span class="line">            longitude: newValue.longitude) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> name</span><br><span class="line">        <span class="keyword">case</span> _coordinate <span class="operator">=</span> <span class="string">&quot;coordinate&quot;</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种方法在这种情况下效果很好，因为  <code>CLLocationCoordinate2D </code> 是一个简单的类型，并且在它和我们的自定义类型之间进行转换很容易。</p>
+<h1 id="使类可编码"><a href="#使类可编码" class="headerlink" title="使类可编码"></a><strong>使类可编码</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在上一节中看到，有可能（但不建议）将任何值类型追溯到  <code>Codable </code> 。 </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为一般规则，  <code>Codable系统 </code> 对于类很好地起作用，但是子类的潜在存在增加了另一层次的复杂性。 如果我们尝试使  <code>UIColor </code> 符合  <code>Decodable </code> ，会发生什么？ （我们暂时忽略可编码，因为<br>与本次讨论无关 我们可以在以后添加它。）我们从约旦·罗斯（Jordan Rose）在快速演进邮件列表上的消息中得到了这个示例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>UIColor </code> 的自定义  <code>Decodable </code> 实现可能如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIColor</span>: <span class="title">Decodable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> red </span><br><span class="line">        <span class="keyword">case</span> green </span><br><span class="line">        <span class="keyword">case</span> blue </span><br><span class="line">        <span class="keyword">case</span> alpha</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Error: initializer requirement &#x27;init(from:)&#x27; can only be satisfied</span></span><br><span class="line">    <span class="comment">// by a   ` required  `  initializer in the definition of non-final class &#x27;UIColor&#x27;</span></span><br><span class="line">    <span class="comment">// etc.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">let</span> red <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .red)</span><br><span class="line">        <span class="keyword">let</span> green <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .green) </span><br><span class="line">        <span class="keyword">let</span> blue <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .blue)</span><br><span class="line">        <span class="keyword">let</span> alpha <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .alpha)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(red: red, green: green, blue: blue, alpha: alpha) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该代码无法编译，并且存在多个错误，最终归结为一个无法解决的冲突：只有必需的初始化程序才能满足协议要求，并且可能不会在扩展中添加所需的初始化程序； 必须在类定义中直接声明它们。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;必需的初始化程序（标记为  <code>required关键字 </code> ）指示每个子类都必须实现的初始化程序。 必须要求在协议中定义的初始化程序的规则可确保与所有协议要求一样，可以在子类上动态调用它们。 编译器必须保证这样的代码可以工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">decodeDynamic</span>(<span class="keyword">_</span> <span class="params">colorType</span>: <span class="type">UIColor</span>.<span class="keyword">Type</span>, <span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span>    <span class="keyword">throws</span> -&gt; <span class="type">UIColor</span> &#123; </span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">try</span> colorType.<span class="keyword">init</span>(from: decoder)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> color <span class="operator">=</span> decodeDynamic(<span class="type">SomeUIColorSubclass</span>.<span class="keyword">self</span>, from: someDecoder)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使这种动态分配生效，编译器必须在类的分配表中为初始化程序创建一个条目。编译类定义时，将以固定的大小创建该类的非最终方法表。扩展程序无法追溯添加条目。这就是为什么仅在类定义中允许所需的初始化程序的原因。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;长话短说：无法追溯非最终  <code>class </code> 与  <code>Codable </code> 。在我们上面引用的邮件列表消息中，Jordan讨论了许多场景，详细介绍了  <code>Swift </code> 将来如何实现此目的-从允许所需的初始化程序为最终的（然后，无需在分派表中输入），到添加运行时检查，该检查将捕获子类是否没有提供所需的初始化程序调用的指定初始化程序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是即使那样，我们仍然必须处理这样一个事实，即向你不拥有的类型添加  <code>Codable一致性 </code> 是有问题的。与上一节一样，推荐的方法是为  <code>UIColor </code> 编写包装器结构并将其编码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从编写一个小的扩展程序开始，该扩展程序使从  <code>UIColor </code> 值中提取红色，绿色，蓝色和Alpha分量更容易。现有的  <code>getRed（_：green：blue：alpha :)方法 </code> 使用指针将结果传递回调用者，因为  <code>Objective-C </code> 不支持将元组作为返回类型。我们可以在Swift中做得更好：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIColor</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rgba: (red: <span class="type">CGFloat</span>, green: <span class="type">CGFloat</span>, blue: <span class="type">CGFloat</span>, alpha: <span class="type">CGFloat</span>)<span class="operator">?</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> red: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> green: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> blue: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line">        <span class="keyword">var</span> alpha: <span class="type">CGFloat</span> <span class="operator">=</span> <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> getRed(<span class="operator">&amp;</span>red, green: <span class="operator">&amp;</span>green, blue: <span class="operator">&amp;</span>blue, alpha: <span class="operator">&amp;</span>alpha) &#123;</span><br><span class="line">            <span class="keyword">return</span> (red: red, green: green, blue: blue, alpha: alpha) </span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在我们的  <code>encode（to :) </code> 实现中使用  <code>rgba属性 </code> 。 请注意，  <code>rgba的类型是可选的元组 </code> ，因为并非所有  <code>UIColor实例 </code> 都可以表示为  <code>RGBA组件 </code> 。 如果有人尝试编码无法转换为RGBA的颜色（例如，基于图案图像的颜色），我们将抛出编码错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是我们的  <code>UIColor.CodableWrapper结构 </code> 的完整实现（我们在  <code>UIColor </code> 中为该结构命名空间以使两者之间的关系清晰可见）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIColor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">CodableWrapper</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> value: <span class="type">UIColor</span></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">init</span>(<span class="keyword">_</span> <span class="params">value</span>: <span class="type">UIColor</span>)</span> &#123; </span><br><span class="line">            <span class="keyword">self</span>.value <span class="operator">=</span> value</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">            <span class="keyword">case</span> red</span><br><span class="line">            <span class="keyword">case</span> green</span><br><span class="line">            <span class="keyword">case</span> blue</span><br><span class="line">            <span class="keyword">case</span> alpha </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="comment">// Throw error if color isn&#x27;t convertible to RGBA. </span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> (red, green, blue, alpha) <span class="operator">=</span> value.rgba <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> errorContext <span class="operator">=</span> <span class="type">EncodingError</span>.<span class="type">Context</span>( codingPath: encoder.codingPath, debugDescription:</span><br><span class="line">            <span class="string">&quot;Unsupported color format: <span class="subst">\(value)</span>&quot;</span> )</span><br><span class="line">            <span class="keyword">throw</span> <span class="type">EncodingError</span>.invalidValue(value, errorContext) </span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">try</span> container.encode(red, forKey: .red)</span><br><span class="line">        <span class="keyword">try</span> container.encode(green, forKey: .green)</span><br><span class="line">        <span class="keyword">try</span> container.encode(blue, forKey: .blue)</span><br><span class="line">        <span class="keyword">try</span> container.encode(alpha, forKey: .alpha) &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">            <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) <span class="keyword">let</span> red <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .red)</span><br><span class="line">            <span class="keyword">let</span> green <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .green) </span><br><span class="line">            <span class="keyword">let</span> blue <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .blue)</span><br><span class="line">            <span class="keyword">let</span> alpha <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">CGFloat</span>.<span class="keyword">self</span>, forKey: .alpha)</span><br><span class="line">            <span class="keyword">self</span>.value <span class="operator">=</span> <span class="type">UIColor</span>(red: red, green: green, blue: blue, alpha: alpha) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们应该注意，这种实现方式并不完美，因为它在编码过程中会将所有颜色转换为  <code>RGB颜色 </code> 空间。 以后再解码该值时，即使你最初编码的颜色位于灰度颜色空间中，也总是会获得RGB颜色。 由于没有公共的  <code>UIColor API </code> 来标识颜色所在的颜色空间，因此更好的实现方式是必须使用基础  <code>CGColor </code> 来标识颜色的颜色空间模型（例如  <code>RGB或灰度 </code> ），然后对颜色空间模型和对所讨论的色彩空间有意义的组件。 解码时，你必须先对色彩空间模型进行解码，然后才能知道在解码容器中还可以找到其他哪些键。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;包装器结构方法的一大缺点是，在编码之前和解码之后，你必须在  <code>UIColor和包装器 </code> 之间手动进行转换。 假设你要编码一个  <code>UIColor值 </code> 数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> colors: [<span class="type">UIColor</span>] <span class="operator">=</span> [ </span><br><span class="line">    .red,</span><br><span class="line">    .white,</span><br><span class="line">    .<span class="keyword">init</span>(displayP3Red: <span class="number">0.5</span>, green: <span class="number">0.4</span>, blue: <span class="number">1.0</span>, alpha: <span class="number">0.8</span>), </span><br><span class="line">    .<span class="keyword">init</span>(hue: <span class="number">0.6</span>, saturation: <span class="number">1.0</span>, brightness: <span class="number">0.8</span>, alpha: <span class="number">0.9</span>),</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你必须先将该数组映射到  <code>UIColor.CodableWrapper </code> ，然后才能将其传递给编码器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> codableColors <span class="operator">=</span> colors.map(<span class="type">UIColor</span>.<span class="type">CodableWrapper</span>.<span class="keyword">init</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且，任何存储  <code>UIColor的类型 </code> 都将不再参与自动代码合成。 定义如下类型会产生错误，因为  <code>UIColor </code> 不是可编码的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Error: cannot automatically synthesize &#x27;Encodable&#x27;/&#x27;Decodable&#x27;.</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ColoredRect</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> rect: <span class="type">CGRect</span></span><br><span class="line">    <span class="keyword">var</span> color: <span class="type">UIColor</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们如何用最少的代码解决这个问题？ 就像在上一节中所做的一样，我们将添加类型为  <code>UIColor.CodableWrapper </code> 的私有属性，该属性充当颜色值的存储，并且将  <code>color </code> 设为已计算的属性，并在其访问器中转发给  <code>_color </code> 。 我们还需要添加一个初始化程序。 最后，我们将提供自己的编码键枚举，将用于对颜色值进行编码的键从默认的  <code>“ _color” </code> 更改为  <code>“ color” </code> （此步骤是可选的）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ColoredRect</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> rect: <span class="type">CGRect</span></span><br><span class="line">    <span class="comment">// Storage for color.</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> _color: <span class="type">UIColor</span>.<span class="type">CodableWrapper</span> </span><br><span class="line">    <span class="keyword">var</span> color: <span class="type">UIColor</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">return</span> _color.value &#125;</span><br><span class="line">        <span class="keyword">set</span> &#123; _color.value <span class="operator">=</span> newValue &#125; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">init</span>(<span class="params">rect</span>: <span class="type">CGRect</span>, <span class="params">color</span>: <span class="type">UIColor</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.rect <span class="operator">=</span> rect</span><br><span class="line">        <span class="keyword">self</span>._color <span class="operator">=</span> <span class="type">UIColor</span>.<span class="type">CodableWrapper</span>(color)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123; </span><br><span class="line">        <span class="keyword">case</span> rect</span><br><span class="line">        <span class="keyword">case</span> _color <span class="operator">=</span> <span class="string">&quot;color&quot;</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对  <code>ColoredRect值 </code> 数组进行编码将产生以下  <code>JSON </code> 输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> rects <span class="operator">=</span> [<span class="type">ColoredRect</span>(rect: <span class="type">CGRect</span>(x: <span class="number">10</span>, y: <span class="number">20</span>, width: <span class="number">100</span>, height: <span class="number">200</span>), color: .yellow)]</span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> encoder <span class="operator">=</span> <span class="type">JSONEncoder</span>()</span><br><span class="line">    <span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try</span> encoder.encode(rects)</span><br><span class="line">    <span class="keyword">let</span> jsonString <span class="operator">=</span> <span class="type">String</span>(decoding: jsonData, as: <span class="type">UTF8</span>.<span class="keyword">self</span>)</span><br><span class="line">    <span class="comment">// [&#123;&quot;color&quot;:&#123;&quot;red&quot;:1,&quot;alpha&quot;:1,&quot;blue&quot;:0,&quot;green&quot;:1&#125;,&quot;rect&quot;:[[10,20],[100,200]]&#125;]</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使枚举可编码"><a href="#使枚举可编码" class="headerlink" title="使枚举可编码"></a><em><strong>使枚举可编码</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器可以为  <code>RawRepresentable枚举 </code> （其  <code>RawValue类型 </code> 是“本地”可编码类型之一）（即  <code>Bool </code> ，  <code>String </code> ，  <code>Float </code> ，  <code>Double </code> 或  <code>整数类型之一 </code> ）综合  <code>Raw </code> 表示的  <code>Codable一致性 </code> 。 对于其他枚举（例如具有关联值的枚举），你需要手动实现要求。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让  <code>Either枚举 </code> 与  <code>Codable一致 </code> 。 这是一种非常常见的类型，用于对值进行建模，该值可以是通用类型A的某个值，也可以是另一种类型B的某个值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Either</span>&lt;<span class="title">A</span>, <span class="title">B</span>&gt; </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> left(<span class="type">A</span>)</span><br><span class="line">    <span class="keyword">case</span> right(<span class="type">B</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们可以依赖于通用参数A和B本身是可编码的，那么我们只能为  <code>Either </code> 编写一个明智的  <code>Codable实现 </code> 。 没有这个约束，我们将不知道如何编码或解码枚举的关联值。 因此，可编码一致性必须以A和B的一致性为条件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Either</span>: <span class="title">Codable</span> <span class="title">where</span> <span class="title">A</span>: <span class="title">Codable</span>, <span class="title">B</span>: <span class="title">Codable</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> left</span><br><span class="line">        <span class="keyword">case</span> right </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .left(<span class="keyword">let</span> value):</span><br><span class="line">                <span class="keyword">try</span> container.encode(value, forKey: .left) </span><br><span class="line">            <span class="keyword">case</span> .right(<span class="keyword">let</span> value):</span><br><span class="line">                <span class="keyword">try</span> container.encode(value, forKey: .right) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> container <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> leftValue <span class="operator">=</span> <span class="keyword">try</span> container.decodeIfPresent(<span class="type">A</span>.<span class="keyword">self</span>, forKey: .left) &#123;</span><br><span class="line">            <span class="keyword">self</span> <span class="operator">=</span> .left(leftValue) &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">let</span> rightValue <span class="operator">=</span> <span class="keyword">try</span> container.decode(<span class="type">B</span>.<span class="keyword">self</span>, forKey: .right)</span><br><span class="line">            <span class="keyword">self</span> <span class="operator">=</span> .right(rightValue) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在  <code>encode(to :) </code> 中，我们检查是否有一个  <code>lef </code> t或  <code>right </code> 值，并将其编码在相应的键下。 同样，  <code>init（from :) </code> 初始化程序使用容器的  <code>encodeIfPresent方法 </code> 检查容器是否具有左键值。 如果没有，它将无条件地解码右key，因为必须存在两个key之一。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;到目前为止，应该已经很熟悉编码和解码值的集合。 让我们使用  <code>PropertyListEncoder </code> 和  <code>PropertyListDecoder </code> 进行更改：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> values: [<span class="type">Either</span>&lt;<span class="type">String</span>, <span class="type">Int</span>&gt;] <span class="operator">=</span> [ </span><br><span class="line">    .left(<span class="string">&quot;Forty-two&quot;</span>),</span><br><span class="line">    .right(<span class="number">42</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="keyword">do</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> encoder <span class="operator">=</span> <span class="type">PropertyListEncoder</span>() encoder.outputFormat <span class="operator">=</span> .xml</span><br><span class="line">    <span class="keyword">let</span> xmlData <span class="operator">=</span> <span class="keyword">try</span> encoder.encode(values)</span><br><span class="line">    <span class="keyword">let</span> xmlString <span class="operator">=</span> <span class="type">String</span>(decoding: xmlData, as: <span class="type">UTF8</span>.<span class="keyword">self</span>)</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span></span><br><span class="line"><span class="comment">    &lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot;</span></span><br><span class="line"><span class="comment">    &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt; &lt;plist version=&quot;1.0&quot;&gt;</span></span><br><span class="line"><span class="comment">    &lt;array&gt;</span></span><br><span class="line"><span class="comment">    &lt;dict&gt;</span></span><br><span class="line"><span class="comment">    &lt;key&gt;left&lt;/key&gt;</span></span><br><span class="line"><span class="comment">    &lt;string&gt;Forty-two&lt;/string&gt; &lt;/dict&gt;</span></span><br><span class="line"><span class="comment">    &lt;dict&gt;</span></span><br><span class="line"><span class="comment">    &lt;key&gt;right&lt;/key&gt;</span></span><br><span class="line"><span class="comment">    &lt;integer&gt;42&lt;/integer&gt; &lt;/dict&gt;</span></span><br><span class="line"><span class="comment">    &lt;/array&gt; &lt;/plist&gt;</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">let</span> decoder <span class="operator">=</span> <span class="type">PropertyListDecoder</span>()</span><br><span class="line">    <span class="keyword">let</span> decoded <span class="operator">=</span> <span class="keyword">try</span> decoder.decode([<span class="type">Either</span>&lt;<span class="type">String</span>, <span class="type">Int</span>&gt;].<span class="keyword">self</span>, from: xmlData) </span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    [Either&lt;Swift.String, Swift.Int&gt;.left(&quot;Forty-two&quot;), </span></span><br><span class="line"><span class="comment">    Either&lt;Swift.String, Swift.Int&gt;.right(42)]</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="解码多态集合"><a href="#解码多态集合" class="headerlink" title="解码多态集合"></a><em><strong>解码多态集合</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经看到，解码器要求我们传入要解码的值的具体类型。 这很直观：解码器需要一个具体的类型来确定要调用的初始化程序，并且由于编码数据通常不包含类型信息，因此调用者必须提供该类型。 专注于强类型化的结果是，解码步骤中没有多态性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们要对视图数组进行编码，其中实际实例是  <code>UIView子类 </code> ，例如  <code>UILabel </code> 或  <code>UIImageView </code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> views: [<span class="type">UIView</span>] <span class="operator">=</span> [label, imageView, button]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（让我们暂时假设  <code>UIView </code> 及其所有子类都符合  <code>Codable </code> ，他们目前还没有。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们先对这个数组进行编码然后再对其进行解码，那么它就不会以相同的形式出现-数组元素的具体类型将无法生存。 解码器只会产生普通的  <code>UIView对象 </code> ，因为它所知道的只是解码数据的类型<br>必须是  <code>[UIView].self </code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;那么我们如何编码这样的<strong>多态对象集合</strong>呢？ 最好的选择是定义一个枚举，每个子类要支持一个大小写。 枚举案例的有效负载存储实际对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">View</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> view(<span class="type">UIView</span>) </span><br><span class="line">    <span class="keyword">case</span> label(<span class="type">UILabel</span>)</span><br><span class="line">    <span class="keyword">case</span> imageView(<span class="type">UIImageView</span>)</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，我们必须手动编写一个  <code>Codable实现 </code> ，该实现遵循与上一节中的  <code>Either枚举 </code> 类似的模式：</p>
+<ul>
+<li><p>→ 在编码过程中，我们应在所有情况下切换需要编码的对象类型，然后在单独的键下对对象的类型和对象本身进行编码。</p>
+</li>
+<li><p>→ 在解码过程中，我们应该先解码类型信息，然后选择要初始化的具体类型。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，我们应该编写两个方便的函数来将  <code>UIView </code> 封装在  <code>View值 </code> 中，反之亦然。这样，将源数组传递到编码器并从解码器获取它仅需要一个映射。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，这不是动态解决方案；每当我们要支持另一个子类时，我们都必须手动更新  <code>View枚举 </code> 。这很不方便，但是我们必须明确命名我们的代码可以接受的所有类型，这确实是有道理的。任何其他情况都将带来潜在的安全风险，因为攻击者可以使用可操纵的存档实例化程序中的未知对象。</p>
+<h1 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a><strong>Recap</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只需最少的代码（至少在通常情况下），就可以在程序的本机类型和通用数据格式之间无缝转换，这是Swift的一大亮点。如果你可以在客户端和服务器上同时使用Swift，那么  <code>Codable系统 </code> 将变得更加强大：在各处使用相同的类型可确保所有平台都将生成兼容的编码格式。总是可以覆盖默认行为，尽管有时在你需要处理尚未定义的非编码类型时有时会带来不便。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你将系统用于其设计的任务时，该系统会发光-以完全类型安全的方式使用已知格式的统一数据。 Swift会竭尽所能隐藏你从传统JSON解析器中获得的松散类型的类似于字典的数据。在极少数情况下，你宁愿使用  <code>[String：Any] </code> 字典（也许是因为你不知道确切的数据格式），不要尝试不必要地将两个世界交织在一起。通过  <code>JSONSerialization </code> 的老式方法仍然存在。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们仅讨论了传统的归档任务，但是有必要在框外进行思考，以找到可以从标准化的将值简化为原始数据的方法中获益的应用程序，反之亦然。例如，你可以使用  <code>Decodable系统 </code> 代替反射来从可解码值生成  <code>SQL查询 </code> 。或者，你可以编写一个解码器，该解码器可以为每种原始数据类型生成随机值，并使用该解码器为单元测试生成随机测试数据。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding" title="Advanced Swift系列(十二):  Encoding and Decoding">https://www.xuebaonline.com/Advanced Swift系列(十二):  Encoding and Decoding</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Encoding-and-Decoding/" rel="tag"><i class="fa fa-tag"></i> Encoding and Decoding</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%80):%20Error%20Handling" rel="prev" title="Advanced Swift系列(十一): Error Handling">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(十一): Error Handling
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability" rel="next" title="Advanced Swift系列(十三): Interoperability">
+      Advanced Swift系列(十三): Interoperability <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%B0%8F%E7%9A%84%E4%BE%8B%E5%AD%90"><span class="nav-number">1.</span> <span class="nav-text">最小的例子</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%8A%A8%E6%95%B4%E5%90%88"><span class="nav-number">1.1.</span> <span class="nav-text">自动整合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Encoding"><span class="nav-number">2.</span> <span class="nav-text">Encoding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Decoding"><span class="nav-number">3.</span> <span class="nav-text">Decoding</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E8%BF%87%E7%A8%8B"><span class="nav-number">4.</span> <span class="nav-text">编码过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Containers"><span class="nav-number">4.1.</span> <span class="nav-text">Containers</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%80%BC%E5%A6%82%E4%BD%95%E8%87%AA%E6%88%91%E7%BC%96%E7%A0%81"><span class="nav-number">5.</span> <span class="nav-text">值如何自我编码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%BC%E5%90%88%E4%BB%A3%E7%A0%81"><span class="nav-number">6.</span> <span class="nav-text">综合代码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Coding-Keys"><span class="nav-number">6.1.</span> <span class="nav-text">Coding Keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#encode-to-%E6%96%B9%E6%B3%95"><span class="nav-number">6.2.</span> <span class="nav-text">encode(to :)方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init-from-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%99%A8"><span class="nav-number">6.3.</span> <span class="nav-text">init(from :)初始化器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E7%AC%A6%E5%90%88"><span class="nav-number">7.</span> <span class="nav-text">手动符合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BC%96%E7%A0%81%E9%94%AE"><span class="nav-number">7.1.</span> <span class="nav-text">自定义编码键</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89encoding-to-%E5%92%8Cinit-from-%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.2.</span> <span class="nav-text">自定义encoding(to :)和init(from :)实现</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E7%BC%96%E7%A0%81%E4%BB%BB%E5%8A%A1"><span class="nav-number">8.</span> <span class="nav-text">常见编码任务</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E4%BD%A0%E6%97%A0%E6%B3%95%E7%BC%96%E7%A0%81%E7%9A%84%E7%B1%BB%E5%9E%8B"><span class="nav-number">8.1.</span> <span class="nav-text">使你无法编码的类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%B1%BB%E5%8F%AF%E7%BC%96%E7%A0%81"><span class="nav-number">9.</span> <span class="nav-text">使类可编码</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E6%9E%9A%E4%B8%BE%E5%8F%AF%E7%BC%96%E7%A0%81"><span class="nav-number">9.1.</span> <span class="nav-text">使枚举可编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E7%A0%81%E5%A4%9A%E6%80%81%E9%9B%86%E5%90%88"><span class="nav-number">9.2.</span> <span class="nav-text">解码多态集合</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Recap"><span class="nav-number">10.</span> <span class="nav-text">Recap</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="产品开发的幕后花絮">
+<meta property="og:type" content="article">
+<meta property="og:title" content="产品开发的幕后花絮">
+<meta property="og:url" content="https://www.xuebaonline.com/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="产品开发的幕后花絮">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-26T10:50:21.000Z">
+<meta property="article:modified_time" content="2020-05-01T02:48:35.892Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="用户体验">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>产品开发的幕后花絮 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          产品开发的幕后花絮
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-26 18:50:21" itemprop="dateCreated datePublished" datetime="2020-04-26T18:50:21+08:00">2020-04-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/" itemprop="url" rel="index"><span itemprop="name">用户体验</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+            <div class="post-description">产品开发的幕后花絮</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;介绍产品专业人员用来定义问题，创建概念和选择最佳解决方案的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与关于设计师职务的争论类似，对于设计师是否应该编码，这是一个永无止境的讨论。 首先，我们谈论的是根本不同的心态。 尽管开发人员对技术流程的思考更多，但设计人员专注于用户执行的一系列操作，因为他们的目的是提出解决客户问题的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，产品设计师（或UX设计师，但正如我之前提到的那样，我不喜欢该职位）通常不做任何编码，仅因为我们从事的活动是专职职责。 设计师的大部分工作实际上甚至没有建立图形用户界面，而是进行了大量的交流和研究。 🔍</p>
+<span id="more"></span>
+
+</br>
+
+<h1 id="我们有一个问题"><a href="#我们有一个问题" class="headerlink" title="我们有一个问题"></a><strong>我们有一个问题</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，当我拿到设计图时，该过程已经开始。 我们的产品经理来找我解决问题。 有几种定义问题的方法，例如根据数据分析或竞争对手的活动做出的假设； 技术改进为我们提供了更多空间； 或客户的直接要求。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一步（也是最重要的一步）是了解问题。 假设我们盯着分析，看到用户在流程的某个特定点下降，放弃它而没有完成任务。 问题是：为什么？ 提供解决方案之前，你需要确定要解决的问题。 你需要了解动机，目标，需求以及用户当前解决问题的方式。</p>
+<blockquote>
+<p>**<code>提示:</code>**<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;直接来自客户的想法可以对你的系统进行非常好的改进，但是你需要谨慎。 系统越大，用户对系统一无所知的机会就越大，这可能导致错误的假设。 他们可能不知道某些“隐藏”的细节，但是如果知道的话，他们会问一个完全不同的问题。 用户对现有系统的信念称为心理模型。 这仅表示他们基于对当前工具的了解，相信他们可以或不能使用你的工具。 心理模型可能会因教育或经验而改变，因此在你开始编写代码之前，你可能需要了解他们为什么想要特定的东西。 也许解决方案不是他们想要的，但是你可以给他们更好的解决方案。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有几种方法可以收集有关原因的信息，而我最喜欢的两个是调查和访谈。 你可以收集所有听众提出的一些高级问题，然后发送表格。 找到适合你的问卷调查的最佳平台并不总是容易的：虽然一个渠道可以为你提供大量的答案，但另一个渠道将是死路一条。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间安排也很重要：你应该注意听众的时间表。 当他们太忙甚至不工作时，他们将没有时间或精力来帮助你。 进行良好调查的秘诀还有很多，但重点是你需要耐心，尝试几种方法来吸引受众，直到找到最适合你的案例。</p>
+</br>
+
+<h1 id="与用户的真正联系：用户访谈"><a href="#与用户的真正联系：用户访谈" class="headerlink" title="与用户的真正联系：用户访谈"></a><strong>与用户的真正联系：用户访谈</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我喜欢的另一种做法是进行用户访谈。 听起来就是这样：你与用户（最好是一对一）坐下并与他们交谈。 你需要再次准备问题，但是调查虽然可以帮助你了解很多事情，但是面试仅可以帮助你解决一些问题，但范围更广。 重要的是进行实际对话而不是询问客户：你收集的问题是面试的基础，但是当客户回答时，你可以侧身甚至完全劫持讨论（只要你谈论的是你所遇到的问题） 都想解决）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你随身携带一个记事本，这将很有帮助，这样你就可以在伴侣写下最重要的要点时全神贯注于对话。 如果你的客户同意，你可以记录下采访，以便稍后再听并写下你自己的笔记。 🗒</p>
+<blockquote>
+<p>**<code>提示:</code>**<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;重要的是要观察到广泛的用户，尤其是在组中有多种用户的情况下。 如果你只关注一个小组，那么你可能会满足这对夫妇的需求，而拒绝其他人。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我对问题有满意的答案时，我可以通过创建草图或基本模型来开始实际的“设计”工作。在这一点上，我并没有将重点放在外观或精度上，我只是尝试为我的想法建立一些视觉支持。有时，我什至没有构建整个功能或页面，而只是构建一个特定的部分，例如复杂的控制器，模式，表单等等。我还尝试至少提出2-3个概念。这将帮助我与团队交流思想：那是我参与开发人员的地方，因为下一步是了解技术限制。当然，如果我们无法为用户找出有史以来最好的UI元素，那也没关系。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在收集了我们需要的所有信息之后（包括用户的必备信息，开发人员的约束以及可能的其他因素，例如设计，完整性和一致性准则等），我们的工作重点变得更加狭窄。这是我开始在像素完美的UI上工作的地方。我创建了可点击的原型，因此可以为团队提供一个快照，以显示实际软件的外观和工作方式，更重要的是，它们将成为可用性测试的核心：是的，我们将回头再回头。</p>
+</br>
+
+<h1 id="可用性测试简介"><a href="#可用性测试简介" class="headerlink" title="可用性测试简介"></a><strong>可用性测试简介</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用户测试类似于访谈，你一次要与1位用户交谈，但是你可以提出任务而不是提问。你应该准备要执行的3-4个任务，就像它们已经存在时在系统中通常会执行的操作一样。这是验证你的工作，查看用户是否真的能够通过你的特定概念解决他们的问题的好方法。你如何进行这些会议的方式可能会因项目，概念因人员而异，但是以下一些重点可以派上用场：</p>
+<ul>
+<li>你测试用户界面而不是用户。无论他们做错了什么，不是他们的错，这是你的界面的缺陷。他们应该知道，你也知道。</li>
+<li>不要给出详细的说明，而要编写高级任务，类似于现实生活中的任务。即使他们受过使用你的软件的教育，也不会一直有人陪他们走走。为了模拟这一点，你也不能通过原型指导他们。</li>
+<li>包括与任务不直接相关的选项。如果你使用一些原型制作工具，它可能会以某种方式突出显示可点击元素。如果唯一可点击的东西是测试的控制器，他们将很容易找到解决方法。但是，如果有几个不同的可操作项目，它们将能够环顾四周，打开和关闭物品，并且一旦达成交易便会迷失方向。即使你感觉“来吧，就在那里，为什么不找到它”，也应该抵制胆量并保持沉默。对你来说也许很清楚，但对他们来说却是一个谜。这些测试的目的是发现谜语，而不是证明你的想法合理。</li>
+<li>提醒参与者在整个会议过程中大声思考，以便你了解他们为什么做自己的事情。与面试期间一样，你应该创建笔记并可能记录会话。会议结束后，你还可以与用户聊天。你可以回去问一下，如果他们在会议期间没有解释，为什么他们要做特定的事情。你甚至可以在这一点上询问他们的意见，但绝不能在会议期间提出。放弃有关UI的想法可能会使你偏离测试目标，因此请保持专注并保持参与者的专注。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些会议的结果将帮助你了解概念的弱点，或者只是帮助你选择最佳的概念。 你可以重新考虑一些事情，然后再进行测试，然后再继续。 测试和迭代的次数取决于你的时间和预算：根据 <code>Jacob Nielsen</code> 的说法，如果与5个用户一起测试，最好的方法是考虑未发现的问题的数量和会话的成本，因为一段时间后，用户会反复发现其他已经存在的问题 裸露。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;适当招募参与者也很重要。 如果你要为会计师构建应用程序，则可能不会获得机械师的宝贵反馈。 同样，如果你要改善现有服务，则最好与已经使用该服务的人联系，而不是与新员工交谈（除非你尝试弄清楚新手将如何与新功能交互）。</p>
+<br>
+
+<h1 id="要避免的常见错误"><a href="#要避免的常见错误" class="headerlink" title="要避免的常见错误"></a><strong>要避免的常见错误</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一种称为设计批判的做法，在这种做法中，大量的团队成员（设计师，开发人员，质量保证人员，产品经理等）坐在一起讨论设计。 你提出自己的想法，其他人则可以基于对一致性，技术约束，所有问题或简单的可用性假设的关注而提出问题并提出更改建议。 这可能真的很有帮助：当你花很长时间尝试解决问题时，可能会遇到困难。 睁开眼睛和其他角度可以帮助你摆脱困境，无论如何都要进行一些头脑风暴总是好的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，团队经常将<code>DC</code>会话与适当的可用性验证混淆。 为什么不能仅用它们代替<code>UX</code>研究有以下几个原因：</p>
+<ul>
+<li><em><strong>详细说明</strong></em> &nbsp;&nbsp;&nbsp;&nbsp;在可用性测试期间，你将执行任务并查看其他人如何与你的原型进行交互，而设计评论则是关于你自己讲述整个故事。你按照流程进行操作，并告诉团队正在发生什么以及为什么。这样很容易理解，但是如果仅<code>UI</code>没有解释，则可能会失败。</li>
+<li><em><strong>领域知识</strong></em> &nbsp;&nbsp;&nbsp;&nbsp;即使你只是在从事合同项目，与你一起工作的团队也具有丰富的领域知识。你知道系统的工作原理，知道后台发生了什么，如何传输数据，调用了什么<code>API</code>……用户不知道这种事情，你也不是你的用户。</li>
+<li><em><strong>主观性</strong></em> &nbsp;&nbsp;&nbsp;&nbsp;虽然你可能喜欢某些东西，但其他人可能不喜欢。另外，尽管你认为某些事情很清楚，但其他人可能不理解。当你说“我认为这可行”时，这只是你的观点，其他人可能会基于他们的观点对此进行争论。意见分歧可以帮助你取得进展，但是，如果保持不变，这是一个标志，你应该查看用户的反应方式，而不是争夺你的意见。</li>
+<li><em><strong>自我</strong></em>  &nbsp;&nbsp;&nbsp;&nbsp;我并不是说它总是存在，但是这些讨论很容易变成有争议的论据，每个人都试图说服他人。我对此不够强调：你没有为自己设计（或编写代码），而是为用户设计。如果团队中的某个人有一个更好的主意，或者只是发现了一个错误，请高兴地为你提供改善产品的机会。这不是单人表演，而是团队失败或胜利。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，要在没有任何实际数据的情况下通过一次演示来证明自己要困难得多。当你的设计基于推测时，可能很难捍卫一个想法，因为你无法用事实来支持它。其他人可能有不同的假设，从这一点出发，论点立足或落在参与者的说服力上。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这并不意味着这些会议根本没有用，它们无法替代研究，因为它们以不同的方式帮助你。我也认为争论通常是好的，因为我们可以了解很多彼此的观点。我要说的是不确定性使事情变得困难，因为你只有在发表作品后才能看到结果。最好的办法是定期与团队进行研究并进行同步，以便在技术上仍可行的情况下，确保要构建的内容能够很好地为用户服务。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你创建的所有内容都会带来用户体验。 UX不是你设计的，而是工作的必然结果。请记住这一点。 🙏</p>
+</br>
+
+<h1 id="设计师应该编码吗？-开发人员应该设计吗？"><a href="#设计师应该编码吗？-开发人员应该设计吗？" class="headerlink" title="设计师应该编码吗？ 开发人员应该设计吗？"></a><strong>设计师应该编码吗？ 开发人员应该设计吗？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我认为存在这个永恒的问题是因为图形<code>UI</code>设计本身通常并不困难。 <code>UI</code>设计工具（例如<code>Sketch</code>或<code>Figma</code>）非常简单，即使没有经验也很容易使用，而无需谈论网络上成千上万的优质教程和资源。图形用户界面设计是一项技能，而成为专家意味着你还拥有许多其他有价值的技能，这些技能最终将定义你。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于设计师和开发人员的思维方式之间存在核心差异，因此我更喜欢将研究与设计结合起来，而不是将设计与编码结合起来。如果你对自己的系统技术知识有偏见，可能很难找到问题的抽象解决方案。这就是为什么我在多个学科的协作以及不同观点的结合中看到真正价值的原因。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，以视觉方式呈现你的作品仍然是有益的，因为它可以帮助你发现潜在的盲点和缺失的边缘情况，还可以帮助连接点并查看整体图片，最后但并非最不重要的一点：它要快得多在设计工具中进行修复而不是在实际代码中进行修复。因此，虽然我不说开发人员应该设计，但某些设计技能可以很好地补充你的工作流程。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/%E4%BA%A7%E5%93%81%E5%BC%80%E5%8F%91%E7%9A%84%E5%B9%95%E5%90%8E%E8%8A%B1%E7%B5%AE" title="产品开发的幕后花絮">https://www.xuebaonline.com/产品开发的幕后花絮</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C/" rel="tag"><i class="fa fa-tag"></i> 用户体验</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E4%BD%9C%E4%B8%BASwift%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%EF%BC%8C%E5%A6%82%E4%BD%95%E6%8F%90%E4%BE%9B%E6%9B%B4%E5%A5%BD%E7%9A%84%E7%94%A8%E6%88%B7%E4%BD%93%E9%AA%8C%EF%BC%9F" rel="prev" title="作为Swift开发人员，如何提供更好的用户体验？">
+      <i class="fa fa-chevron-left"></i> 作为Swift开发人员，如何提供更好的用户体验？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/iOS%E8%87%AA%E5%8A%A8%E5%8C%96%E5%B8%83%E5%B1%80%E7%BC%96%E7%A8%8B" rel="next" title="iOS自动化布局编程">
+      iOS自动化布局编程 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E6%9C%89%E4%B8%80%E4%B8%AA%E9%97%AE%E9%A2%98"><span class="nav-number">1.</span> <span class="nav-text">我们有一个问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%8E%E7%94%A8%E6%88%B7%E7%9A%84%E7%9C%9F%E6%AD%A3%E8%81%94%E7%B3%BB%EF%BC%9A%E7%94%A8%E6%88%B7%E8%AE%BF%E8%B0%88"><span class="nav-number">2.</span> <span class="nav-text">与用户的真正联系：用户访谈</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7%E6%B5%8B%E8%AF%95%E7%AE%80%E4%BB%8B"><span class="nav-number">3.</span> <span class="nav-text">可用性测试简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A6%81%E9%81%BF%E5%85%8D%E7%9A%84%E5%B8%B8%E8%A7%81%E9%94%99%E8%AF%AF"><span class="nav-number">4.</span> <span class="nav-text">要避免的常见错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%AE%BE%E8%AE%A1%E5%B8%88%E5%BA%94%E8%AF%A5%E7%BC%96%E7%A0%81%E5%90%97%EF%BC%9F-%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E5%BA%94%E8%AF%A5%E8%AE%BE%E8%AE%A1%E5%90%97%EF%BC%9F"><span class="nav-number">5.</span> <span class="nav-text">设计师应该编码吗？ 开发人员应该设计吗？</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

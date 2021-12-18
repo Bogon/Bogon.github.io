@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="MySQL-列类型和数据完整性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL-列类型和数据完整性">
+<meta property="og:url" content="https://www.xuebaonline.com/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="MySQL-列类型和数据完整性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536718268668.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536719919287.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720096028.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720113031.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720763914.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536721403493.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536723512843.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536737314504.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736467251.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736627655.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736700169.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739081697.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739540981.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739661909.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739894901.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536742477588.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744583450.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744649329.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744676337.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744701721.png">
+<meta property="article:published_time" content="2021-05-29T09:34:35.000Z">
+<meta property="article:modified_time" content="2021-06-07T01:07:55.430Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="数据库">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536718268668.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>MySQL-列类型和数据完整性 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL-列类型和数据完整性
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-29 17:34:35" itemprop="dateCreated datePublished" datetime="2021-05-29T17:34:35+08:00">2021-05-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>17k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+            <div class="post-description">MySQL-列类型和数据完整性</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-1-目标"><a href="#1-1-目标" class="headerlink" title="1.1 目标"></a>1.1 目标</h2><ul>
+<li>了解MySQL常用的客户端软件</li>
+<li>理解整型的使用</li>
+<li>理解浮点型的使用</li>
+<li>理解字符型的使用</li>
+<li>理解枚举型的使用</li>
+<li>理解集合型的使用</li>
+<li>理解日期型的使用</li>
+<li>理解非空约束</li>
+<li>理解默认值约束</li>
+<li>理解自动增长</li>
+<li>理解主键约束</li>
+<li>理解唯一键约束</li>
+<li>知道备注</li>
+<li>知道SQL注释</li>
+<li>理解外键约束 </li>
+</ul>
+<span id="more"></span>
+
+<h2 id="1-2-数据类型——值类型"><a href="#1-2-数据类型——值类型" class="headerlink" title="1.2 数据类型——值类型"></a>1.2 数据类型——值类型</h2><h4 id="1-2-1-整型"><a href="#1-2-1-整型" class="headerlink" title="1.2.1   整型"></a>1.2.1   整型</h4><table>
+<thead>
+<tr>
+<th align="center">类型</th>
+<th align="center">字节</th>
+<th align="center">范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">tinyint</td>
+<td align="center">1</td>
+<td align="center">-128~127</td>
+</tr>
+<tr>
+<td align="center">smallint</td>
+<td align="center">2</td>
+<td align="center">-32768~32767</td>
+</tr>
+<tr>
+<td align="center">mediumint</td>
+<td align="center">3</td>
+<td align="center">-8388608~8388607</td>
+</tr>
+<tr>
+<td align="center">int</td>
+<td align="center">4</td>
+<td align="center">-2^31^~2^31^-1</td>
+</tr>
+<tr>
+<td align="center">bigint</td>
+<td align="center">8</td>
+<td align="center">-2^63^~2^63^-1</td>
+</tr>
+</tbody></table>
+<p>1、无符号整数（unsigned）：无符号数没有负数，正数部分是有符号的两倍。</p>
+<p> 例题</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">smallint</span> unsigned auto_increment <span class="keyword">primary</span> key comment <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> age tinyint unsigned <span class="keyword">not</span> <span class="keyword">null</span> comment <span class="string">&#x27;年龄&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> money <span class="type">bigint</span> unsigned comment <span class="string">&#x27;存款&#x27;</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------------------+------+-----+---------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type                 <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------------------+------+-----+---------+----------------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">smallint</span>(<span class="number">5</span>) unsigned <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age   <span class="operator">|</span> tinyint(<span class="number">3</span>) unsigned  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> money <span class="operator">|</span> <span class="type">bigint</span>(<span class="number">20</span>) unsigned  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+----------------------+------+-----+---------+----------------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span>, <span class="number">3</span> warnings (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>2、整型支持显示宽度（最小的显示位数）  比如int(5)，如果数值的位数小于5位，前面加上前导0。比如输入12，显示00012；大于5位就不添加前导0。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">脚下留心：必须结合zerofill才起作用</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>(<span class="number">5</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> age <span class="type">int</span>(<span class="number">5</span>) zerofill   # 填充前导<span class="number">0</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type                     <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">5</span>)                   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age   <span class="operator">|</span> <span class="type">int</span>(<span class="number">5</span>) unsigned zerofill <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span> (<span class="number">1</span>,<span class="number">11</span>);</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span> (<span class="number">1111111</span>,<span class="number">2222222</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------+---------+</span></span><br><span class="line"><span class="operator">|</span> id      <span class="operator">|</span> age     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+---------+</span></span><br><span class="line"><span class="operator">|</span>       <span class="number">1</span> <span class="operator">|</span>   <span class="number">00011</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1111111</span> <span class="operator">|</span> <span class="number">2222222</span> <span class="operator">|</span>    # 注意：age填充了前导<span class="number">0</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+---------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-2-2-浮点型（保存近似值小数）"><a href="#1-2-2-浮点型（保存近似值小数）" class="headerlink" title="1.2.2   浮点型（保存近似值小数）"></a>1.2.2   浮点型（保存近似值小数）</h4><table>
+<thead>
+<tr>
+<th align="center">浮点型</th>
+<th align="center">占用字节</th>
+<th align="center">范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">float（单精度）</td>
+<td align="center">4</td>
+<td align="center">-3.4E+38~3.4E+38</td>
+</tr>
+<tr>
+<td align="center">double（双精度）</td>
+<td align="center">8</td>
+<td align="center">-1.8E+308~1.8E+308</td>
+</tr>
+</tbody></table>
+<p> 1、浮点数声明:  float(M,D)   double(M,D)</p>
+<p>M：总位数</p>
+<p>D：小数位数</p>
+<p> 例题；</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t1(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> num1 <span class="type">float</span>(<span class="number">5</span>,<span class="number">2</span>),   #总位数是<span class="number">5</span>，小数位数是<span class="number">2</span>，那么整数位数是<span class="number">3</span>，</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> num2 <span class="keyword">double</span>(<span class="number">4</span>,<span class="number">1</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.08</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t1 <span class="keyword">values</span> (<span class="number">1.23</span>,<span class="number">1.23</span>); #如果精度超出了允许的范围，会四舍五入</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t1;</span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+</span></span><br><span class="line"><span class="operator">|</span> num1 <span class="operator">|</span> num2 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1.23</span> <span class="operator">|</span>  <span class="number">1.2</span> <span class="operator">|</span>   #如果精度超出了允许的范围，会四舍五入</span><br><span class="line"><span class="operator">+</span><span class="comment">------+------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>2、浮点的精度可能会丢失【精度指的是小数】</p>
+<p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536718268668.png"></p>
+<h4 id="1-2-3-定点数"><a href="#1-2-3-定点数" class="headerlink" title="1.2.3   定点数"></a>1.2.3   定点数</h4><p>语法：decimal(M,D)</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t4(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> num <span class="type">decimal</span>(<span class="number">20</span>,<span class="number">19</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t4 <span class="keyword">values</span> (<span class="number">1.1234567890123456789</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t4;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------+</span></span><br><span class="line"><span class="operator">|</span> num                   <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1.1234567890123456789</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">多学一招：</span><br><span class="line"><span class="number">1</span>、定点数是变长的，大致每<span class="number">9</span>个数字用<span class="number">4</span>个字节来存储。定点数之所以能保存精确的小数，因为整数和小数是分开存储的。占用的资源比浮点数要多。</span><br><span class="line"><span class="number">2</span>、定点数和浮点数都支持显示宽度和无符号数。</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-3-数据类型——字符型"><a href="#1-3-数据类型——字符型" class="headerlink" title="1.3 数据类型——字符型"></a>1.3 数据类型——字符型</h2><table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">描述</th>
+<th align="center">长度</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">char(长度)</td>
+<td align="center">定长</td>
+<td align="center">最大255</td>
+</tr>
+<tr>
+<td align="center">varchar(长度)</td>
+<td align="center">变长</td>
+<td align="center">最大65535</td>
+</tr>
+<tr>
+<td align="center">tinytext</td>
+<td align="center">大段文本</td>
+<td align="center">2^8^-1=255</td>
+</tr>
+<tr>
+<td align="center">text</td>
+<td align="center">大段文本</td>
+<td align="center">2^16^-1=65535</td>
+</tr>
+<tr>
+<td align="center">mediumtext</td>
+<td align="center">大段文本</td>
+<td align="center">2^24^-1</td>
+</tr>
+<tr>
+<td align="center">longtext</td>
+<td align="center">大段文本</td>
+<td align="center">2^32^-1</td>
+</tr>
+</tbody></table>
+<p>1、char(10)和varchar(10)的区别？</p>
+<p>答：相同点：它们最多只能保存10个字符；</p>
+<pre><code>    不同点：char不回收多余的字符，varchar会回收多余的字符。
+
+                    char效率高，浪费空间，varchar节省空间，效率比char低。
+</code></pre>
+<p>2、char的最大长度是255。  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536719919287.png"></p>
+<p>3、varchar理论长度是65535字节,实际根本达不到。具体长度与字符编码有关。 <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720096028.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720113031.png"></p>
+<p> 4、一个记录的总长度不能超过65535个字节。</p>
+<p> 5、大块文本（text）不计算在总长度中,一个大块文本只占用10个字节来保存文本的地址。 <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536720763914.png"></p>
+<h2 id="1-4-数据类型——枚举（enum）"><a href="#1-4-数据类型——枚举（enum）" class="headerlink" title="1.4 数据类型——枚举（enum）"></a>1.4 数据类型——枚举（enum）</h2><p>1、从集合中选择一个数据（单选）</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t8(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> sex enum(<span class="string">&#x27;男&#x27;</span>,<span class="string">&#x27;女&#x27;</span>,<span class="string">&#x27;保密&#x27;</span>)   # 枚举</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> )charset<span class="operator">=</span>utf8;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t8 <span class="keyword">values</span> (<span class="string">&#x27;tom&#x27;</span>,<span class="string">&#x27;男&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t8 <span class="keyword">values</span> (<span class="string">&#x27;berry&#x27;</span>,<span class="string">&#x27;女&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.05</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t8 <span class="keyword">values</span> (<span class="string">&#x27;rose&#x27;</span>,<span class="string">&#x27;未知&#x27;</span>);   # 报错，只能插入枚举值</span><br><span class="line">ERROR <span class="number">1265</span> (<span class="number">01000</span>): Data truncated <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;sex&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t8;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> sex  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> tom   <span class="operator">|</span> 男     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> berry <span class="operator">|</span> 女    <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br></pre></td></tr></table></figure>
+
+<p>2、MySQL的枚举类型是通过整数来管理的，第一个值是1，第二个值是2，以此类推。</p>
+<p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536721403493.png"></p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> sex<span class="operator">+</span><span class="number">0</span> <span class="keyword">from</span> t8;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span> sex<span class="operator">+</span><span class="number">0</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">2</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br></pre></td></tr></table></figure>
+
+<p>3、既然枚举在数据库内部存储的是整数，那么可以直接插入数字</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t8 <span class="keyword">values</span> (<span class="string">&#x27;rose&#x27;</span>,<span class="number">3</span>);  # 可以直接插入数字</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t8;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> sex  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> tom   <span class="operator">|</span> 男     <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> berry <span class="operator">|</span> 女    <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> rose  <span class="operator">|</span> 保密     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="number">3</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>枚举的优点：</p>
+<p>1、     运行速度快（数字比字符串运算速度快）</p>
+<p>2、     限制数据，保证数据完整性</p>
+<p>3、     节省空间</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">思考：已知枚举占用2个字节，请问最多有多少个枚举值？</span><br><span class="line"></span><br><span class="line">答：2个字节=16位，可以保存数字（0-65535），枚举是从1开始，所以枚举最多可以有65535个枚举值。</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-5-数据类型——集合（set）"><a href="#1-5-数据类型——集合（set）" class="headerlink" title="1.5 数据类型——集合（set）"></a>1.5 数据类型——集合（set）</h2><p>从集合中选择一些数据（多选）</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t9(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> hobby <span class="keyword">set</span>(<span class="string">&#x27;爬山&#x27;</span>,<span class="string">&#x27;读书&#x27;</span>,<span class="string">&#x27;游泳&#x27;</span>,<span class="string">&#x27;敲代码&#x27;</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.08</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t9 <span class="keyword">values</span> (<span class="string">&#x27;爬山&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t9 <span class="keyword">values</span> (<span class="string">&#x27;爬山,游泳&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t9 <span class="keyword">values</span> (<span class="string">&#x27;游泳,爬山&#x27;</span>);  # 插入顺序不一样，但是显示的顺序是一样的</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t9 <span class="keyword">values</span> (<span class="string">&#x27;爬山,游泳,开车&#x27;</span>);  # 报错，插入集合中没有的选项会报错</span><br><span class="line">ERROR <span class="number">1265</span> (<span class="number">01000</span>): Data truncated <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;hobby&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p> 每个集合的元素都分配一个固定的数字，分配的方式从左往右按2的0、1、2、…次方</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536723512843.png"></p>
+<hr>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">思考：已知集合占用<span class="number">8</span>个字节，最多可以表示几个选项？</span><br><span class="line"></span><br><span class="line">答：<span class="number">8</span>个字节<span class="operator">=</span><span class="number">64</span>位，一个位表示<span class="number">1</span>个选项，最多可以表示<span class="number">64</span>个选项。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-6-数据类型——日期类型"><a href="#1-6-数据类型——日期类型" class="headerlink" title="1.6 数据类型——日期类型"></a>1.6 数据类型——日期类型</h2><table>
+<thead>
+<tr>
+<th align="center">数据类型</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">datetime</td>
+<td align="center">日期时间，占用8个字节</td>
+</tr>
+<tr>
+<td align="center">date</td>
+<td align="center">日期 占用3个字节</td>
+</tr>
+<tr>
+<td align="center">time</td>
+<td align="center">时间 占用3个字节</td>
+</tr>
+<tr>
+<td align="center">timestamp</td>
+<td align="center">时间戳，占用4个字节</td>
+</tr>
+<tr>
+<td align="center">year</td>
+<td align="center">年份   占用1个字节</td>
+</tr>
+</tbody></table>
+<p>1、datetime   格式：年-月-日 小时:分钟:秒</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t10(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field datetime</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t10 <span class="keyword">values</span> (<span class="string">&#x27;2025-10-12 10:12:36&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t10 <span class="keyword">values</span> (<span class="string">&#x27;100-10-12 10:12:36&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t10 <span class="keyword">values</span> (<span class="string">&#x27;10000-10-12 10:12:36&#x27;</span>);  #datetime保存范围是：<span class="number">1</span><span class="operator">~</span><span class="number">9999</span>年</span><br><span class="line">ERROR <span class="number">1292</span> (<span class="number">22007</span>): Incorrect datetime <span class="keyword">value</span>: <span class="string">&#x27;10000-10-12 10:12:36&#x27;</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t10;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br><span class="line"><span class="operator">|</span> field               <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2025</span><span class="number">-10</span><span class="number">-12</span> <span class="number">10</span>:<span class="number">12</span>:<span class="number">36</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">0100</span><span class="number">-10</span><span class="number">-12</span> <span class="number">10</span>:<span class="number">12</span>:<span class="number">36</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>2、date 日期格式</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t11(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field <span class="type">date</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t11 <span class="keyword">values</span> (<span class="string">&#x27;2025-10-12&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t11;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------+</span></span><br><span class="line"><span class="operator">|</span> field      <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2025</span><span class="number">-10</span><span class="number">-12</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------+</span></span><br></pre></td></tr></table></figure>
+
+<p>3、timestamp：时间戳</p>
+<p>timestamp类型和 datetime类型在表现上是一样的。他们的区别：<br>datetime是从1到9999，而timestamp从1970年~2038年，2038年01月19日11:14:07秒以后就超出timestamp范围了。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t12(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field <span class="type">timestamp</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t12 <span class="keyword">values</span> (<span class="string">&#x27;1975-5-5 12:12:12&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t12 <span class="keyword">values</span> (<span class="string">&#x27;1969-5-5 12:12:12&#x27;</span>);   # 超出范围</span><br><span class="line">ERROR <span class="number">1292</span> (<span class="number">22007</span>): Incorrect datetime <span class="keyword">value</span>: <span class="string">&#x27;1969-5-5 12:12:12&#x27;</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t12 <span class="keyword">values</span> (<span class="string">&#x27;2038-1-19 11:14:07&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t12 <span class="keyword">values</span> (<span class="string">&#x27;2038-1-19 11:14:08&#x27;</span>);  # 超出范围</span><br><span class="line">ERROR <span class="number">1292</span> (<span class="number">22007</span>): Incorrect datetime <span class="keyword">value</span>: <span class="string">&#x27;2038-1-19 11:14:08&#x27;</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t12;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br><span class="line"><span class="operator">|</span> field               <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">1975</span><span class="number">-05</span><span class="number">-05</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">12</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">2038</span><span class="number">-01</span><span class="number">-19</span> <span class="number">11</span>:<span class="number">14</span>:<span class="number">07</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------------------+</span></span><br></pre></td></tr></table></figure>
+
+<p>4、year</p>
+<p>因为只占用1个字节，最多只能表示255个年份，范围是1901-2155之间的年份</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t13(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field <span class="keyword">year</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t13 <span class="keyword">values</span> (<span class="number">2025</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t13 <span class="keyword">values</span> (<span class="number">1900</span>);   # 超出范围</span><br><span class="line">ERROR <span class="number">1264</span> (<span class="number">22003</span>): <span class="keyword">Out</span> <span class="keyword">of</span> <span class="keyword">range</span> <span class="keyword">value</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t13 <span class="keyword">values</span> (<span class="number">2155</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t13 <span class="keyword">values</span> (<span class="number">2156</span>);   # 超出范围</span><br><span class="line">ERROR <span class="number">1264</span> (<span class="number">22003</span>): <span class="keyword">Out</span> <span class="keyword">of</span> <span class="keyword">range</span> <span class="keyword">value</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>5、time    表示时间或时间间隔，范围是-838:59:59~838:59:59</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t14(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field <span class="type">time</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t14 <span class="keyword">values</span> (<span class="string">&#x27;12:12:12&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t14 <span class="keyword">values</span> (<span class="string">&#x27;212:12:12&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t14 <span class="keyword">values</span> (<span class="string">&#x27;838:59:59&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t14 <span class="keyword">values</span> (<span class="string">&#x27;839:00:00&#x27;</span>);  # 操作范围</span><br><span class="line">ERROR <span class="number">1292</span> (<span class="number">22007</span>): Incorrect <span class="type">time</span> <span class="keyword">value</span>: <span class="string">&#x27;839:00:00&#x27;</span> <span class="keyword">for</span> <span class="keyword">column</span> <span class="string">&#x27;field&#x27;</span> <span class="keyword">at</span> <span class="type">row</span> <span class="number">1</span></span><br><span class="line">mysql<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>多学一招：time支持以天的方式插入</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t14 <span class="keyword">values</span> (<span class="string">&#x27;10 10:10:10&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t14;</span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+</span></span><br><span class="line"><span class="operator">|</span> field     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+</span></span><br><span class="line"><span class="operator">|</span> <span class="number">12</span>:<span class="number">12</span>:<span class="number">12</span>  <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">212</span>:<span class="number">12</span>:<span class="number">12</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">838</span>:<span class="number">59</span>:<span class="number">59</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="number">250</span>:<span class="number">10</span>:<span class="number">10</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-----------+</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-7-数据类型——boolean"><a href="#1-7-数据类型——boolean" class="headerlink" title="1.7 数据类型——boolean"></a>1.7 数据类型——boolean</h2><p>MySQL不支持boolean类型，true和false在数据库中对应1和0。</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t15(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> field <span class="type">boolean</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t15 <span class="keyword">values</span> (<span class="literal">true</span>),(<span class="literal">false</span>);   # <span class="literal">true</span>和<span class="literal">false</span>在数据库中对应<span class="number">1</span>和<span class="number">0</span></span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">2</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t15;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span> field <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">1</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">0</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-8-关于数据类型的思考题"><a href="#1-8-关于数据类型的思考题" class="headerlink" title="1.8 关于数据类型的思考题"></a>1.8 关于数据类型的思考题</h2><ol>
+<li><p>手机号码一般使用什么数据类型存储?               char </p>
+</li>
+<li><p>电话号码使用什么数据类型                                 varchar</p>
+</li>
+<li><p>性别一般使用什么数据类型存储?                      char      enum   </p>
+</li>
+<li><p>学生年龄信息一般使用什么数据类型存储?               tinyint       </p>
+</li>
+<li><p>照片信息一般使用什么数据类型存储?                      binary         </p>
+</li>
+<li><p>薪水一般使用什么数据类型存储?                             decimal</p>
+</li>
+</ol>
+<p>多学一招：一个字段到底选数字还是字符，取决于有没有计算的可能，如果没有计算的可能即使是数字也要用字符类型，比如手机号、QQ号，…</p>
+<h2 id="1-9-列属性——是否为空-null-not-null"><a href="#1-9-列属性——是否为空-null-not-null" class="headerlink" title="1.9 列属性——是否为空(null | not null)"></a>1.9 列属性——是否为空(null | not null)</h2><p>null：可以为空</p>
+<p>not null：不可以为空</p>
+<p> 思考题</p>
+<ol>
+<li><p>学员姓名允许为空吗?                  非空  </p>
+</li>
+<li><p>家庭地址允许为空吗?                  非空      </p>
+</li>
+<li><p>电子邮件信息允许为空吗?           可以为空  </p>
+</li>
+<li><p>考试成绩允许为空吗?                  可以为空 </p>
+</li>
+</ol>
+<h2 id="1-10-列属性——默认值（default）"><a href="#1-10-列属性——默认值（default）" class="headerlink" title="1.10    列属性——默认值（default）"></a>1.10    列属性——默认值（default）</h2><p>1、如果一个字段没有插入值，可以默认插入一个指定的值。</p>
+<p> 2、default关键字用来插入默认值</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t16(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> unsigned,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">default</span> <span class="string">&#x27;地址不详&#x27;</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t16 <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">&#x27;北京&#x27;</span>),(<span class="number">2</span>,<span class="keyword">default</span>);</span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">2</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t16;</span><br><span class="line"><span class="operator">+</span><span class="comment">------+----------+</span></span><br><span class="line"><span class="operator">|</span> id   <span class="operator">|</span> addr     <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+----------+</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">1</span> <span class="operator">|</span> 北京         <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span>    <span class="number">2</span> <span class="operator">|</span> 地址不详        <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+----------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-11-列属性——自动增长（auto-increment）"><a href="#1-11-列属性——自动增长（auto-increment）" class="headerlink" title="1.11    列属性——自动增长（auto_increment）"></a>1.11    列属性——自动增长（auto_increment）</h2><p>1、字段的值从1开始，每次递增1，特点就在字段中的数据不可能重复，适合为记录生成唯一的id</p>
+<p>2、自动增长都是无符号整数。</p>
+<p>3、在MySQL中，auto_increment必须是主键。但是主键不一定是自动增长的。</p>
+<p>4、如果要给自动增长列插入数据，使用null关键字。</p>
+<p>5、自动增长列上的数据被删除，默认情况下此记录的编号不再使用。</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536737314504.png"></p>
+<h2 id="1-12-列属性——主键（primary-key）"><a href="#1-12-列属性——主键（primary-key）" class="headerlink" title="1.12    列属性——主键（primary key）"></a>1.12    列属性——主键（primary key）</h2><p>主键：唯一标识表中记录的一个或一组列</p>
+<p>主键的特点：不能重复，不能为空</p>
+<p>一个表只能有一个主键，主键可以有多个字段组成。</p>
+<p>主键的作用：</p>
+<p>1、     保证数据完整性</p>
+<p>2、     加快查询速度</p>
+<h4 id="1-12-1-添加主键"><a href="#1-12-1-添加主键" class="headerlink" title="1.12.1 添加主键"></a>1.12.1 添加主键</h4><p>方法一：创建表的时候添加主键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t17(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">varchar</span>(<span class="number">5</span>) <span class="keyword">primary</span> key,   # 创建主键</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t17 <span class="keyword">values</span> (<span class="string">&#x27;s2531&#x27;</span>,<span class="string">&#x27;tom&#x27;</span>),(<span class="string">&#x27;s2532&#x27;</span>,<span class="string">&#x27;berry&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">2</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> t17;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> name  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+</span></span><br><span class="line"><span class="operator">|</span> s2531 <span class="operator">|</span> tom   <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> s2532 <span class="operator">|</span> berry <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line"># 如果插入主键相同数据会报错</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t17 <span class="keyword">values</span> (<span class="string">&#x27;s2531&#x27;</span>,<span class="string">&#x27;tom&#x27;</span>);</span><br><span class="line">ERROR <span class="number">1062</span> (<span class="number">23000</span>): Duplicate entry <span class="string">&#x27;s2531&#x27;</span> <span class="keyword">for</span> key <span class="string">&#x27;PRIMARY&#x27;</span></span><br><span class="line"></span><br><span class="line"># 主键不能插入<span class="keyword">null</span>值</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t17 <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;tom&#x27;</span>);</span><br><span class="line">ERROR <span class="number">1048</span> (<span class="number">23000</span>): <span class="keyword">Column</span> <span class="string">&#x27;id&#x27;</span> cannot be <span class="keyword">null</span></span><br></pre></td></tr></table></figure>
+
+<p>方法二：创建表的时候添加主键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t18(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">10</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">primary</span> key(id)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> t18;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>方法三：更改表的时候添加主键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t20(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">10</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> t20 <span class="keyword">add</span> <span class="keyword">primary</span> key (id);   # 更改表添加主键</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.08</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> t20;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="number">0</span>       <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="number">2</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-12-2-创建组合键"><a href="#1-12-2-创建组合键" class="headerlink" title="1.12.2 创建组合键"></a>1.12.2 创建组合键</h4><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736467251.png"></p>
+<h4 id="1-12-3-查看主键"><a href="#1-12-3-查看主键" class="headerlink" title="1.12.3 查看主键"></a>1.12.3 查看主键</h4><p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736627655.png"></p>
+<h4 id="1-12-3-删除主键"><a href="#1-12-3-删除主键" class="headerlink" title="1.12.3 删除主键"></a>1.12.3 删除主键</h4><p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536736700169.png"></p>
+<h4 id="1-12-4-选择主键的原则"><a href="#1-12-4-选择主键的原则" class="headerlink" title="1.12.4 选择主键的原则"></a>1.12.4 选择主键的原则</h4><p>1、     最少性：尽量选择一个字段做主键</p>
+<p>2、     稳定性：尽量选择更新少的列做主键</p>
+<p>3、     尽量选择数字型的列做主键</p>
+<h4 id="1-12-5-主键思考题"><a href="#1-12-5-主键思考题" class="headerlink" title="1.12.5 主键思考题"></a>1.12.5 主键思考题</h4><p>1、在主键列输入的数值，允许为空吗?       不可以                 </p>
+<p>2、 一个表可以有多个主键吗?                     不可以                    </p>
+<p>3、 在一个学校数据库中，如果一个学校内允许重名的学员，但是一个班级内不允许学员重名，可以组合班级和姓名两个字段一起来作为主键吗？                  可以</p>
+<p>4、 标识列（自动增长列）允许为字符数据类型吗？     不可以       </p>
+<p>5、 表中没有合适的列作为主键怎么办？      添加自动增加列              </p>
+<p>6、  如果标识列A的初始值为1，增长量为1，则输入三行数据以后，再删除两行，下次再输入数据行的时候，标识值从多少开始？          从4开始</p>
+<h2 id="1-13-列属性——唯一键"><a href="#1-13-列属性——唯一键" class="headerlink" title="1.13    列属性——唯一键"></a>1.13    列属性——唯一键</h2><p>特点：</p>
+<p>1、不能重复，可以为空</p>
+<p>2、一个表可以有多个唯一键</p>
+<p>作用：</p>
+<p>1、     保证数据不能重复。保证数据完整性</p>
+<p>2、     加快数据访问</p>
+<h4 id="1-13-1-添加唯一键"><a href="#1-13-1-添加唯一键" class="headerlink" title="1.13.1 添加唯一键"></a>1.13.1 添加唯一键</h4><p>方法一：创建表的时候添加唯一键</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t22(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">unique</span>,    #通过<span class="keyword">unique</span>添加唯一键</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">unique</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t22 <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">&#x27;tom&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.05</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t22 <span class="keyword">values</span> (<span class="number">2</span>,<span class="string">&#x27;tom&#x27;</span>,<span class="string">&#x27;北京&#x27;</span>);    #  name重复了，报错</span><br><span class="line">ERROR <span class="number">1062</span> (<span class="number">23000</span>): Duplicate entry <span class="string">&#x27;tom&#x27;</span> <span class="keyword">for</span> key <span class="string">&#x27;name&#x27;</span></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> t22 <span class="keyword">values</span> (<span class="number">2</span>,<span class="string">&#x27;berry&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>);   # addr重复了 </span><br><span class="line">ERROR <span class="number">1062</span> (<span class="number">23000</span>): Duplicate entry <span class="string">&#x27;上海&#x27;</span> <span class="keyword">for</span> key <span class="string">&#x27;addr&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>还有一种方法</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t26(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">primary</span> key(id),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">unique</span> (name),     # 添加唯一键</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> <span class="keyword">unique</span> (addr)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>方法二：修改表的时候添加唯一键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t23(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> t23 <span class="keyword">add</span> <span class="keyword">unique</span> (name);    #  添加一个唯一键</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>一次添加多个唯一键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t24(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> t24 <span class="keyword">add</span> <span class="keyword">unique</span>(name),<span class="keyword">add</span> <span class="keyword">unique</span>(addr);  </span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.09</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>添加组合唯一键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t25(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>),</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.09</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> t25 <span class="keyword">add</span> <span class="keyword">unique</span>(name,addr);</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.01</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="1-13-2查看唯一键"><a href="#1-13-2查看唯一键" class="headerlink" title="1.13.2查看唯一键"></a>1.13.2查看唯一键</h4>  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> t26\G</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">       <span class="keyword">Table</span>: t26</span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">Table</span>: <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t26` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="string">&#x27;0&#x27;</span>,</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `addr` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  <span class="keyword">UNIQUE</span> KEY `name` (`name`),      # 唯一键</span><br><span class="line">  <span class="keyword">UNIQUE</span> KEY `addr` (`addr`)       # 唯一键</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8</span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> t25\G</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">       <span class="keyword">Table</span>: t25</span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">Table</span>: <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t25` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `addr` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`),</span><br><span class="line">  <span class="keyword">UNIQUE</span> KEY `name` (`name`,`addr`)    # 组合唯一键</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8</span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>添加唯一键，给唯一键取名</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> t27(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.03</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> t27 <span class="keyword">add</span> <span class="keyword">unique</span> UQ_name(name);</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> t27\G</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">       <span class="keyword">Table</span>: t27</span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">Table</span>: <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `t27` (</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">UNIQUE</span> KEY `UQ_name` (`name`)    # 唯一键的名字是UQ_name</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8</span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h4 id="1-13-3-删除唯一键"><a href="#1-13-3-删除唯一键" class="headerlink" title="1.13.3 删除唯一键"></a>1.13.3 删除唯一键</h4><p>通过唯一键的名字来删除唯一键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> index 唯一键名称</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739081697.png"></p>
+<p>问题：主键和唯一键的区别？</p>
+<p>1、主键不能重复，不能为空，唯一键不能重复，可以为空</p>
+<p>2、主键只有一个，唯一键可以有多个。</p>
+<h2 id="1-14列属性——备注（comment）"><a href="#1-14列属性——备注（comment）" class="headerlink" title="1.14列属性——备注（comment）"></a>1.14列属性——备注（comment）</h2><p>为了程序员之间的相互交流  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739540981.png"></p>
+<h2 id="1-15-SQL注释"><a href="#1-15-SQL注释" class="headerlink" title="1.15    SQL注释"></a>1.15    SQL注释</h2><p>单行注释：–或#</p>
+<p>多行注释：/*    */</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739661909.png"></p>
+<h2 id="1-16-数据完整性介绍"><a href="#1-16-数据完整性介绍" class="headerlink" title="1.16    数据完整性介绍"></a>1.16    数据完整性介绍</h2><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536739894901.png"> </p>
+<h4 id="1-16-1-保证实体完整性"><a href="#1-16-1-保证实体完整性" class="headerlink" title="1.16.1 保证实体完整性"></a>1.16.1 保证实体完整性</h4><p>1、     主键约束</p>
+<p>2、     唯一约束</p>
+<p>3、     自动增长列</p>
+<h4 id="1-16-2-保证域完整性"><a href="#1-16-2-保证域完整性" class="headerlink" title="1.16.2 保证域完整性"></a>1.16.2 保证域完整性</h4><p>1、     数据类型约束</p>
+<p>2、     非空约束</p>
+<p>3、     默认值约束</p>
+<h4 id="1-16-3-保证引用完整性"><a href="#1-16-3-保证引用完整性" class="headerlink" title="1.16.3 保证引用完整性"></a>1.16.3 保证引用完整性</h4><p>1、外键约束：从表中的公共字段是主表的外键</p>
+<h2 id="1-17-引用完整性"><a href="#1-17-引用完整性" class="headerlink" title="1.17  引用完整性"></a>1.17  引用完整性</h2><h4 id="1-17-1-主表和从表"><a href="#1-17-1-主表和从表" class="headerlink" title="1.17.1 主表和从表"></a>1.17.1 主表和从表</h4><p>两个表建立关系（两个表只要有公共字段就有关系），一个表称为主表，一个表称为从表。</p>
+<p>外键约束可以实现：</p>
+<p>1、     主表中没有的从表中不允许插入</p>
+<p>2、     从表中有的主表中不允许删除</p>
+<p>3、     不能更改主表中的值而导致从表中的记录孤立存在。</p>
+<p>4、     先删除从表，再删除主表</p>
+<h4 id="1-17-2-外键（foreign-key）"><a href="#1-17-2-外键（foreign-key）" class="headerlink" title="1.17.2    外键（foreign key）"></a>1.17.2    外键（foreign key）</h4><p>1、     外键：从表中的公共字段，公共字段的名字可以不一样，但是数据类型必须一样。</p>
+<p>2、     外键约束用来保证引用完整性</p>
+<h4 id="1-17-3-添加外键"><a href="#1-17-3-添加外键" class="headerlink" title="1.17.3 添加外键"></a>1.17.3 添加外键</h4><p>方法一：创建表的时候添加外键</p>
+  <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> stuinfo(</span><br><span class="line">	stuno <span class="type">char</span>(<span class="number">4</span>) <span class="keyword">primary</span> key,</span><br><span class="line">	name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> stumarks(</span><br><span class="line">	stuid <span class="type">char</span>(<span class="number">4</span>) <span class="keyword">primary</span> key,</span><br><span class="line">	score tinyint unsigned,</span><br><span class="line">	<span class="keyword">foreign</span> key (stuid) <span class="keyword">references</span> stuinfo(stuno)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<p> 方法二：修改表的时候添加外键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stuinfo(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span>  stuno <span class="type">char</span>(<span class="number">4</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span>  name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stumarks(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span>  stuid <span class="type">char</span>(<span class="number">4</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span>  score tinyint unsigned</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line"></span><br><span class="line">语法：  <span class="keyword">alter</span> <span class="keyword">table</span> 从表 <span class="keyword">add</span> <span class="keyword">foreign</span> key (从表的公共字段) <span class="keyword">references</span> 主表(公共字段)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> stumarks <span class="keyword">add</span> <span class="keyword">foreign</span> key (stuid) <span class="keyword">references</span> stuinfo(stuno);</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>脚下留心：要创建外键必须是innodb引擎，myisam不支持外键约束</p>
+<h4 id="1-17-4-查看外键"><a href="#1-17-4-查看外键" class="headerlink" title="1.17.4 查看外键"></a>1.17.4 查看外键</h4><p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536742477588.png"></p>
+<h4 id="1-17-5-删除外键"><a href="#1-17-5-删除外键" class="headerlink" title="1.17.5 删除外键"></a>1.17.5 删除外键</h4><p>通过外键的名字删除外键</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">alter</span> <span class="keyword">table</span> 表名 <span class="keyword">drop</span> <span class="keyword">foreign</span> key 外键名</span><br></pre></td></tr></table></figure>
+
+<p>例题</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> stumarks <span class="keyword">drop</span> <span class="keyword">foreign</span> key stumarks_ibfk_1;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>。</p>
+<h2 id="1-18-外键操作"><a href="#1-18-外键操作" class="headerlink" title="1.18 外键操作"></a>1.18 外键操作</h2><p>1、     严格操作（前面讲的是严格操作）</p>
+<p>2、     置空操作（set null）：如果主表记录删除或更新，从表置空</p>
+<p>3、     级联操作（cascade）：如果主表记录删除或更新，从表级联</p>
+<p>一般来说：主表删除的时候，从表置空操作，主表更新的时候，从表级联操作。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">foreign</span> key(外键) <span class="keyword">references</span> 主表(关键字段)[主表删除是的动作][主表更新时候的动作]</span><br></pre></td></tr></table></figure>
+
+<p>例题</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stuinfo(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> stuno <span class="type">char</span>(<span class="number">4</span>) <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stumarks(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> stuid <span class="type">int</span> auto_increment <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> stuno <span class="type">char</span>(<span class="number">4</span>) ,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> score tinyint unsigned,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span>  <span class="keyword">foreign</span> key (stuno) <span class="keyword">references</span> stuinfo(stuno) <span class="keyword">on</span> <span class="keyword">delete</span> <span class="keyword">set</span> <span class="keyword">null</span> <span class="keyword">on</span> update cascade</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stuinfo <span class="keyword">values</span> (<span class="string">&#x27;s101&#x27;</span>,<span class="string">&#x27;tom&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stumarks <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;s101&#x27;</span>,<span class="number">88</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stuinfo;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> stuno <span class="operator">|</span> name <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="operator">|</span> s101  <span class="operator">|</span> tom  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> update stuinfo <span class="keyword">set</span> stuno<span class="operator">=</span><span class="string">&#x27;s102&#x27;</span> <span class="keyword">where</span> stuno<span class="operator">=</span><span class="string">&#x27;s101&#x27;</span>;   # 更新时级联</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"><span class="keyword">Rows</span> matched: <span class="number">1</span>  Changed: <span class="number">1</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stumarks;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="operator">|</span> stuid <span class="operator">|</span> stuno <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">1</span> <span class="operator">|</span> s102  <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> stuinfo <span class="keyword">where</span> stuno<span class="operator">=</span><span class="string">&#x27;s102&#x27;</span>;    # 删除时置空</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.02</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stumarks;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="operator">|</span> stuid <span class="operator">|</span> stuno <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="operator">|</span>     <span class="number">1</span> <span class="operator">|</span> <span class="keyword">NULL</span>  <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="1-19客户端介绍"><a href="#1-19客户端介绍" class="headerlink" title="1.19客户端介绍"></a>1.19客户端介绍</h2><p>第一：命令行</p>
+<p>第二：MySQL-Front和Navicat</p>
+<h4 id="MySQL-Front"><a href="#MySQL-Front" class="headerlink" title="MySQL-Front"></a>MySQL-Front</h4><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744583450.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744649329.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744676337.png"></p>
+<p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/2images/1536744701721.png"></p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7" title="MySQL-列类型和数据完整性">https://www.xuebaonline.com/MySQL-列类型和数据完整性</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/MySQL%20%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C" rel="prev" title="MySQL 基本操作">
+      <i class="fa fa-chevron-left"></i> MySQL 基本操作
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MySQL-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1%E5%92%8C%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5" rel="next" title="MySQL-数据库设计和查询语句">
+      MySQL-数据库设计和查询语句 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-%E7%9B%AE%E6%A0%87"><span class="nav-number">1.</span> <span class="nav-text">1.1 目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94%E5%80%BC%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">1.2 数据类型——值类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-1-%E6%95%B4%E5%9E%8B"><span class="nav-number">2.0.1.</span> <span class="nav-text">1.2.1   整型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-2-%E6%B5%AE%E7%82%B9%E5%9E%8B%EF%BC%88%E4%BF%9D%E5%AD%98%E8%BF%91%E4%BC%BC%E5%80%BC%E5%B0%8F%E6%95%B0%EF%BC%89"><span class="nav-number">2.0.2.</span> <span class="nav-text">1.2.2   浮点型（保存近似值小数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-3-%E5%AE%9A%E7%82%B9%E6%95%B0"><span class="nav-number">2.0.3.</span> <span class="nav-text">1.2.3   定点数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94%E5%AD%97%E7%AC%A6%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">1.3 数据类型——字符型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94%E6%9E%9A%E4%B8%BE%EF%BC%88enum%EF%BC%89"><span class="nav-number">4.</span> <span class="nav-text">1.4 数据类型——枚举（enum）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94%E9%9B%86%E5%90%88%EF%BC%88set%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">1.5 数据类型——集合（set）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94%E6%97%A5%E6%9C%9F%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.</span> <span class="nav-text">1.6 数据类型——日期类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E2%80%94%E2%80%94boolean"><span class="nav-number">7.</span> <span class="nav-text">1.7 数据类型——boolean</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-%E5%85%B3%E4%BA%8E%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">8.</span> <span class="nav-text">1.8 关于数据类型的思考题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E6%98%AF%E5%90%A6%E4%B8%BA%E7%A9%BA-null-not-null"><span class="nav-number">9.</span> <span class="nav-text">1.9 列属性——是否为空(null | not null)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-10-%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E9%BB%98%E8%AE%A4%E5%80%BC%EF%BC%88default%EF%BC%89"><span class="nav-number">10.</span> <span class="nav-text">1.10    列属性——默认值（default）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E8%87%AA%E5%8A%A8%E5%A2%9E%E9%95%BF%EF%BC%88auto-increment%EF%BC%89"><span class="nav-number">11.</span> <span class="nav-text">1.11    列属性——自动增长（auto_increment）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E4%B8%BB%E9%94%AE%EF%BC%88primary-key%EF%BC%89"><span class="nav-number">12.</span> <span class="nav-text">1.12    列属性——主键（primary key）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-1-%E6%B7%BB%E5%8A%A0%E4%B8%BB%E9%94%AE"><span class="nav-number">12.0.1.</span> <span class="nav-text">1.12.1 添加主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-2-%E5%88%9B%E5%BB%BA%E7%BB%84%E5%90%88%E9%94%AE"><span class="nav-number">12.0.2.</span> <span class="nav-text">1.12.2 创建组合键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-3-%E6%9F%A5%E7%9C%8B%E4%B8%BB%E9%94%AE"><span class="nav-number">12.0.3.</span> <span class="nav-text">1.12.3 查看主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-3-%E5%88%A0%E9%99%A4%E4%B8%BB%E9%94%AE"><span class="nav-number">12.0.4.</span> <span class="nav-text">1.12.3 删除主键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-4-%E9%80%89%E6%8B%A9%E4%B8%BB%E9%94%AE%E7%9A%84%E5%8E%9F%E5%88%99"><span class="nav-number">12.0.5.</span> <span class="nav-text">1.12.4 选择主键的原则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-12-5-%E4%B8%BB%E9%94%AE%E6%80%9D%E8%80%83%E9%A2%98"><span class="nav-number">12.0.6.</span> <span class="nav-text">1.12.5 主键思考题</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-13-%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E5%94%AF%E4%B8%80%E9%94%AE"><span class="nav-number">13.</span> <span class="nav-text">1.13    列属性——唯一键</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-13-1-%E6%B7%BB%E5%8A%A0%E5%94%AF%E4%B8%80%E9%94%AE"><span class="nav-number">13.0.1.</span> <span class="nav-text">1.13.1 添加唯一键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-13-2%E6%9F%A5%E7%9C%8B%E5%94%AF%E4%B8%80%E9%94%AE"><span class="nav-number">13.0.2.</span> <span class="nav-text">1.13.2查看唯一键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-13-3-%E5%88%A0%E9%99%A4%E5%94%AF%E4%B8%80%E9%94%AE"><span class="nav-number">13.0.3.</span> <span class="nav-text">1.13.3 删除唯一键</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-14%E5%88%97%E5%B1%9E%E6%80%A7%E2%80%94%E2%80%94%E5%A4%87%E6%B3%A8%EF%BC%88comment%EF%BC%89"><span class="nav-number">14.</span> <span class="nav-text">1.14列属性——备注（comment）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-15-SQL%E6%B3%A8%E9%87%8A"><span class="nav-number">15.</span> <span class="nav-text">1.15    SQL注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-16-%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="nav-number">16.</span> <span class="nav-text">1.16    数据完整性介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-16-1-%E4%BF%9D%E8%AF%81%E5%AE%9E%E4%BD%93%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">16.0.1.</span> <span class="nav-text">1.16.1 保证实体完整性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-16-2-%E4%BF%9D%E8%AF%81%E5%9F%9F%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">16.0.2.</span> <span class="nav-text">1.16.2 保证域完整性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-16-3-%E4%BF%9D%E8%AF%81%E5%BC%95%E7%94%A8%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">16.0.3.</span> <span class="nav-text">1.16.3 保证引用完整性</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-17-%E5%BC%95%E7%94%A8%E5%AE%8C%E6%95%B4%E6%80%A7"><span class="nav-number">17.</span> <span class="nav-text">1.17  引用完整性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-17-1-%E4%B8%BB%E8%A1%A8%E5%92%8C%E4%BB%8E%E8%A1%A8"><span class="nav-number">17.0.1.</span> <span class="nav-text">1.17.1 主表和从表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-17-2-%E5%A4%96%E9%94%AE%EF%BC%88foreign-key%EF%BC%89"><span class="nav-number">17.0.2.</span> <span class="nav-text">1.17.2    外键（foreign key）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-17-3-%E6%B7%BB%E5%8A%A0%E5%A4%96%E9%94%AE"><span class="nav-number">17.0.3.</span> <span class="nav-text">1.17.3 添加外键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-17-4-%E6%9F%A5%E7%9C%8B%E5%A4%96%E9%94%AE"><span class="nav-number">17.0.4.</span> <span class="nav-text">1.17.4 查看外键</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-17-5-%E5%88%A0%E9%99%A4%E5%A4%96%E9%94%AE"><span class="nav-number">17.0.5.</span> <span class="nav-text">1.17.5 删除外键</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-18-%E5%A4%96%E9%94%AE%E6%93%8D%E4%BD%9C"><span class="nav-number">18.</span> <span class="nav-text">1.18 外键操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-19%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%BB%8B%E7%BB%8D"><span class="nav-number">19.</span> <span class="nav-text">1.19客户端介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#MySQL-Front"><span class="nav-number">19.0.1.</span> <span class="nav-text">MySQL-Front</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

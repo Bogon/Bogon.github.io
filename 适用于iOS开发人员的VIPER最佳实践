@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="适用于iOS开发人员的VIPER最佳实践">
+<meta property="og:type" content="article">
+<meta property="og:title" content="适用于iOS开发人员的VIPER最佳实践">
+<meta property="og:url" content="https://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="适用于iOS开发人员的VIPER最佳实践">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-28T12:12:33.000Z">
+<meta property="article:modified_time" content="2020-05-01T02:46:04.021Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="VIPER">
+<meta property="article:tag" content="架构设计">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>适用于iOS开发人员的VIPER最佳实践 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          适用于iOS开发人员的VIPER最佳实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-28 20:12:33" itemprop="dateCreated datePublished" datetime="2020-04-28T20:12:33+08:00">2020-04-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VIPER/" itemprop="url" rel="index"><span itemprop="name">VIPER</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">适用于iOS开发人员的VIPER最佳实践</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我将向你展示有关如何构建完全基于 <code>Swift</code> 的基于 <code>VIPER</code> 的 <code>iOS</code> 应用程序的完整指南。</p>
+<blockquote>
+<p>***<code>提示:</code>***<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这篇文章有点过时了，请期待很快会有新版本…</p>
+</blockquote>
+</br>
+
+<h1 id="VIPER入门"><a href="#VIPER入门" class="headerlink" title="VIPER入门"></a><strong>VIPER入门</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，你应该阅读 <a href="http://www.xuebaonline.com/iOS%20VIPER%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/"><em><strong><code>关于VIPER架构本身的文章（理论上更深入） </code></strong></em></a>。 这是一个相当不错的文章，解释了所有 <code>VIPER组件</code> 和 <code>内存管理</code> 。  ⭐️</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，那篇文章的问题在于，我还没有向你展示真正的技术细节。 用于实现 <code>VIPER</code> 的 <code>Swift</code> 代码。 在使用该体系结构进行了整整一年的项目之后，现在我终于可以与你分享我所有的最佳实践。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们开始创建一个全新的 <code>Xcode</code> 项目，使用单视图应用程序模板，将该项目命名（  <code>VIPER最佳实践</code> ），使用 <code>Swift</code> ，现在你准备好进行下一步，以制作出色的 <code>“企业级” iOS 应用</code> 。</p>
+<span id="more"></span>
+
+</br>
+
+<h1 id="生成VIPER模块"><a href="#生成VIPER模块" class="headerlink" title="生成VIPER模块"></a><strong>生成VIPER模块</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;永远不要手动创建模块，始终使用代码生成器，因为这是一项重复性的任务，这很无聊，而且你应该专注于比制作样板代码更重要的事情。 你可以使用轻量级模块生成器：</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/binarybirds/swift-template"><em><strong><code>VIPERA</code></strong></em></a></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只需从 <code>github</code> 下载或克隆存储库即可。你可以通过运行<code> swift run install --with-templates</code> 安装二进制工具。这会将 <code>vipera</code> 应用程序安装在 <code>/usr/local/bin/</code> 下，并将基本模板安装在 <code>〜/.vipera</code> 目录下。你也可以使用自己的模板，但是现在我将使用默认模板。 🔨</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我通常从名为 <code>Main</code> 的模块开始，这是应用程序的根视图。你可以通过在项目目录中调用 <code>vipera Main</code> 来生成它，因此生成器可以为模板文件中的标题注释使用正确的项目名称。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过应用我的 <code>Xcode</code> 约定来稍微整理项目结构，这意味着资源将转到 <code>Assets文件夹</code> ，所有 <code>Swift</code> 文件都将移至 <code>Sources</code> 目录。如今，我还更改了 <code>AppDelegate.swift </code>文件，并为 <code>UIApplicationDelegate</code> 协议进行了单独的扩展。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Sources</code> 目录下创建一个 <code>Modules组</code> （也有一个物理文件夹），并将新生成的 <code>Main模块</code> 移到该组下。现在，通过从 <code>Assets文件夹</code> 中为当前目标选择 <code>Info.plist</code> 文件来解决项目问题。还要删除 <code>Main Interface</code> ，然后你可以安全地删除 <code>Main.storyboard</code> 和 <code>ViewController.swift</code> 文件，因为我们根本不需要它们。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>AppDelegate.swift</code> 文件中，你必须将 <code>Main模块</code> 的视图控制器设置为根视图控制器，因此它看起来应该像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"></span><br><span class="line"><span class="keyword">@UIApplicationMain</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow</span>?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">AppDelegate</span>: <span class="title">UIApplicationDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span>(<span class="keyword">_</span> <span class="params">application</span>: <span class="type">UIApplication</span>,</span></span><br><span class="line"><span class="function">                     <span class="params">didFinishLaunchingWithOptions</span> <span class="params">launchOptions</span>: [<span class="type">UIApplication</span>.<span class="params">LaunchOptionsKey</span>: <span class="keyword">Any</span>]<span class="operator">?</span>)</span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.window <span class="operator">=</span> <span class="type">UIWindow</span>(frame: <span class="type">UIScreen</span>.main.bounds)</span><br><span class="line">        <span class="keyword">self</span>.window<span class="operator">?</span>.rootViewController <span class="operator">=</span> <span class="type">MainModule</span>().buildDefault()</span><br><span class="line">        <span class="keyword">self</span>.window<span class="operator">?</span>.makeKeyAndVisible()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>恭喜，你已经创建了第一个 <code>VIPER模块</code> ！ 🎉</p>
+</br>
+
+<h1 id="UITabBarController-amp-VIPER"><a href="#UITabBarController-amp-VIPER" class="headerlink" title="UITabBarController &amp; VIPER"></a><strong>UITabBarController &amp; VIPER</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于在 <code>VIPER模块</code> 中使用 <code>UITabBarController</code> ，我有一个非常简单的解决方案。首先，让我们生成一些新模块，这些模块将成为 <code>Tabs</code> 。我将使用 <code>JSONPlaceholder服务</code> ，所以让我们为每个资源设想一个单独的选项卡：帖子，相册，照片，待办事项（具有相同的模块名称）。全部生成它们，然后将其移动到 <code>modules文件夹</code> 中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，让我们再生成一个称为 <code>Home的模块</code> 。这将实现我们的 <code>UITabBarController</code> 。如果你愿意，可以将 <code>Main模块</code> 用于此目的，但我想保留该动画的目的，以便在加载屏幕和 <code>Home模块</code> 之间进行巧妙的转换（这完全取决于你的需求）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，我们要实现的主要逻辑是：主视图将通知 <code>presenter</code> 有关 <code>viewDidAppear</code> 事件的信息， <code>presenter</code> 将要求 <code>router</code> 显示 <code>Home模块</code> 。  <code>Home模块</code>  的视图将是 <code>UITabBarController</code> 的子类，它还将通知其 <code>presenter</code> 有关 <code>viewDidLoad</code> 的信息，并且 <code>presenter</code> 将使用其 <code>router</code> 请求适当的 <code>tabs</code> 。</p>
+<p>这是没有接口的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MainDefaultView</span>: <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> presenter: <span class="type">MainPresenter</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidAppear</span>(<span class="keyword">_</span> <span class="params">animated</span>: <span class="type">Bool</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidAppear(animated)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.presenter<span class="operator">?</span>.viewDidAppear()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MainDefaultPresenter</span>: <span class="title">MainPresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">viewDidAppear</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.router<span class="operator">?</span>.showHome()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">MainDefaultRouter</span>: <span class="title">MainRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showHome</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> viewController <span class="operator">=</span> <span class="type">HomeModule</span>().buildDefault()</span><br><span class="line">        <span class="keyword">self</span>.viewController<span class="operator">?</span>.present(viewController, animated: <span class="literal">true</span>, completion: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">HomeDefaultView</span>: <span class="title">HomeView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">display</span>(<span class="keyword">_</span> <span class="params">viewControllers</span>: [<span class="type">UIViewController</span>])</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.viewControllers <span class="operator">=</span> viewControllers</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - Home module</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">HomeDefaultPresenter</span>: <span class="title">HomePresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setupViewControllers</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> controllers <span class="operator">=</span> <span class="keyword">self</span>.router<span class="operator">?</span>.getViewControllers() <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">self</span>.view<span class="operator">?</span>.display(controllers)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">HomeDefaultRouter</span>: <span class="title">HomeRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getViewControllers</span>()</span> -&gt; [<span class="type">UIViewController</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> [</span><br><span class="line">            <span class="type">PostsModule</span>().buildDefault(),</span><br><span class="line">            <span class="type">AlbumsModule</span>().buildDefault(),</span><br><span class="line">            <span class="type">PhotosModule</span>().buildDefault(),</span><br><span class="line">            <span class="type">TodosModule</span>().buildDefault(),</span><br><span class="line">        ].map &#123; <span class="type">UINavigationController</span>(rootViewController: <span class="variable">$0</span>) &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HomeModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buildDefault</span>()</span> -&gt; <span class="type">UIViewController</span> &#123;</span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">        presenter.setupViewControllers()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;“主页”模块构建器函数内部还有另外一行可触发 <code>presenter</code> 设置正确的视图控制器。 那只是因为在初始化过程完成之前调用了 <code>UITabBarController</code>   <code>viewDidLoad</code> 方法。 这种行为是完全没有加载的，但是我认为这是为了保持对视图引用。 😊</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;无论如何，现在你在项目中有一个适当的选项卡栏，已集成为 <code>VIPER模块</code> 。 现在是时候从服务器中获取一些数据了，这是另一个重要的教训：不是所有的东西都是 <code>VIPER模块</code> 。</p>
+</br>
+
+<h1 id="Services-amp-Entities"><a href="#Services-amp-Entities" class="headerlink" title="Services &amp; Entities"></a><strong>Services &amp; Entities</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会注意到，我的模块中没有实体。 我通常将 <code>API</code> ， <code>CoreData</code> 和 <code>许多其他数据</code> 提供程序包装为服务。 这样，所有相关实体都可以被抽象化，因此可以轻松地替换服务（例如，使用模拟），并且我所有的 <code>interactors</code> 都可以通过协议定义使用该服务，而无需了解底层实现。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一件事是，如果我不得不处理异步代码，我总是使用 <a target="_blank" rel="noopener" href="https://github.com/corekit/promises"><em><strong><code>promise</code></strong></em></a> 库。 其背后的原因很简单：与使用回调和可选的结果元素相比，它更优雅。 你也应该学习 <code>promise</code> 。 因此，这是我围绕 <code>JSONPlaceholder API</code> 实现服务的一部分：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Api</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">posts</span>()</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Post</span>]&gt;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">comments</span>(<span class="params">for</span> <span class="params">post</span>: <span class="type">Post</span>)</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Comment</span>]&gt;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">albums</span>()</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Album</span>]&gt;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">photos</span>(<span class="params">for</span> <span class="params">album</span>: <span class="type">Album</span>)</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Photo</span>]&gt;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">todos</span>()</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Todo</span>]&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - entities</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Post</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> id: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> body: <span class="type">String</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - API implementation</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">JSONPlaceholderService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> baseUrl <span class="operator">=</span> <span class="type">URL</span>(string: <span class="string">&quot;https://jsonplaceholder.typicode.com/&quot;</span>)<span class="operator">!</span></span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">enum</span> <span class="title">Error</span>: <span class="title">LocalizedError</span> </span>&#123;</span><br><span class="line">        <span class="keyword">case</span> invalidStatusCode</span><br><span class="line">        <span class="keyword">case</span> emptyData</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">func</span> <span class="title">request</span>&lt;<span class="type">T</span>&gt;(<span class="params">path</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Promise</span>&lt;<span class="type">T</span>&gt; <span class="keyword">where</span> <span class="type">T</span>: <span class="type">Decodable</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> promise <span class="operator">=</span> <span class="type">Promise</span>&lt;<span class="type">T</span>&gt;()</span><br><span class="line">        <span class="keyword">let</span> url <span class="operator">=</span> baseUrl.appendingPathComponent(path)</span><br><span class="line">        <span class="built_in">print</span>(url)</span><br><span class="line">        <span class="type">URLSession</span>.shared.dataTask(with: url) &#123; data, response, error <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> <span class="keyword">let</span> error <span class="operator">=</span> error &#123;</span><br><span class="line">                promise.reject(error)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> httpResponse <span class="operator">=</span> response <span class="keyword">as?</span> <span class="type">HTTPURLResponse</span>, httpResponse.statusCode <span class="operator">==</span> <span class="number">200</span> <span class="keyword">else</span> &#123;</span><br><span class="line">                promise.reject(<span class="type">Error</span>.invalidStatusCode)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> data <span class="operator">=</span> data <span class="keyword">else</span> &#123;</span><br><span class="line">                promise.reject(<span class="type">Error</span>.emptyData)</span><br><span class="line">                <span class="keyword">return</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">let</span> model <span class="operator">=</span> <span class="keyword">try</span> <span class="type">JSONDecoder</span>().decode(<span class="type">T</span>.<span class="keyword">self</span>, from: data)</span><br><span class="line">                promise.fulfill(model)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">catch</span> &#123;</span><br><span class="line">                promise.reject(error)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;.resume()</span><br><span class="line">        <span class="keyword">return</span> promise</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">JSONPlaceholderService</span>: <span class="title">Api</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">posts</span>()</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Post</span>]&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.request(path: <span class="string">&quot;posts&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，我在这里有一个模拟服务实现，因此我可以轻松地测试所需的一切。 如何在这些服务之间切换？ 好吧，我有一个共享的（单人-不要讨厌我，这是完全可以的）应用程序类，我主要将其用于样式设计，但我也将与依赖项注入 <code>（DI）</code> 相关的代码放在了那里。 这样，我可以为 <code>VIPER模块</code> 传递适当的服务对象。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">App</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> shared <span class="operator">=</span> <span class="type">App</span>()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">init</span>()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> apiService: <span class="type">Api</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">JSONPlaceholderService</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - module</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buildDefault</span>()</span> -&gt; <span class="type">UIViewController</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> view <span class="operator">=</span> <span class="type">PostsDefaultView</span>()</span><br><span class="line">        <span class="keyword">let</span> interactor <span class="operator">=</span> <span class="type">PostsDefaultInteractor</span>(apiService: <span class="type">App</span>.shared.apiService)</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - interactor</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsDefaultInteractor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> presenter: <span class="type">PostsPresenter</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> apiService: <span class="type">Api</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">apiService</span>: <span class="type">Api</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.apiService <span class="operator">=</span> apiService</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostsDefaultInteractor</span>: <span class="title">PostsInteractor</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">posts</span>()</span> -&gt; <span class="type">Promise</span>&lt;[<span class="type">Post</span>]&gt; &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>.apiService.posts()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用其他100种方法来执行此操作，但是我目前更喜欢这种方法。 通过这种方式， <code>interactors</code> 可以直接使用一些额外的细节来调用服务，例如过滤器，订单，排序等。基本上，该服务只是端点周围的高级概念包装，并且 <code>interactors</code> 为该接口创建经过微调（更好）的 <code>API</code> 给 <code>presenter</code> 。</p>
+</br>
+
+<h1 id="promises"><a href="#promises" class="headerlink" title="promises"></a><strong>promises</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实施业务逻辑是 <code>presenter</code> 的任务。 我总是使用 <code>Promise</code> ，因此基本的 <code>Presenter</code> 实现只能异步加载一些内容并显示结果，否则错误（加上加载指示符）只有几行。 我一直在尝试通过在视图上使用相同的协议命名约定来实现三个基本的 <code>UI堆栈元素</code> （加载，数据，错误）。 😉</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在视图方面，我使用的是很好的旧的集合视图逻辑，这大大减少了我必须编写的代码量。 你可以采用传统方式，毕竟为表或集合视图实现一些数据源和委托方法并不是很多代码。 这是我的视图示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostsDefaultPresenter</span>: <span class="title">PostsPresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.view<span class="operator">?</span>.displayLoading()</span><br><span class="line">        <span class="keyword">self</span>.interactor<span class="operator">?</span>.posts()</span><br><span class="line">        .onSuccess(queue: .main) &#123; posts  <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.view<span class="operator">?</span>.display(posts)</span><br><span class="line">        &#125;</span><br><span class="line">        .onFailure(queue: .main) &#123; error <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.view<span class="operator">?</span>.display(error)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - view</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsDefaultView</span>: <span class="title">CollectionViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> presenter: <span class="type">PostsPresenter</span>?</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(nibName: <span class="literal">nil</span>, bundle: <span class="literal">nil</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.title <span class="operator">=</span> <span class="string">&quot;Posts&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">required</span> <span class="function"><span class="keyword">init?</span>(<span class="params">coder</span> <span class="params">aDecoder</span>: <span class="type">NSCoder</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">fatalError</span>(<span class="string">&quot;init(coder:) has not been implemented&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.viewDidLoad()</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.presenter<span class="operator">?</span>.viewDidLoad()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostsDefaultView</span>: <span class="title">PostsView</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">displayLoading</span>()</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;loading...&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">display</span>(<span class="keyword">_</span> <span class="params">posts</span>: [<span class="type">Post</span>])</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> grid <span class="operator">=</span> <span class="type">Grid</span>(columns: <span class="number">1</span>, margin: <span class="type">UIEdgeInsets</span>(all: <span class="number">8</span>))</span><br><span class="line"></span><br><span class="line">        <span class="keyword">self</span>.source <span class="operator">=</span> <span class="type">CollectionViewSource</span>(grid: grid, sections: [</span><br><span class="line">            <span class="type">CollectionViewSection</span>(items: posts.map &#123; <span class="type">PostViewModel</span>(<span class="variable">$0</span>) &#125;)</span><br><span class="line">        ])</span><br><span class="line">        <span class="keyword">self</span>.collectionView.reloadData()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">display</span>(<span class="keyword">_</span> <span class="params">error</span>: <span class="type">Error</span>)</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(error.localizedDescription)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>cell</code> 和 <code>ViewModel</code> 在 <code>VIPER模块</code> 之外，我倾向于将 <code>App文件夹</code> 专用于自定义应用程序特定的视图， <code>extensions</code> ， <code>view models</code> 等。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostCell</span>: <span class="title">CollectionViewCell</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> textLabel: <span class="type">UILabel</span>!</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostViewModel</span>: <span class="title">CollectionViewViewModel</span>&lt;<span class="title">PostCell</span>, <span class="title">Post</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">config</span>(<span class="params">cell</span>: <span class="type">PostCell</span>, <span class="params">data</span>: <span class="type">Post</span>, <span class="params">indexPath</span>: <span class="type">IndexPath</span>, <span class="params">grid</span>: <span class="type">Grid</span>)</span> &#123;</span><br><span class="line">        cell.textLabel.text <span class="operator">=</span> data.title</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">size</span>(<span class="params">data</span>: <span class="type">Post</span>, <span class="params">indexPath</span>: <span class="type">IndexPath</span>, <span class="params">grid</span>: <span class="type">Grid</span>, <span class="params">view</span>: <span class="type">UIView</span>)</span> -&gt; <span class="type">CGSize</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> width <span class="operator">=</span> grid.width(for: view, items: grid.columns)</span><br><span class="line">        <span class="keyword">return</span> <span class="type">CGSize</span>(width: width, height: <span class="number">64</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没什么特别的，如果你想了解更多有关此集合视图架构的信息，可以看看这篇文章 <a href="http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"><em><strong><code>掌握集合视图的教程</code></strong></em></a> 。</p>
+<br>
+
+<h1 id="模块通讯"><a href="#模块通讯" class="headerlink" title="模块通讯"></a><strong>模块通讯</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一个重要的教训是学习如何在两个 <code>VIPER模块</code> 之间进行通信。 通常，我使用简单的变量-如果必须将信息发送回原始模块，则使用 <code>delegates</code> -在构建方法中传递。 我还将向你展示一个非常简单的示例。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostsDefaultRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> presenter: <span class="type">PostsPresenter</span>?</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> viewController: <span class="type">UIViewController</span>?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostsDefaultRouter</span>: <span class="title">PostsRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showComments</span>(<span class="params">for</span> <span class="params">post</span>: <span class="type">Post</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> viewController <span class="operator">=</span> <span class="type">PostDetailsModule</span>().buildDefault(with: post, delegate: <span class="keyword">self</span>)</span><br><span class="line">        <span class="keyword">self</span>.viewController<span class="operator">?</span>.show(viewController, sender: <span class="literal">nil</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostsDefaultRouter</span>: <span class="title">PostDetailsModuleDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toggleBookmark</span>(<span class="params">for</span> <span class="params">post</span>: <span class="type">Post</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.presenter<span class="operator">?</span>.toggleBookmark(for: post)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - details</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">PostDetailsModuleDelegate</span>: <span class="title">class</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toggleBookmark</span>(<span class="params">for</span> <span class="params">post</span>: <span class="type">Post</span>)</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostDetailsModule</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">buildDefault</span>(<span class="params">with</span> <span class="params">post</span>: <span class="type">Post</span>, <span class="params">delegate</span>: <span class="type">PostDetailsModuleDelegate</span>? <span class="operator">=</span> <span class="literal">nil</span>)</span> -&gt; <span class="type">UIViewController</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> view <span class="operator">=</span> <span class="type">PostDetailsDefaultView</span>()</span><br><span class="line">        <span class="keyword">let</span> interactor <span class="operator">=</span> <span class="type">PostDetailsDefaultInteractor</span>(apiService: <span class="type">App</span>.shared.apiService,</span><br><span class="line">                                                      bookmarkService: <span class="type">App</span>.shared.bookmarkService)</span><br><span class="line">        <span class="keyword">let</span> presenter <span class="operator">=</span> <span class="type">PostDetailsDefaultPresenter</span>(post: post)</span><br><span class="line"></span><br><span class="line">        <span class="comment">/* ... */</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> view</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostDetailsDefaultRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> presenter: <span class="type">PostDetailsPresenter</span>?</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> viewController: <span class="type">UIViewController</span>?</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">PostDetailsModuleDelegate</span>?</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostDetailsDefaultRouter</span>: <span class="title">PostDetailsRouter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toggleBookmark</span>(<span class="params">for</span> <span class="params">post</span>: <span class="type">Post</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.delegate<span class="operator">?</span>.toggleBookmark(for: post)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">PostDetailsDefaultPresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> router: <span class="type">PostDetailsRouter</span>?</span><br><span class="line">    <span class="keyword">var</span> interactor: <span class="type">PostDetailsInteractor</span>?</span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> view: <span class="type">PostDetailsView</span>?</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> post: <span class="type">Post</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">post</span>: <span class="type">Post</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.post <span class="operator">=</span> post</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">PostDetailsDefaultPresenter</span>: <span class="title">PostDetailsPresenter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">reload</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.view<span class="operator">?</span>.setup(with: <span class="keyword">self</span>.interactor<span class="operator">!</span>.bookmark(for: <span class="keyword">self</span>.post))</span><br><span class="line"></span><br><span class="line">        <span class="comment">//display loading...</span></span><br><span class="line">        <span class="keyword">self</span>.interactor<span class="operator">?</span>.comments(for: <span class="keyword">self</span>.post)</span><br><span class="line">        .onSuccess(queue: .main) &#123; comments <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">self</span>.view<span class="operator">?</span>.display(comments)</span><br><span class="line">        &#125;</span><br><span class="line">        .onFailure(queue: .main) &#123; error <span class="keyword">in</span></span><br><span class="line">            <span class="comment">//display error...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">toggleBookmark</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.router<span class="operator">?</span>.toggleBookmark(for: <span class="keyword">self</span>.post)</span><br><span class="line">        <span class="keyword">self</span>.view<span class="operator">?</span>.setup(with: <span class="keyword">self</span>.interactor<span class="operator">!</span>.bookmark(for: <span class="keyword">self</span>.post))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>builder</code> 方法中，我可以访问 <code>VIPER模块</code> 的每个组件，因此我可以将变量简单地传递到指定的位置（对于 <code>delegates</code> 参数也是如此）。 我通常在 <code>presenter</code> 上设置输入变量，在 <code>router</code> 上设置 <code>delegates</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常是 <code>presenter</code> 需要原始模块中的数据，我喜欢将 <code>delegates</code> 存储在 <code>router</code> 上，因为如果导航模式发生更改，我根本就不需要更改 <code>presenter</code> 。 这只是个人喜好，但我喜欢代码中的风格。 在一篇文章中很难写下这些东西，所以我建议从 <a target="_blank" rel="noopener" href="https://github.com/theswiftdev/tutorials"><em><strong><code>github</code></strong></em></a> 下载完成的示例代码。</p>
+<br>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，在此 <code>VIPER体系结构</code> 教程中，我正在使用各种设计模式。 有人说这没有灵丹妙药，但我相信我发现了一种非常了不起的方法，可以利用我的优势在短时间内构建高质量的应用程序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将 <code>VIPVM架构</code> 与 <code>MVVM</code> 与 <code>Promises</code> 结合在一起，可以将每个零件放在正确的位置。 工程过度？ 也许。 对我来说，这是值得的开销。 你怎么看待这件事？ </p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5" title="适用于iOS开发人员的VIPER最佳实践">https://www.xuebaonline.com/适用于iOS开发人员的VIPER最佳实践</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/VIPER/" rel="tag"><i class="fa fa-tag"></i> VIPER</a>
+              <a href="/tags/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" rel="tag"><i class="fa fa-tag"></i> 架构设计</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F" rel="prev" title="VIPER体系结构：我们的最佳实践，像老板一样构建应用程序">
+      <i class="fa fa-chevron-left"></i> VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84" rel="next" title="掌握VIPER架构">
+      掌握VIPER架构 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#VIPER%E5%85%A5%E9%97%A8"><span class="nav-number">1.</span> <span class="nav-text">VIPER入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90VIPER%E6%A8%A1%E5%9D%97"><span class="nav-number">2.</span> <span class="nav-text">生成VIPER模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#UITabBarController-amp-VIPER"><span class="nav-number">3.</span> <span class="nav-text">UITabBarController &amp; VIPER</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Services-amp-Entities"><span class="nav-number">4.</span> <span class="nav-text">Services &amp; Entities</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#promises"><span class="nav-number">5.</span> <span class="nav-text">promises</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A8%A1%E5%9D%97%E9%80%9A%E8%AE%AF"><span class="nav-number">6.</span> <span class="nav-text">模块通讯</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">7.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>

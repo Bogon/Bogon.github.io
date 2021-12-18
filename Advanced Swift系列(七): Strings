@@ -1,0 +1,1154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(七): Strings">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(七): Strings">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(七): Strings">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-07T09:07:24.000Z">
+<meta property="article:modified_time" content="2020-05-08T04:25:20.012Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift 5.0">
+<meta property="article:tag" content="Strings">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(七): Strings | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(七): Strings
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-07 17:07:24" itemprop="dateCreated datePublished" datetime="2020-05-07T17:07:24+08:00">2020-05-07</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>50k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>45 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(七): Strings</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有现代编程语言都支持  <code>Unicode字符串  </code>，但这通常仅意味着本机字符串类型可以存储  <code>Unicode  </code>数据-不能保证像获取字符串长度这样的简单操作都将返回“有意义的”结果。实际上，大多数语言以及使用这些语言编写的大多数字符串处理代码都对Unicode固有的复杂性表现出一定程度的否认。这可能会导致一些令人不愉快的错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <code>Swift  </code>的字符串实现经过了英勇的努力，以尽可能地实现  <code>Unicode  </code>正确。   <code>Swift  </code>中的字符串是  <code>字符值的集合  </code>，其中字符是文本的人类阅读者会认为是单个字符的字符，无论它由多少个  <code>Unicode标量  </code>组成。结果，所有标准的  <code>Collection  </code>操作（如  <code>count或prefix（5）  </code>）都在用户感知的字符级别上工作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这对于正确性来说是很棒的，但是要付出代价，主要是因为不熟悉。如果你习惯于使用其他语言的带有整数索引的字符串，那么  <code>Swift  </code>的设计乍一看似乎很笨拙，这使你想知道：为什么我不能写  <code>str [999]  </code>来访问字符串的千位字符？为什么  <code>str[idx + 1]  </code>没有得到下一个字符？为什么我不能遍历一系列字符值，例如   <code>“a” ...“ z”  </code>？它还对性能有影响：  <code>字符串不支持随机访问，即跳转到任意字符不是O(1)操作  </code>。不可能是-当字符的宽度可变时，如果不查看前面的所有字符，字符串将不知道第n个字符的存储位置。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们将详细讨论  <code>字符串架构  </code>，以及在  <code>功能  </code>和  <code>性能  </code>方面充分利用  <code>Swift字符串  </code>的一些技术。但是，我们将首先概述所需的  <code>Unicode术语  </code>。</p>
+<span id="more"></span>
+
+<h1 id="Unicode"><a href="#Unicode" class="headerlink" title="Unicode"></a><strong>Unicode</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;事情曾经是如此简单。   <code>ASCII字符串  </code>是一个介于  <code>0到127之间的整数序列  </code>。如果将它们存储在8位字节中，你甚至还有一点空余！由于每个字符的大小都是固定的，因此  <code>ASCII字符串  </code>可以是<strong>随机访问的</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，如果你使用英语以外的其他语言或针对非美国受众，则  <code>ASCII  </code>还不够。其他国家/地区和语言需要其他字符（即使是英语为英语的英国也需要  <code>£符号  </code>）。他们中的大多数人需要的字符数超过了7位。   <code>ISO 8859  </code>占用了额外的位，并定义了  <code>ASCII  </code>范围以上的16种不同编码，例如第1部分（  <code>ISO 8859-1，又名Latin-1  </code>），涵盖了几种西欧语言；第5部分，介绍使用西里尔字母的语言。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，这仍然是有限的：如果你想使用  <code>ISO 8859  </code>用土耳其语写有关古希腊的文字，那么你就不走运了，因为你需要选择第7部分（拉丁语/希腊语）或第9部分（土耳其语） 。而且八位仍然不足以编码多种语言。例如，第6部分（拉丁语/阿拉伯语）未包含书写阿拉伯文字（如乌尔都语或波斯语）所需的字符。同时，越南语（基于拉丁字母，但带有大量变音符号组合）只能通过替换下半部分的少数  <code>ASCII字符  </code>而适合八位。对于其他东亚语言，这甚至不是一种选择。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你使用固定宽度编码的空间不足时，你可以选择：<strong>增大大小或切换到可变宽度编码</strong>。最初，  <code>Unicode  </code>被定义为  <code>2字节固定宽度格式  </code>，现在称为  <code>UCS-2  </code>。这是在现实开始之前的，并且被接受的是即使两个字节（即约65,000个代码点）也不够用，而对于大多数用途来说，四个字节效率低下。因此，今天  <code>Unicode  </code>是一种  <code>可变宽度格式  </code>，它在两种不同的意义上是可变的：</p>
+<ul>
+<li>→ 单个字符（也称为扩展图字符集）由一个或多个Unicode标量组成。</li>
+<li>→ 由一个或多个代码单位编码的 scalar。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要理解原因，我们需要弄清楚这些术语的含义。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Unicode  </code>的基本构建块是代码点：  <code>Unicode  </code>代码空间中的整数值，范围从  <code>0到0x10FFFF  </code>（十进制表示法：  <code>1,114,111  </code>）。   <code>Unicode  </code>中的每个字符或其他脚本单位都分配有唯一的代码点。在  <code>Unicode 12.1  </code>（于2019年5月发布）中，目前仅使用了  <code>110万  </code>个可用代码点中的  <code>138,000  </code>个，因此有很大的空间容纳更多表情符号。代码点通常以带有  <code>“U +”  </code>前缀的十六进制表示法编写。例如，欧元符号位于代码点  <code>U+20AC  </code>（或  <code>十进制的8364  </code>）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Unicode标量  </code>与代码点几乎相同，但不完全相同。它们是所有代码点，除了  <code>0xD800到0xDFFF  </code>范围内的  <code>2,048  </code>个替代代码点（UTF-16编码用来表示大于  <code>65,535  </code>的代码点）。标量在  <code>Swift字符串  </code>文字中表示为   <code>“\u&#123;xxxx&#125;”  </code>，其中  <code>xxxx代表十六进制数字  </code>。因此欧元符号可以在  <code>Swift  </code>中写为  <code>“€”  </code>或   <code>“\u&#123;20AC&#125;”  </code>。相应的  <code>Swift类型  </code>是  <code>Unicode.Scalar  </code>，它是  <code>UInt32  </code>值的包装。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用不同的编码方式来编码相同的  <code>Unicode数据  </code>（即  <code>标量序列  </code>），其中最常见的是  <code>UTF-8  </code>和  <code>UTF-16  </code>。<strong>编码中的最小实体称为代码单元</strong>。   <code>UTF-8编码  </code>具有8位宽的代码单元，而  <code>UTF-16具有16位宽的代码单元  </code>。   <code>UTF-8  </code>的另一个好处是可以向后移动与8位ASCII兼容-这一功能帮助它取代了  <code>ASCII  </code>，成为网络上和文件格式中最受欢迎的编码。代码单位与代码点或标量不同，因为单个标量通常使用多个代码单位进行编码。由于存在超过一百万个潜在代码点，因此  <code>UTF-8  </code>只需  <code>1-4个代码单元  </code>（一到四个字节）即可对单个标量进行编码，而  <code>UTF-16  </code>则需要一个或两个代码单元（两个或四个字节）。   <code>Swift  </code>将  <code>UTF-8  </code>和  <code>UTF-16代码单元  </code>分别表示为  <code>UInt8  </code>和  <code>UInt16值  </code>（别名为  <code>Unicode.UTF8.CodeUnit  </code>和  <code>Unicode.UTF16.CodeUnit  </code>）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要用单个代码单位表示每个标量，你需要一个  <code>21位编码方案  </code>，该方案通常会四舍五入为  <code>32位  </code>，即  <code>UTF-32  </code>。这就是  <code>Unicode.Scalar  </code>在  <code>Swift  </code>中所做的事情。但是，即使那样也不能为你提供固定宽度的编码：在  <code>“字符”  </code>方面，  <code>Unicode  </code>仍然是可变宽度的格式。用户在屏幕上显示的  <code>“单个字符”  </code>可能需要多个标量组合在一起。此类用户感知字符的  <code>Unicode术语  </code>是一个（扩展的）字素簇。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标量如何形成字素簇的规则决定了文本的分割方式。例如，如果你敲击键盘上的  <code>Backspace键  </code>，则你希望文本编辑器精确删除一个字素簇，即使该  <code>“字符”  </code>由多个  <code>Unicode标量  </code>组成，每个标量可能在其中使用不同数量的代码单元。文本在内存中的表示。字形簇在  <code>Swift  </code>中用  <code>Character类型  </code>表示，只要可以形成单个用户感知的字符，它就可以编码任意数量的标量。我们将在下一部分中看到一些示例。</p>
+<h1 id="字素簇和规范对等"><a href="#字素簇和规范对等" class="headerlink" title="字素簇和规范对等"></a><strong>字素簇和规范对等</strong></h1><h2 id="组合标记"><a href="#组合标记" class="headerlink" title="组合标记"></a><em><strong>组合标记</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解 <code>String </code>如何处理 <code>Unicode </code>数据的一种快速方法是查看两种编写 <code>é </code>的不同方法。  <code>Unicode </code>将  <code>U+00E9 </code>（带小写的拉丁小写字母e）定义为单个值。 但是，你也可以将其写为纯字母  <code>e </code> ，后跟 <code>U+0301 </code>，并加上重音符号。 在这两种情况下，显示的都是 <code>é </code>，并且用户可能有一个合理的期望，即显示为 <code>“résumé” </code>的两个字符串不仅彼此相等，而且具有六个字符的“长度”，无论使用哪种技术在任一字符中产生 <code>é </code>。 它们将是 <code>Unicode </code>规范所描述的规范等效项。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift </code>中，这正是你得到的行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> single <span class="operator">=</span> <span class="string">&quot;Pok<span class="subst">\u&#123;00E9&#125;</span>mon&quot;</span> <span class="comment">// Pokémon </span></span><br><span class="line"><span class="keyword">let</span> double <span class="operator">=</span> <span class="string">&quot;Poke<span class="subst">\u&#123;0301&#125;</span>mon&quot;</span> <span class="comment">// Pokémon</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它们都显示相同：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(single, double) <span class="comment">// (&quot;Pokémon&quot;, &quot;Pokémon&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;两者的字符数相同：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">single.count <span class="comment">// 7 </span></span><br><span class="line">double.count <span class="comment">// 7</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，它们也比较相等：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">single <span class="operator">==</span> double <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只有下拉至基础表示的视图，你才能看到它们是不同的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">single.unicodeScalars.count <span class="comment">// 7 </span></span><br><span class="line">double.unicodeScalars.count <span class="comment">// 8</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将其与 <code>Foundation </code>中的 <code>NSString </code>进行比较：两个字符串不相等，并且 <code>length </code>属性（许多 <code>Objective-C </code>程序员可能会用来计算要在屏幕上显示的字符数）会得出不同的结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nssingle <span class="operator">=</span> single <span class="keyword">as</span> <span class="type">NSString</span> nssingle.length <span class="comment">// 7</span></span><br><span class="line"><span class="keyword">let</span> nsdouble <span class="operator">=</span> double <span class="keyword">as</span> <span class="type">NSString</span> nsdouble.length <span class="comment">// 8</span></span><br><span class="line">nssingle <span class="operator">==</span> nsdouble <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里， <code>== </code>被定义为用于比较两个对象的版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSObject</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> <span class="title">==</span>(<span class="params">lhs</span>: <span class="type">NSObject</span>, <span class="params">rhs</span>: <span class="type">NSObject</span>)</span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> lhs.isEqual(rhs) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于 <code>NSString </code>，这将在 <code>UTF-16 </code>代码单元的级别上进行字面比较，而不是一个等效但组成不同的字符。 其他语言的大多数字符串 <code>API </code>也会以这种方式工作。 如果你确实想对两个 <code>NSString </code>执行规范比较，则必须使用 <code>NSString.compare（_ :) </code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，比较代码单元有一个很大的好处：更快！ 通过 <code>utf8 </code>视图，使用 <code>Swift字符串 </code>仍然可以实现以下效果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">single.utf8.elementsEqual(double.utf8) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为什么 <code>Unicode </code>完全支持同一字符的多种表示形式？ 预组合字符的存在使 <code>Unicode </code>代码点的开放范围与 <code>Latin-1兼容 </code>，后者已经具有 <code>é </code>和 <code>ñ </code>等字符。 尽管可能很难处理，但它使两种编码之间的转换变得简单快捷。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且，抛弃预先合成的表格也无济于事，因为合成不仅会成对出现。 你可以一起写多个变音符号。 例如， <code>约鲁巴语（Yoruba） </code>具有字符 <code>ọ́ </code>，可以用三种不同的方式书写：通过用点组成 <code>ó </code>，或用尖点组成,，或用尖点和点组成 <code>o </code>。 对于最后一个，这两个变音符号可以处于任何顺序！ 所以这些都相等：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> chars: [<span class="type">Character</span>] <span class="operator">=</span> [ </span><br><span class="line">    <span class="string">&quot;<span class="subst">\u&#123;1ECD&#125;</span><span class="subst">\u&#123;300&#125;</span>&quot;</span>, <span class="comment">// ọ́ </span></span><br><span class="line">    <span class="string">&quot;<span class="subst">\u&#123;F2&#125;</span><span class="subst">\u&#123;323&#125;</span>&quot;</span>, <span class="comment">// ọ́ </span></span><br><span class="line">    <span class="string">&quot;<span class="subst">\u&#123;6F&#125;</span><span class="subst">\u&#123;323&#125;</span><span class="subst">\u&#123;300&#125;</span>&quot;</span>, <span class="comment">// ọ́ </span></span><br><span class="line">    <span class="string">&quot;<span class="subst">\u&#123;6F&#125;</span><span class="subst">\u&#123;300&#125;</span><span class="subst">\u&#123;323&#125;</span>&quot;</span> <span class="comment">//ọ́</span></span><br><span class="line">]</span><br><span class="line"><span class="keyword">let</span> allEqual <span class="operator">=</span> chars.dropFirst().allSatisfy &#123; <span class="variable">$0</span> <span class="operator">==</span> chars.first &#125; <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，可以无限地添加一些变音符号。 一个著名的互联网模因很好地说明了这一点：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> zalgo <span class="operator">=</span> <span class="string">&quot;so̐ ͜ ͅoͯ ͟n̽ ̢ ͇̫͉̰ͪ&quot;</span></span><br><span class="line">zalgo.count <span class="comment">// 4 </span></span><br><span class="line">zalgo.utf8.count <span class="comment">// 68</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面的代码中， <code>zalgo.count </code>（正确）返回4，而 <code>zalgo.utf8.count </code>返回68。如果你的代码不能与网状模因一起正常使用，那有什么用，真的吗？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你处理的所有字符串均为 <code>纯ASCII </code>时， <code>Unicode </code>的字素打破规则甚至会影响你： <code>CR + LF </code>（在Windows中通常用作换行符的回车符和换行符）是单个字素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// CR+LF is a single Character.</span></span><br><span class="line"><span class="keyword">let</span> crlf <span class="operator">=</span> <span class="string">&quot;<span class="subst">\r</span><span class="subst">\n</span>&quot;</span> </span><br><span class="line">crlf.count <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Emoji"><a href="#Emoji" class="headerlink" title="Emoji"></a><em><strong>Emoji</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在各种其他编程语言中，包含表情符号的字符串也可能令人惊讶。 为许多表情符号分配了 <code>Unicode标量 </code>，这些标量不适合单个 <code>UTF-16代码单元 </code>。 将字符串表示为 <code>UTF-16代码单元 </code>集合的语言（例如Java或C＃）会说字符串“:joy:”是两个“字符”长。 Swift可以正确处理这种情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> oneEmoji <span class="operator">=</span> <span class="string">&quot;:joy:&quot;</span> <span class="comment">// U+1F602 </span></span><br><span class="line">oneEmoji.count <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，重要的是字符串如何暴露给程序，而不是如何存储在内存中。  <code>Swift </code>使用 <code>UTF-8 </code>作为 <code>非ASCII字符串 </code>的内部编码，但这是实现细节。 公用API基于字素簇。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他表情符号由多个标量组成。 表情符号标志是与 <code>ISO国家/地区代码 </code>相对应的两个区域指示器符号的组合。 <code>Swift</code>将标志正确地视为一个字符(:cn::it:)：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flags <span class="operator">=</span> <span class="string">&quot;:cn: :it:&quot;</span> </span><br><span class="line">flags.count <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要检查字符串组成的 <code>Unicode标量 </code>，请使用 <code>unicodeScalars视图 </code>。 在这里，我们以代码点的通用格式将标量值格式化为十六进制数字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">flags.unicodeScalars.map &#123;  </span><br><span class="line">    <span class="string">&quot;U+<span class="subst">\(String(<span class="variable">$0</span>.value, radix: <span class="number">16</span>, uppercase: true))</span>&quot;</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// [&quot;U+1F1E7&quot;, &quot;U+1F1F7&quot;, &quot;U+1F1F3&quot;, &quot;U+1F1FF&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;肤色将基本字符与五个肤色修改器（例如 :facepunch:，或4型肤色修改器）之一结合使用，以产生最终的表情符号（例如:person_with_blond_hair:）。 同样，Swift可以正确处理此问题：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> skinTone <span class="operator">=</span> <span class="string">&quot; &quot;</span> <span class="comment">//  </span></span><br><span class="line">skinTone.count <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;描绘家庭和夫妇的表情符号（例如和）对 <code>Unicode标准体系 </code>提出了另一个挑战。 由于性别和群体人数的无数可能组合，为每种变化提供单独的代码点是有问题的。 结合每个人独特的肤色，就不可能了。  <code>Unicode </code>通过指定这些表情符号实际上是多个表情符号的序列以及不可见的零宽度连接符（ZWJ）字符（U+200D）来解决此问题。 因此，家庭实际上是男人 + ZWJ +女人+ ZWJ +女孩+ ZWJ +男孩。 ZWJ用作操作系统的指示符，它应使用单个字形（如果有）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以验证这确实是怎么回事：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> family1 <span class="operator">=</span> <span class="string">&quot; &quot;</span></span><br><span class="line"><span class="keyword">let</span> family2 <span class="operator">=</span> <span class="string">&quot; <span class="subst">\u&#123;200D&#125;</span>   <span class="subst">\u&#123;200D&#125;</span>   <span class="subst">\u&#123;200D&#125;</span> &quot;</span></span><br><span class="line">family1 <span class="operator">==</span> family2 <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再一次，Swift足够聪明，可以将这样的序列视为单个角色：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">family1.count <span class="comment">// 1 </span></span><br><span class="line">family2.count <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2016年推出的针对职业的新表情符号也是ZWJ序列。例如，女消防员由女性+ ZWJ +消防车组成，而男性卫生工作者由男性+ ZWJ + Aesculapius staff的职员组成。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将这些序列渲染为单个字形是操作系统的任务。在2019年的Apple平台上，操作系统包括 <code>Unicode序列子集 </code>的字形标准列为“推荐用于一般互换”（RGI），即“最有可能在多个平台上得到广泛支持的标准”。当没有字形可用于语法上有效的序列时，文本呈现系统将退回以将每个组件呈现为单独的字形。请注意，这可能会导致用户感知的字符与Swift视为字素簇的字符“在另一个方向上”不匹配；到目前为止，所有示例都与编程语言中字符过多有关，但在这里我们看到了相反的情况。例如，包含肤色的家族序列当前不属于RGI子集。但是，即使操作系统将这样的序列渲染为多个字形，Swift仍会将其视为单个字符，因为Unicode文本分段规则与渲染无关：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Family with skin tones is rendered as multiple glyphs // on most platforms in 2019.</span></span><br><span class="line"><span class="keyword">let</span> family3 <span class="operator">=</span> <span class="string">&quot; <span class="subst">\u&#123;200D&#125;</span> <span class="subst">\u&#123;200D&#125;</span>   <span class="subst">\u&#123;200D&#125;</span> &quot;</span> <span class="comment">// But Swift still counts it as a single Character. </span></span><br><span class="line">family3.count <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺便说一下，微软已经可以将此图形和其他变体呈现为单个字形，并且其他操作系统供应商几乎肯定会很快推出。 但是问题仍然存在：无论字符串API的设计多么仔细，文本都非常复杂，以至于它可能永远无法抓住所有极端情况。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过去， <code>Swift </code>难以跟上 <code>Unicode </code>更改的步伐。  <code>Swift 3 </code>误处理了肤色和ZWJ序列，因为其字素破坏算法基于旧版本的 <code>Unicode标准 </code>。 从Swift 4开始，Swift使用操作系统的 <code>ICU库 </code>。 因此，当用户更新其操作系统时，你的程序将自动采用新的 <code>Unicode规则 </code>。 当然，另一方面，你不能依靠用户看到与开发期间相同的行为。 例如，当你在Linux上部署服务器端Swift代码时，代码的行为可能会有所不同，因为Linux发行版可能附带的ICU版本与开发计算机的版本不同。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本节讨论的示例中，我们将字符串的长度作为代理，以解决当某种语言没有考虑到 <code>Unicode </code>的全部复杂性时可能出错的各种情况。 只是想一想，一个简单的任务（例如，反转字符串）可能会以一种编程语言产生，当字符串包含组成的字符序列时，该编程语言不会通过字素簇处理字符串。 这不是一个新问题，但是表情符号爆炸使由草率的文本处理引起的错误更有可能浮出水面，即使你的用户群主要是说英语，也会出现草率的文本处理问题。 错误的数量也增加了：十年前，一个重音符号变差会导致一个错误的产生，弄乱一个现代表情符号很容易导致结果偏离10个或更多“字符”。 例如，一个四人家庭表情符号的长度为 <code>11（UTF-16） </code>或 <code>25（UTF-8） </code>个代码单位：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">family1.count <span class="comment">// 1 </span></span><br><span class="line">family1.utf16.count <span class="comment">// 11 </span></span><br><span class="line">family1.utf8.count <span class="comment">// 25</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并不是说其他语言根本没有 <code>Unicode </code>正确的API，大多数语言都没有。 例如， <code>NSString </code>具有 <code>enumerateSubstrings </code>方法，可用于通过字素簇在字符串中遍历。 但是违约很重要。 Swift的工作重点是默认情况下做正确的事。 而且，如果你需要降低到较低的抽象级别，则 <code>String </code>提供的视图可让你直接在 <code>Unicode标量 </code>或代码单元上进行操作。 我们将在下面详细介绍。</p>
+<h1 id="Strings-and-Collections"><a href="#Strings-and-Collections" class="headerlink" title="Strings and Collections"></a><strong>Strings and Collections</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如我们所见，<strong>String是Character值的集合</strong>。 在Swift成立的头三年，String在符合和不符合 <code>Collection协议 </code>之间来回走动。 不增加一致性的理由是，程序员希望所有通用的集合处理算法都是完全安全且Unicode正确的，这不一定对所有边缘情况都适用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;举一个简单的例子，你可以假设如果连接两个集合，则结果集合的长度将是两个源集合的长度之和。 但是，如果第一个字符串的后缀形成带有第二个字符串前缀的字素簇，则这不适用于字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> flagLetterJ <span class="operator">=</span> <span class="string">&quot;🇯 &quot;</span> </span><br><span class="line"><span class="keyword">let</span> flagLetterP <span class="operator">=</span> <span class="string">&quot;🇵 &quot;</span></span><br><span class="line"><span class="keyword">let</span> flag <span class="operator">=</span> flagLetterJ <span class="operator">+</span> flagLetterP <span class="comment">//</span></span><br><span class="line">flag.count <span class="comment">// 1</span></span><br><span class="line">flag.count <span class="operator">==</span> flagLetterJ.count <span class="operator">+</span> flagLetterP.count <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为此，在 <code>Swift 2 </code>和 <code>Swift 3 </code>中， <code>String </code>本身不是一个 <code>Collection </code>。 字符集合视图已移至字符属性，与其他集合视图类似： <code>unicodeScalars </code>， <code>utf8 </code>和 <code>utf16 </code>。 选择一个特定的视图会提示你确认你已进入收集处理模式，并且应考虑将要运行的算法的后果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，对于某些与实际代码几乎不相关的极端情况，这种更改导致的可用性和可学习性的损失远远超过了正确性的获得（除非你正在编写文本编辑器）。 因此String在Swift 4中再次成为 <code>Collection </code>。</p>
+<h2 id="双向而非随机访问"><a href="#双向而非随机访问" class="headerlink" title="双向而非随机访问"></a><em><strong>双向而非随机访问</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，出于上一节中的示例应该清楚的原因， <code>String </code>不是随机访问集合。当知道特定字符串的第n个字符在哪里时，会涉及评估该字符之前有多少个Unicode标量呢？因此， <code>String </code>仅符合 <code>BidirectionalCollection </code>。你可以从字符串的任意一端开始，向前或向后移动，并且代码将查看相邻字符的组成，并跳过正确的字节数。但是，你需要一次上下迭代一个字符。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编写字符串处理代码时，请记住这一点对性能的影响。依靠随机访问来维持其性能保证的算法与 <code>Unicode字符串 </code>不是很好的匹配。考虑使用此 <code>String扩展名 </code>来生成字符串前缀列表，该扩展名的工作方式是生成一个从零到字符串长度的整数范围，然后在该范围内映射以为每个长度创建前缀：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> allPrefixes1: [<span class="type">Substring</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="number">0</span><span class="operator">...</span>count).map(<span class="keyword">prefix</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> hello <span class="operator">=</span> <span class="string">&quot;Hello&quot;</span></span><br><span class="line">hello.allPrefixes1 <span class="comment">// [&quot;&quot;, &quot;H&quot;, &quot;He&quot;, &quot;Hel&quot;, &quot;Hell&quot;, &quot;Hello&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这段代码看起来很简单，但是效率很低。 它首先在字符串上遍历一次以计算长度，这很好。 但是然后，对 <code>prefix </code>的n +1个调用中的每一个都是另一个O（n）操作，因为 <code>prefix </code>总是从头开始，并且必须按照自己的方式工作通过字符串来计算所需的字符数。 在另一个线性循环内运行一个线性过程意味着该算法偶然为O（n2）-随着字符串长度的增加，该算法花费的时间成倍增加。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果可能的话，高效的字符串算法应该只遍历一个字符串，然后对字符串索引进行操作以表示其感兴趣的子字符串。以下是该算法的一个更好的版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> allPrefixes2: [<span class="type">Substring</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> [<span class="string">&quot;&quot;</span>] <span class="operator">+</span> indices.map &#123; index <span class="keyword">in</span> <span class="keyword">self</span>[<span class="operator">...</span>index] &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">hello.allPrefixes2 <span class="comment">// [&quot;&quot;, &quot;H&quot;, &quot;He&quot;, &quot;Hel&quot;, &quot;Hell&quot;, &quot;Hello&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此代码还必须遍历字符串一次以生成索引集合。 但是一旦完成， <code>map </code>内部的下标操作为O（1）。 这使得整个算法为O（n）。</p>
+<h2 id="范围可替换，不可更改"><a href="#范围可替换，不可更改" class="headerlink" title="范围可替换，不可更改"></a><em><strong>范围可替换，不可更改</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符串也符合 <code>RangeReplaceableCollection </code>。 这是一个如何替换字符串的一部分的示例，该过程将首先根据字符串索引确定适当的范围，然后调用 <code>replaceSubrange </code>。 替换字符串的长度可以不同，甚至可以为空（这等效于调用 <code>removeSubrange </code>）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> greeting <span class="operator">=</span> <span class="string">&quot;Hello, world!&quot;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> comma <span class="operator">=</span> greeting.firstIndex(of: <span class="string">&quot;,&quot;</span>) &#123;</span><br><span class="line">    greeting[<span class="operator">..&lt;</span>comma] <span class="comment">// Hello</span></span><br><span class="line">    greeting.replaceSubrange(comma<span class="operator">...</span>, with: <span class="string">&quot; again.&quot;</span>) </span><br><span class="line">&#125;</span><br><span class="line">greeting <span class="comment">// Hello again.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符串不提供的一种类似于集合的功能是 <code>MutableCollection </code>。除了get之外，该协议还向集合添加了一个功能-单元素下标集的功能。这并不是说字符串不是可变的-正如我们刚刚看到的那样，它们具有几种突变方法。但是，你不能使用下标运算符替换单个字符。原因回到了可变长度字符。就像 <code>Array </code>一样，大多数人可能会发现单元素下标更新将在恒定时间内发生。但是，由于字符串中的字符宽度可能可变，因此更新单个字符可能会花费与字符串长度成比例的线性时间：更改单个元素的宽度将需要在内存中向上或向下调整所有后面的元素。此外，替换后的索引将通过改组变得无效，这同样是不直观的。由于这些原因，即使你传递的范围只是一个字符，也必须使用 <code>replaceSubrange </code>。</p>
+<h2 id="字符串索引"><a href="#字符串索引" class="headerlink" title="字符串索引"></a><em><strong>字符串索引</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>大多数编程语言都使用整数来下标字符串，例如 <code>str [5] </code>将返回str的第六个“字符”（无论该语言对“字符”的想法是什么）。  <code>Swift </code>不允许这样做。为什么？答案现在应该听起来对你很熟悉：下标应该花固定的时间（根据集合协议的要求直观地），并且如果不查看前面的所有字节，则查找第n个字符是不可能的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br> <code>String.Index </code>是 <code>String及其视图使用的索引类型 </code>，它是一个不透明的值，实际上将字节偏移量存储在字符串的内存表示形式（通常为UTF-8）中。如果要计算第n个字符的索引并必须从字符串的开头开始，它仍然是O（n）操作，但是一旦有了有效的索引，对字符串进行下标将只需要O（1）时间。至关重要的是，<strong>在现有索引之后查找下一个索引也很快，因为你可以从现有索引的字节偏移量开始-无需再次回到起始位置</strong>。这就是为什么按顺序（向前或向后）遍历字符串中的字符有效的原因。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>字符串索引操作基于与其他集合相同的 <code>Collection API </code>。很容易错过这种对等关系，因为到目前为止我们使用的收藏最多—数组—使用整数索引，我们通常使用简单的算术来操作它们。  <code>index（after :) </code>方法返回下一个字符的索引：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s <span class="operator">=</span> <span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="keyword">let</span> second <span class="operator">=</span> s.index(after: s.startIndex) </span><br><span class="line">s[second] <span class="comment">// b</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>你可以通过 <code>index（_：offsetBy :) </code>方法一次性自动遍历多个字符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Advance 4 more characters.</span></span><br><span class="line"><span class="keyword">let</span> sixth <span class="operator">=</span> s.index(second, offsetBy: <span class="number">4</span>) </span><br><span class="line">s[sixth] <span class="comment">// f</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>如果存在前进到字符串末尾的风险，则可以添加一个 <code>limitedBy： </code>参数。 如果在达到目标索引之前达到极限，则该方法返回nil：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> safeIdx <span class="operator">=</span> s.index(s.startIndex, offsetBy: <span class="number">400</span>, limitedBy: s.endIndex) safeIdx <span class="comment">// nil</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>毫无疑问，这比简单的整数索引所需的代码更多，但这就是重点。 如果 <code>Swift </code>允许对字符串进行整数下标，那么无意编写极其低效的代码（例如通过在循环内使用整数下标）的诱惑将太大。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>不过，对于那些习惯于使用固定宽度字符的人来说，在 <code>Swift </code>中使用字符串乍一看似乎具有挑战性-在没有整数索引的情况下如何导航？ 确实，一些看似简单的任务（例如提取字符串的前四个字符）可能会变成这样的怪诞现象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s[<span class="operator">..&lt;</span>s.index(s.startIndex, offsetBy: <span class="number">4</span>)] <span class="comment">// abcd</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>但是值得庆幸的是，能够通过 <code>Collection接口 </code>访问该字符串还意味着你可以使用几种有用的技术。 在 <code>Array </code>上运行的大多数方法也可以在 <code>String </code>上运行。 使用 <code>prefix方法 </code>，同一件事看起来更加清晰：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s.prefix(<span class="number">4</span>) <span class="comment">// abcd</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>（请注意，任何一个表达式都返回一个 <code>Substring </code>；你可以通过以下方式将其转换回 <code>String： </code>将其包装在 <code>String.init </code>中。 我们将在下一节中进一步讨论子字符串。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>作为稍微复杂一点的示例，可以从日期字符串中提取月份为完全完成而无需对字符串进行任何下标操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> date <span class="operator">=</span> <span class="string">&quot;2019-09-01&quot;</span> </span><br><span class="line">date.split(separator: <span class="string">&quot;-&quot;</span>)[<span class="number">1</span>] <span class="comment">// 09 </span></span><br><span class="line">date.dropFirst(<span class="number">5</span>).prefix(<span class="number">2</span>) <span class="comment">// 09</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与往常一样，请记住，如果替换字符串的某些部分的结果可能令人惊讶在原始字符串中形成带有相邻字符的新字素簇。<br>要查找特定字符，可以使用 <code>firstIndex(of: ) </code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hello <span class="operator">=</span> <span class="string">&quot;Hello!&quot;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> idx <span class="operator">=</span> hello.firstIndex(of: <span class="string">&quot;!&quot;</span>) &#123;</span><br><span class="line">    hello.insert(contentsOf: <span class="string">&quot;, world&quot;</span>, at: idx) </span><br><span class="line">&#125;</span><br><span class="line">hello <span class="comment">// Hello, world!</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>insert(contentsOf: at:) </code>方法在给定索引之前插入另一个具有相同元素类型的集合（例如字符串的字符）。 这不必是另一个 <code>String </code>； 你可以轻松地将字符数组插入字符串中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，有些任务不能仅通过对字符串使用 <code>Collection API </code>来完成： <code>解析CSV文件 </code>就是一个很好的例子。 我们不能简单地用逗号分隔一行，因为逗号也可能出现在用引号引起来的值中。 为了解决这样的任务，我们可以逐个字符地遍历字符串，同时跟踪某些状态。 本质上，我们正在编写一个非常简单的解析器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span>(<span class="params">csv</span>: <span class="type">String</span>)</span> -&gt; [[<span class="type">String</span>]] &#123; </span><br><span class="line">    <span class="keyword">var</span> result: [[<span class="type">String</span>]] <span class="operator">=</span> [[]]</span><br><span class="line">    <span class="keyword">var</span> currentField <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    <span class="keyword">var</span> inQuotes <span class="operator">=</span> <span class="literal">false</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> csv &#123;</span><br><span class="line">        <span class="keyword">switch</span> (c, inQuotes) &#123; </span><br><span class="line">            <span class="comment">// ...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我们将结果创建为字符串数组的数组。 每行由一个字符串数组表示，并且CSV字符串可以包含许多行。 当我们遍历字符串时，currentField变量充当缓冲区来收集一个字段的字符。 最后，inQuotes布尔值可跟踪我们当前是否在带引号的字符串中。 这是我们用于此简单解析器的唯一状态。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们要为 <code>switch语句 </code>填写案例：</p>
+<ul>
+<li>→ <strong>(“,”，false)</strong> - 引号之外的逗号发送当前字段</li>
+<li>→ <strong>(“ \ n”, false)</strong> - 引号外的逗号替换当前行</li>
+<li>→ <strong>(“\”“, _)</strong> - 引号括起来的布尔型</li>
+<li>→ <strong>默认值</strong> -在所有其他情况下，我们都将当前字符附加到 <code>currentField </code></li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span>(<span class="params">csv</span>: <span class="type">String</span>)</span> -&gt; [[<span class="type">String</span>]] &#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> csv &#123;</span><br><span class="line">        <span class="keyword">switch</span> (c, inQuotes) &#123; </span><br><span class="line">            <span class="keyword">case</span> (<span class="string">&quot;,&quot;</span>, <span class="literal">false</span>):</span><br><span class="line">                result[result.endIndex<span class="operator">-</span><span class="number">1</span>].append(currentField)</span><br><span class="line">                currentField.removeAll() <span class="keyword">case</span> (<span class="string">&quot;<span class="subst">\n</span>&quot;</span>, <span class="literal">false</span>):</span><br><span class="line">                result[result.endIndex<span class="operator">-</span><span class="number">1</span>].append(currentField) currentField.removeAll()</span><br><span class="line">                result.append([])</span><br><span class="line">            <span class="keyword">case</span> (<span class="string">&quot;<span class="subst">\&quot;</span>&quot;</span>, <span class="keyword">_</span>):</span><br><span class="line">                inQuotes <span class="operator">=</span> <span class="operator">!</span>inQuotes</span><br><span class="line">                <span class="keyword">default</span>: currentField.append(c)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">    result[result.endIndex<span class="operator">-</span><span class="number">1</span>].append(currentField)</span><br><span class="line">    <span class="keyword">return</span> result </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(我们正在创建一个临时元组，以一次切换两个值。你可能还记得<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%85%AD):%20%20Enums/"><em><strong><code>Enums</code></strong></em></a>一章中的这项技术。)</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在for循环之后，由于 <code>CSV字符串 </code>可能不会以换行符结尾，因此在返回结果之前，我们仍然必须最后一次附加 <code>currentField </code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们尝试一个示例的 <code>CSV解析器 </code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> csv <span class="operator">=</span> <span class="string">#&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">&quot;Values in quotes&quot;,&quot;can contain , characters&quot; &quot;Values without quotes work as well:&quot;,42 &quot;&quot;&quot;#</span></span><br><span class="line">parse(csv: csv)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[[&quot;Values in quotes&quot;, &quot;can contain , characters&quot;],</span></span><br><span class="line"><span class="comment">[&quot;Values without quotes work as well:&quot;, &quot;42&quot;]] */</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的字符串文字使用扩展的定界符语法（将字符串文字包含在＃个字符中），这使我们能够在字符串文字中编写引号而不必对其进行转义。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;能够编写像这样的小型解析器可以大大提高你的字符串处理技能。这样，使用 <code>Collection API </code>甚至正则表达式很难或不可能完成的任务通常变得很简单。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的 <code>CSV解析器 </code>尚未完成，但已经很有用。这很短，因为我们不必跟踪很多状态；只有一个布尔变量。通过一些额外的工作，我们可以忽略空行，忽略带引号的字段周围的空格，并支持在带引号的字段内对引号进行转义（通过使用两个引号字符）。然后，我们将使用枚举明确区分所有可能的状态，而不是使用单个布尔值来跟踪解析器的状态。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，我们添加到解析器的状态越多，在实现中就容易出错。因此，仅在非常简单的分析任务中才建议在单个循环中进行这种分析。如果我们必须跟踪更多状态，则必须改变策略，从在单个循环中编写所有内容到将解析器分解为多个功能。</p>
+<h2 id="Substrings"><a href="#Substrings" class="headerlink" title="Substrings"></a><em><strong>Substrings</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与所有集合一样， <code>String </code>具有名为 <code>Substring </code>的特定切片或 <code>SubSequence类型 </code>。 子字符串非常类似于 <code>ArraySlice： </code>它是具有不同起始索引和结束索引的基本字符串的视图。 子字符串共享其基本字符串的文本存储。 切片字符串的好处是非常便宜的操作。 在以下示例中创建 <code>firstWord </code>变量不需要昂贵的副本或内存分配：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sentence <span class="operator">=</span> <span class="string">&quot;The quick brown fox jumped over the lazy dog.&quot;</span> </span><br><span class="line"><span class="keyword">let</span> firstSpace <span class="operator">=</span> sentence.firstIndex(of: <span class="string">&quot; &quot;</span>) <span class="operator">??</span> sentence.endIndex </span><br><span class="line"><span class="keyword">let</span> firstWord <span class="operator">=</span> sentence[<span class="operator">..&lt;</span>firstSpace] <span class="comment">// The</span></span><br><span class="line"><span class="built_in">type</span>(of: firstWord) <span class="comment">// Substring</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>廉价切片 </code>在循环中非常重要，在循环中，你遍历整个（可能很长）字符串以提取其分量。 诸如查找文本中所有单词的出现或 <code>解析CSV文件之类 </code>的任务都浮现在脑海。 在这种情况下，非常有用的字符串处理操作是拆分。 <code>split方法</code>是在 <code>Collection </code>和返回子序列的数组（即 <code>[Substring] </code>）。 其最常见的变体定义如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Collection</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">split</span>(<span class="params">separator</span>: <span class="type">Element</span>, <span class="params">maxSplits</span>: <span class="type">Int</span> <span class="operator">=</span> <span class="type">Int</span>.max,</span></span><br><span class="line"><span class="function">    <span class="params">omittingEmptySubsequences</span>: <span class="type">Bool</span> <span class="operator">=</span> <span class="literal">true</span>)</span> -&gt; [<span class="type">SubSequence</span>] </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以像这样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> poem <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">Over the wintry</span></span><br><span class="line"><span class="string">forest, winds howl in rage with no leaves to blow. &quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">let</span> lines <span class="operator">=</span> poem.split(separator: <span class="string">&quot;<span class="subst">\n</span>&quot;</span>)</span><br><span class="line"><span class="comment">// [&quot;Over the wintry&quot;, &quot;forest, winds howl in rage&quot;, &quot;with no leaves to blow.&quot;] </span></span><br><span class="line"><span class="built_in">type</span>(of: lines) <span class="comment">// Array&lt;Substring&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这可以起到类似于 <code>component(separatedBy: ) </code>方法的作用， <code>String </code>从 <code>NSString </code>继承，并添加了有关是否删除空组件的配置。 同样，不复制输入字符串。 此外，由于 <code>split </code>的另一种变体需要关闭，因此它不仅可以比较字符，还可以做更多的事情。 这是原始自动换行算法的示例，其中的闭包捕获了到目前为止的行长计数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">wrapped</span>(<span class="params">after</span> <span class="params">maxLength</span>: <span class="type">Int</span> <span class="operator">=</span> <span class="number">70</span>)</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> lineLength <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">        <span class="keyword">let</span> lines <span class="operator">=</span> <span class="keyword">self</span>.split(omittingEmptySubsequences: <span class="literal">false</span>) &#123; character <span class="keyword">in</span></span><br><span class="line">            <span class="keyword">if</span> character.isWhitespace <span class="operator">&amp;&amp;</span> lineLength <span class="operator">&gt;=</span> maxLength &#123;      </span><br><span class="line">                lineLength <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123; </span><br><span class="line">                lineLength <span class="operator">+=</span> <span class="number">1</span> </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> lines.joined(separator: <span class="string">&quot;<span class="subst">\n</span>&quot;</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">sentence.wrapped(after: <span class="number">15</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">The quick brown fox jumped over the lazy dog.</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者，考虑编写采用多个分隔符序列的版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Collection</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">split</span>&lt;<span class="type">S</span>: <span class="type">Sequence</span>&gt;(<span class="params">separators</span>: <span class="type">S</span>)</span> -&gt; [<span class="type">SubSequence</span>]</span><br><span class="line">    <span class="keyword">where</span> <span class="type">Element</span> <span class="operator">==</span> <span class="type">S</span>.<span class="type">Element</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> split &#123; separators.contains(<span class="variable">$0</span>) &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样，你可以编写以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;Hello, world!&quot;</span>.split(separators: <span class="string">&quot;,! &quot;</span>) <span class="comment">// [&quot;Hello&quot;, &quot;world&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="StringProtocol"><a href="#StringProtocol" class="headerlink" title="StringProtocol"></a><em><strong>StringProtocol</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;子字符串具有与字符串几乎相同的接口。 这是通过一个通用的协议 <code>StringProtocol </code>来实现的，这两种类型都符合。 由于几乎整个字符串 <code>API </code>都是在 <code>StringProtocol上定义 </code>的，因此你可以像处理 <code>String </code>一样使用 <code>Substring </code>。 不过，在某些时候，你必须将子字符串转换回 <code>String实例 </code>； 与所有切片一样，子字符串仅用于短期存储，以避免在操作过程中产生昂贵的副本。 操作完成后，如果要存储结果或将结果传递给另一个子系统，则应创建一个新的 <code>String </code>。 你可以通过使用子字符串初始化 <code>String </code>来完成此操作，如本例所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lastWord</span>(<span class="params">in</span> <span class="params">input</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">    <span class="comment">// Process the input, working on substrings.</span></span><br><span class="line">    <span class="keyword">let</span> words <span class="operator">=</span> input.split(separators: [<span class="string">&quot;,&quot;</span>, <span class="string">&quot; &quot;</span>])</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> lastWord <span class="operator">=</span> words.last <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// Convert to String for return.</span></span><br><span class="line">    <span class="keyword">return</span> <span class="type">String</span>(lastWord) </span><br><span class="line">&#125;</span><br><span class="line">lastWord(in: <span class="string">&quot;one, two, three, four, five&quot;</span>) <span class="comment">// Optional(&quot;five&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;阻止长期存储子字符串的理由是，<strong>子字符串始终保留在整个原始字符串上</strong>。即使原始字符串的生命周期通常已经结束，代表巨大字符串的单个字符的子字符串也会将整个字符串保存在内存中。因此，<strong>子字符串的长期存储将有效地导致内存泄漏，因为即使原来的字符串不再可用，它们也必须保留在内存中</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过在操作过程中使用子字符串，并仅在最后创建新的字符串，我们将副本推迟到最后一刻，并确保仅产生那些实际需要的副本的成本。在上面的示例中，我们将整个（可能很长的）字符串拆分为子字符串，但是最后只花了一个短子字符串的单个副本的费用。 （请暂时忽略此算法的有效性；从最后开始迭代，直到找到第一个分隔符将是更好的方法。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;遇到仅在要传递字符串时仅接受子字符串的函数的情况比较少见-大多数函数应采用字符串或任何符合 <code>StringProtocol的类型 </code>。但是，如果确实需要传递 <code>Substring </code>，最快的方法是使用 <code>range运算符 </code>对字符串进行下标…，而不指定任何边界：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Substring with identical start and end index as the base string.</span></span><br><span class="line"><span class="keyword">let</span> substring <span class="operator">=</span> sentence[<span class="operator">...</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;定义Words集合时，我们已经在关于 <strong><code>集合协议</code></strong> 的章节中看到了这样的示例。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Substring类型 </code>是在 <code>Swift 4 </code>中引入的。在 <code>Swift 3 </code>中， <code>String.CharacterView </code>曾经是它自己的切片类型。 这样做的好处是用户只需要了解一种类型，但这意味着存储的子字符串即使在正常情况下也可以保留整个原始字符串缓冲区。 通过引入 <code>Substring </code>， <code>Swift </code>在便利性方面付出了小小的损失，换来了廉价的切片操作和可预测的内存使用。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会想充分利用 <code>StringProtocol </code>的存在，并将所有 <code>API </code>转换为采用 <code>StringProtocol实例 </code>而不是纯字符串。 但是Swift团队的建议是不要这样做：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的一般建议是坚持使用String。 大多数API仅使用String而不是通用即可（这本身会付出一定的代价），因此使用String会更加简单明了，并且在少数情况下需要用户转换并不是很大的负担。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此规则的例外是极有可能与子字符串一起使用的 <code>API </code>，同时又无法进一步推广到 <code>Sequence </code>或 <code>Collection级别 </code>。 标准库中的一个示例是 <code>joind方法 </code>。 标准库为符合 <code>StringProtocol </code>的元素的序列提供了重载：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Sequence</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">StringProtocol</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Returns a new string by concatenating the elements of the sequence, </span></span><br><span class="line">    <span class="comment">/// adding the given separator between each element.</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">joined</span>(<span class="params">separator</span>: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>)</span> -&gt; <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使你可以直接在子字符串数组上调用 <code>join </code>（例如，从拆分调用中获得），而不必映射到数组并将每个子字符串复制到新字符串中。 这样更方便，更快。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接受字符串并将其转换为数字的数字类型初始值设定项也采用 <code>StringProtocol </code>值。 同样，如果要处理子字符串数组，这特别方便：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> commaSeparatedNumbers <span class="operator">=</span> <span class="string">&quot;1,2,3,4,5&quot;</span></span><br><span class="line"><span class="keyword">let</span> numbers <span class="operator">=</span> commaSeparatedNumbers.split(separator: <span class="string">&quot;,&quot;</span>)</span><br><span class="line">.compactMap &#123; <span class="type">Int</span>(<span class="variable">$0</span>) &#125; </span><br><span class="line">numbers <span class="comment">// [1, 2, 3, 4, 5]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于子字符串旨在缩短寿命，因此通常不建议从函数中返回子字符串，除非我们谈论的是返回切片的 <code>Sequence API </code>或 <code>Collection API </code>。如果你编写了只对字符串有意义的类似函数，则让该函数返回一个子字符串会告诉读者它没有进行复制。创建需要内存分配的新字符串的函数（例如 <code>uppercased（） </code>）应始终返回 <code>String实例 </code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要使用新功能扩展 <code>String </code>，请将扩展名放在 <code>StringProtocol </code>上是使 <code>String </code>和 <code>Substring </code>之间的 <code>API </code>表面保持一致的一个好主意。  <code>StringProtocol </code>明确设计为可以在以前扩展 <code>String </code>时使用。如果要将现有扩展名从 <code>String </code>移到 <code>StringProtocol </code>，则唯一要做的更改是将 <code>self </code>的任何传递替换为采用 <code>String（self） </code>的具体 <code>String </code>的 <code>API </code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是请记住， <code>StringProtocol </code>不能用作你自己的自定义字符串类型的一致性目标。该文档明确警告它：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不要声明与 <code>StringProtocol </code>的新一致性。 仅标准库的 <code>String </code>和 <code>Substring类型 </code>是有效的符合类型。</p>
+</blockquote>
+<h2 id="编码单元视图"><a href="#编码单元视图" class="headerlink" title="编码单元视图"></a><em><strong>编码单元视图</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，有必要降低到较低的抽象水平，并直接对 <code>Unicode标量 </code>或代码单元进行操作，而不要对 <code>Swift字符 </code>（即字素簇）进行操作。字符串为此提供了三个视图： <code>unicodeScalars </code>， <code>utf8 </code>和 <code>utf16 </code>。像 <code>String </code>一样，它们是双向集合，支持所有熟悉的操作。与子字符串一样，视图共享字符串的存储空间；它们只是以不同的方式表示基础字节。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有几种常见原因导致你需要处理其中一种视图。首先，也许你实际上需要代码单元，可能是为了呈现到 <code>UTF-8编码 </code>的网页中，还是与需要特定编码的非 <code>Swift API </code>进行互操作。或者，你可能需要有关特定格式字符串的信息。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，假设你正在编写一个 <code>Twitter客户端 </code>。尽管 <code>Twitter API </code>期望字符串采用 <code>UTF-8编码 </code>，但 <code>Twitter </code>的字符计数算法是基于 <code>NFC标准化的标量 </code>（至少以前是这样的-该算法最近变得越来越复杂，但我们会坚持使用就本例而言，是先前的方法。）因此，如果要向用户显示他们还剩下多少个字符，可以采用以下方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> tweet <span class="operator">=</span> <span class="string">&quot;Having   in a cafe<span class="subst">\u&#123;301&#125;</span> in   and enjoying the   .&quot;</span></span><br><span class="line"><span class="keyword">let</span> characterCount <span class="operator">=</span> tweet.precomposedStringWithCanonicalMapping</span><br><span class="line">    .unicodeScalars.count </span><br><span class="line">characterCount <span class="comment">// 46</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>NFC规范化 </code>将基本字母和组合标记（例如 <code>“cafe\u&#123;301&#125;” </code>中的e加重音）一起转换为它们的预组合形式。  <code>precomposedStringWithCanonicalMapping </code>属性在 <code>Foundation </code>中定义。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>UTF-8 </code>是用于 <code>存储文本 </code>或 <code>通过Internet发送文本的事实上的标准 </code>。 由于 <code>utf8视图 </code>是一个集合，因此你可以使用它将原始 <code>UTF-8字节 </code>传递给其他任何接受字节序列的 <code>API </code>，例如 <code>Data </code>或 <code>Array </code>的初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> utf8Bytes <span class="operator">=</span> <span class="type">Data</span>(tweet.utf8) </span><br><span class="line">utf8Bytes.count <span class="comment">// 62</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符串的 <code>UTF-8视图 </code>在所有代码单元视图中的开销也最小，因为 <code>UTF-8 </code>是 <code>Swift字符串 </code>的本机内存格式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意， <code>utf8集合 </code>不包含结尾的空字节。 如果需要以空值结尾的表示形式，请在字符串上使用 <code>withCString </code>方法或 <code>utf8CString属性 </code>。 后者返回一个字节数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> nullTerminatedUTF8 <span class="operator">=</span> tweet.utf8CString </span><br><span class="line">nullTerminatedUTF8.count <span class="comment">// 63</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>withCString方法 </code>调用你提供的函数，该函数提供了一个指向以 <code>Null </code>结尾的字符串的 <code>UTF-8 </code>内容的指针。 如果你需要调用期望使用 <code>char * </code>的 <code>C API </code>，这将非常有用。 在许多情况下，你甚至不需要显式的 <code>withCString调用 </code>，因为编译器可以自动将 <code>Swift字符串 </code>转换为C字符串以进行函数调用。 例如，这是对C标准库中 <code>strlen函数 </code>的调用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strlen(tweet) <span class="comment">// 62</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在 <code>“互操作性” </code>一章中看到更多示例。在大多数情况下（如果字符串的基础存储已经是UTF-8），这种转换几乎没有成本，因为 <code>Swift </code>可以将直接指针传递到字符串存储中的C语言。如果字符串具有不同的内存编码，则编译器将自动插入代码以对内容进行代码转换并将所述内容复制到临时缓冲区中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>utf16视图 </code>具有特殊意义，因为 <code>Foundation API </code>传统上将字符串视为 <code>UTF-16代码单元 </code>的集合。虽然 <code>NSString </code>接口透明地桥接到 <code>Swift.String </code>，从而为你隐式处理了转换，但其他基金会API（例如 <code>NSRegularExpression </code>或 <code>NSAttributedString </code>）通常希望输入的是UTF-16数据。我们将在“字符串和基础”部分中看到一个示例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用代码单元视图的第二个原因是，对代码单元而不是完全组成的字符进行操作会更快。这是因为 <code>Unicode字素 </code>破坏算法相当复杂，并且需要额外的提前行才能识别下一个字素簇的开始。但是，近年来，将String作为字符进行遍历的速度越来越快，因此，请务必测量（相对较小的）加速是否值得失去Unicode正确性。下拉至其中一个代码单元视图后，必须确保你的特定算法可以在此基础上正常工作。例如， <code>使用UTF-8视图解析JSON应该没问题 </code>，因为解析器感兴趣的所有特殊字符（例如逗号，引号或花括号）都可以在单个代码单元中表示； JSON数据中的某些字符串可能包含复杂的表情符号序列都没关系。另一方面，如果你希望搜索算法找到搜索字符串的不同归一化形式，则在代码单元视图中查找字符串中所有单词的出现均无法正常工作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>代码单元视图均未提供的一项理想功能是随机访问 </code>。结果是String及其视图与需要随机访问的算法不匹配。绝大多数的字符串处理任务应该可以在顺序遍历中正常工作，特别是因为算法始终可以存储其希望能够在恒定时间内重新访问的片段的子字符串。如果你绝对需要随机访问，则始终可以将字符串本身或其中的一个视图转换为数组并对其进行处理，就像使用  <code>Array(str) </code> 或 <code>Array(str.utf8)</code> 一样。</p>
+<h2 id="索引共享"><a href="#索引共享" class="headerlink" title="索引共享"></a><em><strong>索引共享</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符串及其视图共享相同的索引类型 <code>String.Index </code>。 这意味着你可以使用从字符串派生的索引对视图之一进行下标。 在下面的示例中，我们在字符串中搜索“é”（由两个标量，字母e和重音组成）。 结果索引引用Unicode标量视图中的第一个标量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> pokemon <span class="operator">=</span> <span class="string">&quot;Poke<span class="subst">\u&#123;301&#125;</span>mon&quot;</span> <span class="comment">// Pokémon </span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> index <span class="operator">=</span> pokemon.firstIndex(of: <span class="string">&quot;é&quot;</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> scalar <span class="operator">=</span> pokemon.unicodeScalars[index] <span class="comment">// e</span></span><br><span class="line">    <span class="type">String</span>(scalar) <span class="comment">// e </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只要你沿抽象阶梯走下去（从字符到标量再到UTF-8或UTF-16代码单元），此方法就很好用。 采用另一种方法可能会产生令人惊讶的结果，因为并非其中一个代码单元视图中的每个有效索引都在Character边界上：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> family <span class="operator">=</span> <span class="string">&quot; &quot;</span></span><br><span class="line"><span class="comment">// This initializer creates an index at a UTF-16 offset.</span></span><br><span class="line"><span class="keyword">let</span> someUTF16Index <span class="operator">=</span> <span class="type">String</span>.<span class="type">Index</span>(utf16Offset: <span class="number">2</span>, in: family)</span><br><span class="line">family[someUTF16Index] <span class="comment">//</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;String.Index具有一组用于在视图之间转换索引的方法  <code>(samePosition(in: )) </code> 和失败的初始化器  <code>(String.Index.init?(_：within :)) </code> 。 如果给定索引在指定视图中没有确切的对应位置，则它们返回 <code>nil </code>。 例如，尝试将标量视图中合并重音的位置转换为字符串中的有效索引会失败，因为合并字符在字符串中没有自己的位置：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> accentIndex <span class="operator">=</span> pokemon.unicodeScalars.firstIndex(of: <span class="string">&quot;<span class="subst">\u&#123;301&#125;</span>&quot;</span>) &#123;     </span><br><span class="line">    accentIndex.samePosition(in: pokemon) <span class="comment">// nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Strings-and-Foundation"><a href="#Strings-and-Foundation" class="headerlink" title="Strings and Foundation"></a><em><strong>Strings and Foundation</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift </code>的 <code>String类型 </code>与其基金会对应的 <code>NSString </code>有非常密切的关系。可以使用 <code>as运算符 </code>将任何 <code>String实例 </code>桥接到 <code>NSString </code>，采用或返回NSString的 <code>Objective-C API </code>会自动转换为使用String。但这还不是全部。从Swift 5.0开始，String仍然缺少NSString拥有的许多功能。由于字符串是这种基本类型，并且经常不得不转换为 <code>NSString </code>会很烦人，因此String会受到编译器的特殊对待：导入 <code>Foundation </code>时， <code>NSString成员 </code>可以在String实例上直接访问，这使Swift字符串的功能大大增强了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;拥有附加功能无疑是一件好事，但使用字符串可能会使你感到困惑。一方面，如果你忘记导入 <code>Foundation </code>，你可能会想知道为什么某些方法不可用。基金会作为 <code>Objective-C框架 </code>的历史也趋向于使 <code>NSString API </code>在标准库旁边显得有些不合时宜，即使仅仅是因为不同的命名约定也是如此。最后但并非最不重要的一点是，两个库的功能集之间的重叠有时意味着存在两个名称完全不同的<code>API</code>，它们执行几乎相同的任务。如果你是一位长期的 <code>Cocoa开发人员 </code>，并且在 <code>Swift </code>出现之前就已经学习了 <code>NSString API </code>，那么这可能没什么大不了的，但是对于新手来说，这将是令人困惑的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经看到了一个示例- <code>Foundation中标准库 </code>的 <code>split方法 </code>与 <code>components（separatedBy :) </code>的比较-还有许多其他不匹配之处： <code>Foundation </code>使用 <code>CompareResult枚举 </code>作为比较谓词，而标准库是围绕布尔谓词设计的；诸如 <code>trimmingCharacters（in :) </code>和 <code>components（separatedBy :) </code>之类的方法将 <code>CharacterSet </code>作为参数，这在Swift中是不幸的错误称呼（稍后会详细介绍）；极其强大的 <code>enumerateSubstrings（in：options：_ :)方法 </code>可以遍历大量字素簇，单词，句子或段落中的字符串，可以处理相应的 <code>标准库API </code>使用子字符串的字符串和范围。 （标准库还可以提供与延迟序列相同的功能，这非常酷。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下面的示例枚举字符串中的单词。每个发现的单词都会调用一次回调闭包：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> sentence <span class="operator">=</span> <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">The quick brown fox jumped \ over the lazy dog.</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">var</span> words: [<span class="type">String</span>] <span class="operator">=</span> []</span><br><span class="line">sentence.enumerateSubstrings(in: sentence.startIndex<span class="operator">...</span>, options: .byWords) &#123; (word, range, <span class="keyword">_</span>, <span class="keyword">_</span>) <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> word <span class="operator">=</span> word <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125; words.append(word)</span><br><span class="line">&#125;</span><br><span class="line">words</span><br><span class="line"><span class="comment">// [&quot;The&quot;, &quot;quick&quot;, &quot;brown&quot;, &quot;fox&quot;, &quot;jumped&quot;, &quot;over&quot;, &quot;the&quot;, &quot;lazy&quot;, &quot;dog&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要获得导入到String中的所有 <code>NSString成员 </code>的概述，请在Swift源代码存储库中检出文件<a target="_blank" rel="noopener" href="https://github.com/apple/swift/blob/swift-5.0-RELEASE/stdlib/public/SDK/Foundation/NSStringAPI.swift"><em><strong><code>NSStringAPI.swift</code></strong></em></a>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>Swift字符串（UTF-8） </code>和 <code>NSString（UTF-16） </code>的本地内存编码之间不匹配，因此当 <code>Swift字符串 </code>必须桥接到NSString时，会产生额外的性能成本。 这意味着将原生Swift字符串传递给诸如 <code>enumerateSubstrings（in：options：using :)之类 </code>的 <code>Foundation API </code>可能不如传递 <code>NSString </code>那样快-该方法可能假定能够以UTF- 在固定时间内偏移16个偏移量，但这将是对Swift字符串的线性时间操作。 为了减轻这种影响，Swift实现了复杂的索引缓存以实现摊销的恒定时间特性。</p>
+<h2 id="其他与字符串相关的Foundation-API"><a href="#其他与字符串相关的Foundation-API" class="headerlink" title="其他与字符串相关的Foundation API"></a><em><strong>其他与字符串相关的Foundation API</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;综上所述，原生 <code>NSString API </code>通常适合与 <code>Swift字符串 </code>配合使用，因为大多数桥接工作都是为你完成的。许多其他处理字符串的 <code>Foundation API </code>都很难使用，因为Apple尚未为它们编写特殊的 <code>Swift覆盖 </code>。考虑一下 <code>NSAttributedString </code>，这是用于以格式表示富文本的 <code>Foundation类 </code>。要从Swift成功使用归因字符串，你必须注意以下几点：</p>
+<ul>
+<li><p>→ 有两个类 -  <code>NSAttributedString </code>用于不可变字符串， <code>NSMutableAttributedString </code>用于可变字符串。它们具有引用语义，而不是Swift的标准集合具有值语义。</p>
+</li>
+<li><p>→ 尽管虽然所有 <code>NSAttributedStringAPI </code>最初都采用了 <code>NSStringnowtakea Swift.String </code>，但整个API仍基于 <code>NSString的UTF-16代码单元集合 </code>的概念，并且String和NSString之间的频繁桥接可能会带来意外的性能损失。有关详细信息，请参阅<a target="_blank" rel="noopener" href="https://developer.apple.com/videos/play/wwdc2018/229/?time=1978"><em><strong><code>WWDC 2018 的会议229</code></strong></em></a>。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，用于查询特定位置的格式设置属性的 <code>attributes（at：Int，effectiveRange：NSRangePointer？） </code>方法期望整数索引（以UTF-16单位度量），而不是 <code>String.Index </code>，并且有效指针通过指针返回是一个 <code>NSRange </code>，而不是 <code>Range &lt;String.Index&gt; </code>。对于传递给 <code>NSMutableAttributedString.addAttribute（_：value：range :) </code>的范围，情况也是如此。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>NSRange </code>是包含两个整数字段，位置和长度的结构：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">NSRange</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> location: <span class="type">Int</span> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> length: <span class="type">Int</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在字符串的上下文中，字段以UTF-16代码单位指定字符串段。 与以前的版本相比，Swift 4使使用·的工作稍微容易一些，因为现在有了用于在  <code>Range&lt;String.Index&gt; </code> 和  <code>NSRange </code> 之间进行转换的初始化程序； 但是，这不会缩短来回翻译所需的额外代码。 以下是有关如何创建和修改属性字符串的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> text <span class="operator">=</span> <span class="string">&quot; 👉 Click here for more info.&quot;</span> </span><br><span class="line"><span class="keyword">let</span> linkTarget <span class="operator">=</span> <span class="type">URL</span>(string: <span class="string">&quot;https://www.youtube.com/watch?v=DLzxrzFCyOs&quot;</span><span class="operator">!</span> </span><br><span class="line"><span class="comment">// Object is mutable despite  `let ` (reference semantics).</span></span><br><span class="line"><span class="keyword">let</span> formatted <span class="operator">=</span> <span class="type">NSMutableAttributedString</span>(string: text)</span><br><span class="line">    <span class="comment">// Modify attributes of a part of the text.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> linkRange <span class="operator">=</span> formatted.string.range(of: <span class="string">&quot;Click here&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// Convert Swift range to NSRange.</span></span><br><span class="line">    <span class="comment">// Note that the start of the range is 3 because the preceding emoji // character doesn&#x27;t fit in a single UTF-16 code unit.</span></span><br><span class="line">    <span class="keyword">let</span> nsRange <span class="operator">=</span> <span class="type">NSRange</span>(linkRange, in: formatted.string) <span class="comment">// &#123;3, 10&#125; // Add the attribute.</span></span><br><span class="line">    formatted.addAttribute(.link, value: linkTarget, range: nsRange)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此代码将链接添加到字符串的“单击此处”部分。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在属性字符串中查询特定字符的格式设置属性是这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Query attributes at start of the word &quot;here.&quot;</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> queryRange <span class="operator">=</span> formatted.string.range(of: <span class="string">&quot;here&quot;</span>) &#123;</span><br><span class="line">    <span class="comment">// Convert Swift range to NSRange.</span></span><br><span class="line">    <span class="keyword">let</span> nsRange <span class="operator">=</span> <span class="type">NSRange</span>(queryRange, in: formatted.string)</span><br><span class="line">    <span class="comment">// Prepare NSRange variable to receive effective attributes range. </span></span><br><span class="line">    <span class="keyword">var</span> attributesRange <span class="operator">=</span> <span class="type">NSRange</span>()</span><br><span class="line">    <span class="comment">// Execute query.</span></span><br><span class="line">    <span class="keyword">let</span> attributes <span class="operator">=</span> formatted.attributes(at: nsRange.location,</span><br><span class="line">    effectiveRange: <span class="operator">&amp;</span>attributesRange) </span><br><span class="line">    attributesRange <span class="comment">// &#123;3, 10&#125;</span></span><br><span class="line">    <span class="comment">// Convert NSRange back to Range&lt;String.Index&gt;.</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">let</span> effectiveRange <span class="operator">=</span> <span class="type">Range</span>(attributesRange, in: formatted.string) &#123;  <span class="comment">// The substring spanned by the attribute. </span></span><br><span class="line">        formatted.string[effectiveRange] <span class="comment">// Click here</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们认为你会同意，要使这段代码看起来像是惯用的Swift，还有很长的路要走。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了 <code>NSAttributedString </code>，另一个具有非常相似的阻抗失配的 <code>Foundation类 </code>是 <code>NSRegularExpression </code>。  <code>Swift </code>可能会在不久的将来获得本机正则表达式语法，但是在那之前，我们将不得不使用笨拙的 <code>Foundation API </code>。</p>
+<h2 id="Ranges-of-Characters"><a href="#Ranges-of-Characters" class="headerlink" title="Ranges of Characters"></a><em><strong>Ranges of Characters</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（强制转换为 <code>Character </code>很重要，因为字符串文字的默认类型是String；我们需要告诉类型检查器我们想要一个 <code>Character范围 </code>。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><em><strong><code>“内置集合”</code></strong></em></a>一章中讨论了失败的原因：字符不符合 <code>Strideable协议 </code>，这是使范围变得可计数并因此成为集合的要求。 你可以对一个字符范围进行的操作就是将其他字符与该字符进行比较，即检查一个字符是否在该范围内：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lowercaseLetters.contains(<span class="string">&quot;A&quot;</span>) <span class="comment">// false </span></span><br><span class="line">lowercaseLetters.contains(<span class="string">&quot;é&quot;</span>) <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可数范围的概念确实有意义的一种类型是 <code>Unicode.Scalar </code>，至少在你坚持使用 <code>ASCII </code>或 <code>Unicode </code>目录的其他顺序良好的子集的情况下。 标量在其代码点值中具有明确定义的顺序，并且在任何两个边界之间始终存在有限数量的标量。  <code>Unicode </code>标量默认情况下不是“可扩展的”，但我们可以追溯添加一致性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Unicode</span>.<span class="title">Scalar</span>: <span class="title">Strideable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">typealias</span> <span class="type">Stride</span> <span class="operator">=</span> <span class="type">Int</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">distance</span>(<span class="params">to</span> <span class="params">other</span>: <span class="type">Unicode</span>.<span class="type">Scalar</span>)</span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="type">Int</span>(other.value) <span class="operator">-</span> <span class="type">Int</span>(<span class="keyword">self</span>.value)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">advanced</span>(<span class="params">by</span> <span class="params">n</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">Unicode</span>.<span class="type">Scalar</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> <span class="type">Unicode</span>.<span class="type">Scalar</span>(<span class="type">UInt32</span>(<span class="type">Int</span>(value) <span class="operator">+</span> n))<span class="operator">!</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（我们忽略了这样的事实，即代代码点 <code>0xD800 </code>到 <code>0xDFFF </code>不是有效的 <code>Unicode标量值 </code>。构造与该区域重叠的范围是程序员的错误。）</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将你不拥有的类型与你不拥有的协议相一致可能会产生问题，通常不建议这样做，因为如果你使用的其他库添加相同的扩展名，或者如果原始供应商以后添加了相同的一致性，则可能会导致冲突。 一个可能不同的实现）。 创建包装类型并将协议一致性添加到该类型通常是一个更好的主意。 我们将在“协议”一章中对此进行更深入的介绍。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为 <code>Unicode </code>添加可跨越的一致性。标量允许我们使用一系列 <code>Unicode标量 </code>作为生成字符数组的一种非常方便的方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lowercase <span class="operator">=</span> (<span class="string">&quot;a&quot;</span> <span class="keyword">as</span> <span class="type">Unicode</span>.<span class="type">Scalar</span>)<span class="operator">...</span><span class="string">&quot;z&quot;</span> </span><br><span class="line"><span class="type">Array</span>(lowercase.map(<span class="type">Character</span>.<span class="keyword">init</span>))</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">[&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;d&quot;, &quot;e&quot;, &quot;f&quot;, &quot;g&quot;, &quot;h&quot;, &quot;i&quot;, &quot;j&quot;, &quot;k&quot;, &quot;l&quot;, &quot;m&quot;, &quot;n&quot;,</span></span><br><span class="line"><span class="comment">&quot;o&quot;, &quot;p&quot;, &quot;q&quot;, &quot;r&quot;, &quot;s&quot;, &quot;t&quot;, &quot;u&quot;, &quot;v&quot;, &quot;w&quot;, &quot;x&quot;, &quot;y&quot;, &quot;z&quot;] */</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="CharacterSet"><a href="#CharacterSet" class="headerlink" title="CharacterSet"></a><strong>CharacterSet</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看一下最后一种有趣的 <code>Foundation类型 </code>，那就是 <code>CharacterSet </code>。 我们已经在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><em><strong><code>“内置集合”</code></strong></em></a>一章中提到过，该结构实际上应称为 <code>UnicodeScalarSet </code>，因为它就是这样：一种有效的数据结构，用于表示 <code>Unicode标量集 </code>。 它与字符类型完全不兼容。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过使用几个复杂的表情符号创建一个集合来说明这一点。 似乎该集合仅包含我们放入的两个表情符号，但是测试第三个表情符号的成员资格是成功的，因为消防员表情符号实际上是女性+ ZWJ +消防车的序列：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> favoriteEmoji <span class="operator">=</span> <span class="type">CharacterSet</span>(<span class="string">&quot;     &quot;</span>.unicodeScalars) <span class="comment">// Wrong! Or is it?</span></span><br><span class="line">favoriteEmoji.contains(<span class="string">&quot;   &quot;</span>) <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>CharacterSet </code>提供了许多工厂初始化程序，例如 <code>.alphanumerics </code>和 <code>.whitespacesAndNewlines </code>。 其中大多数对应于正式的 <code>Unicode字符 </code>类别（为每个代码点分配了一个类别，例如“字母”或“无间距标记”）。 类别涵盖所有脚本，而不仅仅是 <code>ASCII </code>或 <code>Latin-1 </code>，因此这些预定义集中的成员数通常很大。 由于 <code>CharacterSet符合SetAlgebra </code>，因此我们可以通过使用诸如联合或相交之类的集合操作来组合多个字符集。</p>
+<h2 id="Unicode属性"><a href="#Unicode属性" class="headerlink" title="Unicode属性"></a><em><strong>Unicode属性</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift 5 </code>中， <code>CharacterSet </code>的部分功能已集成到 <code>Unicode.Scalar </code>中。我们不再需要 <code>Foundation类型 </code>来测试正式 <code>Unicode类 </code>别中的成员资格的标量，因为现在这些已直接作为 <code>Unicode.Scalar </code>上的属性公开。  <code>isEmoji </code>或 <code>isWhitespace </code>。 为避免使主要 <code>Unicode.Scalar </code>名称空间混乱， <code>Unicode属性 </code>在名称属性下命名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(<span class="string">&quot; &quot;</span> <span class="keyword">as</span> <span class="type">Unicode</span>.<span class="type">Scalar</span>).properties.isEmoji <span class="comment">// true </span></span><br><span class="line">(<span class="string">&quot;∫∫&quot;</span> <span class="keyword">as</span> <span class="type">Unicode</span>.<span class="type">Scalar</span>).properties.isMath <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请查看<a target="_blank" rel="noopener" href="https://developer.apple.com/documentation/swift/unicode/scalar/properties"><em><strong><code>Unicode.Scalar.Properties</code></strong></em></a>的文档以获取完整列表。 这些属性大多数都是布尔型的，但不是全部：诸如age（引入标量时的Unicode版本），name（正式的Unicode名称），numericalValue（适用于具有自己代码点的分数） 或非拉丁文字中的数字）和generalCategory（描述标量的“一阶，最常用的分类”的枚举）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，列出组成字符串的每个标量的代码点，名称和常规类别，只需要一点点字符串格式即可：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;I’m a  😀 .&quot;</span>.unicodeScalars.map &#123; scalar -&gt; <span class="type">String</span> <span class="keyword">in</span></span><br><span class="line">    <span class="keyword">let</span> codePoint <span class="operator">=</span> <span class="string">&quot;U+<span class="subst">\(String(scalar.value, radix: <span class="number">16</span>, uppercase: true))</span>&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> name <span class="operator">=</span> scalar.properties.name <span class="operator">??</span> <span class="string">&quot;(no name)&quot;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(codePoint)</span>: <span class="subst">\(name)</span> – <span class="subst">\(scalar.properties.generalCategory)</span>&quot;</span> </span><br><span class="line">&#125;.joined(separator: <span class="string">&quot;<span class="subst">\n</span>&quot;</span>)</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">U+49: LATIN CAPITAL LETTER I – uppercaseLetter</span></span><br><span class="line"><span class="comment">U+2019: RIGHT SINGLE QUOTATION MARK – finalPunctuation U+6D: LATIN SMALL LETTER M – lowercaseLetter</span></span><br><span class="line"><span class="comment">U+20: SPACE – spaceSeparator</span></span><br><span class="line"><span class="comment">U+61: LATIN SMALL LETTER A – lowercaseLetter</span></span><br><span class="line"><span class="comment">U+20: SPACE – spaceSeparator</span></span><br><span class="line"><span class="comment">U+1F469: WOMAN – otherSymbol</span></span><br><span class="line"><span class="comment">U+1F3FD: EMOJI MODIFIER FITZPATRICK TYPE-4 – modifierSymbol U+200D: ZERO WIDTH JOINER – format</span></span><br><span class="line"><span class="comment">U+1F692: FIRE ENGINE – otherSymbol</span></span><br><span class="line"><span class="comment">U+2E: FULL STOP – otherPunctuation</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Unicode标量 </code>属性级别较低，有意使用 <code>Unicode标准 </code>有时含糊的术语。 在 <code>“角色” </code>级别上设置相似的类别通常很有用，因此Swift 5还为“角色”添加了许多相关属性。 这里有些例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Character</span>(<span class="string">&quot;4&quot;</span>).isNumber <span class="comment">// true </span></span><br><span class="line"><span class="type">Character</span>(<span class="string">&quot;$&quot;</span>).isCurrencySymbol <span class="comment">// true </span></span><br><span class="line"><span class="type">Character</span>(<span class="string">&quot;<span class="subst">\n</span>&quot;</span>).isNewline <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与Unicode标量属性不同，“字符”上的这些类别不是Unicode规范的正式组成部分，因为Unicode仅对标量进行分类，而不对扩展字素簇进行分类。 标准库尽最大努力提供有关字符性质的明智信息，但是由于支持的脚本数量众多，并且Unicode具有将标量以无限组合的方式进行组合的能力，因此这些类别并不精确，可能与其他工具或编程不匹配语言提供。 它们也可能随着时间而发展。</p>
+<h2 id="字符串和字符的内部结构"><a href="#字符串和字符的内部结构" class="headerlink" title="字符串和字符的内部结构"></a><em><strong>字符串和字符的内部结构</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与标准库中的其他集合类型一样，<strong>字符串是具有值语义的写时复制集合</strong>。 String实例存储对缓冲区的引用，该缓冲区保存实际的字符数据。复制字符串时（通过赋值）或通过将其传递给函数）或创建子字符串，所有这些实例共享同一缓冲区。仅当某个实例与一个或多个其他实例共享其字符缓冲区时发生突变时，才复制字符数据。有关写时复制的更多信息，请参见<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/"><em><strong><code>“结构和类”</code></strong></em></a>一章。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从Swift 5开始，String使用 <code>UTF-8作为本机Swift字符串 </code>的内存表示形式。如果你需要最佳性能，则可以利用这些知识来发挥自己的优势-遍历UTF-8视图可能比UTF-16或Unicode标量视图快一点。同样，UTF-8是大多数字符串处理的自然格式，因为来自文件或Web的大多数源数据都使用UTF-8编码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从 <code>Objective-C </code>接收的字符串由 <code>NSString </code>支持。在这种情况下，NSString直接充当Swift字符串的缓冲区，以提高桥接效率。当NSString支持的String发生突变时，它将转换为原生Swift字符串。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于最多 <code>15个UTF-8代码单元 </code>（或在32位平台上为10个代码单元）的小字符串，有一项特殊的优化措施，可避免完全分配后备缓冲区。由于字符串的宽度为16个字节，因此可以内联存储小字符串的代码单元。尽管15个UTF-8代码单元听起来可能不多，但足以容纳很多字符串。例如，在JSON之类的机器可读格式中，许多键和值（例如数字和布尔值）都适合此长度，特别是因为它们通常仅使用ASCII字符。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个小的字符串优化还用于 <code>Character类型 </code>的内部表示（从<a target="_blank" rel="noopener" href="https://github.com/apple/swift/blob/swift-5.0-RELEASE/stdlib/public/core/Character.swift%23L65"><em><strong><code>标准库源简化</code></strong></em></a>）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">struct</span> <span class="title">Character</span> </span>&#123; </span><br><span class="line">    <span class="keyword">internal</span> <span class="keyword">var</span> _str: <span class="type">String</span></span><br><span class="line">    <span class="keyword">internal</span> <span class="function"><span class="keyword">init</span>(<span class="params">unchecked</span> <span class="params">str</span>: <span class="type">String</span>)</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>._str <span class="operator">=</span> str</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，一个字符在内部表示为长度为一的字符串。 在 <code>Swift 5 </code>进行小字符串优化之前， <code>Character类型 </code>本身实现了两层策略：可内联存储63位以下的字符，而将较大的字符存储在缓冲区中。 从Swift 5.0开始，<strong>Character仅依靠小字符串优化来达到类似的效果</strong>。</p>
+<h2 id="String-Literals"><a href="#String-Literals" class="headerlink" title="String Literals"></a><em><strong>String Literals</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们一直在互换使用 <code>String（“ blah”） </code>和 <code>“ blah” </code>，但它们是不同的。 “”是字符串文字，就像 <code>“集合协议” </code>一章中介绍的数组文字一样。你可以通过遵 <code>ExpressibleByStringLiteral </code>，从字符串文字中初始化类型。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字符串文字比数组文字稍微复杂一点，因为它们属于三个协议的层次结构的一部分： <code>ExpressibleByStringLiteral </code>， <code>ExpressibleByExtendedGraphemeClusterLiteral </code>和 <code>ExpressibleByUnicodeScalarLiteral </code>。每个都定义一个用于从每种文字创建类型的 <code>init </code>，但是除非你真的需要根据是否从单个标量/集群创建值而需要细粒度的逻辑，否则你只需要实现字符串版本即可；其他的则由引用字符串文字初始值设定项的默认实现覆盖。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为采用 <code>ExpressibleByStringLiteral协议 </code>的自定义类型的示例，我们定义了 <code>SafeHTML </code>类型。这实际上只是一个字符串包装，但具有附加的类型安全性。当我们使用这种类型的值时，我们可以确保它包含的潜在危险 <code>HTML标记 </code>已被转义，以免造成安全风险：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line"><span class="keyword">var</span> htmlEscaped: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="comment">// Replace all opening and closing brackets.</span></span><br><span class="line">    <span class="comment">// A &quot;real&quot; implementation would be more complicated. </span></span><br><span class="line">    <span class="keyword">return</span> replacingOccurrences(of: <span class="string">&quot;&lt;&quot;</span>, with: <span class="string">&quot;&amp;lt;&quot;</span>)</span><br><span class="line">            .replacingOccurrences(of: <span class="string">&quot;&gt;&quot;</span>, with: <span class="string">&quot;&amp;gt;&quot;</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">SafeHTML</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private(set)</span> <span class="keyword">var</span> value: <span class="type">String</span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">unsafe</span> <span class="params">html</span>: <span class="type">String</span>)</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">=</span> html.htmlEscaped</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以使用这种类型来确保视图的 <code>API </code>仅接受正确转义的值。 缺点是我们将不得不在 <code>SafeHTML </code>的代码中手动包装许多字符串文字。 幸运的是，我们可以遵循 <code>ExpressibleByStringLiteral </code>来避免这种开销：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span>: <span class="title">ExpressibleByStringLiteral</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">init</span>(<span class="params">stringLiteral</span> <span class="params">value</span>: <span class="type">StringLiteralType</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">=</span> value </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设代码中的字符串文字始终是安全的（这是一个合理的假设，因为我们自己输入了字符串文字）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> safe: <span class="type">SafeHTML</span> <span class="operator">=</span> <span class="string">&quot;&lt;p&gt;Angle brackets in literals are not escaped&lt;/p&gt;&quot;</span> </span><br><span class="line"><span class="comment">// SafeHTML(value: &quot;&lt;p&gt;Angle brackets in literals are not escaped&lt;/p&gt;&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在上面，我们必须明确指定 <code>SafeHTML类型 </code>，否则 <code>safe </code>将为 <code>String类型 </code>。 但是，我们可以在编译器已经知道类型的上下文中省略显式类型，例如属性分配或函数调用。</p>
+<h2 id="String-Interpolation"><a href="#String-Interpolation" class="headerlink" title="String Interpolation"></a><em><strong>String Interpolation</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自开始以来，字符串插值即将表达式放入字符串文字中（例如“a*b = (a * b)”）。 Swift 5引入了一个公共API，以利用字符串插值来定制类型。 我们可以使用此API从上面改进SafeHTML类型。 我们经常不得不编写包含HTML标签的字符串文字，并在两者之间添加一些用户输入数据：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">let</span> input <span class="operator">=</span> <span class="operator">...</span> <span class="comment">// received from user, unsafe! </span></span><br><span class="line"><span class="keyword">let</span> html <span class="operator">=</span> <span class="string">&quot;&lt;li&gt;Username: <span class="subst">\(input)</span>&lt;/li&gt;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入必须转义，因为它来自不受信任的来源，但是字符串文字段应保持不变，因为我们要在其中编写HTML标签。我们可以通过为 <code>SafeHTML类型 </code>实现自定义字符串插值规则来实现此目的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift的字符串插值API由两个协议组成： <code>ExpressibleByStringInterpolation </code>和 <code>StringInterpolationProtocol </code>。前者必须采用应通过字符串插值构造的类型。后者可以采用相同的类型，也可以采用单独的类型，并且包含几种逐步构建字符串插值值的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>ExpressibleByStringInterpolation </code>继承自 <code>ExpressibleByStringLiteral </code>，我们在上面已经使它符合 <code>SafeHTML类型 </code>。因此，我们可以通过实现可以从 <code>StringInterpolationProtocol </code>值构造 <code>SafeHTML值 </code>的初始化程序，来立即符合 <code>ExpressibleByStringInterpolation </code>。在此示例中，我们将使用相同的类型 <code>SafeHTML </code>来符合 <code>StringInterpolationProtocol </code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span>: <span class="title">ExpressibleByStringInterpolation</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">stringInterpolation</span>: <span class="type">SafeHTML</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">=</span> stringInterpolation.value </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>StringInterpolationProtocol </code>协议具有三个要求： <code>初始化程序 </code>， <code>appendLiteral方法 </code>和 <code>一个或多个appendInterpolation方法 </code>。  <code>Swift </code>具有符合此协议的默认类型 <code>DefaultStringInterpolation </code>，该类型处理我们从标准库免费获得的字符串插值。 我们想提供一个带有 <code>appendInterpolation方法 </code>的自定义类型，该方法可以对插值进行转义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span>: <span class="title">StringInterpolationProtocol</span> </span>&#123; </span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">literalCapacity</span>: <span class="type">Int</span>, <span class="params">interpolationCount</span>: <span class="type">Int</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">=</span> <span class="string">&quot;&quot;</span> </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendLiteral</span>(<span class="keyword">_</span> <span class="params">literal</span>: <span class="type">String</span>)</span> &#123; </span><br><span class="line">        value <span class="operator">+=</span> literal</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span>&lt;<span class="type">T</span>&gt;(<span class="keyword">_</span> <span class="params">x</span>: <span class="type">T</span>)</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">+=</span> <span class="type">String</span>(describing: x).htmlEscaped</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;初始化程序通知插值类型有关存储所有组合文字所需的近似容量，以及我们必须期望的插值次数。 我们忽略这两个参数，只用一个空字符串初始化值。 但是，如果出于性能方面的考虑，我们可以使用此信息提前保留容量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>appendLiteral方法 </code>只是将字符串追加到 <code>value属性 </code>，因为默认情况下我们认为字符串文字是安全的（就像上面的 <code>ExpressibleByStringLiteral </code>一样）。  <code>appendInterpolation（_ :) </code>方法采用任何类型的输入参数，并且使用 <code>String（describing :) </code>将其转换为字符串。 在将此字符串附加到 <code>value </code>之前，我们先对其进行转义。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>appendInterpolation方法 </code>的参数上没有标签，因此可以像使用 <code>Swift </code>的默认字符串插值一样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> unsafeInput <span class="operator">=</span> <span class="string">&quot;&lt;script&gt;alert(&#x27;Oops!&#x27;)&lt;/script&gt;&quot;</span></span><br><span class="line"><span class="keyword">let</span> safe: <span class="type">SafeHTML</span> <span class="operator">=</span> <span class="string">&quot;&lt;li&gt;Username: <span class="subst">\(unsafeInput)</span>&lt;/li&gt;&quot;</span> </span><br><span class="line">safe</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">SafeHTML(value: &quot;&lt;li&gt;Username: &amp;lt;script&amp;gt;alert(\&#x27;Oops!\&#x27;)&amp;lt;/script&amp;gt;&lt;/li&gt;&quot;)</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器将插值后的字符串转换为对自定义 <code>StringInterpolationProtocol类型 </code>的一系列 <code>appendLiteral </code>和 <code>appendInterpolation </code>调用，使我们有机会按自己认为合适的方式存储此数据。处理完所有文字和插值段后，将结果值传递到 <code>init（stringInterpolation :) </code>初始化程序以创建 <code>SafeHTML值 </code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我们的例子中，我们选择使 <code>ExpressibleByStringInterpolation </code>和 <code>StringInterpolationProtocol </code>都使用相同的类型，因为它们共享相同的结构（都只需要一个字符串属性）。但是，当构建字符串插值所需的数据结构与通过插值构造的类型的结构不同时，使用单独类型的功能将很有用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管我们可以用字符串插值做更多的事情。本质上， <code>\（...） </code>语法是 <code>appendInterpolation </code>方法调用的简写，即我们可以使用多个参数和标签。我们可以利用此行为来添加“原始”插值，该插值允许我们插值而不转义它们：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">appendInterpolation</span>&lt;<span class="type">T</span>&gt;(<span class="params">raw</span> <span class="params">x</span>: <span class="type">T</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.value <span class="operator">+=</span> <span class="type">String</span>(describing: x) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> star <span class="operator">=</span> <span class="string">&quot;&lt;sup&gt;*&lt;/sup&gt;&quot;</span></span><br><span class="line"><span class="keyword">let</span> safe2: <span class="type">SafeHTML</span> <span class="operator">=</span> <span class="string">&quot;&lt;li&gt;Username<span class="subst">\(raw: star)</span>: <span class="subst">\(unsafeInput)</span>&lt;/li&gt;&quot;</span> </span><br><span class="line">safe2</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">SafeHTML(value: &quot;&lt;li&gt;Username&lt;sup&gt;*&lt;/sup&gt;: &amp;lt;script&amp;gt;alert(\&#x27;Oops!\&#x27;)&amp;lt;/script&amp;gt;&lt;/li&gt;&quot;) */</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="自定义字符串说明"><a href="#自定义字符串说明" class="headerlink" title="自定义字符串说明"></a><em><strong>自定义字符串说明</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;诸如 <code>print </code>， <code>String（describing :) </code>和字符串插值之类的函数可以采用任何类型，无论如何。 即使没有任何自定义，你返回的结果也可以接受，因为结构默认情况下会打印其属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> safe: <span class="type">SafeHTML</span> <span class="operator">=</span> <span class="string">&quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;</span> </span><br><span class="line"><span class="built_in">print</span>(safe)</span><br><span class="line"><span class="comment">// prints out SafeHTML(value: &quot;&lt;p&gt;Hello, World!&lt;/p&gt;&quot;)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再说一遍，你可能需要一些漂亮的东西，特别是如果你的类型包含不想显示的私有变量时。 但是不要害怕！ 在传递给打印时，只需一分钟即可为你的自定义类型提供格式良好的输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span>: <span class="title">CustomStringConvertible</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> value </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，如果有人通过各种方式将 <code>SafeHTML值 </code>转换为字符串（将其与诸如 <code>print </code>之类的流函数一起使用，将其传递给 <code>String（describing :) </code>或在某些字符串插值中使用），它将仅打印其字符串值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(safe) <span class="comment">// &lt;p&gt;Hello, World!&lt;/p&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一个 <code>CustomDebugStringConvertible </code>，可以在有人调用 <code>String（reflecting :) </code>时实现，以提供用于调试目的的不同输出格式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">SafeHTML</span>: <span class="title">CustomDebugStringConvertible</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> debugDescription: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;SafeHTML: <span class="subst">\(value)</span>&quot;</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果未实现 <code>CustomDebugStringConvertible </code>，则 <code>String（rectioning :) </code>会回退到使用 <code>CustomStringConvertible </code>，反之亦然。同样，如果 <code>CustomStringConvertible </code>不可用，则 <code>String（describing :) </code>会退回到 <code>CustomDebugStringConvertible </code>。通常，如果你的类型简单，则不值得实施 <code>CustomDebugStringConvertible </code>。但是，如果你的自定义类型是容器，则礼貌地遵守 <code>CustomDebugStringConvertible </code>以便打印该类型所包含元素的调试版本。并且，如果出于调试目的在打印时做任何与众不同的事情，请确保也实现 <code>CustomStringConvertible </code>。但是，如果你的 <code>description </code>和 <code>debugDescription </code>的实现是相同的，则可以选择其中一个而忽略另一个。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺便说一句，即使通过 <code>String（describing :) </code>进行调用， <code>Array </code>也会始终打印出其元素的调试描述。原因是数组的描述无论如何都不会呈现给用户，因此可以优化描述的输出以进行调试。而且，如果没有带引号的 <code>String.description </code>省略，则空字符串数组将看起来是错误的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;鉴于符合 <code>CustomStringConvertible </code>意味着类型具有漂亮的打印输出，你可能会想编写类似以下通用函数的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doSomethingAttractive</span>&lt;<span class="type">T</span>: <span class="type">CustomStringConvertible</span>&gt;(<span class="params">with</span> <span class="params">value</span>: <span class="type">T</span>)</span> &#123; </span><br><span class="line">    <span class="comment">// Print out something incorporating value, safe in the knowledge</span></span><br><span class="line">    <span class="comment">// it will print out sensibly.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是你不应该以这种方式使用 <code>CustomStringConvertible </code>。 你不必使用类型来确定它们是否具有 <code>description属性 </code>，而应该使用 <code>String（describing :) </code>来代替，如果类型不符合协议，则应使用难看的输出。 这将永远不会失败任何类型。 而且，只要你编写的不是一个非常简单的类型，这就是实现 <code>CustomStringConvertible </code>的一个很好的理由。 只需要几行。</p>
+<h2 id="文字输出流"><a href="#文字输出流" class="headerlink" title="文字输出流"></a><em><strong>文字输出流</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库中的打印和转储功能会将文本记录到标准输出中。 这是如何运作的？ 这些函数的默认版本转发给名为 <code>print（_：to :) </code>和 <code>dump（_：to :) </code>的重载。  <code>to： </code>参数是输出目标； 它可以是符合 <code>TextOutputStream协议 </code>的任何类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">print</span>&lt;<span class="type">Target</span>: <span class="type">TextOutputStream</span>&gt;</span></span><br><span class="line"><span class="function">(<span class="keyword">_</span> <span class="params">items</span>: <span class="keyword">Any</span><span class="operator">...</span>, <span class="params">separator</span>: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot; &quot;</span>, <span class="params">terminator</span>: <span class="type">String</span> <span class="operator">=</span> <span class="string">&quot;<span class="subst">\n</span>&quot;</span>, <span class="params">to</span> <span class="params">output</span>: <span class="keyword">inout</span> <span class="type">Target</span>)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库维护一个内部文本输出流，该流将流到它的所有内容写入标准输出。 你还能写些什么？ 嗯，字符串是标准库中唯一一个输出流的类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">vars<span class="operator">=</span><span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">let</span> numbers <span class="operator">=</span> [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>] </span><br><span class="line"><span class="built_in">print</span>(numbers, to: <span class="operator">&amp;</span>s) </span><br><span class="line">s <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要将打印和转储功能的输出重新路由到字符串中，此功能很有用。 顺便说一句，标准库还利用输出流来允许Xcode捕获所有标准输出日志记录。 看一下标准库中的此全局变量声明：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">var</span> _playgroundPrintHook: ((<span class="type">String</span>) -&gt; <span class="type">Void</span>)<span class="operator">?</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果非零，则 <code>print </code>将使用特殊的输出流，该输出流会将所有已打印的内容都路由到标准输出和此函数。 该声明甚至是公开的，因此你可以将其用于自己的恶作剧：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> printCapture <span class="operator">=</span> <span class="string">&quot;&quot;</span> </span><br><span class="line">_playgroundPrintHook <span class="operator">=</span> &#123; text <span class="keyword">in</span></span><br><span class="line">    printCapture <span class="operator">+=</span> text </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;This is supposed to only go to stdout&quot;</span>) </span><br><span class="line">printCapture <span class="comment">// This is supposed to only go to stdout</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是不要依赖它！ 它完全没有记录，并且我们不知道当你重新分配Xcode时哪些功能会中断。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以制作自己的输出流。 该协议只有一个要求：一种写方法，该方法接受一个字符串并将其写入流中。 例如，此输出流缓冲写入数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ArrayStream</span>: <span class="title">TextOutputStream</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> buffer: [<span class="type">String</span>] <span class="operator">=</span> []</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="keyword">_</span> <span class="params">string</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        buffer.append(string) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> stream <span class="operator">=</span> <span class="type">ArrayStream</span>()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;Hello&quot;</span>, to: <span class="operator">&amp;</span>stream)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;World&quot;</span>, to: <span class="operator">&amp;</span>stream)</span><br><span class="line">stream.buffer <span class="comment">// [&quot;&quot;, &quot;Hello&quot;, &quot;\n&quot;, &quot;&quot;, &quot;World&quot;, &quot;\n&quot;]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该文档明确允许写入输出流的函数在每个写入操作中多次调用 <code>write（_ :) </code>。 因此，上例中的数组缓冲区包含用于换行符甚至是空字符串的单独元素。 这是打印功能的实现细节，在将来的版本中可能会更改。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一种可能性是扩展 <code>Data </code>，以使其采用流，并将其写入为 <code>UTF-8编码 </code>的输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Data</span>: <span class="title">TextOutputStream</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="keyword">_</span> <span class="params">string</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.append(contentsOf: string.utf8) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> utf8Data <span class="operator">=</span> <span class="type">Data</span>()</span><br><span class="line"><span class="keyword">var</span> string <span class="operator">=</span> <span class="string">&quot;café&quot;</span> utf8Data.write(string)</span><br><span class="line"><span class="type">Array</span>(utf8Data) <span class="comment">// [99, 97, 102, 195, 169]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输出流的源可以是符合 <code>TextOutputStreamable协议 </code>的任何类型。 该协议需要通用方法 <code>write（to :) </code>，该方法可以接受任何符合 <code>TextOutputStream的类型 </code>并将其自身写入其中。 在标准库中， <code>String </code>， <code>Substring </code>， <code>Character </code>和 <code>Unicode.Scalar </code>符合 <code>TextOutputStreamable </code>，但你也可以为自己的类型添加符合性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如我们所见，在内部，打印在标准输出上使用了一些符合 <code>TextOutputStream的包装器 </code>。 你可以为标准错误编写类似的内容，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">StdErr</span>: <span class="title">TextOutputStream</span> </span>&#123; </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="keyword">_</span> <span class="params">string</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="operator">!</span>string.isEmpty <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Strings can be passed directly into C functions that take a // const char* — see the interoperability chapter for more! </span></span><br><span class="line">    fputs(string, stderr)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> standarderror <span class="operator">=</span> <span class="type">StdErr</span>() </span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;oops!&quot;</span>, to: <span class="operator">&amp;</span>standarderror)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;流还可以保持状态，它们可以潜在地转换其输出，并且可以将它们链接在一起。 以下输出流用给定的替换项替换了所有出现的指定短语。 像 <code>String </code>一样，它也符合 <code>TextOutputStreamable </code>，使其成为文本流操作的目标和源：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ReplacingStream</span>: <span class="title">TextOutputStream</span>, <span class="title">TextOutputStreamable</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> toReplace: <span class="type">KeyValuePairs</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> output <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">replacing</span> <span class="params">toReplace</span>: <span class="type">KeyValuePairs</span>&lt;<span class="type">String</span>, <span class="type">String</span>&gt;)</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>.toReplace <span class="operator">=</span> toReplace</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="keyword">_</span> <span class="params">string</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> toWrite <span class="operator">=</span> toReplace.reduce(string) &#123; partialResult, pair <span class="keyword">in</span></span><br><span class="line">                partialResult.replacingOccurrences(of: pair.key, with: pair.value) </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">print</span>(toWrite, terminator: <span class="string">&quot;&quot;</span>, to: <span class="operator">&amp;</span>output) </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">write</span>&lt;<span class="type">Target</span>: <span class="type">TextOutputStream</span>&gt;(<span class="params">to</span> <span class="params">target</span>: <span class="keyword">inout</span> <span class="type">Target</span>)</span> &#123;     </span><br><span class="line">        output.write(to: <span class="operator">&amp;</span>target)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> replacer <span class="operator">=</span> <span class="type">ReplacingStream</span>(replacing: [</span><br><span class="line"><span class="string">&quot;in the cloud&quot;</span>: <span class="string">&quot;on someone else&#x27;s computer&quot;</span></span><br><span class="line">])</span><br><span class="line"><span class="keyword">let</span> source <span class="operator">=</span> <span class="string">&quot;People find it convenient to store their data in the cloud.&quot;</span></span><br><span class="line"><span class="built_in">print</span>(source, terminator: <span class="string">&quot;&quot;</span>, to: <span class="operator">&amp;</span>replacer)</span><br><span class="line"><span class="keyword">var</span> output <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="built_in">print</span>(replacer, terminator: <span class="string">&quot;&quot;</span>, to: <span class="operator">&amp;</span>output)</span><br><span class="line">output</span><br><span class="line"><span class="comment">// People find it convenient to store their data on someone else&#x27;s computer.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的代码中使用 <code>KeyValuePairs </code>代替常规字典。 如果你希望能够使用 <code>[key：value] </code>文字语法，但又不想使用 <code>Dictionary </code>会带来两个副作用，那就是很有用：消除重复的键和重新排列键。  <code>KeyValuePairs </code>是配对数组的不错选择即 <code>[（key，value）] </code>，允许调用者使用更方便的 <code>[：] </code>语法。</p>
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift中的字符串与几乎所有其他主流编程语言中的字符串都非常不同。当你习惯于有效地将字符串作为代码单元的数组使用时，需要花一些时间才能将心态切换到Swift的将Unicode正确性优先于简单性的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最终，我们认为Swift是正确的选择。 Unicode文本比其他语言假装的要复杂得多。从长远来看，避免原本要编写的错误所节省的时间可能会超过取消学习整数索引所花费的时间。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们习惯于随机访问“字符”，以至于我们可能没有意识到在字符串处理代码中真正需要此功能的情况很少。我们希望本章中的示例能使你相信，对于大多数常见操作而言，简单的有序遍历非常合适。强制你明确说明要使用的字符串表示形式—字形簇，Unicode标量，UTF-8代码单元或UTF-16代码单元<br>—是另一项安全措施；你的代码的读者将不胜感激。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;克里斯·拉特纳（Chris Lattner）在2016年7月概述Swift字符串实现的目标时，他以以下观点告终：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的目标是比Perl更好地处理字符串！</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift 5 </code>还不存在-缺少太多理想的功能，包括将更多的字符串 <code>API </code>从 <code>Foundation </code>转移到标准库，对正则表达式的本地语言支持以及用于格式化和解析字符串的 <code>API </code>。 好消息是， <code>Swift </code>团队已表示有兴趣在将来解决所有这些主题。 现在，完成用于内存中表示的从 <code>UTF-16 </code>切换到 <code>UTF-8 </code>的艰巨任务已经完成，重点将转移到充实API。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings" title="Advanced Swift系列(七): Strings">https://www.xuebaonline.com/Advanced Swift系列(七): Strings</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Strings/" rel="tag"><i class="fa fa-tag"></i> Strings</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%85%AD):%20%20Enums" rel="prev" title="Advanced Swift系列(六):  Enums">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(六):  Enums
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%85%AB):%20Generics" rel="next" title="Advanced Swift系列(八): Generics">
+      Advanced Swift系列(八): Generics <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Unicode"><span class="nav-number">1.</span> <span class="nav-text">Unicode</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%97%E7%B4%A0%E7%B0%87%E5%92%8C%E8%A7%84%E8%8C%83%E5%AF%B9%E7%AD%89"><span class="nav-number">2.</span> <span class="nav-text">字素簇和规范对等</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%84%E5%90%88%E6%A0%87%E8%AE%B0"><span class="nav-number">2.1.</span> <span class="nav-text">组合标记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Emoji"><span class="nav-number">2.2.</span> <span class="nav-text">Emoji</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Strings-and-Collections"><span class="nav-number">3.</span> <span class="nav-text">Strings and Collections</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E5%90%91%E8%80%8C%E9%9D%9E%E9%9A%8F%E6%9C%BA%E8%AE%BF%E9%97%AE"><span class="nav-number">3.1.</span> <span class="nav-text">双向而非随机访问</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8C%83%E5%9B%B4%E5%8F%AF%E6%9B%BF%E6%8D%A2%EF%BC%8C%E4%B8%8D%E5%8F%AF%E6%9B%B4%E6%94%B9"><span class="nav-number">3.2.</span> <span class="nav-text">范围可替换，不可更改</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B4%A2%E5%BC%95"><span class="nav-number">3.3.</span> <span class="nav-text">字符串索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Substrings"><span class="nav-number">3.4.</span> <span class="nav-text">Substrings</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StringProtocol"><span class="nav-number">3.5.</span> <span class="nav-text">StringProtocol</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E7%A0%81%E5%8D%95%E5%85%83%E8%A7%86%E5%9B%BE"><span class="nav-number">3.6.</span> <span class="nav-text">编码单元视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%85%B1%E4%BA%AB"><span class="nav-number">3.7.</span> <span class="nav-text">索引共享</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Strings-and-Foundation"><span class="nav-number">3.8.</span> <span class="nav-text">Strings and Foundation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%E7%9A%84Foundation-API"><span class="nav-number">3.9.</span> <span class="nav-text">其他与字符串相关的Foundation API</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ranges-of-Characters"><span class="nav-number">3.10.</span> <span class="nav-text">Ranges of Characters</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CharacterSet"><span class="nav-number">4.</span> <span class="nav-text">CharacterSet</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode%E5%B1%9E%E6%80%A7"><span class="nav-number">4.1.</span> <span class="nav-text">Unicode属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%92%8C%E5%AD%97%E7%AC%A6%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84"><span class="nav-number">4.2.</span> <span class="nav-text">字符串和字符的内部结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Literals"><span class="nav-number">4.3.</span> <span class="nav-text">String Literals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#String-Interpolation"><span class="nav-number">4.4.</span> <span class="nav-text">String Interpolation</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%AF%B4%E6%98%8E"><span class="nav-number">4.5.</span> <span class="nav-text">自定义字符串说明</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%87%E5%AD%97%E8%BE%93%E5%87%BA%E6%B5%81"><span class="nav-number">4.6.</span> <span class="nav-text">文字输出流</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A6%82%E6%8B%AC"><span class="nav-number">5.</span> <span class="nav-text">概括</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
