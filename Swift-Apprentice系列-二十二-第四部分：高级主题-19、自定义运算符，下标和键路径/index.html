@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-21T04:41:23.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.203Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Enumerations">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="Generics">
+<meta property="article:tag" content="访问控制和代码组织">
+<meta property="article:tag" content="自定义运算符，下标和键路径">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-21 12:41:23" itemprop="dateCreated datePublished" datetime="2020-06-21T12:41:23+08:00">2020-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>9.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>9 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>你已经在第16章 <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AB)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2016%E3%80%81Protocols/"><code>“协议”</code></a> 中学习了运算符重载的基础知识，在该章中，你实现了Equatable和Comparable协议，并向标准运算符添加了自定义行为。</p>
+<p>但是，在某些情况下，重载标准运算符根本不够。 本章将向你展示如何从头开始创建自定义运算符并定义自己的下标，这是计算属性的一种特殊情况。 你将使用下标声明自己的快捷方式，以访问自定义类型的元素，并提供键路径作为对象属性的动态引用。</p>
+<h1 id="自定义运算符"><a href="#自定义运算符" class="headerlink" title="自定义运算符"></a>自定义运算符</h1><p>当你要定义没有为其设计其他标准运算符的自定义行为时，可以声明自己的运算符。 例如，考虑求幂。 由于乘幂运算意味着重复乘法，因此你可能会重载乘法运算符，但这会造成混淆：运算符被设计为仅执行一种类型的运算，并且在这种情况下，你使用同一运算符来执行两种不同的操作。</p>
+<span id="more"></span>
+
+<p>因此，你将定义自己的指数运算符，首先仅针对特定类型，然后通过使其通用来对其进行扩展。 在此之前，你需要了解一些有关运算符类型的理论。 是时候潜水了！</p>
+<h2 id="运算符类型"><a href="#运算符类型" class="headerlink" title="运算符类型"></a>运算符类型</h2><p>运算符有三种主要类型：一元，二进制和三元运算符。</p>
+<ul>
+<li><p>一元运算符只能使用一个操作数，并且如果出现在操作数之后，则定义为后缀，如果出现在操作数之前，则定义为前缀。 逻辑非运算符是一元前缀运算符，强制解包运算符是一元后缀。 你在第3章“基本控制流”和第6章“可选”中了解了它们。</p>
+</li>
+<li><p>二进制运算符可用于两个操作数，并且是不固定的，因为它们出现在两个操作数之间。 所有算术运算符（+，-，*，/，％），比较运算符（==，！=，&lt;，&gt;，&lt;=，&gt; =）和大多数逻辑运算符（&amp;&amp;，||）都是二进制中缀 。</p>
+</li>
+<li><p>三元运算符使用三个操作数。 你已经在第3章“基本控制流”中了解了条件运算符。 这是Swift中唯一的三元运算符。</p>
+</li>
+</ul>
+<h2 id="定义自己的运算符"><a href="#定义自己的运算符" class="headerlink" title="定义自己的运算符"></a>定义自己的运算符</h2><p>让我们逐步完成从头开始创建新运算符的过程。 我们将创建一个求幂。 由于是自定义名称，因此你可以自己选择名称。 尽管最好使用许多其他Unicode字符，但通常最好坚持使用/，=，-，+，！，*，％，&lt;，&gt;，＆，|，^和？字符。 请记住，你将不得不经常键入它，因此击键次数越少越好。 由于乘幂是在引擎盖下反复乘法的，因此最好选择能反映这一点的东西。 我们将使用**，因为其他一些语言也使用该名称。</p>
+<p>现在输入运算符的类型。 **运算符可用于两个操作数，因此它是一个中缀（二进制）运算符。</p>
+<p>这是运算符签名的样子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> <span class="title">**</span></span><br></pre></td></tr></table></figure>
+
+<p>这里没什么好想的：运营商的名称和类型与operator关键字捆绑在一行代码中。 对于运算符的实现，一个简单的例子如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">**</span>(<span class="params">base</span>: <span class="type">Int</span>, <span class="params">power</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="built_in">precondition</span>(power <span class="operator">&gt;=</span> <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">var</span> result <span class="operator">=</span> base</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">_</span> <span class="keyword">in</span> <span class="number">2</span><span class="operator">...</span>power &#123;</span><br><span class="line">        result <span class="operator">*=</span> base</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该函数接受Int类型的两个参数，并使用循环，范围和通配符将第一个参数提高为第二个参数的幂。 注意操作中的乘法赋值运算符。</p>
+<blockquote>
+<p>注意：你可以使用通配符模式来丢弃循环的值。 你将在第20章“模式匹配”中进一步了解它以及其他模式匹配技术。</p>
+</blockquote>
+<p>现在测试你的全新运算符：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> base <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> exponent <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> base <span class="operator">**</span> exponent</span><br></pre></td></tr></table></figure>
+
+<h2 id="复合赋值运算符"><a href="#复合赋值运算符" class="headerlink" title="复合赋值运算符"></a>复合赋值运算符</h2><p>大多数内置运算符都有相应的复合分配版本。 对幂运算符执行相同的操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> <span class="title">**=</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">**=</span>(<span class="params">lhs</span>: <span class="keyword">inout</span> <span class="type">Int</span>, <span class="params">rhs</span>: <span class="type">Int</span>)</span> &#123;</span><br><span class="line">  lhs <span class="operator">=</span> lhs <span class="operator">**</span> rhs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运算符的名称为** =，并且为前缀，就像之前创建的幂运算符一样。 它没有返回类型，而是在你要修改的操作数类型的前面使用inout关键字。 你已经在第5章“函数”中看到了inout的实际操作。 该函数直接更改inout参数，因为它是通过引用传递的。</p>
+<p>这是运算符的工作方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> number <span class="operator">=</span> <span class="number">2</span></span><br><span class="line">number <span class="operator">**=</span> exponent</span><br></pre></td></tr></table></figure>
+
+<p>你的自定义运算符确实很酷，但它仅适用于Int。 是时候让它变得通用了！</p>
+<h2 id="泛型运算符"><a href="#泛型运算符" class="headerlink" title="泛型运算符"></a>泛型运算符</h2><p>你希望幂运算符适用于所有类型的整数类型。 如下更新你的运算符实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">**&lt;</span></span><span class="type">T</span>: <span class="type">BinaryInteger</span><span class="operator">&gt;</span>(base: <span class="type">T</span>, power: <span class="type">Int</span>) -&gt; <span class="type">T</span> &#123; </span><br><span class="line">    <span class="built_in">precondition</span>(power <span class="operator">&gt;=</span> <span class="number">2</span>)</span><br><span class="line">    <span class="keyword">var</span> result <span class="operator">=</span> base</span><br><span class="line">    <span class="keyword">for</span> <span class="keyword">_</span> <span class="keyword">in</span> <span class="number">2</span><span class="operator">...</span>power &#123;</span><br><span class="line">        result <span class="operator">*=</span> base</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">**=&lt;</span></span><span class="type">T</span>: <span class="type">BinaryInteger</span><span class="operator">&gt;</span>(lhs: <span class="keyword">inout</span> <span class="type">T</span>, rhs: <span class="type">Int</span>) &#123;</span><br><span class="line">  lhs <span class="operator">=</span> lhs <span class="operator">**</span> rhs</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>注意通用参数上的BinaryInteger类型约束。 这里需要此约束，因为函数主体中使用的* =运算符在任何类型T上均不可用。但是，在所有符合BinaryInteger协议的类型上都可用。 该函数的主体与以前相同，这是因为泛型运算符与其非泛型等效函数执行相同的操作。</p>
+<p>你之前的代码仍然可以使用。 既然运算符是通用的，请使用Int以外的其他类型对其进行测试：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> unsignedBase: <span class="type">UInt</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> unsignedResult <span class="operator">=</span> unsignedBase <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base8: <span class="type">Int8</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> result8 <span class="operator">=</span> base8 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> unsignedBase8: <span class="type">UInt8</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> unsignedResult8 <span class="operator">=</span> unsignedBase8 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base16: <span class="type">Int16</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> result16 <span class="operator">=</span> base16 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> unsignedBase16: <span class="type">UInt16</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> unsignedResult16 <span class="operator">=</span> unsignedBase16 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base32: <span class="type">Int32</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> result32 <span class="operator">=</span> base32 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> unsignedBase32: <span class="type">UInt32</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> unsignedResult32 <span class="operator">=</span> unsignedBase32 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> base64: <span class="type">Int64</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> result64 <span class="operator">=</span> base64 <span class="operator">**</span> exponent</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> unsignedBase64: <span class="type">UInt64</span> <span class="operator">=</span> <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> unsignedResult64 <span class="operator">=</span> unsignedBase64 <span class="operator">**</span> exponent</span><br></pre></td></tr></table></figure>
+
+<p>幂运算符现在适用于所有整数类型：Int，UInt，Int8，UInt8，Int16，UInt16，Int32，UInt32，Int64和UInt64。</p>
+<blockquote>
+<p>注意：你也可以使用Foundation框架中的pow（<em>：</em> :)函数进行幂运算，但不适用于所有上述类型。 但是，它确实处理负数和分数指数，并且像在朴素的实现中那样被写为O（log）而不是O（n）。</p>
+</blockquote>
+<h2 id="优先性和关联性"><a href="#优先性和关联性" class="headerlink" title="优先性和关联性"></a>优先性和关联性</h2><p>你闪亮的新自定义运算符似乎可以正常工作，但是如果在复杂的表达式中使用它，Swift将不知道如何处理：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> <span class="operator">*</span> <span class="number">2</span> <span class="operator">**</span> <span class="number">3</span> <span class="operator">**</span> <span class="number">2</span> <span class="comment">// Does not compile!</span></span><br></pre></td></tr></table></figure>
+
+<p>为了理解此表达式，Swift需要以下有关你的运算符：</p>
+<ul>
+<li>优先级：乘法应该在求幂之前还是之后？</li>
+<li>关联性：应该从左到右还是从右到左进行连续的幂运算？</li>
+</ul>
+<p>没有这些信息，让Swift理解你的代码的唯一方法是添加括号。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> <span class="operator">*</span> (<span class="number">2</span> <span class="operator">**</span> (<span class="number">3</span> <span class="operator">**</span> <span class="number">2</span>))</span><br></pre></td></tr></table></figure>
+
+<p>这些括号告诉Swift，求幂应该在乘法之前，从右到左进行。 如果总是这样，则可以使用优先级组定义此行为。</p>
+<p>将你的运算符定义更改为以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">precedencegroup</span> <span class="title">ExponentiationPrecedence</span> &#123;</span><br><span class="line">  <span class="keyword">associativity</span>: <span class="keyword">right</span></span><br><span class="line">  <span class="keyword">higherThan</span>: <span class="type">MultiplicationPrecedence</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> <span class="title">**</span>: <span class="type">ExponentiationPrecedence</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，你正在为你的幂运算符创建一个优先级组，告诉Swift它是右关联的，并且比乘法具有更高的优先级。</p>
+<p>Swift现在可以理解你的表情，即使没有括号也可以：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2</span> <span class="operator">*</span> <span class="number">2</span> <span class="operator">**</span> <span class="number">3</span> <span class="operator">**</span> <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>也许那是一件好事，也许不是。 你可以选择进行关联：<br>没有，并强制用户使用括号将内容明确显示。 自定义运算符就可以了。 是时候玩一些下标了！</p>
+<h1 id="Subscripts"><a href="#Subscripts" class="headerlink" title="Subscripts"></a>Subscripts</h1><p>你已经在第7章“数组，字典，集合”中使用下标来检索数组和字典的元素。 现在是时候学会创建自己的下标了。 可以将它们视为重载[]运算符，以提供用于访问集合，类，结构或枚举的元素的快捷方式。</p>
+<p>下标语法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">subscript</span>(parameterList)</span> -&gt; <span class="type">ReturnType</span> &#123; </span><br><span class="line">    <span class="keyword">get</span> &#123;</span><br><span class="line">        <span class="comment">// return someValue of ReturnType</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">set</span>(newValue) &#123;</span><br><span class="line">        <span class="comment">// set someValue of ReturnType to newValue</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如你所见，下标的行为类似于函数和计算的属性：</p>
+<ul>
+<li><p>下标的原型看起来像函数的签名：它具有参数列表和返回类型，但是你可以使用下标关键字代替func关键字和函数名称。 下标可能具有可变参数，但不能使用inout或默认参数，也不能引发错误。 你将在第21章“错误处理”中详细了解错误。</p>
+</li>
+<li><p>下标的主体看起来像一个计算属性：它既有getter也有setter。 setter是可选的，因此下标可以是读写的也可以是只读的。 你可以省略设置者的newValue默认参数； 其类型与下标的返回类型相同。 仅在要更改其名称时才声明它。</p>
+</li>
+</ul>
+<p>理论足够多！ 将下标添加到定义的Person类中，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">let</span> age: <span class="type">Int</span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>, <span class="params">age</span>: <span class="type">Int</span>)</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name</span><br><span class="line">        <span class="keyword">self</span>.age <span class="operator">=</span> age </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Person类具有两个存储的属性：String类型的名称和Int类型的age，以及用于启动操作的指定初始化程序。</p>
+<p>现在假设我要立即创建自己的版本，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> me <span class="operator">=</span> <span class="type">Person</span>(name: <span class="string">&quot;Cosmin&quot;</span>, age: <span class="number">33</span>)</span><br></pre></td></tr></table></figure>
+
+<p>最好使用下标访问我的特征：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">me[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">me[<span class="string">&quot;age&quot;</span>]</span><br><span class="line">me[<span class="string">&quot;gender&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果运行此命令，Xcode将输出以下错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Type</span> <span class="string">&quot;Person&quot;</span> has no subscripts members</span><br></pre></td></tr></table></figure>
+
+<p>每当你使用方括号运算符时，你实际上都会在幕后调用下标。 默认情况下，你的班级没有定义任何下标，因此你必须自己声明它们。</p>
+<p>将以下代码添加到具有扩展名的Person类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">subscript</span>(<span class="params">key</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">        <span class="keyword">switch</span> key &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;name&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> name</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;age&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(age)</span>&quot;</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下标会根据你提供的密钥返回一个可选字符串：返回密钥的相应属性值，或者如果不使用有效密钥，则返回nil。 开关必须详尽无遗，因此你需要使用默认情况。</p>
+<p>下标是只读的，因此它的整个主体都是吸气剂-你无需使用get关键字明确声明。</p>
+<p>上面的测试代码现在可以使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">me[<span class="string">&quot;name&quot;</span>]</span><br><span class="line">me[<span class="string">&quot;age&quot;</span>]</span><br><span class="line">me[<span class="string">&quot;gender&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>并输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Cosmin</span></span><br><span class="line"><span class="number">33</span></span><br><span class="line"><span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="下标参数"><a href="#下标参数" class="headerlink" title="下标参数"></a>下标参数</h2><p>即使在声明下标时不使用下划线，调用下标时也不必使用名称作为下标的参数。 如果要更具体地添加外部参数名称，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">subscript</span>(<span class="params">key</span> <span class="params">key</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>参数名称现在出现在下标调用中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> me[key: <span class="string">&quot;name&quot;</span>]</span><br><span class="line">me[key: <span class="string">&quot;age&quot;</span>]</span><br><span class="line">me[key: <span class="string">&quot;gender&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>如果要向下标添加更多上下文，请为外部参数使用描述性名称，而不要使用其本地对应名称：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">subscript</span>(<span class="params">property</span> <span class="params">key</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>? &#123;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br><span class="line">me[property: <span class="string">&quot;name&quot;</span>]</span><br><span class="line">me[property: <span class="string">&quot;age&quot;</span>]</span><br><span class="line">me[property: <span class="string">&quot;gender&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<h2 id="静态下标"><a href="#静态下标" class="headerlink" title="静态下标"></a>静态下标</h2><p>你可以在Swift中为自定义类型定义静态下标：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">File</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">static</span> <span class="function"><span class="keyword">subscript</span>(<span class="params">key</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span> &#123; </span><br><span class="line">        <span class="keyword">switch</span> key &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;path&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;custom path&quot;</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;default path&quot;</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="type">File</span>[<span class="string">&quot;path&quot;</span>]</span><br><span class="line"><span class="type">File</span>[<span class="string">&quot;PATH&quot;</span>]</span><br></pre></td></tr></table></figure>
+
+<p>这是全部的工作方式：</p>
+<p>1.使用static创建静态下标，该下标返回默认或自定义路径<br>文件。</p>
+<p>2.在文件而不是文件实例上调用下标。</p>
+<h2 id="动态成员查找"><a href="#动态成员查找" class="headerlink" title="动态成员查找"></a>动态成员查找</h2><p>你可以使用动态成员查找为你的类型提供任意的点语法。 考虑以下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">@dynamicMemberLookup</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Instrument</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> brand: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> year: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> details: [<span class="type">String</span>: <span class="type">String</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">brand</span>: <span class="type">String</span>, <span class="params">year</span>: <span class="type">Int</span>, <span class="params">details</span>: [<span class="params">String</span>: <span class="type">String</span>])</span> &#123; </span><br><span class="line">        <span class="keyword">self</span>.brand <span class="operator">=</span> brand</span><br><span class="line">        <span class="keyword">self</span>.year <span class="operator">=</span> year</span><br><span class="line">        <span class="keyword">self</span>.details <span class="operator">=</span> details</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="function"><span class="keyword">subscript</span>(<span class="params">dynamicMember</span> <span class="params">key</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span> &#123; </span><br><span class="line">        <span class="keyword">switch</span> key &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;info&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;<span class="subst">\(brand)</span> made in <span class="subst">\(year)</span>.&quot;</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> details[key] <span class="operator">??</span> <span class="string">&quot;&quot;</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="keyword">let</span> instrument <span class="operator">=</span> <span class="type">Instrument</span>(brand: <span class="string">&quot;Roland&quot;</span>, year: <span class="number">2019</span>,details: [<span class="string">&quot;type&quot;</span>: <span class="string">&quot;acoustic&quot;</span>,<span class="string">&quot;pitch&quot;</span>: <span class="string">&quot;C&quot;</span>])</span><br><span class="line">instrument.info </span><br><span class="line">instrument.pitch</span><br></pre></td></tr></table></figure>
+
+<p>逐步执行上面的代码：</p>
+<ul>
+<li><p>将Instrument标记为@dynamicMemberLookup，以为其下标启用点语法。</p>
+</li>
+<li><p>通过实现下标（dynamicMember :)使Instrument符合@dynamicMemberLookup。</p>
+</li>
+<li><p>使用点语法调用以前实现的下标。 它返回详细信息的内容或有关Instrument的更多信息。</p>
+</li>
+</ul>
+<p>在此处使用<code>@dynamicMemberLookup</code>可以将详细信息字典的内容用作属性，从而提高了可读性。</p>
+<p>但是请注意，编译器会在运行时评估动态成员调用，因此你将失去通常的编译时安全性。 例如，此编译过程没有任何抱怨：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">guitar.dlfksdf <span class="comment">// Returns &quot;&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>尽管可以将<code>@dynamicMemberLookup</code>用于其他目的，但其主要目的是支持与动态语言（如Python或Ruby）进行交互。 你应该谨慎使用它，因为它会阻止编译器检查其先前在编译时可以识别的整个错误类别。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">instrument.brand <span class="comment">// &quot;Roland&quot; </span></span><br><span class="line">instrument.year <span class="comment">// 2019</span></span><br></pre></td></tr></table></figure>
+
+<p>派生类从其基类继承动态成员查找：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Guitar</span>: <span class="title">Instrument</span> </span>&#123;&#125;</span><br><span class="line"><span class="keyword">let</span> guitar <span class="operator">=</span> <span class="type">Guitar</span>(brand: <span class="string">&quot;Fender&quot;</span>, year: <span class="number">2019</span>, details: [<span class="string">&quot;type&quot;</span>: <span class="string">&quot;electric&quot;</span>, <span class="string">&quot;pitch&quot;</span>: <span class="string">&quot;C&quot;</span>])</span><br><span class="line">guitar.info</span><br></pre></td></tr></table></figure>
+
+<p>你可以使用点语法来调用Guitar下标，因为Guitar是一种Instrument，并且Instrument实现@dynamicMemberLookup。</p>
+<p>你也可以在Swift中为类下标使用动态成员查找。 它们的行为就像静态下标，你可以在子类中覆盖它们：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="keyword">@dynamicMemberLookup</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Folder</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">name</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.name <span class="operator">=</span> name </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 2</span></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">subscript</span>(<span class="title">dynamicMember</span> <span class="title">key</span>: <span class="title">String</span>) -&gt; <span class="title">String</span> </span>&#123; </span><br><span class="line">        <span class="keyword">switch</span> key &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;path&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;custom path&quot;</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;default path&quot;</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 3</span></span><br><span class="line"><span class="type">Folder</span>.path </span><br><span class="line"><span class="type">Folder</span>.<span class="type">PATH</span></span><br></pre></td></tr></table></figure>
+
+<p>这是这里发生的事情：</p>
+<ul>
+<li><p>将Folder标记为@dynamicMemberLookup，以为自定义下标启用点语法。</p>
+</li>
+<li><p>使用类和动态成员查找创建一个类下标，该下标返回Folder的默认或自定义路径。</p>
+</li>
+<li><p>使用点语法调用Folder上的下标。</p>
+</li>
+</ul>
+<p>下标易于使用和实现。 它们生活在计算属性和方法之间。 但是，请注意不要过度使用它们。 与计算的属性和方法不同，下标没有名称来表明其意图。 下标几乎专门用于访问集合的元素，因此，不要将下标用于不相关且不直观的内容，以免混淆代码的读者！</p>
+<h1 id="Keypaths"><a href="#Keypaths" class="headerlink" title="Keypaths"></a>Keypaths</h1><p>关键路径使你可以存储对属性的引用。 例如，这是你在我们的网站上建模教程的方式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Tutorial</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> title: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> author: <span class="type">Person</span></span><br><span class="line">    <span class="keyword">let</span> details: (type: <span class="type">String</span>, category: <span class="type">String</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">title</span>: <span class="type">String</span>, <span class="params">author</span>: <span class="type">Person</span>,</span></span><br><span class="line"><span class="function">    <span class="params">details</span>: (type: <span class="type">String</span>, category: <span class="type">String</span>))</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.title <span class="operator">=</span> title </span><br><span class="line">        <span class="keyword">self</span>.author <span class="operator">=</span> author </span><br><span class="line">        <span class="keyword">self</span>.details <span class="operator">=</span> details</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> tutorial <span class="operator">=</span> <span class="type">Tutorial</span>(title: <span class="string">&quot;Object Oriented Programming in Swift&quot;</span>, author: me, details: (type: <span class="string">&quot;Swift&quot;</span>, category: <span class="string">&quot;iOS&quot;</span>))</span><br></pre></td></tr></table></figure>
+
+<p>每个教程都有特定的标题，作者，类型和类别。 使用键路径，你可以获得这样的教程标题：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">let</span> title <span class="operator">=</span> \<span class="type">Tutorial</span>.title</span><br><span class="line"><span class="keyword">let</span> tutorialTitle <span class="operator">=</span> tutorial[keyPath: title]</span><br></pre></td></tr></table></figure>
+
+<p>首先，使用反斜杠为Tutorial类的title属性创建键路径，然后使用keyPath（_ :)下标访问其对应的数据。</p>
+<p>关键路径可以访问多个级别的属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">let</span> authorName <span class="operator">=</span> \<span class="type">Tutorial</span>.author.name</span><br><span class="line"><span class="keyword">var</span> tutorialAuthor <span class="operator">=</span> tutorial[keyPath: authorName]</span><br></pre></td></tr></table></figure>
+
+<p>你还可以在Swift中为元组使用键路径：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> type <span class="operator">=</span> \<span class="type">Tutorial</span>.details.type</span><br><span class="line"><span class="keyword">let</span> tutorialType <span class="operator">=</span> tutorial[keyPath: type]</span><br><span class="line"><span class="keyword">let</span> category <span class="operator">=</span> \<span class="type">Tutorial</span>.details.category</span><br><span class="line"><span class="keyword">let</span> tutorialCategory <span class="operator">=</span> tutorial[keyPath: category]</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你可以使用键路径从教程的详细信息中获取类型和类别。</p>
+<h2 id="附加键路径"><a href="#附加键路径" class="headerlink" title="附加键路径"></a>附加键路径</h2><p>你可以通过添加到现有的关键路径来创建新的关键路径，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> authorPath <span class="operator">=</span> \<span class="type">Tutorial</span>.author</span><br><span class="line"><span class="keyword">let</span> authorNamePath <span class="operator">=</span> authorPath.appending(path: \.name) </span><br><span class="line">tutorialAuthor <span class="operator">=</span> tutorial[keyPath: authorNamePath]</span><br></pre></td></tr></table></figure>
+
+<p>你可以使用appending（path :)方法将新的密钥路径添加到已经定义的authorPath中，并推断出密钥路径的基本类型。</p>
+<h2 id="设定属性"><a href="#设定属性" class="headerlink" title="设定属性"></a>设定属性</h2><p>键路径可以更改属性值。 假设你设置了自己的自动点唱机来播放自己喜欢的歌曲：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Jukebox</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> song: <span class="type">String</span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">song</span>: <span class="type">String</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.song <span class="operator">=</span> song </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> jukebox <span class="operator">=</span> <span class="type">Jukebox</span>(song: <span class="string">&quot;Nothing Else Matters&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>你将歌曲属性声明为变量，因为你最好的朋友来拜访并想听她喜欢的歌曲：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> song <span class="operator">=</span> \<span class="type">Jukebox</span>.song</span><br><span class="line">jukebox[keyPath: song] <span class="operator">=</span> <span class="string">&quot;Stairway to Heaven&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>你使用歌曲的密钥路径为你的朋友更改歌曲，现在每个人都很高兴！</p>
+<h2 id="键路径成员查找"><a href="#键路径成员查找" class="headerlink" title="键路径成员查找"></a>键路径成员查找</h2><p>你可以对键路径使用动态成员查找：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Point</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> x, y: <span class="type">Int</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 2</span></span><br><span class="line"><span class="keyword">@dynamicMemberLookup</span></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Circle</span> </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> center: <span class="type">Point</span></span><br><span class="line">  <span class="keyword">let</span> radius: <span class="type">Int</span></span><br><span class="line">    <span class="comment">// 3</span></span><br><span class="line">    <span class="function"><span class="keyword">subscript</span>(<span class="params">dynamicMember</span> <span class="params">keyPath</span>: <span class="type">KeyPath</span>&lt;<span class="type">Point</span>, <span class="type">Int</span>&gt;)</span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        center[keyPath: keyPath]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 4</span></span><br><span class="line"><span class="keyword">let</span> center <span class="operator">=</span> <span class="type">Point</span>(x: <span class="number">1</span>, y: <span class="number">2</span>)</span><br><span class="line"><span class="keyword">let</span> circle <span class="operator">=</span> <span class="type">Circle</span>(center: center, radius: <span class="number">1</span>) </span><br><span class="line">circle.x</span><br><span class="line">circle.y</span><br></pre></td></tr></table></figure>
+
+<p>此代码的作用如下：</p>
+<ul>
+<li><p>用x和y坐标声明一个Point类型。</p>
+</li>
+<li><p>使用@dynamicMemberLookup注释Circle，以为其子脚本启用点语法。</p>
+</li>
+<li><p>创建一个下标，该下标使用键路径从Circle访问中心属性。</p>
+</li>
+<li><p>使用动态成员查找而不是圆形的呼叫中心属性关键路径。</p>
+</li>
+</ul>
+<p>如你所见，使用键路径比使用属性要复杂得多。 使用键路径，访问属性分为两步：</p>
+<ul>
+<li><p>首先，确定所需的属性并创建一个密钥路径。</p>
+</li>
+<li><p>然后，使用keypath下标将此键路径传递给实例，以访问所选属性。</p>
+</li>
+</ul>
+<p>好处是你可以参数化代码中使用的属性。 无需对它们进行硬编码，你可以将它们存储在变量中作为键路径。 你甚至可以由用户决定要使用哪些属性！</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ul>
+<li><p>从头开始创建全新的运算符时，请记住自定义运算符的口头禅：功能强大，责任重大。 确保自定义运算符的额外认知开销会为自己带来报酬。</p>
+</li>
+<li><p>为自定义运算符选择适当的类型：后缀，前缀或中缀。</p>
+</li>
+<li><p>不要忘记定义任何相关的运算符，例如复合赋值运算符，用于自定义运算符。</p>
+</li>
+<li><p>使用下标使方括号运算符重载类，结构和枚举。</p>
+</li>
+<li><p>使用键路径创建对属性的动态引用。</p>
+</li>
+<li><p>使用动态成员查找为下标和键路径提供点语法。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%8C-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-19%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/" title="Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径">https://www.xuebaonline.com/Swift-Apprentice系列-二十二-第四部分：高级主题-19、自定义运算符，下标和键路径/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="tag"><i class="fa fa-tag"></i> 运算符，下标和键路径</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%B8%80-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-18%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/" rel="prev" title="Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%B8%89-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-20%E3%80%81%E6%A8%A1%E5%BC%8F%E5%8C%B9%E9%85%8D/" rel="next" title="Swift Apprentice系列 (二十三) : 第四部分：高级主题 - 20、模式匹配">
+      Swift Apprentice系列 (二十三) : 第四部分：高级主题 - 20、模式匹配 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义运算符"><span class="nav-number">1.</span> <span class="nav-text">自定义运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符类型"><span class="nav-number">1.1.</span> <span class="nav-text">运算符类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定义自己的运算符"><span class="nav-number">1.2.</span> <span class="nav-text">定义自己的运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#复合赋值运算符"><span class="nav-number">1.3.</span> <span class="nav-text">复合赋值运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#泛型运算符"><span class="nav-number">1.4.</span> <span class="nav-text">泛型运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优先性和关联性"><span class="nav-number">1.5.</span> <span class="nav-text">优先性和关联性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Subscripts"><span class="nav-number">2.</span> <span class="nav-text">Subscripts</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#下标参数"><span class="nav-number">2.1.</span> <span class="nav-text">下标参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态下标"><span class="nav-number">2.2.</span> <span class="nav-text">静态下标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态成员查找"><span class="nav-number">2.3.</span> <span class="nav-text">动态成员查找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Keypaths"><span class="nav-number">3.</span> <span class="nav-text">Keypaths</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#附加键路径"><span class="nav-number">3.1.</span> <span class="nav-text">附加键路径</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设定属性"><span class="nav-number">3.2.</span> <span class="nav-text">设定属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#键路径成员查找"><span class="nav-number">3.3.</span> <span class="nav-text">键路径成员查找</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">4.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-acf-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-acf-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-acf-stp3.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-acf-stp4.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-acf-stp5.png">
+<meta property="article:published_time" content="2020-05-12T07:07:46.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.142Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="高级控制流程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-acf-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-12 15:07:46" itemprop="dateCreated datePublished" datetime="2020-05-12T15:07:46+08:00">2020-05-12</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在上一文中，你学习了如何使用<code>if语句</code>和<code>while循环</code>的决策能力来控制执行流程。 在本章中，你将继续学习如何控制执行流程。 你将了解另一个称为for循环的循环。</p>
+<p>循环听起来可能不太有趣，但在计算机程序中很常见。 例如，你可能具有从云下载图像的代码。 通过循环，你可以运行多次以下载整个照片库。 或者，如果你的游戏包含多个由计算机控制的角色，则可能需要循环遍历每个角色，并确保它知道接下来要做什么。</p>
+<p>你还将了解switch语句，在Swift中它特别强大。 他们让你检查一个值并根据该值决定要做什么。 与某些<code>高级Swift功能</code>（例如<code>模式匹配</code>）一起使用时，它们的功能异常强大。</p>
+<h1 id="可数范围"><a href="#可数范围" class="headerlink" title="可数范围"></a><strong>可数范围</strong></h1><p>在深入研究for循环语句之前，你需要了解<code>Countable Range数据类型</code>，该数据类型使你可以表示一系列可计数的整数。 让我们看一下两种类型的范围。</p>
+<span id="more"></span>
+
+<p>首先，存在可数的封闭范围，你可以这样表示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> closedRange <span class="operator">=</span> <span class="number">0</span><span class="operator">...</span><span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<p>三个点（…）表示此范围已关闭，这意味着范围从0到5（含）。 这就是数字（0、1、2、3、4、5）。</p>
+<p>其次，有很多可打开的半开范围，你可以这样表示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> halfOpenRange <span class="operator">=</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">5</span></span><br></pre></td></tr></table></figure>
+
+<p>在这里，将三个点替换为两个点和一个小于号（.. &lt;）。 半开表示范围是从0到但不包括5。即数字（0、1、2、3、4）。</p>
+<p>开放和半开放范围必须始终增加。 换句话说，第二个数字必须始终大于或等于第一个。 可数范围通常用于循环和switch语句，这意味着在本章的其余部分中，你还将使用范围！</p>
+<h1 id="随机插曲"><a href="#随机插曲" class="headerlink" title="随机插曲"></a><strong>随机插曲</strong></h1><p>编程中的一个普遍需求是能够生成随机数。 Swift提供了该语言内置的功能，非常方便！</p>
+<p>例如，假设有一个应用需要模拟模具的滚动。 你可能需要做一些事情，直到六分。 既然你知道了while循环，就可以使用<code>random功能</code>做到这一点。 你可以这样做：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">while</span> <span class="type">Int</span>.random(in: <span class="number">1</span><span class="operator">...</span><span class="number">6</span>) <span class="operator">!=</span> <span class="number">6</span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">&quot;Not a six&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：这里的<code>random(in :)</code>是对函数的调用。 你将在第5文“函数”中详细了解这些内容，并在第12文“方法”中将其应用于类型。</p>
+</blockquote>
+<h1 id="For-loops"><a href="#For-loops" class="headerlink" title="For loops"></a><strong>For loops</strong></h1><p>在上一章中，你研究了while循环。 现在你已经了解了范围，是时候来看看另一种类型的循环：for循环。 这可能是最常见的循环，你将使用它运行代码一定次数。</p>
+<p>你可以这样构建一个for循环：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">for</span> <span class="operator">&lt;</span><span class="type">CONSTANT</span><span class="operator">&gt;</span> <span class="keyword">in</span> <span class="operator">&lt;</span><span class="type">COUNTABLE</span> <span class="type">RANGE</span><span class="operator">&gt;</span> &#123;</span><br><span class="line">    <span class="operator">&lt;</span><span class="type">LOOP</span> <span class="type">CODE</span><span class="operator">&gt;</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环以for关键字开头，后跟为循环常数指定的名称（稍后会详细介绍），然后是in，然后是要循环通过的范围。 这是一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> count <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> sum <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span><span class="operator">...</span>count &#123;</span><br><span class="line">    sum <span class="operator">+=</span> i </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中，for循环遍历范围1进行计数。 在第一次迭代中，我将等于范围内的第一个元素：1.每次循环，我都会递增直到等于count； 循环将执行最后一次，然后结束。</p>
+<blockquote>
+<p>注意：如果你使用半开范围，则最后一次迭代将看到i等于count-1。</p>
+</blockquote>
+<p>在循环内部，将i添加到sum变量； 它运行10次以计算序列1 + 2 + 3 + 4 + 5 + …一直到10。</p>
+<p>以下是每次迭代的常数i和变量和的值：</p>
+<ul>
+<li>迭代开始1：i = 1，sum = 0</li>
+<li>迭代开始2：i = 2，sum = 1</li>
+<li>迭代开始3：i = 3，sum = 3</li>
+<li>迭代开始4：i = 4，sum = 6+ 迭代开始5：i = 5，sum = 10</li>
+<li>迭代开始6：i = 6，sum = 15</li>
+<li>迭代开始7：i = 7，sum = 21</li>
+<li>迭代的开始8：i = 8，sum = 28</li>
+<li>迭代开始9：i = 9，sum = 36</li>
+<li>迭代10的开始：i = 10，总和= 45</li>
+<li>迭代10之后：sum = 55</li>
+</ul>
+<p>就范围而言，i常数仅在for循环的范围内可见，这意味着它在循环之外不可用。</p>
+<blockquote>
+<p>注意：如果你数学上很精明，可能会注意到此示例计算的是三角形数。 快速说明：<a href="http://bbc.in/" target="_blank" rel="noopener">http://bbc.in/</a> 1O89TGP</p>
+</blockquote>
+<p>Xcode的 “playground” 为你提供了可视化此类迭代的便捷方法。 将鼠标悬停在结果窗格中的总和+ = i线上，你会在右侧看到一个白点。 将鼠标悬停在该点上以显示加号（+）按钮：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-acf-stp1.png" alt="playground"></p>
+<p>单击此加号（+）按钮，Xcode将在playground代码编辑器中的线下显示一个图形：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-acf-stp2.png" alt="playground"></p>
+<p>此图使你可以在循环迭代时可视化sum变量。</p>
+<p>最后，有时你只想循环一定次数，因此你不需要完全需要使用循环常数。</p>
+<p>在这种情况下，你可以使用下划线表示你忽略它，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">1</span></span><br><span class="line"><span class="keyword">var</span> lastSum <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">_</span> <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span>count &#123; </span><br><span class="line">    <span class="keyword">let</span> temp <span class="operator">=</span> sum</span><br><span class="line">    sum <span class="operator">=</span> sum <span class="operator">+</span> lastSum </span><br><span class="line">    lastSum <span class="operator">=</span> temp</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此代码不需要循环常量； 循环只需要运行一定次数。 在这种情况下，范围是0到（但不包括）count，并且是半开的。 这是编写运行一定次数的循环的常用方法。 也可以仅在特定条件下执行迭代。 例如，假设你想计算一个类似于三角数的和，但仅针对奇数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span><span class="operator">...</span>count <span class="keyword">where</span> i <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">1</span> &#123;</span><br><span class="line">    sum <span class="operator">+=</span> i </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前一个循环在for循环语句中有一个where子句。 循环仍会遍历范围1内的所有值进行计数，但仅在where条件为true时才执行循环的代码块； 在这种情况下，我很奇怪。</p>
+<h2 id="继续并标记为语句"><a href="#继续并标记为语句" class="headerlink" title="继续并标记为语句"></a><em><strong>继续并标记为语句</strong></em></h2><p>有时，你可能希望跳过特定情况下的循环迭代，而不会完全脱离循环。 你可以使用continue语句执行此操作，该语句立即结束循环的当前迭代并开始下一个迭代。</p>
+<blockquote>
+<p>注意：在许多情况下，你可以使用刚学到的更简单的where子句。 continue语句为你提供了更高级别的控制，使你可以决定何时何地跳过迭代。</p>
+</blockquote>
+<p>以8 x 8网格为例，其中每个单元格包含行的值乘以列。 乘法表看起来很多行，不是吗？</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-acf-stp3.png" alt="playground"></p>
+<p>假设你要计算所有单元格的总和，但不包括所有偶数行，如下所示：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-acf-stp4.png" alt="playground"></p>
+<p>使用for循环，可以实现以下目的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> row <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">8</span> &#123; </span><br><span class="line">    <span class="keyword">if</span> row <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> column <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">8</span> &#123;</span><br><span class="line">        sum <span class="operator">+=</span> row <span class="operator">*</span> column</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当模2的行等于0时，该行是偶数。 在这种情况下，继续操作会使for循环跳到下一行。 就像break一样，continue适用于for循环和while循环。</p>
+<p>第二个代码示例将计算所有单元格的总和，不包括那些列大于或等于行的单元格。</p>
+<p>为了说明这一点，它应该汇总以下单元格：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-acf-stp5.png" alt="playground"></p>
+<p>使用for循环，可以实现以下目的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">sum <span class="operator">=</span> <span class="number">0</span></span><br><span class="line">rowLoop: <span class="keyword">for</span> row <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">8</span> &#123; </span><br><span class="line">    columnLoop: <span class="keyword">for</span> column <span class="keyword">in</span> <span class="number">0</span><span class="operator">..&lt;</span><span class="number">8</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> row <span class="operator">==</span> column &#123;</span><br><span class="line">        <span class="keyword">continue</span> rowLoop</span><br><span class="line">        &#125;</span><br><span class="line">        sum <span class="operator">+=</span> row <span class="operator">*</span> column</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>前面的代码块使用了标记的语句，将两个循环分别标记为rowLoop和columnLoop。 当行等于内部columnLoop内部的列时，外部rowLoop将继续。</p>
+<p>你可以将带有此类标记的语句与break配合使用以突破特定循环。 通常，中断并继续最内层的循环工作，因此如果要操作外层循环，则需要使用带标签的语句。</p>
+<h1 id="Switch语句"><a href="#Switch语句" class="headerlink" title="Switch语句"></a><strong>Switch语句</strong></h1><p>你还可以通过switch语句控制流。 它根据变量或常量的值执行不同的代码。 这是一个作用于整数的switch语句：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number <span class="operator">=</span> <span class="number">10</span></span><br><span class="line"><span class="keyword">switch</span> number &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Zero&quot;</span>)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Non-zero&quot;</span>) </span><br><span class="line">&#125;   </span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，代码将打印以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Non</span><span class="operator">-</span>zero</span><br></pre></td></tr></table></figure>
+
+<p>该switch语句的目的是确定一个数字是否为零。 它将变得更加复杂-我保证！</p>
+<p>要处理特定的情况，请使用情况，后跟要检查的值（在这种情况下为0）。然后，使用default表示所有其他值应发生的情况。</p>
+<p>这是另一个示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> number &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">10</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;It’s ten!&quot;</span>) </span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这次你检查10，在这种情况下，你将打印一条消息。 其他值不应该发生。 如果你不希望任何情况发生，请使用break语句。 这告诉Swift，你的意思是不要在此处编写任何代码，并且什么也不会发生。 案例永远不能为空，因此即使只是休息，你也必须编写一些代码！</p>
+<p>当然，switch语句还可以使用整数以外的数据类型。 它们适用于任何数据类型！</p>
+<p>这是打开字符串的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> string <span class="operator">=</span> <span class="string">&quot;Dog&quot;</span></span><br><span class="line"><span class="keyword">switch</span> string &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">&quot;Cat&quot;</span>, <span class="string">&quot;Dog&quot;</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Animal is a house pet.&quot;</span>) </span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Animal is not a house pet.&quot;</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将打印以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Animal</span> <span class="keyword">is</span> a house pet.</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，你为案例提供了两个值，这意味着如果该值等于“ Cat”或“ Dog”，则该语句将执行案例。</p>
+<h2 id="高级switch语句"><a href="#高级switch语句" class="headerlink" title="高级switch语句"></a><em><strong>高级switch语句</strong></em></h2><p>你还可以为switch语句提供不止一种情况。 在上一章中，你看到了一个if语句，该语句使用多个else子句将一天中的一个小时转换为描述一天中该部分的字符串。 你可以使用switch语句更简洁地重写它，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> hourOfDay <span class="operator">=</span> <span class="number">12</span></span><br><span class="line"><span class="keyword">var</span> timeOfDay <span class="operator">=</span> <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">switch</span> hourOfDay &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Early morning&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>, <span class="number">10</span>, <span class="number">11</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Morning&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Afternoon&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Evening&quot;</span></span><br><span class="line">    <span class="keyword">case</span> <span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Late evening&quot;</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;INVALID HOUR!&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(timeOfDay)</span><br></pre></td></tr></table></figure>
+
+<p>此代码将打印以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Afternoon</span></span><br></pre></td></tr></table></figure>
+
+<p>还记得范围吗？ 好了，你可以使用范围来简化此switch语句。 你可以使用范围重写以上代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> hourOfDay &#123; </span><br><span class="line">    <span class="keyword">case</span> <span class="number">0</span><span class="operator">...</span><span class="number">5</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Early morning&quot;</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">6</span><span class="operator">...</span><span class="number">11</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Morning&quot;</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">12</span><span class="operator">...</span><span class="number">16</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Afternoon&quot;</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">17</span><span class="operator">...</span><span class="number">19</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Evening&quot;</span> </span><br><span class="line">    <span class="keyword">case</span> <span class="number">20</span><span class="operator">..&lt;</span><span class="number">24</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;Late evening&quot;</span></span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        timeOfDay <span class="operator">=</span> <span class="string">&quot;INVALID HOUR!&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这比在所有情况下单独写出每个值更简洁。</p>
+<p>如果存在多个案例，该语句将执行第一个匹配的案例。 你可能会同意，此示例比使用if语句更为简洁明了。</p>
+<p>同样，它也略为精确，因为if语句方法未解决负数，此处正确地将其视为无效。</p>
+<p>也可以根据值的属性将个案与条件匹配。 如你在第2章“类型和操作”中所了解的那样，你可以使用模运算符来确定整数是偶数还是奇数。</p>
+<p>考虑以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> number &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> x <span class="keyword">where</span> x <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Even&quot;</span>)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Odd&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这将打印以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Even</span></span><br></pre></td></tr></table></figure>
+
+<p>该switch语句使用let-where语法，这意味着仅当某个条件为true时，大小写才匹配。 let部分将值绑定到名称，而where部分提供布尔条件，该条件必须为true才能匹配大小写。</p>
+<p>在此示例中，你设计了大小写匹配的情况，如果值是偶数（即模2的值等于0）。</p>
+<p><strong>根据条件匹配值的方法称为模式匹配。</strong></p>
+<p>在前面的示例中，绑定引入了不必要的常数x； 它只是数字的别称。</p>
+<p>你可以在where子句中使用数字，并用下划线替换绑定以忽略它。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> number &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">_</span> <span class="keyword">where</span> number <span class="operator">%</span> <span class="number">2</span> <span class="operator">==</span> <span class="number">0</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Even&quot;</span>)</span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Odd&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="部分匹配"><a href="#部分匹配" class="headerlink" title="部分匹配"></a><strong>部分匹配</strong></h1><p>可以使用具有匹配效果的switch语句的另一种方法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> coordinates <span class="operator">=</span> (x: <span class="number">3</span>, y: <span class="number">2</span>, z: <span class="number">5</span>)</span><br><span class="line"><span class="keyword">switch</span> coordinates &#123;</span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>): <span class="comment">// 1</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Origin&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> (<span class="keyword">_</span>, <span class="number">0</span>, <span class="number">0</span>): <span class="comment">// 2</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the x-axis.&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="keyword">_</span>, <span class="number">0</span>): <span class="comment">// 3</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the y-axis.&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">_</span>): <span class="comment">// 4</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the z-axis.&quot;</span>) </span><br><span class="line">    <span class="keyword">default</span>: <span class="comment">// 5</span></span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Somewhere in space&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>该switch语句使用部分匹配。 以下是每种情况的工作顺序：</p>
+<ul>
+<li>1.精确匹配值是（0，0，0）的情况。 这就是3D空间的起源。</li>
+<li>2.匹配y = 0，z = 0和x的任何值。 这意味着坐标在x轴上。</li>
+<li>3.匹配x = 0，z = 0和y的任何值。 这意味着坐标在y轴上。</li>
+<li>4.匹配x = 0，y = 0和z的任何值。 这意味着坐标在z轴上。</li>
+<li>5.匹配其余坐标。</li>
+</ul>
+<p>你使用下划线表示你不在乎价值。 如果你不想忽略该值，则可以将其绑定并在switch语句中使用它。</p>
+<p>这是如何执行此操作的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> coordinates &#123;</span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Origin&quot;</span>)</span><br><span class="line">    <span class="keyword">case</span> (<span class="keyword">let</span> x, <span class="number">0</span>, <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the x-axis at x = <span class="subst">\(x)</span>&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="keyword">let</span> y, <span class="number">0</span>):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the y-axis at y = <span class="subst">\(y)</span>&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> (<span class="number">0</span>, <span class="number">0</span>, <span class="keyword">let</span> z):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;On the z-axis at z = <span class="subst">\(z)</span>&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> (x, y, z):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Somewhere in space at x = <span class="subst">\(x)</span>, y = <span class="subst">\(y)</span>, z = <span class="subst">\(z)</span>&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，轴案例使用let语法提取相关值。 然后，代码使用字符串插值来打印值以构建字符串。</p>
+<p>请注意，你在此switch语句中不需要默认值。 这是因为最后一种情况实质上是默认情况； 它匹配任何东西，因为元组的任何部分都没有约束。 如果switch语句将所有可能的值及其大小写用尽，则不需要默认值。</p>
+<p>还要注意如何使用单个let绑定元组的所有值：let（x，y，z）与（let x，let y，let z）相同。</p>
+<p>最后，你可以使用之前看到的相同的让位语法来匹配更复杂的情况。 例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> coordinates &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> (x, y, <span class="keyword">_</span>) <span class="keyword">where</span> y <span class="operator">==</span> x:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Along the y = x line.&quot;</span>) </span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> (x, y, <span class="keyword">_</span>) <span class="keyword">where</span> y <span class="operator">==</span> x <span class="operator">*</span> x:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;Along the y = x^2 line.&quot;</span>) </span><br><span class="line">    <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你匹配了“ y等于x”和“ y等于x平方”的线。 这些就是switch语句的基础！</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li>你可以使用可数范围来创建整数序列，并递增以从一个值移至另一个值。</li>
+<li>封闭范围包括起始值和结束值。</li>
+<li>半开范围包括起始值，并在结束值前停一档。</li>
+<li>For循环可让你遍历一个范围。</li>
+<li>continue语句使你可以完成循环的当前迭代并开始下一个迭代。</li>
+<li>带标签的语句使你可以使用break并在外部循环上继续。</li>
+<li>你可以使用switch语句来确定要运行的代码，具体取决于变量或常数。</li>
+<li>switch语句的功能来自利用模式匹配来使用复杂规则比较值。</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E5%9B%9B-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-4%E3%80%81%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81%E7%A8%8B/" title="Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流">https://www.xuebaonline.com/Swift-Apprentice系列-四-第一部分：Swift基础知识-4、高级控制流程/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/%E9%AB%98%E7%BA%A7%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="tag"><i class="fa fa-tag"></i> 高级控制流</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%B8%89-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-3%E3%80%81%E5%9F%BA%E6%9C%AC%E6%8E%A7%E5%88%B6%E6%B5%81/" rel="prev" title="Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%94-%E7%AC%AC%E4%B8%80%E9%83%A8%E5%88%86%EF%BC%9ASwift%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86-5%E3%80%81Functions/" rel="next" title="Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions">
+      Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#可数范围"><span class="nav-number">1.</span> <span class="nav-text">可数范围</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#随机插曲"><span class="nav-number">2.</span> <span class="nav-text">随机插曲</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#For-loops"><span class="nav-number">3.</span> <span class="nav-text">For loops</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#继续并标记为语句"><span class="nav-number">3.1.</span> <span class="nav-text">继续并标记为语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Switch语句"><span class="nav-number">4.</span> <span class="nav-text">Switch语句</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#高级switch语句"><span class="nav-number">4.1.</span> <span class="nav-text">高级switch语句</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#部分匹配"><span class="nav-number">5.</span> <span class="nav-text">部分匹配</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">6.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

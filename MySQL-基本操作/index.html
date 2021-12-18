@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="MySQL 基本操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL 基本操作">
+<meta property="og:url" content="https://www.xuebaonline.com/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="MySQL 基本操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628113363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628336467.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628485678.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628687644.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629260375.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629329271.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629355783.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629428241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629613825.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629634342.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629705861.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629719332.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629774124.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629790901.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629803448.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629813638.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629824430.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629839409.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629900552.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629997349.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630150575.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630241363.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630387833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630440697.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630746684.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631118948.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631301616.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633424017.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633591923.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633758241.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654269605.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654519700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656529642.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656722512.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656805867.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656911674.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656946064.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657018441.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657091653.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657126082.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657249850.png">
+<meta property="article:published_time" content="2021-05-29T00:31:41.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.068Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="mysql">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="MySQL">
+<meta property="article:tag" content="MySQL学习">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628113363.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>MySQL 基本操作 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL 基本操作
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-29 08:31:41" itemprop="dateCreated datePublished" datetime="2021-05-29T08:31:41+08:00">2021-05-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+            <div class="post-description">MySQL 基本操作</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="1-1-数据库的发展历史"><a href="#1-1-数据库的发展历史" class="headerlink" title="1.1 数据库的发展历史"></a>1.1 数据库的发展历史</h2><p>可以参看这篇文章：<a href="https://zhuanlan.zhihu.com/p/111209720" target="_blank" rel="noopener">数据库的发展历史</a></p>
+<h2 id="1-2-数据库的作用"><a href="#1-2-数据库的作用" class="headerlink" title="1.2 数据库的作用"></a>1.2 数据库的作用</h2><p>数据库是存放数据的仓库</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628113363.png"></p>
+<span id="more"></span>
+
+<p>数据库：数据库中存放的是表，一个数据库中可以存放多个表</p>
+<p>表：表是用来存放数据的。 </p>
+<h2 id="1-3-数据库的发展史"><a href="#1-3-数据库的发展史" class="headerlink" title="1.3 数据库的发展史"></a>1.3 数据库的发展史</h2><h3 id="1-3-1-萌芽阶段：文件系统"><a href="#1-3-1-萌芽阶段：文件系统" class="headerlink" title="1.3.1 萌芽阶段：文件系统"></a>1.3.1 萌芽阶段：文件系统</h3><p>最初始的数据库是用磁盘来存储数据的。文件就是最早的数据库。</p>
+<h3 id="1-3-2-第一代数据库：层次模型、网状模型"><a href="#1-3-2-第一代数据库：层次模型、网状模型" class="headerlink" title="1.3.2  第一代数据库：层次模型、网状模型"></a>1.3.2  第一代数据库：层次模型、网状模型</h3><h4 id="1-3-2-1-层次模型"><a href="#1-3-2-1-层次模型" class="headerlink" title="1.3.2.1 层次模型"></a><strong>1.3.2.1 层次模型</strong></h4><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628336467.png"></p>
+<p> 缺点：</p>
+<p>1、     查找不同类的数据效率低了（导航的结构的缺点）</p>
+<p>2、     数据不完整（不能区分到底是一个李白还是两个李白）</p>
+<p> <strong>1.3.2.2 网状模型</strong></p>
+<p>网状模型解决了层次数据的数据不完整的问题，但是没有解决层次模型的导航问题。</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628485678.png"></p>
+<h3 id="1-3-3-第二代数据库：关系型数据库"><a href="#1-3-3-第二代数据库：关系型数据库" class="headerlink" title="1.3.3 第二代数据库：关系型数据库"></a>1.3.3 第二代数据库：关系型数据库</h3><p>特点：</p>
+<ol>
+<li><p>每个表都是独立的</p>
+</li>
+<li><p>表与表之间通过公共字段来建立关系</p>
+</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536628687644.png"></p>
+<p>优点：解决了导航问题，并且数据完整性得到解决</p>
+<p>缺点：多表查询效率低了 </p>
+<p>提示：我们现在用的主流的数据库都是关系模型的。 </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多学一招：NoSQL（非关系型数据库）解决关系型数据库多表查询效率的问题，常见的非关系型数据库有：Redis、mongodb。数据库中存储格式是键值对。 </span><br></pre></td></tr></table></figure>
+
+<h2 id="1-4-MySQL安装"><a href="#1-4-MySQL安装" class="headerlink" title="1.4 MySQL安装"></a>1.4 MySQL安装</h2><h3 id="1-4-1-获取安装文件"><a href="#1-4-1-获取安装文件" class="headerlink" title="1.4.1 获取安装文件"></a>1.4.1 获取安装文件</h3><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629260375.png"> </p>
+<h3 id="1-4-2-双击安装"><a href="#1-4-2-双击安装" class="headerlink" title="1.4.2 双击安装"></a>1.4.2 双击安装</h3><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629329271.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629355783.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629428241.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629613825.png"></p>
+<p><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629634342.png"><br><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629705861.png"><br><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629719332.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629774124.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629790901.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629803448.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629813638.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629824430.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629839409.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629900552.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536629997349.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630150575.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630241363.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630387833.png"></p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630440697.png"></p>
+<h3 id="1-4-3-MySQL目录"><a href="#1-4-3-MySQL目录" class="headerlink" title="1.4.3 MySQL目录"></a>1.4.3 MySQL目录</h3><p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536630746684.png"></p>
+<h2 id="1-5-启动-关闭MySQL服务"><a href="#1-5-启动-关闭MySQL服务" class="headerlink" title="1.5 启动/关闭MySQL服务"></a>1.5 启动/关闭MySQL服务</h2><h3 id="1-5-1-方法一：在服务面板中启动或关闭"><a href="#1-5-1-方法一：在服务面板中启动或关闭" class="headerlink" title="1.5.1 方法一：在服务面板中启动或关闭"></a>1.5.1 方法一：在服务面板中启动或关闭</h3><p>控制面板项——管理工具——服务，选择相应服务，右键执行操作。</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631118948.png"></p>
+<h3 id="1-5-2-方法二：通过命令行启动-关闭"><a href="#1-5-2-方法二：通过命令行启动-关闭" class="headerlink" title="1.5.2 方法二：通过命令行启动\关闭"></a>1.5.2 方法二：通过命令行启动\关闭</h3><p>net start 服务名：        启动MySQL服务</p>
+<p>net stop 服务器：              关闭MySQL服务</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536631301616.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">注意：必须通过管理员身份启动命令行</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-6-SQL介绍"><a href="#1-6-SQL介绍" class="headerlink" title="1.6 SQL介绍"></a>1.6 SQL介绍</h2><h3 id="1-6-1-SQL是什么"><a href="#1-6-1-SQL是什么" class="headerlink" title="1.6.1 SQL是什么"></a>1.6.1 SQL是什么</h3><p>Structured Query Language（结构化查询语言），是用来操作关系型数据库的一门语言。这是一个关系型数据库的通用操作语言，也成为标准SQL，也叫SQL-92。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多学一招：数据库的生产厂商为了占有市场份额，都会在标准SQL的基础上扩展一些自己的东西以吸引用户。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-6-2-常见的关系型数据库"><a href="#1-6-2-常见的关系型数据库" class="headerlink" title="1.6.2  常见的关系型数据库"></a>1.6.2  常见的关系型数据库</h3><table>
+<thead>
+<tr>
+<th>关系型数据库</th>
+<th>开发公司</th>
+<th>使用语言</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>SQL Server</td>
+<td>微软公司</td>
+<td>T-SQL</td>
+</tr>
+<tr>
+<td>Oracle</td>
+<td>甲骨文公司</td>
+<td>PL/SQL</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>MySQL AB 公司开发——甲骨文公司收购</td>
+<td>MySQL</td>
+</tr>
+</tbody></table>
+<p><strong>思考：</strong>已知标准SQL可以在所有的关系型数据库上运行，在Oracle上编写的PL/SQL能否在MySQL上运行？</p>
+<p>答：不能，只能运行标准SQL </p>
+<h2 id="1-7-连接服务器"><a href="#1-7-连接服务器" class="headerlink" title="1.7  连接服务器"></a>1.7  连接服务器</h2><p>通过命令行面板连接</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">host：主机			-h</span><br><span class="line">username：用户名	-u</span><br><span class="line">password：密码		-p</span><br><span class="line">port：端口			-P</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633424017.png"></p>
+<hr>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633591923.png"></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多学一招：如果MySQL服务器在本地，IP地址可以省略；如果MySQL服务器用的是3306端口，-P也是可以省略</span><br></pre></td></tr></table></figure>
+
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536633758241.png"></p>
+<h2 id="1-8-关闭连接"><a href="#1-8-关闭连接" class="headerlink" title="1.8 关闭连接"></a>1.8 关闭连接</h2> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">方法一：exit</span><br><span class="line"></span><br><span class="line">方法二：quit</span><br><span class="line"></span><br><span class="line">方法三：\q</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">脚下留心：MySQL中的命令后面要加分号，windows命令行的命令后面不用加分号。</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="1-9-数据库的操作"><a href="#1-9-数据库的操作" class="headerlink" title="1.9 数据库的操作"></a>1.9 数据库的操作</h2><h3 id="1-9-1-显示数据库"><a href="#1-9-1-显示数据库" class="headerlink" title="1.9.1  显示数据库"></a>1.9.1  显示数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 语法：<span class="keyword">show</span> databases</span><br><span class="line"> </span><br><span class="line"> mysql<span class="operator">&gt;</span> <span class="keyword">show</span> databases;</span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="operator">|</span> Database           <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="operator">|</span> information_schema <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> mysql              <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> performance_schema <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> test               <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------------------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.11</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>安装MySQL后，MySQL自带了4个数据库</p>
+<ol>
+<li>information_schema：存储了MySQL服务器管理数据库的信息。</li>
+<li>performance_schema：MySQL5.5新增的表，用来保存数据库服务器性能的参数</li>
+<li>mysql：MySQL系统数据库，保存的登录用户名，密码，以及每个用户的权限等等</li>
+<li>test：给用户学习和测试的数据库。</li>
+</ol>
+<h3 id="1-9-2-创建数据库"><a href="#1-9-2-创建数据库" class="headerlink" title="1.9.2  创建数据库"></a>1.9.2  创建数据库</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">create</span> database [if <span class="keyword">not</span> <span class="keyword">exists</span>] `数据名` [字符编码]</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database stu;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.09</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果创建的数据库已存在，就会报错</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database stu;</span><br><span class="line">ERROR <span class="number">1007</span> (HY000): Can<span class="string">&#x27;t create database &#x27;</span>stu<span class="string">&#x27;; database exists</span></span><br></pre></td></tr></table></figure>
+
+<p>解决：创建数据库的时候判断一下数据库是否存在，如果不存在再创建</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database if <span class="keyword">not</span> <span class="keyword">exists</span> stu;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果数据库名是关键字和特殊字符要报错</p>
+<p> 解决：在特殊字符、关键字行加上反引号</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database `<span class="keyword">create</span>`;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.05</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">多学一招：为了创建数据库时万无一失，我们可以在所有的数据库名上加上反引号</span><br></pre></td></tr></table></figure>
+
+<p>创建数据库的时候可以指定字符编码</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database teacher charset<span class="operator">=</span>gbk;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.01</span> sec)</span><br><span class="line">gbk		简体中文</span><br><span class="line">gb2312：	简体中文</span><br><span class="line">utf8：	通用字符编码</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">脚下留心：创建数据库如果不指定字符编码，默认和MySQL服务器的字符编码是一致的。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-3-删除数据库"><a href="#1-9-3-删除数据库" class="headerlink" title="1.9.3 删除数据库"></a>1.9.3 删除数据库</h3> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">drop</span> database [if <span class="keyword">exists</span>] 数据库名</span><br></pre></td></tr></table></figure>
+
+<p>删除数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> database teacher;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果删除的数据库不存在，会报错</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> database teacher;</span><br><span class="line">ERROR <span class="number">1008</span> (HY000): Can<span class="string">&#x27;t drop database &#x27;</span>teacher<span class="string">&#x27;; database doesn&#x27;</span>t exist</span><br><span class="line">mysql<span class="operator">&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p> 解决：删除之前判断一下，如果存在就删除</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> database if <span class="keyword">exists</span> teacher;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-4-显示创建数据库的SQL语句"><a href="#1-9-4-显示创建数据库的SQL语句" class="headerlink" title="1.9.4 显示创建数据库的SQL语句"></a>1.9.4 显示创建数据库的SQL语句</h3> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">show</span> <span class="keyword">create</span> database 数据库名</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> database stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Database <span class="operator">|</span> <span class="keyword">Create</span> Database                                              <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> stu      <span class="operator">|</span> <span class="keyword">CREATE</span> DATABASE `stu` <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+--------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> database teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Database <span class="operator">|</span> <span class="keyword">Create</span> Database                                                 <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> teacher  <span class="operator">|</span> <span class="keyword">CREATE</span> DATABASE `teacher` <span class="comment">/*!40100 DEFAULT CHARACTER SET gbk */</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+-----------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-5-修改数据库"><a href="#1-9-5-修改数据库" class="headerlink" title="1.9.5 修改数据库"></a>1.9.5 修改数据库</h3><p>修改数据库的字符编码</p>
+<p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">alter</span> database 数据库名 charset<span class="operator">=</span>字符编码</span><br></pre></td></tr></table></figure>
+
+<p>例题</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> database teacher charset<span class="operator">=</span>utf8;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> database teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> Database <span class="operator">|</span> <span class="keyword">Create</span> Database                                                  <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line"><span class="operator">|</span> teacher  <span class="operator">|</span> <span class="keyword">CREATE</span> DATABASE `teacher` <span class="comment">/*!40100 DEFAULT CHARACTER SET utf8 */</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----------+------------------------------------------------------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-9-6-选择数据库"><a href="#1-9-6-选择数据库" class="headerlink" title="1.9.6 选择数据库"></a>1.9.6 选择数据库</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use 数据库名</span><br></pre></td></tr></table></figure>
+
+<p>选择数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> use stu;</span><br><span class="line">Database changed</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-10-表的操作"><a href="#1-10-表的操作" class="headerlink" title="1.10 表的操作"></a>1.10 表的操作</h2><h3 id="1-10-1-显示所有表"><a href="#1-10-1-显示所有表" class="headerlink" title="1.10.1 显示所有表"></a>1.10.1 显示所有表</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> tables</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="1-10-2-创建表"><a href="#1-10-2-创建表" class="headerlink" title="1.10.2 创建表"></a>1.10.2 创建表</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> [if <span class="keyword">not</span> <span class="keyword">exists</span>] 表名(</span><br><span class="line">    字段名 数据类型 [<span class="keyword">null</span><span class="operator">|</span><span class="keyword">not</span> <span class="keyword">null</span>] [auto_increment] [<span class="keyword">primary</span> key] [comment],</span><br><span class="line">    字段名 数据类型 [<span class="keyword">default</span>]…</span><br><span class="line">)engine<span class="operator">=</span>存储引擎</span><br></pre></td></tr></table></figure>
+
+<p>单词</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">null</span> <span class="operator">|</span> <span class="keyword">not</span> <span class="keyword">null</span>   	空<span class="operator">|</span>非空</span><br><span class="line"><span class="keyword">default</span>	          	默认值</span><br><span class="line">auto_increment    	自动增长</span><br><span class="line"><span class="keyword">primary</span> key       	主键</span><br><span class="line">comment           	备注</span><br><span class="line">engine           	引擎   innodb  myisam  memory  引擎是决定数据存储的方式</span><br></pre></td></tr></table></figure>
+
+<p>创建简单的表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> database itcast;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> use itcast;</span><br><span class="line">Database changed</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> tables;</span><br><span class="line"><span class="keyword">Empty</span> <span class="keyword">set</span> (<span class="number">0.05</span> sec)</span><br><span class="line"></span><br><span class="line"># 创建表</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">30</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.13</span> sec)</span><br><span class="line"># 查看创建的表</span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> tables;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br><span class="line"><span class="operator">|</span> Tables_in_itcast <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br><span class="line"><span class="operator">|</span> stu              <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br></pre></td></tr></table></figure>
+
+<p> 创建复杂的表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">set</span> names gbk;   # 设置字符编码</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.05</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> if <span class="keyword">not</span> <span class="keyword">exists</span> teacher(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> auto_increment <span class="keyword">primary</span> key comment <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="keyword">null</span> comment <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> phone <span class="type">varchar</span>(<span class="number">20</span>) comment <span class="string">&#x27;电话号码&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> `<span class="keyword">add</span>` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">default</span> <span class="string">&#x27;地址不详&#x27;</span> comment <span class="string">&#x27;地址&#x27;</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> )engine<span class="operator">=</span>innodb;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.09</span> sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>多学一招：create table 数据库名.表名，用于给指定的数据库创建表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> data.stu(  #给data数据库中创建stu表</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">10</span>));</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10-3-显示创建表的语句"><a href="#1-10-3-显示创建表的语句" class="headerlink" title="1.10.3  显示创建表的语句"></a>1.10.3  显示创建表的语句</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+
+<p>显示创建teacher表的语句</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">---------+--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">Table</span>   <span class="operator">|</span> <span class="keyword">Create</span> <span class="keyword">Table</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">---------+--------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------------------------------------------------------------------------------------</span></span><br><span class="line"><span class="comment">-------+</span></span><br><span class="line"><span class="operator">|</span> teacher <span class="operator">|</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `teacher` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT COMMENT <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">  `phone` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;电话号码&#x27;</span>,</span><br><span class="line">  `<span class="keyword">add</span>` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;地址不详&#x27;</span> COMMENT <span class="string">&#x27;地址&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8                         <span class="operator">|</span></span><br></pre></td></tr></table></figure>
+
+<p>将两个字段竖着排列           show create table <code>表名</code>\G</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> <span class="keyword">create</span> <span class="keyword">table</span> teacher\G;</span><br><span class="line"><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span> <span class="number">1.</span> <span class="type">row</span> <span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span><span class="operator">*</span></span><br><span class="line">       <span class="keyword">Table</span>: teacher</span><br><span class="line"><span class="keyword">Create</span> <span class="keyword">Table</span>: <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `teacher` (</span><br><span class="line">  `id` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> AUTO_INCREMENT COMMENT <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">  `name` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">NOT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;姓名&#x27;</span>,</span><br><span class="line">  `phone` <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;电话号码&#x27;</span>,</span><br><span class="line">  `<span class="keyword">add</span>` <span class="type">varchar</span>(<span class="number">100</span>) <span class="keyword">DEFAULT</span> <span class="string">&#x27;地址不详&#x27;</span> COMMENT <span class="string">&#x27;地址&#x27;</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`id`)</span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8</span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10-4-查看表结构"><a href="#1-10-4-查看表结构" class="headerlink" title="1.10.4 查看表结构"></a>1.10.4 查看表结构</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">desc</span>[ribe] 表名</span><br></pre></td></tr></table></figure>
+
+<p>查看teacher表的结构</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">describe</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">add</span>   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">100</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.08</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">add</span>   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">100</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10-5-删除表"><a href="#1-10-5-删除表" class="headerlink" title="1.10.5  删除表"></a>1.10.5  删除表</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">drop</span> <span class="keyword">table</span> [if <span class="keyword">exists</span>] 表<span class="number">1</span>，表<span class="number">2</span>,… </span><br></pre></td></tr></table></figure>
+
+<p>删除表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> <span class="keyword">table</span> stu;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.08</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>如果删除一个不存在的表就会报错，删除的时候可以判断一下，存在就删除。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> <span class="keyword">table</span> stu;</span><br><span class="line">ERROR <span class="number">1051</span> (<span class="number">42</span>S02): <span class="literal">Unknown</span> <span class="keyword">table</span> <span class="string">&#x27;stu&#x27;</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> <span class="keyword">table</span> if <span class="keyword">exists</span> stu;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected, <span class="number">1</span> warning (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>可以一次删除多个表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">drop</span> <span class="keyword">table</span> a1,a2;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10-6-修改表"><a href="#1-10-6-修改表" class="headerlink" title="1.10.6  修改表"></a>1.10.6  修改表</h3> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">alter</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+
+<p>1、添加字段：alter table 表名add [column] 字段名 数据类型 [位置]</p>
+<p>例题一：添加字段</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">add</span> age <span class="type">int</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.09</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">add</span>   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">100</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="number">5</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题二：在第一个位置上添加字段</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">add</span> email <span class="type">varchar</span>(<span class="number">30</span>) <span class="keyword">first</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> email <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">add</span>   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">100</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br></pre></td></tr></table></figure>
+
+<p>例题三：在指定的字段后添加字段</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">add</span> sex <span class="type">varchar</span>(<span class="number">2</span>) after name;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> teacher;</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type         <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> email <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">30</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> sex   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">2</span>)   <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> phone <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>)  <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> <span class="keyword">add</span>   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">100</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age   <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)      <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+--------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="number">7</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>2、删除字段：alter table 表 drop [column] 字段名</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher <span class="keyword">drop</span> email;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>3、修改字段(改名改类型)：alter table 表 change [column] 原字段名 新字段名 数据类型 …</p>
+<p> 将字段sex改为xingbie，数据类型为int</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher change sex xingbie <span class="type">int</span>;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>4、修改字段（不改名）:alter table 表 modify 字段名 字段属性…</p>
+<p>将性别的数据类型改为varchar(2)</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher modify xingbie <span class="type">varchar</span>(<span class="number">2</span>);</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>5、修改引擎：alter table 表名 engine=引擎名</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher engine<span class="operator">=</span>myisam;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.05</span> sec)</span><br><span class="line">Records: <span class="number">0</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>6、修改表名：alter table 表名 rename to 新表名</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">alter</span> <span class="keyword">table</span> teacher rename <span class="keyword">to</span> stu;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">show</span> tables;</span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br><span class="line"><span class="operator">|</span> Tables_in_itcast <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br><span class="line"><span class="operator">|</span> stu              <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------------------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-10-5-复制表"><a href="#1-10-5-复制表" class="headerlink" title="1.10.5 复制表"></a>1.10.5 复制表</h3> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法一：<span class="keyword">create</span> <span class="keyword">table</span> 新表 <span class="keyword">select</span> 字段 <span class="keyword">from</span> 旧表</span><br></pre></td></tr></table></figure>
+
+<p> 特点：不能复制父表的主键，能够复制父表的数据</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu1 <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stu;</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.06</span> sec)</span><br><span class="line">Records: <span class="number">1</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stu1;    # 查看数据复制到新表中</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> addr <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> rose <span class="operator">|</span> 上海    <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> stu1;    #  主键没有复制</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+-------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="number">0</span>        <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>) <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> addr  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">50</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> score <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+-------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法二：<span class="keyword">create</span> <span class="keyword">table</span> 新表 <span class="keyword">like</span> 旧表</span><br></pre></td></tr></table></figure>
+
+<p>特点：只能复制表结构，不能复制表数据</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stu2;   # 数据没有复制</span><br><span class="line"><span class="keyword">Empty</span> <span class="keyword">set</span> (<span class="number">0.01</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">desc</span> stu2;   # 主键复制了</span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> Field <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span>  <span class="operator">|</span> Extra          <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="operator">|</span> id    <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span> PRI <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span> auto_increment <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>) <span class="operator">|</span> <span class="keyword">NO</span>   <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> addr  <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">50</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> 地址不详        <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> score <span class="operator">|</span> <span class="type">int</span>(<span class="number">11</span>)     <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>     <span class="operator">|</span>                <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">-------+-------------+------+-----+----------+----------------+</span></span><br><span class="line"><span class="number">4</span> <span class="keyword">rows</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-11-数据操作"><a href="#1-11-数据操作" class="headerlink" title="1.11 数据操作"></a>1.11 数据操作</h2><p>创建测试表</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> auto_increment <span class="keyword">primary</span> key comment <span class="string">&#x27;主键&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">not</span> <span class="keyword">null</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> addr <span class="type">varchar</span>(<span class="number">50</span>) <span class="keyword">default</span> <span class="string">&#x27;地址不详&#x27;</span>,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> score <span class="type">int</span> comment <span class="string">&#x27;成绩&#x27;</span></span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.01</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-1-插入数据"><a href="#1-11-1-插入数据" class="headerlink" title="1.11.1  插入数据"></a>1.11.1  插入数据</h3><h4 id="插入一条数据"><a href="#插入一条数据" class="headerlink" title="插入一条数据"></a>插入一条数据</h4> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">语法：<span class="keyword">insert</span> <span class="keyword">into</span> 表名 (字段名, 字段名,…) <span class="keyword">values</span> (值<span class="number">1</span>, 值<span class="number">1</span>,…)</span><br></pre></td></tr></table></figure>
+
+<p>例题一：插入数据</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu (id,name,addr,score) <span class="keyword">values</span> (<span class="number">1</span>,<span class="string">&#x27;tom&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>,<span class="number">88</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.11</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题二：插入的字段可以和表的字段顺序不一致。值的顺序必须和插入字段的顺序一致。</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu (name,score,addr,id) <span class="keyword">values</span> (<span class="string">&#x27;berry&#x27;</span>,<span class="number">77</span>,<span class="string">&#x27;北京&#x27;</span>,<span class="number">2</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题三：可以插入部分字段，但是，非空字段必须插入</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu (id,name,addr) <span class="keyword">values</span> (<span class="number">3</span>,<span class="string">&#x27;ketty&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>例题四：自动增长字段不用插入，数据库会自动插入增长的数字</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu (name,addr) <span class="keyword">values</span> (<span class="string">&#x27;rose&#x27;</span>,<span class="string">&#x27;北京&#x27;</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题五：自动增长列的值插入null即可</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu (id,name,addr,score) <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;李白&#x27;</span>,<span class="string">&#x27;上海&#x27;</span>,<span class="number">66</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题六：插入值的顺序和个数与表字段的顺序和个数一致，插入的字段可以省略</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;杜甫&#x27;</span>,<span class="string">&#x27;北京&#x27;</span>,<span class="keyword">null</span>);</span><br><span class="line">Query OK, <span class="number">1</span> <span class="type">row</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>例题七：通过default关键字插入默认值</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;李清照&#x27;</span>,<span class="keyword">default</span>,<span class="number">66</span>);</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">脚下留心：</span><br><span class="line"><span class="number">1</span>、插入字段的顺序与值的顺序必须一致</span><br></pre></td></tr></table></figure>
+
+<h4 id="插入多条数据"><a href="#插入多条数据" class="headerlink" title="插入多条数据"></a>插入多条数据</h4> <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">insert</span> <span class="keyword">into</span> stu <span class="keyword">values</span> (<span class="keyword">null</span>,<span class="string">&#x27;辛弃疾&#x27;</span>,<span class="keyword">default</span>,<span class="number">66</span>),(<span class="keyword">null</span>,<span class="string">&#x27;岳飞&#x27;</span>,<span class="string">&#x27;河南&#x27;</span>,<span class="number">77</span>);</span><br><span class="line">Query OK, <span class="number">2</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br><span class="line">Records: <span class="number">2</span>  Duplicates: <span class="number">0</span>  Warnings: <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-2-更新数据"><a href="#1-11-2-更新数据" class="headerlink" title="1.11.2 更新数据"></a>1.11.2 更新数据</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">update 表名 <span class="keyword">set</span> 字段<span class="operator">=</span>值 [<span class="keyword">where</span> 条件] </span><br></pre></td></tr></table></figure>
+
+<p>例题一：将1号学生的地址改成山东</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> addr<span class="operator">=</span><span class="string">&#x27;山东&#x27;</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>例题二：将ketty的成绩改为99</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">99</span> <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;ketty&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题三：将berry地址改成上海，成绩改成66</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> addr<span class="operator">=</span><span class="string">&#x27;上海&#x27;</span>,score<span class="operator">=</span><span class="number">66</span> <span class="keyword">where</span> name<span class="operator">=</span><span class="string">&#x27;berry&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题四：将上海的学生成绩改为60</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">60</span> <span class="keyword">where</span> addr<span class="operator">=</span><span class="string">&#x27;上海&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题五：条件可以省略，如果省略，更改所有数据（将所有数据的地址改为湖南，成绩改为70）</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> addr<span class="operator">=</span><span class="string">&#x27;湖南&#x27;</span>,score<span class="operator">=</span><span class="number">70</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题六：将2、3的学生成绩改为65</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> update stu <span class="keyword">set</span> score<span class="operator">=</span><span class="number">65</span> <span class="keyword">where</span> id<span class="operator">=</span><span class="number">2</span> <span class="keyword">or</span> id<span class="operator">=</span><span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-3-删除数据"><a href="#1-11-3-删除数据" class="headerlink" title="1.11.3 删除数据"></a>1.11.3 删除数据</h3><p>语法</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">delete</span> <span class="keyword">from</span> 表名 [<span class="keyword">where</span> 条件] </span><br></pre></td></tr></table></figure>
+
+<p>例题一：删除学号是1号的学生</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> stu <span class="keyword">where</span> id<span class="operator">=</span><span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题二：删除成绩小于等于65分的</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> stu <span class="keyword">where</span> score<span class="operator">&lt;=</span><span class="number">65</span>;</span><br></pre></td></tr></table></figure>
+
+<p>例题三：删除表中所有记录</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">delete</span> <span class="keyword">from</span> stu;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-4-清空表"><a href="#1-11-4-清空表" class="headerlink" title="1.11.4 清空表"></a>1.11.4 清空表</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">truncate</span> <span class="keyword">table</span> 表名</span><br></pre></td></tr></table></figure>
+
+<p>例题</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">truncate</span> <span class="keyword">table</span> stu;</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">脚下留心：delete from 表和truncate table 表区别？</span><br><span class="line">delete from 表：遍历表记录，一条一条的删除</span><br><span class="line">truncate table：将原表销毁，再创建一个同结构的新表。就清空表而言，这种方法效率高。</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-11-5查询表"><a href="#1-11-5查询表" class="headerlink" title="1.11.5查询表"></a>1.11.5查询表</h3><p>语法：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> 列名 <span class="keyword">from</span> 表</span><br></pre></td></tr></table></figure>
+
+<p>例题：</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> name,score <span class="keyword">from</span> stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">------+-------+</span></span><br><span class="line"><span class="operator">|</span> name <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+-------+</span></span><br><span class="line"><span class="operator">|</span> rose <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> id,name,addr,score <span class="keyword">from</span> stu;</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> addr <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> rose <span class="operator">|</span> 上海    <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br><span class="line"></span><br><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> stu;  # <span class="operator">*</span>表示所有字段</span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span> id <span class="operator">|</span> name <span class="operator">|</span> addr <span class="operator">|</span> score <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="operator">|</span>  <span class="number">1</span> <span class="operator">|</span> rose <span class="operator">|</span> 上海    <span class="operator">|</span>    <span class="number">88</span> <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">----+------+------+-------+</span></span><br><span class="line"><span class="number">1</span> <span class="type">row</span> <span class="keyword">in</span> <span class="keyword">set</span> (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<h2 id="1-12-SQL分类"><a href="#1-12-SQL分类" class="headerlink" title="1.12 SQL分类"></a>1.12 SQL分类</h2><p>DDL（data definition language）数据库定义语言CREATE、ALTER、DROP、SHOW</p>
+<p>DML（data manipulation language）数据操纵语言SELECT、UPDATE、INSERT、DELETE</p>
+<p>DCL（Data Control Language）数据库控制语言,是用来设置或更改数据库用户或角色权限的语句</p>
+<h2 id="1-13-数据表的文件介绍"><a href="#1-13-数据表的文件介绍" class="headerlink" title="1.13 数据表的文件介绍"></a>1.13 数据表的文件介绍</h2><p>一个数据库对应一个文件夹</p>
+<p>一个表对应一个或多个文件</p>
+<p>引擎是myisam，一个表对应三个文件</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654269605.png"></p>
+<p>引擎是innodb,一个表对应一个表结构文件</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536654519700.png"></p>
+<p>所有的innodb引擎的数据统一的存放在data\ibdata1文件中。如果数据量很大，MySQL会自动的创建ibdata2，ibdata3，…，目的就是为了便于管理。</p>
+<p> 引擎是memory，数据存储在内存中，重启服务数据丢失，但是读取速度非常快。</p>
+<h2 id="1-14-字符集"><a href="#1-14-字符集" class="headerlink" title="1.14 字符集"></a>1.14 字符集</h2><p>字符集：字符在保存和传输时对应的二进制编码集合。</p>
+<p>创建测试数据库</p>
+ <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">create</span> <span class="keyword">table</span> stu(</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> id <span class="type">int</span> <span class="keyword">primary</span> key,</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> name <span class="type">varchar</span>(<span class="number">20</span>)</span><br><span class="line">    <span class="operator">-</span><span class="operator">&gt;</span> );</span><br><span class="line">Query OK, <span class="number">0</span> <span class="keyword">rows</span> affected (<span class="number">0.00</span> sec)</span><br></pre></td></tr></table></figure>
+
+<p>插入中文报错</p>
+<p><img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656529642.png"></p>
+<hr>
+<p>分析原因：</p>
+<p>客户端通过GBK发送的命令</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656722512.png"></p>
+<p>但是，服务用utf8解释命令</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656805867.png"></p>
+<p>设置服务器，用gbk字符编码接受客户端发来的命令</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656911674.png"></p>
+<p>测试：插入中文，成功</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536656946064.png"></p>
+<p>查询数据，发现数据乱码</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657018441.png"></p>
+<p>原因：以utf返回的结果，客户端用gbk来接受</p>
+<p>解决：服务器用gbk返回数据</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657091653.png"></p>
+<p>再次测试，查询数据</p>
+<p>  <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657126082.png"></p>
+<p>总结：客户端编码、character_set_client、character_set_results三个编码的值一致即可操作中文。</p>
+<p>多学一招：我们只要设置“set names 字符编码”，就可以更改character_set_client、character_set_results的值。</p>
+<p> <img src="https://raw.githubusercontent.com/Bogon/mysql_manual/main/images/1536657249850.png">
+ </p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/MySQL-%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/" title="MySQL 基本操作">https://www.xuebaonline.com/MySQL-基本操作/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"><i class="fa fa-tag"></i> MySQL</a>
+              <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" rel="tag"><i class="fa fa-tag"></i> 数据库</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Sqlite-%E4%BD%BF%E7%94%A8Tips/" rel="prev" title="Sqlite 使用Tips">
+      <i class="fa fa-chevron-left"></i> Sqlite 使用Tips
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/MySQL-%E5%88%97%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%95%B0%E6%8D%AE%E5%AE%8C%E6%95%B4%E6%80%A7/" rel="next" title="MySQL-列类型和数据完整性">
+      MySQL-列类型和数据完整性 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-数据库的发展历史"><span class="nav-number">1.</span> <span class="nav-text">1.1 数据库的发展历史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-数据库的作用"><span class="nav-number">2.</span> <span class="nav-text">1.2 数据库的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3-数据库的发展史"><span class="nav-number">3.</span> <span class="nav-text">1.3 数据库的发展史</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-1-萌芽阶段：文件系统"><span class="nav-number">3.1.</span> <span class="nav-text">1.3.1 萌芽阶段：文件系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-2-第一代数据库：层次模型、网状模型"><span class="nav-number">3.2.</span> <span class="nav-text">1.3.2  第一代数据库：层次模型、网状模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-2-1-层次模型"><span class="nav-number">3.2.1.</span> <span class="nav-text">1.3.2.1 层次模型</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-3-3-第二代数据库：关系型数据库"><span class="nav-number">3.3.</span> <span class="nav-text">1.3.3 第二代数据库：关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-4-MySQL安装"><span class="nav-number">4.</span> <span class="nav-text">1.4 MySQL安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-1-获取安装文件"><span class="nav-number">4.1.</span> <span class="nav-text">1.4.1 获取安装文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-2-双击安装"><span class="nav-number">4.2.</span> <span class="nav-text">1.4.2 双击安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-4-3-MySQL目录"><span class="nav-number">4.3.</span> <span class="nav-text">1.4.3 MySQL目录</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-5-启动-关闭MySQL服务"><span class="nav-number">5.</span> <span class="nav-text">1.5 启动&#x2F;关闭MySQL服务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-1-方法一：在服务面板中启动或关闭"><span class="nav-number">5.1.</span> <span class="nav-text">1.5.1 方法一：在服务面板中启动或关闭</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-5-2-方法二：通过命令行启动-关闭"><span class="nav-number">5.2.</span> <span class="nav-text">1.5.2 方法二：通过命令行启动\关闭</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-6-SQL介绍"><span class="nav-number">6.</span> <span class="nav-text">1.6 SQL介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-1-SQL是什么"><span class="nav-number">6.1.</span> <span class="nav-text">1.6.1 SQL是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-6-2-常见的关系型数据库"><span class="nav-number">6.2.</span> <span class="nav-text">1.6.2  常见的关系型数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-7-连接服务器"><span class="nav-number">7.</span> <span class="nav-text">1.7  连接服务器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-8-关闭连接"><span class="nav-number">8.</span> <span class="nav-text">1.8 关闭连接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-9-数据库的操作"><span class="nav-number">9.</span> <span class="nav-text">1.9 数据库的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-1-显示数据库"><span class="nav-number">9.1.</span> <span class="nav-text">1.9.1  显示数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-2-创建数据库"><span class="nav-number">9.2.</span> <span class="nav-text">1.9.2  创建数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-3-删除数据库"><span class="nav-number">9.3.</span> <span class="nav-text">1.9.3 删除数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-4-显示创建数据库的SQL语句"><span class="nav-number">9.4.</span> <span class="nav-text">1.9.4 显示创建数据库的SQL语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-5-修改数据库"><span class="nav-number">9.5.</span> <span class="nav-text">1.9.5 修改数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-9-6-选择数据库"><span class="nav-number">9.6.</span> <span class="nav-text">1.9.6 选择数据库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-10-表的操作"><span class="nav-number">10.</span> <span class="nav-text">1.10 表的操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-1-显示所有表"><span class="nav-number">10.1.</span> <span class="nav-text">1.10.1 显示所有表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-2-创建表"><span class="nav-number">10.2.</span> <span class="nav-text">1.10.2 创建表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-3-显示创建表的语句"><span class="nav-number">10.3.</span> <span class="nav-text">1.10.3  显示创建表的语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-4-查看表结构"><span class="nav-number">10.4.</span> <span class="nav-text">1.10.4 查看表结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-5-删除表"><span class="nav-number">10.5.</span> <span class="nav-text">1.10.5  删除表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-6-修改表"><span class="nav-number">10.6.</span> <span class="nav-text">1.10.6  修改表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-10-5-复制表"><span class="nav-number">10.7.</span> <span class="nav-text">1.10.5 复制表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-11-数据操作"><span class="nav-number">11.</span> <span class="nav-text">1.11 数据操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-1-插入数据"><span class="nav-number">11.1.</span> <span class="nav-text">1.11.1  插入数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#插入一条数据"><span class="nav-number">11.1.1.</span> <span class="nav-text">插入一条数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#插入多条数据"><span class="nav-number">11.1.2.</span> <span class="nav-text">插入多条数据</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-2-更新数据"><span class="nav-number">11.2.</span> <span class="nav-text">1.11.2 更新数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-3-删除数据"><span class="nav-number">11.3.</span> <span class="nav-text">1.11.3 删除数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-4-清空表"><span class="nav-number">11.4.</span> <span class="nav-text">1.11.4 清空表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-11-5查询表"><span class="nav-number">11.5.</span> <span class="nav-text">1.11.5查询表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-12-SQL分类"><span class="nav-number">12.</span> <span class="nav-text">1.12 SQL分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-13-数据表的文件介绍"><span class="nav-number">13.</span> <span class="nav-text">1.13 数据表的文件介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-14-字符集"><span class="nav-number">14.</span> <span class="nav-text">1.14 字符集</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

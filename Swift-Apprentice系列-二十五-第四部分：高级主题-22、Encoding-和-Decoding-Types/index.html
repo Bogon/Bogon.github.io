@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sp-ed-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sp-ed-stp2.png">
+<meta property="article:published_time" content="2020-06-21T06:49:57.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.135Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Enumerations">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="Generics">
+<meta property="article:tag" content="访问控制和代码组织">
+<meta property="article:tag" content="自定义运算符，下标和键路径">
+<meta property="article:tag" content="模式匹配">
+<meta property="article:tag" content="错误处理">
+<meta property="article:tag" content="Encoding 和 Decoding Types">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sp-ed-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-21 14:49:57" itemprop="dateCreated datePublished" datetime="2020-06-21T14:49:57+08:00">2020-06-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在几种情况下，你需要将数据保存到文件或通过网络发送。 在本章中，你将学习如何通过将实例转换为另一种表示形式（例如字符串或字节流）来实现这些任务。 此过程称为编码，也称为序列化。<br>将数据转换为实例的反向过程称为解码或反序列化。</p>
+<p>假设你有一个要写入文件的实例。 实例本身无法按原样写入文件，因此你需要将其编码为另一种表示形式，例如字节流：</p>
+<p><img src="http://cdn.xuebaonline.com/sp-ed-stp1.png" alt="&quot;&quot;"></p>
+<p>数据编码并保存到文件后，可以使用解码器随时将其转换为实例：</p>
+<p><img src="http://cdn.xuebaonline.com/sp-ed-stp2.png" alt="&quot;&quot;"></p>
+<span id="more"></span>
+
+
+<h1 id="Encodable-amp-Decodable-protocols"><a href="#Encodable-amp-Decodable-protocols" class="headerlink" title="Encodable &amp; Decodable protocols"></a>Encodable &amp; Decodable protocols</h1><p>可编码协议由可以编码为另一种表示形式的类型使用。 它声明了一个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+
+<p>…如果该类型的所有存储属性都由编译器为你生成也符合Encodable。 你将在本章后面的内容中了解更多信息。 </p>
+<p>可解码协议由可以解码的类型使用。 它只声明一个初始值设定项：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span></span><br></pre></td></tr></table></figure>
+
+<p>到本章末，你将知道何时以及如何实现这些方法。</p>
+<h1 id="什么是Codable？"><a href="#什么是Codable？" class="headerlink" title="什么是Codable？"></a>什么是Codable？</h1><p>Codable是一种类型可以遵循的协议，声明可以对其进行编码和解码。 它基本上是可编码和可解码协议的别名。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">Codable</span> <span class="operator">=</span> <span class="type">Encodable</span> &amp; <span class="type">Decodable</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="自动编码和解码"><a href="#自动编码和解码" class="headerlink" title="自动编码和解码"></a>自动编码和解码</h1><p>Swift中有许多可立即使用的类型：Int，String，Date，Array以及标准库和Foundation框架中的许多其他类型。 如果希望你的类型是可编码的，则最简单的方法是遵循Codable并确保其所有存储属性也可编码。</p>
+<p>举例来说，假设你拥有一家玩具工厂，并且拥有此结构来存储员工数据：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Employee</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">Int</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你需要做的就是能够对该类型进行编码和解码以符合Codable协议，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Employee</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> id: <span class="type">Int</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>哇，那很容易。 之所以能够做到这一点，是因为名称（字符串）和ID（整数）都是可编码的。</p>
+<p>当你仅使用已编码的类型时，此方法效果很好。 但是，如果你的类型包括其他自定义类型作为属性怎么办？ 例如，查看你的Employee结构，假设它还具有可选的favoriteToy属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Employee</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> id: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">var</span> favoriteToy: <span class="type">Toy</span>?</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Toy</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过确保玩具也符合Codable，你还可以维护员工与Codable的总体符合性。</p>
+<p>如果所有集合类型都包含可编码类型，则它们也可以是可编码的，例如Array和Dictionary。</p>
+<h1 id="编码和解码自定义类型"><a href="#编码和解码自定义类型" class="headerlink" title="编码和解码自定义类型"></a>编码和解码自定义类型</h1><p>你可以编码或解码几种表示形式，例如XML或属性列表。 在本部分中，你将学习如何使用Swift的JSONEncoder和JSONDecoder类对JSON进行编码和解码。</p>
+<p>JSON表示JavaScript对象表示法，并且是序列化数据的最流行方法之一。 它易于被人类阅读，也便于计算机解析和生成。</p>
+<p>例如，如果要将Employee类型的实例编码为JSON，则可能看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;name&quot;</span>: <span class="string">&quot;John Appleseed&quot;</span>, <span class="string">&quot;id&quot;</span>: <span class="number">7</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以轻松了解Employee实例在序列化为JSON之前的外观。</p>
+<h1 id="JSONEncoder-amp-JSONDecoders"><a href="#JSONEncoder-amp-JSONDecoders" class="headerlink" title="JSONEncoder &amp; JSONDecoders"></a>JSONEncoder &amp; JSONDecoders</h1><p>拥有可编码类型后，可以使用JSONEncoder将类型转换为可写入文件或通过网络发送的数据。 假设你有以下员工实例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> toy1 <span class="operator">=</span> <span class="type">Toy</span>(name: <span class="string">&quot;Teddy Bear&quot;</span>);</span><br><span class="line"><span class="keyword">let</span> employee1 <span class="operator">=</span> <span class="type">Employee</span>(name: <span class="string">&quot;John Appleseed&quot;</span>, id: <span class="number">7</span>, favoriteToy: toy1)</span><br></pre></td></tr></table></figure>
+
+<p>约翰的生日快到了，你想给他他最喜欢的玩具作为礼物。 你需要将此数据发送到礼品部门。 在进行此操作之前，你需要对其进行编码，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">let</span> jsonEncoder <span class="operator">=</span> <span class="type">JSONEncoder</span>()</span><br><span class="line"><span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try</span> jsonEncoder.encode(employee1)</span><br></pre></td></tr></table></figure>
+
+<p>你会发现你需要使用try，因为encode（_ :)可能会失败并引发错误。</p>
+<p>如果你尝试像这样打印jsonData：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(jsonData)</span><br></pre></td></tr></table></figure>
+
+<p>你会看到Xcode省略了数据，仅提供jsonData中的字节数。 很好，因为jsonData包含不可读的employee1表示形式。 如果你想以字符串形式创建此JSON的可读版本，则可以使用String初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonString <span class="operator">=</span> <span class="type">String</span>(data: jsonData, encoding: .utf8)<span class="operator">!</span> </span><br><span class="line"><span class="built_in">print</span>(jsonString)</span><br><span class="line"><span class="comment">// &#123;&quot;name&quot;:&quot;John Appleseed&quot;,&quot;id&quot;:7,&quot;favoriteToy&quot;:&#123;&quot;name&quot;:&quot;Teddy Bear&quot;&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，你可以使用其特殊的礼物API将json数据或json字符串发送到礼物部门。</p>
+<p>如果要将JSON数据解码回实例，则需要使用JSONDecoder：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonDecoder <span class="operator">=</span> <span class="type">JSONDecoder</span>()</span><br><span class="line"><span class="keyword">let</span> employee2 <span class="operator">=</span> <span class="keyword">try</span> jsonDecoder.decode(<span class="type">Employee</span>.<span class="keyword">self</span>, from: jsonData)</span><br></pre></td></tr></table></figure>
+
+<p>请注意，你需要使用Employee.self告诉解码器要解码的类型。</p>
+<p>根据设计，它是在编译时指定的，因为它可以防止安全漏洞，外部人可能会尝试注入你不期望的类型。 Swift也自然地偏爱静态类型，因此也可以很好地发挥作用。</p>
+<h1 id="使用CodingKeys重命名属性"><a href="#使用CodingKeys重命名属性" class="headerlink" title="使用CodingKeys重命名属性"></a>使用CodingKeys重命名属性</h1><p>事实证明，礼品部门API要求员工ID显示为employeeId而不是id。 幸运的是，Swift提供了解决此类问题的方法。</p>
+<h2 id="CodingKey协议和CodingKeys枚举"><a href="#CodingKey协议和CodingKeys枚举" class="headerlink" title="CodingKey协议和CodingKeys枚举"></a>CodingKey协议和CodingKeys枚举</h2><p>符合CodingKey协议的CodingKeys枚举，可让你重命名特定的属性，以防序列化格式不符合API的要求。</p>
+<p>像这样添加嵌套的枚举CodingKeys：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Employee</span>: <span class="title">Codable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">  <span class="keyword">var</span> id: <span class="type">Int</span></span><br><span class="line">  <span class="keyword">var</span> favoriteToy: <span class="type">Toy</span>?</span><br><span class="line"></span><br><span class="line">  <span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> id <span class="operator">=</span> <span class="string">&quot;employeeId&quot;</span></span><br><span class="line">    <span class="keyword">case</span> name</span><br><span class="line">    <span class="keyword">case</span> favoriteToy</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里有几件事要注意：</p>
+<ul>
+<li><p>CodingKeys是你类型中的嵌套枚举。</p>
+</li>
+<li><p>它必须符合CodingKey。</p>
+</li>
+<li><p>你还需要String作为原始类型，因为键必须是字符串或整数。</p>
+</li>
+<li><p>即使你不打算重命名它们，也必须在枚举中包括所有属性。</p>
+</li>
+<li><p>默认情况下，此枚举由编译器创建，但是当你需要重命名键时，需要自己实现。</p>
+</li>
+</ul>
+<p>现在，如果你打印JSON，你将看到ID已更改为employeeId。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;employeeId&quot;</span>: <span class="number">7</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;John Appleseed&quot;</span>, <span class="string">&quot;favoriteToy&quot;</span>:</span><br><span class="line">&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;Teddy Bear&quot;</span>&#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="手动编码和解码"><a href="#手动编码和解码" class="headerlink" title="手动编码和解码"></a>手动编码和解码</h2><p>你尝试将数据发送到礼品部门，然后数据再次被拒绝。 这次，他们声称你要发送给员工的礼物的信息不应位于嵌套类型内，而应作为称为礼物的属性。 因此，JSON实际上应如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="string">&quot;employeeId&quot;</span>: <span class="number">7</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;John Appleseed&quot;</span>, <span class="string">&quot;gift&quot;</span>: <span class="string">&quot;Teddy</span></span><br><span class="line"><span class="string">Bear&quot;</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这种情况下，你将无法使用CodingKeys，因为你需要更改JSON的结构，而不仅是重命名属性。 你需要编写自己的编码和解码逻辑。</p>
+<h3 id="编码功能"><a href="#编码功能" class="headerlink" title="编码功能"></a>编码功能</h3><p>如本章前面所述，可编码实际上只是可编码和可解码协议的一种类型。 你需要实现encode（to：Encoder）并描述如何对每个属性进行编码。</p>
+<p>听起来可能很复杂，但是非常简单。 首先，更新CodingKeys以使用钥匙礼物而不是favoriteToy：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">CodingKeys</span>: <span class="title">String</span>, <span class="title">CodingKey</span> </span>&#123;</span><br><span class="line">  <span class="keyword">case</span> id <span class="operator">=</span> <span class="string">&quot;employeeId&quot;</span></span><br><span class="line">  <span class="keyword">case</span> name</span><br><span class="line">  <span class="keyword">case</span> gift</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后，你需要删除Employee与Codable的一致性并添加以下扩展名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Employee</span>: <span class="title">Encodable</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">try</span> container.encode(name, forKey: .name)</span><br><span class="line">        <span class="keyword">try</span> container.encode(id, forKey: .id)</span><br><span class="line">        <span class="keyword">try</span> container.encode(favoriteToy<span class="operator">?</span>.name, forKey: .gift)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>首先，将编码器的容器放回原处，从而可以通过钥匙访问编码器的存储视图。 注意如何选择要为哪些键编码的属性。 重要的是，你将favoriteToy？.name展平为.gift键。 如果立即停止，则会出现以下错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#x27;<span class="type">Employee</span>&#x27; does not conform to expected type &#x27;<span class="type">Decodable</span>&#x27;</span><br></pre></td></tr></table></figure>
+
+<p>这是因为你删除了对Codable的一致性，而仅添加了对Encodable的一致性。 现在，你可以注释掉将jsonString解码为employee2的代码。 如果再次打印jsonString，将得到以下信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;John Appleseed&quot;</span>,<span class="string">&quot;gift&quot;</span>:<span class="string">&quot;Teddy Bear&quot;</span>,<span class="string">&quot;employeeId&quot;</span>:<span class="number">7</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解码功能"><a href="#解码功能" class="headerlink" title="解码功能"></a>解码功能</h3><p>数据到达礼品部门后，需要将其转换为部门系统中的实例。 显然，礼品部门需要一个解码器。 将以下代码添加到你的游乐场，以使Employee符合Decodable，从而也符合Codable：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Employee</span>: <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> values <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        name <span class="operator">=</span> <span class="keyword">try</span> values.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .name)</span><br><span class="line">        id <span class="operator">=</span> <span class="keyword">try</span> values.decode(<span class="type">Int</span>.<span class="keyword">self</span>, forKey: .id)</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> gift <span class="operator">=</span> <span class="keyword">try</span> values.decode(<span class="type">String</span>?.<span class="keyword">self</span>, forKey: .gift) &#123;</span><br><span class="line">            favoriteToy <span class="operator">=</span> <span class="type">Toy</span>(name: gift)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，你执行的操作与使用解码器的键控存储容器进行编码方法相反。</p>
+<h3 id="encodeIfPresent-amp-decodeIfPresent"><a href="#encodeIfPresent-amp-decodeIfPresent" class="headerlink" title="encodeIfPresent &amp; decodeIfPresent"></a>encodeIfPresent &amp; decodeIfPresent</h3><p>事实证明，并非所有员工都有喜欢的玩具。 在这种情况下，encode方法将创建一个如下所示的JSON：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="string">&quot;name&quot;</span>:<span class="string">&quot;John Appleseed&quot;</span>,<span class="string">&quot;gift&quot;</span>:null,<span class="string">&quot;employeeId&quot;</span>:<span class="number">7</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了解决这个问题，你可以使用encodeIfPresent，这样encode方法将如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Employee</span>: <span class="title">Encodable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encode</span>(<span class="params">to</span> <span class="params">encoder</span>: <span class="type">Encoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> container <span class="operator">=</span> encoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        <span class="keyword">try</span> container.encode(name, forKey: .name)</span><br><span class="line">        <span class="keyword">try</span> container.encode(id, forKey: .id)</span><br><span class="line">        <span class="keyword">try</span> container.encodeIfPresent(favoriteToy<span class="operator">?</span>.name, forKey: .gift)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，如果员工没有喜欢的玩具，则JSON中将不会包含礼物密钥。 接下来，使用decodeIfPresent更新解码器：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Employee</span>: <span class="title">Decodable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">from</span> <span class="params">decoder</span>: <span class="type">Decoder</span>)</span> <span class="keyword">throws</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> values <span class="operator">=</span> <span class="keyword">try</span> decoder.container(keyedBy: <span class="type">CodingKeys</span>.<span class="keyword">self</span>) </span><br><span class="line">        name <span class="operator">=</span> <span class="keyword">try</span> values.decode(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .name)</span><br><span class="line">        id <span class="operator">=</span> <span class="keyword">try</span> values.decode(<span class="type">Int</span>.<span class="keyword">self</span>, forKey: .id)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> gift <span class="operator">=</span> <span class="keyword">try</span> values.decodeIfPresent(<span class="type">String</span>.<span class="keyword">self</span>, forKey: .gift) &#123;</span><br><span class="line">                favoriteToy <span class="operator">=</span> <span class="type">Toy</span>(name: gift)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="编写编码器和解码器的测试"><a href="#编写编码器和解码器的测试" class="headerlink" title="编写编码器和解码器的测试"></a>编写编码器和解码器的测试</h2><p>如果你随时更改编码器而忘记更新解码器（反之亦然），则在运行时可能会收到讨厌的错误消息。 为了避免这种情况，建议你编写单元测试，以确保你不会破坏编码或解码逻辑。</p>
+<p>为此，你需要首先导入XCTest框架。 将其添加到playground的顶部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br></pre></td></tr></table></figure>
+
+<p>然后，你应该添加一个测试类并实现setUp方法来初始化JSONEncoder和JSONDecoder。 同时初始化一个Toy和一个Employee实例，以便你可以使用它们。</p>
+<p>在playground的尽头添加：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">EncoderDecoderTests</span>: <span class="title">XCTestCase</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> jsonEncoder: <span class="type">JSONEncoder</span>!</span><br><span class="line">    <span class="keyword">var</span> jsonDecoder: <span class="type">JSONDecoder</span>!</span><br><span class="line">    <span class="keyword">var</span> toy1: <span class="type">Toy</span>!</span><br><span class="line">    <span class="keyword">var</span> employee1: <span class="type">Employee</span>!</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span>()</span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.setUp()</span><br><span class="line">        jsonEncoder <span class="operator">=</span> <span class="type">JSONEncoder</span>()</span><br><span class="line">        jsonDecoder <span class="operator">=</span> <span class="type">JSONDecoder</span>()</span><br><span class="line">        toy1 <span class="operator">=</span> <span class="type">Toy</span>(name: <span class="string">&quot;Teddy Bear&quot;</span>)</span><br><span class="line">        employee1 <span class="operator">=</span> <span class="type">Employee</span>(name: <span class="string">&quot;John Appleseed&quot;</span>, id: <span class="number">7</span>, favoriteToy: toy1)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下一步是添加测试本身。 请记住，所有测试都必须从测试开始。</p>
+<p>将此添加到EncoderDecoderTests类中。 这些方法的内容应该看起来很熟悉，因为它主要是你以前学习如何使用编码器和解码器时所写内容的副本。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testEncoder</span>()</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try?</span> jsonEncoder.encode(employee1) </span><br><span class="line">    <span class="type">XCTAssertNotNil</span>(jsonData, <span class="string">&quot;Encoding failed&quot;</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> jsonString <span class="operator">=</span> <span class="type">String</span>(data: jsonData<span class="operator">!</span>, encoding: .utf8)<span class="operator">!</span></span><br><span class="line">    <span class="type">XCTAssertEqual</span>(jsonString, <span class="string">&quot;&#123;<span class="subst">\&quot;</span>name<span class="subst">\&quot;</span>:<span class="subst">\&quot;</span>John Appleseed<span class="subst">\&quot;</span>,</span></span><br><span class="line"><span class="string">    <span class="subst">\&quot;</span>gift<span class="subst">\&quot;</span>:<span class="subst">\&quot;</span>Teddy Bear<span class="subst">\&quot;</span>,<span class="subst">\&quot;</span>employeeId<span class="subst">\&quot;</span>:7&#125;&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testDecoder</span>()</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> jsonData <span class="operator">=</span> <span class="keyword">try!</span> jsonEncoder.encode(employee1)</span><br><span class="line">    <span class="keyword">let</span> employee2 <span class="operator">=</span> <span class="keyword">try?</span> jsonDecoder.decode(<span class="type">Employee</span>.<span class="keyword">self</span>, from:</span><br><span class="line">    jsonData)</span><br><span class="line">    <span class="type">XCTAssertNotNil</span>(employee2)</span><br><span class="line">    <span class="type">XCTAssertEqual</span>(employee1.name, employee2<span class="operator">!</span>.name) </span><br><span class="line">    <span class="type">XCTAssertEqual</span>(employee1.id, employee2<span class="operator">!</span>.id) </span><br><span class="line">    <span class="type">XCTAssertEqual</span>(employee1.favoriteToy<span class="operator">?</span>.name, employee2<span class="operator">!</span>.favoriteToy<span class="operator">?</span>.name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里最重要的是XCTAssert方法的使用。 他们保证逻辑是正确的，并且你的编码器和解码器工作正常。</p>
+<p>开始使用测试只缺少一件事。 如第18章所述，要让playground实际运行测试，请将其添加到playground的末尾：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">EncoderDecoderTests</span>.defaultTestSuite.run()</span><br></pre></td></tr></table></figure>
+
+<p>一旦运行了playground，你应该会看到类似于以下内容的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Test</span> <span class="type">Suite</span> &#x27;<span class="type">EncoderDecoderTests</span>&#x27; started at <span class="operator">...</span></span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> &#x27;<span class="operator">-</span>[__lldb_expr_2.<span class="type">EncoderDecoderTests</span> testDecoder]&#x27; started.</span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> &#x27;<span class="operator">-</span>[__lldb_expr_2.<span class="type">EncoderDecoderTests</span> testDecoder]&#x27; passed (<span class="number">0.781</span> seconds).</span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> &#x27;<span class="operator">-</span>[__lldb_expr_2.<span class="type">EncoderDecoderTests</span> testEncoder]&#x27; started.</span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> &#x27;<span class="operator">-</span>[__lldb_expr_2.<span class="type">EncoderDecoderTests</span> testEncoder]&#x27; passed (<span class="number">0.004</span> seconds).</span><br><span class="line"><span class="type">Test</span> <span class="type">Suite</span> &#x27;<span class="type">EncoderDecoderTests</span>&#x27; passed at <span class="operator">...</span></span><br><span class="line"><span class="type">Executed</span> <span class="number">2</span> tests, with <span class="number">0</span> failures (<span class="number">0</span> unexpected) <span class="keyword">in</span> <span class="number">0.785</span> (<span class="number">0.788</span>) seconds</span><br></pre></td></tr></table></figure>
+
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ul>
+<li><p>你需要先编码（或序列化）实例，然后才能将其保存到文件或通过网络发送它。</p>
+</li>
+<li><p>你需要解码（或反序列化）以将其作为实例从文件或网络中恢复。</p>
+</li>
+<li><p>你的类型应符合Codable协议以支持编码和解码。</p>
+</li>
+<li><p>如果你存储的所有类型的属性都是Codable，则编译器可以自动为你实现Codable的要求。</p>
+</li>
+<li><p>JSON是现代应用程序和Web服务中最常见的编码，你可以使用JSONEncoder和JSONDecoder在JSON中对类型进行编码和解码。</p>
+</li>
+<li><p>Codable非常灵活，可以自定义以处理几乎所有有效的JSON。</p>
+</li>
+<li><p>Codable可与JSON以外的序列化格式一起使用。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E4%BA%94-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-22%E3%80%81Encoding-%E5%92%8C-Decoding-Types/" title="Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types">https://www.xuebaonline.com/Swift-Apprentice系列-二十五-第四部分：高级主题-22、Encoding-和-Decoding-Types/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Encoding-Decoding-Types/" rel="tag"><i class="fa fa-tag"></i> Encoding & Decoding Types</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E5%9B%9B-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-21%E3%80%81%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/" rel="prev" title="Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift-Apprentice%E7%B3%BB%E5%88%97-%E4%BA%8C%E5%8D%81%E5%85%AD-%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98-23%E3%80%81%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="next" title="Swift Apprentice系列 (二十六) : 第四部分：高级主题 - 23、内存管理">
+      Swift Apprentice系列 (二十六) : 第四部分：高级主题 - 23、内存管理 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Encodable-amp-Decodable-protocols"><span class="nav-number">1.</span> <span class="nav-text">Encodable &amp; Decodable protocols</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么是Codable？"><span class="nav-number">2.</span> <span class="nav-text">什么是Codable？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自动编码和解码"><span class="nav-number">3.</span> <span class="nav-text">自动编码和解码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#编码和解码自定义类型"><span class="nav-number">4.</span> <span class="nav-text">编码和解码自定义类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JSONEncoder-amp-JSONDecoders"><span class="nav-number">5.</span> <span class="nav-text">JSONEncoder &amp; JSONDecoders</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用CodingKeys重命名属性"><span class="nav-number">6.</span> <span class="nav-text">使用CodingKeys重命名属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CodingKey协议和CodingKeys枚举"><span class="nav-number">6.1.</span> <span class="nav-text">CodingKey协议和CodingKeys枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手动编码和解码"><span class="nav-number">6.2.</span> <span class="nav-text">手动编码和解码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#编码功能"><span class="nav-number">6.2.1.</span> <span class="nav-text">编码功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解码功能"><span class="nav-number">6.2.2.</span> <span class="nav-text">解码功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#encodeIfPresent-amp-decodeIfPresent"><span class="nav-number">6.2.3.</span> <span class="nav-text">encodeIfPresent &amp; decodeIfPresent</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#编写编码器和解码器的测试"><span class="nav-number">6.3.</span> <span class="nav-text">编写编码器和解码器的测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">7.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

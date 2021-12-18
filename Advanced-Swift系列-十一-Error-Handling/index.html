@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(十一): Error Handling">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(十一): Error Handling">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(十一): Error Handling">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-08T11:27:02.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.113Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Protocols">
+<meta property="article:tag" content="Error Handling">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(十一): Error Handling | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(十一): Error Handling
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-08 19:27:02" itemprop="dateCreated datePublished" datetime="2020-05-08T19:27:02+08:00">2020-05-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>26k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>23 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(十一): Error Handling</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为程序员，我们经常必须处理出现问题的地方：网络连接可能会断开，预期存在的文件可能不存在，依此类推。良好地处理故障是将好程序与坏程序区分开的无形因素之一，但是我们经常倾向于将错误处理视为从属任务，这是后来要添加的内容（随着最后期限的临近，这种情况通常会被削减）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;而且我们知道了：错误处理可能会很混乱，并且编写快乐路径的代码通常会更有趣。更为重要的是，编程语言提供了一种良好的错误处理体系结构，可以支持程序员执行此任务。我们认为这样的体系结构应该提供以下一些内容：</p>
+<ul>
+<li>→ <strong>简洁</strong> 。抛出错误的代码不应淹没幸福道路的代码。</li>
+<li>→ <strong>传播</strong> 。错误发生的地方不应该接受处理。通常，如果要从错误中恢复的逻辑与错误发生的地方相距甚远，通常会更好。错误处理体系结构应该使在调用堆栈中将错误传达到适当级别变得容易。优点是使中间函数（调用引发函数，但既不引发也不处理错误的函数）易于传递错误而又不需要进行大的语法更改。</li>
+<li>→ <strong>文档</strong> 。程序员可以轻松确定发生错误的位置以及可能发生的错误。</li>
+<li>→ <strong>安全</strong> 。程序员可以忽略意外错误。</li>
+<li>→ <strong>通用性</strong> 。指定可以进行错误抛出和处理的机制</li>
+</ul>
+<span id="more"></span>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在所有情况下都可以使用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们将在本章中看到的那样， <code>Swift</code> 的本机错误处理体系结构具有 <code>throw</code> ， <code>try</code> 和 <code>catch</code> 得分，满分为3.5分（满分为5分），它无法编码函数可以抛出的错误，并且不通用，因为它不适用于基于回调的异步 <code>API</code> 。相比之下，作为替代错误处理方法的 <code>Result类型</code> 确实缺少抛出功能，但在简明性，传播性和安全性方面却稍差一些（仅投掷函数需要尝试）。</p>
+<h1 id="错误类别"><a href="#错误类别" class="headerlink" title="错误类别"></a><strong>错误类别</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;术语 <code>“错误”</code> 和 <code>“故障”</code> 可能意味着各种情况。让我们尝试提出一些 <code>“可能出错的地方”</code> ，通过我们通常在代码中的处理方式来区分它们：</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>预期错误</strong>是程序员期望（或应该期望）在正常操作期间发生的故障。其中包括网络问题（网络连接永远不会100％可靠），或者用户输入的字符串格式错误。我们可以通过失败原因的复杂性进一步细分预期的错误：</p>
+<ul>
+<li><p>→ <strong>普通错误</strong> 。某些操作完全符合预期的故障条件。例如，当你在字典中查找某个键时，该键要么存在（成功），要么不存在（失败）。在 <code>Swift</code> 中，我们倾向于从具有单个清晰且通常使用的 <code>“未找到”</code> 或 <code>“无效输入”</code> 错误条件的函数中返回可选值。返回丰富的错误值不会为调用者提供比可选值中已有的更多信息。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假定失败原因对于调用者来说是显而易见的，则可选项在简洁性（部分原因在于可选项的语法糖），安全性（我们必须在使用它之前必须拆开值），文档（函数具有可选返回类型）方面表现良好），传播（可选的链接）和通用性（可选的选项无处不在）。</p>
+</li>
+<li><p>→ <strong>Richerrors</strong> 。网络和文件系统操作是比“出了点问题”需要更多实质性错误信息的任务示例。在这种情况下，有很多不同的情况可能会失败，并且程序员会经常根据失败的类型做出不同的反应（例如，程序可能希望在超时时重试请求，但如果URL则向用户显示错误）不存在）。此类错误是本章的重点。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管大多数可失败的标准库API返回的都是小错误（即可选错误），但Codable系统使用的错误丰富。编码和解码具有许多不同的错误条件，准确的错误信息对于客户找出错误原因非常有价值。编码和解码方法都带有抛出注释，以告知调用方为处理错误做准备。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>意外错误</strong>。程序员无法预期的情况发生了，这使得继续下去变得困难或不可能。这通常意味着程序员做出的假设（“这永远不可能发生”）被证明是错误的。标准库遵循此模式的示例包括访问具有越界索引的数组，创建一个上限小于下限的范围并除以零。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中处理意外错误的通常方法是让程序崩溃，因为继续执行未知程序状态将是不安全的。而且，这些情况被认为是应该在测试中发现的程序员错误-处理它们例如是不适当的。通过向用户显示错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在代码中，我们使用断言（即 <code>assert</code> ， <code>precondition</code> 或 <code>fatalError</code> ）来验证我们的期望，并在假设不成立的情况下进行陷阱。我们在<a href="%22%22"><em><strong><code>“可选”</code></strong></em></a>一章中介绍了这些功能。断言是识别代码中的错误的好工具。如果使用得当，它们会在程序处于意想不到的状态时尽早向你显示。它们也是有用的文档工具：每个 <code>assert</code> 或 <code>precondition</code> 调用都使作者对程序状态的（通常是隐式的）假设对其他代码阅读者可见。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;断言永远不要用来表示预期的错误-这样做会使程序无法优雅地处理这些错误，因为程序无法从断言中恢复。相反，也应避免使用可选的或抛出函数来指出程序员错误的相反方法，因为与从源头上渗透到程序的其他层相比，从源头上抓住一个错误的假设会更好。</p>
+<h1 id="Result-Type"><a href="#Result-Type" class="headerlink" title="Result Type"></a><strong>Result Type</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在详细介绍 <code>Swift</code> 的内置错误处理之前，让我们讨论 <code>Result类型</code> 。  <code>Result</code> 已添加到 <code>Swift 5</code> 的标准库中，但是自从 <code>Swift</code> 的第一个发行版以来，它的变体在Swift社区中很流行。 了解 <code>Result</code> 如何用于传达错误将阐明你在删除语法糖时 <code>Swift</code> 的错误处理的工作方式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回想一下“<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%85%AD):%20%20Enums/"><em><strong><code>枚举”</code></strong></em></a>一章， <code>Result</code> 是一个形状类似于 <code>“可选”</code> 的枚举-与 <code>“可选”</code> 一样， <code>“Result”</code> 有两种情况。 这些案例具有不同的名称，成功和失败，但是它们具有相同的功能，而对于 <code>Optional</code> 没有。 与 <code>Optional</code> 的区别在于 <code>Result.failure</code> 也具有关联的值，该值允许 <code>Result实例</code> 携带丰富的错误信息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Result</span>&lt;<span class="title">Success</span>, <span class="title">Failure</span>: <span class="title">Error</span>&gt; </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> success(<span class="type">Success</span>)</span><br><span class="line">    <span class="keyword">case</span> failure(<span class="type">Failure</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还要注意，故障案例有效负载的通用参数被限制在错误协议中，以传达其预期用途，作为错误值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Optional</code> 和 <code>Result</code> 之间的区别应该使你想到我们在上面所做的琐碎错误和丰富错误之间的区别。 这不是巧合； 我们可以以相同的方式将 <code>Result</code> 用于富错误， <code>Optional</code> 用于返回琐碎的错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们正在编写一个从磁盘读取文件的函数。 第一次尝试，我们可以使用可选的接口。 因为读取文件可能失败，所以我们希望能够返回 <code>nil</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contentsOrNil</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> -&gt; <span class="type">String</span>?</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的函数签名非常简单，但是它并没有告诉我们任何有关读取文件失败的原因。 该文件不存在吗？ 还是我们没有正确的权限？ 这是一个失败原因很重要的示例。 让我们为可能的错误情况定义一个枚举：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">FileError</span>: <span class="title">Error</span> </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> fileDoesNotExist </span><br><span class="line">    <span class="keyword">case</span> noPermission</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以更改函数的类型以返回 <code>Result</code> ，即字符串 <code>（success）</code> 或 <code>FileError（failure）</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">FileError</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;函数的调用者可以切换返回值，并根据返回的特定错误做出不同的反应。 在下面的代码中，如果读取成功，我们将尝试读取文件并打印内容。 在失败的情况下，我们为每种可能的错误打印量身定制的错误消息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> contents(ofFile: <span class="string">&quot;input.txt&quot;</span>) </span><br><span class="line"><span class="keyword">switch</span> result &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> .success(contents):</span><br><span class="line">        <span class="built_in">print</span>(contents)</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> .failure(error):</span><br><span class="line">        <span class="keyword">switch</span> error &#123;</span><br><span class="line">            <span class="keyword">case</span> .fileDoesNotExist:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;File not found&quot;</span>) </span><br><span class="line">            <span class="keyword">case</span> .noPermission:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;No permission&quot;</span>) </span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，两个嵌套的 <code>switch语句</code> 都不要求使用默认情况-编译器可以验证我们是否在所有可能的值上进行了详尽的切换。 这个之所以有效，是因为 <code>FileError</code> 是一个枚举。 如果我们使用 <code>Result&lt;String，Error&gt;</code> 作为函数的返回类型，则必须包括默认大小写。</p>
+<h1 id="Throwing-and-Catching"><a href="#Throwing-and-Catching" class="headerlink" title="Throwing and Catching"></a><strong>Throwing and Catching</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 的内置错误处理与上一节中基于结果的方法有很多共同之处，尽管语法有很大不同。 现在，我们没有为函数提供 <code>Result</code> 返回类型以表明它可能失败，而是将其标记为 <code>throw</code> 。 对于每个 <code>throwing函数</code> ，编译器将验证调用方是否捕获了错误或传播了错误。 将上面的 <code>contents（ofFile :)</code> 函数转换为 <code>throws语法</code> ，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用 <code>throwing函数</code> 时，除非我们用 <code>try</code> 注释调用，否则我们的代码将不会编译。  <code>try关键字</code> 表示函数可能向编译器和代码读取器引发错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;调用 <code>throwing函数</code> 也会迫使我们决定如何处理错误。 我们可以使用 <code>do/catch</code> 来处理错误，也可以通过使用 <code>throws注释调用</code> 函数本身来在调用堆栈中传播错误。 可以有多个 <code>catch子句</code> ，并且 <code>catch子句</code> 支持模式匹配以捕获特定的错误类型或值。 在下面的示例中，我们显式捕获 <code>fileDoesNotExist</code> 案例，然后在 <code>catchall</code> 子句中处理所有其他错误。 在 <code>catchall</code> 子句中，编译器会自动提供一个名为 <code>error</code> 的变量（类似于属性的 <code>willSet</code> 处理程序中的隐式newValue变量）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try</span> contents(ofFile: <span class="string">&quot;input.txt&quot;</span>) <span class="built_in">print</span>(result)</span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="type">FileError</span>.fileDoesNotExist &#123; </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;File not found&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(error)</span><br><span class="line">    <span class="comment">// Handle any other error.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;误处理语法可能看起来很熟悉。 许多其他语言使用相同的 <code>try</code> ， <code>catch</code> 和 <code>throw关键字</code> 进行异常处理。 尽管有相似之处，但是 <code>Swift</code> 中的错误处理并不会增加通常与异常相关的运行时成本。 编译器将 <code>throw</code> 视为常规返回，使两个代码路径都非常快。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要在错误中公开更多信息，可以使用带有关联值的枚举。 例如，文件解析库可能会像下面这样模拟其错误条件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">ParseError</span>: <span class="title">Error</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> wrongEncoding</span><br><span class="line">    <span class="keyword">case</span> warning(line: <span class="type">Int</span>, message: <span class="type">String</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;枚举是为错误值建模的常用选择，但请注意，我们也可以使用 <code>struct</code> 或 <code>class</code> ； 符合 <code>Error协议</code> 的任何类型都可以用作引发函数中的错误。 而且由于 <code>Error协议</code> 没有要求，因此任何类型都可以选择符合它，而无需执行额外的工作。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于快速测试或原型，有时发现符合String很有用到错误，可以使用以下这种方法： <code>扩展字符串</code> ： <code>错误&#123;&#125;</code> 。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样做使我们可以将任何错误消息直接视为错误值，例如抛出“找不到文件”。 我们不建议将其用于生产代码，尤其是因为不建议将你不拥有的类型与你不拥有的协议相一致（有关更多信息，请参见<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B9%9D):%20Protocols/"><em><strong><code>协议</code></strong></em></a>一章）。 但这对于REPL会话或类似环境来说是一个不错的小技巧。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的解析函数的类型如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span>(<span class="params">text</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; [<span class="type">String</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，如果我们想解析一个字符串，我们可以再次使用模式匹配来区分错误情况。 在警告情况下，我们可以将行号和警告消息绑定到变量，就像在 <code>switch</code> 语句中所做的那样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try</span> parse(text: <span class="string">&quot;&#123; <span class="subst">\&quot;</span>message<span class="subst">\&quot;</span>: <span class="subst">\&quot;</span>We come in peace<span class="subst">\&quot;</span> &#125;&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="type">ParseError</span>.wrongEncoding &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Wrong encoding&quot;</span>)</span><br><span class="line">&#125; <span class="keyword">catch</span> <span class="keyword">let</span> <span class="type">ParseError</span>.warning(line, message) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;Warning at line <span class="subst">\(line)</span>: <span class="subst">\(message)</span>&quot;</span>) &#125; </span><br><span class="line"><span class="keyword">catch</span> &#123;</span><br><span class="line">    <span class="built_in">preconditionFailure</span>(<span class="string">&quot;Unexpected error: <span class="subst">\(error)</span>&quot;</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果斜视这段代码的整体形状，包括成功路径和失败路径的单独部分以及使用模式匹配来绑定值，则它看起来与切换 <code>Result值</code> 非常相似。 并行并非偶然- <code>  </code> Swift的错误处理 <code>  </code> 从本质上讲是一种更好的语法，用于创建和解开类似结果的值。</p>
+<h1 id="输入错误和未输入错误"><a href="#输入错误和未输入错误" class="headerlink" title="输入错误和未输入错误"></a><strong>输入错误和未输入错误</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上一节中关于执行/捕获代码的某些事情感觉不太正确。即使我们绝对确定唯一可能发生的错误是 <code>ParseError类型</code> （我们将对其进行详尽处理），我们仍然需要编写 <code>final catch子句</code> 以说服编译器我们已捕获所有可能的错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是因为 <code>Swift</code> 的本机错误处理使用未类型化的错误-我们只能将函数标记为 <code>throws</code> ，但是无法指定它将抛出的错误。结果，编译器始终需要使用 <code>catchall子句</code> 来证明所有错误都已被详尽捕获。  <code>Swift Core团队</code> 是故意使错误处理类型化的，这是一个明智的设计决策。理由是，在大多数情况下，详尽的错误处理是不切实际且不希望的；通常，你可能只关心一个或两个特定的错误（如果有的话），并且可以处理 <code>catchall子句</code> 中的所有其他错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一方面， <code>Result类型</code> 使用类型化的错误： <code>Result</code> 有两个通用参数，成功和失败，后者指定错误值的具体类型。早先，此功能使我们可以在 <code>Result&lt;String，FileError&gt;</code> 上进行详尽的切换。再举一个例子，这是 <code>parse（text :)</code> 函数的一个变体，我们用 <code>Result &lt;[String]，ParseError&gt;</code> 返回类型替换了 <code>throws注释</code> 。由于具体的错误类型，此功能还可以彻底切换其故障情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span>(<span class="params">text</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;[<span class="type">String</span>], <span class="type">ParseError</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Swift核心团队为什么决定接受将非类型化错误用于内置错误处理和带有类型化错误的 <code>Result类型</code> 之间的这种不匹配？ 毕竟，核心团队也可能选择了带有未类型化失败案例的 <code>Result变体</code> ，即失败案例可能是任何 <code>Error值</code> 的结果。 好吧，事实证明，我们拥有的 <code>Result类型</code> 实际上是支持两种模式的混合类型。 如果你不想使用具体的错误类型，则可以指定 <code>Result&lt;...，Error&gt;</code> 接受任何错误值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此， <code>Result</code> 确实为我们提供了 <code>类型错误和非类型错误</code> 之间的选择。 折衷方案是，未类型化失败类型的 <code>Result</code> 需要比其他类型多一些的类型化输入，因为我们必须拖拽 <code>Error参数</code> 。 如果这让你感到困扰，则始终可以为带有未键入错误的 <code>Result类型</code> 创建类型别名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">UResult</span>&lt;<span class="type">Success</span>&gt; <span class="operator">=</span> <span class="type">Result</span>&lt;<span class="type">Success</span>, <span class="type">Error</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺便说一下，我们可以编写 <code>Result&lt;...，Error&gt;</code> 的事实利用了 <code>Error协议</code> 的一些特殊编译器魔术。 我们看到了失败参数被限制为错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Result</span>&lt;<span class="title">Success</span>, <span class="title">Failure</span>: <span class="title">Error</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>Swift协议</code> 通常不符合其自身，因此类型 <code>Result&lt;...，Error&gt;</code> 的变量将无法满足 <code>Failure：Error</code> 约束。为了允许以这种方式将 <code>Result</code> 与 <code>未类型化的错误</code> 一起使用，Swift团队在编译器中添加了一种特殊情况，允许对 <code>Error（但没有其他协议）</code> 进行自我整合。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们有了一个支持具体错误类型的 <code>Result类型</code> ，很有可能在以后的 <code>Swift版本</code> 中将此功能也添加到本机错误处理模型中。在此之前，对于要让编译器验证是否已捕获所有可能的错误的代码，将 <code>Result</code> 与类型错误一起使用是一个不错的选择。如果并且当我们到处都遇到类型错误时，几乎可以肯定的是，指定函数可以抛出的具体错误类型的能力将成为一项可选功能，而不是必需的功能。这是因为类型化错误具有重大缺点：</p>
+<ul>
+<li><p>→ 具体错误类型使组合投掷功能和聚集错误变得更加困难。任何调用了多个其他抛出函数的函数要么必须在调用堆栈中传播多个错误类型，要么必须提出一个新的自定义错误类型以汇总来自较低级别的错误。这将很快失去控制。我们稍后会在 <code>“链接错误”</code> 部分中再次讨论。</p>
+</li>
+<li><p>→ 严格类型的错误使库无法扩展。例如，每次函数都会添加新的错误条件，这将是破坏源代码的更改对于所有彻底捕获错误的客户。为了保持与不同库版本的二进制兼容性，客户端必须无论如何都要向所有 <code>do/catch语句</code> 添加默认用例，这与它们对非冻结枚举所必须执行的操作类似。仅这个问题就足以说明为什么 <code>Cocoa之类</code> 的框架可能永远不会键入错误。</p>
+</li>
+<li><p>→ 与详尽的切换清单不同，通常没有必要，也不可行的是，详尽地捕获下降的错误状况。考虑执行网络请求时有多少不同的地方可能出问题-程序员几乎不可能对每个可能的问题做出有意义的反应。大多数程序可能会显式处理少量错误，并具有通用的错误处理程序，其余的则可能仅记录错误或将其呈现给用户。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于错误是无类型的，因此务必记录函数可能引发的错误类型。 为此，Xcode在文档标记中支持 <code>Throws关键字</code> 。 这是一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Opens a text file and returns its contents.</span></span><br><span class="line"><span class="comment">///</span></span><br><span class="line"><span class="comment">/// - Parameter filename: The name of the file to read. </span></span><br><span class="line"><span class="comment">/// - Returns: The file contents, interpreted as UTF-8.</span></span><br><span class="line"><span class="comment">/// - Throws:  ` FileError `  if the file does not exist or</span></span><br><span class="line"><span class="comment">/// the process doesn&#x27;t have read permissions. </span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;按住 <code>Option键</code> 单击函数名称时出现的“快速帮助”弹出窗口现在将包含一个额外的部分，用于引发错误。</p>
+<h1 id="不可忽略的错误"><a href="#不可忽略的错误" class="headerlink" title="不可忽略的错误"></a><strong>不可忽略的错误</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章的简介中，我们将安全性确定为良好的错误处理系统的一个因素。 使用内置错误处理的一大好处是，编译器将确保你在调用可能抛出的函数时不会忽略错误情况。 对于 <code>Result</code> ，情况并非总是如此。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，考虑诸如 <code>Data.write(to：options：)</code> （用于将字节写入文件）或 <code>FileManager.removeItem(at：)</code> （用于删除文件）之类的 <code>Foundation</code> 方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Data</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="params">to</span> <span class="params">url</span>: <span class="type">URL</span>, <span class="params">options</span>: <span class="type">Data</span>.<span class="type">WritingOptions</span> <span class="operator">=</span> [])</span> <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">FileManager</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">removeItem</span>(<span class="params">at</span> <span class="params">URL</span>: <span class="type">URL</span>)</span> <span class="keyword">throws</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果这些方法改用基于结果的错误处理，则它们的声明将如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Data</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">write</span>(<span class="params">to</span> <span class="params">url</span>: <span class="type">URL</span>, <span class="params">options</span>: <span class="type">Data</span>.<span class="type">WritingOptions</span> <span class="operator">=</span> [])</span> -&gt; <span class="type">Result</span>&lt;(), <span class="type">Error</span>&gt;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">FileManager</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">removeItem</span>(<span class="params">at</span> <span class="params">URL</span>: <span class="type">URL</span>)</span> -&gt; <span class="type">Result</span>&lt;(), <span class="type">Error</span>&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些方法的特殊之处在于我们称它们为副作用，而不是它们的返回值-实际上，这两种方法都没有有意义的返回值，只是“操作成功或未成功”。 使用基于结果的变体，程序员通过编写如下代码很容易（偶然或故意）忽略任何失败：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">_</span> <span class="operator">=</span> <span class="type">FileManager</span>.default.removeItem(at: url)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一方面，在调用基于 <code>throws</code> 的变体时，编译器会强制我们在尝试之前添加 <code>try前缀</code> 。 编译器还要求我们要么将该调用包装在 <code>do/catch块</code> 中，要么将错误传播到调用堆栈中。 这使程序员和代码的其他读者立即清楚该操作可能失败，并且编译器将迫使我们处理该错误。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管 <code>Result&lt;()，Error&gt;</code> 对于函数的返回类型可能不是一个很好的选择，但它通常用于基于回调的错误报告（在抛出不可用的情况下，我们将在 <code>“异步代码中的错误”</code> 部分中看到） 成功案例没有有意义的有效负载时。 空元组（或Void）是一种具有唯一可能值的类型（令人困惑的是，使用了相同的拼写类型和唯一值）。 因此，成功案例除“操作成功”外不携带其他信息。</p>
+</blockquote>
+<h1 id="错误转换"><a href="#错误转换" class="headerlink" title="错误转换"></a><strong>错误转换</strong></h1><h2 id="在throw和Optional之间转换"><a href="#在throw和Optional之间转换" class="headerlink" title="在throw和Optional之间转换"></a><em><strong>在throw和Optional之间转换</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;错误和可选参数都是函数发出异常信号的非常常见的方式。 在本章的简介中，我们为你提供了有关如何确定应为自己的功能使用哪种模式的一些建议。 你最终将要处理很多错误和可选参数，并且将结果传递给其他 <code>API</code> 通常常常需要在抛出函数和可选值之间来回转换。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>try?关键字</code> 使我们可以忽略抛出函数的错误，并将返回值转换为可选值； 可选参数告诉我们函数是否成功：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try?</span> parse(text: input) &#123; </span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>try? </code> 意味着我们收到的信息比以前少了：我们只知道函数是否返回了成功的值或它是否返回了一些错误-有关该错误的特定信息被丢弃了。 换句话说，从可选函数到抛出的函数，我们必须提供一个错误值，以防可选函数为 <code>nil</code> 。 这是 <code>Optional</code> 的扩展程序，它会自行展开并在发现 <code>nil</code> 时抛出给定的错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Optional</span> </span>&#123;</span><br><span class="line"><span class="comment">/// Unwraps  ` self `  if it is non- ` nil ` .</span></span><br><span class="line"><span class="comment">/// Throws the given error if  ` self `  is  ` nil ` . </span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">or</span>(<span class="params">error</span>: <span class="type">Error</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">Wrapped</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> x<span class="operator">?</span>: <span class="keyword">return</span> x </span><br><span class="line">            <span class="keyword">case</span> <span class="literal">nil</span>: <span class="keyword">throw</span> error </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个用法示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">do</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> int <span class="operator">=</span> <span class="keyword">try</span> <span class="type">Int</span>(<span class="string">&quot;42&quot;</span>).or(error: <span class="type">ReadIntError</span>.couldNotRead)</span><br><span class="line">&#125; <span class="keyword">catch</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(error)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与多个try语句结合使用时，或在已标记为throws的函数内工作时，此功能很有用。在单元测试中，它也是一种有用的模式。如果将测试方法标记为 <code>throw</code> 并在其中抛出错误，则 <code>XCTest框架</code> 会自动使测试失败。如果你的测试依赖于非零的可选继续进行，则可以使用上述模式解开可选的内容，如果可选的测试结果在一行中为零，则测试失败。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是否存在 <code>try?关键字</code> 可能与 <code>Swift</code> 的理念相矛盾，后者不应该忽略错误。但是，你仍然必须显式编写 <code>try?</code> ，因此编译器会强制你确认你的操作并将其显式显示给代码的其他阅读者。 <code>try?</code> 如果你对错误消息不感兴趣，则是一个合法的选择。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尝试的第三种方式： <code>try！</code> 当你知道不可能出现错误结果时，将使用此方法。就像强制展开为零的可选值一样，请 <code>try！</code> 如果你的假设在运行时错误，则会导致崩溃。</p>
+<h2 id="在-throws-和-Result-之间转换"><a href="#在-throws-和-Result-之间转换" class="headerlink" title="在 throws 和 Result 之间转换"></a><em><strong>在 throws 和 Result 之间转换</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们已经看到使用 <code>throws</code> 进行 <code>Result</code> 和错误处理实际上是同一枚硬币的两个方面。 除了处理类型错误和未类型错误的区别外，你还可以将 <code>Result值</code> 视为 <code>throwing函</code> 数的精确结果（即可以存储或传递的值）。 考虑到这种双重性，标准库提供了在两种表示形式之间进行转换的方法也就不足为奇了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要调用 <code>throwing函数</code> 并将其结果包装在 <code>Result</code> 中，请使用 <code>init（catching :)</code> 初始化程序，该初始化程序将使用 <code>throwing函数</code> 并将其转换为 <code>Result</code> 。 实现看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Result</span> <span class="title">where</span> <span class="title">Failure</span> == <span class="title">Swift</span>.<span class="title">Error</span> </span>&#123;</span><br><span class="line">    <span class="comment">/// Creates a new result by evaluating a throwing closure, capturing the </span></span><br><span class="line">    <span class="comment">/// returned value as a success, or any thrown error as a failure. </span></span><br><span class="line">    <span class="function"><span class="keyword">init</span>(<span class="params">catching</span> <span class="params">body</span>: () <span class="keyword">throws</span> -&gt; <span class="type">Success</span>)</span> &#123;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            <span class="keyword">self</span> <span class="operator">=</span> .success(<span class="keyword">try</span> body())</span><br><span class="line">        &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">            <span class="keyword">self</span> <span class="operator">=</span> .failure(error)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> encoder <span class="operator">=</span> <span class="type">JSONEncoder</span>()</span><br><span class="line"><span class="keyword">let</span> encodingResult <span class="operator">=</span> <span class="type">Result</span> &#123; <span class="keyword">try</span> encoder.encode([<span class="number">1</span>, <span class="number">2</span>]) &#125; <span class="comment">// success(5 bytes) </span></span><br><span class="line"><span class="built_in">type</span>(of: encodingResult) <span class="comment">// Result&lt;Data, Error&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想将错误延迟到以后再处理或将结果传递给另一个函数，这将很有用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;反向操作称为 <code>Result.get（）</code> 。 它评估（即切换）结果并将失败情况视为要抛出的错误。 这是实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Result</span> </span>&#123;&#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">get</span>()</span> <span class="keyword">throws</span> -&gt; <span class="type">Success</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .success(success):</span><br><span class="line">                <span class="keyword">return</span> success</span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .failure(failure):</span><br><span class="line">                <span class="keyword">throw</span> failure </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Chaining-Errors"><a href="#Chaining-Errors" class="headerlink" title="Chaining Errors"></a><strong>Chaining Errors</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;连续调用多个故障功能是很常见的。 例如，一个操作可以分为多个子任务，其中一个子任务的结果成为下一个任务的输入。 每个子任务都可能因错误而失败，因此，如果引发错误，则整个操作应立即中止。</p>
+<h2 id="Chaining-throws"><a href="#Chaining-throws" class="headerlink" title="Chaining throws"></a><em><strong>Chaining throws</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并非所有的错误处理系统都能很好地处理上述用例，但是 <code>Swift</code> 的内置错误处理在这方面大放异彩。 在将返回值传递给下一个函数之前，无需使用嵌套的i <code>f语句</code> 或类似的结构来对返回值进行包装； 我们只需将所有函数调用放在单个 <code>do/catch块</code> 中（或将它们包装在 <code>throwing函数</code> 中）。 发生的第一个错误将中断链，并将控制切换到 <code>catch块</code> （或将错误传播到调用者）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个包含三个子任务的操作示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">complexOperation</span>(<span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; [<span class="type">String</span>] &#123; </span><br><span class="line">    <span class="keyword">let</span> text <span class="operator">=</span> <span class="keyword">try</span> contents(ofFile: filename)</span><br><span class="line">    <span class="keyword">let</span> segments <span class="operator">=</span> <span class="keyword">try</span> parse(text: text)</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">try</span> process(segments: segments)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Chaining-Result"><a href="#Chaining-Result" class="headerlink" title="Chaining Result"></a><em><strong>Chaining Result</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将使用 <code>Result类型</code> 时，将基于尝试的干净示例与等效代码进行比较。 如果手动进行操作，则链接多个返回 <code>Result的函数</code> 将耗费大量精力； 我们首先调用第一个函数并切换其返回值，如果成功，则可以将展开的值传递给第二个函数并重新开始。 只要一个函数返回 <code>.failure</code> ，链就会中断，并且我们会通过立即将失败返回给调用者来短路：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">complexOperation1</span>(<span class="params">filename</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;[<span class="type">String</span>], <span class="type">Error</span>&gt; &#123; </span><br><span class="line">    <span class="keyword">let</span> result1 <span class="operator">=</span> contents(ofFile: filename)</span><br><span class="line">    <span class="keyword">switch</span> result1 &#123;</span><br><span class="line">        <span class="keyword">case</span> .success(<span class="keyword">let</span> text):</span><br><span class="line">            <span class="keyword">let</span> result2 <span class="operator">=</span> parse(text: text) </span><br><span class="line">            <span class="keyword">switch</span> result2 &#123;</span><br><span class="line">                <span class="keyword">case</span> .success(<span class="keyword">let</span> segments):</span><br><span class="line">                    <span class="keyword">return</span> process(segments: segments) .mapError &#123; <span class="variable">$0</span> <span class="keyword">as</span> <span class="type">Error</span> &#125;</span><br><span class="line">                <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">                    <span class="keyword">return</span> .failure(error <span class="keyword">as</span> <span class="type">Error</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">case</span> .failure(<span class="keyword">let</span> error):</span><br><span class="line">            <span class="keyword">return</span> .failure(error <span class="keyword">as</span> <span class="type">Error</span>)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这很快就会变得很丑陋，因为链中的每个其他函数都需要另一个嵌套的 <code>switch语句</code> 。 还要注意，我们必须在每个交换机中复制相同的故障路径。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在尝试重构此代码之前，让我们再来看一下如何处理上述代码中的失败案例。 这些是在我们的示例中代表三个子任务的函数的签名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;<span class="type">String</span>, <span class="type">FileError</span>&gt; </span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">parse</span>(<span class="params">text</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;[<span class="type">String</span>], <span class="type">ParseError</span>&gt;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">process</span>(<span class="params">segments</span>: [<span class="type">String</span>])</span> -&gt; <span class="type">Result</span>&lt;[<span class="type">String</span>], <span class="type">ProcessError</span>&gt;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些函数中的每一个都有不同的失败类型： <code>FileError</code> ， <code>ParseError</code> 和 <code>ProcessError</code> 。当我们逐步处理子任务链时，我们不仅要关心转换成功类型（从 <code>String</code> 转换为 <code>[String]</code> ，再转换为 <code>[String]</code> ）；我们还必须注意将故障类型转换为聚合类型（在此示例中仅是 <code>Error</code> ，但可能是其他具体类型）。我们可以在代码的三个地方看到错误转换：</p>
+<ul>
+<li><p>→  <code>return.failure（errorasError）</code> 将错误值从其具体类型转换为 <code>Error</code> 。我们可以在这里省略 <code>as Error</code> 部分-编译器会隐式添加它，但是添加它说明了实际情况。</p>
+</li>
+<li><p>→ 对于链的最后一步，我们只能简单地写返回流程（段：细分），因为流程（段）的返回类型与所需的返回类型不兼容， <code>Result &lt;[String]，Error&gt;</code> -我们必须使用 <code>mapError方法</code> （它是 <code>Result类型</code> 的一部分）再次转换失败类型。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不管严格错误类型引入的复杂性如何，我们都应该重构嵌套的 <code>switch语句</code> 的混乱。幸运的是， <code>Result</code> 包含执行此操作的功能。上面代码中我们多次使用的模式-切换结果，或者使用未包装的成功值调用链中的下一步，或者在遇到失败时中止操作-正是 <code>Result</code> 的 <code>flatMap方法</code> 所做的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它的结构与我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/"><em><strong><code>Optionals</code></strong></em></a>一章中介绍的 <code>flatMap方法</code> 相同。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;用 <code>flatMap</code> 替换开关可以显着清理代码。实际上，最终结果是相当优雅的，即使不如基于基于 <code>throws</code> 的示例那么干净：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">complexOperation2</span>(<span class="params">filename</span>: <span class="type">String</span>)</span> -&gt; <span class="type">Result</span>&lt;[<span class="type">String</span>], <span class="type">Error</span>&gt; &#123;       </span><br><span class="line">    <span class="keyword">return</span> contents(ofFile: filename).mapError &#123; <span class="variable">$0</span> <span class="keyword">as</span> <span class="type">Error</span> &#125;</span><br><span class="line">    .flatMap &#123; text <span class="keyword">in</span> parse(text: text).mapError &#123; <span class="variable">$0</span> <span class="keyword">as</span> <span class="type">Error</span> &#125; &#125; </span><br><span class="line">    .flatMap &#123; segments <span class="keyword">in</span></span><br><span class="line">        process(segments: segments).mapError &#123; <span class="variable">$0</span> <span class="keyword">as</span> <span class="type">Error</span> &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意，我们仍然必须处理不兼容的故障类型。  <code>Result</code> 的 <code>map</code> 和 <code>flatMap方法</code> 仅转换成功案例，而使失败案例的类型保持不变。 并且只有在所有涉及的 <code>Result类型</code> 都具有相同的 <code>Failure类型</code> 时，才能链接多个 <code>map</code> 或 <code>flatMap</code> 操作。 我们通过几个 <code>mapError</code> 调用在示例中实现了这一点； 他们的任务是将特定错误转换为错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在本节中讨论的示例很好地说明了严格类型的错误可能会带来问题，并且可能经常造成更多的麻烦。 如果没有 <code>mapError</code> 调用，基于 <code>flatMap</code> 的代码肯定会更具可读性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;更重要的是，聚合功能最终还是擦除了具体的错误类型，因此调用堆栈上方的实际错误处理代码甚至无法利用这些类型。</p>
+<h1 id="异步代码中的错误"><a href="#异步代码中的错误" class="headerlink" title="异步代码中的错误"></a><strong>异步代码中的错误</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不幸的是， <code>Swift</code> 的内置错误处理不适用于使用回调函数将错误传递回调用者的异步 <code>API</code> 。 我们来看一个异步计算大量函数并在计算完成后回调代码的函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compute</span>(<span class="params">callback</span>: (<span class="type">Int</span>) -&gt; ())</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以通过提供回调函数来调用该函数。 回调将结果作为唯一参数接收：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">compute &#123; number <span class="keyword">in</span> </span><br><span class="line">    <span class="built_in">print</span>(number)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们如何将错误集成到该设计中？ 如果可选参数为错误提供了足够的信息（即只有一个简单的错误条件），我们可以指定回调函数接收可选整数，如果失败，该整数将为 <code>nil</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeOptional</span>(<span class="params">callback</span>: (<span class="type">Int</span>?) -&gt; ())</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，在回调中，我们必须解开可选的内容，例如 通过使用 <code>?? 操作符</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">computeOptional &#123; numberOrNil <span class="keyword">in</span> </span><br><span class="line">    <span class="built_in">print</span>(numberOrNil <span class="operator">??</span> <span class="operator">-</span><span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们想向回调报告更具体的错误怎么办？ 这个函数签名似乎是一个自然的解决方案：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeThrows</span>(<span class="params">callback</span>: (<span class="type">Int</span>) <span class="keyword">throws</span> -&gt; ())</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这不能满足我们的要求。 这种类型的含义完全不同。 它没有表示计算可能失败，而是表示回调本身可能引发错误。 当我们尝试将此错误尝试重写为使用 <code>Result</code> 的版本时，问题变得更加明显：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeResult</span>(<span class="params">callback</span>: (<span class="type">Int</span>) -&gt; <span class="type">Result</span>&lt;(), <span class="type">Error</span>&gt;)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这也不正确-我们需要将 <code>Int参数</code> 包装在 <code>Result</code> 中，而不是在回调的返回类型中。 最后，这是正确的解决方案：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">computeResult</span>(<span class="params">callback</span>: (<span class="type">Result</span>&lt;<span class="type">Int</span>, <span class="type">Error</span>&gt;) -&gt; ())</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本机错误处理与基于回调的API的不兼容性说明了一方面的 <code>throws</code> 与另一方面的 <code>Optional</code> 和 <code>Result</code> 之间的关键区别：<strong>只有后者是我们可以自由传递的值，而throws则没有那么灵活</strong>。 我们喜欢约书亚·埃蒙斯（Joshua Emmons）所说的话：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;看到，抛出和返回一样，只能在一个方向上起作用。 起来 我们可以向调用方抛出一个错误“向上”，但是我们不能向我们调用的另一个函数抛出错误“向下”作为参数。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将错误“向下”传递给延续函数的能力正是我们在异步上下文中所需要的。 不幸的是，目前尚没有明确的方法来编写带有抛出异常的上述变体。 我们能做的最好的就是将 <code>Int</code> 包装在另一个 <code>throwing函数</code> 中。 这使签名更加复杂：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">compute</span>(<span class="params">callback</span>: (() <span class="keyword">throws</span> -&gt; <span class="type">Int</span>) -&gt; ())</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于调用者而言，使用此变体也变得更加困难。 为了获取整数，回调现在必须调用 <code>throwing函数</code> 。 这是调用方必须执行错误检查的位置：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">compute &#123; (resultFunc: () <span class="keyword">throws</span> -&gt; <span class="type">Int</span>) <span class="keyword">in</span> </span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try</span> resultFunc()</span><br><span class="line">        <span class="built_in">print</span>(result) &#125; </span><br><span class="line">    <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;An error occurred: <span class="subst">\(error)</span>&quot;</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这行得通，但绝对不是惯用的 <code>Swift</code> ； <strong>结果是进行异步错误处理的方法</strong>。 不幸的是，这会与使用掷的同步功能造成阻抗不匹配。  <code>Swift</code> 设想的本机并发模型可能会扩展 <code>throws模型</code> 以在异步上下文中工作，但是在撰写本文时，尚不清楚何时会发生。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在此之前，我们始终将 <code>Result</code> 用于可能失败的回调。 通过将 <code>Result</code> 包含在标准库中，这种在开发人员社区中已经很成熟的实践得到了该语言的正式祝福。 当然，这与具有两个空参数（ <code>成功对象和错误对象</code> ）的完成处理程序的 <code>Objective-C</code> 风格相比更胜一筹。</p>
+<h1 id="使用延迟进行处理"><a href="#使用延迟进行处理" class="headerlink" title="使用延迟进行处理"></a><strong>使用延迟进行处理</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;许多编程语言都具有 <code>try/finally构造</code> ，无论何时是否引发错误，总是在函数返回时执行带有 <code>finally</code> 标记的块。  <code>Swift中</code> 的 <code>defer关键字</code> 具有类似的用途，但工作方式略有不同。 与最后一样，无论退出原因是什么，退出示波器始终都会执行 <code>defer块</code> -无论是因为成功返回值，由于发生错误还是任何其他原因。 这使得 <code>defer</code> 是执行所需清理工作的好选择。 与最终不同，延迟块不需要先行尝试或执行块，并且在将其放置在代码中的位置方面更加灵活。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从本章开始再回顾一下 <code>content（ofFile :)</code> 函数，并看一下使用 <code>defer</code> 的可能实现：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">String</span> &#123; </span><br><span class="line">    <span class="keyword">let</span> file <span class="operator">=</span> <span class="keyword">open</span>(filename, <span class="type">O_RDONLY</span>)</span><br><span class="line">    <span class="keyword">defer</span> &#123; </span><br><span class="line">        close(file) </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">try</span> load(file: file)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二行中的 <code>defer块</code> 确保函数返回时关闭文件，而不管文件是成功完成还是引发错误。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管 <code>defer</code> 通常与错误处理一起使用，但它在其他情况下也很有用-例如，当你要将代码的初始化和清理（例如打开和关闭文件）的代码保持在一起时。 将相关行并排放置可以使你的代码更具可读性，尤其是在较长的函数中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果在同一作用域中有多个 <code>defer语句</code> ，则以相反的顺序执行； 你可以将它们视为堆栈。 首先，延迟块以相反的顺序运行可能会感到奇怪。 但是，如果我们看一下执行数据库查询的示例，那应该很快就有意义了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> database <span class="operator">=</span> <span class="keyword">try</span> openDatabase(<span class="operator">...</span>)</span><br><span class="line"><span class="keyword">defer</span> &#123; closeDatabase(database) &#125;</span><br><span class="line"><span class="keyword">let</span> connection <span class="operator">=</span> <span class="keyword">try</span> openConnection(database) </span><br><span class="line"><span class="keyword">defer</span> &#123; closeConnection(connection) &#125;</span><br><span class="line"><span class="keyword">let</span> result <span class="operator">=</span> <span class="keyword">try</span> runQuery(connection, <span class="operator">...</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此代码必须首先打开数据库并建立与数据库的连接，然后才能最终运行查询。 如果抛出错误（例如，在 <code>runQuery</code> 调用期间），则清理资源的方法需要相反。 我们要先关闭连接，然后再关闭数据库。 因为 <code>defer语句</code> 是反向运行的，所以这会自动发生。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在程序控制转移到 <code>defer语句</code> 出现的作用域之外之前，将执行 <code>defer块</code> 。即使 <code>return语句</code> 的值也要在相同作用域中的任何 <code>defer块</code> 运行之前进行评估。 在将变量的先前值返回给调用方之后，你可以利用此行为来对变量进行突变。 在下面的示例中，递增函数在返回值之前使用 <code>defer</code> 来递增捕获的计数器变量的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> counter <span class="operator">=</span> <span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">increment</span>()</span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">    <span class="keyword">defer</span> &#123; counter <span class="operator">+=</span> <span class="number">1</span> &#125; </span><br><span class="line">    <span class="keyword">return</span> counter</span><br><span class="line">&#125;</span><br><span class="line">increment() <span class="comment">// 0</span></span><br><span class="line">counter <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你浏览标准库的源代码，则将不时看到此模式。 编写不延迟的相同逻辑将需要声明一个局部变量以临时存储 <code>counter</code> 的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在某些情况下，不会执行 <code>defer语句</code> ：当你的程序出现段错误或引发致命错误（例如使用 <code>fatalError</code> 或通过强制展开 <code>nil</code> ）时，所有执行都会立即停止。</p>
+<h1 id="Rethrowing"><a href="#Rethrowing" class="headerlink" title="Rethrowing"></a><strong>Rethrowing</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于以其他函数作为参数的函数（例如 <code>map或filter</code> ）， <code>throwing函数</code> 的存在带来了问题。 在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><em><strong><code>“内置集合”</code></strong></em></a>一章中，我们讨论了数组上的假设过滤器方法的类型（实际过滤器在 <code>Sequence</code> 上定义，并且稍微复杂一些）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter</span>(<span class="keyword">_</span> <span class="params">isIncluded</span>: (<span class="type">Element</span>) -&gt; <span class="type">Bool</span>)</span> -&gt; [<span class="type">Element</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此定义有效，但有一个缺点：编译器将不接受任何作为谓词传递的 <code>throwing函数</code> ，因为 <code>isIncluded</code> 参数未标记为 <code>throws</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们来看一个例子，该限制成为一个问题。 我们首先编写一个检查文件有效性的函数（对于该示例，该函数用来决定文件是否有效的因素）并不重要。  <code>checkFile函数</code> 或者返回一个布尔值（对于有效值为true，对于无效值为false），或者如果在检查文件时出现问题，则抛出错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">checkFile</span>(<span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们有一个文件名数组，并且想过滤掉无效文件。 自然地，我们想使用 <code>filter</code> 来做到这一点，但是编译器不允许这样做，因为 <code>checkFile</code> 是一个 <code>throwing函数</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> filenames: [<span class="type">String</span>] <span class="operator">=</span> <span class="operator">...</span></span><br><span class="line"><span class="comment">// Error: Call can throw but is not marked with &#x27;try&#x27;. let validFiles = filenames.filter(checkFile)</span></span><br><span class="line"><span class="type">We</span> could work around the issue by handling the error locally inside the filter predicate:</span><br><span class="line"><span class="keyword">let</span> validFiles <span class="operator">=</span> filenames.filter &#123; filename <span class="keyword">in</span> </span><br><span class="line">    <span class="keyword">do</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">try</span> checkFile(filename: filename) </span><br><span class="line">    &#125; <span class="keyword">catch</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这非常不方便，甚至可能不是我们想要的—上面的代码通过捕获错误并返回 <code>false</code> 默默地忽略错误，但是如果我们想在发生错误时中止整个操作该怎么办？</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一种解决方案是标准库使用 <code>filter</code> 声明中的 <code>throws注释谓词函数</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter</span>(<span class="keyword">_</span> <span class="params">isIncluded</span>: (<span class="type">Element</span>) <span class="keyword">throws</span> -&gt; <span class="type">Bool</span>)</span> <span class="keyword">throws</span> -&gt; [<span class="type">Element</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这会起作用，但同样会带来不便，因为现在每次 <code>filter</code> 的调用都变成了需要 <code>try（或try！）</code> 注释的 <code>throwing</code> 调用。对标准库中的每个高阶函数执行此操作会导致代码包含在 <code>try关键字</code> 中，从而破坏了 <code>try</code> 的主要目的，<strong>try的主要目的是使代码的读者可以快速区分抛出和非抛出调用</strong>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一种选择是定义两个版本的过滤器：一个抛出，一个不抛出。除了 <code>try注释</code> 之外，它们的实现是相同的。然后，我们可以依靠编译器为每次调用选择最佳的重载。这样比较好，因为它可以使呼叫站点保持干净，但仍然很浪费。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;幸运的是， <code>Swift</code> 以 <code>rethrows关键字</code> 的形式提供了更好的解决方案。使用重新抛出注释功能可以告诉编译器该函数仅在其函数参数抛出错误时才会抛出错误。因此，过滤器的真实方法签名如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">filter</span>(<span class="keyword">_</span> <span class="params">isIncluded</span>: (<span class="type">Element</span>) <span class="keyword">throws</span> -&gt; <span class="type">Bool</span>)</span> <span class="keyword">rethrows</span> -&gt; [<span class="type">Element</span>]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;谓词函数仍标记为 <code>throws</code> ，表示调用方可以传递 <code>throwing函数</code> 。 在其实现中，过滤器必须使用 <code>try</code> 来调用谓词。 重新抛出注释可确保过滤器将谓词函数抛出的错误传播到调用堆栈中，但是过滤器永远不会自行抛出错误。 这样，当调用方传入非抛出谓词函数时，编译器就可以免除使用 <code>try</code> 调用 <code>filter</code> 的要求。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库中几乎所有带有函数参数的序列和集合函数都带有重新抛出注释，但有一个重要的例外：我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81):%20Collection%20Protocols/"><em><strong><code>“集合协议”</code></strong></em></a>一章中讨论的惰性集合方法通常不支持抛出，因为 <code>throws</code> 不会。 与异步代码很好地混合。</p>
+<h1 id="将错误桥接到Objective-C"><a href="#将错误桥接到Objective-C" class="headerlink" title="将错误桥接到Objective-C"></a><strong>将错误桥接到Objective-C</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Objective-C没有类似于 <code>“throws and try”</code> 的机制。（Objective-C确实具有使用这些相同关键字的异常处理，但是Objective-C中的异常仅应用于指示程序员错误。在普通应用中，你很少会遇到Objective-C异常。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;取而代之的是， <code>Cocoa</code> 中的常见模式是发生错误时方法返回 <code>NO</code> 或 <code>nil</code> 。 失败的方法还会将对 <code>NSError指针</code> 的引用作为额外的参数。 他们可以使用此指针将具体的错误信息传递回调用方。 例如， <code>contents（ofFile :)</code> 方法在 <code>Objective-C</code> 中如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">-</span> (<span class="type">NSString</span> <span class="operator">*</span>)contentsOfFile(<span class="type">NSString</span> <span class="operator">*</span>)􏰀lename error:(<span class="type">NSError</span> <span class="operator">**</span>)error;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 会自动将遵循此模式的方法转换为 <code>throws语法</code> 。 由于不再需要使用 <code>error参数</code> ，因此 <code>BOOL</code> 返回类型已更改为 <code>Void</code> 。 上面的方法是这样导入的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">contents</span>(<span class="params">ofFile</span> <span class="params">filename</span>: <span class="type">String</span>)</span> <span class="keyword">throws</span> -&gt; <span class="type">String</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;自动转换适用于所有使用此结构的 <code>Objective-C方法</code> 。 其他 <code>NSError参数</code> （例如，在将错误返回到完成块中的调用者的 <code>异步API</code> 中）桥接到 <code>Error协议</code> ，因此通常不需要直接与 <code>NSError</code> 进行交互。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你将 <code>Swift</code> 错误传递给 <code>Objective-C</code> 方法，它将被桥接回 <code>NSError</code> 。 由于所有 <code>NSError对象</code> 都必须具有域字符串和整数错误代码，因此运行时将在必要时生成默认值，使用合格的类型名称作为域，并为错误代码从零开始枚举枚举。 （可选）你可以通过使你的类型符合 <code>CustomNSError协议</code> 来提供自己的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，我们可以这样扩展 <code>ParseError</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ParseError</span>: <span class="title">CustomNSError</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">let</span> errorDomain <span class="operator">=</span> <span class="string">&quot;io.objc.parseError&quot;</span></span><br><span class="line">    <span class="keyword">var</span> errorCode: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> <span class="keyword">self</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .wrongEncoding: <span class="keyword">return</span> <span class="number">100</span> </span><br><span class="line">            <span class="keyword">case</span> .warning(<span class="keyword">_</span>, <span class="keyword">_</span>): <span class="keyword">return</span> <span class="number">200</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> errorUserInfo: [<span class="type">String</span>: <span class="keyword">Any</span>] &#123; </span><br><span class="line">        <span class="keyword">return</span> [:]</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;以类似的方式，你可以为以下两个协议之一或全部添加一致性，以提供与Cocoa约定更好的互操作性：</p>
+<ul>
+<li>→ <strong>LocalizedError</strong> - 提供描述错误的本地化消息（ <code>errorDescription</code> ），发生错误的原因（ <code>failureReason</code> ），如何恢复的提示（ <code>recoverySuggestion</code> ）和其他帮助文本（ <code>helpAnchor</code> ）。</li>
+<li>→ <strong>RecoverableError</strong> - 描述用户可以通过提供一个或多个 <code>recoveryOptions</code> 并在用户请求时执行恢复来恢复的错误。这主要在使用 <code>AppKit</code> 的 <code>macOS应用</code> 中使用。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;即使不符合 <code>LocalizedError</code> ，每个符合 <code>Error</code> 的类型都具有 <code>localizedDescription属性</code> ，你可以在自己的类型中覆盖该属性。但是，由于 <code>LocalizedDescription</code> 不是 <code>Error协议</code> 的要求，因此该属性不会动态分配。除非你还符合 <code>LocalizedError</code> ，否则你的自定义 <code>localizedDescription</code> 将不会被 <code>Objective-C API</code> 或 <code>Error存在类</code> 中包装的值使用。编写 <code>Cocoa</code> 应用程序时，应始终对传递给 <code>Cocoa API</code> 的错误类型实施 <code>LocalizedError协议</code> 。有关动态调度和存在性的更多信息，请参阅<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B9%9D):%20Protocols/"><em><strong><code>“协议”</code></strong></em></a>一章。</p>
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当Apple在 <code>Swift 2.0</code> 中引入其错误处理模型时，社区中的许多人对此表示怀疑。引发使用未类型化错误的事实被视为与语言其他部分中严格输入的不必要偏离。毫不奇怪， <code>Swift团队</code> 非常仔细地考虑了这一点，并故意处理了未键入的错误。我们也对此表示怀疑，但事后看来，我们认为Swift团队被证明是正确的，尤其是因为开发人员社区对错误处理模型的广泛认可。现在，我们有了一个带有通用故障类型的 <code>Result类型</code> ，将来很有可能会添加强类型错误处理作为选择加入功能，并更好地支持异步错误和将错误作为值传递。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>错误处理</code> 是 <code>Swift</code> 是一种实用语言的一个很好的例子，它首先针对最常见的用例进行了优化。与坚持使用基于 <code>Result</code> 和 <code>flatMap</code> 的“更纯”的功能样式相比，使习惯于C样式语言的开发人员保持语法熟悉是一个更重要的目标-尽管现在也可以在标准库中使用这些样式。错误处理模型的设计遵循Swift的一个共同主题：目标是以友好的命令式语法包装安全的“功能性”概念（另一个示例是值类型的可变性模型）。我们希望最终引入异步/等待式并发模型，包括在异步函数中支持抛出式错误处理，将是朝着这个方向迈出的又一步。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同时，我们有很多可能的选择来处理代码中的意外情况。当我们无法继续时，可以使用 <code>fatalError</code> 或 <code>断言</code> 。如果我们对错误的类型不感兴趣，或者只有一种错误，则可以使用可选选项。当我们需要一种以上的错误或想要提供其他信息时，可以使用 <code>Swift</code> 的内置错误或 <code>Result类型</code> 。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%B8%80-Error-Handling/" title="Advanced Swift系列(十一): Error Handling">https://www.xuebaonline.com/Advanced-Swift系列-十一-Error-Handling/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Error-Handling/" rel="tag"><i class="fa fa-tag"></i> Error Handling</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81-Collection-Protocols/" rel="prev" title="Advanced Swift系列(十): Collection Protocols">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(十): Collection Protocols
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced-Swift%E7%B3%BB%E5%88%97-%E5%8D%81%E4%BA%8C-Encoding-and-Decoding/" rel="next" title="Advanced Swift系列(十二):  Encoding and Decoding">
+      Advanced Swift系列(十二):  Encoding and Decoding <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#错误类别"><span class="nav-number">1.</span> <span class="nav-text">错误类别</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Result-Type"><span class="nav-number">2.</span> <span class="nav-text">Result Type</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Throwing-and-Catching"><span class="nav-number">3.</span> <span class="nav-text">Throwing and Catching</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#输入错误和未输入错误"><span class="nav-number">4.</span> <span class="nav-text">输入错误和未输入错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#不可忽略的错误"><span class="nav-number">5.</span> <span class="nav-text">不可忽略的错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#错误转换"><span class="nav-number">6.</span> <span class="nav-text">错误转换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#在throw和Optional之间转换"><span class="nav-number">6.1.</span> <span class="nav-text">在throw和Optional之间转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-throws-和-Result-之间转换"><span class="nav-number">6.2.</span> <span class="nav-text">在 throws 和 Result 之间转换</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Chaining-Errors"><span class="nav-number">7.</span> <span class="nav-text">Chaining Errors</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Chaining-throws"><span class="nav-number">7.1.</span> <span class="nav-text">Chaining throws</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Chaining-Result"><span class="nav-number">7.2.</span> <span class="nav-text">Chaining Result</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步代码中的错误"><span class="nav-number">8.</span> <span class="nav-text">异步代码中的错误</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用延迟进行处理"><span class="nav-number">9.</span> <span class="nav-text">使用延迟进行处理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rethrowing"><span class="nav-number">10.</span> <span class="nav-text">Rethrowing</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将错误桥接到Objective-C"><span class="nav-number">11.</span> <span class="nav-text">将错误桥接到Objective-C</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概括"><span class="nav-number">12.</span> <span class="nav-text">概括</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:38</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
