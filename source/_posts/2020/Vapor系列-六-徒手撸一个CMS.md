@@ -3,14 +3,19 @@ title: 'Vapor系列(六): 徒手撸一个CMS'
 description: 'Vapor系列(六): 徒手撸一个CMS'
 permalink: 'Vapor系列(六): 徒手撸一个CMS'
 copyright: ture
-date: 2020-06-23 16:38:43
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor,Leaf,创建博客数据库,CMSAuthentication,Session
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello
+  Vapor,Leaf,创建博客数据库,CMSAuthentication,Session
 tags:
-    - [Vapor 4.0]
-    - [CMS]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - CMS
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 31710
+date: 2020-06-23 16:38:43
 ---
 
 本章都是关于使用管理界面构建内容管理工具。 我们将为完全独立于Web前端的管理员视图创建一个模块。 CMS将支持基于Leaf模板并使用Swift代码进行验证的具有可重用表单的列表，创建，更新和删除功能。 模型将被持久化到数据库中，我们将使用中间件来保护管理端点。

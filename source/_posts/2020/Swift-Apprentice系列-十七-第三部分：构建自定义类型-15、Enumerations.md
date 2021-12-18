@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations'
 permalink: 'Swift Apprentice系列 (十七) : 第三部分：构建自定义类型 - 15、Enumerations'
 copyright: ture
-date: 2020-05-22 16:50:49
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Enumerations]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Enumerations
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 47820
+date: 2020-05-22 16:50:49
 ---
 
 作为开发人员的一天，你会意识到自己被笔记本电脑俘虏了。 决心打破常规，你将决定徒步跋涉长途跋涉。 当然，你需要一张将要遇到的地形图。 既然是21世纪，并且你精通Swift，那么你将完成一个最终项目：一个自定义地图应用。

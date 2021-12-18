@@ -3,19 +3,20 @@ title: Swift依赖注入设计模式
 description: Swift依赖注入设计模式
 permalink: Swift依赖注入设计模式
 copyright: ture
-date: 2020-04-25 16:52:06
-keywords: iOS,UIKit,设计模式,抽象,Swift,依赖注入设计模式,重构, dependency injection design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,依赖注入设计模式,重构, dependency injection design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [依赖注入设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 依赖注入设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 41857
+date: 2020-04-25 16:52:06
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用Swift学习依赖注入模式,使用DI编写松耦合代码。

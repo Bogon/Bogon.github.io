@@ -3,18 +3,19 @@ title: iOS自定义转场(By Swift)
 description: iOS自定义转场(By Swift)
 permalink: iOS自定义转场(By Swift)
 copyright: ture
-date: 2020-04-27 11:50:09
-keywords: iOS,Swift,Push,用户体验, 转场,transition,自定义转场
+keywords: 'iOS,Swift,Push,用户体验, 转场,transition,自定义转场'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自定义转场]
-    - [transition]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自定义转场
+  - - transition
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 1613
+date: 2020-04-27 11:50:09
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本文中，你将学习如何使用自定义转场和百分比驱动的交互来替换 ```Push``` ，```pop``` 和模式动画。

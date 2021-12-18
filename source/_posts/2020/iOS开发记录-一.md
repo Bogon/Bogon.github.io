@@ -3,14 +3,15 @@ title: iOS开发记录<一>
 description: iOS开发记录<一>
 permalink: iOS开发记录<一>
 copyright: ture
-date: 2020-09-07 09:24:07
-keywords: iOS,Swift,开发技巧,问题
+keywords: 'iOS,Swift,开发技巧,问题'
 tags:
-    - [iOS]
-    - [开发记录]
+  - - iOS
+  - - 开发记录
 categories:
-    - [iOS]
-    - [开发记录]
+  - - iOS
+  - - 开发记录
+abbrlink: 51962
+date: 2020-09-07 09:24:07
 ---
 
 # 1、自定义键盘去除iPad上方的工具栏

@@ -3,14 +3,18 @@ title: 'Vapor系列 (一) :  Vapor 初探'
 description: 'Vapor系列 (一) :  Vapor 初探'
 permalink: 'Vapor系列 (一) :  Vapor 初探'
 copyright: ture
-date: 2020-06-21 20:03:57
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0
 tags:
-    - [Vapor 4.0]
-    - [Vapor 初探]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - Vapor 初探
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 10784
+date: 2020-06-21 20:03:57
 ---
 
 本章是对服务器端Swift世界的介绍，解释了Swift作为通用编程语言的发展。 我们将讨论该语言的优点和缺点，并讨论为什么Swift是构建后端应用程序的理想选择。 我们将探索Swift生态系统和开源运动，这些运动使得有可能在Linux上创建必要的工具以将Swift变成服务器端语言。 你将了解Vapor，这是本书中将要使用的最流行的Web应用程序框架。

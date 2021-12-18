@@ -3,17 +3,18 @@ title: Swift使用布局锚点添加约束
 description: Swift使用布局锚点添加约束
 permalink: Swift使用布局锚点添加约束
 copyright: ture
-date: 2020-04-26 20:12:24
-keywords: iOS,Swift,自动化布局,用户体验
+keywords: 'iOS,Swift,自动化布局,用户体验'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自动化布局]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自动化布局
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 28994
+date: 2020-04-26 20:12:24
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Auto Layout``` 经常引起抱怨的是，语法以编程方式创建约束的方式多么繁琐和难以理解。 幸运的是，```iOS 9``` 做了很多改进。 ```堆栈视图``` 消除了我们在典型布局中创建许多约束的需要。 相比较而言，布局锚点和布局指南的引入却被忽略了，但同样有用。 从《 Apple自动版面指南》中：

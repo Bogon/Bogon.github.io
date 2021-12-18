@@ -3,18 +3,19 @@ title: 如何为VIPER编写服务？
 description: 如何为VIPER编写服务？
 permalink: 如何为VIPER编写服务？
 copyright: ture
-date: 2020-04-29 11:02:56
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 11331
+date: 2020-04-29 11:02:56
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并非所有内容都是 ```VIPER模块``` 。 在本文中，我将向你展示如何使用 ```Swift``` 将 ```服务层``` 与 ```模块``` 分离。

@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (二) : 第一部分：Swift基础知识 - 2、�
 description: 'Swift Apprentice系列 (二) : 第一部分：Swift基础知识 - 2、类型与操作'
 permalink: 'Swift Apprentice系列 (二) : 第一部分：Swift基础知识 - 2、类型与操作'
 copyright: ture
-date: 2020-05-11 20:55:24
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,类型与操作
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,类型与操作'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [类型与操作]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 类型与操作
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 55833
+date: 2020-05-11 20:55:24
 ---
 
 既然你知道如何执行基本操作以及如何使用这些操作来处理数据，那么该是时候了解有关类型的更多信息了。 形式上，类型描述了一组值以及可以对它们执行的操作。 在本章中，你将学习如何处理不同的类型，包括用于表示文本的字符串。 你将学习有关如何在类型之间进行转换的知识，还将介绍类型推断，这使你作为程序员的生活变得更加简单。 最后，你将学习元组，该元组允许你创建由任意类型的多个值组成的自己的类型。

@@ -3,18 +3,19 @@ title: Swift 唯一识别的视图
 description: Swift 唯一识别的视图
 permalink: Swift 唯一识别的视图
 copyright: ture
-date: 2020-04-28 16:24:22
-keywords: iOS,Swift,唯一识别的视图, 用户体验, Uniquely identifying views, 可重用
+keywords: 'iOS,Swift,唯一识别的视图, 用户体验, Uniquely identifying views, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [Uniquely identifying views]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - Uniquely identifying views
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [Uniquely identifying views]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - Uniquely identifying views
+abbrlink: 6674
+date: 2020-04-28 16:24:22
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用基于字符串的 ```UIView``` 标识符而不是标签。 如果你厌倦了标记视图，请查看这些替代解决方案。

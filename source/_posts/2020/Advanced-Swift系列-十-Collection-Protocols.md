@@ -3,18 +3,21 @@ title: 'Advanced Swift系列(十): Collection Protocols'
 description: 'Advanced Swift系列(十): Collection Protocols'
 permalink: 'Advanced Swift系列(十): Collection Protocols'
 copyright: ture
-date: 2020-05-08 14:19:07
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Protocols
+keywords: >-
+  iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Protocols
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Collection Protocols]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Collection Protocols
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 35330
+date: 2020-05-08 14:19:07
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在[***```“内置集合”```***](https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/ "")一章中提到， `Swift `的集合类型（如数组，字典和集合）是在用于处理元素序列的一组丰富抽象之上实现的。 本章全部涉及 `序列和集合协议 `，这些协议构成了该模型的基石。 我们将介绍这些协议的工作方式，为何以其工作方式工作以及如何编写自己的序列和集合。 它有助于在继承图中查看集合协议：

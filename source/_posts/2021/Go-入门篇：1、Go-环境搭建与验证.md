@@ -3,12 +3,13 @@ title: Go 入门篇：1、Go 环境搭建与验证
 description: Go 入门篇：1、Go 环境搭建与验证
 permalink: Go 入门篇：1、Go 环境搭建与验证
 copyright: true
-date: 2021-12-13 16:49:22
-keywords: linux,mysql,Linux,ubuntu,go,Go
+keywords: 'linux,mysql,Linux,ubuntu,go,Go'
 tags:
-    - [环境搭建与验证]
+  - - 环境搭建与验证
 categories:
-    - [Go 入门篇]
+  - - Go 入门篇
+abbrlink: 48155
+date: 2021-12-13 16:49:22
 ---
 
 # Go 开发环境配置

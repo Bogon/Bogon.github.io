@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (二十六) : 第四部分：高级主题 - 23、
 description: 'Swift Apprentice系列 (二十六) : 第四部分：高级主题 - 23、内存管理'
 permalink: 'Swift Apprentice系列 (二十六) : 第四部分：高级主题 - 23、内存管理'
 copyright: ture
-date: 2020-06-21 15:16:28
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [内存管理]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 内存管理
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 9062
+date: 2020-06-21 15:16:28
 ---
 
 在探讨类生存期和自动引用计数（ARC）时，你在第14章“高级类”中探讨了基本内存管理。 在大多数情况下，Swift中的内存管理无需你费力就可以立即使用。

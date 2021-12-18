@@ -3,22 +3,22 @@ title: Swift中快速简单的工厂设计模式
 description: Swift中快速简单的工厂设计模式
 permalink: Swift中快速简单的工厂设计模式
 copyright: ture
-date: 2020-04-25 13:15:16
-keywords: iOS,UIKit,设计模式,构造函数,Swift,工厂模式,重构
+keywords: 'iOS,UIKit,设计模式,构造函数,Swift,工厂模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [工厂模式]
-    - [构造函数]
-    - [静态工厂方法]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 工厂模式
+  - - 构造函数
+  - - 静态工厂方法
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 40605
+date: 2020-04-25 13:15:16
 ---
 
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这次，我们来讨论简单的工厂设计模式，该模式使用Swift以一种非常简单的方式封装对象创建。

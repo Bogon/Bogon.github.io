@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、�
 description: 'Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流'
 permalink: 'Swift Apprentice系列 (四) : 第一部分：Swift基础知识 - 4、高级控制流'
 copyright: ture
-date: 2020-05-12 15:07:46
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,高级控制流程
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,高级控制流程'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [高级控制流]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 高级控制流
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 8883
+date: 2020-05-12 15:07:46
 ---
 
 在上一文中，你学习了如何使用`if语句`和`while循环`的决策能力来控制执行流程。 在本章中，你将继续学习如何控制执行流程。 你将了解另一个称为for循环的循环。

@@ -2,18 +2,19 @@
 title: '后端实践三:Ubuntu18.04安装Vapor4.0'
 description: '后端实践三:Ubuntu18.04安装Vapor4.0'
 permalink: '后端实践三:Ubuntu18.04安装Vapor4.0'
-date: 2020-04-17 16:52:46
 copyright: ture
-keywords: 后端,Ubuntu,Ubuntu18.04,安装,Vapor,Vapor4.0,Swift
+keywords: '后端,Ubuntu,Ubuntu18.04,安装,Vapor,Vapor4.0,Swift'
 tags:
-    - [Server]
-    - [Ubuntu]
-    - [Swift]
+  - - Server
+  - - Ubuntu
+  - - Swift
 categories:
-    - [Vapor4.0]
-    - [Ubuntu18.04]
-    - [Swift5.2]
-    - [Server]
+  - - Vapor4.0
+  - - Ubuntu18.04
+  - - Swift5.2
+  - - Server
+abbrlink: 45841
+date: 2020-04-17 16:52:46
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过文章《[后端实践二:Ubuntu18.04安装最新版Swift5.2](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%BA%8C:Ubuntu18.04%E5%AE%89%E8%A3%85%E6%9C%80%E6%96%B0%E7%89%88Swift5.2/ "后端实践二:Ubuntu18.04安装最新版Swift5.2")》可以在 Ubuntu18.04 的服务器上顺利安装最新版本的 ```Swift``` 。我们参照 [官网文档](https://docs.vapor.codes/3.0/install/ubuntu/ "") 安装 ```Vapor4.0``` 的开发环境。

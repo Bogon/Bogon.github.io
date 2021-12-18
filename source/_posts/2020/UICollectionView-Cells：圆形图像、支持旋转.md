@@ -3,18 +3,19 @@ title: UICollectionView Cells：圆形图像、支持旋转
 description: UICollectionView Cells：圆形图像、支持旋转
 permalink: UICollectionView Cells：圆形图像、支持旋转
 copyright: ture
-date: 2020-04-27 10:37:04
-keywords: iOS,Swift,自动化布局,用户体验, UICollectionView,UICollectionViewCell,自适应
+keywords: 'iOS,Swift,自动化布局,用户体验, UICollectionView,UICollectionViewCell,自适应'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自适应布局]
-    - [UICollectionView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自适应布局
+  - - UICollectionView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 55489
+date: 2020-04-27 10:37:04
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何通过旋转支持为包装在 ```UICollectionView``` 单元格内的 ```UIImageView``` 项制作圆角。

@@ -2,19 +2,20 @@
 title: UIKit初始化模式
 description: UIKit初始化模式
 permalink: UIKit初始化模式
-date: 2020-04-25 08:05:14
-keywords: iOS,UIKit,设计模式,初始化,Swift
+keywords: 'iOS,UIKit,设计模式,初始化,Swift'
 copyright: ture
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 36247
+date: 2020-04-25 08:05:14
 ---
 
 > 了解UIKit中两个常用类的初始化过程。了解UIViewcontroller和UIView初始化模式。

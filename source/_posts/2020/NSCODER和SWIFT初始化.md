@@ -2,19 +2,20 @@
 title: NSCODER和SWIFT初始化
 description: NSCODER和SWIFT初始化
 permalink: NSCODER和SWIFT初始化
-date: 2020-04-25 09:36:42
-keywords: iOS,UIKit,设计模式,初始化,NSCoder,Swift
+keywords: 'iOS,UIKit,设计模式,初始化,NSCoder,Swift'
 copyright: ture
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 7258
+date: 2020-04-25 09:36:42
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您正在使用 ```Swift``` 并想对实现 ```NSCoding``` 的东西进行子类化（例如 ```UIView```，```UIViewController``` 等），则可能会遇到麻烦的情况。即，```NSCoding``` 协议需要 ```init(coder：aDecoder)``` 初始化程序，这意味着如果你为超类重写了指定的初始化程序，则需要实现该初始化程序。

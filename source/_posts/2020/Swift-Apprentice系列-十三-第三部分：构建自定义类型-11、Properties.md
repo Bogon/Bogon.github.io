@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 - 11、Properties'
 permalink: 'Swift Apprentice系列 (十三) : 第三部分：构建自定义类型 - 11、Properties'
 copyright: ture
-date: 2020-05-13 13:26:55
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Properties
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Properties
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Properties]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Properties
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 60914
+date: 2020-05-13 13:26:55
 ---
 
 在上一章中，你了解到通过将相关的属性和行为分组为结构化类型，结构使你成为一名更高效的程序员。

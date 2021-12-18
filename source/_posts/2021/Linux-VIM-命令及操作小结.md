@@ -3,14 +3,15 @@ title: Linux VIM 命令及操作小结
 description: Linux VIM 命令及操作小结
 permalink: Linux VIM 命令及操作小结
 copyright: true
-date: 2021-05-23 10:05:24
-keywords: linux,vim,Linux,VIM,VIM命令
+keywords: 'linux,vim,Linux,VIM,VIM命令'
 tags:
-    - [Linux]
-    - [Vim]
+  - - Linux
+  - - Vim
 categories:
-    - [Linux]
-    - [Vim]
+  - - Linux
+  - - Vim
+abbrlink: 11556
+date: 2021-05-23 10:05:24
 ---
 
 整理出 `Linux`, `VIM` 常用到的 命令以及命令的用法，方便以后查找使用。

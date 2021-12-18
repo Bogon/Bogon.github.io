@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(六):  Enums'
 description: 'Advanced Swift系列(六):  Enums'
 permalink: 'Advanced Swift系列(六):  Enums'
 copyright: ture
-date: 2020-05-07 11:51:48
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Enums
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Enums'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Enums]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Enums
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 52426
+date: 2020-05-07 11:51:48
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在上一章中讨论过的结构和类是记录类型的示例。一条记录由零个或多个字段（属性）组成，每个字段都有自己的类型。元组也属于此类：元组实际上是功能较少的轻量级匿名结构。记录是一个很明显的概念，我们认为它们是理所当然的。几乎所有的编程语言都允许你定义这种复合类型（BASIC的早期版本和原始Lisp可能是最著名的例外）。即使没有语言支持，即使汇编程序员也一直使用记录的概念在内存中构造数据。

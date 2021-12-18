@@ -3,19 +3,20 @@ title: Swift委托设计模式
 description: Swift委托设计模式
 permalink: Swift委托设计模式
 copyright: ture
-date: 2020-04-25 16:39:15
-keywords:  iOS,UIKit,设计模式,抽象,Swift,委托设计模式,重构, delegate design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,委托设计模式,重构, delegate design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [委托设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 委托设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 10967
+date: 2020-04-25 16:39:15
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;委托设计模式是通过 ```Swift``` 中的通用接口（协议）在两个对象之间进行通信的相对简单的方法。

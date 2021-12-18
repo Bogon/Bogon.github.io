@@ -3,19 +3,20 @@ title: 在Swift中重构单例模式用法
 description: 在Swift中重构单例模式用法
 permalink: 在Swift中重构单例模式用法
 copyright: ture
-date: 2020-04-25 10:38:47
-keywords: iOS,UIKit,设计模式,初始化,Swift,单例模式,重构
+keywords: 'iOS,UIKit,设计模式,初始化,Swift,单例模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [单例模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 单例模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 48496
+date: 2020-04-25 10:38:47
 ---
 
 > 清洁，模块化和可测试代码库的小技巧。

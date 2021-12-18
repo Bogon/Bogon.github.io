@@ -2,18 +2,19 @@
 title: Ubuntu18.04替换国内源
 description: Ubuntu18.04替换国内源
 permalink: Ubuntu18.04替换国内源
-date: 2020-04-17 12:58:13
 copyright: ture
-keywords: 后端,开发环境,Ubuntu18.04,国内源,阿里源,中科大源,清华源
+keywords: '后端,开发环境,Ubuntu18.04,国内源,阿里源,中科大源,清华源'
 tags:
-    - [Server]
-    - [Ubuntu]
-    - [VMware]
+  - - Server
+  - - Ubuntu
+  - - VMware
 categories:
-    - [Server]
-    - [Vapor4.0]
-    - [Ubuntu18.04]
-    - [Ubuntu软件源]
+  - - Server
+  - - Vapor4.0
+  - - Ubuntu18.04
+  - - Ubuntu软件源
+abbrlink: 51997
+date: 2020-04-17 12:58:13
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再国内使用国外的软件源普遍会比较慢，但是国内也有很多的软件源可供选择。在修改软件源之前，查看系统软件源版本：

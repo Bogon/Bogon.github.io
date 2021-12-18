@@ -2,17 +2,18 @@
 title: Functional Swift 初探
 permalink: Functional Swift 初探
 copyright: ture
-date: 2020-04-30 15:52:43
-keywords: iOS,Swift,函数式编程,map,flatMap,compactMap,reduce,filter,Functional Programming
+keywords: 'iOS,Swift,函数式编程,map,flatMap,compactMap,reduce,filter,Functional Programming'
 description: Functional Swift 初探
 tags:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
 categories:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
+abbrlink: 30604
+date: 2020-04-30 15:52:43
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;您将永远只需要学习一个高阶函数，例如： ```map``` ， ```flatMap``` ， ```compactMap``` ， ```reduce``` ， ```filter``` 等。

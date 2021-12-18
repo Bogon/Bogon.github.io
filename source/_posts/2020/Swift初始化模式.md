@@ -3,19 +3,20 @@ title: Swift初始化模式
 description: Swift初始化模式
 permalink: Swift初始化模式
 copyright: ture
-date: 2020-04-26 16:53:01
-keywords: iOS,UIKit,设计模式,抽象,Swift,初始化模式,重构,init patterns
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,初始化模式,重构,init patterns'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [初始化模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 初始化模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 34725
+date: 2020-04-26 16:53:01
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最终指南，如何在指定的，方便的，可使用的初始化工具等帮助下初始化你的 ```Swift``` 数据类型。

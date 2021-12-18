@@ -3,19 +3,20 @@ title: Swift外观设计模式
 description: Swift外观设计模式
 permalink: Swift外观设计模式
 copyright: ture
-date: 2020-04-26 10:30:49
-keywords: iOS,UIKit,设计模式,抽象,Swift,外观设计模式,重构,facade design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,外观设计模式,重构,facade design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [外观设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 外观设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 2848
+date: 2020-04-26 10:30:49
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;外观设计模式是复杂子系统上的简化界面。 展示一个使用 ```Swift``` 的快速实例。

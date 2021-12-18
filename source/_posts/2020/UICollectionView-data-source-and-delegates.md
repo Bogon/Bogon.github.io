@@ -3,18 +3,19 @@ title: UICollectionView data source and delegates
 description: UICollectionView data source and delegates
 permalink: UICollectionView data source and delegates
 copyright: ture
-date: 2020-04-28 10:31:38
-keywords: iOS,Swift,data source,用户体验, UICollectionView,UICollectionViewCell,delegates
+keywords: 'iOS,Swift,data source,用户体验, UICollectionView,UICollectionViewCell,delegates'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UICollectionView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UICollectionView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UICollectionView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UICollectionView
+abbrlink: 7672
+date: 2020-04-28 10:31:38
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这个快速的 ```UIKit``` 教程中，我将向你展示如何在不使用 ```Interface Builder``` 而是仅使用 ```Swift``` 的情况下创建简单的 ```UICollectionView``` 。

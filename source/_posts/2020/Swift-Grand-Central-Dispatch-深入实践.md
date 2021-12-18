@@ -2,18 +2,18 @@
 title: Swift Grand Central Dispatch 深入实践
 permalink: Swift Grand Central Dispatch 深入实践
 copyright: ture
-date: 2020-04-30 10:32:15
-keywords: iOS,Swift,Grand Central Dispatch,multi-threading,Queues,tasks,groups
+keywords: 'iOS,Swift,Grand Central Dispatch,multi-threading,Queues,tasks,groups'
 description: Swift Grand Central Dispatch 深入实践
-
 tags:
-    - [iOS]
-    - [Swift]
-    - [Grand Central Dispatch]
+  - - iOS
+  - - Swift
+  - - Grand Central Dispatch
 categories:
-    - [iOS]
-    - [Swift]
-    - [Grand Central Dispatch]
+  - - iOS
+  - - Swift
+  - - Grand Central Dispatch
+abbrlink: 24082
+date: 2020-04-30 10:32:15
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解 ```Swift``` 中 ```GCD框架``` 的 ```多线程原理``` 。 我保证，将所有需要的 ```队列``` ， ```任务``` ， ```组``` 进行分组。

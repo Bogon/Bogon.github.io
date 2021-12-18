@@ -3,18 +3,23 @@ title: 'Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arr
 description: 'Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets'
 permalink: 'Swift Apprentice系列 (八) : 第二部分：Collection Types - 7、Arrays, Dictionaries,Sets'
 copyright: ture
-date: 2020-05-12 18:09:10
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Arrays, Dictionaries,Sets]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Arrays
+    - Dictionaries
+    - Sets
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 47115
+date: 2020-05-12 18:09:10
 ---
 
 # **可变集合与不可变集合**

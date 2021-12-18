@@ -3,17 +3,18 @@ title: 深入研究Swift框架
 description: 深入研究Swift框架
 permalink: 深入研究Swift框架
 copyright: ture
-date: 2020-04-29 16:26:23
-keywords: iOS,Swift,架构,architecture,可重用,Swift Package Manager
+keywords: 'iOS,Swift,架构,architecture,可重用,Swift Package Manager'
 tags:
-    - [iOS]
-    - [Swift]
-    - [架构设计]
-    - [Swift Package Manager]
+  - - iOS
+  - - Swift
+  - - 架构设计
+  - - Swift Package Manager
 categories:
-    - [iOS]
-    - [Swift]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - 架构设计
+abbrlink: 22455
+date: 2020-04-29 16:26:23
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解有关 ```Swift模块``` ， ```库``` ， ```软件包``` ， ```封闭源框架``` ， ```命令行工具``` 等的一切。

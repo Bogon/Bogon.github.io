@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十二) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十二) : 第三部分：构建自定义类型 - 10、Structures'
 permalink: 'Swift Apprentice系列 (十二) : 第三部分：构建自定义类型 - 10、Structures'
 copyright: ture
-date: 2020-05-13 10:23:14
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Structures]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Structures
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 63319
+date: 2020-05-13 10:23:14
 ---
 
 你已经介绍了Swift的一些基本构建块。 有了变量，条件，字符串，函数和集合，你就可以征服世界！ 好吧，差不多。

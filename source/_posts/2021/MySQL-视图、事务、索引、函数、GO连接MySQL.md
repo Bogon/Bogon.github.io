@@ -3,14 +3,15 @@ title: MySQL-视图、事务、索引、函数、GO连接MySQL
 description: MySQL-视图、事务、索引、函数、GO连接MySQL
 permalink: MySQL-视图、事务、索引、函数、GO连接MySQL
 copyright: true
-date: 2021-05-30 18:39:06
-keywords: linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性,数据库设计,查询语句SQL,视图,事务,索引,函数,GO连接MySQL
+keywords: 'linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性,数据库设计,查询语句SQL,视图,事务,索引,函数,GO连接MySQL'
 tags:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
 categories:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
+abbrlink: 29350
+date: 2021-05-30 18:39:06
 ---
 
 ## 1.1  目标

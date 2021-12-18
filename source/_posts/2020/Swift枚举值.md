@@ -3,16 +3,17 @@ title: Swift枚举值
 description: Swift枚举值
 permalink: Swift枚举值
 copyright: ture
-date: 2020-04-30 08:58:50
-keywords: iOS,Swift,架构,Xcode,可重用,enum
+keywords: 'iOS,Swift,架构,Xcode,可重用,enum'
 tags:
-    - [iOS]
-    - [Swift]
-    - [enum]
+  - - iOS
+  - - Swift
+  - - enum
 categories:
-    - [iOS]
-    - [Swift]
-    - [enum]
+  - - iOS
+  - - Swift
+  - - enum
+abbrlink: 4970
+date: 2020-04-30 08:58:50
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本快速教程中，我将向您展示如何使用以 `````Swift 4````` 编写的通用解决方案获取 `````Swift枚举类型````` 的所有可能值。

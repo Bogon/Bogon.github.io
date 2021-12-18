@@ -3,21 +3,24 @@ title: 在Swift中处理非可选选项
 description: 在Swift中处理非可选选项
 permalink: 在Swift中处理非可选选项
 copyright: ture
-date: 2020-04-26 09:49:49
-keywords: iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design pattern,optionals,non-optional
+keywords: >-
+  iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design
+  pattern,optionals,non-optional
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [迭代器设计模式]
-    - [optionals]
-    - [non-optional]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 迭代器设计模式
+  - - optionals
+  - - non-optional
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 47251
+date: 2020-04-26 09:49:49
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选参数可以说是 ```Swift``` 最重要的功能之一，也是将其与 ```Objective-C``` 之类的语言区分开来的关键。 通过被迫处理可能为 ```nil``` 的情况，我们倾向于编写更具可预测性和较少错误的代码。

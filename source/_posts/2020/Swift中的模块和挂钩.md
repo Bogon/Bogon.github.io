@@ -3,19 +3,20 @@ title: Swift中的模块和挂钩
 description: Swift中的模块和挂钩
 permalink: Swift中的模块和挂钩
 copyright: ture
-date: 2020-04-26 17:32:28
-keywords: iOS,UIKit,设计模式,抽象,Swift,模块,挂钩,重构,Modules and hooks
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,模块,挂钩,重构,Modules and hooks'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [Modules And Hooks]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - Modules And Hooks
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 32534
+date: 2020-04-26 17:32:28
 ---
 
 了解如何使用以 ```Swift``` 编写的松耦合模块插件系统通过新功能扩展应用程序。

@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、�
 description: 'Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流'
 permalink: 'Swift Apprentice系列 (三) : 第一部分：Swift基础知识 - 3、基本控制流'
 copyright: ture
-date: 2020-05-11 21:47:54
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,基本控制流
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,基本控制流'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [基本控制流]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 基本控制流
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 30730
+date: 2020-05-11 21:47:54
 ---
 
 编写计算机程序时，你需要能够告诉计算机在不同情况下应该做什么。 例如，如果用户点击加法按钮，计算器应用将需要做一件事，而如果用户点击减法按钮，则计算器应用将需要做另一件事。

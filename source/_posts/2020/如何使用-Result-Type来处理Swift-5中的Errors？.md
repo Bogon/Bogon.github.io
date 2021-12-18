@@ -2,17 +2,18 @@
 title: 如何使用 Result Type来处理Swift 5中的Errors？
 permalink: 如何使用 Result Type来处理Swift 5中的Errors？
 copyright: ture
-date: 2020-04-30 15:21:39
-keywords: iOS,Swift,Result Type,Errors,tutorial
+keywords: 'iOS,Swift,Result Type,Errors,tutorial'
 description: 如何使用 Result Type来处理Swift 5中的Errors？
 tags:
-    - [iOS]
-    - [Swift]
-    - [Result Type]
+  - - iOS
+  - - Swift
+  - - Result Type
 categories:
-    - [iOS]
-    - [Swift]
-    - [Result Type]
+  - - iOS
+  - - Swift
+  - - Result Type
+abbrlink: 39081
+date: 2020-04-30 15:21:39
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从本教程中，你可以学习如何使用带有新 ```result type``` 的 ```do-try-catch``` 语法来处理 ```Swift``` 中的错误。

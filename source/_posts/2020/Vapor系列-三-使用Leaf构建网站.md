@@ -3,14 +3,18 @@ title: 'Vapor系列 (三) : 使用Leaf构建网站'
 description: 'Vapor系列 (三) : 使用Leaf构建网站'
 permalink: 'Vapor系列 (三) : 使用Leaf构建网站'
 copyright: ture
-date: 2020-06-21 21:11:47
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor,Leaf
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor,Leaf
 tags:
-    - [Vapor 4.0]
-    - [Leaf]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - Leaf
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 11602
+date: 2020-06-21 21:11:47
 ---
 
 在本章中，我们将使用Leaf模板引擎构建我们的第一个网站。 我们将编写一些基本的HTML和CSS代码，并学习如何使用上下文将Swift对象与模板引擎连接。 您将了解使用变量，条件，如何遍历对象的Leaf文件的语法，我们将扩展基本模板以为我们的网站提供可重用的框架。 我们将使用帖子列表和详细信息页面构建博客布局。

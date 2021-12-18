@@ -2,17 +2,18 @@
 title: Swift CompactMap vs flatMap：差异说明
 permalink: Swift CompactMap vs flatMap：差异说明
 copyright: ture
-date: 2020-04-30 17:08:16
-keywords: iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming
+keywords: 'iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming'
 description: Swift CompactMap vs flatMap：差异说明
 tags:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
 categories:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
+abbrlink: 60228
+date: 2020-04-30 17:08:16
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```CompactMap``` 和 ```flatMap``` 有什么区别？何时使用它们？  ```Swift 4.1``` 在 [***```提案0187```***](https://github.com/apple/swift-evolution/blob/master/proposals/0187-introduce-filtermap.md "") 中引入了这种新方法：引入 ```Filtermap``` 可以在 ```flatMap``` 用例中获得更多的清晰度。

@@ -3,16 +3,17 @@ title: 在iOS工程中Swift代码进行约束保持团队内部代码风格一�
 description: 在iOS工程中Swift代码进行约束保持团队内部代码风格一致性的实践
 permalink: 在iOS工程中Swift代码进行约束保持团队内部代码风格一致性的实践
 copyright: ture
-date: 2020-11-17 09:19:13
-keywords: iOS,Swift,SwiftLint,Swift学习,Swift代码,代码风格,一致性
+keywords: 'iOS,Swift,SwiftLint,Swift学习,Swift代码,代码风格,一致性'
 tags:
-	- [iOS]
-	- [Swift]
-	- [SwiftLint]
+  - - iOS
+  - - Swift
+  - - SwiftLint
 categories:
-	- [iOS]
-	- [Swift]
-	- [SwiftLint]
+  - - iOS
+  - - Swift
+  - - SwiftLint
+abbrlink: 50781
+date: 2020-11-17 09:19:13
 ---
 
 ***`SwiftLint`*** 是一个用于强制检查 `Swift` 代码风格和规定的一个工具，基本上以 [GitHub's Swift 代码风格指南](https://github.com/github/swift-style-guide)为基础。

@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes'
 permalink: 'Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes'
 copyright: ture
-date: 2020-05-13 15:53:20
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced Classes
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced
+  Classes
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Advanced Classes]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Advanced Classes
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 32045
+date: 2020-05-13 15:53:20
 ---
 
 上一章向你介绍了在Swift中定义和使用类的基础知识。 类是引用类型，可用于支持传统的面向对象编程。

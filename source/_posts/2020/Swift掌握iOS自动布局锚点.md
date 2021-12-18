@@ -3,17 +3,18 @@ title: Swift掌握iOS自动布局锚点
 description: Swift掌握iOS自动布局锚点
 permalink: Swift掌握iOS自动布局锚点
 copyright: ture
-date: 2020-04-26 20:10:50
-keywords: iOS,Swift,自动化布局,用户体验
+keywords: 'iOS,Swift,自动化布局,用户体验'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自动化布局]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自动化布局
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 61479
+date: 2020-04-26 20:10:50
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;寻找使用布局锚点的最佳实践吗？ 让我们学习如何使用 ```Swift``` 以正确的方式使用 ```iOS``` 自动布局系统。

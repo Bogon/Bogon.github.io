@@ -3,14 +3,15 @@ title: MySQL-数据库设计和查询语句
 description: MySQL-数据库设计和查询语句
 permalink: MySQL-数据库设计和查询语句
 copyright: true
-date: 2021-05-29 17:41:06
-keywords: linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性,数据库设计,查询语句SQL
+keywords: 'linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性,数据库设计,查询语句SQL'
 tags:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
 categories:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
+abbrlink: 54189
+date: 2021-05-29 17:41:06
 ---
 
 ##  1.1 目标

@@ -3,19 +3,20 @@ title: Swift工厂方法设计模式
 description: Swift工厂方法设计模式
 permalink: Swift工厂方法设计模式
 copyright: ture
-date: 2020-04-25 15:16:57
-keywords: iOS,UIKit,设计模式,构造函数,Swift,工厂方法设计模式,重构
+keywords: 'iOS,UIKit,设计模式,构造函数,Swift,工厂方法设计模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [工厂方法设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 工厂方法设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 56631
+date: 2020-04-25 15:16:57
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工厂方法设计模式是一种专用的非静态方法，用于隐藏对象的创建逻辑。 让我们用Swift做吧！

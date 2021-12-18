@@ -3,18 +3,19 @@ title: iOS子类化样式
 description: iOS子类化样式
 permalink: iOS子类化样式
 copyright: ture
-date: 2020-04-28 16:03:15
-keywords: iOS,Swift,子类化样式, 用户体验, Styling by subclassing, 可重用
+keywords: 'iOS,Swift,子类化样式, 用户体验, Styling by subclassing, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [子类化样式]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 子类化样式
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [子类化样式]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 子类化样式
+abbrlink: 29751
+date: 2020-04-28 16:03:15
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何通过使用 ```Swift``` 中的 ```UIKit``` 框架中的自定义视图子类来设计和构建 ***可重用*** 的用户界面元素。

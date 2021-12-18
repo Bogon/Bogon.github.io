@@ -3,14 +3,18 @@ title: 'Vapor系列 (二) :  Hello Vapor！'
 description: 'Vapor系列 (二) :  Hello Vapor！'
 permalink: 'Vapor系列 (二) :  Hello Vapor！'
 copyright: ture
-date: 2020-06-21 20:19:30
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor
 tags:
-    - [Vapor 4.0]
-    - [Hello Vapor]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - Hello Vapor
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 33820
+date: 2020-06-21 20:19:30
 ---
 
 本章包含有关如何安装所有必需组件以在Linux和macOS上构建服务器端Swift应用程序的详细说明。 您将遇到一些命令行工具，这些工具可以帮助您作为后端开发人员的日常生活，并且我们将使用Swift Package Manager创建我们的第一个Vapor项目。 我们还将设置Vapor工具箱，它是一个方便的小工具，可以帮助您基于模板引导项目。 在最后一部分中，我们将简要介绍Vapor应用程序的体系结构。

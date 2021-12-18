@@ -3,19 +3,20 @@ title: Swift命令设计模式
 description: Swift命令设计模式
 permalink: Swift命令设计模式
 copyright: ture
-date: 2020-04-25 16:12:58
-keywords: iOS,UIKit,设计模式,抽象,Swift,命令设计模式,重构, command design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,命令设计模式,重构, command design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [命令设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 命令设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 50462
+date: 2020-04-25 16:12:58
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;命令设计模式是众多设计模式中的一种，也比较常用。 这是用Swift编写的命令设计模板的一个小例子。

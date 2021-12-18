@@ -3,12 +3,13 @@ title: Git 使用小技巧
 description: Git 使用小技巧
 permalink: Git 使用小技巧
 copyright: ture
-date: 2020-10-09 08:59:12
-keywords: Git,git,github,git使用, 技巧
+keywords: 'Git,git,github,git使用, 技巧'
 tags:
-	- [git]
+  - - git
 categories:
-	- [git]
+  - - git
+abbrlink: 54010
+date: 2020-10-09 08:59:12
 ---
 
 # 分支管理

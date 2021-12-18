@@ -3,12 +3,16 @@ title: macOS Big Sur 11.1 Arm架构安装使用Homebrew
 description: macOS Big Sur 11.1 Arm架构安装使用Homebrew
 permalink: macOS Big Sur 11.1 Arm架构安装使用Homebrew
 copyright: true
-date: 2020-12-18 19:54:56
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced Classes,面试题,Homebrew
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced
+  Classes,面试题,Homebrew
 tags:
-    - [Homebrew]
+  - - Homebrew
 categories:
-	- [Homebrew]
+  - - Homebrew
+abbrlink: 2312
+date: 2020-12-18 19:54:56
 ---
 
 安装Hombrew国内脚本版

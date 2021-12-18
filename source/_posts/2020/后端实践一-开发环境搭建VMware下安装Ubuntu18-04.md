@@ -2,16 +2,17 @@
 title: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 description: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
 permalink: '后端实践一:开发环境搭建VMware下安装Ubuntu18.04'
-date: 2020-04-17 09:17:13
 copyright: ture
-keywords: 后端,开发环境,Ubuntu18.04,安装,VMware,开发环境搭建
+keywords: '后端,开发环境,Ubuntu18.04,安装,VMware,开发环境搭建'
 tags:
-    - [Server]
-    - [Ubuntu]
-    - [VMware]
+  - - Server
+  - - Ubuntu
+  - - VMware
 categories:
-    - [Server]
-    - [Vapor4.0]
+  - - Server
+  - - Vapor4.0
+abbrlink: 1409
+date: 2020-04-17 09:17:13
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Mac``` 环境下使用 ```VMware``` 安装 ```Ubuntu 18.04``` 的主要目的是用于对后端开发框架：```Vapor 4.0``` 的实践。由于 ```Vapor 4.0``` 框架支持 ```MacOS``` 和 ```Ubuntu``` ，所以实践时间，以使用 ```Ubuntu``` 为主。

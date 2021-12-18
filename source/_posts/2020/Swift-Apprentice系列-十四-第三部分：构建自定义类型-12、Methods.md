@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods'
 permalink: 'Swift Apprentice系列 (十四) : 第三部分：构建自定义类型 - 12、Methods'
 copyright: ture
-date: 2020-05-13 13:56:50
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Methods]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Methods
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 62333
+date: 2020-05-13 13:56:50
 ---
 
 在上一章中，你了解了属性，这些属性是作为结构一部分的常量和变量。 正如你已经看到的，方法仅仅是驻留在结构内部的函数。

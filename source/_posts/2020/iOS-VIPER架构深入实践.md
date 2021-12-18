@@ -3,18 +3,19 @@ title: iOS VIPER架构深入实践
 description: iOS VIPER架构深入实践
 permalink: iOS VIPER架构深入实践
 copyright: ture
-date: 2020-04-28 16:52:14
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用, tutorial
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用, tutorial'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 26864
+date: 2020-04-28 16:52:14
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 ```VIPER``` 架构编写可伸缩的 ```iOS``` 代码，并牢记一些 ```MVVM``` 和 ```MVC``` 技巧和协调器。

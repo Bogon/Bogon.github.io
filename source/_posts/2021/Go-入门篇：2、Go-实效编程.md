@@ -3,12 +3,13 @@ title: Go 入门篇：2、Go 实效编程
 description: Go 入门篇：2、Go 实效编程
 permalink: Go 入门篇：2、Go 实效编程
 copyright: true
-date: 2021-12-14 19:31:20
-keywords: linux,mysql,Linux,ubuntu,go,Go
+keywords: 'linux,mysql,Linux,ubuntu,go,Go'
 tags:
-    - [基础语法]
+  - - 基础语法
 categories:
-    - [Go 入门篇]
+  - - Go 入门篇
+abbrlink: 3347
+date: 2021-12-14 19:31:20
 ---
 
 # 引言

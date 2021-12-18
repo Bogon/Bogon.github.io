@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes'
 permalink: 'Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes'
 copyright: ture
-date: 2020-05-13 15:19:35
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Classes]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Classes
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 37792
+date: 2020-05-13 15:19:35
 ---
 
 结构向你介绍了命名类型。 在本章中，你将熟悉类，它们非常类似于结构-它们被命名为具有属性和方法的类型。

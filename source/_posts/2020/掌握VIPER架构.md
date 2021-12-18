@@ -3,18 +3,19 @@ title: 掌握VIPER架构
 description: 掌握VIPER架构
 permalink: 掌握VIPER架构
 copyright: ture
-date: 2020-04-29 09:39:33
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 49447
+date: 2020-04-29 09:39:33
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 ```Swift``` 使用一些 ```面向协议``` 的编程技术来掌握 ```VIPER架构设计模式``` 。

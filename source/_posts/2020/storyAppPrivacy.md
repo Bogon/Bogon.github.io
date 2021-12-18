@@ -3,12 +3,13 @@ title: storyAppPrivacy
 description: storyAppPrivacy
 permalink: storyAppPrivacy
 copyright: ture
-date: 2020-03-28 16:50:11
 keywords: 用户协议与隐私政策
 tags:
-    - [用户协议与隐私政策]
+  - - 用户协议与隐私政策
 categories:
-    - [用户协议与隐私政策]
+  - - 用户协议与隐私政策
+abbrlink: 46715
+date: 2020-03-28 16:50:11
 ---
 
 # 鼹鼠故事汇用户协议及隐私政策

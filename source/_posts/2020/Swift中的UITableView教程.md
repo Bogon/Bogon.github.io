@@ -3,18 +3,19 @@ title: Swift中的UITableView教程
 description: Swift中的UITableView教程
 permalink: Swift中的UITableView教程
 copyright: ture
-date: 2020-04-28 11:46:56
-keywords: iOS,Swift,Xib,用户体验,UITableView
+keywords: 'iOS,Swift,Xib,用户体验,UITableView'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UITableView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UITableView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UITableView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UITableView
+abbrlink: 5916
+date: 2020-04-28 11:46:56
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本指南是供初学者通过 ```Swift``` 中的自动布局以编程方式学习 ```UITableView``` 类的基础的。

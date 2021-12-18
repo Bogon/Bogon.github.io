@@ -3,16 +3,17 @@ title: 作为Swift开发人员，如何提供更好的用户体验？
 description: 作为Swift开发人员，如何提供更好的用户体验？
 permalink: 作为Swift开发人员，如何提供更好的用户体验？
 copyright: ture
-date: 2020-04-26 18:34:02
-keywords: iOS,Swift,模块,User Experiences,用户体验
+keywords: 'iOS,Swift,模块,User Experiences,用户体验'
 tags:
-    - [iOS]
-    - [Swift]
-    - [用户体验]
+  - - iOS
+  - - Swift
+  - - 用户体验
 categories:
-    - [iOS]
-    - [用户体验]
-    - [Swift]
+  - - iOS
+  - - 用户体验
+  - - Swift
+abbrlink: 17434
+date: 2020-04-26 18:34:02
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过一些可访问性提示来学习用户体验设计的基础知识，你可以立即使用这些提示为每个人构建更好的移动应用程序。

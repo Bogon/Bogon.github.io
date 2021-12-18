@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(二): Build-in Collections'
 description: 'Advanced Swift系列(二): Build-in Collections'
 permalink: 'Advanced Swift系列(二): Build-in Collections'
 copyright: ture
-date: 2020-05-05 13:44:31
-keywords: iOS,Swift,Advanced Swift,Swift学习, Swift进阶
+keywords: 'iOS,Swift,Advanced Swift,Swift学习, Swift进阶'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Build-in Collections]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Build-in Collections
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 2549
+date: 2020-05-05 13:44:31
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在任何编程语言中，元素的 ```集合``` 都是最重要的数据类型之一。 对各种容器的良好语言支持对程序员的工作效率和幸福感有很大影响。  ```Swift``` 特别强调序列和集合-标准库的大部分内容都专门针对该主题，因此我们有时会觉得它处理的很少。 生成的模型比你可能习惯于其他语言的模型具有更高的 ```可扩展性``` ，但是它也相当复杂。

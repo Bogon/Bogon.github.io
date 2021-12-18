@@ -2,17 +2,18 @@
 title: Swift Promises 初体验
 permalink: Swift Promises 初体验
 copyright: ture
-date: 2020-04-30 20:44:45
-keywords: iOS,Swift,Promises,iOS库
+keywords: 'iOS,Swift,Promises,iOS库'
 description: Swift Promises 初体验
 tags:
-    - [iOS]
-    - [Swift]
-    - [Promises]
+  - - iOS
+  - - Swift
+  - - Promises
 categories:
-    - [iOS]
-    - [Swift]
-    - [Promises]
+  - - iOS
+  - - Swift
+  - - Promises
+abbrlink: 762
+date: 2020-04-30 20:44:45
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你想要了解的有关 ```futures``` 和 ```promises``` 的一切。 关于 ```Swift``` 中异步编程的初学者指南。

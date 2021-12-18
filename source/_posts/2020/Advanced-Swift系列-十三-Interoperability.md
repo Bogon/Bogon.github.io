@@ -3,18 +3,21 @@ title: 'Advanced Swift系列(十三): Interoperability'
 description: 'Advanced Swift系列(十三): Interoperability'
 permalink: 'Advanced Swift系列(十三): Interoperability'
 copyright: ture
-date: 2020-05-09 11:43:59
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Protocols,Error Handling,Encoding and Decoding,Interoperability
+keywords: >-
+  iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Protocols,Error Handling,Encoding and Decoding,Interoperability
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Interoperability]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Interoperability
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 44058
+date: 2020-05-09 11:43:59
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;**Swift的优势之一是与 C 和 Objective-C 互操作时的低摩擦**。  ` Swift ` 可以自动将 ` Objective-C 类型 ` 桥接到本机 ` Swift 类型 ` ，甚至可以与许多 ` C 类型桥接 ` 。 这使我们可以使用现有的库，并在顶部提供一个不错的界面。

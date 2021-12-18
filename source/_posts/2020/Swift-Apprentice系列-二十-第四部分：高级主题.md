@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (二十) : 第四部分：高级主题'
 description: 'Swift Apprentice系列 (二十) : 第四部分：高级主题'
 permalink: 'Swift Apprentice系列 (二十) : 第四部分：高级主题'
 copyright: ture
-date: 2020-05-28 18:48:17
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [高级主题]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 高级主题
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 61417
+date: 2020-05-28 18:48:17
 ---
 
 

@@ -3,14 +3,15 @@ title: MySQL-列类型和数据完整性
 description: MySQL-列类型和数据完整性
 permalink: MySQL-列类型和数据完整性
 copyright: true
-date: 2021-05-29 17:34:35
-keywords: linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性
+keywords: 'linux,mysql,Linux,MySQL,MySQL学习,列类型,数据完整性'
 tags:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
 categories:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
+abbrlink: 45526
+date: 2021-05-29 17:34:35
 ---
 
 

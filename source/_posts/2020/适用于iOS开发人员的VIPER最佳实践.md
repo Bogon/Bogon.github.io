@@ -3,18 +3,19 @@ title: 适用于iOS开发人员的VIPER最佳实践
 description: 适用于iOS开发人员的VIPER最佳实践
 permalink: 适用于iOS开发人员的VIPER最佳实践
 copyright: ture
-date: 2020-04-28 20:12:33
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 63871
+date: 2020-04-28 20:12:33
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我将向你展示有关如何构建完全基于 ```Swift``` 的基于 ```VIPER``` 的 ```iOS``` 应用程序的完整指南。

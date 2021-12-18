@@ -2,20 +2,21 @@
 title: Swift单例模式
 description: Swift单例模式
 permalink: Swift单例模式
-date: 2020-04-25 10:13:37
-keywords: iOS,UIKit,设计模式,初始化,Swift,单例模式
+keywords: 'iOS,UIKit,设计模式,初始化,Swift,单例模式'
 copyright: ture
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [单例模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 单例模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 32737
+date: 2020-04-25 10:13:37
 ---
 
 

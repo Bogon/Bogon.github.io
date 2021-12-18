@@ -3,14 +3,15 @@ title: 在2020年学习iOS / Swift的最佳实践是什么？
 description: 在2020年学习iOS / Swift的最佳实践是什么？
 permalink: 在2020年学习iOS / Swift的最佳实践是什么？
 copyright: ture
-date: 2020-05-01 11:15:03
-keywords: iOS,Swift,2020,最佳实践
+keywords: 'iOS,Swift,2020,最佳实践'
 tags:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
 categories:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
+abbrlink: 33784
+date: 2020-05-01 11:15:03
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你正在学习 ```iOS开发``` 吗？ 寻找 ```Swift``` 最佳做法？ 这是开始作为移动应用程序开发人员的旅程的正确位置。

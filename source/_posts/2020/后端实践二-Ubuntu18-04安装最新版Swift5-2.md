@@ -2,18 +2,19 @@
 title: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 description: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
 permalink: '后端实践二:Ubuntu18.04安装最新版Swift5.2'
-date: 2020-04-17 14:51:16
 copyright: ture
-keywords: 后端,Ubuntu,Ubuntu18.04,安装,Swift5.2,Swift
+keywords: '后端,Ubuntu,Ubuntu18.04,安装,Swift5.2,Swift'
 tags:
-    - [Server]
-    - [Ubuntu]
-    - [Swift]
+  - - Server
+  - - Ubuntu
+  - - Swift
 categories:
-    - [Vapor4.0]
-    - [Ubuntu18.04]
-    - [Swift5.2]
-    - [Server]
+  - - Vapor4.0
+  - - Ubuntu18.04
+  - - Swift5.2
+  - - Server
+abbrlink: 25001
+date: 2020-04-17 14:51:16
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过文章《[后端实践一:开发环境搭建VMware下安装Ubuntu18.04](http://www.xuebaonline.com/%E5%90%8E%E7%AB%AF%E5%AE%9E%E8%B7%B5%E4%B8%80:%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BAVMware%E4%B8%8B%E5%AE%89%E8%A3%85Ubuntu18.04/ "后端实践一:开发环境搭建VMware下安装Ubuntu18.04")》可以完成在  ```mac``` 上搭建起可用的 ```Ubuntu 18.04``` 的服务器。接下来我们要在此基础上完善 ```Vapor 4.0``` 的开发环境。

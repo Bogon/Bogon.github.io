@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 - 17、Generics'
 permalink: 'Swift Apprentice系列 (十九) : 第三部分：构建自定义类型 - 17、Generics'
 copyright: ture
-date: 2020-05-28 18:14:55
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Generics]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Generics
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 18682
+date: 2020-05-28 18:14:55
 ---
 
 事实是，你已经了解泛型。 每次使用Swift数组时，你都在使用泛型。 这甚至可能给人一种印象，即泛型是关于集合的，但是这种印象既不正确也不具有误导性。 在本章中，你将学习泛型的基础知识，从而为理解如何编写自己的泛型代码奠定坚实的基础。 最后，你将使用这个新视角回头看看Swift标准库中的泛型类型-数组，字典和可选类。

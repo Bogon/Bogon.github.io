@@ -2,17 +2,18 @@
 title: Swift Promises 探究
 permalink: Swift Promises 探究
 copyright: ture
-date: 2020-05-01 09:40:21
-keywords: iOS,Swift,Promises,iOS库
+keywords: 'iOS,Swift,Promises,iOS库'
 description: Swift Promises 探究
 tags:
-    - [iOS]
-    - [Swift]
-    - [Promises]
+  - - iOS
+  - - Swift
+  - - Promises
 categories:
-    - [iOS]
-    - [Swift]
-    - [Promises]
+  - - iOS
+  - - Swift
+  - - Promises
+abbrlink: 61515
+date: 2020-05-01 09:40:21
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Promises``` 是链接异步任务的一种方法。 通常，异步任务以块的形式进行回调（或有时两个，一个用于成功，一个用于失败），该回调在异步操作完成时被调用。 要执行多个异步操作，你必须将第二个嵌套在第一个的完成块中：

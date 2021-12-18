@@ -3,19 +3,20 @@ title: Swift中的懒加载模式
 description: Swift中的懒加载模式
 permalink: Swift中的懒加载模式
 copyright: ture
-date: 2020-04-26 11:01:52
-keywords: iOS,UIKit,设计模式,抽象,Swift,懒加载模式,重构,object pool design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,懒加载模式,重构,object pool design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [懒加载模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 懒加载模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 50078
+date: 2020-04-26 11:01:52
 ---
 
 

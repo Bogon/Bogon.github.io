@@ -3,14 +3,15 @@ title: bugly 上传dYSM文件小记
 description: bugly 上传dYSM文件小记
 permalink: bugly 上传dYSM文件小记
 copyright: ture
-date: 2020-10-11 11:36:43
-keywords: iOS,bugly,dYSM,Xcode 11,Xcode 12
+keywords: 'iOS,bugly,dYSM,Xcode 11,Xcode 12'
 tags:
-    - [iOS]
-    - [bugly]
+  - - iOS
+  - - bugly
 categories:
-    - [iOS]
-    - [bugly]
+  - - iOS
+  - - bugly
+abbrlink: 13871
+date: 2020-10-11 11:36:43
 ---
 
 # Bugly 工程中配置脚本上传

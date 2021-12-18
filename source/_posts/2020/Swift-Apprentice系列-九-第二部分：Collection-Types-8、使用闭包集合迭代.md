@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (九) : 第二部分：Collection Types - 8、使
 description: 'Swift Apprentice系列 (九) : 第二部分：Collection Types - 8、使用闭包集合迭代'
 permalink: 'Swift Apprentice系列 (九) : 第二部分：Collection Types - 8、使用闭包集合迭代'
 copyright: ture
-date: 2020-05-12 20:58:28
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Collection Iteration with Closures]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Collection Iteration with Closures
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 54548
+date: 2020-05-12 20:58:28
 ---
 
 之前，你了解了函数。 但是**Swift还有另一个对象**，可以用来将代码分解为可重用的块：**闭包**。 当处理集合时，它们变得特别有用。

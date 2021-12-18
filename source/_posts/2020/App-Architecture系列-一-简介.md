@@ -3,18 +3,22 @@ title: 'App Architecture系列(一):  简介'
 description: 'App Architecture系列(一):  简介'
 permalink: 'App Architecture系列(一):  简介'
 copyright: ture
-date: 2020-05-09 17:11:29
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Protocols,Error Handling,Encoding and Decoding,Interoperability,App Architecture
+keywords: >-
+  iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Protocols,Error Handling,Encoding and Decoding,Interoperability,App
+  Architecture
 tags:
-    - [iOS]
-    - [Swift]
-    - [App Architecture]
-    - [Introduction]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - App Architecture
+  - - Introduction
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [App Architecture]
+  - - iOS
+  - - Swift
+  - - App Architecture
+abbrlink: 47937
+date: 2020-05-09 17:11:29
 ---
 
 

@@ -3,18 +3,21 @@ title: 'Advanced Swift系列(十二):  Encoding and Decoding'
 description: 'Advanced Swift系列(十二):  Encoding and Decoding'
 permalink: 'Advanced Swift系列(十二):  Encoding and Decoding'
 copyright: ture
-date: 2020-05-08 22:02:53
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Protocols,Error Handling,Encoding and Decoding
+keywords: >-
+  iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Protocols,Error Handling,Encoding and Decoding
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Encoding and Decoding]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Encoding and Decoding
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 64492
+date: 2020-05-08 22:02:53
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将程序的内部数据结构序列化为某种数据交换格式，反之亦然，这是最常见的编程任务之一。 Swift将这些操作称为  ` 编码和解码  ` 。

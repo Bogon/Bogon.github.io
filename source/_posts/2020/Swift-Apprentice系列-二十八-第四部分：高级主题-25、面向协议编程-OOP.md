@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (二十八) : 第四部分：高级主题 - 25、
 description: 'Swift Apprentice系列 (二十八) : 第四部分：高级主题 - 25、面向协议编程(OOP)'
 permalink: 'Swift Apprentice系列 (二十八) : 第四部分：高级主题 - 25、面向协议编程(OOP)'
 copyright: ture
-date: 2020-06-21 16:20:38
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP)
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP)
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [面向协议编程(OOP)]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 面向协议编程(OOP)
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 21354
+date: 2020-06-21 16:20:38
 ---
 
 苹果公司宣布Swift为第一种面向协议的编程语言。 引入协议扩展使此声明成为可能。

@@ -3,16 +3,17 @@ title: 如何使用Codable protocol在Swift中解析JSON？
 description: 如何使用Codable protocol在Swift中解析JSON？
 permalink: 如何使用Codable protocol在Swift中解析JSON？
 copyright: ture
-date: 2020-04-30 09:05:14
-keywords: iOS,Swift,架构,Codable protocol,可重用,解析JSON
+keywords: 'iOS,Swift,架构,Codable protocol,可重用,解析JSON'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Codable protocol]
+  - - iOS
+  - - Swift
+  - - Codable protocol
 categories:
-    - [iOS]
-    - [Swift]
-    - [Codable protocol]
+  - - iOS
+  - - Swift
+  - - Codable protocol
+abbrlink: 44761
+date: 2020-04-30 09:05:14
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本 ```Swift``` 教程中，我想为你提供一个有关使用 ```URLSession``` 和 ```Codable协议``` 获取和解析 ```JSON``` 数据的示例。

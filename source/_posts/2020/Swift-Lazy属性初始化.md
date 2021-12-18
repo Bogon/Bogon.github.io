@@ -3,19 +3,20 @@ title: Swift Lazy属性初始化
 description: Swift Lazy属性初始化
 permalink: Swift Lazy属性初始化
 copyright: ture
-date: 2020-04-26 15:37:12
-keywords: iOS,UIKit,设计模式,抽象,Swift,Lazy属性初始化,重构,Lazy Property Initializationpattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,Lazy属性初始化,重构,Lazy Property Initializationpattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [懒加载模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 懒加载模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 64512
+date: 2020-04-26 15:37:12
 ---
 
 

@@ -3,20 +3,20 @@ title: Swift适配器设计模式
 description: Swift适配器设计模式
 permalink: Swift适配器设计模式
 copyright: ture
-date: 2020-04-25 18:45:18
-keywords: iOS,UIKit,设计模式,抽象,Swift,适配器设计模式,重构, adapter design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,适配器设计模式,重构, adapter design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [适配器设计模式]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 适配器设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 17421
+date: 2020-04-25 18:45:18
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用真实示例和 ```Swift``` 中的适配器设计模式，将不兼容的对象转换为目标接口或类。

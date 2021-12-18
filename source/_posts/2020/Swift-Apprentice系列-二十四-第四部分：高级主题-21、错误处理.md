@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、
 description: 'Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理'
 permalink: 'Swift Apprentice系列 (二十四) : 第四部分：高级主题 - 21、错误处理'
 copyright: ture
-date: 2020-06-21 13:59:21
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [错误处理]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 错误处理
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 61743
+date: 2020-06-21 13:59:21
 ---
 
 所有程序员，特别是熟练的程序员，都需要担心错误处理。 没有错的耻辱。 它们并不意味着你是一个不好的程序员。 关于错误处理，仅表示你承认自己无法控制一切。

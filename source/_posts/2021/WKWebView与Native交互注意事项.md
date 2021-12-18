@@ -3,14 +3,15 @@ title: WKWebView与Native交互注意事项
 description: WKWebView与Native交互注意事项
 permalink: WKWebView与Native交互注意事项
 copyright: true
-date: 2021-05-20 09:22:53
-keywords: iOS,Swift,WKWebView
+keywords: 'iOS,Swift,WKWebView'
 tags:
-    - [WKWebView]
-    - [Swift]
+  - - WKWebView
+  - - Swift
 categories:
-    - [WKWebView]
-    - [Swift]
+  - - WKWebView
+  - - Swift
+abbrlink: 18630
+date: 2021-05-20 09:22:53
 ---
 
 h5页面占用内存过大时，会引起白屏。解决方法如下：

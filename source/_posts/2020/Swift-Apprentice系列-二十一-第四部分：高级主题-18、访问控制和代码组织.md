@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、
 description: 'Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织'
 permalink: 'Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织'
 copyright: ture
-date: 2020-05-28 19:00:29
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [访问控制和代码组织]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 访问控制和代码组织
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 20050
+date: 2020-05-28 19:00:29
 ---
 
 可以使用属性，方法，初始化器甚至其他嵌套类型声明Swift类型。这些元素可以被视为代码的接口，有时也称为API或应用程序编程接口。

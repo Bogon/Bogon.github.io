@@ -2,17 +2,18 @@
 title: Swift 用 compactMap 替换 flatMap
 permalink: Swift 用 compactMap 替换 flatMap
 copyright: ture
-date: 2020-04-30 17:18:07
-keywords: iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming
+keywords: 'iOS,Swift,函数式编程,map,flatMap,compactMap,Functional Programming'
 description: Swift 用 compactMap 替换 flatMap
 tags:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
 categories:
-    - [iOS]
-    - [Swift]
-    - [函数式编程]
+  - - iOS
+  - - Swift
+  - - 函数式编程
+abbrlink: 51649
+date: 2020-04-30 17:18:07
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Xcode 9.3``` 随附的 ```Swift 4.1``` 带来了对 ```Swift语言``` 和 ```Swift标准库``` 的更多更改。 苹果原本打算将其作为对 ```Swift 4.0``` 的源兼容升级，但我遭到一次源代码更改的打击，我猜这将是广泛的。

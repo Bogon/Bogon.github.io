@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(七): Strings'
 description: 'Advanced Swift系列(七): Strings'
 permalink: 'Advanced Swift系列(七): Strings'
 copyright: ture
-date: 2020-05-07 17:07:24
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Strings
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Strings'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Strings]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Strings
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 15442
+date: 2020-05-07 17:07:24
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;所有现代编程语言都支持  `Unicode字符串  `，但这通常仅意味着本机字符串类型可以存储  `Unicode  `数据-不能保证像获取字符串长度这样的简单操作都将返回“有意义的”结果。实际上，大多数语言以及使用这些语言编写的大多数字符串处理代码都对Unicode固有的复杂性表现出一定程度的否认。这可能会导致一些令人不愉快的错误。

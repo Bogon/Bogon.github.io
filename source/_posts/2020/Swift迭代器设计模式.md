@@ -3,19 +3,20 @@ title: Swift迭代器设计模式
 description: Swift迭代器设计模式
 permalink: Swift迭代器设计模式
 copyright: ture
-date: 2020-04-26 09:13:26
-keywords: iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构, Iterator design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构, Iterator design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [迭代器设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 迭代器设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 12975
+date: 2020-04-26 09:13:26
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过使用一些 [```自定义序列```](http://www.xuebaonline.com/%E5%9C%A8Swift%E4%B8%AD%E5%88%9B%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E9%9B%86%E5%90%88/ "自定义序列")（符合 ```Swift``` 标准库中的 ```IteratorProtocol``` ），学习迭代器设计模式。

@@ -3,18 +3,19 @@ title: Swift 选择和播放视频
 description: Swift 选择和播放视频
 permalink: Swift 选择和播放视频
 copyright: ture
-date: 2020-04-28 15:30:44
-keywords: iOS,Swift,Picking, playing, videos, 用户体验, 选择视频, 播放视频, AVPlayer
+keywords: 'iOS,Swift,Picking, playing, videos, 用户体验, 选择视频, 播放视频, AVPlayer'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UIImagePickerController]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UIImagePickerController
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [UIImagePickerController]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - UIImagePickerController
+abbrlink: 9865
+date: 2020-04-28 15:30:44
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用视频选择器控制器和 ```AVPlayer``` 类（完全用 ```Swift 5``` 编写）来记录或选择视频文件。

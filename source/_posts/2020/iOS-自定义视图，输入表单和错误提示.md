@@ -2,15 +2,16 @@
 title: iOS 自定义视图，输入表单和错误提示
 permalink: iOS 自定义视图，输入表单和错误提示
 copyright: ture
-date: 2020-04-30 20:02:00
-keywords: iOS,Swift,输入表单,iOS库
+keywords: 'iOS,Swift,输入表单,iOS库'
 description: iOS 自定义视图，输入表单和错误提示
 tags:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
 categories:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
+abbrlink: 15047
+date: 2020-04-30 20:02:00
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;关于以编程方式创建自定义视图的一些建议，以及关于为什么使用集合视图构建表单的真相。

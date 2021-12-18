@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十) : 第二部分：Collection Types - 9、Str
 description: 'Swift Apprentice系列 (十) : 第二部分：Collection Types - 9、Strings'
 permalink: 'Swift Apprentice系列 (十) : 第二部分：Collection Types - 9、Strings'
 copyright: ture
-date: 2020-05-13 08:47:09
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Strings]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Strings
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 14165
+date: 2020-05-13 08:47:09
 ---
 
 到目前为止，你已经简要了解了String类型提供的用于表示文本的类型。 文本是一种非常常见的数据类型：人们的名字； 他们的地址； 一本书的话。 所有这些都是应用程序可能需要处理的文本示例。 值得深入了解String的工作原理和功能。

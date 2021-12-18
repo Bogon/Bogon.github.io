@@ -3,14 +3,15 @@ title: 'RxSwift系列(二): 第一部分：RxSwift入门 - 2、Observables'
 description: 'RxSwift系列(二): 第一部分：RxSwift入门 - 2、Observables'
 permalink: 'RxSwift系列(二): 第一部分：RxSwift入门 - 2、Observables'
 copyright: ture
-date: 2020-08-27 16:28:22
-keywords: iOS,Swift,RxSwift
+keywords: 'iOS,Swift,RxSwift'
 tags:
-    - [iOS]
-    - [RxSwift]
+  - - iOS
+  - - RxSwift
 categories:
-    - [iOS]
-    - [RxSwift]
+  - - iOS
+  - - RxSwift
+abbrlink: 34958
+date: 2020-08-27 16:28:22
 ---
 
 现在，你已经了解了RxSwift的一些基本概念，是时候开始尝试并观察可观察对象了。

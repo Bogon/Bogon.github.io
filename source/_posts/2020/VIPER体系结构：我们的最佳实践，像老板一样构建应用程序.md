@@ -3,18 +3,19 @@ title: VIPER体系结构：我们的最佳实践，像老板一样构建应用�
 description: VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
 permalink: VIPER体系结构：我们的最佳实践，像老板一样构建应用程序
 copyright: ture
-date: 2020-04-28 17:06:59
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 55568
+date: 2020-04-28 17:06:59
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Cheesecake Labs``` 的开发团队使用 ```VIPER``` 进行 ```iOS``` 和 ```Android``` 移动应用程序开发已有一年多了，我们喜欢这种简洁的架构！

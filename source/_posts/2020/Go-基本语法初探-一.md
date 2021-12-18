@@ -3,12 +3,13 @@ title: Go 基本语法初探(一)
 description: Go 基本语法初探(一)
 permalink: Go 基本语法初探(一)
 copyright: ture
-date: 2020-09-26 19:15:50
-keywords: Go,Go 语言语法,语法
+keywords: 'Go,Go 语言语法,语法'
 tags:
-    - [Go]
+  - - Go
 categories:
-    - [Go]
+  - - Go
+abbrlink: 59767
+date: 2020-09-26 19:15:50
 ---
 
 # Go 语言初探

@@ -3,20 +3,21 @@ title: 如何使用VIPER构建SwiftUI Apps？
 description: 如何使用VIPER构建SwiftUI Apps？
 permalink: 如何使用VIPER构建SwiftUI Apps？
 copyright: ture
-date: 2020-04-29 10:17:21
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用,SwiftUI
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用,SwiftUI'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
-    - [SwiftUI]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+  - - SwiftUI
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
-    - [SwiftUI]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+  - - SwiftUI
+abbrlink: 10168
+date: 2020-04-29 10:17:21
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这篇文章中，我将向你展示如何在真实的 ```iOS应用程序``` 示例中将 ```SwiftUI``` 与 ```VIPER架构``` 结合起来。

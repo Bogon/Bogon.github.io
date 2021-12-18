@@ -3,19 +3,20 @@ title: Swift带闭包的懒惰初始化
 description: Swift带闭包的懒惰初始化
 permalink: Swift带闭包的懒惰初始化
 copyright: ture
-date: 2020-04-26 15:55:06
-keywords: iOS,UIKit,设计模式,抽象,Swift,带闭包的懒惰初始化,重构,Lazy Property Initializationpattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,带闭包的懒惰初始化,重构,Lazy Property Initializationpattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [懒加载模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 懒加载模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 51872
+date: 2020-04-26 15:55:06
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何创建具有模块化和可读性的对象。

@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十一) : 第三部分：构建自己的类型'
 description: 'Swift Apprentice系列 (十一) : 第三部分：构建自己的类型'
 permalink: 'Swift Apprentice系列 (十一) : 第三部分：构建自己的类型'
 copyright: ture
-date: 2020-05-13 10:19:25
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Building Your Own Types]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Building Your Own Types
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 32832
+date: 2020-05-13 10:19:25
 ---
 
 你可以通过将变量和函数组合到新的类型定义中来创建自己的类型。例如，整数和双精度可能不足以满足你的目的，因此你可能需要创建一种类型来存储复数。或者可能很难管理三个独立变量中的名字，中间名和姓氏，因此你决定创建FullName类型。

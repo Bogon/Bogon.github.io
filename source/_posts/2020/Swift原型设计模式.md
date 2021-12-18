@@ -3,19 +3,20 @@ title: Swift原型设计模式
 description: Swift原型设计模式
 permalink: Swift原型设计模式
 copyright: ture
-date: 2020-04-25 15:49:06
-keywords: iOS,UIKit,设计模式,抽象,Swift,原型设计模式,重构, prototype design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,原型设计模式,重构, prototype design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [原型设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 原型设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 49200
+date: 2020-04-25 15:49:06
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原型设计模式用于创建基础对象的克隆，因此让我们看一些用Swift编写的实际示例。

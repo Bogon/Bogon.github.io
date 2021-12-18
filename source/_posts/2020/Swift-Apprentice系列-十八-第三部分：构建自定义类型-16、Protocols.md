@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 -
 description: 'Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols'
 permalink: 'Swift Apprentice系列 (十八) : 第三部分：构建自定义类型 - 16、Protocols'
 copyright: ture
-date: 2020-05-28 17:24:44
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Protocols]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Protocols
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 63882
+date: 2020-05-28 17:24:44
 ---
 
 在本系列中，你学习了三种命名类型：结构，类和枚举。 还有另一种要学习的命名类型：协议。

@@ -3,18 +3,19 @@ title: iOS项目架构：使用VIPER
 description: iOS项目架构：使用VIPER
 permalink: iOS项目架构：使用VIPER
 copyright: ture
-date: 2020-04-28 16:58:57
-keywords: iOS,Swift,VIPER, 架构, architecture, 可重用
+keywords: 'iOS,Swift,VIPER, 架构, architecture, 可重用'
 tags:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
 categories:
-    - [iOS]
-    - [Swift]
-    - [VIPER]
-    - [架构设计]
+  - - iOS
+  - - Swift
+  - - VIPER
+  - - 架构设计
+abbrlink: 33794
+date: 2020-04-28 16:58:57
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;开发 ```iOS``` 应用时，请务必考虑应使用哪种 ```iOS项目架构``` 。 大多数开发人员使用 ```Apple``` 建议的模式：所谓的```MVC（模型-视图-控制器）架构```。 但是， ```MVC``` 本身已经建立了完善的缺陷。 一方面，由于其简单性，它甚至可以使最有经验的工程师将不属于视图或模型的任何代码放入控制器的逻辑中–在控制器中生成大量代码，并真正压缩视图和模型 。

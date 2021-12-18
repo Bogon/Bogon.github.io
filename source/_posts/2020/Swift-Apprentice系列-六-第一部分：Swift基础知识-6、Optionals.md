@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (六) : 第一部分：Swift基础知识 - 6、Op
 description: 'Swift Apprentice系列 (六) : 第一部分：Swift基础知识 - 6、Optionals'
 permalink: 'Swift Apprentice系列 (六) : 第一部分：Swift基础知识 - 6、Optionals'
 copyright: ture
-date: 2020-05-12 17:35:23
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Optionals
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Optionals'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Optionals]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Optionals
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 64424
+date: 2020-05-12 17:35:23
 ---
 
 到目前为止，你处理的所有变量和常量都有具体的值。 当你有一个字符串变量（例如var name）时，它具有与之关联的字符串值，例如“ Hello Swift”。 它可能是一个空字符串，例如“”，但仍然可以引用一个值。

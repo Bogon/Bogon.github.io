@@ -3,18 +3,21 @@ title: 'Advanced Swift系列(十一): Error Handling'
 description: 'Advanced Swift系列(十一): Error Handling'
 permalink: 'Advanced Swift系列(十一): Error Handling'
 copyright: ture
-date: 2020-05-08 19:27:02
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Protocols,Error Handling
+keywords: >-
+  iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Protocols,Error Handling
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Error Handling]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Error Handling
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 26355
+date: 2020-05-08 19:27:02
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为程序员，我们经常必须处理出现问题的地方：网络连接可能会断开，预期存在的文件可能不存在，依此类推。良好地处理故障是将好程序与坏程序区分开的无形因素之一，但是我们经常倾向于将错误处理视为从属任务，这是后来要添加的内容（随着最后期限的临近，这种情况通常会被削减）。

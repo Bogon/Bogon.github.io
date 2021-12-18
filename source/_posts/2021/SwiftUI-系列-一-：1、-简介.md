@@ -3,16 +3,17 @@ title: SwiftUI 系列(一)_1、 简介
 description: SwiftUI 系列(一)：1、 简介
 permalink: SwiftUI 系列(一)：1、 简介
 copyright: true
-date: 2021-08-27 15:03:55
-keywords: iOS,Swift,SwiftUI,Swift学习,Swift进阶,Diving Into SwiftUI,初探SwiftUI
+keywords: 'iOS,Swift,SwiftUI,Swift学习,Swift进阶,Diving Into SwiftUI,初探SwiftUI'
 tags:
-    - [iOS]
-    - [Swift]
-    - [SwiftUI]
+  - - iOS
+  - - Swift
+  - - SwiftUI
 categories:
-    - [iOS]
-    - [Swift]
-    - [SwiftUI]
+  - - iOS
+  - - Swift
+  - - SwiftUI
+abbrlink: 18734
+date: 2021-08-27 15:03:55
 ---
 
 > “SwiftUI is an innovative, exceptionally simple way to build user interfaces across all Apple platforms with the power of Swift.”

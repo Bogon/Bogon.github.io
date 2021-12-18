@@ -3,14 +3,15 @@ title: Go mysql Tips
 description: Go mysql Tips
 permalink: Go mysql Tips
 copyright: true
-date: 2021-07-31 13:10:45
-keywords: linux,mysql,Linux,MySQL,MySQL学习,ubuntu,go
+keywords: 'linux,mysql,Linux,MySQL,MySQL学习,ubuntu,go'
 tags:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
 categories:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
+abbrlink: 37213
+date: 2021-07-31 13:10:45
 ---
 
 

@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (二十七) : 第四部分：高级主题 - 24、
 description: 'Swift Apprentice系列 (二十七) : 第四部分：高级主题 - 24、值类型和值语义'
 permalink: 'Swift Apprentice系列 (二十七) : 第四部分：高级主题 - 24、值类型和值语义'
 copyright: ture
-date: 2020-06-21 15:42:40
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [值类型和值语义]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 值类型和值语义
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 43243
+date: 2020-06-21 15:42:40
 ---
 
 Swift支持两种类型：*值类型和引用类型*。***结构和枚举是值类型，而类和函数是引用类型***。这些类型的行为不同。你期望值类型产生的行为是值语义的结果。当类型支持值语义时，你可以通过仅查看该变量来推断该变量的值，因为与其他变量的交互不会影响该变量。

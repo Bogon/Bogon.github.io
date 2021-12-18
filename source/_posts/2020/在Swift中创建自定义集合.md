@@ -3,21 +3,24 @@ title: 在Swift中创建自定义集合
 description: 在Swift中创建自定义集合
 permalink: 在Swift中创建自定义集合
 copyright: ture
-date: 2020-04-26 09:29:52
-keywords: iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design pattern,Collections,Collection
+keywords: >-
+  iOS,UIKit,设计模式,抽象,Swift,迭代器设计模式,重构,Iterator design
+  pattern,Collections,Collection
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [迭代器设计模式]
-    - [Collection]
-    - [Collections]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 迭代器设计模式
+  - - Collection
+  - - Collections
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 22411
+date: 2020-04-26 09:29:52
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 ```Swift``` 中创建对象或值的集合时，我们通常使用标准库提供的数据结构-例如 ```Array``` ，```Dictionary``` 和 ```Set``` 。 尽管这三个案例涵盖了大多数用例，但有时创建自定义包装器集合可以使你使代码更可预测，并且更不易出错。

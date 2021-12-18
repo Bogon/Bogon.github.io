@@ -3,16 +3,17 @@ title: iOS自动化布局编程
 description: iOS自动化布局编程
 permalink: iOS自动化布局编程
 copyright: ture
-date: 2020-04-26 19:42:40
-keywords: iOS,Swift,自动化布局,用户体验
+keywords: 'iOS,Swift,自动化布局,用户体验'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 64461
+date: 2020-04-26 19:42:40
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这个出色的 ```iOS Auto Layout``` 教程中，我将教你如何支持旋转，使用约束，使用图层以及设置拐角半径的动画。

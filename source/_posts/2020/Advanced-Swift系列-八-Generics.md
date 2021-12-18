@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(八): Generics'
 description: 'Advanced Swift系列(八): Generics'
 permalink: 'Advanced Swift系列(八): Generics'
 copyright: ture
-date: 2020-05-08 12:27:24
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Generics,泛型编程,多态
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Generics,泛型编程,多态'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Generics]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Generics
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 13494
+date: 2020-05-08 12:27:24
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; `泛型编程 `是**一种在保持类型安全的同时编写可重用代码的技术**。例如，标准库使用通用编程来使 `sort方法 `采用自定义比较器功能，同时确保比较器的参数类型与要排序的序列的元素类型匹配。同样，数组在其包含的元素种类上是通用的，以便提供用于访问和更改数组内容的类型安全的API。

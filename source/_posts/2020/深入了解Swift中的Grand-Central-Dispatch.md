@@ -3,16 +3,17 @@ title: 深入了解Swift中的Grand Central Dispatch
 description: 深入了解Swift中的Grand Central Dispatch
 permalink: 深入了解Swift中的Grand Central Dispatch
 copyright: ture
-date: 2020-04-30 15:02:22
-keywords: iOS,Swift,Grand Central Dispatch,multi-threading,Queues,tasks,groups
+keywords: 'iOS,Swift,Grand Central Dispatch,multi-threading,Queues,tasks,groups'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Grand Central Dispatch]
+  - - iOS
+  - - Swift
+  - - Grand Central Dispatch
 categories:
-    - [iOS]
-    - [Swift]
-    - [Grand Central Dispatch]
+  - - iOS
+  - - Swift
+  - - Grand Central Dispatch
+abbrlink: 24381
+date: 2020-04-30 15:02:22
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[***```Grand Central Dispatch```***](https://developer.apple.com/reference/dispatch "")（简称GCD）是大多数 ```Swift开发人员``` 使用无数次的基本技术之一。 它主要是因为能够在不同的并发队列上分派工作而闻名，并且经常用于编写如下代码：

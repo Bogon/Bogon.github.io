@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (二十三) : 第四部分：高级主题 - 20、
 description: 'Swift Apprentice系列 (二十三) : 第四部分：高级主题 - 20、模式匹配'
 permalink: 'Swift Apprentice系列 (二十三) : 第四部分：高级主题 - 20、模式匹配'
 copyright: ture
-date: 2020-06-21 13:18:34
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [模式匹配]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 模式匹配
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 55609
+date: 2020-06-21 13:18:34
 ---
 
 实际上，你已经看到了模式匹配的实际应用。 在第4章“高级控制流”中，使用switch语句在不同情况下匹配数字和字符串。 这是一个简单的示例，但是在该主题上还有很多值得探索的地方。

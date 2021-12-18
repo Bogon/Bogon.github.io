@@ -2,17 +2,18 @@
 title: Swift编写的20个iOS库(一)
 permalink: Swift编写的20个iOS库(一)
 copyright: ture
-date: 2020-04-30 17:37:45
-keywords: iOS,Swift,函数式编程,iOS库
+keywords: 'iOS,Swift,函数式编程,iOS库'
 description: Swift编写的20个iOS库(一)
 tags:
-    - [iOS]
-    - [Swift]
-    - [三方类库]
+  - - iOS
+  - - Swift
+  - - 三方类库
 categories:
-    - [iOS]
-    - [Swift]
-    - [三方类库]
+  - - iOS
+  - - Swift
+  - - 三方类库
+abbrlink: 14822
+date: 2020-04-30 17:37:45
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我在 ```github``` 上收集了最好的开源 ```Swift框架``` ，这些框架将帮助你在2020年加快移动应用程序的开发速度。更多精彩的类库持续更新中。

@@ -3,12 +3,16 @@ title: hexo部署失败
 description: hexo部署失败
 permalink: hexo部署失败
 copyright: true
-date: 2021-05-20 09:22:03
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,CFArray,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced Classes,面试题
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,CFArray,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced
+  Classes,面试题
 tags:
-    - [hexo]
+  - - hexo
 categories:
-    - [hexo]
+  - - hexo
+abbrlink: 37656
+date: 2021-05-20 09:22:03
 ---
 
 在升级 `Node` 之后，发现之前部署在 `github` 上的博客部署起来总是失败。错误主要是使用的 `hexo` 版本与 `Node` 版本不兼容。 

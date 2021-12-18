@@ -3,20 +3,20 @@ title: 揭秘 WordPress Hook 系统
 description: 揭秘 WordPress Hook 系统
 permalink: 揭秘 WordPress Hook 系统
 copyright: ture
-date: 2020-04-26 17:50:08
-keywords: iOS,UIKit,设计模式,抽象,Swift,模块,WordPress,重构,Hook
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,模块,WordPress,重构,Hook'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [Modules And Hooks]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - Modules And Hooks
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 29123
+date: 2020-04-26 17:50:08
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你一直在使用 ```WordPress``` 开发网站（包括插件和主题开发），那么你可能已经听说过以下术语：```挂钩```，```操作```和```过滤器```。 这些是 ```WordPress``` 使用的 [```事件驱动架构模式(英文：Event-driven architecture)```](https://en.wikipedia.org/wiki/Event-driven_architecture "") 的一部分。

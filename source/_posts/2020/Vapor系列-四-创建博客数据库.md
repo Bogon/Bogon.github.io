@@ -3,14 +3,19 @@ title: 'Vapor系列 (四) :  创建博客数据库'
 description: 'Vapor系列 (四) :  创建博客数据库'
 permalink: 'Vapor系列 (四) :  创建博客数据库'
 copyright: ture
-date: 2020-06-22 12:14:10
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor,Leaf,创建博客数据库
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello
+  Vapor,Leaf,创建博客数据库
 tags:
-    - [Vapor 4.0]
-    - [创建博客数据库]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - 创建博客数据库
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 60197
+date: 2020-06-22 12:14:10
 ---
 
 您将了解Fluent ORM框架以及使用此类工具而不是编写原始数据库查询的优势。 我们将设置由SQLite驱动程序支持的Fluent，并使用Swift中的属性包装器对数据库字段进行建模。 我们将为数据库提供种子，熟悉迁移脚本并在网站上进行一些更改，以便它可以查询本地数据库中的博客文章并使用Leaf呈现它们。

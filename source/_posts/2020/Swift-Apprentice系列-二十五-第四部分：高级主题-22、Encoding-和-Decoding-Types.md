@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、
 description: 'Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types'
 permalink: 'Swift Apprentice系列 (二十五) : 第四部分：高级主题 - 22、Encoding 和 Decoding Types'
 copyright: ture
-date: 2020-06-21 14:49:57
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Encoding & Decoding Types]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Encoding & Decoding Types
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 51658
+date: 2020-06-21 14:49:57
 ---
 
 在几种情况下，你需要将数据保存到文件或通过网络发送。 在本章中，你将学习如何通过将实例转换为另一种表示形式（例如字符串或字节流）来实现这些任务。 此过程称为编码，也称为序列化。

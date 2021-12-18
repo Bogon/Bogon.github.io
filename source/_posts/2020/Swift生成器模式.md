@@ -3,20 +3,20 @@ title: Swift生成器模式
 description: Swift生成器模式
 permalink: Swift生成器模式
 copyright: ture
-date: 2020-04-25 11:24:29
-keywords: iOS,UIKit,设计模式,初始化,Swift,生成器模式,重构
+keywords: 'iOS,UIKit,设计模式,初始化,Swift,生成器模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [生成器模式]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 生成器模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 18636
+date: 2020-04-25 11:24:29
 ---
 
 > 了解如何在Swift中实现生成器模式，以隐藏创建具有许多单独属性的对象的复杂性。

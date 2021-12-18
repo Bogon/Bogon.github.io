@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(九): Protocols'
 description: 'Advanced Swift系列(九): Protocols'
 permalink: 'Advanced Swift系列(九): Protocols'
 copyright: ture
-date: 2020-05-08 13:08:48
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型编程,多态
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Protocols,协议编程,泛型编程,多态'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Protocols]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Protocols
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 11230
+date: 2020-05-08 13:08:48
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当使用 `泛型类型 `时，我们经常想约束它们的 `泛型参数 `。将 `泛型 `与 `协议 `一起使用有许多不同的原因。以下是一些常见示例：

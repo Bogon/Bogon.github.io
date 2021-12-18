@@ -3,14 +3,15 @@ title: Go Protobuf 初探
 description: Go Protobuf 初探
 permalink: Go Protobuf 初探
 copyright: true
-date: 2021-11-12 09:43:36
-keywords: GO,Protobuf
+keywords: 'GO,Protobuf'
 tags:
-    - [GO]
-    - [Protobuf]
+  - - GO
+  - - Protobuf
 categories:
-    - [GO]
-    - [Protobuf]
+  - - GO
+  - - Protobuf
+abbrlink: 40682
+date: 2021-11-12 09:43:36
 ---
 
 # Go Protobuf 安装

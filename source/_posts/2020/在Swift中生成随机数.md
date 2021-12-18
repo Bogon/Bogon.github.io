@@ -2,18 +2,18 @@
 title: 在Swift中生成随机数
 permalink: 在Swift中生成随机数
 copyright: ture
-date: 2020-04-30 11:23:07
-keywords: iOS,Swift,random
+keywords: 'iOS,Swift,random'
 description: 在Swift中生成随机数
-
 tags:
-    - [iOS]
-    - [Swift]
-    - [random]
+  - - iOS
+  - - Swift
+  - - random
 categories:
-    - [iOS]
-    - [Swift]
-    - [random]
+  - - iOS
+  - - Swift
+  - - random
+abbrlink: 28554
+date: 2020-04-30 11:23:07
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用最新方法并涵盖一些旧技术，了解在 ```Swift``` 中生成随机值所需的一切。

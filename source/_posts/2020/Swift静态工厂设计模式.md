@@ -3,20 +3,20 @@ title: Swift静态工厂设计模式
 description: Swift静态工厂设计模式
 permalink: Swift静态工厂设计模式
 copyright: ture
-date: 2020-04-25 11:48:39
-keywords: iOS,UIKit,设计模式,初始化,Swift,工厂模式,重构
+keywords: 'iOS,UIKit,设计模式,初始化,Swift,工厂模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [工厂模式]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 工厂模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 49885
+date: 2020-04-25 11:48:39
 ---
 
 > &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本文中，我们一起看一下有关 [静态工厂设计模式](https://zh.wikipedia.org/wiki/%E5%B7%A5%E5%8E%82%E6%96%B9%E6%B3%95 "静态工厂设计模式") 的知识，并展示一些使用Swift编程语言的用例。

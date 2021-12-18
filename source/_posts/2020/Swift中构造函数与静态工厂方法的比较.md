@@ -3,22 +3,22 @@ title: Swift中构造函数与静态工厂方法的比较
 description: Swift中构造函数与静态工厂方法的比较
 permalink: Swift中构造函数与静态工厂方法的比较
 copyright: ture
-date: 2020-04-25 12:19:43
-keywords:  iOS,UIKit,设计模式,构造函数,Swift,静态工厂模式,重构
+keywords: 'iOS,UIKit,设计模式,构造函数,Swift,静态工厂模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [工厂模式]
-    - [构造函数]
-    - [静态工厂方法]
-
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 工厂模式
+  - - 构造函数
+  - - 静态工厂方法
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 21646
+date: 2020-04-25 12:19:43
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当实例化对象时，哪个更好：构造函数还是静态工厂方法？ 我们来看一看。

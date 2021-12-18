@@ -3,18 +3,21 @@ title: 'Swift Apprentice系列 (七) : 第二部分：Collection Types'
 description: 'Swift Apprentice系列 (七) : 第二部分：Collection Types'
 permalink: 'Swift Apprentice系列 (七) : 第二部分：Collection Types'
 copyright: ture
-date: 2020-05-12 18:02:08
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Collection Types]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Collection Types
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 26706
+date: 2020-05-12 18:02:08
 ---
 
 到目前为止，你基本上已经看到单个元素形式的数据。尽管元组可以包含多个数据，但你必须预先指定大小；具有三个字符串的元组与具有两个字符串的元组是完全不同的类型，并且在它们之间进行转换并不容易。在本部分中，你将了解Swift中的集合类型。集合是灵活的“容器”，可让你将任意数量的值存储在一起。

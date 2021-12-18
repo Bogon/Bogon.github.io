@@ -3,16 +3,17 @@ title: appleOS的Networking示例
 description: appleOS的Networking示例
 permalink: appleOS的Networking示例
 copyright: ture
-date: 2020-04-30 09:17:29
-keywords: iOS,Swift,架构,Bonjour,UDP/TCP sockets,streams,CoreBluetooth,watch APIs
+keywords: 'iOS,Swift,架构,Bonjour,UDP/TCP sockets,streams,CoreBluetooth,watch APIs'
 tags:
-    - [iOS]
-    - [Swift]
-    - [appleOS Networking]
+  - - iOS
+  - - Swift
+  - - appleOS Networking
 categories:
-    - [iOS]
-    - [Swift]
-    - [appleOS Networking]
+  - - iOS
+  - - Swift
+  - - appleOS Networking
+abbrlink: 59297
+date: 2020-04-30 09:17:29
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何将 ```Bonjour``` 与 ```UDP/TCP套接字```， ```streams``` 一起使用，以及如何通过 ```CoreBluetooth``` 或 ```watch API``` 进行通信。

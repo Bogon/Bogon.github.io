@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(五): Structs and Classes'
 description: 'Advanced Swift系列(五): Structs and Classes'
 permalink: 'Advanced Swift系列(五): Structs and Classes'
 copyright: ture
-date: 2020-05-07 09:22:01
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Structs,Classes
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Structs,Classes'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Structs and Classes]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Structs and Classes
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 25082
+date: 2020-05-07 09:22:01
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在设计数据类型时，`Swift`让我们在表面上看起来相似的两个替代方案之间进行选择：**结构和类**。 两者都可以具有存储和计算的属性，并且都可以具有在其上定义的方法。 此外，两者都具有初始化程序，我们可以在它们上定义扩展，并使它们符合协议。 有时，当我们将class关键字更改为struct或反之时，我们的代码甚至会继续编译。 但是，表面上的相似性具有欺骗性，因为结构和类具有根本不同的行为。

@@ -3,19 +3,19 @@ title: Swift 如何学习现代UIKit？
 description: Swift 如何学习现代UIKit？
 permalink: Swift 如何学习现代UIKit？
 copyright: ture
-date: 2020-04-28 16:31:06
-keywords: iOS,Swift,UIKit, 用户体验, 学习, 可重用, SwiftUI
+keywords: 'iOS,Swift,UIKit, 用户体验, 学习, 可重用, SwiftUI'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [SwiftUI]
-
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - SwiftUI
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [SwiftUI]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - SwiftUI
+abbrlink: 39306
+date: 2020-04-28 16:31:06
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与我一起采取第一步，学习如何使用 ```UIKit``` 框架构建用户界面。 在 ```Swift``` 中以编程方式编写，不适用 ```storyboards``` 。

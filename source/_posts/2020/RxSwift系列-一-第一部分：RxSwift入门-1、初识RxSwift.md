@@ -3,14 +3,15 @@ title: 'RxSwift系列(一): 第一部分：RxSwift入门 - 1、初识RxSwift'
 description: 'RxSwift系列(一): 第一部分：RxSwift入门 - 1、初识RxSwift'
 permalink: 'RxSwift系列(一): 第一部分：RxSwift入门 - 1、初识RxSwift'
 copyright: ture
-date: 2020-08-26 16:37:53
-keywords: iOS,Swift,RxSwift
+keywords: 'iOS,Swift,RxSwift'
 tags:
-    - [iOS]
-    - [RxSwift]
+  - - iOS
+  - - RxSwift
 categories:
-    - [iOS]
-    - [RxSwift]
+  - - iOS
+  - - RxSwift
+abbrlink: 14040
+date: 2020-08-26 16:37:53
 ---
 
 本书旨在向读者介绍RxSwift库并进行编写使用Swift的响应式iOS应用程序。但是RxSwift到底是什么？ 这是一个很好的定义：

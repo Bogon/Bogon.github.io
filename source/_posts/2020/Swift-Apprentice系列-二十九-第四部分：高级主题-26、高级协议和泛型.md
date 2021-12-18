@@ -3,18 +3,22 @@ title: 'Swift Apprentice系列 (二十九) : 第四部分：高级主题 - 26、
 description: 'Swift Apprentice系列 (二十九) : 第四部分：高级主题 - 26、高级协议和泛型'
 permalink: 'Swift Apprentice系列 (二十九) : 第四部分：高级主题 - 26、高级协议和泛型'
 copyright: ture
-date: 2020-06-21 16:46:48
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型
+keywords: >-
+  iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [高级协议和泛型]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 高级协议和泛型
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 31671
+date: 2020-06-21 16:46:48
 ---
 
 本章介绍协议和泛型的更高级用法。 在上一章中所学内容的基础上，你将使协议具有对Self的约束，其他关联类型甚至递归约束。

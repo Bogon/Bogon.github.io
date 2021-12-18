@@ -3,17 +3,18 @@ title: Swift结合Xib文件自定义UIView
 description: Swift结合Xib文件自定义UIView
 permalink: Swift结合Xib文件自定义UIView
 copyright: ture
-date: 2020-04-28 11:02:25
-keywords: iOS,Swift,Xib,用户体验, 自定义UIView
+keywords: 'iOS,Swift,Xib,用户体验, 自定义UIView'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自定义UIView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自定义UIView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 26698
+date: 2020-04-28 11:02:25
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你是否想学习如何加载 ```xib``` 文件以创建自定义视图对象？ 好吧，这个 ```UIKit``` 教程只适合你用 ```Swift``` 编写。

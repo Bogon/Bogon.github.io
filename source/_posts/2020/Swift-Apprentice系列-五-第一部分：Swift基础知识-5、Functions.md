@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Fu
 description: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions'
 permalink: 'Swift Apprentice系列 (五) : 第一部分：Swift基础知识 - 5、Functions'
 copyright: true
-date: 2020-05-12 16:48:17
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Functions
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Functions'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [Functions]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - Functions
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 20304
+date: 2020-05-12 16:48:17
 ---
 
 函数是许多编程语言的核心部分。 简而言之，函数可以让你定义执行任务的代码块。 然后，只要你的应用需要执行该任务，就可以运行该函数，而不必在各处复制和粘贴相同的代码。

@@ -3,14 +3,15 @@ title: 选择Swift而不是Objective-C的5个理由
 description: 选择Swift而不是Objective-C的5个理由
 permalink: 选择Swift而不是Objective-C的5个理由
 copyright: ture
-date: 2020-04-29 18:56:05
-keywords: iOS,Swift,架构,architecture,可重用,Objective-C
+keywords: 'iOS,Swift,架构,architecture,可重用,Objective-C'
 tags:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
 categories:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
+abbrlink: 55843
+date: 2020-04-29 18:56:05
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在进行 ```iOS开发``` 时，最大的问题之一是你应该使用 ```Objective-C``` 还是 ```Swift``` 。

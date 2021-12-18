@@ -3,15 +3,20 @@ title: 'Vapor系列 (五) :  使用session进行authentication'
 description: 'Vapor系列 (五) :  使用session进行authentication'
 permalink: 'Vapor系列 (五) :  使用session进行authentication'
 copyright: ture
-date: 2020-06-23 09:11:32
-keywords: iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding 和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello Vapor,Leaf,创建博客数据库,Authentication,Session
+keywords: >-
+  iOS,Swift,Swift Vapor,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
+  Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Enumerations,Protocols,Generics,访问控制和代码组织,自定义运算符，下标和键路径,模式匹配,错误处理,Encoding
+  和 Decoding Types,内存管理,值类型和值语义,面向协议编程(OOP),高级协议和泛型,Vapor4.0,Hello
+  Vapor,Leaf,创建博客数据库,Authentication,Session
 tags:
-    - [Vapor 4.0]
-    - [Authentication]
-    - [Session]
-    - [Swift 5.0]
+  - - Vapor 4.0
+  - - Authentication
+  - - Session
+  - - Swift 5.0
 categories:
-    - [Vapor 4.0]
+  - - Vapor 4.0
+abbrlink: 45480
+date: 2020-06-23 09:11:32
 ---
 
 在本章中，我们将集中精力构建基于会话的Web身份验证层。 用户将能够使用表单登录，并且将借助于会话cookie和使用Fluent的持久会话存储来检测已经登录的用户。 本章的最后一部分是关于重构我们的视图层，并为将在下一章中实现的更健壮的表单构建解决方案做准备。

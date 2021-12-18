@@ -2,15 +2,16 @@
 title: 为iOS应用构建输入表单
 permalink: 为iOS应用构建输入表单
 copyright: ture
-date: 2020-04-30 19:42:53
-keywords: iOS,Swift,输入表单,iOS库
+keywords: 'iOS,Swift,输入表单,iOS库'
 description: 为iOS应用构建输入表单
 tags:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
 categories:
-    - [iOS]
-    - [Swift]
+  - - iOS
+  - - Swift
+abbrlink: 45995
+date: 2020-04-30 19:42:53
 ---
 
 了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 ```Swift``` 。

@@ -3,17 +3,18 @@ title: 'Advanced Swift系列(一): Swift 简介'
 description: 'Advanced Swift系列(一): Swift 简介'
 permalink: 'Advanced Swift系列(一): Swift 简介'
 copyright: ture
-date: 2020-05-05 12:46:21
-keywords: iOS,Swift,Advanced Swift,Swift学习, Swift进阶
+keywords: 'iOS,Swift,Advanced Swift,Swift学习, Swift进阶'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 45779
+date: 2020-05-05 12:46:21
 ---
 
 # **简介**

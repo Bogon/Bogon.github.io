@@ -2,18 +2,18 @@
 title: iOS如何使用iCloud文档？
 permalink: iOS如何使用iCloud文档？
 copyright: ture
-date: 2020-04-30 09:38:51
-keywords: iOS,Swift,架构,iCloud,UDP/TCP sockets,streams,CoreBluetooth
+keywords: 'iOS,Swift,架构,iCloud,UDP/TCP sockets,streams,CoreBluetooth'
 description: iOS如何使用iCloud文档？
-
 tags:
-    - [iOS]
-    - [Swift]
-    - [iCloud]
+  - - iOS
+  - - Swift
+  - - iCloud
 categories:
-    - [iOS]
-    - [Swift]
-    - [iCloud]
+  - - iOS
+  - - Swift
+  - - iCloud
+abbrlink: 56522
+date: 2020-04-30 09:38:51
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用最新版本的 ```Swift编程语言``` 通过共享的 ```iCloud驱动器文件夹``` 同步文件和数据。

@@ -3,18 +3,19 @@ title: Swift UICollectionView使用指南
 description: Swift UICollectionView使用指南
 permalink: Swift UICollectionView使用指南
 copyright: ture
-date: 2020-04-27 10:56:48
-keywords: iOS,Swift,自动化布局,用户体验, UICollectionView,UICollectionViewCell,自适应
+keywords: 'iOS,Swift,自动化布局,用户体验, UICollectionView,UICollectionViewCell,自适应'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自适应布局]
-    - [UICollectionView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自适应布局
+  - - UICollectionView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 49488
+date: 2020-04-27 10:56:48
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 ```UICollectionView``` ，具有高度可重用性的 ```UIKit``` 组件和一些 ```MVVM``` 模式，而不会费力地进行索引路径计算。

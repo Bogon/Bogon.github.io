@@ -3,18 +3,19 @@ title: 'Swift Apprentice系列 (一) : 第一部分：Swift基础知识 - 1、�
 description: 'Swift Apprentice系列 (一) : 第一部分：Swift基础知识 - 1、表达式 变量和常量'
 permalink: 'Swift Apprentice系列 (一) : 第一部分：Swift基础知识 - 1、表达式 变量和常量'
 copyright: ture
-date: 2020-05-11 11:07:10
-keywords: iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,表达式、变量和常量
+keywords: 'iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,表达式、变量和常量'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
-    - [表达式、变量和常量]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+  - - 表达式、变量和常量
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Swift Apprentice]
+  - - iOS
+  - - Swift
+  - - Swift Apprentice
+abbrlink: 39155
+date: 2020-05-11 11:07:10
 ---
 
 在第一章中，你将学习一些基础知识。 你将首先了解代码的工作方式。 然后，你将了解用于编写`Swift代码`的工具。

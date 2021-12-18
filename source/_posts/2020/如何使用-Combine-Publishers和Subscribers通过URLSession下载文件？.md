@@ -3,16 +3,17 @@ title: 如何使用 Combine Publishers和Subscribers通过URLSession下载文件
 description: 如何使用 Combine Publishers和Subscribers通过URLSession下载文件？
 permalink: 如何使用 Combine Publishers和Subscribers通过URLSession下载文件？
 copyright: ture
-date: 2020-05-01 12:26:06
-keywords: iOS,Swift,Combine,Publishers,Subscribers,URLSession,下载文件
+keywords: 'iOS,Swift,Combine,Publishers,Subscribers,URLSession,下载文件'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Combine]
+  - - iOS
+  - - Swift
+  - - Combine
 categories:
-    - [iOS]
-    - [Swift]
-    - [Combine]
+  - - iOS
+  - - Swift
+  - - Combine
+abbrlink: 34807
+date: 2020-05-01 12:26:06
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 ```URLSessionDownloadTask``` 和 ```Swift``` 中的 ```Combine框架``` 将远程图像异步加载到 ```UIImageView``` 中。

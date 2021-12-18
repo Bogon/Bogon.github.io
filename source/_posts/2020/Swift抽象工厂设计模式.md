@@ -3,19 +3,20 @@ title: Swift抽象工厂设计模式
 description: Swift抽象工厂设计模式
 permalink: Swift抽象工厂设计模式
 copyright: ture
-date: 2020-04-25 15:26:13
-keywords: iOS,UIKit,设计模式,抽象,Swift,抽象工厂设计模式,重构
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,抽象工厂设计模式,重构'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [抽象工厂设计模式]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 抽象工厂设计模式
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 15740
+date: 2020-04-25 15:26:13
 ---
 
 >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们将工厂方法与简单的工厂外观结合起来：这是用Swift语言编写的抽象工厂设计模式！

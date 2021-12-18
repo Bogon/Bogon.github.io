@@ -3,18 +3,19 @@ title: 'Advanced Swift系列(四):  Functions'
 description: 'Advanced Swift系列(四):  Functions'
 permalink: 'Advanced Swift系列(四):  Functions'
 copyright: ture
-date: 2020-05-06 18:53:44
-keywords: iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Functions
+keywords: 'iOS,Swift,Advanced Swift,Swift学习,Swift进阶,Functions'
 tags:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
-    - [Functions]
-    - [Swift 5.0]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+  - - Functions
+  - - Swift 5.0
 categories:
-    - [iOS]
-    - [Swift]
-    - [Advanced Swift]
+  - - iOS
+  - - Swift
+  - - Advanced Swift
+abbrlink: 32092
+date: 2020-05-06 18:53:44
 ---
 
 # **总览**

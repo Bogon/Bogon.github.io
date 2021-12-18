@@ -3,14 +3,15 @@ title: MySQL 基本操作
 description: MySQL 基本操作
 permalink: MySQL 基本操作
 copyright: true
-date: 2021-05-29 08:31:41
-keywords: linux,mysql,Linux,MySQL,MySQL学习
+keywords: 'linux,mysql,Linux,MySQL,MySQL学习'
 tags:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
 categories:
-    - [MySQL]
-    - [数据库]
+  - - MySQL
+  - - 数据库
+abbrlink: 4800
+date: 2021-05-29 08:31:41
 ---
 
 ## 1.1 数据库的发展历史

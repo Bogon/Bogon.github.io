@@ -3,18 +3,19 @@ title: Swift支持旋转的自适应单元格
 description: Swift支持旋转的自适应单元格
 permalink: Swift支持旋转的自适应单元格
 copyright: ture
-date: 2020-04-27 10:12:39
-keywords: iOS,Swift,自动化布局,用户体验, UITableView,UITableViewCell,自适应
+keywords: 'iOS,Swift,自动化布局,用户体验, UITableView,UITableViewCell,自适应'
 tags:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
-    - [自适应布局]
-    - [UITableView]
+  - - iOS
+  - - Swift
+  - - UIKit
+  - - 自适应布局
+  - - UITableView
 categories:
-    - [iOS]
-    - [Swift]
-    - [UIKit]
+  - - iOS
+  - - Swift
+  - - UIKit
+abbrlink: 51182
+date: 2020-04-27 10:12:39
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如何在Swift中为表格视图和集合视图制作自定义大小的单元格，以支持方向更改和动态字体类型。

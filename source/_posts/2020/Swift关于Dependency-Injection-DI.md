@@ -3,20 +3,21 @@ title: Swift关于Dependency Injection (DI)
 description: Swift关于Dependency Injection (DI)
 permalink: Swift关于Dependency Injection (DI)
 copyright: ture
-date: 2020-04-25 17:13:51
-keywords: iOS,UIKit,设计模式,抽象,Swift,依赖注入设计模式,重构, dependency injection design pattern
+keywords: 'iOS,UIKit,设计模式,抽象,Swift,依赖注入设计模式,重构, dependency injection design pattern'
 tags:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
-    - [依赖注入设计模式]
-    - [Dependency Injection]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+  - - 依赖注入设计模式
+  - - Dependency Injection
 categories:
-    - [iOS]
-    - [设计模式]
-    - [UIKit]
-    - [Swift]
+  - - iOS
+  - - 设计模式
+  - - UIKit
+  - - Swift
+abbrlink: 11437
+date: 2020-04-25 17:13:51
 ---
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;```Swift``` 为我们许多人打开了函数式编程的世界。 但这仍然是面向对象的语言，而不是功能的语言。 我们的主要工具 ```Cocoa frameworks``` 是面向对象的。 因此，我们自己可能仍然会继续编写面向对象的代码。 这样做的问题是实际上很难编写设计良好的面向对象的代码。
