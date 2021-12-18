@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift关于Dependency Injection (DI)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift关于Dependency Injection (DI)">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift关于Dependency Injection (DI)">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/di-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/di-stp2.png">
+<meta property="article:published_time" content="2020-04-25T09:13:51.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.195Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="UIKit">
+<meta property="article:tag" content="设计模式">
+<meta property="article:tag" content="抽象">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="依赖注入设计模式">
+<meta property="article:tag" content="重构">
+<meta property="article:tag" content=" dependency injection design pattern">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/di-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift关于Dependency Injection (DI) | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift关于Dependency Injection (DI)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-25 17:13:51" itemprop="dateCreated datePublished" datetime="2020-04-25T17:13:51+08:00">2020-04-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" itemprop="url" rel="index"><span itemprop="name">设计模式</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>18k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>16 分钟</span>
+            </span>
+            <div class="post-description">Swift关于Dependency Injection (DI)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 为我们许多人打开了函数式编程的世界。 但这仍然是面向对象的语言，而不是功能的语言。 我们的主要工具 <code>Cocoa frameworks</code> 是面向对象的。 因此，我们自己可能仍然会继续编写面向对象的代码。 这样做的问题是实际上很难编写设计良好的面向对象的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有很多不同的设计原则，例如 <code>SOLID</code> ，<code>KISS</code> ，<code>DRY</code> 等（ <code>YAGNI</code> ， <code>RAP</code> ，<code>CQS</code> ），甚至更多的设计模式。 至少对于我来说，有这么多不同的原理和模式这一事实意味着，即使有可能，良好的面向对象设计也很难。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依赖注入本身不是我刚才提到的 <code>SOLID</code> 原则的一部分。 但这与他们所有人息息相关。 不幸的是，依赖注入的概念被许多误解所包围。</p>
+<a id="more"></a>
+
+
+<blockquote>
+<p>维基百科为我们提供了非常复杂的定义：<br>“在软件工程中，依赖性注入是一种软件设计模式，可实现控制反转以解决依赖性。”  - <code>Wikipedia</code></p>
+</blockquote>
+<blockquote>
+<p>还有几句话……相反，一些开发人员说依赖注入只是传递一个实例变量。<br>“依赖注入实际上只是传递一个实例变量。”  - <code>James Shore</code></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他人则认为这是某种奇巧淫技，需要使用复杂而缓慢的框架，或者它仅与测试有关，只会使代码更难以理解。 我会说所有这些都是对依赖注入的误解。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我将尽我所能使其更加清晰，并展示我对依赖注入的了解。 我将尝试展示如何进行依赖注入。 不仅如此，我们不应该这样做。</p>
+</br>
+
+<h1 id="为什么要依赖注射？"><a href="#为什么要依赖注射？" class="headerlink" title="为什么要依赖注射？"></a><strong>为什么要依赖注射？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，让我们看看依赖注入首先要解决的问题。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编程中，我们总是必须处理不同种类和级别的抽象。他们无处不在。接口，方法，闭包，甚至是具体的类型和变量名称-它们都是抽象的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了实现良好的代码设计，使用适当的抽象非常重要，因为它们会使我们的代码松散耦合。这意味着我们代码的不同组件可以替换为其他实现，而不会影响其他组件。当我们的代码松散耦合时，它变得更容易测试，更容易扩展，更容易重用，更容易并行开发。所有这些使维护变得更容易。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;松耦合代码是依赖注入的主要目标。它使我们能够编写松耦合的代码。因此，它使测试，扩展和重用代码变得更加容易。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;很多时候，仅在单元测试中讨论依赖注入。实际上，它极大地提高了可测试性，尤其是在 <code>Swift</code> 中。但是实际情况要广泛得多。如果我们的最终目标不仅是对某些类进行单元测试，还需要松散的耦合并使代码可维护，那么我们将需要付出更多的努力，而不仅仅是传递实例变量。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管从本质上讲，依赖注入实际上是关于传递实例变量，或者说将依赖传递给它们的使用者更好。这是第一步，也是每个第一步中最重要的一步。但这只是一个故事的一部分。还有第二步，甚至第三步。这些步骤使仅传递变量和依赖注入之间有所不同。</p>
+</br>
+
+<h1 id="依赖注射模式"><a href="#依赖注射模式" class="headerlink" title="依赖注射模式"></a><strong>依赖注射模式</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们从第一步开始。 有几种模式可以将依赖关系传递给消费者：</p>
+<ul>
+<li>构造函数注入</li>
+<li>属性注入</li>
+<li>方法注入</li>
+<li>环境语境</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看看来自 <code>Cocoa frameworks</code> 的示例的使用。</p>
+</br>
+
+<h1 id="CONSTRUCTOR注入"><a href="#CONSTRUCTOR注入" class="headerlink" title="CONSTRUCTOR注入"></a><strong>CONSTRUCTOR注入</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是从 <strong><code>CoreData</code></strong> 注入构造函数的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">NSPersistentStore</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(</span><br><span class="line">        persistentStoreCoordinator root: <span class="type">NSPersistentStoreCoordinator?</span>, </span><br><span class="line">        configurationName name: <span class="type">String?</span>, </span><br><span class="line">        <span class="type">URL</span> url: <span class="type">NSURL</span>, </span><br><span class="line">        options: [<span class="type">NSObject</span>: <span class="type">AnyObject</span>]?</span><br><span class="line">    )</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">var</span> persistentStoreCoordinator: <span class="type">NSPersistentStoreCoordinator?</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，持久性存储协调器的实例与其他一些参数一起传递给 <code>NSPersistentStore</code> 的构造函数。 然后，对协调器的引用将被存储，并且在运行时无法更改。</p>
+<blockquote>
+<p>通过构造函数注入，我们将依赖项作为构造函数参数传递并将其存储在只读属性中。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管在 <code>Cocoa frameworks</code> 中没有太多构造函数注入的示例，但这是注入依赖关系的首选方法。 因为它是最容易实现的，所以可以确保始终存在依赖项，并且在运行时不会更改依赖项，这使它更加安全。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是在某些情况下，构造函数注入是不可能的或不合适的。 在这些情况下，我们应该使用属性注入。</p>
+</br>
+
+<h1 id="属性注入"><a href="#属性注入" class="headerlink" title="属性注入"></a><strong>属性注入</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何 <code>iOS</code> 应用程序中到处都有这种模式。 例如，委托模式通常使用属性注入来实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIViewController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">weak</span> <span class="keyword">public</span> <span class="keyword">var</span> transitioningDelegate: <span class="type">UIViewControllerTransitioningDelegate?</span></span><br><span class="line">            </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，这里的视图控制器公开了用于转换委托的可写属性，如果要覆盖 <code>dafault</code> 行为，我们可以随时更改它。</p>
+<blockquote>
+<p>使用属性注入，消费者通过可写属性获得其依赖关系，该属性也具有一些默认值。</p>
+</blockquote>
+</br>
+
+<h1 id="本地和外部默认设置"><a href="#本地和外部默认设置" class="headerlink" title="本地和外部默认设置"></a><strong>本地和外部默认设置</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果存在良好的本地默认依赖关系，则应使用属性注入。 “本地”表示在同一模块中定义。 nil也是理想的本地默认值，它只是使依赖项成为可选项。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当实现来自单独的模块时，它是外来的。然后，我们不应将其用作默认值。而且我们不应该将属性注入用于这种依赖性。相反，我们应该使用构造函数注入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想象一下，传递委托的默认实现不是在 <code>UIKit</code> 中定义的，而是在其他框架中定义的。然后，即使我们从不使用此 <code>API</code> ，也始终需要链接到该框架。 <code>UIKit</code> 与该框架紧密结合。它拖延了这种无用的依赖性。我们自己的代码也会发生同样的情况，这将使重用变得更加困难。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与构造函数注入属性注入进行比较可能更容易理解，并且使我们的 <code>API</code> 看起来更灵活。但是与此同时，它可能更难以实现，并使我们的代码更脆弱。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我们需要适当的默认实现或以适当的方式处理可选值，这可能会导致带有可选包装的可选代码混乱。其次，我们不能将属性定义为不可变的。因此，如果我们不想在设置后就对其进行更改，则需要确保在运行时而不是在编译时进行更改。另外，我们可能需要同步对其进行访问，以防止出现线程问题。由于这些原因，如果我们可以使用构造函数注入，那么我们应该首选属性注入。</p>
+</br>
+
+<h1 id="方法注入"><a href="#方法注入" class="headerlink" title="方法注入"></a><strong>方法注入</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下一个模式，方法注入，就像将参数传递给方法一样简单。 例如，这里是 <code>NSCoding</code> 协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">NSCoding</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">encodeWithCoder</span><span class="params">(aCoder: NSCoder)</span></span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每次将该方法称为不同的实例，甚至可以将 <code>NSCoder</code> 的实现作为参数传递。</p>
+<blockquote>
+<p>使用方法注入依赖关系作为参数传递给方法。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当依赖关系随每个方法调用而变化时，或者当依赖关系是暂时的并且不需要在方法范围之外保持对它的引用时，通常使用方法注入。</p>
+<h1 id="AMBIENT-CONTEXT"><a href="#AMBIENT-CONTEXT" class="headerlink" title="AMBIENT CONTEXT"></a><strong>AMBIENT CONTEXT</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后一种模式-环境上下文-在 <code>Cocoa</code> 中很难找到。 <code>NSURLCache</code> 可能是最接近的示例。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NSURLCache</span> : <span class="title">NSObject</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">setSharedURLCache</span>(<span class="title">cache</span>: <span class="title">NSURLCache</span>)</span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">    <span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">sharedURLCache</span>() -&gt; <span class="title">NSURLCache</span></span></span><br><span class="line"><span class="class">    </span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，在这里我们可以将 <code>NSURLCach</code> 的任何子类设置为共享实例，然后使用静态 <code>getter</code> 访问它。 这是它与不可写的单例的主要区别。</p>
+<blockquote>
+<p>使用静态方法或具有某些默认值的静态可写属性来实现AMBIENT CONTEXT。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此模式仅应用于表示一些跨领域关注点的真正通用依赖项，例如日志记录，无性，访问时间和日期等。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>AMBIENT CONTEXT</code> 有其自身的优势。 它使依赖关系始终可访问，并且不会污染 <code>API</code>。 非常适合跨领域的关注。 但是在其他情况下，它并不能证明其缺点。 它使依赖关系隐式化，并表示可能不是您想要的全局可变状态。</p>
+<p>因此，如果依赖性不是真正通用的，那么我们应该考虑使用其他DI模式。</p>
+<h1 id="关注点分离"><a href="#关注点分离" class="headerlink" title="关注点分离"></a><em><strong>关注点分离</strong></em></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会注意到，所有这些模式都非常简单，它们共享一个共同的原则-关注点分离。我们从依赖的使用者中消除了几项责任：使用什么具体实现，如何配置它以及如何管理其生命周期。这使我们可以轻松地在不同的上下文或测试中替换依赖关系，更改其生存期策略，例如使用共享或单独的实例，或更改依赖关系的构造方式。所有这些都无需改变其消费者。这使消费者不再依赖于它们，从而使它们更易于重用，扩展，开发和测试。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这些模式的明显副作用是，现在我们代码的每个用户都需要提供其定义。但是他们如何得到它们？如果他们直接创建它们，那么它们将与那些依赖关系紧密地联系在一起。因此，我们只是将问题移到另一个地方。这个问题将我们带到了所谓的“合成根”（Compound Root）问题上。</p>
+</br>
+
+<h1 id="COMPOSITION-ROOT"><a href="#COMPOSITION-ROOT" class="headerlink" title="COMPOSITION ROOT"></a><strong>COMPOSITION ROOT</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>COMPOSITION ROOT</code> 是将应用程序不同层的组件连接在一起的地方。 拥有复合根的主要目的是将配置逻辑与我们其余的代码分开，并以通用的方式在定义明确的位置进行配置。 拥有一段代码，单个职责就是配置其他组件。 创建依赖关系并将其注入到构造函数或属性中只能在“合成根目录”中完成。</p>
+<p><img src="http://cdn.xuebaonline.com/di-stp1.png" alt="COMPOSITION ROOT"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 理想情况下，应用程序中应该有一个<code>COMPOSITION ROOT</code>，并且它应该靠近应用程序入口点。 就像这张图一样。 但是不必使用单个方法或类来实现。 它可以包含所需的多个类和方法，直到它们在同一组件层中在一起为止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 这是VIPER示例应用程序中 <code>COMPOSITION ROOT</code> 的示例实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDependencies</span> </span>&#123;</span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        configureDependencies()</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">configureDependencies</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="comment">// Root Level Classes</span></span><br><span class="line">        <span class="keyword">let</span> coreDataStore = <span class="type">CoreDataStore</span>()</span><br><span class="line">        <span class="keyword">let</span> clock = <span class="type">DeviceClock</span>()</span><br><span class="line">        <span class="keyword">let</span> rootWireframe = <span class="type">RootWireframe</span>()</span><br><span class="line">        </span><br><span class="line">        <span class="comment">// List Module Classes</span></span><br><span class="line">        <span class="keyword">let</span> listPresenter = <span class="type">ListPresenter</span>()</span><br><span class="line">        <span class="keyword">let</span> listDataManager = <span class="type">ListDataManager</span>()</span><br><span class="line">        <span class="keyword">let</span> listInteractor = <span class="type">ListInteractor</span>(dataManager: listDataManager, clock: clock)</span><br><span class="line">        ...    </span><br><span class="line">        listInteractor.output = listPresenter</span><br><span class="line">        listPresenter.listInteractor = listInteractor</span><br><span class="line">        listPresenter.listWireframe = listWireframe</span><br><span class="line">        listWireframe.addWireframe = addWireframe</span><br><span class="line">        ...</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们有一些根类，仅管理窗口根视图控制器的根线框以及一些待办事项列表的单独组件，例如演示者，交互器，线框。 然后，我们将它们全部连接在一起。 它全部在一类中实现。 我们使用此类的唯一地方是应用程序委托：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@UIApplicationMain</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AppDelegate</span>: <span class="title">UIResponder</span>, <span class="title">UIApplicationDelegate</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> window: <span class="type">UIWindow?</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">let</span> appDependencies = <span class="type">AppDependencies</span>()</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">application</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">        application: UIApplication, </span></span></span><br><span class="line"><span class="function"><span class="params">        didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        </span><br><span class="line">        appDependencies.installRootViewControllerIntoWindow(window!)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们首先创建依赖项类，它将配置所有组件并将它们连接在一起。 然后，我们只调用一个在窗口中设置根视图控制器的方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，将通过一个调用在此处创建整个对象图，并且稍后将在运行时创建的唯一对象是视图控制器和视图。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，关于DI的文章或讨论中通常不会讨论不幸的成分根。 但这可能是依赖注入的最重要部分之一。 如果我们能够做到这一点，我们已经走了很长一段路。</p>
+<blockquote>
+<p>正确实现DI的最大挑战是将所有具有依赖项的类移至Composition Root。 - Mark Seeman</p>
+</blockquote>
+<h1 id="反模式"><a href="#反模式" class="headerlink" title="反模式"></a><strong>反模式</strong></h1><p>但是，由于在尝试正确实现某些模式时经常会发生这种情况，因此我们很容易以反模式结束。 因此，现在让我们进入黑暗的一面，看看什么是常见的DI反模式。</p>
+<h1 id="控制怪胎"><a href="#控制怪胎" class="headerlink" title="控制怪胎"></a><strong>控制怪胎</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一个是控制狂。 那就是当我们根本不使用DI的时候。 依赖项的使用者何时控制创建依赖项的方式和时间。 每当使用者在 <code>Composition Root</code> 之外的任何地方使用构造函数直接或间接获得依赖项时，都会发生这种情况。 例如，在其自己的构造函数中或仅在需要时使用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecipesService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> repository: <span class="type">RecipesRepository</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">self</span>.repository = <span class="type">CoreDataRecipesRepository</span>()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这是否意味着根本不允许我们使用构造函数？ 当然不是。 这取决于我们构建的依赖类型。</p>
+<h1 id="稳定和波动的依赖"><a href="#稳定和波动的依赖" class="headerlink" title="稳定和波动的依赖"></a><strong>稳定和波动的依赖</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;它们有两种-稳定的和易变的。当涉及到稳定的依赖关系时，我们不必担心直接在其使用者内部构造它们。但是我们应该避免对不稳定的依赖项这样做。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;什么是易失性依赖项？需要某种特定环境设置（例如数据库或网络访问）的任何依赖项。实现不确定性行为的依赖项是易变的，例如，如果它们使用随机数，依赖于时间或实现加密，则它们是易变的。当我们期望依赖项将被替换或者由于它是并行开发而尚未准备就绪时，它也是易变的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;易失性依赖项的症状是它们禁用了一些宽松的耦合好处。如果依赖关系不允许我们并行测试，扩展，重用或开发我们的代码，则应将其视为易变的。否则，它是一个稳定的依赖项。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，首先，我们需要了解依赖项是易失性还是​​稳定的，并在其易失性时使用“依赖项注入”模式注入它。</p>
+<h1 id="Bastard-注入"><a href="#Bastard-注入" class="headerlink" title="Bastard 注入"></a><strong>Bastard 注入</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下一个反模式称为 <code>Bastard</code> 注入。 当我们有让我们为测试提供依赖关系的构造函数以及在生产中使用默认实现的另一个构造函数时，就会发生这种情况。 在 <code>Swift</code> 中，我们可以使用以下示例中的默认参数轻松地做到这一点。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecipesService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> repository: <span class="type">RecipesRepository</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(repository: <span class="type">RecipesRepository</span> = <span class="type">CoreDataRecipesRepository</span>()) &#123;</span><br><span class="line">        <span class="keyword">self</span>.repository = repository</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从某一方面来看，这种模式提高了可测试性。 这种反模式的问题是使用默认的外部默认值-在其他模块中定义。 这使我们的代码可测试，但与另一个模块紧密耦合。 如果默认实现是本地的，则此反模式的影响会小得多。 也许最好将其重构为属性注入。 但是，当默认实现是外部实现时，我们应该使用构造函数注入，并且不要为此参数提供默认值。 相反，我们应该在 <code>“Composition Root”</code> 中提供它。 这样我们就不会失去任何灵活性，而是避免与另一个模块紧密耦合。</p>
+<h1 id="服务定位器"><a href="#服务定位器" class="headerlink" title="服务定位器"></a><strong>服务定位器</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我要讨论的最后一个反模式是服务定位器。 服务定位器是某些服务的通用名称，我们可以查询以前在其中注册的不同对象。 这是最棘手的反模式，因为它可以使我们感到一切都很好。 许多开发人员甚至根本不认为它是反模式。 但是 <code>Service Locator</code> 实际上与依赖注入相反。</p>
+<p>让我们看一个例子：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> locator = <span class="type">ServiceLocator</span>.sharedInstance</span><br><span class="line"></span><br><span class="line">locator.register( &#123; <span class="type">CoreDataRecipesRepository</span>() &#125;, </span><br><span class="line">                    forType: <span class="type">RecipesRepository</span>.<span class="keyword">self</span>)</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RecipesService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> repository: <span class="type">RecipesRepository</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>() &#123;</span><br><span class="line">        <span class="keyword">let</span> locator = <span class="type">ServiceLocator</span>.sharedInstance</span><br><span class="line">        <span class="keyword">self</span>.repository = locator.resolve(<span class="type">RecipesRepository</span>.<span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在此示例中，我们提供了一些可以使用静态属性访问的服务。然后，对于我们的依赖关系类型，我们注册一个产生一些具体实例的工厂。然后，我们在需要时向此服务询问我们的依赖关系，而不是使用构造函数或属性注入。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;似乎 <code>Service Locator</code> 提供了依赖注入的所有好处。它提高了可扩展性和可测试性，因为我们可以注册依赖的另​​一种实现而无需更改其使用者。它将配置与使用分开，还支持并行开发。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是它没有几个主要缺点。它使依赖项隐式而不是显式，从而隐藏了真实类的复杂性。为了能够使用此类，我们现在需要了解其内部详细信息。我们没有看到它的依赖关系，只会在运行时或通过检查其实现或文档来找到它们的依赖关系。借助服务定位器，我们的代码也与之紧密结合。这完全破坏了可重用性，并使代码的可维护性降低。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于这些原因，我倾向于认为 <code>Service Locator</code> 是一种反模式。而不是使用它，我们应该显式定义依赖项，使用 <code>DI</code> 模式注入它们，并使用 <code>Composition Root</code> 将它们连接在一起。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们总结一下到那时为止我们已经讨论过的内容。我们讨论了依赖注入用于实现松散耦合，这使我们的代码更易于维护。我们讨论了不同的 <code>DI</code> 模式，其中应该优先选择构造函数注入。我们讨论了什么是本地和外部依赖关系以及什么是稳定和易失性依赖关系。我们还讨论了应避免的常见 <code>DI</code> 反模式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这一点上，我们使用 <code>DI</code> 模式将依赖关系明确化，并将所有配置移到了 <code>Composition Root</code> 中，这已经是我们实现目标的一大步-松散耦合。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是我们的代码还没有完全耦合。下一步是使用抽象对依赖关系进行建模。让我们记住 <code>SOLID</code> 原则之一。</p>
+</br>
+
+<h1 id="依赖反转原理（DIP）"><a href="#依赖反转原理（DIP）" class="headerlink" title="依赖反转原理（DIP）"></a><strong>依赖反转原理（DIP）</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;依赖反转原则说，高级代码不应依赖于低级代码，它们都应依赖于抽象，而抽象不应依赖于细节。关键是该类及其依赖项应处于相同的抽象级别。如果我们有一些服务，它不应该依赖于具体的API存储库或数据库存储库，因为它们属于较低层。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，我们不应依赖通过 <code>Alamofire</code> 实现的 <code>API</code> 存储库或通过 <code>CoreData</code> 或 <code>Realm</code> 实现的数据库存储库。因为这将使我们的代码与特定的实现紧密结合。相反，我们应该依靠更高级别的抽象。服务和存储库都应依赖于该抽象。因此，较高和较低级别之间的依赖性方向是相反的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们应该遵循这一原则来松散耦合代码。依赖注入不仅是我们之前讨论的模式。它要求同时应用模式和依赖倒置原则。没有这些，我们将无法获得松耦合的所有好处。</p>
+<blockquote>
+<p><em><strong>DI = DI patterns + DIP</strong></em></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常说，松散耦合是通过针对接口而不是针对实现进行编程来实现的。</p>
+<blockquote>
+<p><em><strong>编程到接口而不是实现（设计模式：可重用的面向对象软件的元素</strong></em>）</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是依赖倒置原则说它不是关于接口，而是关于抽象。 松耦合并不意味着到处都有接口或协议。 因为并非总是接口是好的和可重用的抽象。</p>
+<blockquote>
+<p><em><strong>编程为 <del>接口</del> 抽象</strong></em></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接口（或协议）只是一种我们可以用来对抽象进行建模的语言构造。 这是我们的代码与之通信的一种方式。 但这并不能保证良好和可重用的抽象，这是松散耦合的关键。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基类有时可以和协议一样好的抽象。 当然，大多数时候我们可能会使用协议对抽象进行建模。 但是在各处引入协议时要小心。 它可能是不需要的独立级别。 在Swift协议中，有时会比较麻烦。</p>
+<blockquote>
+<p><em><strong>Interfaces are not abstractions - Mark Seeman</strong></em> </p>
+</blockquote>
+<p><img src="http://cdn.xuebaonline.com/di-stp2.png" alt="Interfaces&amp;&amp;abstractions"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你在构造函数中传递依赖项或使用属性或方法注入时-您应将其作为抽象传递（同样，不必使用协议）。 如果使用 <code>ambinet </code>上下文，则相同。 它不仅是一些共享的静态实例，还应该是抽象的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，依赖注入和松散耦合不仅可以通过依赖注入模式来实现，而且可以通过依赖反转原理以及使用抽象对依赖关系进行建模来实现。</p>
+</br>
+
+<h1 id="控制和DI容器的反转"><a href="#控制和DI容器的反转" class="headerlink" title="控制和DI容器的反转"></a><strong>控制和DI容器的反转</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，使用另一种设计原则，我们还可以采取进一步的措施。该原理称为控制反转。通常将其视为框架的定义特征。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们使用库时，流程是“正常的”，我们从代码中调用库。但是在框架的情况下，它是倒置的-框架使用不同的回调方法调用我们的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;并且我们可以将这一原理应用于使用特殊框架来管理依赖项。通常，这些框架称为依赖注入容器。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有许多不同的容器可用。实际上，大多数人可能甚至不知道使用了一个DI容器。它是 <code>Interface Builder</code> 。在 <code>Interface Builder</code> 中，我们可以通过接口或基类使用 <code>@IBOutlet</code> 拖放任何 <code>NSObject</code> 并对其进行引用。与视图控制器相同。我们可以将情节提要和 <code>Xibs</code> 视为视图控制器的工厂。 <code>Interface Builder</code>是 <code>XML</code> 配置样式的示例。当然，它不是功能齐全的 <code>DI</code> 容器，也不是其主要目标，但仍然可以用于该目的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你访问 <code>CocoaPods</code> 并搜索“依赖注入”，则会发现很多不同的开源 <code>DI</code> 容器。也许甚至太多了。但是你会注意到，其中只有少数成功和流行。让我们简短地看一下其中的两个-一个来自 <code>Objective-C</code> ，另一个来自 <code>Swift</code> 。</p>
+</br>
+
+<h1 id="TYPHOON"><a href="#TYPHOON" class="headerlink" title="TYPHOON"></a><strong>TYPHOON</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一个是 <em><strong><a href="http://typhoonframework.org/" target="_blank" rel="noopener"><code>Typhoon</code></a></strong></em> ，它可能是 <code>Cocoa</code> 开发者中最受欢迎的DI容器。 它具有相对简单且文档齐全的 <code>API</code> ，具有许多强大的功能。 它得到了良好的维护和支持，并且仍将继续改进。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就 <code>API</code> <code>Typhoon</code> 而言，构件是称为程序集的对象。 这是此类装配接口的示例。 它看起来像一个简单的工厂。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">APIClientAssembly</span>: <span class="title">TyphoonAssembly</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">apiClient</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123; </span><br><span class="line">        ... </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123; </span><br><span class="line">        ... </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">logger</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123; </span><br><span class="line">        ... </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是在实现中，不是返回某种类型的具体实例（如从工厂方法中返回），而是返回 <code>TyphoonDefinition</code> ，它描述了在请求实例时应如何创建该实例。 应该使用什么初始化以及使用什么参数，应该注入什么属性。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">apiClient</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">TyphoonDefinition</span>.withClass(<span class="type">APIClientImp</span>.<span class="keyword">self</span>) &#123; definition <span class="keyword">in</span></span><br><span class="line">        </span><br><span class="line">        definition.useInitializer(#selector(<span class="type">APIClientImp</span>.<span class="keyword">init</span>(session:))) &#123;</span><br><span class="line">            initializer <span class="keyword">in</span></span><br><span class="line">            </span><br><span class="line">            initializer.injectParameterWith(<span class="keyword">self</span>.session())</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        definition.injectProperty(<span class="string">"logger"</span>, with: <span class="keyword">self</span>.logger())</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，我们定义 <code>API Client</code> 将使用 <code>init（session :)</code> 构造函数创建，并且其 <code>session</code> 参数将由同一程序集提供。 我们还定义了将由同样的程序集提供的 <code>logger</code> 实例注入 <code>logger</code> 属性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以为组件定义不同的范围或生命周期策略。 例如，对于 <code>Singleton</code> 范围， <code>Typhoon</code> 将仅创建一个 <code>logger</code> 实例。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">session</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">TyphoonDefinition</span>.withClass(<span class="type">NSURLSession</span>.<span class="keyword">self</span>) &#123; definition <span class="keyword">in</span></span><br><span class="line">        definition.useInitializer(#selector(<span class="type">NSURLSession</span>.sharedSession))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">    </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">dynamic</span> <span class="function"><span class="keyword">func</span> <span class="title">logger</span><span class="params">()</span></span> -&gt; <span class="type">AnyObject</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">TyphoonDefinition</span>.withClass(<span class="type">ConsoleLogger</span>.<span class="keyword">self</span>) &#123; definition <span class="keyword">in</span></span><br><span class="line">        definition.scope = .<span class="type">Singleton</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要从程序集中获取某种类型的实例，我们首先将其激活，然后仅调用其接口方法。 激活后，组装方法将不返回 <code>TyphoonDefinitions</code> ，而是返回根据我们提供的规则创建的实例。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> assembly = <span class="type">APIClientAssembly</span>().activate()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> apiClient = assembly.apiClient() <span class="keyword">as</span>! <span class="type">APIClient</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;为了使这项工作有效， <code>Typhoon</code> 大量使用了 <code>Objective-C</code> 运行时。 <code>在使用Objective-C</code> 运行时的 <code>Swift</code> 应用程序中看起来并不正确。 我们仍然可以在 <code>Swift</code> 以及 <code>Objective-C</code> 中使用 <code>Typhoon</code> 。 但是，我们将面临一些问题：</p>
+<ul>
+<li>需要子类 <code>NSObject</code> 并使用 <code>@objc</code> 定义协议</li>
+<li>注射过程中调用的方法应该是动态的</li>
+<li>需要类型转换</li>
+<li>并非所有功能都可以在 <code>Swift</code> 中使用</li>
+<li><code>Swift</code> 的 <code>API</code> 太冗长</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Typhoon</code> 团队最近宣布，他们开始着手于纯粹的 <code>Swift</code> 实施，而我迫不及待地想看看他们会提出什么建议。 但是现在我不会在纯 <code>Swift</code> 代码库中以当前状态使用 <code>Typhoon</code> 。 尤其是当本机解决方案已经很少时。</p>
+<h1 id="DIP"><a href="#DIP" class="headerlink" title="DIP"></a><strong>DIP</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><strong><a href="https://github.com/AliSoftware/Dip" target="_blank" rel="noopener"><code>Dip</code></a></strong></em> 是其中之一。 它仅在 <code>Swift</code> 中工作，根本不需要 <code>Objective-C</code> 运行时。 实际上，它甚至没有对 <code>Foundation</code> 的引用，因此我们可以在可以使用 <code>Swift</code> 的任何平台上使用它。 它也是类型安全的，与 <code>Typhoon</code> 相比实现起来并不复杂。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 就 <code>API</code> 而言，它采用的方法对于其他平台上的 <code>DI</code> 容器而言更为传统，并遵循“注册解析”模式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是我们用于 <code>Typhoon</code> 的相同示例。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> container = <span class="type">DependencyContainer</span>()</span><br><span class="line"></span><br><span class="line">container.register &#123; </span><br><span class="line">    <span class="keyword">try</span> <span class="type">APIClientImp</span>(session: container.resolve()) <span class="keyword">as</span> <span class="type">APIClient</span> </span><br><span class="line">&#125;</span><br><span class="line">.resolveDependencies &#123; container, client <span class="keyword">in</span></span><br><span class="line">    client.logger = <span class="keyword">try</span> container.resolve()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">container.register &#123; <span class="type">NSURLSession</span>.sharedSession() <span class="keyword">as</span> <span class="type">NetworkSession</span> &#125;</span><br><span class="line">container.register(.<span class="type">Singleton</span>) &#123; <span class="type">ConsoleLogger</span>() <span class="keyword">as</span> <span class="type">Logger</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，我们将 <code>APIClientImp</code> 注册为 <code>APIClient</code> 协议的实现。 容器还将解析构造器参数，并且在创建实例时将设置 <code>logger</code> 属性。 对于会话参数容器，它将使用共享的 <code>URL</code> 会话，对于记录器，它将创建一个单例实例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，当我们需要获取 <code>APIClient</code> 的实例时，我们只需调用容器的 <code>resolve</code> 方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> apiClient = <span class="keyword">try</span>! container.resolve() <span class="keyword">as</span> <span class="type">APIClient</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会注意到，该 <code>API</code> 与我们在 <code>Service Locator</code> 中看到的几乎相同。 但这与 <code>API</code> 或实现无关，而与我们如何使用它有关。 如果您不想将容器用作服务定位器，请记住，只能在 <code>“Composition Root”</code> 中调用它。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Dip</code> 还提供了一些很酷的功能，例如自动接线。 例如，我们可以定义要自动注入的 <code>logger</code> 属性。 容器将首先创建 <code>APIClient</code> 实例，然后使用其镜像查找 <code>logger</code> 属性并将真实实例注入其中。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">APIClientImp</span>: <span class="title">APIClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> _logger = <span class="type">Injected</span>&lt;<span class="type">Logger</span>&gt;()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> logger: <span class="type">Logger?</span> &#123; <span class="keyword">return</span> _logger.value &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;然后，当我们使用其构造函数注册 <code>APIClient</code> 而不是调用 <code>resolve</code> 获取 <code>NetworkSession</code> 参数时，我们只是说我们要使用传递给工厂闭包的第一个参数。 然后容器将推断出它的类型并为我们解决。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">APIClientImp</span>: <span class="title">APIClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">init</span>(session: <span class="type">NetworkSession</span>) &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">container.register &#123; <span class="type">APIClientImp</span>(session: $<span class="number">0</span>) <span class="keyword">as</span> <span class="type">APIClient</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样可以大大简化配置。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们比较 <code>“Typhoon”</code> 和 <code>“Dip”</code> 的基本特征，我们会注意到它们共享大多数特征。 尽管它没有像 <code>Objective-C</code> 一样强大的运行时功能，但是在 <code>Swift</code> 中几乎可以实现相同的功能似乎令人惊讶。 但是，泛型和类型推断实际上是其中的重点。</p>
+<table>
+<thead>
+<tr>
+<th align="left"></th>
+<th align="center">Typhoon</th>
+<th align="right">Dip</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Constructor, property, method injection</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Lifecycle management</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Circular dependencies</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Runtime arguments</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Named definitions</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Storyboards integration</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Auto-wiring</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Thread safety</strong></td>
+<td align="center">✘</td>
+<td align="right">✔︎</td>
+</tr>
+<tr>
+<td align="left"><strong>Interception</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✘</td>
+</tr>
+<tr>
+<td align="left"><strong>Infrastructure</strong></td>
+<td align="center">✔︎</td>
+<td align="right">✘</td>
+</tr>
+</tbody></table>
+</br>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会问，当我自己可以做时，为什么需要使用 <code>Typhoon</code> 或 <code>Dip</code> 或任何其他 <code>DI</code> 容器。 我可以建议的理由很少。 它们提供了与情节提要板的轻松集成，可以为您管理有时可能很棘手的组件生命周期，可以简化某些配置， <code>Typhoon</code> 还使用 <code>NSProxy</code> 和其他一些附加功能提供了轻松的拦截功能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是请记住， <code>DI</code> 容器是可选的，并且依赖注入与使用 <code>DI</code> 容器不同。</p>
+<blockquote>
+<p><em><strong>DI ≠ DI Container</strong></em></p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在新项目中，我们可以根据需要从它开始，但是在旧代码库中，我们应该首先使用依赖注入模式，组合根和依赖反转原理对其进行重构，然后查看是否需要DI容器（在大多数情况下，回答将为“否”）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果您具有复杂的配置，并且发现自己实现了一些类似 <code>DI</code> 容器的方法来简化它们，或者需要它提供的一些其他功能，那么可能会受益于使用现有的实现。但是，如果您对自己的工厂还可以的话-它的工厂很棒，请继续使用它们。不要仅仅为了使用 <code>DI</code> 容器而使用它。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>DI</code> 本身也是如此。对于在何处应用它以及需要解耦系统的哪些部分，要保持理性。不要尝试解决你尚未遇到的问题。也许你永远不会拥有它们，或者当你真正面对它们时，现在解决它们的方式将不合适。最后， <code>DI</code> 只是达到目的的一种手段，就像我们使用的任何其他模式或技术一样。它本身不是目标。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，我想提到一些有用的资源，你可以在其中找到有关DI和一些相关主题的更多信息。</p>
+</br>
+
+<ul>
+<li><a href="https://www.manning.com/books/dependency-injection-in-dot-net" target="_blank" rel="noopener"><code>“Dependency Injection in .Net” by Mark Seeman</code></a></li>
+<li><a href="https://ilya.puchka.me/dependency-injection-in-swift/" target="_blank" rel="noopener"><code>Mark Seeman’s blog</code></a></li>
+<li><a href="https://www.objc.io/issues/15-testing/dependency-injection/" target="_blank" rel="noopener"><code>objc.io Issue 15: Testing. Dependency Injection, by Jon Reid</code></a></li>
+<li><a href="https://martinfowler.com/articles/dipInTheWild.html" target="_blank" rel="noopener"><code>“DIP in the wild”</code></a></li>
+<li><a href="http://www.loosecouplings.com/2011/02/non-di-code-spaghetti-code.html" target="_blank" rel="noopener"><code>Non-DI code == spaghetti code?</code></a></li>
+</ul>
+<hr>
+<hr>
+<ul>
+<li><p><a href="https://www.manning.com/books/dependency-injection-in-dot-net" target="_blank" rel="noopener"><code>&quot;Dependency Injection in .Net&quot; Mark Seeman</code></a> ↩︎</p>
+</li>
+<li><p><a href="https://github.com/mutualmobile/VIPER-SWIFT/blob/master/VIPER-SWIFT/Classes/AppDependencies.swift" target="_blank" rel="noopener"><code>https://github.com/mutualmobile/VIPER-SWIFT/blob/master/VIPER-SWIFT/Classes/AppDependencies.swift</code></a> ↩︎</p>
+</li>
+<li><p><a href="http://blog.ploeh.dk/2010/12/02/Interfacesarenotabstractions/" target="_blank" rel="noopener"><code>http://blog.ploeh.dk/2010/12/02/Interfacesarenotabstractions/</code></a> ↩︎</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%E5%85%B3%E4%BA%8EDependency%20Injection%20(DI)/" title="Swift关于Dependency Injection (DI)">https://www.xuebaonline.com/Swift关于Dependency Injection (DI)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 设计模式</a>
+              <a href="/tags/UIKit/" rel="tag"><i class="fa fa-tag"></i> UIKit</a>
+              <a href="/tags/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="tag"><i class="fa fa-tag"></i> 依赖注入设计模式</a>
+              <a href="/tags/Dependency-Injection/" rel="tag"><i class="fa fa-tag"></i> Dependency Injection</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="prev" title="Swift依赖注入设计模式">
+      <i class="fa fa-chevron-left"></i> Swift依赖注入设计模式
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%E9%80%82%E9%85%8D%E5%99%A8%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" rel="next" title="Swift适配器设计模式">
+      Swift适配器设计模式 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么要依赖注射？"><span class="nav-number">1.</span> <span class="nav-text">为什么要依赖注射？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖注射模式"><span class="nav-number">2.</span> <span class="nav-text">依赖注射模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CONSTRUCTOR注入"><span class="nav-number">3.</span> <span class="nav-text">CONSTRUCTOR注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性注入"><span class="nav-number">4.</span> <span class="nav-text">属性注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地和外部默认设置"><span class="nav-number">5.</span> <span class="nav-text">本地和外部默认设置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方法注入"><span class="nav-number">6.</span> <span class="nav-text">方法注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#AMBIENT-CONTEXT"><span class="nav-number">7.</span> <span class="nav-text">AMBIENT CONTEXT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关注点分离"><span class="nav-number">8.</span> <span class="nav-text">关注点分离</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#COMPOSITION-ROOT"><span class="nav-number">9.</span> <span class="nav-text">COMPOSITION ROOT</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反模式"><span class="nav-number">10.</span> <span class="nav-text">反模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制怪胎"><span class="nav-number">11.</span> <span class="nav-text">控制怪胎</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#稳定和波动的依赖"><span class="nav-number">12.</span> <span class="nav-text">稳定和波动的依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Bastard-注入"><span class="nav-number">13.</span> <span class="nav-text">Bastard 注入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#服务定位器"><span class="nav-number">14.</span> <span class="nav-text">服务定位器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#依赖反转原理（DIP）"><span class="nav-number">15.</span> <span class="nav-text">依赖反转原理（DIP）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#控制和DI容器的反转"><span class="nav-number">16.</span> <span class="nav-text">控制和DI容器的反转</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#TYPHOON"><span class="nav-number">17.</span> <span class="nav-text">TYPHOON</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DIP"><span class="nav-number">18.</span> <span class="nav-text">DIP</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:09</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

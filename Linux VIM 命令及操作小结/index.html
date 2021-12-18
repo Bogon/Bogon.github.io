@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Linux VIM 命令及操作小结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux VIM 命令及操作小结">
+<meta property="og:url" content="https://www.xuebaonline.com/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Linux VIM 命令及操作小结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-23T02:05:24.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.065Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="vim">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="VIM">
+<meta property="article:tag" content="VIM命令">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Linux VIM 命令及操作小结 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">134</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">165</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Linux VIM 命令及操作小结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-23 10:05:24" itemprop="dateCreated datePublished" datetime="2021-05-23T10:05:24+08:00">2021-05-23</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Vim/" itemprop="url" rel="index"><span itemprop="name">Vim</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">Linux VIM 命令及操作小结</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>整理出 <code>Linux</code>, <code>VIM</code> 常用到的 命令以及命令的用法，方便以后查找使用。</p>
+<p><code>linux</code> 下文件目录的操作权限：</p>
+<ul>
+<li><p>chmod：<br>  修改文件、目录访问权限。<br>  <code>r</code>、<code>w</code>、<code>x</code> ： <code>4/2/1</code><br>  示例： <code>r-x-w-r--:     5 2 4</code></p>
+<p>  r、w、x 对于目录、文件的含义是否相同？？</p>
+<table>
+<thead>
+<tr>
+<th align="left">文件</th>
+<th align="left">目录</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">r：    查看文件内容 <br> cat、more、less、tac <br> vim（读）   gedit（读）</td>
+<td align="left">目录的内容（目录项）可以被查看  <br> ls、vim(读)</td>
+</tr>
+<tr>
+<td align="left">w：    修改、删除 文件内容 <br>cat&gt; / can &gt;&gt; <br>vim（写、删) /gedit（写、删除）</td>
+<td align="left">目录的内容（目录项）可以被修改、删除、增加 <br>mv、cp、rm、rmdir、mkdir、touch…</td>
+</tr>
+<tr>
+<td align="left">x：    该文件可以运行。</td>
+<td align="left">该目录可以被进入<br>cd</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<hr>
+
+<ul>
+<li>进程信息查看：  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux | grep xxxx</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>top —— Linux下的 任务管理器。</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+
+<ul>
+<li><p>终止进程：</p>
+<p>  <code>kill  -9</code>   </p>
+<blockquote>
+<p>欲终止的 进程ID (可以通过 ps aux | grep 获取） 9 —— SIGKILL</p>
+</blockquote>
+</li>
+<li><p>前台、后台：</p>
+<p>  是否能与用户完成交互。</p>
+<p>  &amp; ： 将进程放置到后台执行。</p>
+<p>  jobs： 查看后台运行的进程</p>
+<p>  fg：恢复后台一个进程到前台执行。  + 优先级高。 指定 某一个进程恢复到前台来。  用 jobs查看的 “进程编号”</p>
+</li>
+<li><p>多终端热键：</p>
+<p>  <code>Ctrl + Alt + ↓ / ↑</code>  ——  虚拟一块新桌面</p>
+<p>  <code>Ctrl + Alt + T</code> —— 唤醒一个新终端（独立）</p>
+<p>  <code>Ctrl + shift + T</code> —— 在一个终端里，创建多个shell标签。</p>
+</li>
+<li><p>ifconfig：</p>
+<p>  查看当前网卡相关信息： —— IP地址。</p>
+<p>  临时设置IP地址：</p>
+<p>  <code>sudo ifconfig ens33  新IP</code></p>
+<blockquote>
+<p>系统重启失效。</p>
+</blockquote>
+<p>  <code>sudo ifconfig ens33 up/down</code>   使用命令 网卡启动、关闭</p>
+<ul>
+<li>永久设置IP地址：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">图形： 设置——网络——有线连接 + —— IPv4 —— 手动 —— 填入地址、子网掩码 、网关 —— “添加”</span><br><span class="line"></span><br><span class="line">网址： 网段。IP里面倒数第二字段。</span><br><span class="line"></span><br><span class="line">子网掩码： 255. 255.255. 0</span><br><span class="line"></span><br><span class="line">网关：网段确定后，网关即为该网段的 第一个ip地址。192.168.xxx.1  —— 192.168.xxx.255 (广播地址)</span><br><span class="line"></span><br><span class="line">命令：—— 通过修改配置文件，达到永久修改IP的目的。</span><br><span class="line"></span><br><span class="line">修改  &#x2F;etc&#x2F;network&#x2F;interfaces 文件。 添加 网址、子网掩码、网关。  指定DNS服务器</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><p><code>ping</code> ：</p>
+<p>  发送一个测试数据包，到指定的 IP地址。测试是否 畅通。</p>
+<p>  <code>Ctrl + c</code> 终止。 </p>
+<blockquote>
+<p><code>-c</code>  参数 指定发数据包的 次数。</p>
+</blockquote>
+</li>
+<li><p>虚拟机网络设置：</p>
+<ul>
+<li><p>桥接模式：<br>  路由器给 虚拟 Linux 单独分配一个 IP地址。与 windows 所在同一网段。</p>
+</li>
+<li><p>NAT模式：<br>   Linux 虚拟机借助 windows 网卡，访问外网。linux 和 windows 公用 访问外网的iP。</p>
+</li>
+</ul>
+</li>
+<li><p><code>find</code> 命令：</p>
+<p>  格式： <code>find</code>  待搜索目录     参数    “关键字”/ ‘关键字’</p>
+<ul>
+<li><p>-name：</p>
+<p>  <code>find  /home/itcast/go_1 -name &quot;*.soft&quot;</code>     </p>
+<blockquote>
+<p>在目录中找 .soft 结尾的文件。</p>
+</blockquote>
+</li>
+<li><p><code>-type</code>：</p>
+<p>  <code>f</code>（普通文件）、<code>d</code>、<code>l</code>、<code>c</code>、<code>b</code>、<code>p</code>、<code>s</code></p>
+<p>  <code>find /run/  -type &quot;s&quot;</code>    </p>
+<blockquote>
+<p>在目录中找 socket 文件。</p>
+</blockquote>
+</li>
+<li><p><code>-size</code>:</p>
+<p>  区范围时： 两个范围 之前都有加  <code>-size</code> 关键字。</p>
+<blockquote>
+<p><code>+</code> ： 大于、 <code>-</code> ： 小于</p>
+</blockquote>
+<ul>
+<li>单位：<ul>
+<li>M 只支持大写。</li>
+<li>k 只支持小写。</li>
+<li>无单位——默认单位是 512B。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>-maxdepth</code>：</p>
+<blockquote>
+<p>指定搜索层级深度。  放置于其他参数之前。</p>
+</blockquote>
+<p>  <code>find -maxdepth 1 -type &#39;f&#39; -name &quot;*.go&quot;</code>     </p>
+<blockquote>
+<p>只在当前目录下，搜索 .go 文件、目录。</p>
+</blockquote>
+</li>
+<li><p><code>-exec</code>:</p>
+<p>  对搜索结果执行命令</p>
+<p>  <code>find -maxdepth 1 -type &#39;f&#39; -name &quot;*.go&quot;  -exec  ls -l {} \;</code></p>
+</li>
+<li><p><code>-xargs</code>:</p>
+<p>  对搜索结果执行命令</p>
+<p>  <code>find -maxdepth 1 -type &#39;f&#39; -name &quot;*.go&quot; | xargs ls -l </code></p>
+<p>  特例：如果文件名中含有空格， 如：文件名：‘abc xyz’</p>
+<p>  <code>find -maxdepth 1 -type &#39;f&#39;  -print0  | xargs -0 ls -l </code></p>
+</li>
+</ul>
+</li>
+<li><p><code>grep</code> :</p>
+<p>  <code>grep -r/-R  &quot;love&quot;</code></p>
+<blockquote>
+<p> 目标目录位置。<br>  递归的在指定目录中，找寻包含某字符串的 文件。</p>
+</blockquote>
+</li>
+<li><p>结合 <code>find</code>、<code>xargs</code>、<code>grep</code>：</p>
+<p>  <code>find -maxdepth 1 -type &#39;f&#39; -print0 | xargs -0 grep &quot;love&quot; -n</code></p>
+<blockquote>
+<p>找寻当前目录下，包含 “love”的文件，并显示在 多少行出现 （-n 行号）。</p>
+</blockquote>
+</li>
+<li><p><code>vim（vi）编辑器</code>：        </p>
+<blockquote>
+<p><code>shell</code> —&gt; <code>bash</code>        / <code>vi</code> —&gt; <code>vim</code></p>
+</blockquote>
+<ul>
+<li><p>三种工作模式：</p>
+<ul>
+<li><p>命令模式： 默认进入 <code>vim</code> 的工作模式。该种模式下，用户所有输入均被当成命令。</p>
+</li>
+<li><p>编辑模式： 编写模式。写代码、文本内容。。。</p>
+</li>
+<li><p>末行模式： 在 命令模式下， 按 <code>“:”</code> 进入末行模式。该种模式下，用户所有输入均被当成  末行命令。</p>
+</li>
+</ul>
+</li>
+<li><p>光标移动（命令模式）；</p>
+<ul>
+<li><code>h</code>：左</li>
+<li><code>j</code>：下</li>
+<li><code>k</code>：上</li>
+<li><code>L</code>：右</li>
+</ul>
+</li>
+<li><p>转换编辑模式：</p>
+<ul>
+<li><p><code>i</code>：向光标所在位置的 “前面”插入数据！</p>
+</li>
+<li><p><code>a</code>：向光标所在位置的 “后面”插入数据！</p>
+</li>
+<li><p><code>o</code>：向光标所在位置的 “下一行”插入数据！</p>
+</li>
+<li><p><code>s</code>：以删除光标位置一个字符为代价，修改工作模式 —— 文本编辑模式。</p>
+</li>
+<li><p><code>O</code>：向光标所在位置的 “上一行”插入数据！</p>
+</li>
+<li><p><code>I</code>：向光标所在位置的 “行首”插入数据！</p>
+</li>
+<li><p><code>A</code>：向光标所在位置的 “行尾”插入数据！</p>
+</li>
+<li><p><code>S</code>：以删除光标位置一整行为代价，修改工作模式 —— 文本编辑模式。</p>
+</li>
+</ul>
+</li>
+<li><p>复制、粘贴：</p>
+<ul>
+<li><p><code>yy</code>：复制光标所在行。</p>
+</li>
+<li><p><code>Nyy</code>：复制光标所在往后的N行（包含本行）。</p>
+</li>
+<li><p><code>p</code>：粘贴至光标所在位置，下一行。</p>
+</li>
+<li><p><code>P（大写）</code>：粘贴至光标所在位置，上一行。</p>
+</li>
+<li><p><code>yw</code>：将光标放置于单词的首字符上， 复制一个单词。</p>
+</li>
+<li><p><code>区域复制</code>：将光标放置于待复制区域的首字符上， 按 <code>“v”</code>（左下角出现 “可视”提示）使用 <code>h</code>，<code>j</code>，<code>k</code>，<code>l</code> 选择复制区域。</p>
+</li>
+</ul>
+</li>
+<li><p>剪切、粘贴：</p>
+<ul>
+<li><p><code>dd</code>：剪切光标所在行。</p>
+</li>
+<li><p><code>Ndd</code>：剪切光标所在往后的N行（包含本行）。</p>
+</li>
+<li><p><code>p</code>：粘贴至光标所在位置，下一行。</p>
+</li>
+<li><p>`P（大写）``：粘贴至光标所在位置，上一行。</p>
+</li>
+<li><p>`dw：将光标放置于单词的首字符上， 剪切一个单词。</p>
+</li>
+<li><p><code>区域剪切</code>：将光标放置于待剪切区域的首字符上， 按 <code>“v”</code>（左下角出现 “可视”提示）使用 <code>h</code>，<code>j</code>，<code>k</code>，<code>l</code> 选择剪切区域。</p>
+</li>
+<li><p><code>d0</code>：从光标所在位置，删除到 行首。</p>
+</li>
+<li><p><code>d$（D）</code>: 从光标所在位置，删除到 行尾。    </p>
+</li>
+</ul>
+</li>
+<li><p>删除：<br>  同剪切。</p>
+</li>
+<li><p>字符操作：</p>
+<ul>
+<li><p><code>x</code>：删除光标选中字符</p>
+</li>
+<li><p><code>r</code>：光标选中字符， 按 <code>“r”</code>， 按目标字符。 可以将 原字符，替换为 目标字符。</p>
+</li>
+</ul>
+</li>
+<li><p>跳转到指定行：</p>
+<ul>
+<li><p>命令模式：</p>
+<ul>
+<li><p><code>gg</code>：第一行</p>
+</li>
+<li><p><code>G</code>：最后一行</p>
+</li>
+<li><p><code>gg=G</code>:  自动排版。</p>
+</li>
+<li><p><code>NG</code>：跳转到 第 N 行</p>
+</li>
+<li><p><code>vim hello.go  + 56</code> : 打开文件同时，跳转到 56 行</p>
+</li>
+</ul>
+</li>
+<li><p>末行模式：</p>
+<ul>
+<li><code>：N 回车</code>: 跳转到 第 N 行    </li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>查找：</p>
+<ol>
+<li><p>想象一个单词查找。 输入“/”（显示在末行的位置）， 再输入要查找的单词。  </p>
+</li>
+<li><p>查找一个已经看到的单词。将光标放在该单词任意一个字符，“*”向后找， “#”向前找。 “n”代表下一个。</p>
+</li>
+</ol>
+</li>
+<li><p>撤销：<code>“u”</code></p>
+</li>
+<li><p>反撤销：<code>ctrl - r</code></p>
+</li>
+<li><p>替换：末行模式</p>
+<ol>
+<li><p>单行替换：     <code>:s</code>/旧单词/新单词。     </p>
+<blockquote>
+<p>一行有多个“旧单词”， 使用 “g”。否则只替换一行的首个。</p>
+</blockquote>
+</li>
+<li><p>通篇替换：    <code>:%s</code>/旧单词/新单词。    </p>
+<blockquote>
+<p>一行有多个“旧单词”， 使用 “g”。否则只替换一行的首个。</p>
+</blockquote>
+</li>
+<li><p>指定区域替换：    <code>:n</code>，<code>ms</code>/旧单词/新单词。</p>
+<blockquote>
+<p>替换从n行开始，到m行结束，出现的“旧单词”， 一行有多个“旧单词”， 使用 “g”。否则只替换一行的首个。</p>
+</blockquote>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+<li><p>vim的配置：</p>
+<ul>
+<li><p>用户配置： 用户宿主目录下，创建 <code>.vimrc</code> (隐藏文件)，写入 配置项。</p>
+</li>
+<li><p>系统配置：<code>sudo vi  /etc/vim/vimrc （非隐藏文件）</code>。写入 配置项。</p>
+</li>
+</ul>
+</li>
+<li><p>测试某软件是否安装：</p>
+<p>  <code>sudo aptitude show 软件名</code>    </p>
+<blockquote>
+<ol>
+<li>“未安装”：根据提示安装。</li>
+</ol>
+</blockquote>
+<blockquote>
+<ol start="2">
+<li>“已安装”。</li>
+</ol>
+</blockquote>
+</li>
+<li><p><code>Linux</code> 远程 登录 <code>Linux</code> ：</p>
+<ul>
+<li>ssh -l  目标主机用户名  目标主机 iP地址。  （ 或  ssh <a href="mailto:&#x69;&#116;&#99;&#97;&#115;&#116;&#64;&#49;&#x32;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;">&#x69;&#116;&#99;&#97;&#115;&#116;&#64;&#49;&#x32;&#55;&#x2e;&#x30;&#46;&#x30;&#x2e;&#49;</a> ）<blockquote>
+<p>输入目标主机 密码。</p>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<p>登录到，目标主机的 “家目录”</p>
+</blockquote>
+</li>
+<li><p><code>Linux</code> 远程 发送文件给 <code>Linux</code>：</p>
+<ul>
+<li><p><code>scp</code> <code>-r</code>  <code>目标用户名</code>@<code>目标主机名</code>:<code>目标存储的绝对路径 </code>  </p>
+<blockquote>
+<p>例子： <code>scp -r  ./test123.mp3  zhangsan@192.168.35.221:/home/zhangsan/test</code> </p>
+</blockquote>
+<p>  输入目标主机 密码。</p>
+</li>
+<li><p>文件 直接存在在目标主机的指定目录下。        </p>
+<blockquote>
+<p><code>test123.mp3</code>  存储在 <code>zhangsan用户的/home/zhangsan/test</code>目录下。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Linux%20VIM%20%E5%91%BD%E4%BB%A4%E5%8F%8A%E6%93%8D%E4%BD%9C%E5%B0%8F%E7%BB%93/" title="Linux VIM 命令及操作小结">https://www.xuebaonline.com/Linux VIM 命令及操作小结/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Vim/" rel="tag"><i class="fa fa-tag"></i> Vim</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/WKWebView%E4%B8%8ENative%E4%BA%A4%E4%BA%92%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" rel="prev" title="WKWebView与Native交互注意事项">
+      <i class="fa fa-chevron-left"></i> WKWebView与Native交互注意事项
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Sqlite%20%E4%BD%BF%E7%94%A8Tips/" rel="next" title="Sqlite 使用Tips">
+      Sqlite 使用Tips <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">165</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">134</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:09</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
