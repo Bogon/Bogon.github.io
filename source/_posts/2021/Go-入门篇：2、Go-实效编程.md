@@ -1632,3 +1632,118 @@ func (v Vector) DoAll(u Vector) {
 目前`Go`运行时的实现默认并不会并行执行代码，它只为用户层代码提供单一的处理核心。 任意数量的`Go`程都可能在系统调用中被阻塞，而在任意时刻默认只有一个会执行用户层代码。 它应当变得更智能，而且它将来肯定会变得更智能。但现在，若你希望`CPU`并行执行， 就必须告诉运行时你希望同时有多少`Go`程能执行代码。有两种途径可意识形态，要么 在运行你的工作时将 `GOMAXPROCS` 环境变量设为你要使用的核心数， 要么导入 `runtime` 包并调用 `runtime.GOMAXPROCS(NCPU)`。 `runtime.NumCPU()` 的值可能很有用，它会返回当前机器的逻辑`CPU`核心数。 当然，随着调度算法和运行时的改进，将来会不再需要这种方法。
 
 注意不要混淆并发和并行的概念：并发是用可独立执行的组件构造程序的方法， 而并行则是为了效率在多`CPU`上平行地进行计算。尽管`Go`的并发特性能够让某些问题更易构造成并行计算， 但`Go`仍然是种并发而非并行的语言，且`Go`的模型并不适合所有的并行问题。
+
+## 可能泄露的缓冲区
+并发编程的工具甚至能很容易地表达非并发的思想。这里有个提取自 `RPC` 包的例子。 客户端 `Go` 程从某些来源，可能是网络中循环接收数据。为避免分配和释放缓冲区， 它保存了一个空闲链表，使用一个带缓冲信道表示。若信道为空，就会分配新的缓冲区。 一旦消息缓冲区就绪，它将通过 `serverChan` 被发送到服务器。 
+```Go
+var freeList = make(chan *Buffer, 100)
+var serverChan = make(chan *Buffer)
+
+func client() {
+	for {
+		var b *Buffer
+		// 若缓冲区可用就用它，不可用就分配个新的。
+		select {
+		case b = <-freeList:
+			// 获取一个，不做别的。
+		default:
+			// 非空闲，因此分配一个新的。
+			b = new(Buffer)
+		}
+		load(b)              // 从网络中读取下一条消息。
+		serverChan <- b   // 发送至服务器。
+	}
+}
+```
+服务器从客户端循环接收每个消息，处理它们，并将缓冲区返回给空闲列表。
+```Go
+func server() {
+	for {
+		b := <-serverChan    // 等待工作。
+		process(b)
+		// 若缓冲区有空间就重用它。
+		select {
+		case freeList <- b:
+			// 将缓冲区放大空闲列表中，不做别的。
+		default:
+			// 空闲列表已满，保持就好。
+		}
+	}
+}
+```
+客户端试图从 `freeList` 中获取缓冲区；若没有缓冲区可用， 它就将分配一个新的。服务器将 `b` 放回空闲列表 `freeList` 中直到列表已满，此时缓冲区将被丢弃，并被垃圾回收器回收。（`select` 语句中的 `default` 子句在没有条件符合时执行，这也就意味着 `selects` 永远不会被阻塞。）依靠带缓冲的信道和垃圾回收器的记录， 我们仅用短短几行代码就构建了一个可能导致缓冲区槽位泄露的空闲列表。
+
+# 错误
+库例程通常需要向调用者返回某种类型的错误提示。之前提到过，`Go` 语言的多值返回特性， 使得它在返回常规的值时，还能轻松地返回详细的错误描述。按照约定，错误的类型通常为 `error`，这是一个内建的简单接口。
+```Go
+type error interface {
+	Error() string
+}
+```
+库的编写者通过更丰富的底层模型可以轻松实现这个接口，这样不仅能看见错误， 还能提供一些上下文。例如，`os.Open` 可返回一个 `os.PathError`。
+```Go
+// PathError 记录一个错误以及产生该错误的路径和操作。
+type PathError struct {
+	Op string    // "open"、"unlink" 等等。
+	Path string  // 相关联的文件。
+	Err error    // 由系统调用返回。
+}
+
+func (e *PathError) Error() string {
+	return e.Op + " " + e.Path + ": " + e.Err.Error()
+}
+```
+`PathError`的 `Error` 会生成如下错误信息：
+```Bash
+open /etc/passwx: no such file or directory
+```
+这种错误包含了出错的文件名、操作和触发的操作系统错误，即便在产生该错误的调用 和输出的错误信息相距甚远时，它也会非常有用，这比苍白的“不存在该文件或目录”更具说明性。
+
+错误字符串应尽可能地指明它们的来源，例如产生该错误的包名前缀。例如在 `image` 包中，由于未知格式导致解码错误的字符串为 `“image: unknown format”` 。
+
+若调用者关心错误的完整细节，可使用类型选择或者类型断言来查看特定错误，并抽取其细节。 对于 `PathErrors`，它应该还包含检查内部的 `Err` 字段以进行可能的错误恢复。
+```Go
+for try := 0; try < 2; try++ {
+	file, err = os.Create(filename)
+	if err == nil {
+		return
+	}
+	if e, ok := err.(*os.PathError); ok && e.Err == syscall.ENOSPC {
+		deleteTempFiles()  // 恢复一些空间。
+		continue
+	}
+	return
+}
+```
+这里的第二条 `if` 是另一种类型断言。若它失败， `ok` 将为 `false`，而 `e` 则为 `nil` . 若它成功，`ok` 将为 `true`，这意味着该错误属于 `*os.PathError` 类型，而 `e` 能够检测关于该错误的更多信息。
+
+## Panic
+向调用者报告错误的一般方式就是将 `error` 作为额外的值返回。 标准的 `Read` 方法就是个众所周知的实例，它返回一个字节计数和一个 `error`。但如果错误时不可恢复的呢？有时程序就是不能继续运行。
+
+为此，我们提供了内建的 `panic` 函数，它会产生一个运行时错误并终止程序 （但请继续看下一节）。该函数接受一个任意类型的实参（一般为字符串），并在程序终止时打印。 它还能表明发生了意料之外的事情，比如从无限循环中退出了。
+```Go
+// 用牛顿法计算立方根的一个玩具实现。
+func CubeRoot(x float64) float64 {
+	z := x/3   // 任意初始值
+	for i := 0; i < 1e6; i++ {
+		prevz := z
+		z -= (z*z*z-x) / (3*z*z)
+		if veryClose(z, prevz) {
+			return z
+		}
+	}
+	// 一百万次迭代并未收敛，事情出错了。
+	panic(fmt.Sprintf("CubeRoot(%g) did not converge", x))
+}
+```
+这仅仅是个示例，实际的库函数应避免 `panic`。若问题可以被屏蔽或解决， 最好就是让程序继续运行而不是终止整个程序。一个可能的反例就是初始化： 若某个库真的不能让自己工作，且有足够理由产生`Panic`，那就由它去吧。
+
+```Go
+var user = os.Getenv("USER")
+
+func init() {
+	if user == "" {
+		panic("no value for $USER")
+	}
+}
+```
