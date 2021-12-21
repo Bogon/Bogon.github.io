@@ -182,3 +182,31 @@ fatal: Authentication failed for 'https://github.com/xxx/xxx.git/'
 + 原因
 从2021年8月13日，GitHub不再支持用密码提交代码。
 ```
+
+# git 修改 tag 名称
+
+```Bash
+git tag new old
+git tag -d old
+git push origin :refs/tags/old
+git push --tags
+```
+
+```Bash
+git tag v2.2.8.2_build2365 Release_v2.2.8.2_build2365
+git tag -d Release_v2.2.8.2_build2365
+git push origin :refs/tags/Release_v2.2.8.2_build2365
+git push --tags
+```
+
+# git 删除 tag 名称
+
+```Bash
+git tag -d old
+git push origin :refs/tags/old
+```
+
+```Bash
+git tag -d Release_v2.2.8.2_build2365
+git push origin :refs/tags/Release_v2.2.8.2_build2365
+```
