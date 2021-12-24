@@ -1754,6 +1754,7 @@ func init() {
 调用 `recover` 将停止回溯过程，并返回传入 `panic` 的实参。 由于在回溯时只有被推迟函数中的代码在运行，因此 `recover` 只能在被推迟的函数中才有效。
 
 `recover` 的一个应用就是在服务器中终止失败的 `Go` 程而无需杀死其它正在执行的 `Go` 程。
+
 ```Go
 func server(workChan <-chan *Work) {
 	for work := range workChan {
@@ -1811,56 +1812,6 @@ if pos == 0 {
 尽管这种模式很有用，但它应当仅在包内使用。`Parse` 会将其内部的 `panic` 调用转为 `error` 值，它并不会向调用者暴露出 `panic`。这是个值得遵守的良好规则。
 
 顺便一提，这种重新触发 `Panic` 的惯用法会在产生实际错误时改变 `Panic` 的值。 然而，不管是原始的还是新的错误都会在崩溃报告中显示，因此问题的根源仍然是可见的。 这种简单的重新触发 `Panic` 的模型已经够用了，毕竟他只是一次崩溃。 但若你只想显示原始的值，也可以多写一点代码来过滤掉不需要的问题，然后用原始值再次触发 `Panic` 。 
-
-## 一个 `Web` 服务器
-让我们以一个完整的 `Go` 程序作为结束吧，一个 `Web` 服务器。该程序其实只是个 `Web`服务器的重用。 `Google`在 `http://chart.apis.google.com` 上提供了一个将表单数据自动转换为图表的服务。不过，该服务很难交互， 因为你需要将数据作为查询放到 `URL`中。此程序为一种数据格式提供了更好的的接口： 给定一小段文本，它将调用图表服务器来生成二维码（QR码），这是一种编码文本的点格矩阵。 该图像可被你的手机摄像头捕获，并解释为一个字符串，比如URL， 这样就免去了你在狭小的手机键盘上键入 `URL` 的麻烦。
-
-以下为完整的程序，随后有一段解释。
-
-```Go
-package main
-
-import (
-    "flag"
-    "html/template"
-    "log"
-    "net/http"
-)
-
-var addr = flag.String("addr", ":1718", "http service address") // Q=17, R=18
-
-var templ = template.Must(template.New("qr").Parse(templateStr))
-
-func main() {
-    flag.Parse()
-    http.Handle("/", http.HandlerFunc(QR))
-    err := http.ListenAndServe(*addr, nil)
-    if err != nil {
-        log.Fatal("ListenAndServe:", err)
-    }
-}
-
-func QR(w http.ResponseWriter, req *http.Request) {
-    templ.Execute(w, req.FormValue("s"))
-}
-
-
-```
-
-`main` 之前的代码应该比较容易理解。我们通过一个标志为服务器设置了默认端口。 模板变量 `templ` 正式有趣的地方。它构建的 `HTML` 模版将会被服务器执行并显示在页面中。 稍后我们将详细讨论。
-
-`main` 函数解析了参数标志并使用我们讨论过的机制将 `QR` 函数绑定到服务器的根路径。然后调用 `http.ListenAndServe` 启动服务器；它将在服务器运行时处于阻塞状态。
-
-`QR` 仅接受包含表单数据的请求，并为表单值 `s` 中的数据执行模板。
-
-模板包 `html/template` 非常强大；该程序只是浅尝辄止。 本质上，它通过在运行时将数据项中提取的元素（在这里是表单值）传给 `templ.Execute` 执行因而重写了 `HTML` 文本。 在模板文本（`templateStr`）中，双大括号界定的文本表示模板的动作。 从 `{{if .}}` 到 `{{end}}` 的代码段仅在当前数据项（这里是点 `.`）的值非空时才会执行。 也就是说，当字符串为空时，此部分模板段会被忽略。
-
-其中两段 `{{.}}` 表示要将数据显示在模板中 （即将查询字符串显示在 `Web` 页面上）。`HTML` 模板包将自动对文本进行转义， 因此文本的显示是安全的。
-
-余下的模板字符串只是页面加载时将要显示的 `HTML`。
-
-你终于如愿以偿了：以几行代码实现的，包含一些数据驱动的HTML文本的Web服务器。 Go语言强大到能让很多事情以短小精悍的方式解决。
-
 
 # 结语
 如此，Go语言学习之旅的第一个阶段就结束了。
