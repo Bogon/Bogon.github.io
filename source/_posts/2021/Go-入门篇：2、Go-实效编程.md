@@ -1844,26 +1844,7 @@ func QR(w http.ResponseWriter, req *http.Request) {
     templ.Execute(w, req.FormValue("s"))
 }
 
-const templateStr = `
-<html>
-<head>
-<title>QR Link Generator</title>
-</head>
-<body>
-{{if .}}
-<img src="http://chart.apis.google.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl={{.}}" />
-<br>
-{{.}}
-<br>
-<br>
-{{end}}
-<form action="/" name=f method="GET"><input maxLength=1024 size=70
-name=s value="" title="Text to QR Encode"><input type=submit
-value="Show QR" name=qr>
-</form>
-</body>
-</html>
-`
+
 ```
 
 `main` 之前的代码应该比较容易理解。我们通过一个标志为服务器设置了默认端口。 模板变量 `templ` 正式有趣的地方。它构建的 `HTML` 模版将会被服务器执行并显示在页面中。 稍后我们将详细讨论。
