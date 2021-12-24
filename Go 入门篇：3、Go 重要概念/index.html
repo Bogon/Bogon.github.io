@@ -33,7 +33,7 @@
 <meta property="og:description" content="Go 入门篇：3、Go 重要概念">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-12-24T03:36:54.000Z">
-<meta property="article:modified_time" content="2021-12-24T03:53:56.367Z">
+<meta property="article:modified_time" content="2021-12-24T05:49:41.994Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="linux">
 <meta property="article:tag" content="mysql">
@@ -299,7 +299,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>360</span>
+              <span>938</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -323,6 +323,27 @@
 <h1 id="包"><a href="#包" class="headerlink" title="包"></a>包</h1><p><em><strong>每个 <code>Go</code> 程序都是由包构成的。</strong></em> 程序从 <code>main</code> 包开始运行。本程序通过导入路径 <code>&quot;fmt&quot;</code> 和 <code>&quot;math/rand&quot;</code> 来使用这两个包。<br>按照约定，包名与导入路径的最后一个元素一致。例如，<code>&quot;math/rand&quot;</code> 包中的源码均以 <code>package rand</code> 语句开始。</p>
 <p>示例程序如下：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math/rand"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"My favorite number is"</span>, rand.Intn(<span class="number">10</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<a id="more"></a>
+
+<h1 id="导入"><a href="#导入" class="headerlink" title="导入"></a>导入</h1><p>此代码用圆括号组合了导入，这是 <code>“分组”</code> 形式的导入语句。<br>当然你也可以编写多个导入语句，例如：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">"fmt"</span></span><br><span class="line"><span class="keyword">import</span> <span class="string">"math"</span></span><br></pre></td></tr></table></figure>
+<p>不过使用分组导入语句是更好的形式。</p>
+<p>示例：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"math"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	fmt.Printf(<span class="string">"Now you have %g problems.\n"</span>, math.Sqrt(<span class="number">7</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="导出名"><a href="#导出名" class="headerlink" title="导出名"></a>导出名</h1><p>在 <code>Go</code> 中，如果一个名字以大写字母开头，那么它就是已导出的。例如，<code>Pizza</code> 就是个已导出名，<code>Pi</code> 也同样，它导出自 <code>math</code> 包。<br><code>pizza</code> 和 <code>pi</code> 并未以大写字母开头，所以它们是未导出的。<br>在导入一个包时，你只能引用其中已导出的名字。任何“未导出”的名字在该包外均无法访问。</p>
+<h1 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h1><ul>
+<li><p>函数可以没有参数或接受多个参数。注意类型在变量名 之后。</p>
+</li>
+<li><p>当连续两个或多个函数的已命名形参类型相同时，除最后一个类型以外，其它都可以省略。</p>
+  <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x <span class="keyword">int</span>, y <span class="keyword">int</span></span><br><span class="line">被缩写为</span><br><span class="line">x, y <span class="keyword">int</span></span><br></pre></td></tr></table></figure></li>
+<li><p>多值返回 函数可以返回任意数量的返回值。</p>
+</li>
+<li><p>命名返回值<br>  <code>Go</code> 的返回值可被命名，它们会被视作定义在函数顶部的变量。<br>  返回值的名称应当具有一定的意义，它可以作为文档使用。<br>  没有参数的 <code>return</code> 语句返回已命名的返回值。也就是 直接 返回。<br>  直接返回语句应当仅用在下面这样的短函数中。在长的函数中它们会影响代码的可读性。</p>
+</li>
+</ul>
+
     </div>
 
     
@@ -493,7 +514,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包"><span class="nav-number">1.</span> <span class="nav-text">包</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包"><span class="nav-number">1.</span> <span class="nav-text">包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导入"><span class="nav-number">2.</span> <span class="nav-text">导入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#导出名"><span class="nav-number">3.</span> <span class="nav-text">导出名</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#函数"><span class="nav-number">4.</span> <span class="nav-text">函数</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
