@@ -1581,3 +1581,4 @@ func (v *Vertex) Abs() float64 {
 	```
 
 
+> 复习到这里： https://tour.go-zh.org/methods/11
