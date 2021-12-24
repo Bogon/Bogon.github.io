@@ -3,7 +3,6 @@ title: CocoaPods 设定版本说明
 description: CocoaPods 设定版本说明
 permalink: CocoaPods 设定版本说明
 copyright: true
-date: 2021-12-22 10:22:50
 keywords: >-
   iOS,Swift,Swift Apprentice,Swift学习,Swift进阶,Protocols,协议编程,泛型,编程,多态,Collection
   Types,Arrays,Dictionaries,Sets,使用闭包集合迭代,Strings,构建自己的类型,Structures,结构体,Methods,Classes,Advanced,CocoaPods
@@ -14,6 +13,8 @@ tags:
 categories:
   - - iOS
   - - CocoaPods
+abbrlink: 25179
+date: 2021-12-22 10:22:50
 ---
 
 # Migrating from 0.x to 1.0

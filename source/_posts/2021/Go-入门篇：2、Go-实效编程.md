@@ -1747,3 +1747,137 @@ func init() {
 	}
 }
 ```
+
+## 恢复
+当 `panic` 被调用后（包括不明确的运行时错误，例如切片检索越界或类型断言失败）， 程序将立刻终止当前函数的执行，并开始回溯Go程的栈，运行任何被推迟的函数。 若回溯到达Go程栈的顶端，程序就会终止。不过我们可以用内建的 `recover` 函数来重新或来取回 `Go` 程的控制权限并使其恢复正常执行。
+
+调用 `recover` 将停止回溯过程，并返回传入 `panic` 的实参。 由于在回溯时只有被推迟函数中的代码在运行，因此 `recover` 只能在被推迟的函数中才有效。
+
+`recover` 的一个应用就是在服务器中终止失败的 `Go` 程而无需杀死其它正在执行的 `Go` 程。
+```Go
+func server(workChan <-chan *Work) {
+	for work := range workChan {
+		go safelyDo(work)
+	}
+}
+
+func safelyDo(work *Work) {
+	defer func() {
+		if err := recover(); err != nil {
+			log.Println("work failed:", err)
+		}
+	}()
+	do(work)
+}
+```
+在此例中，若 `do(work) `触发了 `Panic`，其结果就会被记录， 而该 `Go` 程会被干净利落地结束，不会干扰到其它 `Go` 程。我们无需在推迟的闭包中做任何事情， `recover` 会处理好这一切。
+
+由于直接从被推迟函数中调用 `recover` 时不会返回 `nil`， 因此被推迟的代码能够调用本身使用了 `panic` 和 `recover` 的库函数而不会失败。例如在 `safelyDo` 中，被推迟的函数可能在调用 `recover` 前先调用记录函数，而该记录函数应当不受 `Panic` 状态的代码的影响。
+
+通过恰当地使用恢复模式，`do` 函数（及其调用的任何代码）可通过调用 `panic` 来避免更坏的结果。我们可以利用这种思想来简化复杂软件中的错误处理。 让我们看看 `regexp` 包的理想化版本，它会以局部的错误类型调用 `panic` 来报告解析错误。以下是一个 `error` 类型的 `Error` 方法和一个 `Compile` 函数的定义：
+```Go
+// Error 是解析错误的类型，它满足 error 接口。
+type Error string
+func (e Error) Error() string {
+	return string(e)
+}
+
+// error 是 *Regexp 的方法，它通过用一个 Error 触发Panic来报告解析错误。
+func (regexp *Regexp) error(err string) {
+	panic(Error(err))
+}
+
+// Compile 返回该正则表达式解析后的表示。
+func Compile(str string) (regexp *Regexp, err error) {
+	regexp = new(Regexp)
+	// doParse will panic if there is a parse error.
+	defer func() {
+		if e := recover(); e != nil {
+			regexp = nil    // 清理返回值。
+			err = e.(Error) // 若它不是解析错误，将重新触发Panic。
+		}
+	}()
+	return regexp.doParse(str), nil
+}
+```
+若 `doParse` 触发了 `Panic` ，恢复块会将返回值设为 `nil` —被推迟的函数能够修改已命名的返回值。在 `err` 的赋值过程中， 我们将通过断言它是否拥有局部类型 `Error` 来检查它。若它没有， 类型断言将会失败，此时会产生运行时错误，并继续栈的回溯，仿佛一切从未中断过一样。 该检查意味着若发生了一些像索引越界之类的意外，那么即便我们使用了 `panic` 和 `recover` 来处理解析错误，代码仍然会失败。
+
+通过适当的错误处理，`error` 方法（由于它是个绑定到具体类型的方法， 因此即便它与内建的 `error` 类型名字相同也没有关系） 能让报告解析错误变得更容易，而无需手动处理回溯的解析栈：
+```Go
+if pos == 0 {
+	re.error("'*' illegal at start of expression")
+}
+```
+尽管这种模式很有用，但它应当仅在包内使用。`Parse` 会将其内部的 `panic` 调用转为 `error` 值，它并不会向调用者暴露出 `panic`。这是个值得遵守的良好规则。
+
+顺便一提，这种重新触发 `Panic` 的惯用法会在产生实际错误时改变 `Panic` 的值。 然而，不管是原始的还是新的错误都会在崩溃报告中显示，因此问题的根源仍然是可见的。 这种简单的重新触发 `Panic` 的模型已经够用了，毕竟他只是一次崩溃。 但若你只想显示原始的值，也可以多写一点代码来过滤掉不需要的问题，然后用原始值再次触发 `Panic` 。 
+
+## 一个 `Web` 服务器
+让我们以一个完整的 `Go` 程序作为结束吧，一个 `Web` 服务器。该程序其实只是个 `Web`服务器的重用。 `Google`在 `http://chart.apis.google.com` 上提供了一个将表单数据自动转换为图表的服务。不过，该服务很难交互， 因为你需要将数据作为查询放到 `URL`中。此程序为一种数据格式提供了更好的的接口： 给定一小段文本，它将调用图表服务器来生成二维码（QR码），这是一种编码文本的点格矩阵。 该图像可被你的手机摄像头捕获，并解释为一个字符串，比如URL， 这样就免去了你在狭小的手机键盘上键入 `URL` 的麻烦。
+
+以下为完整的程序，随后有一段解释。
+```Go
+package main
+
+import (
+    "flag"
+    "html/template"
+    "log"
+    "net/http"
+)
+
+var addr = flag.String("addr", ":1718", "http service address") // Q=17, R=18
+
+var templ = template.Must(template.New("qr").Parse(templateStr))
+
+func main() {
+    flag.Parse()
+    http.Handle("/", http.HandlerFunc(QR))
+    err := http.ListenAndServe(*addr, nil)
+    if err != nil {
+        log.Fatal("ListenAndServe:", err)
+    }
+}
+
+func QR(w http.ResponseWriter, req *http.Request) {
+    templ.Execute(w, req.FormValue("s"))
+}
+
+const templateStr = `
+<html>
+<head>
+<title>QR Link Generator</title>
+</head>
+<body>
+{{if .}}
+<img src="http://chart.apis.google.com/chart?chs=300x300&cht=qr&choe=UTF-8&chl={{.}}" />
+<br>
+{{.}}
+<br>
+<br>
+{{end}}
+<form action="/" name=f method="GET"><input maxLength=1024 size=70
+name=s value="" title="Text to QR Encode"><input type=submit
+value="Show QR" name=qr>
+</form>
+</body>
+</html>
+`
+```
+`main` 之前的代码应该比较容易理解。我们通过一个标志为服务器设置了默认端口。 模板变量 `templ` 正式有趣的地方。它构建的 `HTML` 模版将会被服务器执行并显示在页面中。 稍后我们将详细讨论。
+
+`main` 函数解析了参数标志并使用我们讨论过的机制将 `QR` 函数绑定到服务器的根路径。然后调用 `http.ListenAndServe` 启动服务器；它将在服务器运行时处于阻塞状态。
+
+`QR` 仅接受包含表单数据的请求，并为表单值 `s` 中的数据执行模板。
+
+模板包 `html/template` 非常强大；该程序只是浅尝辄止。 本质上，它通过在运行时将数据项中提取的元素（在这里是表单值）传给 `templ.Execute` 执行因而重写了 `HTML` 文本。 在模板文本（`templateStr`）中，双大括号界定的文本表示模板的动作。 从 `{{if .}}` 到 `{{end}}` 的代码段仅在当前数据项（这里是点 `.`）的值非空时才会执行。 也就是说，当字符串为空时，此部分模板段会被忽略。
+
+其中两段 `{{.}}` 表示要将数据显示在模板中 （即将查询字符串显示在 `Web` 页面上）。`HTML` 模板包将自动对文本进行转义， 因此文本的显示是安全的。
+
+余下的模板字符串只是页面加载时将要显示的 `HTML`。
+
+你终于如愿以偿了：以几行代码实现的，包含一些数据驱动的HTML文本的Web服务器。 Go语言强大到能让很多事情以短小精悍的方式解决。
+
+
+# 结语
+如此，Go语言学习之旅的第一个阶段就结束了。
