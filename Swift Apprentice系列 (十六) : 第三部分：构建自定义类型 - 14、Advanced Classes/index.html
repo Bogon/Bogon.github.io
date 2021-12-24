@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-ac-stp1.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-ac-stp2.png">
+<meta property="og:image" content="http://cdn.xuebaonline.com/sasb-ac-stp3.png">
+<meta property="article:published_time" content="2020-05-13T07:53:20.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.142Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Advanced Classes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://cdn.xuebaonline.com/sasb-ac-stp1.png">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-13 15:53:20" itemprop="dateCreated datePublished" datetime="2020-05-13T15:53:20+08:00">2020-05-13</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>14k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>13 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>上一章向你介绍了在Swift中定义和使用类的基础知识。 类是引用类型，可用于支持传统的面向对象编程。</p>
+<p>类引入了继承，覆盖，多态性，这使其适合于此目的。 这些额外的功能需要特别考虑初始化，类层次结构以及了解内存中的类生命周期。</p>
+<p>本章将向你介绍Swift中类的优点，并帮助你了解如何创建更复杂的类。</p>
+<h1 id="介绍继承"><a href="#介绍继承" class="headerlink" title="介绍继承"></a><strong>介绍继承</strong></h1><p>在上一章中，你看到了Grade结构和一对班级示例：Person和Student。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Grade</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> letter: <span class="type">Character</span></span><br><span class="line">    <span class="keyword">var</span> points: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">var</span> credits: <span class="type">Double</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> grades: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123;</span><br><span class="line">        grades.append(grade) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<a id="more"></a>
+
+<p>不难看出“人”与“学生”之间存在冗余。 也许你还注意到，学生就是人！</p>
+<p>这个简单的案例演示了类继承的思想。 就像在现实世界中一样，你可以将学生视为一个人，你可以用以下代码替换原始的Student类实现，从而在代码中表示相同的关系：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>: <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> grades: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123; </span><br><span class="line">        grades.append(grade)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此修改的示例中，Student类现在从Person继承，在命名Student后用冒号表示，然后是Student继承的类，在本例中为Person。</p>
+<p>通过继承，学生自动获取在Person类中声明的属性和方法。 在代码中，可以说一个学生是一个人是准确的。</p>
+<p>现在，通过减少重复的代码，你可以创建具有Person的所有属性和方法的Student对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> john = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> jane = <span class="type">Student</span>(firstName: <span class="string">"Jane"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">john.firstName <span class="comment">// "John" </span></span><br><span class="line">jane.firstName <span class="comment">// "Jane"</span></span><br></pre></td></tr></table></figure>
+
+<p>此外，只有Student对象将具有Student中定义的所有属性和方法：</p>
+<p><strong>从另一个类继承的类称为子类或派生类，从其继承的类称为超类或基类。</strong></p>
+<p>子类化的规则非常简单：</p>
+<ul>
+<li>Swift类只能从另一个类继承，这一概念称为“单一”遗产。</li>
+<li>子类化的深度没有限制，这意味着你可以从类中子类化</li>
+</ul>
+<p>这也是一个子类，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BandMember</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> minimumPracticeTime = <span class="number">2</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">OboePlayer</span>: <span class="title">BandMember</span> </span>&#123;</span><br><span class="line">    <span class="comment">// This is an example of an override, which we’ll cover soon. </span></span><br><span class="line">    <span class="keyword">override</span> <span class="keyword">var</span> minimumPracticeTime: <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">get</span> &#123; <span class="keyword">super</span>.minimumPracticeTime * <span class="number">2</span> &#125; </span><br><span class="line">        <span class="keyword">set</span> &#123;</span><br><span class="line">            <span class="keyword">super</span>.minimumPracticeTime = newValue / <span class="number">2</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子类链称为类层次结构。 在此示例中，层次结构为OboePlayer-&gt; BandMember-&gt; Student-&gt; Person。 类层次结构类似于家谱。 因此，超类也称为其子类的父类。</p>
+<h1 id="多态性"><a href="#多态性" class="headerlink" title="多态性"></a><strong>多态性</strong></h1><p>学生/人员关系证明了计算机科学概念，即多态性。 简而言之，多态是一种编程语言根据上下文对对象进行不同处理的能力。</p>
+<p>OboePlayer当然是OboePlayer，但它也是一个Person。 由于它是从Person派生的，因此可以在任何使用Person对象的地方使用OboePlayer对象。</p>
+<p>此示例演示如何将OboePlayer视为Person：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">phonebookName</span><span class="params">(<span class="number">_</span> person: Person)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="string">"\(person.lastName), \(person.firstName)"</span> </span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> person = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> oboePlayer = <span class="type">OboePlayer</span>(firstName: <span class="string">"Jane"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">phonebookName(person) <span class="comment">// Appleseed, Johnny</span></span><br><span class="line">phonebookName(oboePlayer) <span class="comment">// Appleseed, Jane</span></span><br></pre></td></tr></table></figure>
+
+<p>由于OboePlayer是从Person派生的，因此它是对phonebookName（_ :)函数的有效输入。 更重要的是，该函数不知道传入的对象不是常规Person。 它只能观察在Person基类中定义的OboePlayer元素。</p>
+<p>利用<strong>类继承提供的多态性特性</strong>，Swift根据上下文对oboePlayer指向的对象进行不同的处理。 当你具有不同的类层次结构但想要在通用类型或基类上运行的代码时，这特别有用。</p>
+<h1 id="运行时层次结构检查"><a href="#运行时层次结构检查" class="headerlink" title="运行时层次结构检查"></a><strong>运行时层次结构检查</strong></h1><p>现在，你正在使用多态进行编码，你可能会发现以下情况：变量后面的特定类型可能不同。 例如，你可以将变量hallMonitor定义为Student：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> hallMonitor = <span class="type">Student</span>(firstName: <span class="string">"Jill"</span>, lastName: <span class="string">"Bananapeel"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>但是，如果hallMonitor是更多派生的类型，例如OboePlayer，该怎么办？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hallMonitor = oboePlayer</span><br></pre></td></tr></table></figure>
+
+<p>由于hallMonitor定义为Student，因此编译器不允许你尝试为更派生的类型调用属性或方法。<br>幸运的是，Swift提供了as运算符来将属性或变量视为另一种类型：</p>
+<ul>
+<li>as：转换为在编译时成功的特定类型，例如转换为超类型。</li>
+<li>as ?：可选的向下转换（到子类型）。 如果向下转换失败，则表达式的结果为nil。</li>
+<li>as !：强制降档。 如果向下失败，程序将崩溃。 很少使用它，并且只有在你确定投射永远不会失败时才使用。</li>
+</ul>
+<p>这些可以在各种情况下用于将hallMonitor视为BandMember，或将oboePlayer视为来源较少的Student。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">oboePlayer <span class="keyword">as</span> <span class="type">Student</span></span><br><span class="line">(oboePlayer <span class="keyword">as</span> <span class="type">Student</span>).minimumPracticeTime <span class="comment">// ERROR: No longer a band member!</span></span><br><span class="line">hallMonitor <span class="keyword">as</span>? <span class="type">BandMember</span></span><br><span class="line">(hallMonitor <span class="keyword">as</span>? <span class="type">BandMember</span>)?.minimumPracticeTime <span class="comment">// 4 (optional)</span></span><br><span class="line">hallMonitor <span class="keyword">as</span>! <span class="type">BandMember</span> <span class="comment">// Careful! Failure would lead to a runtime crash.</span></span><br><span class="line">(hallMonitor <span class="keyword">as</span>! <span class="type">BandMember</span>).minimumPracticeTime <span class="comment">// 4 (force unwrapped)</span></span><br></pre></td></tr></table></figure>
+
+<p>可选的 downcast as? 在let或guard语句中特别有用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> hallMonitor = hallMonitor <span class="keyword">as</span>? <span class="type">BandMember</span> &#123;</span><br><span class="line">  <span class="built_in">print</span>(<span class="string">"This hall monitor is a band member and practices</span></span><br><span class="line"><span class="string">  at least \(hallMonitor.minimumPracticeTime) hours per week."</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可能想知道在什么情况下可以单独使用as运算符。 任何对象都包含其父类的所有属性和方法，那么将其强制转换为已经存在的对象有什么用？</p>
+<p>Swift具有强大的类型系统，对特定类型的解释可能会影响静态分派，也就是决定在编译时使用哪个操作的过程。</p>
+<p>听起来令人困惑？ 让我们来看一个例子。</p>
+<p>假设你有两个具有相同名称和参数名称的函数，用于两种不同的参数类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">afterClassActivity</span><span class="params">(<span class="keyword">for</span> student: Student)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="string">"Goes home!"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">afterClassActivity</span><span class="params">(<span class="keyword">for</span> student: BandMember)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">  <span class="string">"Goes to practice!"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果要将oboePlayer传递到afterClassActivity（for :)，将调用以下哪个实现？ 答案在于Swift的调度规则，在这种情况下，它将选择OboePlayer中采用的更具体的版本。</p>
+<p>相反，如果你将oboePlayer强制转换为Student，则Student版本将被称为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> afterClassActivity(<span class="keyword">for</span>: oboePlayer) <span class="comment">// Goes to practice!</span></span><br><span class="line">afterClassActivity(<span class="keyword">for</span>: oboePlayer <span class="keyword">as</span> <span class="type">Student</span>) <span class="comment">// Goes home!</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="继承，方法和覆盖"><a href="#继承，方法和覆盖" class="headerlink" title="继承，方法和覆盖"></a><strong>继承，方法和覆盖</strong></h1><p>子类接收其超类中定义的所有属性和方法，以及子类为其自身定义的所有其他属性和方法。 从这个意义上说，子类是可加的。</p>
+<p>例如，你看到Student类可以添加其他属性和方法来处理学生的成绩。 这些属性和方法可用于任何Person类实例，但可完全用于Student子类。</p>
+<p>除了创建自己的方法外，子类还可以覆盖其超类中定义的方法。 再举一个例子，假设学生运动员如果三门或三门以上的课程不及格，就没有资格参加体育项目。 这意味着你需要以某种方式跟踪成绩不佳的情况，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> failedClasses: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123; </span><br><span class="line">        <span class="keyword">super</span>.recordGrade(grade)</span><br><span class="line">        <span class="keyword">if</span> grade.letter == <span class="string">"F"</span> &#123;</span><br><span class="line">            failedClasses.append(grade) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> isEligible: <span class="type">Bool</span> &#123;</span><br><span class="line">        failedClasses.<span class="built_in">count</span> &lt; <span class="number">3</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，StudentAthlete类覆盖了recordGrade（_ :)，因此它可以跟踪学生失败的任何课程。 StudentAthlete具有自己的计算属性isEligible，该属性使用此信息来确定运动员的资格。<br><strong>覆盖方法时，在方法声明之前使用override关键字</strong>。</p>
+<p>如果你的子类具有与其父类相同的方法声明，但是省略了override关键字，则Swift将发出编译器错误：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-ac-stp1.png" alt="playground"></p>
+<p>这非常清楚地表明一种方法是否覆盖了现有方法。</p>
+<h1 id="super介绍"><a href="#super介绍" class="headerlink" title="super介绍"></a>super介绍</h1><p>你可能还注意到覆盖方法中的super.recordGrade（grade）行。 super关键字类似于self，除了它将在最近的实现超类中调用该方法。 在StudentAthlete中的recordGrade（_ :)示例中，调用super.recordGrade（grade）将执行Student类中定义的方法。</p>
+<p>还记得继承如何让你使用名字和姓氏属性定义Person并避免在子类中重复这些属性吗？ 同样，能够调用超类方法意味着你可以编写代码以在Student中记录一次成绩，然后根据需要在子类中对其进行“调用”。</p>
+<p>尽管并不总是必需的，但在Swift中重写方法时，调用super通常很重要。 super调用将在成绩数组中记录成绩本身，因为该行为在StudentAthlete中没有重复。 调用super也是一种避免在StudentAthlete和Student中重复代码的方法。</p>
+<h1 id="何时调用Super"><a href="#何时调用Super" class="headerlink" title="何时调用Super"></a><strong>何时调用Super</strong></h1><p>你可能会注意到，恰恰在你调用super时，可能会对覆盖的方法产生重要影响。</p>
+<p>假设你用以下版本替换StudentAthlete类中重写的recordGrade（_ :)方法，该版本每次记录成绩时都会重新计算不合格的类：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123; </span><br><span class="line">    <span class="keyword">var</span> newFailedClasses: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">for</span> grade <span class="keyword">in</span> grades &#123;</span><br><span class="line">        <span class="keyword">if</span> grade.letter == <span class="string">"F"</span> &#123;</span><br><span class="line">            newFailedClasses.append(grade) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    failedClasses = newFailedClasses</span><br><span class="line">    <span class="keyword">super</span>.recordGrade(grade)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此版本的recordGrade（_ :)使用grades数组查找失败类的当前列表。 如果你发现以上代码中的错误，那就好了！ 由于你最后一次调用超级类，因此如果新的grade.letter为F，则该代码将无法正确更新failedClasses。</p>
+<p>最佳做法是在覆盖时先调用方法的super版本。 这样，超类将不会受到其子类引入的任何副作用，并且该子类将不需要知道超类的实现细节。</p>
+<h1 id="防止继承"><a href="#防止继承" class="headerlink" title="防止继承"></a><strong>防止继承</strong></h1><p>有时你会想要禁止特定类的子类。<strong>Swift为你提供了final关键字，以确保一个类永远不会获得子类</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">final</span> <span class="class"><span class="keyword">class</span> <span class="title">FinalStudent</span>: <span class="title">Person</span> </span>&#123;&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FinalStudentAthlete</span>: <span class="title">FinalStudent</span> </span>&#123;&#125; <span class="comment">// Build error!</span></span><br></pre></td></tr></table></figure>
+
+<p>通过将FinalStudent类标记为final，可以告诉编译器阻止任何类从FinalStudent继承。 这可以提醒你-或你团队中的其他人！ -该类并非设计为具有子类。</p>
+<p>此外，如果要允许一个类具有子类，但又要防止单个方法被覆盖，则可以将单个方法标记为最终方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnotherStudent</span>: <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123;&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">AnotherStudentAthlete</span>: <span class="title">AnotherStudent</span> </span>&#123;</span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123;&#125; <span class="comment">// Build error! </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最初将你编写的任何新类标记为final有好处。 这告诉编译器不需要寻找更多的子类，这可以缩短编译时间，并且还要求你在决定对先前标记为final的类进行子类化时非常明确。 你将在第18章“访问控制和代码组织”中了解有关控制谁可以覆盖类的更多信息。</p>
+<h1 id="继承和类初始化"><a href="#继承和类初始化" class="headerlink" title="继承和类初始化"></a><strong>继承和类初始化</strong></h1><p>上一章简要介绍了类初始化器，它们与struct对应物类似。 对于子类，关于如何设置实例还有更多注意事项。</p>
+<blockquote>
+<p>注意：在本章的讨论区中，我将Student和StudentAthlete重命名为NewStudent和NewStudentAthlete，以使两个版本并排运行。</p>
+</blockquote>
+<p>修改StudentAthlete类以添加运动员参加的运动列表：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sports: [<span class="type">String</span>]</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>由于运动没有初始值，因此StudentAthlete必须在其自己的初始值设定项中提供一个：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sports: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">init</span>(sports: [<span class="type">String</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.sports = sports</span><br><span class="line">        <span class="comment">// Build error - super.init isn’t called before </span></span><br><span class="line">        <span class="comment">//  returning from initializer</span></span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>哦！ 编译器抱怨你在初始化程序的末尾没有调用super.init：</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-ac-stp2.png" alt="playground"></p>
+<p>子类中的初始化程序需要调用super.init，因为没有它，超类将无法为其所有存储的属性（在这种情况下为firstName和lastName）提供初始状态。</p>
+<p>让编译器满意：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sports: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>, sports: [<span class="type">String</span>]) &#123; </span><br><span class="line">        <span class="keyword">self</span>.sports = sports</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(firstName: firstName, lastName: lastName) </span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在，初始化程序将调用其超类的初始化程序，并且构建错误已消失。 请注意，初始化程序现在需要一个firstName和一个lastName来满足调用Person初始化程序的要求。</p>
+<p>你还可以在初始化sports属性后调用super.init，强制执行的规则。</p>
+<h1 id="两阶段初始化"><a href="#两阶段初始化" class="headerlink" title="两阶段初始化"></a><strong>两阶段初始化</strong></h1><p>由于Swift要求所有存储的属性都必须具有初始值，因此子类中的初始化程序必须遵守Swift的两阶段初始化约定。</p>
+<ul>
+<li><p>第一阶段：初始化类实例中从类层次结构的底部到顶部的所有存储属性。 在第一阶段完成之前，你无法使用属性和方法。</p>
+</li>
+<li><p>第二阶段：现在，你可以使用属性和方法，以及需要使用self的初始化。</p>
+</li>
+</ul>
+<p>如果没有两阶段初始化，则类上的方法和操作可能会在初始化之前与属性进行交互。</p>
+<p>在类层次结构的基类中初始化所有存储的属性后，就会发生从第一阶段到第二阶段的过渡。</p>
+<p>在子类初始化程序的范围内，你可以认为这是在调用super.init之后产生的。</p>
+<p><img src="http://cdn.xuebaonline.com/sasb-ac-stp3.png" alt="playground"></p>
+<p>这又是StudentAthlete班，运动员会自动获得入门等级：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> sports: [<span class="type">String</span>]</span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>, sports: [<span class="type">String</span>]) &#123;</span><br><span class="line">        <span class="comment">// 1</span></span><br><span class="line">        <span class="keyword">self</span>.sports = sports</span><br><span class="line">        <span class="comment">// 2</span></span><br><span class="line">        <span class="keyword">let</span> passGrade = <span class="type">Grade</span>(letter: <span class="string">"P"</span>, points: <span class="number">0.0</span>, credits: <span class="number">0.0</span>)</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(firstName: firstName, lastName: lastName) <span class="comment">// 4</span></span><br><span class="line">        recordGrade(passGrade)</span><br><span class="line">&#125;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的初始化程序显示了两阶段的初始化操作。</p>
+<ul>
+<li><p>1.首先，初始化StudentAthlete的sports属性。 这是初始化第一阶段的一部分，必须在调用超类初始化程序之前尽早完成。</p>
+</li>
+<li><p>2.尽管你可以为成绩等创建局部变量，但仍不能调用recordGrade（_ :)，因为该对象仍处于第一阶段。</p>
+</li>
+<li><p>3.调用super.init。 当返回时，你知道你还初始化了层次结构中的每个类，因为在每个级别都应用了相同的规则。</p>
+</li>
+<li><p>4.在super.init返回之后，初始化器处于阶段2，因此你调用recordGrade（_ :)。</p>
+</li>
+</ul>
+<h1 id="Required和便利的初始值设定项"><a href="#Required和便利的初始值设定项" class="headerlink" title="Required和便利的初始值设定项"></a><strong>Required和便利的初始值设定项</strong></h1><p>你已经知道一个类中可以有多个初始化程序，这意味着你可以从子类中调用任何这些初始化程序。</p>
+<p>通常，你会发现你的类具有各种初始化程序，它们只是提供一种“便捷”的方式来初始化对象：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> grades: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">init</span>(transfer: <span class="type">Student</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = transfer.firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = transfer.lastName </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">recordGrade</span><span class="params">(<span class="number">_</span> grade: Grade)</span></span> &#123;</span><br><span class="line">        grades.append(grade) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，可以使用另一个Student对象构建Student类。 也许学生换了专业？ 两个初始化程序都完全设置了名字和姓氏。</p>
+<p>Student的子类在调用super.init时可能依赖于基于Student的初始化程序。 此外，子类甚至可能不提供使用名字和姓氏进行初始化的方法。</p>
+<p>你可能会决定基于名字的第一个和最后一个初始化器非常重要，以至于希望所有子类都可以使用它。<br>Swift通过称为必需的初始化器的语言功能支持此功能。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> firstName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">let</span> lastName: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> grades: [<span class="type">Grade</span>] = []</span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.firstName = firstName</span><br><span class="line">        <span class="keyword">self</span>.lastName = lastName </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在上面的Student的修改版本中，第一个和最后一个基于名称的初始化程序已标记为required关键字。 此关键字将强制Student的所有子类实现此初始化程序。</p>
+<p>现在，在Student上有一个必需的初始化程序，StudentAthlete也必须重写并实现它。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">StudentAthlete</span>: <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Now required by the compiler!</span></span><br><span class="line">    <span class="keyword">required</span> <span class="keyword">init</span>(firstName: <span class="type">String</span>, lastName: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.sports = []</span><br><span class="line">        <span class="keyword">super</span>.<span class="keyword">init</span>(firstName: firstName, lastName: lastName) </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">请注意，对于**必需的初始值设定项，无需使用<span class="keyword">override</span>关键字**。 取而代之的是，必须使用`<span class="keyword">required</span>关键字`来确保<span class="type">StudentAthlete</span>的任何子类仍实现此必需的初始化程序。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">你还可以将初始化程序标记为便捷初始化程序：</span><br><span class="line"></span><br><span class="line">``` <span class="type">Swift</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span> </span>&#123;</span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(transfer: <span class="type">Student</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(firstName: transfer.firstName, lastName: transfer.lastName)</span><br><span class="line">    &#125;</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>编译器强制便捷初始化程序调用非便捷初始化程序（直接或间接），而不是处理存储属性本身的初始化。 非便利的初始化程序称为指定的初始化程序，并且受两阶段初始化规则的约束。 你在前面的示例中编写的所有初始化程序实际上都是指定的初始化程序。</p>
+<p>如果仅将初始化器用作初始化对象的简便方法，则可能希望将初始化器标记为方便，但是你仍然希望它利用你指定的初始化器之一。</p>
+<p>以下是使用指定的初始化和便捷初始化的编译器规则的摘要：</p>
+<ul>
+<li>1.指定的初始化程序必须从其直接超类调用指定的初始化程序。</li>
+<li>2.便利初始化程序必须从同一类调用另一个初始化程序。</li>
+<li>3.便利初始化程序必须最终调用指定的初始化程序。</li>
+</ul>
+<h1 id="什么时候以及为什么要继承"><a href="#什么时候以及为什么要继承" class="headerlink" title="什么时候以及为什么要继承"></a><strong>什么时候以及为什么要继承</strong></h1><p>本章向你介绍了类继承，以及子类支持的众多编程技术。</p>
+<p>但是你可能会问，“我什么时候应该继承？”</p>
+<p>很少有对或错的答案，因此你需要了解各种折衷方案，以便针对特定情况做出明智的决定。</p>
+<p>以Student和StudentAthlete类为例，你可能决定将StudentAthlete的所有特征简单地放入Student中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>: <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> grades: [<span class="type">Grade</span>]</span><br><span class="line">  <span class="keyword">var</span> sports: [<span class="type">Sport</span>]</span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>实际上，这可以解决你所有需要的用例。 不参加体育运动的学生只会拥有一个空的体育运动数组，并且可以避免子类化带来的一些额外复杂性。</p>
+<h2 id="单一责任"><a href="#单一责任" class="headerlink" title="单一责任"></a><em><strong>单一责任</strong></em></h2><p>在软件开发中，被称为“单一责任原则”的准则指出，任何类都应具有单个关注点。 在“学生/学生运动员”中，你可能会争辩说，封装仅对学生运动员有意义的职责不是学生班的工作。</p>
+<h2 id="强类型"><a href="#强类型" class="headerlink" title="强类型"></a><em><strong>强类型</strong></em></h2><p>子类创建一个附加类型。 使用Swift的类型系统，你可以根据学生运动员而不是普通学生的对象声明属性或行为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Team</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> players: [<span class="type">StudentAthlete</span>] = []</span><br><span class="line">    <span class="keyword">var</span> isEligible: <span class="type">Bool</span> &#123;</span><br><span class="line">        <span class="keyword">for</span> player <span class="keyword">in</span> players &#123;</span><br><span class="line">            <span class="keyword">if</span> !player.isEligible &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">            &#125; </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个团队有一些学生运动员。 如果你尝试将常规的Student对象添加到玩家数组中，则类型系统将不允许这样做。 这可能很有用，因为编译器可以帮助你强制执行系统的逻辑和要求。</p>
+<h2 id="共享基类"><a href="#共享基类" class="headerlink" title="共享基类"></a><em><strong>共享基类</strong></em></h2><p>你可以通过具有互斥行为的类多次对共享基类进行子类化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// A button that can be pressed.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Button</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">press</span><span class="params">()</span></span> &#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// An image that can be rendered on a button</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Image</span> </span>&#123;&#125;</span><br><span class="line"><span class="comment">// A button that is composed entirely of an image.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ImageButton</span>: <span class="title">Button</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> image: <span class="type">Image</span></span><br><span class="line">    <span class="keyword">init</span>(image: <span class="type">Image</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.image = image </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// A button that renders as text.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextButton</span>: <span class="title">Button</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> text: <span class="type">String</span></span><br><span class="line">    <span class="keyword">init</span>(text: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.text = text </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，你可以想象许多Button子类，它们仅共享可以被按下的事实。 ImageButton和TextButton类可能使用不同的机制来呈现给定的按钮，因此它们可能必须实现自己的行为来处理印刷。</p>
+<p>你可以在这里看到如何在Button类中存储图像和文本-更不用说可能存在的任何其他类型的按钮-很快将变得不切实际。 Button与按下行为有关，而子类处理按钮的实际外观和感觉是有意义的。</p>
+<h2 id="可扩展性"><a href="#可扩展性" class="headerlink" title="可扩展性"></a><em><strong>可扩展性</strong></em></h2><p>有时你需要扩展你不拥有的代码的行为。 在上面的示例中，Button可能是你正在使用的框架的一部分，因此你无法修改或扩展源代码以适合你的特定情况。</p>
+<p>但是，你可以将Button子类化，并添加你的自定义子类，以用于需要Button类型对象的代码。</p>
+<blockquote>
+<p>注意：除了将一个类标记为final外，还可以使用访问控制（将在第18章“访问控制和代码组织”中学习）来指定是否可以将类的任何成员作为子类（也称为覆盖）。 - 或不。</p>
+</blockquote>
+<h2 id="身分识别"><a href="#身分识别" class="headerlink" title="身分识别"></a><strong>身分识别</strong></h2><p>最后，重要的是要了解类和类层次结构是什么对象的模型。 如果你的目标是在类型之间共享行为（对象可以做的事情），那么你应该更倾向于使用协议而不是子类。 你将在第16章“协议”中了解协议。</p>
+<h1 id="了解类的生命周期"><a href="#了解类的生命周期" class="headerlink" title="了解类的生命周期"></a><strong>了解类的生命周期</strong></h1><p>在上一章中，你了解了对象是在内存中创建的，并且它们存储在堆中。堆上的对象不会自动销毁，因为堆只是一个巨大的内存池。如果没有调用堆栈的实用程序，流程将无法自动知道某个内存将不再使用。<br>在Swift中，决定何时清理堆上未使用对象的机制称为引用计数。简而言之，每个对象都有一个引用计数，该引用计数随该对象的引用而针对每个常量或变量递增，并在每次删除引用时递减。</p>
+<blockquote>
+<p>注意：你可能会在其他书籍和在线资源中看到称为“保留计数”的参考计数。他们指的是同一件事！</p>
+</blockquote>
+<p>当引用计数达到零时，这意味着该对象现在被丢弃，因为系统中没有任何对象保留对该对象的引用。发生这种情况时，Swift会清理对象。</p>
+<p>这是一个对象的参考计数如何变化的演示。请注意，在此示例中仅创建了一个实际对象；一个对象有很多引用。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> someone = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="comment">// Person object has a reference count of 1 (someone variable)</span></span><br><span class="line"><span class="keyword">var</span> anotherSomeone: <span class="type">Person?</span> = someone</span><br><span class="line"><span class="comment">// Reference count 2 (someone, anotherSomeone)</span></span><br><span class="line"><span class="keyword">var</span> lotsOfPeople = [someone, someone, anotherSomeone, someone]</span><br><span class="line"><span class="comment">// Reference count 6 (someone, anotherSomeone, 4 references in</span></span><br><span class="line">lotsOfPeople)</span><br><span class="line">anotherSomeone = <span class="literal">nil</span></span><br><span class="line"><span class="comment">// Reference count 5 (someone, 4 references in lotsOfPeople)</span></span><br><span class="line">lotsOfPeople = []</span><br><span class="line"><span class="comment">// Reference count 1 (someone)</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，我们创建另一个对象，并使用该引用替换某人。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> someone = <span class="type">Person</span>(firstName: <span class="string">"Johnny"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="comment">// Reference count 0 for the original Person object!</span></span><br><span class="line"><span class="comment">// Variable someone now references a new object</span></span><br></pre></td></tr></table></figure>
+
+<p>在此示例中，你无需自己做任何工作即可增加或减少对象的引用计数。 这是因为Swift具有称为自动引用计数或ARC的功能。</p>
+<p>虽然某些较旧的语言要求你在代码中增加和减少引用计数，但是Swift编译器会在编译时自动添加这些调用。</p>
+<blockquote>
+<p>注意：如果你使用的是C之类的低级语言，则需要手动释放不再使用的内存。 诸如Java和C＃之类的高级语言使用了称为垃圾回收的东西。 在这种情况下，在清除不再使用的对象之前，该语言的运行时将在你的进程中搜索对对象的引用。 垃圾收集虽然比ARC更强大，但其内存利用率和性能成本却被Apple认为对于移动设备或通用系统语言不可接受。</p>
+</blockquote>
+<h1 id="反初始化"><a href="#反初始化" class="headerlink" title="反初始化"></a><strong>反初始化</strong></h1><p>当对象的引用计数达到零时，Swift会将其从内存中删除，并将该内存标记为空闲。</p>
+<p>反初始化是类上的一种特殊方法，当对象的引用计数达到零但在Swift将其从内存中删除之前，该方法会运行。</p>
+<p>修改人员，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="comment">// original code</span></span><br><span class="line">    <span class="keyword">deinit</span> &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\(firstName) \(lastName) is being removed</span></span><br><span class="line"><span class="string">          from memory!"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就像init是类初始化中的一种特殊方法一样，deinit是一种处理去初始化的特殊方法。 与init不同，deinit不是必需的，而是由Swift自动调用的。 你也不需要覆盖它或在其中调用超级。 Swift将确保调用每个类的反初始化器。</p>
+<p>如果添加此反初始化程序，则会看到消息Johnny Appleseed已从内存中删除！ 运行前面的示例后，在调试区域中单击“确定”。</p>
+<p>你可以根据自己的需要在反初始化器中进行操作。 当对象超出范围时，通常会使用它来清理其他资源，将状态保存到磁盘或执行你可能想要的任何其他逻辑。</p>
+<h1 id="保持周期和弱引用"><a href="#保持周期和弱引用" class="headerlink" title="保持周期和弱引用"></a><strong>保持周期和弱引用</strong></h1><p>由于Swift中的类依靠引用计数将其从内存中删除，因此了解循环引用的概念很重要。</p>
+<p>在学生类中添加代表同学（例如，实验室合作伙伴）和反初始化器的字段，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>: <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> partner: <span class="type">Student?</span></span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">  <span class="keyword">deinit</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(firstName) is being deallocated!"</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> alice: <span class="type">Student?</span> = <span class="type">Student</span>(firstName: <span class="string">"Alice"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line"><span class="keyword">var</span> bob: <span class="type">Student?</span> = <span class="type">Student</span>(firstName: <span class="string">"Bob"</span>, lastName: <span class="string">"Appleseed"</span>)</span><br><span class="line">alice?.partner = bob bob?.partner = alice</span><br></pre></td></tr></table></figure>
+
+<p>现在，假设爱丽丝和鲍勃都辍学了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> alice = <span class="literal">nil</span></span><br><span class="line">bob = <span class="literal">nil</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你在操场上跑步，你会发现看不到Alice / Bob正在被释放的消息，而Swift不会调用deinit。 这是为什么？</p>
+<p>爱丽丝（Alice）和鲍勃（Bob）互相引用，因此引用计数永远不会达到零！ 更糟的是，通过为nice和bob分配nil，不再有对初始对象的引用。 这是循环引用的经典案例，这会导致称为内存泄漏的软件错误。</p>
+<p>由于内存泄漏，即使其实际生命周期已经结束，也无法释放内存。 循环引用是内存泄漏的最常见原因。 幸运的是，有一种方法可以使Student对象可以引用另一个Student而又不倾向于循环引用，这是通过使引用变弱来实现的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Student</span>: <span class="title">Person</span> </span>&#123;</span><br><span class="line">  <span class="keyword">weak</span> <span class="keyword">var</span> partner: <span class="type">Student?</span></span><br><span class="line">  <span class="comment">// original code</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个简单的修改将伙伴变量标记为弱，这意味着该变量中的引用将不参与引用计数。 当引用不是很弱时，它称为强引用，这是Swift中的默认设置。 必须将弱引用声明为可选类型，以便在释放所引用的对象时，该引用自动变为nil。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a><strong>关键点</strong></h1><ul>
+<li><p>类继承是类的最重要特征之一，并且可以实现多态。</p>
+</li>
+<li><p>子类化是一个强大的工具，但最好知道何时进行子类化。 子类，当你要扩展对象时，可以从子类和超类之间的“是”关系中受益，但要注意继承的状态和深层的类层次结构。</p>
+</li>
+<li><p>当你覆盖子类中的方法时，关键字override使你清楚。</p>
+</li>
+<li><p>关键字final可用于防止类被子类化。</p>
+</li>
+<li><p>Swift类使用两阶段初始化作为安全措施来确保所有存储属性在使用之前被初始化。</p>
+</li>
+<li><p>类实例具有自己的生命周期，这些生命周期由其引用控制计数。</p>
+</li>
+<li><p>自动参考计数或ARC为你处理参考计数自动，但是请务必注意循环引用。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E5%85%AD)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2014%E3%80%81Advanced%20Classes/" title="Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes">https://www.xuebaonline.com/Swift Apprentice系列 (十六) : 第三部分：构建自定义类型 - 14、Advanced Classes/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/Advanced-Classes/" rel="tag"><i class="fa fa-tag"></i> Advanced Classes</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E5%8D%81%E4%BA%94)%20:%20%E7%AC%AC%E4%B8%89%E9%83%A8%E5%88%86%EF%BC%9A%E6%9E%84%E5%BB%BA%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%9E%8B%20-%2013%E3%80%81Classes/" rel="prev" title="Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (十五) : 第三部分：构建自定义类型 - 13、Classes
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020%E5%B9%B4iOS%E9%9D%A2%E8%AF%95%E9%A2%98%E6%80%BB%E7%BB%93(%E4%B8%80)/" rel="next" title="2020年iOS面试题总结(一)">
+      2020年iOS面试题总结(一) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍继承"><span class="nav-number">1.</span> <span class="nav-text">介绍继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多态性"><span class="nav-number">2.</span> <span class="nav-text">多态性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时层次结构检查"><span class="nav-number">3.</span> <span class="nav-text">运行时层次结构检查</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继承，方法和覆盖"><span class="nav-number">4.</span> <span class="nav-text">继承，方法和覆盖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#super介绍"><span class="nav-number">5.</span> <span class="nav-text">super介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#何时调用Super"><span class="nav-number">6.</span> <span class="nav-text">何时调用Super</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#防止继承"><span class="nav-number">7.</span> <span class="nav-text">防止继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#继承和类初始化"><span class="nav-number">8.</span> <span class="nav-text">继承和类初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#两阶段初始化"><span class="nav-number">9.</span> <span class="nav-text">两阶段初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Required和便利的初始值设定项"><span class="nav-number">10.</span> <span class="nav-text">Required和便利的初始值设定项</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#什么时候以及为什么要继承"><span class="nav-number">11.</span> <span class="nav-text">什么时候以及为什么要继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#单一责任"><span class="nav-number">11.1.</span> <span class="nav-text">单一责任</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#强类型"><span class="nav-number">11.2.</span> <span class="nav-text">强类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#共享基类"><span class="nav-number">11.3.</span> <span class="nav-text">共享基类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可扩展性"><span class="nav-number">11.4.</span> <span class="nav-text">可扩展性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#身分识别"><span class="nav-number">11.5.</span> <span class="nav-text">身分识别</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#了解类的生命周期"><span class="nav-number">12.</span> <span class="nav-text">了解类的生命周期</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反初始化"><span class="nav-number">13.</span> <span class="nav-text">反初始化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#保持周期和弱引用"><span class="nav-number">14.</span> <span class="nav-text">保持周期和弱引用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">15.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

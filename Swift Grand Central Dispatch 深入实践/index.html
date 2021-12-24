@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Grand Central Dispatch 深入实践">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Grand Central Dispatch 深入实践">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Grand Central Dispatch 深入实践">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-04-30T02:32:15.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.147Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Grand Central Dispatch">
+<meta property="article:tag" content="multi-threading">
+<meta property="article:tag" content="Queues">
+<meta property="article:tag" content="tasks">
+<meta property="article:tag" content="groups">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Grand Central Dispatch 深入实践 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Grand Central Dispatch 深入实践
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-30 10:32:15" itemprop="dateCreated datePublished" datetime="2020-04-30T10:32:15+08:00">2020-04-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Grand-Central-Dispatch/" itemprop="url" rel="index"><span itemprop="name">Grand Central Dispatch</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+            <div class="post-description">Swift Grand Central Dispatch 深入实践</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解 <code>Swift</code> 中 <code>GCD框架</code> 的 <code>多线程原理</code> 。 我保证，将所有需要的 <code>队列</code> ， <code>任务</code> ， <code>组</code> 进行分组。</p>
+</br>
+
+<h1 id="适用于初学者的GCD并发教程"><a href="#适用于初学者的GCD并发教程" class="headerlink" title="适用于初学者的GCD并发教程"></a><strong>适用于初学者的GCD并发教程</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://developer.apple.com/documentation/dispatch" target="_blank" rel="noopener"><em><strong><code>Grand Central Dispatch （GCD，或仅调度）</code></strong></em></a>框架基于基础 <code>线程池设计模式</code> 。 这意味着系统会生成固定数量的线程-基于某些因素（例如 <code>CPU内核</code> ），它们始终可用，等待任务同时执行。 🚦</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在运行时创建线程是一项昂贵的任务，因此 <a href="https://www.raywenderlich.com/148513/grand-central-dispatch-tutorial-swift-3-part-1" target="_blank" rel="noopener"><em><strong><code>GCD</code></strong></em></a> 会将任务组织到特定队列中，稍后，将在池中适当且可用的线程上执行等待这些队列中的任务。 这种方法导致了出色的性能和较低的执行延迟。 我们可以说 <a href="https://www.swiftbysundell.com/posts/a-deep-dive-into-grand-central-dispatch-in-swift" target="_blank" rel="noopener"><em><strong><code>Dispatch框架</code></strong></em></a> 是一个非常快速，高效的并发框架，专为现代多核硬件和需求而设计。</p>
+<a id="more"></a>
+
+</br>
+
+<h1 id="并发，多任务，CPU内核，并行性和线程"><a href="#并发，多任务，CPU内核，并行性和线程" class="headerlink" title="并发，多任务，CPU内核，并行性和线程"></a><strong>并发，多任务，CPU内核，并行性和线程</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;处理器可以以编程方式运行你执行的任务，通常称为编码，开发或编程。  <code>CPU内核</code> 执行的代码是线程。因此，你的应用程序将创建一个由线程组成的进程。 🤓</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;过去，处理器只有一个内核，一次只能处理一个任务。稍后引入了 <code>时间片</code> ，因此 <code>CPU</code> 可以使用上下文切换并发执行线程。随着时间的流逝，处理器获得了更多的功能和内核，因此它们能够使用并行机制实现真正的多任务处理。 ⏱</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如今， <code>CPU</code> 是一个功能非常强大的单元，它每秒能够执行数十亿个任务（周期）。由于这种 <code>高可用性速度</code> ，英特尔引入了一种称为超线程的技术。他们将 <code>CPU时钟周期</code> 划分为同时运行的（通常是两个）进程之间的时间，因此可用线程的数量实际上增加了一倍。 📈</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如你所见，并发执行可以通过各种技术来实现，但是你不必太在意。如何解决并发性取决于 <code>CPU体系结构</code> ，操作系统的任务是为底层线程池产生多少线程。  <code>GCD框架</code> 将隐藏所有复杂性，但是了解基本原理始终是一件好事。 👍</p>
+</br>
+
+<h1 id="同步和异步执行"><a href="#同步和异步执行" class="headerlink" title="同步和异步执行"></a><strong>同步和异步执行</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;每个工作项都可以 <code>同步或异步执行</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你听说过 <code>阻塞代码</code> 和 <code>非阻塞代码</code> 吗？ 这是这里相同的情景。 使用同步任务，你将阻止执行队列，但是使用异步任务，你的调用将立即返回，并且队列可以继续执行其余任务（或Apple调用的工作项）。 🚧</p>
+<h2 id="同步执行"><a href="#同步执行" class="headerlink" title="同步执行"></a><em><strong>同步执行</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当工作项与 <code>sync方法</code> 同步执行时，程序将等到执行完成后再返回方法调用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果函数具有返回值，则它很可能是同步的，因此 <code>func load() -&gt; String</code> 可能会阻塞正在运行的代码，直到资源完全加载并返回。</p>
+<h2 id="异步执行"><a href="#异步执行" class="headerlink" title="异步执行"></a><em><strong>异步执行</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当使用 <code>async方法</code> 异步执行工作项时，该方法调用立即返回。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Completion blocks</code> 是异步方法的很好选择，例如，如果你查看此方法 <code>func load（completion：（String）-&gt; Void）</code>，则可以看到它没有返回类型，但是函数的结果通过 <code>Block</code> 返回 <code>(Block 回调)</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个典型的用例，如果你必须等待方法内部的某些事情（例如，从磁盘读取大文件的内容），则不希望由于 <code>IO操作</code> 缓慢而 <code>阻塞CPU</code> 。 在系统从物理硬盘驱动器中读取文件时，可能还会执行其他任务，而这些任务根本不会占用 <code>大量IO</code> （算术运算等）。 💾</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>分派队列</code> ，你可以同步或异步执行代码。 同步执行时，队列等待工作，异步执行时，代码立即返回，而无需等待任务完成。 ⚡️</p>
+</br>
+
+<h1 id="Dispatch-queues"><a href="#Dispatch-queues" class="headerlink" title="Dispatch queues"></a><strong>Dispatch queues</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我之前提到的， <code>GCD</code> 将 <code>任务组织成队列</code> ，就像在购物中心的队列一样。 在每个调度队列上，将按照将任务添加到队列中的相同顺序执行任务- <code>FIFO</code> ：该行中的第一个任务将首先执行-但你应注意，不能保证完成的顺序。 任务将根据代码复杂度完成。 因此，如果你将两个任务添加到队列中，先是慢任务，然后是快任务，则快任务可以在慢任务之前完成。 ⌛️</p>
+<h2 id="串行和并发队列"><a href="#串行和并发队列" class="headerlink" title="串行和并发队列"></a><em><strong>串行和并发队列</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有两种类型的调度队列。  <code>串行队列</code> 可以一次执行一个任务，这些队列可用于同步对特定资源的访问。 另一方面， <code>并发队列</code> 可以同时并行执行一个或多个任务。  <code>串行队列</code> 就像商场中只有一个收银员的一条生产线， 并发队列 就像是一条拆分成两个或更多收银员的单条生产线。 💰</p>
+<h2 id="主队列，全局队列和定制队列"><a href="#主队列，全局队列和定制队列" class="headerlink" title="主队列，全局队列和定制队列"></a><em><strong>主队列，全局队列和定制队列</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>主队列</code> 是一个 <code>串行队列</code> ， <code>主队列</code> 上的每个任务都在 <code>主线程</code> 上运行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>全局队列</code> 是系统提供的通过操作系统共享的 <code>并发队列</code> 。 恰好有四个按高优先级，默认优先级，低优先级以及 <code>IO限制</code> 的后台队列进行组织。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>定制队列</code> 可以由用户创建。 通过指定 <code>服务质量属性（QoS）</code> ， <code>自定义并发队列</code> 始终映射到全局队列之一。 在大多数情况下，如果要并行运行任务，建议使用 <code>全局并发队列</code> 之一，则应仅创建 <code>自定义串行队列</code> 。</p>
+<h2 id="系统提供的队列"><a href="#系统提供的队列" class="headerlink" title="系统提供的队列"></a><em><strong>系统提供的队列</strong></em></h2><ul>
+<li>Serial main queue</li>
+<li>Concurrent global queues</li>
+<li>high priority global queue</li>
+<li>default priority global queue</li>
+<li>low priority global queue</li>
+<li>global background queue (io throttled)</li>
+</ul>
+<h2 id="按服务质量定制队列"><a href="#按服务质量定制队列" class="headerlink" title="按服务质量定制队列"></a><em><strong>按服务质量定制队列</strong></em></h2><ul>
+<li><strong>userInteractive</strong> (UI updates) -&gt; serial main queue</li>
+<li><strong>userInitiated</strong> (async UI related tasks) -&gt; high priority global queue</li>
+<li><strong>default</strong> -&gt; default priority global queue</li>
+<li><strong>utility</strong> -&gt; low priority global queue</li>
+<li><strong>background</strong> -&gt; global background queue</li>
+<li><strong>unspecified</strong> (lowest) -&gt; low priority global queue</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从理论上已经足够，让我们看看如何在实际中使用 <code>Dispatch框架</code> ！ 🎬</p>
+</br>
+
+<h1 id="如何在Swift中使用DispatchQueue类？"><a href="#如何在Swift中使用DispatchQueue类？" class="headerlink" title="如何在Swift中使用DispatchQueue类？"></a><strong>如何在Swift中使用DispatchQueue类？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是使用 <code>Swift 3</code> 提供的全新 <code>GCD语法</code> 从上方获取所有队列的方法。请注意，除非要使用 <code>并发队列</code> ，否则应始终使用 <code>全局并发队列</code> 而不是创建自己的 <code>全局并发队列</code> 。 通过 <code>barriers</code> 进行锁定以实现 <a href="http://basememara.com/creating-thread-safe-arrays-in-swift/" target="_blank" rel="noopener"><em><strong><code>线程安全</code></strong></em></a> ，稍后再进行介绍。 😳</p>
+<h2 id="如何获得队列？"><a href="#如何获得队列？" class="headerlink" title="如何获得队列？"></a><em><strong>如何获得队列？</strong></em></h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Dispatch</span><br><span class="line"></span><br><span class="line"><span class="type">DispatchQueue</span>.main</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .userInitiated)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .userInteractive)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .background)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .<span class="keyword">default</span>)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .utility)</span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .unspecified)</span><br><span class="line"><span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.serial"</span>)</span><br><span class="line"><span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.concurrent"</span>, attributes: .concurrent)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，在任务完成后，在 <code>后台队列</code> 上执行任务并更新 <code>主队列</code> 上的 <code>UI</code> 是使用 <code>Dispatch队列</code> 非常容易的一项。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DispatchQueue</span>.global(qos: .background).async &#123;</span><br><span class="line">    <span class="comment">// do your job here</span></span><br><span class="line"></span><br><span class="line">    <span class="type">DispatchQueue</span>.main.async &#123;</span><br><span class="line">        <span class="comment">// update ui here</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="在队列上同步和异步调用"><a href="#在队列上同步和异步调用" class="headerlink" title="在队列上同步和异步调用"></a><em><strong>在队列上同步和异步调用</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;队列上的 <code>同步和异步方法</code> 之间没有太大区别。  <code>Sync</code> 只是一个带有信号量（稍后说明）的异步调用，该信号量等待返回值。 同步呼叫将被阻止，另一方面，异步呼叫将立即返回。 🎉</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> q = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> text = q.sync &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">"this will block"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(text)</span><br><span class="line"></span><br><span class="line">q.async &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"this will return instantly"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;基本上，如果你需要返回值，请使用 sync ，但在其他所有情况下，请使用 async 。 <strong>死锁警告</strong>：<em><strong>永远不要在主队列上调用同步，因为它会导致死锁和崩溃。</strong></em> 如果你正在寻找一种在 <code>主队列/线程上</code> 进行 <code>同步调用</code> 的安全方法，则可以使用此代码段。 👌</p>
+<p><em><strong><code>不要从串行队列的线程在串行队列上调用sync！</code></strong></em></p>
+<h2 id="延迟执行"><a href="#延迟执行" class="headerlink" title="延迟执行"></a><em><strong>延迟执行</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 <code>Dispatch框架</code> 简单地延迟代码执行。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DispatchQueue</span>.main.asyncAfter(deadline: .now() + .seconds(<span class="number">2</span>)) &#123;</span><br><span class="line">    <span class="comment">//this code will be executed only after 2 seconds have been passed</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="执行并发循环"><a href="#执行并发循环" class="headerlink" title="执行并发循环"></a><em><strong>执行并发循环</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>调度队列</code> 仅允许你同时执行迭代。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">DispatchQueue</span>.concurrentPerform(iterations: <span class="number">5</span>) &#123; (i) <span class="keyword">in</span></span><br><span class="line">    <span class="built_in">print</span>(i)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Debugging"><a href="#Debugging" class="headerlink" title="Debugging"></a><em><strong>Debugging</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;哦，顺便说一句，它仅用于调试目的，但是你可以使用此扩展名来返回当前队列的名称。 不要在生产代码中使用！！！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">DispatchQueue</span> </span>&#123;</span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> currentLabel: <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">String</span>(validatingUTF8: __dispatch_queue_get_label(<span class="literal">nil</span>))!</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//print(DispatchQueue.currentLabel)</span></span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="在Swift中使用DispatchWorkItem"><a href="#在Swift中使用DispatchWorkItem" class="headerlink" title="在Swift中使用DispatchWorkItem"></a><strong>在Swift中使用DispatchWorkItem</strong></h1><blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>DispatchWorkItem</code> 封装了可以执行的工作。 可以将工作项目分派到 <code>DispatchQueue</code> 上和 <code>DispatchGroup</code> 中。 也可以将 <code>DispatchWorkItem</code> 设置为 <code>DispatchSource</code> 事件，注册或取消处理程序。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，就像使用工作项进行操作一样，你可以取消正在运行的任务。 工作项也可以在任务完成时通知队列。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> workItem: <span class="type">DispatchWorkItem?</span></span><br><span class="line">workItem = <span class="type">DispatchWorkItem</span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">1</span>..&lt;<span class="number">6</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> item = workItem, !item.isCancelled <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">"cancelled"</span>)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        sleep(<span class="number">1</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="type">String</span>(i))</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">workItem?.notify(queue: .main) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"done"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">DispatchQueue</span>.global().asyncAfter(deadline: .now() + .seconds(<span class="number">2</span>)) &#123;</span><br><span class="line">    workItem?.cancel()</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">DispatchQueue</span>.main.async(execute: workItem!)</span><br><span class="line"><span class="comment">// you can use perform to run on the current queue instead of queue.async(execute:)</span></span><br><span class="line"><span class="comment">//workItem?.perform()</span></span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="与-DispatchGroups-并发的任务"><a href="#与-DispatchGroups-并发的任务" class="headerlink" title="与 DispatchGroups 并发的任务"></a><strong>与 DispatchGroups 并发的任务</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，你需要执行多个网络调用以构造视图控制器所需的数据？ 这是 <code>DispatchGroup</code> 可以为你提供帮助的地方。 你所有长时间运行的后台任务都可以同时执行，当一切准备就绪时，你会收到通知。 请注意，你必须使用线程安全的数据结构，因此请务必在同一线程上修改数组！ 😅</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">load</span><span class="params">(delay: UInt32, completion: <span class="params">()</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    sleep(delay)</span><br><span class="line">    completion()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</span><br><span class="line"></span><br><span class="line">group.enter()</span><br><span class="line">load(delay: <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</span><br><span class="line">    group.leave()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">group.enter()</span><br><span class="line">load(delay: <span class="number">2</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"2"</span>)</span><br><span class="line">    group.leave()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">group.enter()</span><br><span class="line">load(delay: <span class="number">3</span>) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</span><br><span class="line">    group.leave()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">group.notify(queue: .main) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"done"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，你始终必须在该组上平衡 进入 和 离开 调用。 调度组还使我们能够跟踪不同工作项的完成情况，即使它们在不同队列中运行也是如此。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</span><br><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.serial"</span>)</span><br><span class="line"><span class="keyword">let</span> workItem = <span class="type">DispatchWorkItem</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"start"</span>)</span><br><span class="line">    sleep(<span class="number">1</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"end"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">queue.async(group: group) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"group start"</span>)</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"group end"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">DispatchQueue</span>.global().async(group: group, execute: workItem)</span><br><span class="line"></span><br><span class="line"><span class="comment">// you can block your current queue and wait until the group is ready</span></span><br><span class="line"><span class="comment">// a better way is to use a notification block instead of blocking</span></span><br><span class="line"><span class="comment">//group.wait(timeout: .now() + .seconds(3))</span></span><br><span class="line"><span class="comment">//print("done")</span></span><br><span class="line"></span><br><span class="line">group.notify(queue: .main) &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"done"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以使用调度组进行的另一件事：假设你在执行一些实际工作时正在显示动画效果很好的加载指示器。 可能发生的是工作完成得比你预期的快，并且指示符动画无法完成。 为了解决这种情况，你可以添加一个小的延迟任务，以便小组等待直到两个任务都完成。 😎</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"><span class="keyword">let</span> group = <span class="type">DispatchGroup</span>()</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">9</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;n &#123;</span><br><span class="line">    queue.async(group: group) &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\(i): Running async task..."</span>)</span><br><span class="line">        sleep(<span class="number">3</span>)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"\(i): Async task completed"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">group.wait()</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"done"</span>)</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="信号量-Semaphores"><a href="#信号量-Semaphores" class="headerlink" title="信号量(Semaphores)"></a><strong>信号量(Semaphores)</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>信号量 </code>只是一个变量，用于处理并发系统中的资源共享。 这是一个非常强大的对象，下面是 <code>Swift</code> 中的一些重要示例。</p>
+<h2 id="如何使异步任务同步？"><a href="#如何使异步任务同步？" class="headerlink" title="如何使异步任务同步？"></a><em><strong>如何使异步任务同步？</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;答案很简单，你可以使用信号量！</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">DispatchError</span>: <span class="title">Error</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> timeout</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">asyncMethod</span><span class="params">(completion: <span class="params">(String)</span></span></span> -&gt; <span class="type">Void</span>) &#123;</span><br><span class="line">    sleep(<span class="number">2</span>)</span><br><span class="line">    completion(<span class="string">"done"</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">syncMethod</span><span class="params">()</span></span> <span class="keyword">throws</span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> response: <span class="type">String?</span></span><br><span class="line">    queue.async &#123;</span><br><span class="line">        asyncMethod &#123; r <span class="keyword">in</span></span><br><span class="line">            response = r</span><br><span class="line">            semaphore.signal()</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    semaphore.wait(timeout: .now() + <span class="number">5</span>)</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> result = response <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="type">DispatchError</span>.timeout</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> response = <span class="keyword">try</span>? syncMethod()</span><br><span class="line"><span class="built_in">print</span>(response)</span><br></pre></td></tr></table></figure>
+
+<h2 id="锁定-单次访问资源"><a href="#锁定-单次访问资源" class="headerlink" title="锁定/单次访问资源"></a><em><strong>锁定/单次访问资源</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想避免 <code>race condition</code> 问题，则可能要使用互斥。 这可以通过使用信号量对象来实现，但是如果你的对象需要大量读取功能，则应考虑基于 <code>dispatch barrier</code> 的解决方案。 😜</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LockedNumbers</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">var</span> elements: [<span class="type">Int</span>] = []</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">append</span><span class="params">(<span class="number">_</span> num: Int)</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"appended: \(num)"</span>)</span><br><span class="line">        <span class="keyword">self</span>.elements.append(num)</span><br><span class="line">        <span class="keyword">self</span>.semaphore.signal()</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">removeLast</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">self</span>.semaphore.wait(timeout: <span class="type">DispatchTime</span>.distantFuture)</span><br><span class="line">        <span class="keyword">defer</span> &#123;</span><br><span class="line">            <span class="keyword">self</span>.semaphore.signal()</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">guard</span> !<span class="keyword">self</span>.elements.isEmpty <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> num = <span class="keyword">self</span>.elements.removeLast()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"removed: \(num)"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> items = <span class="type">LockedNumbers</span>()</span><br><span class="line">items.append(<span class="number">1</span>)</span><br><span class="line">items.append(<span class="number">2</span>)</span><br><span class="line">items.append(<span class="number">5</span>)</span><br><span class="line">items.append(<span class="number">3</span>)</span><br><span class="line">items.removeLast()</span><br><span class="line">items.removeLast()</span><br><span class="line">items.append(<span class="number">3</span>)</span><br><span class="line"><span class="built_in">print</span>(items.elements)</span><br></pre></td></tr></table></figure>
+
+<h2 id="等待多个任务完成"><a href="#等待多个任务完成" class="headerlink" title="等待多个任务完成"></a><em><strong>等待多个任务完成</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像调度组一样，如果多个任务完成，你还可以使用信号量对象来获得通知。 你只需要等待…</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> semaphore = <span class="type">DispatchSemaphore</span>(value: <span class="number">0</span>)</span><br><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>.global()</span><br><span class="line"><span class="keyword">let</span> n = <span class="number">9</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;n &#123;</span><br><span class="line">    queue.async &#123;</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">"run \(i)"</span>)</span><br><span class="line">        sleep(<span class="number">3</span>)</span><br><span class="line">        semaphore.signal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"wait"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;n &#123;</span><br><span class="line">    semaphore.wait()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"completed \(i)"</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"done"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用信号量批量执行"><a href="#使用信号量批量执行" class="headerlink" title="使用信号量批量执行"></a><em><strong>使用信号量批量执行</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以创建类似于行为的线程池，以使用调度信号量来模拟有限的资源。 因此，例如，如果你想从服务器下载大量图像，则可以每次运行一批。 非常方便。 🖐</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"start"</span>)</span><br><span class="line"><span class="keyword">let</span> sem = <span class="type">DispatchSemaphore</span>(value: <span class="number">5</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">10</span> &#123;</span><br><span class="line">    <span class="type">DispatchQueue</span>.global().async &#123;</span><br><span class="line">        sem.wait()</span><br><span class="line">        sleep(<span class="number">2</span>)</span><br><span class="line">        <span class="built_in">print</span>(i)</span><br><span class="line">        sem.signal()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"end"</span>)</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="DispatchSource对象"><a href="#DispatchSource对象" class="headerlink" title="DispatchSource对象"></a><strong>DispatchSource对象</strong></h1><p><em><strong><code>调度源是一种基本数据类型，可协调特定底层系统事件的处理。</code></strong></em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;信号，描述符，进程，端口，计时器等。 一切都通过 <a href="https://developer.apple.com/library/archive/documentation/General/Conceptual/ConcurrencyProgrammingGuide/GCDWorkQueues/GCDWorkQueues.html" target="_blank" rel="noopener"><em><strong><code>调度源</code></strong></em></a> 对象处理。 我真的不想深入细节，这是相当底层的东西。 你可以使用调度源监视文件，端口，信号。 请只阅读苹果官方文档。 📄</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我只想在此使用 <a href="https://www.cocoawithlove.com/blog/2016/07/30/timer-problems.html" target="_blank" rel="noopener"><em><strong><code>调度源计时器</code></strong></em></a> 来举例说明。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> timer = <span class="type">DispatchSource</span>.makeTimerSource()</span><br><span class="line">timer.schedule(deadline: .now(), repeating: .seconds(<span class="number">1</span>))</span><br><span class="line">timer.setEventHandler &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"hello"</span>)</span><br><span class="line">&#125;</span><br><span class="line">timer.resume()</span><br></pre></td></tr></table></figure>
+
+</br>
+
+<h1 id="使用调度框架的线程安全"><a href="#使用调度框架的线程安全" class="headerlink" title="使用调度框架的线程安全"></a><strong>使用调度框架的线程安全</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果涉及多线程代码，则 <a href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8" target="_blank" rel="noopener"><em><strong><code>线程安全性</code></strong></em></a> 是不可避免的主题。 在开始时，我提到在GCD的内部有一个线程池。 每个线程都有一个与之关联的运行循环对象，你甚至可以手动运行它们。 如果手动创建线程，则会将运行循环自动添加到该线程。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> t = <span class="type">Thread</span> &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="type">Thread</span>.current.name ?? <span class="string">""</span>)</span><br><span class="line">     <span class="keyword">let</span> timer = <span class="type">Timer</span>(timeInterval: <span class="number">1</span>, repeats: <span class="literal">true</span>) &#123; t <span class="keyword">in</span></span><br><span class="line">         <span class="built_in">print</span>(<span class="string">"tick"</span>)</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="type">RunLoop</span>.current.add(timer, forMode: .defaultRunLoopMode)</span><br><span class="line"></span><br><span class="line">    <span class="type">RunLoop</span>.current.run()</span><br><span class="line">    <span class="type">RunLoop</span>.current.run(mode: .commonModes, before: <span class="type">Date</span>.distantPast)</span><br><span class="line">&#125;</span><br><span class="line">t.name = <span class="string">"my-thread"</span></span><br><span class="line">t.start()</span><br><span class="line"></span><br><span class="line"><span class="comment">//RunLoop.current.run()</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你不应该这样做，仅出于演示目的，请始终使用 <code>GCD队列</code> ！</p>
+<h2 id="Queue-Thread"><a href="#Queue-Thread" class="headerlink" title="Queue != Thread"></a><em><strong>Queue != Thread</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>GCD队列</code> 不是线程，如果你在并发队列上运行多个异步操作，则代码可以在满足需求的任何可用线程上运行。</p>
+<p><em><strong><code>线程安全就是要避免混乱的变量状态</code></strong></em></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;想象一下 <code>Swift</code> 中的可变数组。 可以从任何线程进行修改。 那不是很好，因为如果数组不是线程安全的，最终其中的值将像地狱一样被弄乱。 例如，多个线程试图将值插入数组。 怎么了？ 如果它们并行运行，将首先添加哪个元素？ 现在，这就是为什么有时需要创建线程安全资源的原因。</p>
+<h2 id="串行队列"><a href="#串行队列" class="headerlink" title="串行队列"></a><em><strong>串行队列</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用 <code>串行队列</code> 强制执行 <code>互斥</code> 。 队列中的所有任务将连续运行（以 <code>FIFO顺序</code> ），一次仅运行一个进程，任务必须互相等待。 解决方案的一大缺点是 <code>速度</code> 。 🐌</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> q = <span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.serial"</span>)</span><br><span class="line"></span><br><span class="line">q.async() &#123;</span><br><span class="line">  <span class="comment">// writes</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">q.sync() &#123;</span><br><span class="line">  <span class="comment">// reads</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-barriers-的并发队列"><a href="#使用-barriers-的并发队列" class="headerlink" title="使用 barriers 的并发队列"></a><em><strong>使用 barriers 的并发队列</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果为异步方法提供了额外的标志，则可以将 <code>barriers</code> 任务发送到队列。 如果这样的任务到达队列，它将确保在 <code>barriers</code> 任务完成之前不会执行任何其他操作。 综上所述， <code>barriers</code> 任务是并发队列的同步（点）任务。 使用异步 <code>barriers</code> 进行写入，使用同步块进行读取。 😎</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> q = <span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.concurrent"</span>, attributes: .concurrent)</span><br><span class="line"></span><br><span class="line">q.async(flags: .barrier) &#123;</span><br><span class="line">  <span class="comment">// writes</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">q.sync() &#123;</span><br><span class="line">  <span class="comment">// reads</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在线程安全的环境中，此方法将导致读取速度极快。 你还可以使用串行队列，信号量，锁定它们都取决于你当前的情况。 🤐</p>
+</br>
+
+<h1 id="一些反模式"><a href="#一些反模式" class="headerlink" title="一些反模式"></a><strong>一些反模式</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你必须非常小心 <a href="https://zh.wikipedia.org/wiki/%E6%AD%BB%E9%94%81" target="_blank" rel="noopener"><em><strong><code>死锁</code></strong></em></a> ， <a href="https://zh.wikipedia.org/wiki/%E7%AB%B6%E7%88%AD%E5%8D%B1%E5%AE%B3" target="_blank" rel="noopener"><em><strong><code>竞态条件</code></strong></em></a> 和 <a href="https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem" target="_blank" rel="noopener"><em><strong><code>读者作家</code></strong></em></a> 的问题。 通常在串行队列上调用 <code>sync方法</code> 会给你带来很多麻烦。 另一个问题是 <code>线程安全性</code> ，但是我们已经介绍了该部分。 😉</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> queue = <span class="type">DispatchQueue</span>(label: <span class="string">"com.theswiftdev.queues.serial"</span>)</span><br><span class="line"></span><br><span class="line">queue.sync &#123;</span><br><span class="line">    <span class="comment">// do some sync work</span></span><br><span class="line">    queue.sync &#123;</span><br><span class="line">        <span class="comment">// this won't be executed -&gt; deadlock!</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//What you are trying to do here is to launch the main thread synchronously from a background thread before it exits. This is a logical error.</span></span><br><span class="line"><span class="comment">//https://stackoverflow.com/questions/49258413/dispatchqueue-crashing-with-main-sync-in-swift?rq=1</span></span><br><span class="line"><span class="type">DispatchQueue</span>.global(qos: .utility).sync &#123;</span><br><span class="line">    <span class="comment">// do some background task</span></span><br><span class="line">    <span class="type">DispatchQueue</span>.main.sync &#123;</span><br><span class="line">        <span class="comment">// app will crash</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你必须非常小心 <a href="https://zh.wikipedia.org/wiki/%E6%AD%BB%E9%94%81" target="_blank" rel="noopener"><em><strong><code>死锁</code></strong></em></a> ， <a href="https://zh.wikipedia.org/wiki/%E7%AB%B6%E7%88%AD%E5%8D%B1%E5%AE%B3" target="_blank" rel="noopener"><em><strong><code>竞态条件</code></strong></em></a> 和 <a href="https://en.wikipedia.org/wiki/Readers%E2%80%93writers_problem" target="_blank" rel="noopener"><em><strong><code>读者作家</code></strong></em></a> 的问题。 通常在串行队列上调用 <code>sync方法</code> 会给你带来很多麻烦。 另一个问题是 <code>线程安全性</code> ，但是我们已经介绍了该部分。 😉<br> <code>Dispatch框架</code> （又名GCD）是一个了不起的框架，它具有如此巨大的潜力，并且确实需要一些时间来掌握它。 真正的问题是，为了将并发编程提升到一个全新的高度，苹果将采取什么道路？ 承诺或等待，也许是全新的东西，希望我们能在 <code>Swift 6</code> 中看到一些东西。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Grand%20Central%20Dispatch%20%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/" title="Swift Grand Central Dispatch 深入实践">https://www.xuebaonline.com/Swift Grand Central Dispatch 深入实践/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Grand-Central-Dispatch/" rel="tag"><i class="fa fa-tag"></i> Grand Central Dispatch</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/iOS%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8iCloud%E6%96%87%E6%A1%A3%EF%BC%9F/" rel="prev" title="iOS如何使用iCloud文档？">
+      <i class="fa fa-chevron-left"></i> iOS如何使用iCloud文档？
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/%E5%9C%A8Swift%E4%B8%AD%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/" rel="next" title="在Swift中生成随机数">
+      在Swift中生成随机数 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#适用于初学者的GCD并发教程"><span class="nav-number">1.</span> <span class="nav-text">适用于初学者的GCD并发教程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#并发，多任务，CPU内核，并行性和线程"><span class="nav-number">2.</span> <span class="nav-text">并发，多任务，CPU内核，并行性和线程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#同步和异步执行"><span class="nav-number">3.</span> <span class="nav-text">同步和异步执行</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#同步执行"><span class="nav-number">3.1.</span> <span class="nav-text">同步执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异步执行"><span class="nav-number">3.2.</span> <span class="nav-text">异步执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Dispatch-queues"><span class="nav-number">4.</span> <span class="nav-text">Dispatch queues</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#串行和并发队列"><span class="nav-number">4.1.</span> <span class="nav-text">串行和并发队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主队列，全局队列和定制队列"><span class="nav-number">4.2.</span> <span class="nav-text">主队列，全局队列和定制队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#系统提供的队列"><span class="nav-number">4.3.</span> <span class="nav-text">系统提供的队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按服务质量定制队列"><span class="nav-number">4.4.</span> <span class="nav-text">按服务质量定制队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#如何在Swift中使用DispatchQueue类？"><span class="nav-number">5.</span> <span class="nav-text">如何在Swift中使用DispatchQueue类？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何获得队列？"><span class="nav-number">5.1.</span> <span class="nav-text">如何获得队列？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在队列上同步和异步调用"><span class="nav-number">5.2.</span> <span class="nav-text">在队列上同步和异步调用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延迟执行"><span class="nav-number">5.3.</span> <span class="nav-text">延迟执行</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#执行并发循环"><span class="nav-number">5.4.</span> <span class="nav-text">执行并发循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Debugging"><span class="nav-number">5.5.</span> <span class="nav-text">Debugging</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在Swift中使用DispatchWorkItem"><span class="nav-number">6.</span> <span class="nav-text">在Swift中使用DispatchWorkItem</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#与-DispatchGroups-并发的任务"><span class="nav-number">7.</span> <span class="nav-text">与 DispatchGroups 并发的任务</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#信号量-Semaphores"><span class="nav-number">8.</span> <span class="nav-text">信号量(Semaphores)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#如何使异步任务同步？"><span class="nav-number">8.1.</span> <span class="nav-text">如何使异步任务同步？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#锁定-单次访问资源"><span class="nav-number">8.2.</span> <span class="nav-text">锁定&#x2F;单次访问资源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#等待多个任务完成"><span class="nav-number">8.3.</span> <span class="nav-text">等待多个任务完成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用信号量批量执行"><span class="nav-number">8.4.</span> <span class="nav-text">使用信号量批量执行</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#DispatchSource对象"><span class="nav-number">9.</span> <span class="nav-text">DispatchSource对象</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用调度框架的线程安全"><span class="nav-number">10.</span> <span class="nav-text">使用调度框架的线程安全</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Queue-Thread"><span class="nav-number">10.1.</span> <span class="nav-text">Queue !&#x3D; Thread</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#串行队列"><span class="nav-number">10.2.</span> <span class="nav-text">串行队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-barriers-的并发队列"><span class="nav-number">10.3.</span> <span class="nav-text">使用 barriers 的并发队列</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一些反模式"><span class="nav-number">11.</span> <span class="nav-text">一些反模式</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(三):  Optionals">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(三):  Optionals">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(三):  Optionals">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-05T10:40:00.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.109Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Optionals">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(三):  Optionals | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(三):  Optionals
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-05 18:40:00" itemprop="dateCreated datePublished" datetime="2020-05-05T18:40:00+08:00">2020-05-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>34k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>31 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(三):  Optionals</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Sentinel-Values"><a href="#Sentinel-Values" class="headerlink" title="Sentinel Values"></a><strong>Sentinel Values</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编程中一种非常常见的模式是具有可能会或可能不会返回值的操作。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你到达正在读取的文件末尾时，可能不返回值是预期的结果，如以下C代码片段所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">int ch;</span><br><span class="line"><span class="keyword">while</span> ((ch = getchar()) != <span class="type">EOF</span>) &#123;</span><br><span class="line">printf(<span class="string">"Read character %c\n"</span>, ch); &#125;</span><br><span class="line">printf(<span class="string">"Reached end-of-file\n"</span>);</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>EOF</code> 只是 <code>-1</code> 的 <code>#define</code> 。 只要文件中有更多字符， <code>getchar</code> 返回它们。 但是，如果到达文件末尾，则 <code>getchar</code> 返回 <code>-1</code> 。 或者也许不返回任何值表示 <code>“未找到”</code> ，如下面的 <code>C++</code> 所示：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> vec = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">auto</span> iterator = <span class="built_in">std</span>::<span class="built_in">find</span>(vec.<span class="built_in">begin</span>(), vec.<span class="built_in">end</span>(), someValue); </span><br><span class="line"><span class="keyword">if</span> (iterator != vec.<span class="built_in">end</span>()) &#123;</span><br><span class="line">    <span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; <span class="string">"vec contains "</span> &lt;&lt; *iterator &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<a id="more"></a>
+
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，<code>vec.end()</code> 是容器 <code>“末尾一个”</code> 的迭代器； 这是一个特殊的迭代器，你可以检查容器的末端，但绝对不要用它来访问值-类似于 <code>Swift中</code> 集合的 <code>endIndex</code> 。 函数使用它来指示容器中不存在这样的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或者可能由于函数处理过程中出现问题而无法返回该值。 可能最臭名昭著的例子是空指针的例子。 这个看起来不错的 <code>Java代码</code> 很可能会抛出 <code>NullPointerException</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">int i = <span class="type">Integer</span>.getInteger(<span class="string">"123"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;碰巧 <code>Integer.getInteger</code> 不会将字符串解析为整数，而是获取名为 <code>“123”</code> 的系统属性的整数值。 此属性可能不存在，在这种情况下， <code>getInteger</code> 返回 <code>null</code> 。 然后，将 <code>null</code> 拆箱为 <code>int</code> 时， <code>Java</code> 会引发异常。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;或在 <code>Objective-C</code> 中使用以下示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[[<span class="type">NSString</span> alloc] initWithContentsOfURL:url encoding:<span class="type">NSUTF8StringEncoding</span> error:&amp;error];</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该初始化程序可能返回 nil ，在这种情况下（只有在这种情况下），才应该检查 错误指针 。如果初始化程序返回非 nil ，则不能保证错误指针有效。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在以上所有示例中，该函数均返回一个特殊的 “魔术”值 ，以表示该函数尚未返回实际值。这样的魔术值称为 “前哨值” 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是这种方法是有问题的。返回的结果看起来和感觉像是真正的价值。 <code>int -1</code> 仍然是有效的整数，但是你永远都不想将其打印出来。 <code>vec.end（）</code>是一个迭代器，但是如果你尝试使用它，结果是不确定的。每个人都喜欢在Java程序引发 <code>NullPointerException</code> 时看到 <code>堆栈转储</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>Java</code> 不同，<code>Objective-C</code> 允许将消息发送为 <code>nil</code> 。只要运行时保证从消息到 <code>nil</code> 的返回值始终等于零，即对象返回类型为 <code>nil</code> ，数字类型为0，依此类推，这是 <code>“安全的”</code> 。如果邮件返回一个结构，则会将其所有成员初始化为零。考虑到这一点，请考虑以下片段以查找子字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">NSString</span> *someString = ...</span><br><span class="line"><span class="keyword">if</span> ([someString rangeOfString:@<span class="string">"Swift"</span>].location != <span class="type">NSNotFound</span>) &#123;</span><br><span class="line"><span class="type">NSLog</span>(@<span class="string">"Someone mentioned Swift!"</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果 <code>someString</code> 为 <code>nil</code> （无论是偶然还是有意）， <code>rangeOfString：</code> 消息将返回零的 <code>NSRange</code> 。 因此，其 <code>.location</code> 将为零，并且与 <code>NSNotFound</code> （定义为 <code>NSIntegerMax</code> ）的不等式比较将成功。 因此， <code>if语句</code> 的正文将在不应该执行的情况下执行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>空引用</code> 引起了很多问题，以托尼·霍亚尔（Tony Hoare）（于1965年创建）为荣，称它们为“十亿美元的错误”：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当时，我正在设计第一个全面的类型系统，以面向对象的语言（ALGOL W）进行引用。 我的目标是确保对引用的所有使用都绝对安全，并进行检查由编译器自动执行。 但是我忍不住要插入空引用的诱惑，仅仅是因为它很容易实现。 这导致了无数的错误，漏洞和系统崩溃，在最近四十年中可能造成十亿美元的痛苦和破坏。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;前哨值 的另一个问题是它们需要先验知识。 有时，社区中会广泛使用成语，例如 C++<code>结束迭代器</code> 或 <code>Objective-C</code> 中的错误处理约定。 如果不存在此类规则，或者你不了解这些规则，则必须参考文档。 而且，该函数无法表明它不会失败。 如果调用返回一个指针，则该指针可能永远不会为零。 但是，除非阅读文档，否则无法说出任何内容，即使如此，该文档也可能是错误的。</p>
+<h1 id="用枚举替换前哨值"><a href="#用枚举替换前哨值" class="headerlink" title="用枚举替换前哨值"></a><strong>用枚举替换前哨值</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，每个好的程序员都知道魔术数字是不好的。 大多数语言都支持某种枚举类型，这是表示类型的一组离散可能值的更安全方法。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 使用 <code>“关联值”</code> 的概念进一步枚举。 这些是枚举值，也可以具有与其关联的另一个值。 我们将在 <code>“枚举”</code> 一章中详细介绍枚举。 现在，仅需将 <code>Optional</code> 定义为枚举就足够了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">enum</span> <span class="title">Optional</span>&lt;<span class="title">Wrapped</span>&gt; </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">none</span></span><br><span class="line">    <span class="keyword">case</span> some(<span class="type">Wrapped</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;检索枚举的关联值的唯一方法是通过模式匹配-例如，在 <code>switch</code> 或 <code>if case let</code> 语句中。 与哨兵值不同，在不显式检查和拆包的情况下，你不能不小心使用嵌入在 <code>Optional</code> 中的值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，代替返回哨兵值，而不是返回 <code>find</code> 的 <code>Swift</code> 等效项-称为 <code>firstIndex（of :)</code> -返回一个 <code>Optional &lt;Index&gt;</code> ，其实现与此类似：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Collection</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Equatable</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">firstIndex</span><span class="params">(of element: Element)</span></span> -&gt; <span class="type">Optional</span>&lt;<span class="type">Index</span>&gt; &#123; </span><br><span class="line">        <span class="keyword">var</span> idx = startIndex</span><br><span class="line">        <span class="keyword">while</span> idx != endIndex &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">self</span>[idx] == element &#123; </span><br><span class="line">            <span class="keyword">return</span> .some(idx)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        formIndex(after: &amp;idx) &#125;</span><br><span class="line">        <span class="comment">// Not found, return .none.</span></span><br><span class="line">        <span class="keyword">return</span> .<span class="keyword">none</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为 <code>可选参数</code> 是 <code>Swift</code> 的基础，所以有很多语法支持整理一下： <code>Optional&lt;Index&gt;</code> 可以写成 <code>Index</code> 吗？ 可选参数符合 <code>ExpressibleByNilLiteral</code> ，因此你可以编写 <code>nil</code> 而不是 <code>.none</code> ； 和非可选值（例如idx）会在需要时自动“提升”为可选值，以便你可以编写 <code>return idx</code> 而不是 <code>return .some（idx）</code>。<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;语法糖可以有效掩饰 <code>Optional类型</code> 的真实性质。 值得记住的是，这没有什么不可思议的。 它只是一个普通的枚举，如果不存在，则可以自己定义。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，用户无法在检查值是否有效之前错误地使用该值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>]</span><br><span class="line"><span class="keyword">let</span> idx = array.firstIndex(of: <span class="string">"four"</span>)</span><br><span class="line"><span class="comment">// Compile-time error: remove(at:) takes an Int, not an Optional&lt;Int&gt;. array.remove(at: idx)</span></span><br><span class="line"><span class="type">Instead</span>, you’re forced to “unwrap” the <span class="keyword">optional</span> <span class="keyword">in</span> order to <span class="keyword">get</span> at the index within, assuming you didn’t <span class="keyword">get</span> <span class="keyword">none</span> back:</span><br><span class="line"><span class="keyword">var</span> array = [<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>] </span><br><span class="line">    <span class="keyword">switch</span> array.index(of: <span class="string">"four"</span>) &#123; </span><br><span class="line">        <span class="keyword">case</span> .some(<span class="keyword">let</span> idx):</span><br><span class="line">            array.remove(at: idx)</span><br><span class="line">        <span class="keyword">case</span> .<span class="keyword">none</span>:</span><br><span class="line">            <span class="keyword">break</span> <span class="comment">// Do nothing.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这个 <code>switch语句</code> 写出了可选方法的枚举语法，包括在某些情况下解压缩关联的值。 这对安全性很有好处，但阅读或书写时却不太愉快。 更简洁的选择是使用？ 模式后缀语法以匹配一些可选值，并且可以使用 <code>nil</code> 文字不匹配任何值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> array.index(of: <span class="string">"four"</span>) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="keyword">let</span> idx?: <span class="comment">// Equivalent to .some(let idx)</span></span><br><span class="line">        array.remove(at: idx) </span><br><span class="line">    <span class="keyword">case</span> <span class="literal">nil</span>:</span><br><span class="line">        <span class="keyword">break</span> <span class="comment">// Do nothing. </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这仍然很笨拙。 让我们看一下其他所有可以使你的可选处理简短明了的方法，具体取决于你的用例。</p>
+<h1 id="Optionals-技术之旅"><a href="#Optionals-技术之旅" class="headerlink" title="Optionals 技术之旅"></a><strong>Optionals 技术之旅</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选语言还内置了许多额外的支持。 如果你已经写了一段时间的 <code>Swift</code> ，下面的一些示例可能看起来很简单，但是确保你对所有这些概念都非常了解非常重要，因为我们会在整本书中不断地使用它们。</p>
+<h2 id="if-let"><a href="#if-let" class="headerlink" title="if let"></a><em><strong>if let</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>if let</code> 的可选绑定距离上面的 <code>switch</code> 语句仅一小步之遥。  <code>if let语句检查可选值</code> 是否为非nil，如果是，则解开可选值。  <code>idx</code> 的类型为 <code>Int（非可选）</code> ，并且 <code>idx</code> 仅在 <code>if let语句</code> 的范围内可用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> array = [<span class="string">"one"</span>, <span class="string">"two"</span>, <span class="string">"three"</span>, <span class="string">"four"</span>] </span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> idx = array.index(of: <span class="string">"four"</span>) &#123;</span><br><span class="line">    array.remove(at: idx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你也可以将布尔子句与 <code>if</code> 一起使用。 因此，假设你不想删除该元素（如果它恰巧是数组中的第一个元素）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> idx = array.index(of: <span class="string">"four"</span>), idx != array.startIndex &#123; </span><br><span class="line">        array.remove(at: idx)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你也可以在同一条 <strong>if语句中绑定多个值</strong> 。 更重要的是，以后的条目可以依靠以前的条目成功解包。 当你要多次调用返回自身可选值的函数时，这非常有用。 例如，如果你的URL格式错误或数据不是图像，则以下示例中的 <code>URL</code> 和 <code>UIImage初始化</code> 程序均“失败”，即它们可以返回 <code>nil</code> 。 数据初始值设定项可能会引发错误，并且通过使用 <code>try?</code> ，我们也可以将其转换为可选项。 这三个都可以链接在一起，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urlString = <span class="string">"https://www.objc.io/logo.png"</span> </span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> url = <span class="type">URL</span>(string: urlString), <span class="keyword">let</span> data = <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: url), <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data) &#123;</span><br><span class="line">    <span class="keyword">let</span> view = <span class="type">UIImageView</span>(image: image)</span><br><span class="line">    <span class="type">PlaygroundPage</span>.current.liveView = view </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以在同一 <code>if语句</code> 中 <code>自由混合</code> 和 <code>匹配可选</code> 绑定， <code>布尔子句</code> 和 <code>case let</code> 绑定。</p>
+<h2 id="while-let"><a href="#while-let" class="headerlink" title="while let"></a><em><strong>while let</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>if let语句</code> 位于 <code>while let</code> 中非常相似-一个循环，当其条件返回 <code>nil</code> 时终止。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库的 <code>readLine函数</code> 从标准输入返回一个可选字符串。 一旦输入结束，它将返回 <code>nil</code> 。 因此，要实现与 <code>Unix cat命令</code> 非常基本的等效功能，请在 <code>let</code> 中使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">let</span> line = <span class="built_in">readLine</span>() &#123; </span><br><span class="line">    <span class="built_in">print</span>(line)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像在 <code>if let语句</code> 中一样，你始终可以将 <code>Boolean子句</code> 添加到可选绑定中。 因此，如果要在 EOF 或空白行上终止此循环，请添加一个子句以检测空字符串。 请注意，一旦条件为假，循环就会终止（你可能会错误地认为布尔条件的作用类似于过滤器）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="keyword">let</span> line = <span class="built_in">readLine</span>(), !line.isEmpty &#123; </span><br><span class="line">    <span class="built_in">print</span>(line)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们将在 <code>“Collection协议”</code> 一章中看到的那样， <code>seq循环</code> 中的 <code>for x</code> 要求 <code>seq符合Sequence</code> 。 该协议提供了一个 <code>makeIterator方法</code> ，该方法返回一个迭代器，该迭代器又具有下一个方法。  <code>next</code> 返回值，直到序列用尽，然后返回 <code>nil</code> 。 而 <code>let</code> 是理想的选择：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br><span class="line"><span class="keyword">var</span> iterator = array.makeIterator() </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">let</span> i = iterator.next() &#123;</span><br><span class="line">    <span class="built_in">print</span>(i, terminator: <span class="string">" "</span>)</span><br><span class="line">&#125; <span class="comment">// 1 2 3</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，鉴于 <code>for循环</code> 实际上只是 <code>while循环</code> ，因此即使它们具有 <code>where关键字</code> ，它们也支持布尔子句也就不足为奇了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="number">10</span>  <span class="keyword">where</span> i%<span class="number">2</span>==<span class="number">0</span> &#123; </span><br><span class="line">    <span class="built_in">print</span>(i, terminator: <span class="string">" "</span>) </span><br><span class="line">&#125; <span class="comment">// 0 2 4 6 8</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，上面的 <code>where子句</code> 与 <code>while循环</code> 中的 <code>Boolean子句</code> 不同。 在 <code>while循环</code> 中，一旦值为 <code>false</code> ，迭代就会停止，而在 <code>for循环</code> 中，其作用类似于 <code>filter</code> 。 如果我们使用 <code>while</code> 重写上面的 <code>for循环</code> ，则看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterator2 = (<span class="number">0</span>..&lt;<span class="number">10</span>).makeIterator() </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">let</span> i = iterator2.next() &#123;</span><br><span class="line">    <span class="keyword">guard</span> i%<span class="number">2</span>==<span class="number">0</span> <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">print</span>(i) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="双嵌套可选"><a href="#双嵌套可选" class="headerlink" title="双嵌套可选"></a><em><strong>双嵌套可选</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;是时候指出可选包装的类型本身可以是可选的，这导致嵌套在可选对象内部的可选对象。 要了解为什么这不仅是一种奇怪的情况，还是编译器应自动合并的原因，请假设你有一个数字字符串数组，你希望将其转换为整数。 你可以通过地图运行它们以进行转换：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stringNumbers = [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"three"</span>]</span><br><span class="line"><span class="keyword">let</span> maybeInts = stringNumbers.<span class="built_in">map</span> &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125; <span class="comment">// [Optional(1), Optional(2), nil]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，你有了一个 <code>Optional&lt;Int&gt;</code> 数组-即Int？ —因为 <code>Int.init（String）</code> 可能失败，因为字符串可能不包含有效的整数。 在这里，最后一个条目将为 <code>nil</code> ，因为“ 3”不是整数。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当使用 <code>for遍历</code> 数组时，你应该正确地希望每个元素都是一个可选的整数，因为也许 <code>Ints</code> 包含以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> maybeInt <span class="keyword">in</span> maybeInts &#123; </span><br><span class="line">    <span class="comment">// maybeInt is an Int?</span></span><br><span class="line">    <span class="comment">// Two numbers and a `nil`.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在考虑到 <code>for ... in</code> 的实现是上述 <code>while循环</code> 技术的简写。 从 <code>iterator.next（）</code> 返回的内容将是 <code>Optional&lt;Optional&lt;Int&gt;</code> 或 <code>Int？</code>  —因为 <code>next</code> 将序列中的每个元素都包装在可选元素内。  <code>while</code> 让我们将其解包以检查它是否为 <code>nil</code> ，而当它为非 <code>nil</code> 时，绑定解开的值并运行主体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> iterator = maybeInts.makeIterator() </span><br><span class="line"><span class="keyword">while</span> <span class="keyword">let</span> maybeInt = iterator.next() &#123;</span><br><span class="line">    <span class="built_in">print</span>(maybeInt, terminator: <span class="string">" "</span>) </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Optional(1) Optional(2) nil</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当循环到达最后一个元素-“三”中的nil时， <code>next</code> 返回的是一个非nil值： <code>.some（nil）</code> 。 它将解包此内容，并将其中的内容（零）绑定到也许 <code>Int</code> 。 没有嵌套的可选选项，这将是不可能的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺便说一句，如果你只想使用 <code>for循环</code> 非零值，则可以使用大小写模式匹配：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> <span class="keyword">case</span> <span class="keyword">let</span> i? <span class="keyword">in</span> maybeInts &#123; </span><br><span class="line">        <span class="comment">// i will be an Int, not an Int? print(i, terminator: " ")</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// 1 2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Or only the nil values:</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">case</span> <span class="literal">nil</span> <span class="keyword">in</span> maybeInts &#123;</span><br><span class="line">    <span class="comment">// Will run once for each nil. print("No value")</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// No value</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这使用 <code>x？</code>  的“模式”，仅匹配 <code>非nil值</code> 。 这是 <code>.some（x）</code> 的简写，因此循环可以这样写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">letj=<span class="number">5</span> </span><br><span class="line"><span class="keyword">if</span> case0..&lt;<span class="number">10</span>=j &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"\(j) within range"</span>) </span><br><span class="line">&#125; <span class="comment">// 5 within range</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将在 <code>“枚举”</code> 一章中深入讨论 <code>模式匹配</code> 。</p>
+<h2 id="if-var-and-while-var"><a href="#if-var-and-while-var" class="headerlink" title="if var and while var"></a><em><strong>if var and while var</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可以让 <code>var</code> 与 <code>if</code> ， <code>while和for</code> 一起使用，而不是让。 这使你可以在语句主体内对变量进行改变：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> number = <span class="string">"1"</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">var</span> i = <span class="type">Int</span>(number) &#123;</span><br><span class="line">    i+=<span class="number">1</span></span><br><span class="line">    <span class="built_in">print</span>(i) </span><br><span class="line">&#125; <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是请注意，我将是本地副本； 对我的任何更改都不会影响原始可选内容中的值。 可选值是值类型，展开它们会在其中复制值。</p>
+<h2 id="Scoping-of-Unwrapped-Optionals"><a href="#Scoping-of-Unwrapped-Optionals" class="headerlink" title="Scoping of Unwrapped Optionals"></a><em><strong>Scoping of Unwrapped Optionals</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，限制只能访问其已定义的if块中的 <code>Unwrapped变量</code> 。 例如，对数组采用 <code>first属性</code> ，该属性返回第一个元素的可选值，或者在数组为空时返回nil。 这是以下常见代码的便捷缩写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] </span><br><span class="line"><span class="keyword">if</span> !array.isEmpty &#123; </span><br><span class="line">    <span class="built_in">print</span>(array[<span class="number">0</span>])</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Outside the block, the compiler can't guarantee that array[0] is valid.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最好使用 <code>first属性</code> ，因为你必须解开可选参数才能使用它-你不能无意间忘记：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> firstElement = array.first &#123; </span><br><span class="line">    <span class="built_in">print</span>(firstElement)</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Outside the block, you can't use firstElement.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;解开的值仅在 <code>if let块</code> 内部可用。 很好，但是如果if语句的目的是在不满足某些条件时尽早退出函数，这是不切实际的。 提早退出可以避免烦人的嵌套或稍后在函数中重复检查。 你可能会编写以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doStuff</span><span class="params">(withArray a: [Int])</span></span> &#123; </span><br><span class="line">    <span class="keyword">if</span> a.isEmpty &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="comment">// Now use a[0] or a.first! safely.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里， <code>if let</code> 绑定将不起作用，因为在 <code>if块</code> 之后，绑定变量将不在范围内。 但是，你仍然可以确保该数组将至少包含一个元素，因此即使语法仍然没有吸引力，强制展开第一个元素也是安全的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在绑定的范围之外使用未包装的可选选项的一种方法是依靠 <code>Swift的延迟初始化</code> 功能。 考虑下面的示例，该示例从 <code>URL和NSString</code> 重新实现 <code>pathExtension属性</code> 的一部分：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fileExtension: <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> period: <span class="type">String</span>.<span class="type">Index</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> idx = lastIndex(of: <span class="string">"."</span>) &#123;</span><br><span class="line">            period = idx &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> extensionStart = index(after: period) </span><br><span class="line">        <span class="keyword">return</span> <span class="type">String</span>(<span class="keyword">self</span>[extensionStart...])</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="string">"hello.txt"</span>.fileExtension <span class="comment">// Optional("txt")</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编译器检查你的代码，以确认只有两种可能的路径：一种在该路径中函数早返回，而另一种在路径中正确初始化。 周期不能为零（这不是可选的）或未初始化（Swift不允许你使用尚未初始化的变量）。 因此，在if语句之后，可以编写代码，而无需完全担心可选项。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，前两个示例非常丑陋。 确实，我们需要的是某种不让步的方法，而这正是 <code>guard</code> 所允许的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doStuff</span><span class="params">(withArray a: [Int])</span></span> &#123;</span><br><span class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> firstElement = a.first <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// firstElement is unwrapped here.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第二个例子变得更加清晰：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> fileExtension: <span class="type">String?</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> period = lastIndex(of: <span class="string">"."</span>) <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">let</span> extensionStart = index(after: period) </span><br><span class="line">        <span class="keyword">return</span> <span class="type">String</span>(<span class="keyword">self</span>[extensionStart...])</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;任何内容都可以放在 <code>else子句</code> 中，包括多个语句，就像 <code>if ... else</code> 。 唯一的要求是 <code>else块</code> 必须离开当前范围。 这可能意味着返回，引发错误或调用 <code>fatalError（</code> 或任何其他返回Never的函数）。 如果 <code>guard</code> 处于循环状态，则也可以允许中断或继续。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回类型为 <code>Never的函数</code> 不会向编译器发出永不返回的信号。有两种常见的函数可以执行此操作：中止程序的函数，例如 <code>fatalError</code> ；以及在程序整个生命周期内运行的程序，例如 <code>dispatchMain</code> 。编译器使用此信息进行控制流诊断。例如， <code>guard语句</code> 的 <code>else分支</code> 必须退出当前作用域或调用这些永不返回的函数之一。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从来没有所谓的 <strong><code>uninhabited type</code></strong> 。此类型没有有效值，因此无法构造。从不与 <code>Result</code> 结合使用<br>在一般情况下。例如，如果通用 <code>API</code> 期望值的类型为 <code>Result&lt;A，E&gt;</code>（ 其中A和E是通用参数），则可以传入 <code>Result&lt;...，Never&gt;</code> 以表示此具体 <code>Result实例</code> 永远不会包含失败，因为无法构造这样的值。而且，声明为返回无人居住类型的函数永远不会正常返回。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，无人居住的类型被实现为没有大小写的枚举：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Never</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除非你为 <code>fatalError</code> 或 <code>preconditionFailure</code> 编写包装，否则通常不需要定义自己的永不返回的函数。 一个有趣的用例是在编写新代码时：假设你正在处理复杂的 <code>switch语句</code> ，逐渐填充所有用例，并且编译器用错误消息轰炸你，指出空用例标签或缺少返回值，而你要做的只是专注于你正在处理的一种情况。 在这种情况下，对 f<code>atalError（）</code> 的一些精心放置的调用可能会产生奇迹，使编译器静音。 考虑编写一个名为 <code>unimplemented（）</code> 的函数，以便更好地传达这些调用的临时性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">unimplemented</span><span class="params">()</span></span> -&gt; <span class="type">Never</span> &#123;</span><br><span class="line"><span class="built_in">fatalError</span>(<span class="string">"This code path is not implemented yet."</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>swift</code> 精心区分了不同的 <code>“nothingness”</code> 。 除了 <code>nil</code> 和 <code>Never</code> ，还有 <code>Void</code> ，这是另一种写空元组的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">typealias</span> <span class="type">Void</span> = ()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Void</code> 或 <code>（）</code> 最常见的用法是不返回任何内容的函数类型，但它也具有其他应用程序。 例如，考虑一个反应式编程框架，该框架以 <code>Observable&lt;T&gt;类型 </code>对事件流进行建模，其中 T 描述了所发射事件的有效负载类型。 文本字段对象可能会提供一个 <code>Observable&lt;String&gt; </code>，它会在用户每次编辑文本时触发一个事件。 类似地，当用户点击按钮时，按钮对象发送事件，但没有其他要发送的有效负载-其事件流的类型应为 <code>Observable&lt;（）&gt;</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如戴维·史密斯（David Smith）所说， <code>Swift</code> 在 <strong>“缺物”（nil）</strong> ， <strong>“无物”（void）</strong> 和 <strong>“不可能的事物”（Never）</strong> 之间进行了仔细的区分。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像 <code>if</code> 一样， <code>guard</code> 不仅限于绑定。  <code>Guard</code> 可以采取任何可能在常规 <code>if语句</code> 中找到的条件，因此可以使用它重写空数组示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">doStuff2</span><span class="params">(withArray a: [Int])</span></span> &#123; </span><br><span class="line">    <span class="keyword">guard</span> !a.isEmpty <span class="keyword">else</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> </span><br><span class="line">    &#125; <span class="comment">// Now use a[0] or a.first! safely.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与可选的 <code>binding case</code> 不同，此 <code>guard</code> 不是一个大胜利-实际上，它比原始版本更为冗长。 但是仍然值得考虑在任何提早退出的情况下进行此操作。 对于一个，有时（尽管不是这种情况），布尔条件的求逆可以使事情变得更清楚。 此外，当阅读代码。 它说：<strong>“只有在满足以下条件时，我们才会继续。”</strong> 最后， <code>Swift编译器</code> 将检查你是否确实要退出当前作用域，如果不存在，则会引发编译错误。 因此，即使在 <code>if可行的情况下</code> ，我们也建议你 <strong>使用防护功能</strong> 。</p>
+<h2 id="Optional-Chaining"><a href="#Optional-Chaining" class="headerlink" title="Optional Chaining"></a><em><strong>Optional Chaining</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Objective-C</code> 中，向 <code>nil</code> 发送消息是无操作的。 在 <code>Swift</code> 中，可以通过 <code>“Optional Chaining”</code> 实现相同的效果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">delegate?.callback()</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是与 <code>Objective-C</code> 不同， <code>Swift编译器</code> 将迫使你确认接收方可能为 <code>nil</code> 。 问号 向读者明确表示该方法可能不会被调用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你通过可选链接调用的方法返回结果时，该结果也将是可选的。 考虑以下代码，以了解为什么一定要这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> str: <span class="type">String?</span> = <span class="string">"Never say never"</span></span><br><span class="line"><span class="comment">// We want upper to be the uppercase string. let upper: String</span></span><br><span class="line"><span class="keyword">if</span> str!=<span class="literal">nil</span> &#123;</span><br><span class="line">    upper = str!.uppercased() </span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// No reasonable action to take at this point.</span></span><br><span class="line">    <span class="built_in">fatalError</span>(<span class="string">"No idea what to do now..."</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果 <code>str</code> 不为 <code>nil</code> ，则 <code>upper</code> 将具有所需的值。 但是，如果 <code>str</code> 为 <code>nil</code> ，则不能将 <code>upper</code> 设置为一个值。 因此，在可选链接的情况下， <code>upper2</code> 必须是可选的，以便考虑 <code>str</code> 可能为零的可能性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> upper2 = str?.uppercased() <span class="comment">// Optional("NEVER SAY NEVER")</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顾名思义，你可以在可选值上链接调用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> lower = str?.uppercased().lowercased() <span class="comment">// Optional("never say never")</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这看起来可能有点令人惊讶。 我们不是只是说可选链接的结果是可选的吗？ 那为什么不需要一个 <code>？</code> 。 在 <code>uppercased（）</code> 之后？ 这是因为可选链接是 <code>“flattening”</code> 操作。 如果 <code>str？.uppercased（）</code> 返回了可选内容，而你在其上调用了 <code>？.lowercased（）</code> ，那么从逻辑上讲，你将获得可选的可选内容。 但是，你只需要一个常规的可选内容，因此我们编写第二个链接调用而没有问号，以表示已捕获可选内容的事实。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;另一方面，如果大写的方法本身返回了一个可选的，那么你将需要添加第二个 <code>？</code> 表示你正在链接该可选内容。 例如，让我们使用名为 <code>half的计算属性扩展Int类型</code> 。 此属性返回将整数除以二的结果，但前提是该数字足够大以被除。 当数字小于2时，它返回 <code>nil</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Int</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> half: <span class="type">Int?</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">self</span>&lt;-<span class="number">1</span>||<span class="keyword">self</span>&gt;<span class="number">1</span> <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span> / <span class="number">2</span> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因为调用 <code>half</code> 返回一个可选结果，所以我们需要继续输入 <code>？</code> 反复调用时。 毕竟，在每一步，该函数都可能返回 <code>nil</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">20</span>.half?.half?.half <span class="comment">// Optional(2)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，编译器仍然足够聪明，可以为我们简化结果类型。 上面的表达式的类型是 <code>Int？</code>  而不是你可能期望的 <code>Int???</code> 。 后者将为你提供更多信息-即，链的哪一部分发生了故障-但也会使处理结果变得更加麻烦，从而破坏了可选链的便利性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选链接也适用于下标，例如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dictOfArrays = [<span class="string">"nine"</span>: [<span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]] </span><br><span class="line">dictOfArrays[<span class="string">"nine"</span>]?[<span class="number">3</span>] <span class="comment">// Optional(3)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此外，你可以使用可选链接来调用可选功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> dictOfFunctions: [<span class="type">String</span>: (<span class="type">Int</span>, <span class="type">Int</span>) -&gt; <span class="type">Int</span>] = [ <span class="string">"add"</span>: (+),</span><br><span class="line"><span class="string">"subtract"</span>: (-)</span><br><span class="line">]</span><br><span class="line">dictOfFunctions[<span class="string">"add"</span>]?(<span class="number">1</span>, <span class="number">1</span>) <span class="comment">// Optional(2)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在类通常存储回调函数以便在事件发生时通知其所有者的典型回调情况下，这很方便。 考虑一个 <code>TextField类</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">TextField</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> text = <span class="string">""</span></span><br><span class="line">    <span class="keyword">var</span> didChange: ((<span class="type">String</span>) -&gt; ())?</span><br><span class="line">    <span class="comment">// Event handler called by the framework.</span></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">textDidChange</span><span class="params">(newText: String)</span></span> &#123; </span><br><span class="line">        text = newText</span><br><span class="line">        <span class="comment">// Trigger callback if non-nil. didChange?(text)</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>didChange属性</code> 存储一个 回调函数 ，每次用户编辑文本时，该文本字段都会调用该函数。 由于文本字段的所有者不必注册回调，因此该属性为可选； 其初始值为nil。 当需要调用回调的时候（在上面的 <code>textDidChange</code> 方法中），可选链接使我们能够以非常紧凑的方式进行调用。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你甚至可以通过可选链进行分配。 假设你有一个可选变量，并且如果非零，则希望更新其属性之一：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span> </span><br><span class="line">    <span class="keyword">var</span> age: <span class="type">Int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> optionalLisa: <span class="type">Person?</span> = <span class="type">Person</span>(name: <span class="string">"Lisa Simpson"</span>, age: <span class="number">8</span>) <span class="comment">// Increment age if non-nil.</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> optionalLisa != <span class="literal">nil</span> &#123;</span><br><span class="line">    optionalLisa!.age += <span class="number">1</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是相当冗长和丑陋的。 请注意，在这种情况下，你不能使用可选绑定。 由于 <code>Person</code> 是一个结构，因此是一个值类型，因此绑定变量是原始值的本地副本； 改变前者不会改变后者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">var</span> lisa = optionalLisa &#123;</span><br><span class="line">    <span class="comment">// Mutating lisa doesn't change optionalLisa. </span></span><br><span class="line">    lisa.age += <span class="number">1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果 <code>Person</code> 是一个 <code>class</code> ，这将起作用。 我们将在 <code>“结构和类”</code> 一章中进一步讨论 值和引用类型 之间的区别。 无论如何，它仍然太冗长。 相反，你可以分配给链接的可选值，如果它不是nil，分配将通过：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">optionalLisa?.age += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此功能一个奇怪的（但合乎逻辑的）边缘情况是它可以直接分配给可选值。 这是完全正确的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a:<span class="type">Int?</span>=<span class="number">5</span> </span><br><span class="line">a?=<span class="number">10</span></span><br><span class="line">a <span class="comment">// Optional(10)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b: <span class="type">Int?</span> = <span class="literal">nil</span> </span><br><span class="line">b?=<span class="number">10</span></span><br><span class="line">b <span class="comment">// nil</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意 <code>a = 10</code> 和 <code>a</code> 之间的细微差别吗 <code>？=10</code> 。前者无条件分配新值，而后者仅在 <code>a</code> 的值在赋值前为<strong>非nil时才执行赋值</strong>。</p>
+<h1 id="nil-Coalescing-Operator"><a href="#nil-Coalescing-Operator" class="headerlink" title="nil-Coalescing Operator"></a><strong>nil-Coalescing Operator</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，你想打开一个可选的包装并将 <code>nil</code> 替换为一些默认值。 这是 <code>nil-coalescing</code> 运算符的工作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stringteger = <span class="string">"1"</span></span><br><span class="line"><span class="keyword">let</span> number = <span class="type">Int</span>(stringteger) ?? <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果字符串可以转换为整数，则数字将是该整数，并且不会被包装。 如果不是，则 <code>Int.init</code> 返回 <code>nil</code> ，将替换默认值0。 所以 <code>lhs ?? rhs</code> 类似于代码 <code>lhs！= nil？ h！：rhs</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你使用另一种语言来学习 <code>Swift</code> ，你可能会认为 <code>nil-coalescing</code> 运算符与三元运算符非常相似 <code>（a？b：c）</code> 。 例如，要从可能为空的数组中获取第一个元素，可以编写以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> array = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>] !array.isEmpty ? array[<span class="number">0</span>] : <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>Swift数组</code> 提供的第一个属性为 <code>nil</code> （如果该数组为空），因此你可以使用 <code>nil-coalescing运算符</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.first ?? <span class="number">0</span> <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这更加清晰明了-意图（抓住数组中的第一个元素）在前面，默认设置在末尾，并带有 <code>??</code> 。 表示 “这是默认值” 。 将其与三元运算符版本进行比较，三元运算符版本首先以检查开始，之后是值，最后是默认值。 而且检查被否定了（替代方法是将默认值放在中间，将实际值放在最后）。 而且，与可选选项一样，我们无法忘记 first是可选的 ，并且在没有检查的情况下意外地使用了它，因为如果你尝试这样做，编译器将会阻止你。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;只要你发现要检查自己的语句以确保该语句有效，便是一个好兆头，可选选项将是一个更好的解决方案。 假设你要检查的是数组范围内的值，而不是一个空数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array.<span class="built_in">count</span> &gt; <span class="number">5</span> ? array[<span class="number">5</span>] : <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与“第一个和最后一个”不同，按索引从数组中取出元素不会返回可选的。 但是很容易 <code>扩展Array</code> 以添加此功能：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span>(guarded idx: <span class="type">Int</span>) -&gt; <span class="type">Element?</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> (startIndex..&lt;endIndex).<span class="built_in">contains</span>(idx) <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">self</span>[idx] </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，你可以编写以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">array[guarded: <span class="number">5</span>] ?? <span class="number">0</span> <span class="comment">// 0</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Coalescing</code> 也可以链接在一起-因此，如果你有多个可能的可选选项，并且要选择第一个非nil值，可以按顺序编写它们：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i: <span class="type">Int?</span> = <span class="literal">nil</span></span><br><span class="line"><span class="keyword">let</span> j: <span class="type">Int?</span> = <span class="literal">nil</span> letk:<span class="type">Int?</span>=<span class="number">42</span></span><br><span class="line">i ?? j ?? k ?? <span class="number">0</span> <span class="comment">// 42</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，如果你遇到双重嵌套的可选内容，并且想使用 <code>??</code> ， 运算符，你必须小心区分  <code>b ?? c（链接）</code> 和 <code>（a ?? b）?? c</code> （展开内层然后再展开外层）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s1: <span class="type">String?</span>? = <span class="literal">nil</span></span><br><span class="line">(s1 ?? <span class="string">"inner"</span>) ?? <span class="string">"outer"</span> <span class="comment">// inner let s2: String?? = .some(nil)</span></span><br><span class="line">(s2 ?? <span class="string">"inner"</span>) ?? <span class="string">"outer"</span> <span class="comment">// outer</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想到了 <code>??</code>  运算符类似于 <code>“or”语句</code> ，你可以将带有多个子句的 <code>if let</code> 视为 <code>“and”</code> 语句：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> n = i, <span class="keyword">let</span> m = j &#123; &#125;</span><br><span class="line"><span class="comment">// similar to if i != nil &amp;&amp; j != nil</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;就像 <code>|| 运算符</code> ， <code>?? 操作员</code> 使用短路：当我们写 <code>l ?? r</code> ，仅当左侧为零时才评估运算符的右侧。 之所以可行，是因为运算符的函数声明将 <code>@autoclosure</code> 用作其第二个参数。 我们将在 <code>“功能”</code> 一章中详细讨论 <code>autoclosures</code> 的工作原理。</p>
+<h1 id="在字符串插值中使用Optionals"><a href="#在字符串插值中使用Optionals" class="headerlink" title="在字符串插值中使用Optionals"></a><strong>在字符串插值中使用Optionals</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能已经注意到，当你打印可选值或在字符串插值表达式中使用一个值时，编译器会发出警告：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> bodyTemperature: <span class="type">Double?</span> = <span class="number">37.0</span> <span class="keyword">let</span> bloodGlucose: <span class="type">Double?</span> = <span class="literal">nil</span></span><br><span class="line"><span class="built_in">print</span>(bodyTemperature) <span class="comment">// Optional(37.0)</span></span><br><span class="line"><span class="comment">// Warning: Expression implicitly coerced from 'Double?' to Any. </span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Blood glucose level: \(bloodGlucose)"</span>) <span class="comment">// Blood glucose level: nil </span></span><br><span class="line"><span class="comment">// Warning: String interpolation produces a debug description</span></span><br><span class="line"><span class="comment">// for an optional value; did you mean to make this explicit?</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这通常很有用，因为 <code>“ Optional（...）”</code> 或 <code>“ nil”</code> 很容易意外地潜入显示给用户的文本中。永远不要在面向用户的字符串中直接使用可选选项，并且<strong>始终先将其解包</strong>。由于所有类型都可以在字符串插值中使用（包括 <code>Optional</code> ），因此编译器无法将其设置为硬错误-警告实际上是它可以做的最好的事情。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，你可能希望在字符串插值中使用可选参数（例如，记录其值以进行调试），在这种情况下，警告可能会变得很烦人。编译器提供了几个修复程序来消除警告：用 <code>as Any添加显式强制转换</code> ，用 <strong><code>!</code></strong> 强制解包该值。 （如果确定不能为nil），则将其包装在String中（描述：），或使用 <code>nil-coalescing运算符</code> 提供默认值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;后者通常是一种快速而美观的解决方案，但它有一个缺点：<code>??</code> 两侧的类型都没有 <code>？</code>表达式必须匹配，因此你为 <code>Double</code> 提供的默认值？必须为 <code>Double类型</code> 。由于最终目的是将表达式转换为字符串，因此，如果你可以首先提供字符串作为默认值，那将很方便。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 的 <code>？运算符</code> 不支持这种类型的不匹配-毕竟，如果双方没有相同的基本类型，表达式的类型将是什么？但是添加你自己的运算符很容易，尤其是在字符串插值中使用可选参数的目的。命名为 <code>???</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> ???: <span class="type">NilCoalescingPrecedence</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> ???&lt;T&gt;<span class="params">(<span class="keyword">optional</span>: T?, defaultValue: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) -&gt; <span class="type">String</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">switch</span> <span class="keyword">optional</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> value?: </span><br><span class="line">            <span class="keyword">return</span> <span class="type">String</span>(describing: value) </span><br><span class="line">        <span class="keyword">case</span> <span class="literal">nil</span>: </span><br><span class="line">            <span class="keyword">return</span> defaultValue()</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这需要任何可选的 <code>T</code> 吗？ 左侧是一个字符串，右侧是一个字符串。 如果可选参数为 <code>非nil</code> ，我们将其解包并返回其字符串描述。 否则，我们返回默认值传入的字符串。 @autoclosure 批注确保仅在需要时才评估第二个操作数。 在 <code>“函数”</code> 一章中，我们将对此进行更详细的介绍。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以编写以下内容，并且不会收到任何编译器警告：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(<span class="string">"Body temperature: \(bodyTemperature ??? "</span>n/a<span class="string">")"</span>) <span class="comment">// Body temperature: 37.0</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">"Blood glucose level: \(bloodGlucose ??? "</span>n/a<span class="string">")"</span>)</span><br><span class="line"><span class="comment">// Blood glucose level: n/a</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Optional-map"><a href="#Optional-map" class="headerlink" title="Optional map"></a><em><strong>Optional map</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设我们有一个字符数组，我们想将第一个元素转换为字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> characters: [<span class="type">Character</span>] = [<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>] </span><br><span class="line"><span class="type">String</span>(characters[<span class="number">0</span>]) <span class="comment">// a</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果字符可能为空，则仅当数组为非空时，才可以使用 <code>if</code> 来创建字符串：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> firstCharAsString: <span class="type">String?</span> = <span class="literal">nil</span> </span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> char = characters.first &#123;</span><br><span class="line">    firstCharAsString = <span class="type">String</span>(char) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，现在，如果数组包含至少一个元素，则 <code>firstCharAsString</code> 将包含该元素作为 <code>String</code> 。 但是，如果不是这样，则 <code>firstCharAsString</code> 将为nil。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种模式（采取可选方式，然后将其转化为nil）会很普遍，以至于在可选方式上有一种方法可以做到这一点。 它称为 <code>map</code> ，它具有一个表示如何转换可选内容的函数。 这是上面的功能，使用 <code>map</code> 重写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> firstChar = characters.first.<span class="built_in">map</span> &#123; <span class="type">String</span>($<span class="number">0</span>) &#125; <span class="comment">// Optional("a")</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，此 <code>map</code> 非常类似于数组或其他序列上的 <code>map</code> 。 但是，它不是对一系列值进行运算，而是对一个值进行运算：可能的值 <code>内部可选</code> 。 你可以将可选值视为零个或一个值的集合，而 map 则不对零值进行任何处理或将其转换为零。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是在可选项目上实现 <code>map</code> 的一种方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Optional</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">map</span>&lt;U&gt;<span class="params">(transform: <span class="params">(Wrapped)</span></span></span> -&gt; <span class="type">U</span>) -&gt; <span class="type">U?</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> value = <span class="keyword">self</span> <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span> </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> transform(value) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当你已经想要一个可选结果时，可选映射特别好。 假设你想编写另一个 <code>reduce数组变体</code> 。 它不使用初始值，而是使用数组中的第一个元素（在某些语言中，这可能称为 <code>reduce1</code> ，但我们称其为 <strong>reduce并依赖于重载</strong> ）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于数组可能为空，结果需要是可选的-如果没有初始值，还可能是什么？ 你可以这样写：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">reduce</span><span class="params">(<span class="number">_</span> nextPartialResult: <span class="params">(Element, Element)</span></span></span> -&gt; <span class="type">Element</span>)</span><br><span class="line">    -&gt; <span class="type">Element?</span> &#123;</span><br><span class="line">        <span class="comment">// first will be nil if the array is empty.</span></span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> fst = first <span class="keyword">else</span> &#123; </span><br><span class="line">            <span class="keyword">return</span> <span class="literal">nil</span> </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">dropFirst</span>().<span class="built_in">reduce</span>(fst, nextPartialResult) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以像这样使用它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>].<span class="built_in">reduce</span>(+) <span class="comment">// Optional(10)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于可选 <code>map</code> 如果可选为 <code>nil</code> 则返回 <code>nil</code> ，因此我们的 <code>reduce变量</code> 可以是使用单个 <code>return语句（无保护）重写</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">reduce_alt</span><span class="params">(<span class="number">_</span> nextPartialResult: <span class="params">(Element, Element)</span></span></span> -&gt; <span class="type">Element</span>)</span><br><span class="line">    -&gt; <span class="type">Element?</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> first.<span class="built_in">map</span> &#123;</span><br><span class="line">            <span class="built_in">dropFirst</span>().<span class="built_in">reduce</span>($<span class="number">0</span>, nextPartialResult)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Optional-fiatMap"><a href="#Optional-fiatMap" class="headerlink" title="Optional fiatMap"></a><em><strong>Optional fiatMap</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;正如我们在 <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/"><em><strong><code>“内置集合”</code></strong></em></a> 一章中所看到的那样，通常希望使用一个函数来映射一个集合，该函数可以返回一个集合，但将结果作为单个数组而不是数组来收集。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;同样，如果你想对可选值执行映射，但是转换函数也具有可选结果，则最终会出现一个双重嵌套的可选项。 例如，当你想将字符串数组的第一个元素作为数字来获取时，请在数组上使用 <code>first</code> 然后映射将其转换为数字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> stringNumbers = [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"foo"</span>]</span><br><span class="line"><span class="keyword">let</span> x = stringNumbers.first.<span class="built_in">map</span> &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125; <span class="comment">// Optional(Optional(1))</span></span><br></pre></td></tr></table></figure>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;问题在于，由于 <code>map</code> 返回一个可选值（first可能为nil），而 <code>Int(someString)</code> 返回一个可选项（字符串可能不是整数），因此x的类型将为 Int?? 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>flatMap</code> 会将结果展平为单个可选内容。 结果，y的类型将为 <code>Int?</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> y = stringNumbers.first.flatMap &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125; <span class="comment">// Optional(1)</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相反，你可以使用 <code>if let</code> 编写此代码，因为以后绑定的值可以是根据先前的计算：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> a = stringNumbers.first, <span class="keyword">let</span> b = <span class="type">Int</span>(a) &#123; </span><br><span class="line">    <span class="built_in">print</span>(b)</span><br><span class="line">&#125; <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这表明 <code>flatMap</code> 和 <code>if let</code> 非常相似。 在本章的前面，我们看到了一个使用多 <code>if-let语句</code> 的示例。 我们可以改用 <code>map</code> 和 <code>flatMap</code> 重写它：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> urlString = <span class="string">"https://www.objc.io/logo.png"</span> </span><br><span class="line"><span class="keyword">let</span> view = <span class="type">URL</span>(string: urlString)</span><br><span class="line">    .flatMap &#123; <span class="keyword">try</span>? <span class="type">Data</span>(contentsOf: $<span class="number">0</span>) &#125;</span><br><span class="line">    .flatMap &#123; <span class="type">UIImage</span>(data: $<span class="number">0</span>) &#125;</span><br><span class="line">    .<span class="built_in">map</span> &#123; <span class="type">UIImageView</span>(image: $<span class="number">0</span>) &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> view= view &#123; </span><br><span class="line">    <span class="type">PlaygroundPage</span>.current.liveView = view</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;可选链接也与 <code>flatMap</code> 非常相似： <code>i？.advance（by：1）</code> 本质上等效于 <code>i.flatMap {$ 0.advance（by：1）}</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于我们已经证明了多重 <code>if-let语句</code> 等效于 <code>flatMap</code> ，因此我们可以在另一个方面实现一个：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Optional</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">flatMap</span>&lt;U&gt;<span class="params">(transform: <span class="params">(Wrapped)</span></span></span> -&gt; <span class="type">U?</span>) -&gt; <span class="type">U?</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">let</span> value = <span class="keyword">self</span>, <span class="keyword">let</span> transformed = transform(value) &#123; </span><br><span class="line">            <span class="keyword">return</span>  transformed</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="用compactMap过滤掉nil"><a href="#用compactMap过滤掉nil" class="headerlink" title="用compactMap过滤掉nil"></a><em><strong>用compactMap过滤掉nil</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你有一个序列，并且其中包含可选序列，则可能不需要关心 <code>nil值</code> 。 实际上，你可能只想忽略它们。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;假设你只想处理字符串数组中的数字。 使用可选的模式匹配，可以轻松地在for循环中完成此操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> numbers = [<span class="string">"1"</span>, <span class="string">"2"</span>, <span class="string">"3"</span>, <span class="string">"foo"</span>] varsum=<span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> <span class="keyword">case</span> <span class="keyword">let</span> i? <span class="keyword">in</span> numbers.<span class="built_in">map</span>(&#123; <span class="type">Int</span>($<span class="number">0</span>) &#125;) &#123;</span><br><span class="line">    sum+=i </span><br><span class="line">&#125;</span><br><span class="line">sum <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能还想使用 <code>??</code>  将 <code>nils</code> 替换为零：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.<span class="built_in">map</span> &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125;.<span class="built_in">reduce</span>(<span class="number">0</span>) &#123; $<span class="number">0</span> + ($<span class="number">1</span> ?? <span class="number">0</span>) &#125; <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但实际上，你只需要一个可 <strong>过滤nil并解开非nil值的map版本</strong> 。 在序列上输入标准库的 <code>compactMap</code> ，它会执行以下操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">numbers.compactMap &#123; <span class="type">Int</span>($<span class="number">0</span>) &#125;.<span class="built_in">reduce</span>(<span class="number">0</span>, +) <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要定义我们自己的 <code>compactMap版本</code> ，我们首先映射整个数组，然后我们过滤掉非nil值，最后解开每个元素：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Sequence</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">compactMap</span>&lt;B&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; <span class="type">B?</span>) -&gt; [<span class="type">B</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">lazy</span>.<span class="built_in">map</span>(transform).<span class="built_in">filter</span> &#123; $<span class="number">0</span> != <span class="literal">nil</span> &#125;.<span class="built_in">map</span> &#123; $<span class="number">0</span>! &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在实现中，我们使用 <code>lazy</code> 将数组的<strong>实际创建推迟到最后一刻</strong>。 这可能是 <code>微优化</code> ，但对于较大的序列可能是值得的。 使用惰性可以节省多个中间阵列的分配。 不过，标准库在其 <code>compactMap</code> 实施中并未执行此操作。 在 <code>“Collection协议”</code> 一章中，我们将详细介绍<strong>惰性序列和集合</strong>。</p>
+<h2 id="Equating-Optionals"><a href="#Equating-Optionals" class="headerlink" title="Equating Optionals"></a><em><strong>Equating Optionals</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通常，你并不关心某个值是否为nil，而只是是否包含某个值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> regex = <span class="string">"^Hello$"</span> <span class="comment">// ...</span></span><br><span class="line"><span class="keyword">if</span> regex.first == <span class="string">"^"</span> &#123;</span><br><span class="line"><span class="comment">// Match only the start of the string.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这种情况下，值是否为nil无关紧要-如果字符串为空，则第一个字符不能是尖号，因此你不想运行该块。 但是你仍然想要第一个的保护和简单性。 替代方案如果 <code>!regex.isEmpty &amp;&amp; regex [regex.startIndex] == &quot;^&quot;</code> ，那太可怕了。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;上面的代码依靠两件事来工作。 首先， <code>Optional</code> 符合 <code>Equatable</code> ，但仅当 <code>Wrapped类型</code> 也符合 <code>Equatable</code> 时：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Optional</span>: <span class="title">Equatable</span> <span class="title">where</span> <span class="title">Wrapped</span>: <span class="title">Equatable</span> </span>&#123; <span class="keyword">static</span> <span class="function"><span class="keyword">func</span> ==<span class="params">(lhs: Wrapped?, rhs: Wrapped?)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">    <span class="keyword">switch</span> (lhs, rhs) &#123;</span><br><span class="line">        <span class="keyword">case</span> (<span class="literal">nil</span>, <span class="literal">nil</span>): </span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">        <span class="keyword">case</span> <span class="keyword">let</span> (x?, y?): </span><br><span class="line">        <span class="keyword">return</span> x == y <span class="keyword">case</span> (<span class="number">_</span>?, <span class="literal">nil</span>), (<span class="literal">nil</span>, <span class="number">_</span>?): <span class="keyword">return</span> <span class="literal">false</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比较两个可选参数时，有四种可能：它们都为nil，或者它们都具有值，或者一个或另一个为nil。 <code>switch</code> 详尽地测试了所有四种可能性（因此不需要默认子句）。 它定义两个nil彼此相等，nil永不等于non-nil，如果两个非nil值的展开值相等，则两个nil值相等。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但这只是故事的一半。 注意，我们不必编写以下内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> regex.first == <span class="type">Optional</span>(<span class="string">"^"</span>) &#123; <span class="comment">// or: == .some("^") </span></span><br><span class="line">    <span class="comment">// Match only the start of the string.</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是因为每当你有一个非可选值时， <code>Swift</code> 总是愿意将其提升为可选值，以使类型匹配。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这种隐式转换对于编写清晰，紧凑的代码非常有用。 假设没有这样的转换，但是为了使调用者感觉更好，你需要一个 ==版本 ，该版本在可选类型和非可选类型之间都起作用。 你必须编写三个单独的版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Both optional.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> == &lt;T: Equatable&gt;<span class="params">(lhs: T?, rhs: T?)</span></span> -&gt; <span class="type">Bool</span> </span><br><span class="line"><span class="comment">// lhs non-optional.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> == &lt;T: Equatable&gt;<span class="params">(lhs: T, rhs: T?)</span></span> -&gt; <span class="type">Bool</span> </span><br><span class="line"><span class="comment">// rhs non-optional.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> == &lt;T: Equatable&gt;<span class="params">(lhs: T?, rhs: T)</span></span> -&gt; <span class="type">Bool</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，相反，只有第一个版本是必需的，并且编译器将在必要时转换为可选参数。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，我们在整本书中都一直依赖此功能。例如，当我们实现可选映射时，我们转换了内部值并返回了它。但是 map 的返回值是可选的。编译器自动为我们转换了值-我们不必编写 <code>return Optional(transform(value))</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code> 代码始终依赖于此<strong>隐式转换</strong>。例如，按键查找字典下标将返回可选键（键可能不存在）。但这在分配时也需要一个可选的选项-下标必须同时采用和接受相同的类型。没有隐式转换，你将不得不编写<br> <code>myDict[&quot;someKey&quot;] = Optional(someValue)</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;顺便说一句，如果你想知道在分配nil值时使用基于键的下标分配的字典会发生什么情况，那么答案就是要删除键。这可能很有用，但也意味着你在处理带有可选值类型的字典时需要格外小心。考虑一下这个字典：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> dictWithNils: [<span class="type">String</span>: <span class="type">Int?</span>] = [ <span class="string">"one"</span>: <span class="number">1</span>,</span><br><span class="line"><span class="string">"two"</span>: <span class="number">2</span>,</span><br><span class="line"><span class="string">"none"</span>: <span class="literal">nil</span></span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;字典有三个键，其中一个键的值为nil。 假设我们也想将“ two”键的值设置为nil。 这不会这样做：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dictWithNils[<span class="string">"two"</span>] = <span class="literal">nil</span></span><br><span class="line">dictWithNils <span class="comment">// ["one": Optional(1), "none": nil]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;相反，它将删除“two”键。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要更改key的值，你必须编写以下内容之一（它们都可以工作，因此，请选择你认为较清晰的那个）：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dictWithNils[<span class="string">"two"</span>] = <span class="type">Optional</span>(<span class="literal">nil</span>)</span><br><span class="line">dictWithNils[<span class="string">"two"</span>] = .some(<span class="literal">nil</span>)</span><br><span class="line">dictWithNils[<span class="string">"two"</span>]? = <span class="literal">nil</span></span><br><span class="line">dictWithNils <span class="comment">// ["one": Optional(1), "two": nil, "none": nil]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，上面的第三个版本与其他两个版本略有不同。 之所以有效，是因为字典中已经有“ two”键，因此，如果成功提取它，它将使用可选链接来设置其值。 现在，尝试使用不存在的 key ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dictWithNils[<span class="string">"three"</span>]? = <span class="literal">nil</span> </span><br><span class="line">dictWithNils.index(forKey: <span class="string">"three"</span>) <span class="comment">// nil</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你会看到什么都不会被更新/插入。</p>
+<h1 id="Comparing-Optionals"><a href="#Comparing-Optionals" class="headerlink" title="Comparing Optionals"></a><strong>Comparing Optionals</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>==</code> 相似，对于可选项，曾经有 <code>&lt;</code> ， <code>&gt;</code> ， <code>&lt;=</code> 和 <code>&gt;=</code> 的实现。 对于 <code>Swift 3.0</code> ，将这些比较运算符作为可选项删除了，因为它们很容易产生意外的结果。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，<code>nil&lt;.some(_)</code> 将返回true。 结合高阶函数或可选链接，这可能非常令人惊讶。 考虑以下示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> temps = [<span class="string">"-459.67"</span>, <span class="string">"98.6"</span>, <span class="string">"0"</span>, <span class="string">"warm"</span>]</span><br><span class="line"><span class="keyword">let</span> belowFreezing = temps.<span class="built_in">filter</span> &#123; <span class="type">Double</span>($<span class="number">0</span>) &lt; <span class="number">0</span> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>Double(&quot;warm&quot;)</code> 将返回nil并且nil小于0，因此它将包含在下面的冻结温度中。 这确实是出乎意料的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你需要可选项之间的不等式关系，则现在必须首先解开值，从而明确说明应如何处理nil值。 我们将在 <code>“函数”</code> 一章中显示一个示例，其中定义了一个通用函数，该函数将常规比较函数“提升”到可选域中。</p>
+<h1 id="何时强制展开"><a href="#何时强制展开" class="headerlink" title="何时强制展开"></a><strong>何时强制展开</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有了所有这些用于清晰地展开可选内容的技术，何时应该使用 <code>！</code> ，强制展开运算符 <code>？</code> 对此在互联网上散布着很多意见，包括 <code>“从不”</code> ， <code>“每当使代码更清晰时”</code> 和 <code>“何时无法避免”</code> 。 我们提出以下规则，其中涵盖了大多数规则：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;采用 ！ 当你确定某个值不会为零时，就希望你的程序崩溃。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;例如，从上面开始执行 <code>compactMap</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Sequence</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">compactMap</span>&lt;B&gt;<span class="params">(<span class="number">_</span> transform: <span class="params">(Element)</span></span></span> -&gt; <span class="type">B?</span>) -&gt; [<span class="type">B</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">lazy</span>.<span class="built_in">map</span>(transform).<span class="built_in">filter</span> &#123; $<span class="number">0</span> != <span class="literal">nil</span> &#125;.<span class="built_in">map</span> &#123; $<span class="number">0</span>! &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这里，这 <code>$0</code> 是不可能的！ 内部映射永远不会达到零，因为在上一步中所有nil元素都被过滤掉了。 通过遍历数组并将非nil值添加到数组中，可以肯定地编写此函数来消除强制展开运算符。 但是 <code>filter/map</code> 版本更干净，也许更清晰，所以<code>！</code> 是有道理的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，这些情况很少见。 如果你完全掌握了本章介绍的所有展开技术，那么比强制展开有更好的方法。 每当你发现自己想要达到<code>！</code>时，就应该退后一步，想知道是否真的没有其他选择。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;作为另一个示例，请考虑以下代码，该代码以匹配特定条件的值获取字典中的所有键：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> ages = [</span><br><span class="line"><span class="string">"Tim"</span>: <span class="number">53</span>,<span class="string">"Angela"</span>:<span class="number">54</span>,<span class="string">"Craig"</span>:<span class="number">44</span>, <span class="string">"Jony"</span>: <span class="number">47</span>, <span class="string">"Chris"</span>: <span class="number">37</span>, <span class="string">"Michael"</span>: <span class="number">34</span>,</span><br><span class="line">] </span><br><span class="line">ages.keys</span><br><span class="line">.<span class="built_in">filter</span> &#123; name <span class="keyword">in</span> ages[name]! &lt; <span class="number">50</span> &#125;</span><br><span class="line">.sorted()</span><br><span class="line"><span class="comment">// ["Chris", "Craig", "Jony", "Michael"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再次，<code>！ </code>是非常安全的-由于所有键都来自字典，因此不可能从字典中丢失键。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，你也可以重写该语句，以完全不需要进行强制拆包。 利用字典将自身表示为键值序列的事实<br>对，你可以过滤此序列，然后在 <code>map</code> 中运行以删除值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ages.<span class="built_in">filter</span> &#123; (<span class="number">_</span>, age) <span class="keyword">in</span> age &lt; <span class="number">50</span> &#125; </span><br><span class="line">.<span class="built_in">map</span> &#123; (name, <span class="number">_</span>) <span class="keyword">in</span> name &#125; </span><br><span class="line">.sorted()</span><br><span class="line"><span class="comment">// ["Chris", "Craig", "Jony", "Michael"]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该版本甚至可以带来性能上的好处，因为它避免了不必要的键查找。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;不过，有时候生活会给你一个可选的选择，并且你肯定会知道它不是零。 可以肯定的是，你宁愿让程序崩溃而不是继续，因为遇到nil值意味着你的逻辑中存在一个非常讨厌的错误。 在这种情况下比继续进行陷阱更好，所以<code>！</code> 在一个方便的角色中充当组合的拆包或错误运算符。 与仅使用nil链接或合并运算符在地毯下扫除理论上不可能的情况相比，此方法通常是更好的方法。</p>
+<h1 id="改进强制展开错误消息"><a href="#改进强制展开错误消息" class="headerlink" title="改进强制展开错误消息"></a><strong>改进强制展开错误消息</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;也就是说，即使你强制展开可选值，你也可以使用除<code>！</code>以外的其他选项。 当程序出错时，你在输出日志中获得的原因说明不多。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可能会发表评论，说明为何有理由进行强制解包。 那么，为什么不将该注释也用作错误消息呢？  <code>!!</code> 当应用程序退出时，它将解包与提供更具描述性的错误消息结合在一起记录：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> !!</span><br><span class="line">    <span class="function"><span class="keyword">func</span> !! &lt;T&gt;<span class="params">(wrapped: T?, failureText: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) -&gt; <span class="type">T</span> &#123; <span class="keyword">if</span> <span class="keyword">let</span> x=wrapped &#123;</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">fatalError</span>(failureText())</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，你可以编写更具描述性的错误消息，包括你希望能够解开的值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> s = <span class="string">"foo"</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="type">Int</span>(s) !! <span class="string">"Expecting integer, got \"\(s)\""</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="声明调试版本"><a href="#声明调试版本" class="headerlink" title="声明调试版本"></a><strong>声明调试版本</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管如此，即使在发布版本上崩溃也仍然是一个大胆的举措。 通常，你可能更喜欢在调试和测试构建期间声明，但是在生产环境中，你将替换为有效的默认值-可能为nil或空数组。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;输入 <code>interrobang</code> 运算符 <code>!?</code>。 我们定义了此运算符，以便在失败的展开操作时断言，并在断言在释放模式下未触发时替换默认值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">infix</span> <span class="keyword">operator</span> !?</span><br><span class="line"><span class="function"><span class="keyword">func</span> !?&lt;T: ExpressibleByIntegerLiteral&gt;</span></span><br><span class="line"><span class="function"><span class="params">(wrapped: T?, failureText: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) -&gt; <span class="type">T</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">assert</span>(wrapped != <span class="literal">nil</span>, failureText()) <span class="keyword">return</span> wrapped ?? <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，以下内容将在调试时声明，但在发行版中显示0：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">lets=<span class="string">"20"</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="type">Int</span>(s) !? <span class="string">"Expecting integer, got \"\(s)\""</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其他字面可转换协议的重载可以广泛覆盖可以默认：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> !?&lt;T: ExpressibleByArrayLiteral&gt;</span></span><br><span class="line"><span class="function"><span class="params">(wrapped: T?, failureText: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) -&gt; <span class="type">T</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">assert</span>(wrapped != <span class="literal">nil</span>, failureText()) <span class="keyword">return</span> wrapped ?? []</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> !?&lt;T: ExpressibleByStringLiteral&gt;</span></span><br><span class="line"><span class="function"><span class="params">(wrapped: T?, failureText: @autoclosure <span class="params">()</span></span></span> -&gt; <span class="type">String</span>) -&gt; <span class="type">T</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">assert</span>(wrapped != <span class="literal">nil</span>, failureText())</span><br><span class="line">    <span class="keyword">return</span> wrapped ?? <span class="string">""</span> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于要提供其他显式默认值的情况，或者对于非标准类型，可以定义一个带有一对的版本-默认值和错误文本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> !?&lt;T&gt;<span class="params">(wrapped: T?,</span></span></span><br><span class="line"><span class="function"><span class="params">nilDefault: @autoclosure <span class="params">()</span></span></span> -&gt; (value: <span class="type">T</span>, text: <span class="type">String</span>)) -&gt; <span class="type">T</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">assert</span>(wrapped != <span class="literal">nil</span>, nilDefault().text) <span class="keyword">return</span> wrapped ?? nilDefault().value</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Asserts in debug, returns 5 in release.</span></span><br><span class="line"><span class="type">Int</span>(s) !? (<span class="number">5</span>, <span class="string">"Expected integer"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于可选的链接方法调用返回 <code>Void</code> 的方法 <code>return Void ?</code> ，因此你也可以编写非通用版本来检测可选链何时变为 <code>nil</code> ，从而导致无操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> !?<span class="params">(wrapped: <span class="params">()</span></span></span>?, failureText: <span class="meta">@autoclosure</span> () -&gt; <span class="type">String</span>) &#123; </span><br><span class="line">    <span class="built_in">assert</span>(wrapped != <span class="literal">nil</span>, failureText())</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> output: <span class="type">String?</span> = <span class="literal">nil</span></span><br><span class="line">output?.write(<span class="string">"something"</span>) !? <span class="string">"Wasn't expecting chained nil here"</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有三种方法可以停止执行。 第一个选项 <code>fatalError</code> 接收消息并无条件停止执行。 第二个选项 <code>assert</code> ，检查条件和消息，如果条件评估为 <code>false</code> ，则停止执行。 在发行版本中，断言被删除-不检查条件（并且永远不会停止执行）。 第三个选项是前置条件，它具有与 <code>assert</code> 相同的接口，但是不会从发行版本中删除，因此，如果条件评估为 <code>false</code> ，则会停止执行。</p>
+<h1 id="隐式展开的-Optionals"><a href="#隐式展开的-Optionals" class="headerlink" title="隐式展开的 Optionals"></a><strong>隐式展开的 Optionals</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;没错：<strong>隐式解包</strong>的可选对象—带有感叹号的类型，例如 <code>UIView！</code> -仍然是可选的，尽管在你使用它们时会自动将其自动展开。既然我们知道强制拆包将使你的应用程序永远无效，那么为什么你会使用它们呢？好吧，确实有两个原因。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原因1：暂时是因为你正在调用未经审计的可空性的<code>Objective-C</code>代码，或者是正在调用没有<code>Swift</code>特定注释的<code>C库</code>。</p>
+<p>v甚至存在隐式展开的可选参数的唯一原因是使与<code>Objective-C</code>和<code>C</code>的互操作性更容易。当然，在第一天开始针对现有的<code>Objective-C</code>代码库编写<code>Swift</code>时，任何返回引用的<code>Objective-C</code>方法都将转换为隐式解包的可选方法。由于在<code>Objective-C</code>的整个生命周期中，都没有办法表明引用是可为空的，因此除了假定任何返回引用的调用都可能返回<code>nil</code>引用之外，别无选择。但是实际上很少有<code>Objective-C API</code>返回<code>null</code>引用，因此自动将它们公开为可选参数会非常令人讨厌。由于每个人都习惯于处理<code>Objective-C对象</code>的<code>“可能为空”</code>的世界，因此隐式展开的可选对象是一个合理的折衷方案。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，你会在未经审核的桥接<code>Objective-C</code>代码中看到它们。但是，你永远都不会看到纯粹的本机<code>Swift API</code>返回<strong>隐式可选</strong>（或将其传递给回调）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;原因2：因为在定义的时间段内，值非常短地为<code>nil</code>，然后再也不会为<code>nil</code>。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最常见的情况是两阶段初始化。在你的类准备就绪时，隐式包装的可选变量都将具有值。这就是 <code>Xcode / Interface Builder</code> 在视图控制器生命周期中使用它们的原因：在<code>Cocoa</code>和<code>Cocoa Touch</code>中，视图控制器延迟地创建其视图，因此存在一个时间窗口-在初始化视图控制器之后但在加载视图之前—当视图对象尚未创建时，其出口引用。</p>
+<h1 id="隐含的选择性行为"><a href="#隐含的选择性行为" class="headerlink" title="隐含的选择性行为"></a><strong>隐含的选择性行为</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管 <strong>隐式解包</strong> 的可选变量通常表现为非可选值，但你仍然可以使用大多数拆包技术像可选变量一样安全地处理它们— <code>chaining</code>，<code>nil-coalescing</code>，<code>映射</code>，或将它们与nil进行比较都可以相同：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> s: <span class="type">String!</span> = <span class="string">"Hello"</span> </span><br><span class="line">s?.isEmpty <span class="comment">// Optional(false) </span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">let</span> s = s &#123; <span class="built_in">print</span>(s) &#125; <span class="comment">// Hello </span></span><br><span class="line">s=<span class="literal">nil</span></span><br><span class="line">s ?? <span class="string">"Goodbye"</span> <span class="comment">// Goodbye</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<em><strong>Optional</strong></em> 被吹捧为<code>Swift</code>编写更安全代码的最大功能之一，我们当然同意。但是，如果你考虑一下，真正的突破不是可选的，而是非可选的。几乎每种主流语言都有 <code>“null”</code> 或 <code>“nil”</code> 的概念；他们大多数人所没有的就是能够将值声明为<code>“永不零”</code>。或者，或者，某些类型（如<code>Objective-C</code>或<code>Java</code>中的非类类型）是<code>“总是非零”</code>，这迫使开发人员想出魔术值来表示缺少值。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其输入和输出经过精心设计并考虑到可选元素的<code>API</code>更具表现力，更易于使用；由于类型包含更多信息，因此无需参考文档。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们在本章中展示的所有解包技术都是<code>Swift</code>试图使桥接可选值和非可选值的两个世界尽可能轻松地进行的尝试。你应该使用哪种方法通常取决于个人喜好。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%89):%20%20Optionals/" title="Advanced Swift系列(三):  Optionals">https://www.xuebaonline.com/Advanced Swift系列(三):  Optionals/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Optionals/" rel="tag"><i class="fa fa-tag"></i> Optionals</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%8C):%20Build-in%20Collections/" rel="prev" title="Advanced Swift系列(二): Build-in Collections">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(二): Build-in Collections
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/" rel="next" title="Advanced Swift系列(四):  Functions">
+      Advanced Swift系列(四):  Functions <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Sentinel-Values"><span class="nav-number">1.</span> <span class="nav-text">Sentinel Values</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#用枚举替换前哨值"><span class="nav-number">2.</span> <span class="nav-text">用枚举替换前哨值</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Optionals-技术之旅"><span class="nav-number">3.</span> <span class="nav-text">Optionals 技术之旅</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#if-let"><span class="nav-number">3.1.</span> <span class="nav-text">if let</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#while-let"><span class="nav-number">3.2.</span> <span class="nav-text">while let</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#双嵌套可选"><span class="nav-number">3.3.</span> <span class="nav-text">双嵌套可选</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-var-and-while-var"><span class="nav-number">3.4.</span> <span class="nav-text">if var and while var</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Scoping-of-Unwrapped-Optionals"><span class="nav-number">3.5.</span> <span class="nav-text">Scoping of Unwrapped Optionals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional-Chaining"><span class="nav-number">3.6.</span> <span class="nav-text">Optional Chaining</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#nil-Coalescing-Operator"><span class="nav-number">4.</span> <span class="nav-text">nil-Coalescing Operator</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#在字符串插值中使用Optionals"><span class="nav-number">5.</span> <span class="nav-text">在字符串插值中使用Optionals</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional-map"><span class="nav-number">5.1.</span> <span class="nav-text">Optional map</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Optional-fiatMap"><span class="nav-number">5.2.</span> <span class="nav-text">Optional fiatMap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用compactMap过滤掉nil"><span class="nav-number">5.3.</span> <span class="nav-text">用compactMap过滤掉nil</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Equating-Optionals"><span class="nav-number">5.4.</span> <span class="nav-text">Equating Optionals</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Comparing-Optionals"><span class="nav-number">6.</span> <span class="nav-text">Comparing Optionals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#何时强制展开"><span class="nav-number">7.</span> <span class="nav-text">何时强制展开</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#改进强制展开错误消息"><span class="nav-number">8.</span> <span class="nav-text">改进强制展开错误消息</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#声明调试版本"><span class="nav-number">9.</span> <span class="nav-text">声明调试版本</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#隐式展开的-Optionals"><span class="nav-number">10.</span> <span class="nav-text">隐式展开的 Optionals</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#隐含的选择性行为"><span class="nav-number">11.</span> <span class="nav-text">隐含的选择性行为</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概括"><span class="nav-number">12.</span> <span class="nav-text">概括</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

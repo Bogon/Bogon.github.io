@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Advanced Swift系列(十三): Interoperability">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Advanced Swift系列(十三): Interoperability">
+<meta property="og:url" content="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Advanced Swift系列(十三): Interoperability">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-09T03:43:59.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.117Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Advanced Swift">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Protocols">
+<meta property="article:tag" content="Error Handling">
+<meta property="article:tag" content="Encoding and Decoding">
+<meta property="article:tag" content="Interoperability">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Advanced Swift系列(十三): Interoperability | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Advanced Swift系列(十三): Interoperability
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-09 11:43:59" itemprop="dateCreated datePublished" datetime="2020-05-09T11:43:59+08:00">2020-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>30k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>27 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(十三): Interoperability</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Swift的优势之一是与 C 和 Objective-C 互操作时的低摩擦</strong>。  <code>Swift</code> 可以自动将 <code>Objective-C 类型</code> 桥接到本机 <code>Swift 类型</code> ，甚至可以与许多 <code>C 类型桥接</code> 。 这使我们可以使用现有的库，并在顶部提供一个不错的界面。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本章中，我们将围绕 <code>CommonMarker</code> 的 <code>C 参考</code> 实现创建一个包装器。  <code>CommonMark</code> 是 <code>Markdown</code> 的正式规范， <code>Markdown</code> 是用于格式化纯文本的流行语法。 如果你曾经在GitHub或Stack Overflow上撰写过文章，则可能使用过 <code>Markdown</code> 。 在这个实际示例之后，我们将看一下标准库提供的用于处理内存的工具，并了解如何将它们与C代码进行交互。</p>
+<a id="more"></a>
+
+<h1 id="Wrapping-a-C-Library"><a href="#Wrapping-a-C-Library" class="headerlink" title="Wrapping a C Library"></a><strong>Wrapping a C Library</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Swift调用C代码的能力</strong>使我们能够利用现有C库的丰富功能。  <code>C API</code> 通常很笨拙，内存管理也很棘手，但是在 <code>Swift</code> 中围绕现有库接口编写包装器通常要容易得多，并且比从头开始构建东西要少。 同时，与完全本机解决方案相比，我们的包装程序的用户在类型安全性或易用性方面将看不到任何区别。 我们需要启动的只是动态库及其C头文件。</p>
+<!-- more -->
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的示例 <code>CommonMark C库</code> 是对 <code>CommonMark</code> 规范的参考实现，该规范已经过快速且经过良好测试。 为了使 <code>Swift</code> 可以访问 <code>CommonMark</code> ，我们将采用分层方法。 首先，我们将围绕库公开的不透明类型创建一个非常薄的 <code>Swift类</code> 。 然后，我们将用Swift枚举包装此类，以提供一个更加惯用的 <code>API</code> 。</p>
+<h2 id="包管理器设置"><a href="#包管理器设置" class="headerlink" title="包管理器设置"></a><em><strong>包管理器设置</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;设置一个 <code>Swift Package Manager</code> 项目来导入 <code>C库</code> 并不像以前那样复杂，但是它仍然涉及一些步骤。 以下是所需内容的简要说明。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;第一步是安装<a href="https://github.com/commonmark/cmark" target="_blank" rel="noopener"><em><strong><code>cmark库</code></strong></em></a>。 我们使用<a href="https://brew.sh/" target="_blank" rel="noopener"><em><strong><code>Homebrew</code></strong></em></a>作为macOS上的软件包管理器来执行此操作。 打开终端并键入以下命令以安装库：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ brew install cmark</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你正在运行其他操作系统，请尝试通过系统的程序包管理器安装cmark。 在撰写本文时， <code>cmark 0.29.0</code> 是最新版本。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，让我们建立一个新的 <code>SwiftPM项目</code> 。 转到存储代码的目录。 然后输入以下命令为项目创建一个子目录并为可执行文件创建一个 <code>SwiftPM</code> 软件包：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir CommonMarkExample</span><br><span class="line">$ <span class="built_in">cd</span> CommonMarkExample</span><br><span class="line">$ swift package init --<span class="built_in">type</span> executable</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此时，你可以键入 <code>swift run</code> 来检查一切是否正常。 程序包管理器应构建并运行程序，并显示 <code>“ Hello，world！”</code> 。 到控制台。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们需要一种方法来告诉 <code>Swift</code> 关于 <code>cmark C库</code> 的信息，以便我们可以从 <code>Swift</code> 中调用它。 在C语言中，我们 <code>#include</code> 一个或多个库的头文件，以使它们的声明对我们的代码可见。  <code>Swift</code> 无法直接处理C头文件； 它期望依赖关系是模块。 为了使 <code>Swift编译器</code> 可以看到 <code>C或Objective-C库</code> ，该库必须提供 <code>Clang模块格式</code> 的模块映射。 其中，模块映射列出了组成模块的头文件。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>cmark</code> 没有模块映射，因此我们的下一个任务是为 <code>cmark库</code> 创建一个 <code>SwiftPM目标</code> 并编写模块映射。 该目标将不包含任何代码； 它的唯一目的是充当 <code>cmark库</code> 的模块包装器。<br>打开 <code>Package.swift</code> 并对其进行编辑，如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// swift-tools-version:5.0</span></span><br><span class="line"><span class="keyword">import</span> PackageDescription</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> package = <span class="type">Package</span>( name: <span class="string">"CommonMarkExample"</span>, dependencies: [],</span><br><span class="line">    targets: [</span><br><span class="line">        .target( name: <span class="string">"CommonMarkExample"</span>, dependencies: [<span class="string">"Ccmark"</span>]),</span><br><span class="line">        .systemLibrary( name: <span class="string">"Ccmark"</span>, pkgConfig: <span class="string">"libcmark"</span>, </span><br><span class="line">            providers: [</span><br><span class="line">                .brew([<span class="string">"cmark"</span>]),</span><br><span class="line">                .apt([<span class="string">"cmark"</span>]), ]</span><br><span class="line">        ),</span><br><span class="line">    ]</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（为使清单简短，我们删除了注释，默认情况下 <code>SwiftPM</code> 创建了测试目标；你当然可以保留它们。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将 <code>cmark</code> 的系统库目标添加到了程序包清单中。在 <code>SwiftPM术语</code> 中，系统库是由系统范围的软件包管理器（例如 <code>Homebrew</code> 或 <code>Linux</code> 上的 <code>APT</code> ）安装的库。系统库目标是引用此类库的任何 <code>SwiftPM</code> 目标。按照惯例，像这样的纯包装模块的名称应以 <code>C</code> 为前缀，这就是为什么我们将目标命名为 <code>Ccmark</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>pkgConfig参数</code> 指定配置文件的名称，程序包管理器可在该文件中找到导入库的标头和库搜索路径。  <code>provider</code> 指令是可选的。这是安装提示，包管理器可以在未安装目标库时显示。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，我们还必须在包清单中包括 <code>“Ccmark”</code> 目标作为我们主要可执行目标的依赖项。行依赖项： <code>[“Ccmark”]</code> 负责这一点。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;接下来，为系统库目标的源创建一个目录；这是模块映射所在的位置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ mkdir Sources/Ccmark</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在编写模块映射之前，在新版本中创建一个名为 <code>shim.h</code> 的 <code>C头文件</code> 目录。 它应仅包含以下行：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cmark.h&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后， <code>module.modulemap文件</code> 应如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">module <span class="type">Ccmark</span> [system] &#123; </span><br><span class="line">    header <span class="string">"shim.h"</span></span><br><span class="line">    link <span class="string">"cmark"</span></span><br><span class="line">    export *</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;填充程序头可解决以下限制：模块映射必须包含绝对路径。 另外，你可以省略填充程序，而直接在模块映射中指定 <code>cmark</code> 头，如头 <code>“/usr/local/include/cmark.h”</code> 。 但是随后 <code>cmark.h</code> 的路径将被硬编码到模块映射中。 使用填充程序，程序包管理器从 <code>pkg-config</code> 文件读取正确的头搜索路径，并将其添加到编译器调用中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，你应该能够导入 <code>Ccmark</code> 并调用任何 <code>cmark API</code> 。 将以下代码段添加到 <code>main.swift</code> 中，以快速检查是否一切正常：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Ccmark</span><br><span class="line"><span class="keyword">let</span> markdown = <span class="string">"*Hello World*"</span></span><br><span class="line"><span class="keyword">let</span> cString = cmark_markdown_to_html(markdown, markdown.utf8.<span class="built_in">count</span>, <span class="number">0</span>)! <span class="keyword">defer</span> &#123; free(cString) &#125;</span><br><span class="line"><span class="keyword">let</span> html = <span class="type">String</span>(cString: cString)</span><br><span class="line"><span class="built_in">print</span>(html)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;返回终端，运行程序：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ swift run</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你看到 <code>&lt;p&gt; &lt;em&gt; Hello World &lt;/em&gt; &lt;/p&gt;</code> 作为输出，则你刚刚从 <code>Swift</code> 成功调用了C函数！ 现在我们已经可以正常安装了，我们可以开始编写 <code>Swift包装器</code> 了。 （如果你想使用Xcode来编辑和运行代码，则可以使用命令swift包 <code>generate-xcodeproj</code> 告诉 <code>SwiftPM</code> 为该包创建一个Xcode项目。）</p>
+<h2 id="包装CommonMark库"><a href="#包装CommonMark库" class="headerlink" title="包装CommonMark库"></a><em><strong>包装CommonMark库</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们从包装一个具有更好界面的函数开始。  <code>cmark_markdown_to_html</code> 函数接受 <code>Markdown格式</code> 的文本，并以字符串形式返回结果 <code>HTML代码</code> 。 C接口如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// Convert 'text' (assumed to be a UTF-8 encoded string with length</span></span><br><span class="line"><span class="comment">/// 'len') from CommonMark Markdown to HTML, returning a null-terminated, </span></span><br><span class="line"><span class="comment">/// UTF-8-encoded string. It is the caller's responsibility</span></span><br><span class="line"><span class="comment">/// to free the returned buffer.</span></span><br><span class="line">char *cmark_markdown_to_html(const char *text, size_t len, int options);</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当 <code>Swift</code> 导入此声明时，它将在第一个参数中将 <code>C字符串</code> 作为 <code>UnsafePointer</code> 呈现给多个Int8值。 从文档中，我们知道它们应该是 <code>UTF-8代码单元</code> 。  <code>len参数</code> 采用字符串的长度：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// The function's interface in Swift.</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cmark_markdown_to_html</span></span></span><br><span class="line"><span class="function"><span class="params">(<span class="number">_</span> text: UnsafePointer&lt;Int8&gt;!, <span class="number">_</span> len: Int, <span class="number">_</span> options: Int32)</span></span> -&gt; <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">Int8</span>&gt;!</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当然，我们希望包装函数可以使用 <code>Swift字符串</code> ，因此你可能认为我们需要先将 <code>Swift字符串</code> 转换为 <code>Int8指针</code> ，然后再将其传递给 <code>cmark_markdown_to_html</code> 。 但是，在本机字符串和 <code>C字符串</code> 之间进行桥接是一种常见的操作，因此 <code>Swift</code> 会自动执行此操作。 我们一定要小心使用 <code>len参数</code> ，因为该函数期望以 <code>UTF-8编码的字符串的长度</code> （以字节为单位），而不是字符数。 我们从字符串的 <code>utf8视图</code> 中获得了正确的值，我们可以为这些选项传入零：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">markdownToHTML</span><span class="params">(input: String)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> outString = cmark_markdown_to_html(input, input.utf8.<span class="built_in">count</span>, <span class="number">0</span>)! </span><br><span class="line">    <span class="keyword">defer</span> &#123; free(outString) &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="type">String</span>(cString: outString)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;注意，我们强制解开函数返回的字符串指针。 我们可以放心地这样做，因为我们知道 <code>cmark_markdown_to_html</code> 总是返回有效的字符串。 通过在方法内部强制展开，库用户可以调用 <code>markdownToHTML</code> 方法，而不必担心可选项-结果永远不会为零。 这是编译器无法为我们自动完成的工作-没有可空注释的 <code>C和Objective-C指针</code> 始终作为隐式解包的可选内容导入 <code>Swift</code> 中。</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本机 <code>Swift字符串</code> 到 <code>C字符串</code> 的自动桥接假设你要调用的 <code>C函数</code> 期望该字符串采用 <code>UTF-8编码</code> 。 在大多数情况下，这是正确的选择，但是如果 <code>C API</code> 假定使用不同的编码，则你将无法使用自动桥接。 但是，构造其他格式通常很容易。 例如，如果 <code>C API</code> 需要一个 <code>UTF-16代码点</code> 数组，则可以使用 <code>Array（string.utf16）</code> 。 如果元素类型匹配， <code>Swift编译器</code> 将自动将 <code>Swift数组</code> 桥接到预期的 <code>C数组</code> 。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还要注意，我们在 <code>markdownToHTML内部</code> 调用 <code>free</code> 释放了分配给输出字符串的内存 <code>cmark_markdown_to_html</code> 。 与 <code>C API</code> 进行交互时，我们有责任遵守 <code>C库</code> 的内存管理规则- <code>Swift编译器</code> 无法为此提供帮助。</p>
+<h2 id="包装cmark-node类型"><a href="#包装cmark-node类型" class="headerlink" title="包装cmark_node类型"></a><em><strong>包装cmark_node类型</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了直接的 <code>HTML输出</code> 之外， <code>cmark库</code> 还提供了一种将 <code>Markdown文本解析</code> 为<strong>结构化的元素树的方法</strong>。例如，可以将一个简单的文本转换为块级节点的列表，如段落，引号，列表，代码块，标头等。有些块级元素包含其他块级元素（例如，引号可以包含多个段落），而另一些块级元素仅包含内联元素（例如，标头可以包含强调的部分）。任何元素都不能包含两者（例如，列表项的内联元素始终包装在段落元素中）。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>C库</code> 使用单个数据类型c <code>mark_node</code> 来表示任何节点。它是不透明的，意味着该库的作者选择隐藏其定义。我们在头文件中看到的只是对 <code>cmark_node</code> 进行操作或返回其指针的函数。  <code>Swift</code> 将这些指针导入为 <code>OpaquePointers</code> 。 （我们将在本章后面的内容中仔细研究标准库中许多指针类型之间的区别，例如 <code>OpaquePointer</code> 和 <code>UnsafeMutablePointer</code> 。）</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们以原生 <code>Swift类型</code> 包装一个节点，以使其更易于使用。正如在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%BA%94):%20Structs%20and%20Classes/"><em><strong><code>“结构和类”</code></strong></em></a>一章中看到的那样，每当创建自定义类型时，我们都需要考虑存储语义：该类型是值，还是实例具有身份有意义？在前一种情况下，我们应该支持结构或枚举，而后者则需要一个类。我们的案例很有趣：一方面， <code>Markdown文档</code> 的节点是一个值-具有相同元素类型和内容的两个节点应该是无法区分的，因此它们不应具有标识。另一方面，由于我们不了解 <code>cmark_node</code> 的内部信息，因此没有简单的方法来制作节点的副本，因此我们不能保证值的语义。因此，我们从一个类开始。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;稍后，我们将在此类的顶部编写另一层，以提供具有 <code>值语义的接口</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当没有引用保留给此类的实例时，我们的类存储不透明指针并释放 <code>cmark_node</code> 在 <code>deinit上</code> 使用的内存。我们 <code>仅在文档级别释放内存</code> ，因为否则我们可能会释放仍在使用的节点。释放文档还将自动递归释放所有子项。以这种方式包装不透明指针将为我们免费提供自动引用计数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> node: <span class="type">OpaquePointer</span></span><br><span class="line">    <span class="keyword">init</span>(node: <span class="type">OpaquePointer</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.node = node</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">deinit</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> type == <span class="type">CMARK_NODE_DOCUMENT</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125; </span><br><span class="line">        cmark_node_free(node)</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;下一步是包装 <code>cmark_parse_document函数</code> ，该函数分析 <code>Markdown文本</code> 并返回文档的根节点。 它采用与 <code>cmark_markdown_to_html</code> 相同的参数：字符串，其长度和描述解析选项的整数。  <code>Swift</code> 中 <code>cmark_parse_document函数</code> 的返回类型是 <code>OpaquePointer</code> ，它表示 <code>节点</code> ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cmark_parse_document</span></span></span><br><span class="line"><span class="function"><span class="params">(<span class="number">_</span> buffer: UnsafePointer&lt;Int8&gt;!, <span class="number">_</span> len: Int, <span class="number">_</span> options: Int32)</span></span> -&gt; <span class="type">OpaquePointer!</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们将函数转换为类的初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>(markdown: <span class="type">String</span>) &#123;</span><br><span class="line">    <span class="keyword">let</span> node = cmark_parse_document(markdown, markdown.utf8.<span class="built_in">count</span>, <span class="number">0</span>)! </span><br><span class="line">    <span class="keyword">self</span>.node = node</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;再一次，我们强制打开返回的指针，因为我们确定 <code>cmark_parse_document</code> 不会失败-任何输入字符串都是有效的 <code>Markdown</code> 。 像许多 <code>C API</code> ， <code>cmark库</code> 没有可空性注释，也没有明确的文档说明哪些指针可以为 <code>NULL</code> 。 如果你对某个特定的指针是否可为空有疑问，最好通过研究 <code>C库</code> 的源代码来验证你的假设。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如上所述，有几个有趣的功能可在节点上运行。 例如，有一种返回节点的类型，例如段落或标题：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">cmark_node_type <span class="title">cmark_node_get_type</span><span class="params">(cmark_node *node)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在Swift中，它看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cmark_node_get_type</span><span class="params">(<span class="number">_</span> node: OpaquePointer!)</span></span> -&gt; cmark_node_type</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>cmark_node_type</code> 是一个 <code>C枚举</code> ，包含各种块级和内联的用例 <code>Markdown</code> 中定义的元素以及一种表示错误的情况：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">typedef <span class="class"><span class="keyword">enum</span> </span>&#123;</span><br><span class="line">    <span class="comment">// Error status </span></span><br><span class="line">    <span class="type">CMARK_NODE_NONE</span>,</span><br><span class="line">    <span class="comment">// Block elements</span></span><br><span class="line">    <span class="type">CMARK_NODE_DOCUMENT</span>, </span><br><span class="line">    <span class="type">CMARK_NODE_BLOCK_QUOTE</span>, </span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Inline elements</span></span><br><span class="line">    <span class="type">CMARK_NODE_TEXT</span>, </span><br><span class="line">    <span class="type">CMARK_NODE_EMPH</span>, </span><br><span class="line">    ...</span><br><span class="line">&#125; cmark_node_type;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Swift</code> 将纯 <code>C枚举</code> 作为包含单个 <code>UInt32属性</code> 的结构导入。 另外，对于枚举中的每种情况，都会生成一个全局常量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">cmark_node_type</span> : <span class="title">RawRepresentable</span>, <span class="title">Equatable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(<span class="number">_</span> rawValue: <span class="type">UInt32</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">init</span>(rawValue: <span class="type">UInt32</span>)</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> rawValue: <span class="type">UInt32</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> <span class="type">CMARK_NODE_NONE</span>: cmark_node_type &#123; <span class="keyword">get</span> &#125;</span><br><span class="line"><span class="keyword">var</span> <span class="type">CMARK_NODE_DOCUMENT</span>: cmark_node_type &#123; <span class="keyword">get</span> &#125; </span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;将 <code>C枚举作为结构导入</code> ，因为 <code>C</code> 中的枚举实际上只是 <code>整数</code> 。  <code>Swift</code> 必须假定 <code>C中的枚举</code> 变量具有任意整数值，这是本机 <code>Swift枚举</code> 不旨在处理的。 仅将 <code>Apple</code> 在其 <code>Objective-C框架</code> 中使用的标有 <code>NS_ENUM宏</code> 的枚举作为本机 <code>Swift枚举</code> 导入。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，节点的类型应为 <code>Node数据类型</code> 的属性，因此我们将 <code>cmark_node_get_type函数</code> 转换为类的计算属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> type: cmark_node_type &#123;</span><br><span class="line">    <span class="keyword">return</span> cmark_node_get_type(node)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们只需编写 <code>node.type</code> 即可获取元素的类型。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们可以访问更多的节点属性。 例如，如果节点是列表，则它可以具有以下两种列表类型之一：项目符号或有序。 所有其他节点的列表类型为 <code>“无列表”</code> 。 同样， <code>Swift</code> 将对应的 <code>C枚举</code> 表示为结构，每种情况都有一个顶级变量，我们可以编写类似的 <code>wrapper属性</code> 。 在这种情况下，我们还提供了一个 <code>setter</code> ，它将在本章的稍后部分派上用场：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> listType: cmark_list_type &#123;</span><br><span class="line">    <span class="keyword">get</span> &#123; <span class="keyword">return</span> cmark_node_get_list_type(node) &#125; </span><br><span class="line">    <span class="keyword">set</span> &#123; cmark_node_set_list_type(node, newValue) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>cmark库</code> 为所有其他节点属性（例如标头级别，受防护的代码块信息以及链接URL和标题）提供了类似的功能。这些属性通常仅对特定类型的节点有意义，我们可以选择提供一个带有可选接口（例如，链接URL）或默认值（例如，默认标头级别为零）的接口。 <code>类型安全性的缺乏</code> 说明了库 <code>C API</code> 的一个主要弱点，我们可以在 <code>Swift</code> 中更好地建模。我们将在下面详细讨论。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;一些节点也可以有孩子。为了对其进行迭代， <code>CommonMark库</code> 提供了功能 <code>cmark_node_first_child</code> 和 <code>cmark_node_next</code> 。我们希望 <code>Node类</code> 提供其子级数组。为了生成此数组，我们从第一个子项开始，并继续添加子项，直到 <code>cmark_node_first_child</code> 或 <code>cmark_node_next</code> 返回 <code>nil</code> ，从而表示列表的结尾。请注意，从 <code>cmark_node_next</code> 返回的 <code>C空指针</code> 将自动转换为可选的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> children: [<span class="type">Node</span>] &#123;</span><br><span class="line">    <span class="keyword">var</span> result: [<span class="type">Node</span>] = []</span><br><span class="line">    <span class="keyword">var</span> child = cmark_node_first_child(node) </span><br><span class="line">    <span class="keyword">while</span> <span class="keyword">let</span> unwrapped = child &#123;</span><br><span class="line">        result.append(<span class="type">Node</span>(node: unwrapped))</span><br><span class="line">        child = cmark_node_next(child) </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们还可以选择返回一个 <code>惰性序列</code> 而不是数组（例如，使用 <code>sequence</code> 或 <code>AnySequence</code> ）。但是，这种想法有一个问题：节点结构可能会在创建和使用序列之间发生变化。在这种情况下，用于查找下一个节点的迭代器将返回错误的值，甚至崩溃。根据你的用例，返回延迟构造的序列可能正是你想要的，但是如果你的数据结构可以更改，则返回数组是一个更安全的选择。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用这个简单的节点包装器类，从 <code>Swift</code> 访问 <code>CommonMark库</code> 生成的抽象语法树变得更加容易。不必调用诸如 <code>cmark_node_get_list_type之类的函数</code> ，我们只需编写 <code>node.listType</code> 即可获得 <code>自动补全</code> 和 <code>类型安全性</code> 。但是，我们还没有完成。即使 <code>Node类</code> 比 <code>C函数</code> 更原生， <code>Swift</code> 允许我们使用带有关联值的枚举以更自然，更安全的方式来表示节点。</p>
+<h2 id="Safer-Interface"><a href="#Safer-Interface" class="headerlink" title="Safer Interface"></a><em><strong>Safer Interface</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如上所述，有许多节点属性仅适用于某些上下文。 例如，访问列表的 <code>headerLevel</code> 或代码块的 <code>listType</code> 没有任何意义。 正如在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%85%AD):%20%20Enums/"><em><strong><code>“枚举”</code></strong></em></a>一章中看到的那样，带有关联值的枚举使我们只能指定对每种特定情况有意义的元数据。 我们将为所有可能的内联元素创建一个枚举，并为块级项目创建另一个。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这两个枚举将成为我们库的公共接口，从而将 <code>Node类</code> 转换为内部实现细节。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这样，我们可以强制执行 <code>CommonMark文档</code> 的结构。 例如，纯文本元素仅存储一个 <code>String</code> ，而强调节点包含其他内联元素的数组，但不得包含任何块级子元素。 这是内联元素的枚举：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Inline</span> </span>&#123; </span><br><span class="line">    <span class="keyword">case</span> text(text: <span class="type">String</span>) </span><br><span class="line">    <span class="keyword">case</span> softBreak</span><br><span class="line">    <span class="keyword">case</span> lineBreak</span><br><span class="line">    <span class="keyword">case</span> code(text: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> html(text: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> emphasis(children: [<span class="type">Inline</span>])</span><br><span class="line">    <span class="keyword">case</span> strong(children: [<span class="type">Inline</span>])</span><br><span class="line">    <span class="keyword">case</span> custom(literal: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> link(children: [<span class="type">Inline</span>], title: <span class="type">String?</span>, url: <span class="type">String?</span>) </span><br><span class="line">    <span class="keyword">case</span> image(children: [<span class="type">Inline</span>], title: <span class="type">String?</span>, url: <span class="type">String?</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;对于块级项目，对于它们可以包含哪些其他项目也有特定的规则。 段落和标题只能包含内联元素，而块引号始终包含其他块级元素。 我们的块类型对以下约束进行建模：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">Block</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> list(items: [[<span class="type">Block</span>]], type: <span class="type">ListType</span>)</span><br><span class="line">    <span class="keyword">case</span> blockQuote(items: [<span class="type">Block</span>])</span><br><span class="line">    <span class="keyword">case</span> codeBlock(text: <span class="type">String</span>, language: <span class="type">String?</span>) </span><br><span class="line">    <span class="keyword">case</span> html(text: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> paragraph(text: [<span class="type">Inline</span>])</span><br><span class="line">    <span class="keyword">case</span> heading(text: [<span class="type">Inline</span>], level: <span class="type">Int</span>)</span><br><span class="line">    <span class="keyword">case</span> custom(literal: <span class="type">String</span>)</span><br><span class="line">    <span class="keyword">case</span> thematicBreak</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意，列表定义为列表项的数组，其中每个列表项均由 <code>Block元素</code> 的数组表示。  <code>ListType</code> 是一个简单的枚举，它声明列表是有序的还是无序的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">enum</span> <span class="title">ListType</span> </span>&#123;</span><br><span class="line">    <span class="keyword">case</span> unordered</span><br><span class="line">    <span class="keyword">case</span> ordered </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;由于 <code>枚举是值类型</code> ，因此该设计还允许我们通过将节点转换为它们的枚举表示形式来将它们视为值。回想一下，用不透明节点指针周围的类包装器是不可能的。我们通过使用初始化程序进行类型转换来遵循 <code>API</code> 设计指南。我们编写了两对初始化器：一对从 <code>Node类</code> 创建 <code>Block</code> 和 <code>Inline值</code> ，另一对从这些枚举重建 <code>Node</code> 。这使我们能够编写函数来创建或操纵 <code>Inline</code> 或 <code>Block值</code> ，然后在以后重建由 <code>Node实例</code> 组成的 <code>CommonMark文档</code> ，目的是使用 <code>C库</code> 将文档呈现为 <code>HTML</code> 或 <code>Markdown文本</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，编写一个将 <code>Node</code> 转换为 <code>Inline元素</code> 的初始化程序。我们打开节点的类型并构造相应的 <code>Inline值</code> 。例如，对于文本节点，我们获取节点的字符串内容，可通过 <code>cmark库</code> 中的 <code>literal属性</code> 访问这些内容。我们可以安全地强制拆开文字，因为我们知道文本节点始终具有该值，而其他节点类型可能从文字中返回 <code>nil</code> 。例如，强调节点和强节点只有子节点，没有字面值。为了解析后者，我们在节点的子节点上进行映射，然后递归调用初始化程序。我们创建一个内联函数 <code>inlineChildren</code> 而不是复制该代码，仅在需要时才调用。为了简洁起见，我们省略了大多数其他情况。默认情况永远都不会发生，因此，如果发生这种情况，我们选择捕获该程序。这遵循以下约定：通常只应将预期的错误用于返回可选的或使用引发的错误，而不应表示程序员的错误：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Inline</span> </span>&#123; </span><br><span class="line"></span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> node: <span class="type">Node</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> inlineChildren = &#123; </span><br><span class="line">            node.children.<span class="built_in">map</span>(<span class="type">Inline</span>.<span class="keyword">init</span>) </span><br><span class="line">        &#125; </span><br><span class="line"></span><br><span class="line">        <span class="keyword">switch</span> node.type &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_TEXT</span>:</span><br><span class="line">                <span class="keyword">self</span> = .text(text: node.literal!) </span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_STRONG</span>:</span><br><span class="line">                <span class="keyword">self</span> = .strong(children: inlineChildren()) </span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_IMAGE</span>:</span><br><span class="line">                <span class="keyword">self</span> = .image(children: inlineChildren(), title: node.title, url: node.urlString)</span><br><span class="line">            <span class="comment">// ... (more cases)</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="built_in">fatalError</span>(<span class="string">"Unrecognized node: \(node.typeString)"</span>)</span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;块级元素的转换遵循相同的模式。 请注意，取决于节点类型，块级元素可以将内联元素，列表项或其他块级元素作为子元素。 在 <code>cmark_node语法树</code> 中，列表项被一个额外的节点包裹。 我们在 <code>Node</code> 的 <code>listItem属性</code> 中删除该层，并直接返回一个块级元素数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Block</span> </span>&#123; </span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> node: <span class="type">Node</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> parseInlineChildren = &#123; </span><br><span class="line">            node.children.<span class="built_in">map</span>(<span class="type">Inline</span>.<span class="keyword">init</span>) </span><br><span class="line">        &#125; </span><br><span class="line">        <span class="keyword">switch</span> node.type &#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_PARAGRAPH</span>:</span><br><span class="line">                <span class="keyword">self</span> = .paragraph(text: parseInlineChildren()) </span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_LIST</span>:</span><br><span class="line">                <span class="keyword">let</span> type: <span class="type">ListType</span> = node.listType == <span class="type">CMARK_BULLET_LIST</span> ? .unordered : .ordered</span><br><span class="line">                <span class="keyword">self</span> = .list(items: node.children.<span class="built_in">map</span> &#123; $<span class="number">0</span>.listItem &#125;, type: type) </span><br><span class="line">            <span class="keyword">case</span> <span class="type">CMARK_NODE_HEADING</span>:</span><br><span class="line">                <span class="keyword">self</span> = .heading(text: parseInlineChildren(), level: node.headerLevel) <span class="comment">// ... (more cases)</span></span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="built_in">fatalError</span>(<span class="string">"Unrecognized node: \(node.typeString)"</span>) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，给定一个 <code>文档级Node</code> ，我们可以将其转换为 <code>Block元素</code> 数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">var</span> elements: [<span class="type">Block</span>] &#123;</span><br><span class="line">        <span class="keyword">return</span> children.<span class="built_in">map</span>(<span class="type">Block</span>.<span class="keyword">init</span>) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Block元素是值</code> ：我们可以自由复制或更改它们，而不必担心引用。这对于操作节点非常强大。由于值从定义上讲并不关心它们的创建方式，因此我们也可以从头开始在代码中创建 <code>Markdown语法树</code> ，而无需使用 <code>CommonMark库</code> 。类型也更清晰。你不能无意间做一些没有意义的事情（例如访问列表标题），因为编译器不允许这样做。除了使你的代码更安全之外，这是一种非常强大的文档形式-仅查看类型，很显然 <code>CommonMark文档</code> 的结构。与注释不同，编译器将确保这种形式的文档永远不会过时。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，编写可在我们的新数据类型上运行的函数非常容易。例如，如果我们想从 <code>Markdown文档</code> 中为目录建立所有第一级和第二级标头的列表，我们可以遍历所有子级并检查它们是否为标头并具有正确的级别：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableOfContents</span><span class="params">(document: String)</span></span> -&gt; [<span class="type">Block</span>] &#123;</span><br><span class="line">    <span class="keyword">let</span> blocks = <span class="type">Node</span>(markdown: document).children.<span class="built_in">map</span>(<span class="type">Block</span>.<span class="keyword">init</span>) ?? [] </span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> blocks.<span class="built_in">filter</span> &#123;</span><br><span class="line">        <span class="keyword">switch</span> $<span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">case</span> .heading(<span class="number">_</span>, <span class="keyword">let</span> level) <span class="keyword">where</span> level &lt; <span class="number">3</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span> </span><br><span class="line">            <span class="keyword">default</span>: </span><br><span class="line">                <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在我们进行更多此类操作之前，让我们解决逆向转换：将 <code>“块”</code> 转换回 <code>“节点</code> ”。 我们需要进行这种转换，因为我们最终希望使用 <code>CommonMark库</code> 从我们已构建或处理的 <code>Markdown语法树</code> 中生成 <code>HTML</code> 或其他文本格式，并且该库只能处理 <code>cmark_node_type</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们的计划是在 <code>Node</code> 上添加两个初始化器：一个将 <code>Inline值转换为节点</code> ，另一个用于 <code>处理Block元素</code> 。 我们首先使用新的初始化程序扩展 <code>Node</code> ，该初始化程序以指定的类型和子级从头开始创建新的 <code>cmark_node</code> 。 回想一下，我们编写了一个 <code>deinit</code> ，它释放树的根节点（并递归释放其所有子节点）。 此反初始化将确保最终释放我们在此处分配的节点：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(type: cmark_node_type, children: [<span class="type">Node</span>] = []) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(node: cmark_node_new(type)) </span><br><span class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> children &#123;</span><br><span class="line">            cmark_node_append_child(node, child.node) </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们经常需要创建纯文本节点或具有多个子节点的节点，因此，我们添加三个便捷的初始化程序可以简化操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(type: cmark_node_type, literal: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(type: type)</span><br><span class="line">        <span class="keyword">self</span>.literal = literal</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(type: cmark_node_type, blocks: [<span class="type">Block</span>]) &#123; </span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(type: type, children: blocks.<span class="built_in">map</span>(<span class="type">Node</span>.<span class="keyword">init</span>))</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(type: cmark_node_type, elements: [<span class="type">Inline</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(type: type, children: elements.<span class="built_in">map</span>(<span class="type">Node</span>.<span class="keyword">init</span>)) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在，我们可以使用刚刚定义的便捷初始化程序来编写转换初始化程序。 我们打开输入并创建具有正确类型的节点。 这是内联元素的版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(element: <span class="type">Inline</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> element &#123; </span><br><span class="line">            <span class="keyword">case</span> .text(<span class="keyword">let</span> text):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_TEXT</span>, literal: text) </span><br><span class="line">            <span class="keyword">case</span> .emphasis(<span class="keyword">let</span> children):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_EMPH</span>, elements: children) </span><br><span class="line">            <span class="keyword">case</span> .html(<span class="keyword">let</span> text):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_HTML_INLINE</span>, literal: text) </span><br><span class="line">            <span class="keyword">case</span> .custom(<span class="keyword">let</span> literal):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_CUSTOM_INLINE</span>, literal: literal) </span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .link(children, title, url):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_LINK</span>, elements: children) <span class="keyword">self</span>.title = title</span><br><span class="line">                <span class="keyword">self</span>.urlString = url</span><br><span class="line">            <span class="comment">// ... (more cases)</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;从块级元素创建节点非常相似。 唯一稍微复杂一点的情况是列表。 回想一下，在上述从 <code>Node</code> 到 <code>Block</code> 的转换中，我们删除了 <code>CommonMark库</code> 用于表示列表的多余节点，因此我们需要将其添加回：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">convenience</span> <span class="keyword">init</span>(block: <span class="type">Block</span>) &#123;</span><br><span class="line">        <span class="keyword">switch</span> block &#123;</span><br><span class="line">            <span class="keyword">case</span> .paragraph(<span class="keyword">let</span> children):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_PARAGRAPH</span>, elements: children) </span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .list(items, type):</span><br><span class="line">                <span class="keyword">let</span> listItems = items.<span class="built_in">map</span> &#123; <span class="type">Node</span>(type: <span class="type">CMARK_NODE_ITEM</span>, blocks: $<span class="number">0</span>) &#125; <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_LIST</span>, children: listItems)</span><br><span class="line">                listType = type == .unordered ? <span class="type">CMARK_BULLET_LIST</span> : <span class="type">CMARK_ORDERED_LIST</span> </span><br><span class="line">            <span class="keyword">case</span> .blockQuote(<span class="keyword">let</span> items):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_BLOCK_QUOTE</span>, blocks: items) </span><br><span class="line">            <span class="keyword">case</span> <span class="keyword">let</span> .codeBlock(text, language):</span><br><span class="line">                <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_CODE_BLOCK</span>, literal: text)</span><br><span class="line">                fenceInfo = language</span><br><span class="line">            <span class="comment">// ... (more cases)</span></span><br><span class="line">        &#125; </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，为了为用户提供一个不错的界面，我们定义了一个公共初始化程序，该初始化程序接收一组块级元素并生成一个文档节点，然后可以将其渲染为不同的输出格式之一：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Node</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(blocks: [<span class="type">Block</span>]) &#123;</span><br><span class="line">        <span class="keyword">self</span>.<span class="keyword">init</span>(type: <span class="type">CMARK_NODE_DOCUMENT</span>, blocks: blocks) </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以双向进行：我们可以加载文档，将其转换为 <code>[Block]元素</code> ，修改这些元素，然后将它们变回 <code>Node</code> 。 这使我们能够编写从 <code>Markdown提取信息</code> 甚至动态更改 <code>Markdown</code> 的程序。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;通过首先在 <code>C库（Node类）</code> 周围创建一个瘦包装器，我们从基础 <code>C API</code> 中抽象了转换。 这使我们可以专注于提供一种感觉像惯用的 <code>Swift</code> 的界面。 整个项目可在<a href="https://github.com/objcio/commonmark-swift/releases/tag/advanced-swift-version-4" target="_blank" rel="noopener"><em><strong><code>GitHub</code></strong></em></a>上找到。</p>
+<h1 id="底层类型概述"><a href="#底层类型概述" class="headerlink" title="底层类型概述"></a><strong>底层类型概述</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;标准库中有许多类型可以提供对 <code>内存的底层访问</code> 。它们的纯粹数量可能令人不知所措，令人生畏的名字也可能令人难以置信，例如 <code>UnsafeMutableRawBufferPointer</code> 。好消息是，它们的名称保持一致，因此可以从名称中推断出每种类型的目的。以下是最重要的命名部分：</p>
+<ul>
+<li><p>→ <strong>托管类型</strong> 具有自动内存管理。编译器将为你分配，初始化和释放内存。</p>
+</li>
+<li><p>→ <strong>unsafe类型</strong> 避免了Swift的安全特性，例如边界检查或使用前初始化保证。它还不提供自动内存管理功能-你必须显式分配，初始化，取消初始化和取消分配内存。</p>
+</li>
+<li><p>→ <strong>缓冲区类型</strong> 适用于多个（连续存储）的元素，而不是单个元素，并提供Collection接口。</p>
+</li>
+<li><p>→ <strong>指针类型</strong> 具有指针语义（就像指针一样）。</p>
+</li>
+<li><p>→ <strong>原始类型</strong> 包含未类型化的数据。相当于C中的void *。名称中不包含原始类型的类型具有类型化数据，并且在其元素类型上具有通用性。</p>
+</li>
+<li><p>→ <strong>可变类型</strong> 允许对内存点进行更改。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要直接访问内存，而无需与 <code>C交互</code> ，则可以使用 <code>ManagedBuffer类</code> 分配内存。这类似于标准库在后台使用的集合类型来管理其内存。它由单个标头值（用于存储数据，例如元素数）和元素的连续内存组成。它还具有一个容量属性，该属性与实际元素的数量不同：例如，一个计数为17的数组可能拥有一个缓冲区容量为32，这意味着在 <code>Array</code> 必须分配更多内存之前，可以再添加15个元素。还有一个称为 <code>ManagedBufferPointer的变体</code> ，但它在标准库之外没有很多应用程序，将来可能会被删除。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时你需要执行手动内存管理。例如，你可能希望将 <code>Swift对象</code> 传递给 <code>C函数</code> ，以期以后检索它。为了解决 <code>C缺少闭包</code> 的问题，​​使用 <code>回调（函数指针）的C API</code> 通常会带一个附加的上下文参数（通常是 <code>无类型的指针</code> ，即 <code>void *</code> ），然后将其传递给回调。当你从 <code>Swift</code> 调用这样的函数时，能够将本机 <code>Swift对象作为上下文值传递</code> 会很方便，但是 <code>C</code> 无法直接处理 <code>Swift对象</code> 。这是 <code>Unmanaged类型</code> 的来源。它是类实例的包装，它提供了指向我们可以传递给 <code>C</code> 的自身的原始指针。由于非托管包装的对象位于 <code>Swift</code> 的内存管理系统之外，因此，我们必须注意平衡保留并手动释放呼叫。我们将在下一部分中查看一个示例。</p>
+<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a><em><strong>指针</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了我们已经看到的 <code>OpaquePointerType</code> 之外， <code>Swift</code> 还提供了八种指针类型，它们映射到不同的 <code>C指针类</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>基本类型UnsafePointer</code> 与 <code>C</code> 中的 <code>const指针</code> 相似。它在指向的内存数据类型上具有通用性，因此 <code>UnsafePointer&lt;Int&gt;</code> 对应于 <code>const int *</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;请注意， <code>C</code> 区分 <code>const int *</code> （指向不可变数据的可变指针，即你不能使用此指针写入指向的数据）和 <code>int * const</code> （不可变指针，即你不能更改此指针指向的位置） ）。  <code>Swift</code> 中的 <code>UnsafePointer</code> 等同于以前的变体。与往常一样，你可以通过使用 <code>var</code> 或 <code>let声明变量</code> 来控制指针本身的可变性。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你可以使用初始化程序从其他一种指针类型创建一个 <code>UnsafePointer</code> 。  <code>Swift</code> 还支持一种特殊语法，用于调用带有不安全指针的函数。你可以通过使用与号作为前缀将正确类型的任何可变变量传递给此类函数，从而使其成为 <code>in-out</code> 表达式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> x = <span class="number">5</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">fetch</span><span class="params">(p: UnsafePointer&lt;Int&gt;)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> p.pointee </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fetch(p: &amp;x) <span class="comment">// 5</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这看起来与我们在函数一章中介绍的 <code>inout参数</code> 完全一样，并且它的工作方式类似-尽管在这种情况下，由于指针是不可更改的，因此不会通过此值将任何内容传递回调用方。  <code>Swift</code> 会在后台创建并传递给函数的指针仅在函数调用期间才有效。 不要尝试从函数返回指针并在函数返回后访问它-结果是不确定的。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;还有一个可变的变体，名为 <code>UnsafeMutablePointer</code> 。 该结构的工作方式类似于常规的非 <code>const C指针</code> 。 你可以取消引用指针并更改内存的值，然后通过 <code>in-out表达式</code> 将其传递回调用方：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">increment</span><span class="params">(p: UnsafeMutablePointer&lt;Int&gt;)</span></span> &#123; </span><br><span class="line">    p.pointee += <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> y = <span class="number">0</span> </span><br><span class="line">increment(p: &amp;y) y <span class="comment">// 1</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;当我们分配一个指向 <code>NSRange的指针</code> 以从 <code>Foundation API</code> 返回值的目的时，我们在<a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E4%B8%83):%20Strings/"><em><strong><code>字符串</code></strong></em></a>一章中看到了另一个示例。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;除了使用 <code>in-out表达式</code> 外，还可以使用 <code>UnsafeMutablePointer直接分配内存</code> 。  <code>Swift</code> 中分配内存的规则类似于 <code>C</code> 中的规则：<em>分配内存后，首先需要对其进行初始化，然后才能使用它</em>。 完成使用指针后，你需要释放内存：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Allocate and initialize memory for two Ints.</span></span><br><span class="line"><span class="keyword">let</span> z = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">Int</span>&gt;.allocate(capacity: <span class="number">2</span>) </span><br><span class="line">z.initialize(repeating: <span class="number">42</span>, <span class="built_in">count</span>: <span class="number">2</span>)</span><br><span class="line">z.pointee <span class="comment">// 42</span></span><br><span class="line"><span class="comment">// Pointer arithmetic:</span></span><br><span class="line">(z+<span class="number">1</span>).pointee = <span class="number">43</span></span><br><span class="line"><span class="comment">// Subscripts:</span></span><br><span class="line">z[<span class="number">1</span>] <span class="comment">// 43</span></span><br><span class="line"><span class="comment">// Deallocate the memory.</span></span><br><span class="line">z.deallocate()</span><br><span class="line"><span class="comment">// Don't access pointee after deallocate.</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果指针的 <code>Pointee类型</code> （指向的数据类型）是需要内存管理的非平凡类型（例如，类或包含类的结构），则还必须在调用 <code>deallocate</code> 之前调用 <code>deinitialize</code> 。初始化和取消初始化方法执行使 <code>ARC</code> 起作用的引用计数操作。忘记调用取消初始化会 <code>导致内存泄漏</code> 。更糟糕的是，不使用初始化功能（例如，通过指针的下标为未初始化的内存分配值）会触发各种不确定的行为或崩溃。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>C API</code> 中，指向没有特定元素类型（ <code>void *</code> 或 <code>const void *</code> ）的字节序列的指针也很常见。  <code>Swift</code> 中对应的对应类型是 <code>UnsafeMutableRawPointer</code> 和 <code>UnsafeRawPointer类型</code> 。使用 <code>void *</code> 的 <code>C API</code>   <code>const void *</code> 被作为这些类型导入。除非你确实需要对原始字节进行操作，否则通常会直接将这些类型转换为 <code>Unsafe[Mutable]Pointer</code> 或其他类型的变体，例如 <code>load(fromByteOffset：as :)</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与 <code>C</code> 不同， <code>Swift</code> 使用可选参数来区分可为空和不可为空的指针。只有具有可选指针类型的值才能表示空指针。在幕后， <code>UnsafePointer&lt;T&gt;</code> 和 <code>Optional&lt;UnsafePointer&lt;T &gt;&gt;</code> 的内存布局完全相同。编译器足够聪明，可以将 <code>.none</code> 情况映射到 <code>null指针</code> 的全零位模式。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时， <code>C API</code> 具有不透明的指针类型。例如，在 <code>cmark库</code> 中，我们看到类型 <code>cmark_node *</code> 被导入为 <code>OpaquePointer</code> 。由于 <code>cmark_node</code> 的定义未显示在 <code>C库</code> 的头文件中，因此 <code>Swift编译器</code> 不知道该类型的内存布局，这就是为什么它无法让我们访问指针对象的内存。你可以使用初始化程序将不透明指针转换为其他指针。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中，我们通常使用 <code>Array类型</code> 来连续存储值序列。在 <code>C语言</code> 中，通常将数组作为指向第一个元素和元素计数的指针返回。如果要使用这样的序列作为集合，可以将序列转换为 <code>Array</code> ，但这会复制元素。这通常是一件好事（因为一旦将它们放入数组中，这些元素就由 <code>Swift运行时</code> 管理）。但是，有时你不想复制每个元素。对于这些情况，有 <code>Unsafe[Mutable]BufferPointer</code> 类型。使用指向起始元素的指针和计数来初始化它们。从那时起，你将拥有一个（可变的）随机访问集合。缓冲区指针使使用 <code>C集合</code> 更加容易。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>Array</code> 带有 <code>Unsafe[Mutable]BufferPointer方法</code> ，这些方法可通过缓冲区指针提供（可变）对数组存储缓冲区的访问。这些 <code>API</code> 允许你将元素批量复制到数组中或从数组中复制元素，或放弃边界检查，这可以提高循环性能。  <code>Swift 5</code> 以 <code>withContiguous[Mutable]StorageIfAvailable</code> 的形式在通用上下文中提供了这些方法。请注意，使用其中一种方法，就可以避免 <code>Swift集合</code> 执行的所有常规安全检查。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后， <code>Unsafe[Mutable]RawBufferPointer类型</code> 使处理原始内存作为集合变得更加容易（它们提供了与 <code>Foundation</code> 中的 <code>Data类型</code> 等效的底层功能）。</p>
+<h1 id="闭包作为C回调"><a href="#闭包作为C回调" class="headerlink" title="闭包作为C回调"></a><strong>闭包作为C回调</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们来看一个使用指针的 <code>C API</code> 的具体示例。 我们的目标是为 <code>C标准库</code> 中的 <code>qsort排序功能</code> 编写一个 <code>Swift</code> 包装器。 在 <code>Swift</code> 的 <code>Darwin模块</code> 中导入的类型（或者，如果你使用的是 <code>Linux</code> ，则为 <code>Glibc</code> ）如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">qsort</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __base: UnsafeMutableRawPointer!, // array to be sorted</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __nel: Int, // number of elements</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __width: Int, // size per element</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __compar: @escaping @convention<span class="params">(<span class="built_in">c</span>)</span></span></span> (<span class="type">UnsafeRawPointer?</span>, <span class="type">UnsafeRawPointer?</span>) <span class="comment">// comparator function </span></span><br><span class="line">-&gt; <span class="type">Int32</span>)</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;手册页（ <code>man qsort</code> ）描述了如何使用 <code>qsort函数</code> ：</p>
+<blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <code>qsort()</code>  和 <code>heapsort()</code>  函数对一组 <code>nel对象</code> 进行排序，这些对象的初始成员由 <code>base</code> 指向。 每个对象的大小由宽度指定。<br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;数组基的内容根据 <code>compar</code> 所指向的比较函数以升序排序，该函数需要两个参数来指向要比较的对象。</p>
+</blockquote>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这是一个包装函数，该函数使用 <code>qsort</code> 对 <code>Swift字符串</code> 数组进行排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">qsortStrings</span><span class="params">(array: <span class="keyword">inout</span> [String])</span></span> &#123;</span><br><span class="line">    qsort(&amp;array, array.<span class="built_in">count</span>, <span class="type">MemoryLayout</span>&lt;<span class="type">String</span>&gt;.<span class="built_in">stride</span>) &#123; a, b <span class="keyword">in</span></span><br><span class="line">        <span class="keyword">let</span> l = a!.assumingMemoryBound(to: <span class="type">String</span>.<span class="keyword">self</span>).pointee </span><br><span class="line">        <span class="keyword">let</span> r = b!.assumingMemoryBound(to: <span class="type">String</span>.<span class="keyword">self</span>).pointee</span><br><span class="line">        <span class="keyword">if</span>  r&gt;l &#123;<span class="keyword">return</span>-<span class="number">1</span>&#125; <span class="keyword">else</span> <span class="keyword">if</span> r==l &#123;return0&#125; <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="number">1</span> &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们看一下传递给 <code>qsort</code> 的每个参数：</p>
+<ul>
+<li><p>→ 第一个参数指向数组中第一个元素的指针，该元素应排序到位。将 <code>Swift数组</code> 传递给采用 <code>UnsafePointer</code> 的函数时，编译器可以自动将 <code>Swift数组</code> 转换为 <code>C样式</code> 的指针。我们必须使用 <code>＆</code> 前缀，因为它是 <code>UnsafeMutableRawPointer</code> （ <code>C</code> 声明中的 <code>* base</code> ）。如果该函数不需要更改其输入，并且在 <code>C</code> 中将其声明为 <code>const void * base</code> ，则无需使用 <code>＆</code> 号。这与 <code>Swift函数</code> 中 <code>inout参数</code> 的区别相匹配；常规参数不使用 <code>＆</code> 符，但 <code>inout参数</code> 需要使用 <code>＆</code> 前缀。</p>
+</li>
+<li><p>→ 其次，我们必须提供元素的数量。这很容易；我们可以使用数组的 <code>count属性</code> 。</p>
+</li>
+<li><p>→ 第三，要获得宽度，请使用 <code>MemoryLayout.stride</code> ，而不是 <code>MemoryLayout.size</code> 。在 <code>Swift</code> 中， <code>MemoryLayout.size</code> 返回类型的真实大小，但是当在内存中定位元素时，平台对齐规则可能会导致相邻元素之间的间隙。跨度是类型的大小，加上一些填充（可能为零）以弥补此差距。对于字符串，当前在 <code>Apple平台</code> 上的大小和跨度是相同的，但是并非所有类型都如此-例如， <code>（Int32，Bool）</code> 元组的大小为5，而跨度为8。从 <code>C</code> 到 <code>Swift</code> 的代码，你可能想在 <code>C</code> 中使用 <code>sizeof</code> 的情况下编写 <code>MemoryLayout.stride</code> 。</p>
+</li>
+<li><p>→ 最后一个参数即指向可用于比较数组中两个元素的函数。 <code> Swift</code> 自动将 <code>Swift函数类型</code> 桥接到 <code>C函数指针</code> ，因此我们可以传递任何具有匹配签名的函数。但是，有一个很大的警告： <code>C函数指针仅仅是指针</code> ；他们无法捕获任何值。因此，编译器将只允许你提供不捕获任何外部状态的函数（例如，没有局部变量和泛型）。  <code>Swift</code> 使用 <code>@convention（c）属性</code> 表示这一点。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;比较函数接受两个原始指针。这样的 <code>UnsafeRawPointer</code> 可以是任何内容的指针。我们必须处理 <code>UnsafeRawPointer</code> （而不是 <code>UnsafePointer&lt;String&gt;</code> ）的原因是因为 <code>C没有泛型</code> 。但是，我们知道我们传递给 <code>String</code> ，因此我们可以将其解释为指向 <code>String的指针</code> 。我们还知道指针在这里永远不会为零，因此我们可以安全地强制展开它们。最后，函数需要返回一个 <code>Int32</code> ：如果第一个元素大于第二个元素，则为正数；如果它们相等，则为零；如果第一个元素小于第二个元素，则为负数。</p>
+<h1 id="使它通用"><a href="#使它通用" class="headerlink" title="使它通用"></a><strong>使它通用</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;创建另一个适用于不同类型元素的包装很容易； 我们可以复制并粘贴代码，然后将 <code>String</code> 更改为其他类型，然后完成。 但是我们应该真正使代码通用。 这是我们达到 <code>C函数指针</code> 的极限的地方。 下面的代码无法编译，因为比较功能已成为一个闭包。 现在，它从其范围之外捕获事物。 更具体地说，它捕获了比较运算符和相等运算符，对于每个运算符，运算符均不同。 我们对此无能为力-我们只是遇到了 <code>C</code> 的固有限制：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Comparable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">quicksort</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Error: a C function pointer cannot be formed</span></span><br><span class="line">    <span class="comment">// from a closure that captures generic parameters.</span></span><br><span class="line">    qsort(&amp;<span class="keyword">self</span>, <span class="keyword">self</span>.<span class="built_in">count</span>, <span class="type">MemoryLayout</span>&lt;<span class="type">Element</span>&gt;.<span class="built_in">stride</span>) &#123; a, b <span class="keyword">in</span></span><br><span class="line">        </span><br><span class="line">        <span class="keyword">let</span> l = a!.assumingMemoryBound(to: <span class="type">Element</span>.<span class="keyword">self</span>).pointee </span><br><span class="line">        <span class="keyword">let</span> r = b!.assumingMemoryBound(to: <span class="type">Element</span>.<span class="keyword">self</span>).pointee </span><br><span class="line">        <span class="keyword">if</span> r&gt;l &#123;<span class="keyword">return</span>-<span class="number">1</span>&#125; <span class="keyword">else</span> <span class="keyword">if</span> r==l &#123;return0&#125; <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="number">1</span> &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;考虑这种限制的一种方法是像编译器一样思考。  <code>C函数指针</code> 只是<strong>内存中指向代码块的地址</strong>。 对于没有上下文的函数，此地址将是静态的，并且在编译时就可以知道。 但是，在使用泛型函数的情况下，会传入一个额外的参数（泛型类型）。因此，没有专用泛型函数的固定地址。 闭包也一样。 即使编译器可以以这样的方式重写闭包，将其作为函数指针传递时，无法自动完成内存管理-无法知道何时释放闭包。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;实际上，对于许多 <code>C程序员</code> 来说，这也是一个问题。在 <code>macOS</code> 上，有一个名为 <code>qsort_b</code> 的 <code>qsort变体</code> ，它使用一个块-一个闭包-而不是函数指针作为最后一个参数。如果我们在上面的代码中将 <code>qsort</code> 替换为 <code>qsort_b</code> ，它将编译并正常运行。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，由于块不是 <code>C标准</code> 的一部分，因此 <code>qsort_b</code> 在大多数平台上均不可用。除了 <code>qsort</code> 之外，其他功能也可能没有基于块的变体。大多数与回调一起使用的 <code>C API</code> 提供了不同的解决方案。他们将额外的 <code>UnsafeRawPointer</code> 作为参数，并将该指针传递给回调函数。然后， <code>API</code> 的用户可以使用此参数将任意数据传递给回调函数的每次调用。  <code>qsort</code> 也有一个变体 <code>qsort_r</code> ，它正是这样做的。它的类型签名包括一个额外的参数 <code>thunk</code> ，即 <code>UnsafeMutableRawPointer</code> 。请注意，此参数也已添加到比较函数指针的类型，因为 <code>qsort_r</code> 在每次调用时将值传递给该函数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">qsort_r</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __base: UnsafeMutableRawPointer!,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __nel: Int,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __width: Int,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __thunk: UnsafeMutableRawPointer!,</span></span></span><br><span class="line"><span class="function"><span class="params">    <span class="number">_</span> __compar: @escaping @convention<span class="params">(<span class="built_in">c</span>)</span></span></span></span><br><span class="line">    (<span class="type">UnsafeMutableRawPointer?</span>, <span class="type">UnsafeRawPointer?</span>, <span class="type">UnsafeRawPointer?</span>)</span><br><span class="line">-&gt; <span class="type">Int32</span> )</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果我们的目标平台上没有 <code>qsort_b</code> ，则可以使用 <code>qsort_r</code> 在 <code>Swift</code> 中重建其功能。 只要将其强制转换为 <code>UnsafeRawPointer</code> ，就可以将所需的任何内容作为 <code>thunk参数</code> 传递。 在我们的例子中，我们想通过比较闭包。 回想一下， <code>Unmanaged类型</code> 可以在本机 <code>Swift对象</code> 和原始指针之间架起桥梁，这正是我们想要的。 由于非托管仅适用于类，因此我们还需要一个简单的 <code>Box类</code> ，我们可以将闭包包装在：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Box</span>&lt;<span class="title">A</span>&gt; </span>&#123; </span><br><span class="line">    <span class="keyword">var</span> unbox: <span class="type">A</span></span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> value: <span class="type">A</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.unbox = value </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用此方法，我们可以开始编写我们的 <code>qsort_b变体</code> 。 为了遵循 <code>C的命名方案</code> ，我们调用函数 <code>qsort_block</code> 。 实施方法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">Comparator</span> = (<span class="type">UnsafeRawPointer?</span>, <span class="type">UnsafeRawPointer?</span>) -&gt; <span class="type">Int32</span> </span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">qsort_block</span><span class="params">(<span class="number">_</span> array: UnsafeMutableRawPointer, <span class="number">_</span> <span class="built_in">count</span>: Int,</span></span></span><br><span class="line"><span class="function"><span class="params"><span class="number">_</span> width: Int, <span class="number">_</span> compare: @escaping Comparator)</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> box = <span class="type">Box</span>(compare) <span class="comment">// 1</span></span><br><span class="line">    <span class="keyword">let</span> unmanaged = <span class="type">Unmanaged</span>.passRetained(box) <span class="comment">// 2 </span></span><br><span class="line">    <span class="keyword">defer</span> &#123;</span><br><span class="line">        unmanaged.release() <span class="comment">// 6 </span></span><br><span class="line">    &#125;</span><br><span class="line">    qsort_r(array, <span class="built_in">count</span>, width, unmanaged.toOpaque()) &#123; (ctx, p1, p2) -&gt; <span class="type">Int32</span> <span class="keyword">in</span> <span class="comment">// 3</span></span><br><span class="line">        <span class="keyword">let</span> innerUnmanaged = <span class="type">Unmanaged</span>&lt;<span class="type">Box</span>&lt;<span class="type">Comparator</span>&gt;&gt;.fromOpaque(ctx!) <span class="comment">// 4</span></span><br><span class="line">        <span class="keyword">let</span> comparator = innerUnmanaged.takeUnretainedValue().unbox <span class="comment">// 4 </span></span><br><span class="line">        <span class="keyword">return</span> comparator(p1, p2) <span class="comment">// 5</span></span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该函数执行以下步骤：</p>
+<ul>
+<li>1.将比较器闭包放入Box实例中。</li>
+<li>2.然后，将框包装在 <code>Unmanaged实例</code> 中。 <code>Pass Retained</code> 调用确保保留box实例，这样它就不会过早地释放（记住，你有责任使放入Unmanaged实例中的对象保持活动状态）。</li>
+<li>3.接下来，它调用 <code>qsort_r</code> ，将指向 <code>Unmanaged对象</code> 的指针作为 <code>thunk参数</code> 传递（Unmanaged.to Opaque返回指向其自身的原始指针）。</li>
+<li>4.在 <code>qsort_r</code> 的回调中，它将原始指针转换回非托管对象，提取框，然后将闭包解开框。确保不修改包装对象的引用计数。该流程与步骤1到步骤3完全相反，因为从Opaque返回一个Unmanaged对象，take Unretained Value 提取Box实例，然后对开闭包进行解包。</li>
+<li>5.之后，它使用应该比较的两个元素调用比较器函数。</li>
+<li>6.最后，在 <code>qsort_r</code> 返回之后，在 <code>defer块</code> 中，它释放了 <code>box实例</code> ，因为我们不再需要它了。这样可以平衡从步骤2开始的保留操作。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;现在我们可以修改我们的 <code>qsortWrapper函数</code> 以使用 <code>qsort_block</code> ，并为 <code>C标准库</code> 中的 <code>qsort算法</code> 提供一个不错的通用接口：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Array</span> <span class="title">where</span> <span class="title">Element</span>: <span class="title">Comparable</span> </span>&#123; </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">quicksort</span><span class="params">()</span></span> &#123;</span><br><span class="line">        qsort_block(&amp;<span class="keyword">self</span>, <span class="keyword">self</span>.<span class="built_in">count</span>, <span class="type">MemoryLayout</span>&lt;<span class="type">Element</span>&gt;.<span class="built_in">stride</span>) &#123; a, b <span class="keyword">in</span> </span><br><span class="line">            <span class="keyword">let</span> l = a!.assumingMemoryBound(to: <span class="type">Element</span>.<span class="keyword">self</span>).pointee</span><br><span class="line">            <span class="keyword">let</span> r = b!.assumingMemoryBound(to: <span class="type">Element</span>.<span class="keyword">self</span>).pointee </span><br><span class="line">            <span class="keyword">if</span> r&gt;l &#123; <span class="keyword">return</span>-<span class="number">1</span> &#125; <span class="keyword">else</span> <span class="keyword">if</span> r==l &#123; return0 &#125; <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="number">1</span> &#125; </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> numbers = [<span class="number">3</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">2</span>] </span><br><span class="line">numbers.quicksort() </span><br><span class="line">numbers <span class="comment">// [1, 2, 3, 4]</span></span><br></pre></td></tr></table></figure>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>C标准库</code> 中的排序算法似乎需要很多工作。 毕竟， <code>Swift</code> 的内置排序功能更容易使用，并且在大多数情况下更快。 确实是这样，但是还有很多其他有趣的 <code>C API</code> ，我们可以使用相同的技术将它们包装成类型安全的通用接口。</p>
+<h1 id="概括"><a href="#概括" class="headerlink" title="概括"></a><strong>概括</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在 <code>Swift</code> 中从头开始重写现有的 <code>C库</code> 当然很有趣，但这可能不是你最好的时间使用方式（除非你为了学习而这样做，这真是太棒了）。 那里有很多经过测试的 <code>C代码</code> ，而将其全部扔掉将是巨大的浪费。  <code>Swift</code> 非常擅长与 <code>C代码</code> 进行交互，那么为什么不利用这些功能呢？ 话虽如此，无可否认，大多数 <code>C API</code> 在  <code>Swift</code>  运行良好。 此外，在整个代码库中分布 <code>C结构</code> （例如指针和手动内存管理）可能不是一个好主意。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;编写一个小的包装程序来内部处理不安全的部件，并公开一个惯用的 <code>Swift界面</code> （正如我们在本章中针对 <code>Markdown库</code> 所做的那样），可以为你提供两全其美的优势：你无需重新发明轮子（即编写一个完整的轮子  <code>Markdown解析器</code> ），但对于使用该 <code>API</code> 的开发人员而言，它是100％原生的。</p>
+</br>
+
+<hr>
+<hr>
+<h1 id="Final-Words"><a href="#Final-Words" class="headerlink" title="Final Words"></a><strong>Final Words</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;希望你喜欢我们的Swift之旅。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;尽管很年轻，但是 <code>Swift</code> 已经是一门复杂的语言。在一本书中涵盖所有方面是一项艰巨的任务，更不用说希望读者记住所有内容。但是，即使你没有立即将所学的所有知识投入实际使用，我们也有信心，对你的语言有更好的了解，可以使你成为更出色的程序员。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你从本书中删除一件事，我们希望它是<code>Swift</code>的许多高级方面，可以帮助你编写更好，更安全，更具表现力的代码。虽然你可以编写与<code>Objective-C</code>，<code>Java</code>或<code>C＃</code>并没有太大区别的<code>Swift代码</code>，但我们希望使你相信，<code>枚举</code>，<code>泛型</code>和<code>一流函数之类</code>的功能可以极大地改善你的代码。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift 5</code>的标题功能是在<code>Apple平台</code>上达到稳定的<code>ABI</code>（应用程序二进制接口）。展望未来，使用<code>Swift 5编译</code>的任何库都将在以后的<code>Swift版本</code>中可用，并且运行时和标准库现在包含在OS中，而不是每个应用程序包中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在过去的几年中，归纳出稳定（且永不过时）的ABI所需的所有内部数据格式，占用了Swift团队的大量资源。既然这项工作已经完成，我们可以期望将新的精力集中在改进<code>Swift</code>面向公众的部分上。不必担心保持标准库的二进制大小很小（因为它现在已在磁盘和内存中的所有进程之间共享）也为向标准库添加更多功能提供了可能。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Swift</code>仍在迅速改善。尽管大规模破坏源代码的变革时代已经过去，但我们预计未来几年将在以下几个方面进行重大改进：</p>
+<ul>
+<li><p>→ 明确的 <a href="https://github.com/apple/swift/blob/master/docs/OwnershipManifesto.md" target="_blank" rel="noopener"><em><strong><code>内存所有权模型</code></strong></em></a> 将允许开发人员使用所有权要求注释函数自变量。目的是为编译器提供所需的所有信息，从而避免在将值传递给函数时产生不必要的复制。我们已经在<code>Swift 4</code>和<code>5</code>中逐步引入了由编译器强制执行的独占内存访问，这已经看到了其中的第一部分。</p>
+</li>
+<li><p>→ 关于为 <code>Swift</code> <a href="https://gist.github.com/lattner/31ed37682ef1576b16bca1432ea9f782" target="_blank" rel="noopener"><em><strong><code>添加一流的并发支持</code></strong></em></a> 的讨论仍处于初期阶段，这是一个需要数年才能完成的项目。不过，我们很有可能会获得基于协程的异步/等待模型，这种模型在不久的将来会在其他语言中流行。</p>
+</li>
+<li><p>→ 将 <a href="https://github.com/apple/swift/blob/master/docs/ABI/TypeMetadata.rst" target="_blank" rel="noopener"><em><strong><code>有关类型及其属性的元数据</code></strong></em></a> 编译到二进制文件中。调试工具已经在使用此信息，但是尚无任何公共API可以访问它。这些数据的存在为更强大的反射和自省功能打开了大门，这些功能远远超出了当前 <code>Mirror类型</code> 所能做的。</p>
+</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你想改变这些功能以及其他功能的效果，请记住，<code>Swift</code>正在公开开发中。考虑加入<a href="https://forums.swift.org/" target="_blank" rel="noopener"><em><strong><code>Swift论坛</code></strong></em></a>，并将你的观点添加到讨论中。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;最后，我们鼓励你利用Swift是开源的这一事实。如果你有疑问，文档没有答案，则源代码通常可以为你提供答案。如果到此为止，你将可以毫无疑问地浏览<a href="https://github.com/apple/swift/tree/master/stdlib/public/core" target="_blank" rel="noopener"><em><strong><code>标准库源文件</code></strong></em></a>。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%B8%89):%20Interoperability/" title="Advanced Swift系列(十三): Interoperability">https://www.xuebaonline.com/Advanced Swift系列(十三): Interoperability/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Advanced-Swift/" rel="tag"><i class="fa fa-tag"></i> Advanced Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Interoperability/" rel="tag"><i class="fa fa-tag"></i> Interoperability</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%8D%81%E4%BA%8C):%20%20Encoding%20and%20Decoding/" rel="prev" title="Advanced Swift系列(十二):  Encoding and Decoding">
+      <i class="fa fa-chevron-left"></i> Advanced Swift系列(十二):  Encoding and Decoding
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/App%20Architecture%E7%B3%BB%E5%88%97(%E4%B8%80):%20%20%E7%AE%80%E4%BB%8B/" rel="next" title="App Architecture系列(一):  简介">
+      App Architecture系列(一):  简介 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Wrapping-a-C-Library"><span class="nav-number">1.</span> <span class="nav-text">Wrapping a C Library</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包管理器设置"><span class="nav-number">1.1.</span> <span class="nav-text">包管理器设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包装CommonMark库"><span class="nav-number">1.2.</span> <span class="nav-text">包装CommonMark库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包装cmark-node类型"><span class="nav-number">1.3.</span> <span class="nav-text">包装cmark_node类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Safer-Interface"><span class="nav-number">1.4.</span> <span class="nav-text">Safer Interface</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#底层类型概述"><span class="nav-number">2.</span> <span class="nav-text">底层类型概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#指针"><span class="nav-number">2.1.</span> <span class="nav-text">指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#闭包作为C回调"><span class="nav-number">3.</span> <span class="nav-text">闭包作为C回调</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使它通用"><span class="nav-number">4.</span> <span class="nav-text">使它通用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#概括"><span class="nav-number">5.</span> <span class="nav-text">概括</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Final-Words"><span class="nav-number">6.</span> <span class="nav-text">Final Words</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

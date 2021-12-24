@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织">
+<meta property="og:url" content="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-05-28T11:00:29.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.130Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="Swift Apprentice">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="协议编程">
+<meta property="article:tag" content="泛型">
+<meta property="article:tag" content="编程">
+<meta property="article:tag" content="多态">
+<meta property="article:tag" content="Collection Types">
+<meta property="article:tag" content="Arrays">
+<meta property="article:tag" content="Dictionaries">
+<meta property="article:tag" content="Sets">
+<meta property="article:tag" content="使用闭包集合迭代">
+<meta property="article:tag" content="Strings">
+<meta property="article:tag" content="构建自己的类型">
+<meta property="article:tag" content="Structures">
+<meta property="article:tag" content="结构体">
+<meta property="article:tag" content="Methods">
+<meta property="article:tag" content="Classes">
+<meta property="article:tag" content="Enumerations">
+<meta property="article:tag" content="Protocols">
+<meta property="article:tag" content="Generics">
+<meta property="article:tag" content="访问控制和代码组织">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-28 19:00:29" itemprop="dateCreated datePublished" datetime="2020-05-28T19:00:29+08:00">2020-05-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift-Apprentice/" itemprop="url" rel="index"><span itemprop="name">Swift Apprentice</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+            <div class="post-description">Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>可以使用属性，方法，初始化器甚至其他嵌套类型声明Swift类型。这些元素可以被视为代码的接口，有时也称为API或应用程序编程接口。</p>
+<p>随着代码复杂性的增加，控制此接口已成为软件设计的重要组成部分。你可能希望创建用作代码“帮助器”的方法，或设计用于跟踪不需要的内部状态（作为代码界面的一部分）的属性。</p>
+<p>Swift通过称为访问控制的功能区解决了这些问题，该功能区使你可以控制代码的可见界面。访问控制使你（库作者）可以向用户隐藏实现的复杂性。</p>
+<p>这种隐藏的内部状态有时称为不变式，你的公共接口应始终保持不变。防止直接访问模型的内部状态并保持不变性是一种称为封装的基本软件设计概念。在本章中，你将学习什么是访问控制，它解决的问题以及如何应用它。</p>
+<a id="more"></a>
+
+<h1 id="由于缺乏访问控制而引入的问题"><a href="#由于缺乏访问控制而引入的问题" class="headerlink" title="由于缺乏访问控制而引入的问题"></a>由于缺乏访问控制而引入的问题</h1><p>想象一下，你正在编写银行库。 该库将帮助你的客户（其他银行）编写他们的银行软件。</p>
+<p>在Playground上，从以下协议开始：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/// A protocol describing core functionality for an account</span></span><br><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Account</span> </span>&#123;</span><br><span class="line">  <span class="keyword">associatedtype</span> <span class="type">Currency</span></span><br><span class="line">  <span class="keyword">var</span> balance: <span class="type">Currency</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">deposit</span><span class="params">(amount: Currency)</span></span></span><br><span class="line">  <span class="function"><span class="keyword">func</span> <span class="title">withdraw</span><span class="params">(amount: Currency)</span></span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此代码包含“帐户”，该协议描述了任何帐户应具有的功能-存款，提取和检查资金余额的能力。</p>
+<p>现在，使用以下代码添加符合条件的类型：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typealias</span> <span class="type">Dollars</span> = <span class="type">Double</span></span><br><span class="line"><span class="comment">/// A U.S. Dollar based "basic" account.</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">BasicAccount</span>: <span class="title">Account</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> balance: <span class="type">Dollars</span> = <span class="number">0.0</span></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">deposit</span><span class="params">(amount: Dollars)</span></span> &#123;</span><br><span class="line">        balance += amount</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">withdraw</span><span class="params">(amount: Dollars)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> amount &lt;= balance &#123;</span><br><span class="line">            balance -= amount &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            balance = <span class="number">0</span> </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此类一致的类BasicAccount通过简单地从余额中添加或减去余额（以美元表示，Double的别名）来实现deposit（amount :)和withdraw（amount :)。 尽管此代码非常简单，但是你可能会注意到一个小问题。 Account协议中的balance属性被设计为只读的-换句话说，它只有一个get定义。</p>
+<p>但是，BasicAccount的实现要求将余额声明为变量，以便在存入或提取资金时可以更新该值。</p>
+<p>没有什么可以阻止其他代码直接为平衡分配新值：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a new account</span></span><br><span class="line"><span class="keyword">let</span> account = <span class="type">BasicAccount</span>()</span><br><span class="line"></span><br><span class="line"><span class="comment">// Deposit and withdraw some money</span></span><br><span class="line">account.deposit(amount: <span class="number">10.00</span>) account.withdraw(amount: <span class="number">5.00</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// ... or do evil things!</span></span><br><span class="line">account.balance = <span class="number">1000000.00</span></span><br></pre></td></tr></table></figure>
+
+<p>不好了！ 即使你精心设计了Account协议以仅能存入或提取资金，BasicAccount的实现细节（允许其更新自己的余额）也可以由任何代码使用。</p>
+<p>幸运的是，你可以使用访问控制来限制代码对其他类型，文件甚至软件模块可见的范围！</p>
+<blockquote>
+<p>注意：访问控制不是一项安全功能，它可以保护你的代码免受恶意黑客的攻击。 相反，如果用户尝试直接访问可能损害不变性并因此影响正确性的实现详细信息，它可以通过生成有用的编译器错误来表达意图。</p>
+</blockquote>
+<h1 id="引入访问控制"><a href="#引入访问控制" class="headerlink" title="引入访问控制"></a>引入访问控制</h1><p>你可以通过在属性，方法或类型声明的前面放置修饰符关键字来添加访问修饰符。<br>将访问控制修饰符private（set）添加到BasicAccount中的balance定义中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> balance: <span class="type">Dollars</span></span><br></pre></td></tr></table></figure>
+
+<p>上面的<code>access</code>修饰符放在属性声明之前，并在括号中包含可选的<code>get/set</code>修饰符。 在此示例中，将平衡设置器设为私有。</p>
+<p>你将很快介绍private的详细信息，但是你已经可以看到它的实际使用：你的代码不再可以编译！</p>
+<p>通过将private添加到属性设置器中，可以使使用代码无法访问该属性。</p>
+<p>这表明了访问修饰符的根本好处：访问仅限于需要访问或应该具有访问权限的代码，而不受限于没有访问权限的代码。有效地，访问控制使你可以控制代码的可访问界面，同时定义实现所需行为所需的任何属性，方法或类型。</p>
+<p>上面简短示例中使用的private修饰符是Swift中可以使用的几种访问修饰符之一：</p>
+<ul>
+<li><code>private</code>：仅可访问定义类型，同一源文件中所有嵌套类型和该类型的扩展名。</li>
+<li><code>fileprivate</code>：可在定义该文件的源文件中的任何位置访问。</li>
+<li><code>internal</code>：可在定义模块的任何位置访问。这是默认的访问级别。</li>
+<li><code>public</code>：可从定义该模块的模块中的任何位置以及导入该模块的另一个软件模块访问。</li>
+<li><code>open</code>：与public相同，另外具有被另一个模块中的代码覆盖的功能。</li>
+</ul>
+<p>接下来，你将了解有关这些修饰符，何时使用它们以及如何将它们应用于代码的更多信息。</p>
+<h2 id="Private"><a href="#Private" class="headerlink" title="Private"></a>Private</h2><p>私有访问修饰符将限制对其定义的实体以及其中的任何嵌套类型（也称为“词法范围”）的访问。 同一源文件中类型的扩展名也可以访问该实体。</p>
+<p>为了演示，请通过扩展BasicAccount的行为以创建CheckingAccount来继续你的银行库：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CheckingAccount</span>: <span class="title">BasicAccount</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> accountNumber = <span class="type">UUID</span>().uuidString</span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Check</span> </span>&#123;</span><br><span class="line">        <span class="keyword">let</span> account: <span class="type">String</span></span><br><span class="line">        <span class="keyword">var</span> amount: <span class="type">Dollars</span></span><br><span class="line">        <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> cashed = <span class="literal">false</span></span><br><span class="line">        </span><br><span class="line">        <span class="function"><span class="keyword">func</span> <span class="title">cash</span><span class="params">()</span></span> &#123;</span><br><span class="line">            cashed = <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">init</span>(amount: <span class="type">Dollars</span>, from account: <span class="type">CheckingAccount</span>) &#123; </span><br><span class="line">            <span class="keyword">self</span>.amount = amount</span><br><span class="line">            <span class="keyword">self</span>.account = account.accountNumber </span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CheckingAccount的accountNumber声明为私有。 CheckingAccount还具有嵌套的Check类型，可以在其初始值设定项中读取accountNumber的私有值。</p>
+<blockquote>
+<p>注意：在此示例中，UUID类用于生成唯一的帐号。 该课程是Foundation的一部分，所以不要忘记导入它！</p>
+</blockquote>
+<p>支票帐户也应该能够写支票和现金支票。 将以下方法添加到CheckingAccount：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">writeCheck</span><span class="params">(amount: Dollars)</span></span> -&gt; <span class="type">Check?</span> &#123; </span><br><span class="line">    <span class="keyword">guard</span> balance &gt; amount <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">let</span> check = <span class="type">Check</span>(amount: amount, from: <span class="keyword">self</span>) withdraw(amount: check.amount)</span><br><span class="line">    <span class="keyword">return</span> check</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">deposit</span><span class="params">(<span class="number">_</span> check: Check)</span></span> &#123; </span><br><span class="line">    <span class="keyword">guard</span> !check.cashed <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line">    deposit(amount: check.amount)</span><br><span class="line">    check.cash() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然CheckingAccount仍然可以进行基本的存款和提款，但现在也可以写和存入支票！ 方法writeCheck（amount :)在提取金额和创建支票之前先检查是否有足够的余额，如果支票已经兑现，则deposit（_ :)将不会存入支票。</p>
+<p>让约翰给简写支票，在Playground上尝试一下此代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a checking account for John. Deposit $300.00</span></span><br><span class="line"><span class="keyword">let</span> johnChecking = <span class="type">CheckingAccount</span>() johnChecking.deposit(amount: <span class="number">300.00</span>)</span><br><span class="line"><span class="comment">// Write a check for $200.00</span></span><br><span class="line"><span class="keyword">let</span> check = johnChecking.writeCheck(amount: <span class="number">200.0</span>)!</span><br><span class="line"><span class="comment">// Create a checking account for Jane, and deposit the check.</span></span><br><span class="line"><span class="keyword">let</span> janeChecking = <span class="type">CheckingAccount</span>() janeChecking.deposit(check) janeChecking.balance <span class="comment">// 200.00</span></span><br><span class="line"><span class="comment">// Try to cash the check again. Of course, it had no effect on </span></span><br><span class="line"><span class="comment">// Jane’s balance this time :]</span></span><br><span class="line">janeChecking.deposit(check)</span><br><span class="line">janeChecking.balance <span class="comment">// 200.00</span></span><br></pre></td></tr></table></figure>
+
+<p>当然，此代码效果很好。 真实的故事是这段代码无法做到的。 请记住，访问控制使你可以控制代码的接口。 查看自动完成窗口显示为CheckingAccount界面的内容.</p>
+<p>accountNumber被视为CheckingAccount的实现详细信息，在使用代码中不可见。同样，Check将现金的设置者设为私有，并要求消费者使用cash（）代替.</p>
+<p>此接口为Check提供了一种让消费者将支票标记为已兑现的方式，但反之则不行！ 换句话说，无法兑现支票。</p>
+<p>最后，即使在CheckingAccount上看不到accountNumber，任何持有Check的人都可以访问该号码：</p>
+<p>虽然account属性是从CheckingAccount获取其值的，但这只是另一个实现细节。 重要的是访问修饰符使代码可以塑造自己的接口，而与实现该接口的代码无关。</p>
+<h2 id="Fileprivate"><a href="#Fileprivate" class="headerlink" title="Fileprivate"></a>Fileprivate</h2><p>与private紧密相关的是fileprivate，它允许访问与实体在同一文件中编写的任何代码，而不是private提供的同一文件中的相同词法作用域和扩展名。</p>
+<p>你将使用刚刚创建的两个新文件进行尝试！</p>
+<p>目前，没有什么可以阻止不阅读文档的随意编码者自己创建Check。 在你的安全代码中，你希望支票仅源自CheckingAccount，以便它可以跟踪余额。</p>
+<p>在Check类中，尝试将private修饰符添加到初始化程序中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">init</span>(amount: <span class="type">Dollars</span>, from account: <span class="type">CheckingAccount</span>) &#123; <span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>虽然这可以防止不良代码创建支票，但你会注意到，它也可以阻止CheckingAccount创建支票。 可以从词法范围内的任何内容访问私有实体，但是在这种情况下，CheckingAccount是Check范围之外的一步。 幸运的是，这是fileprivate非常有用的地方。</p>
+<p>将初始化程序替换为fileprivate：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">init</span>(amount: <span class="type">Dollars</span>, from account: <span class="type">CheckingAccount</span>) &#123; <span class="comment">//...</span></span><br></pre></td></tr></table></figure>
+
+<p>现在，CheckingAccount仍然可以编写支票，但是你无法在其他任何地方创建支票。</p>
+<p>fileprivate修饰符非常适合源文件中“具有内聚性”的代码。 也就是说，代码紧密相关或具有足够的通用目的，可以共享但受保护的访问。 Check和CheckingAccount是两种内聚类型的示例。</p>
+<h2 id="Internal-public-and-open"><a href="#Internal-public-and-open" class="headerlink" title="Internal, public and open"></a>Internal, public and open</h2><p>使用private和fileprivate，你可以防止其他类型和文件访问代码。 这些访问修饰符从内部默认访问级别修改了访问权限。</p>
+<p>内部访问级别意味着可以从定义实体的软件模块中的任何位置访问实体。 在这本书中，你已经将所有代码编写在一个Playground文件中，这意味着它们都在同一个模块中。</p>
+<p>在将代码添加到Playground的Sources目录中时，你有效地创建了Playground消费的模块。 使用Xcode设计Playground的方式，Sources目录中的所有文件都是一个模块的一部分，而Playground中的所有内容都是另一个使用Sources文件夹中的模块的模块。</p>
+<h3 id="Internal"><a href="#Internal" class="headerlink" title="Internal"></a>Internal</h3><p>回到Playground上，取消注释处理约翰向简写支票的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Create a checking account for John. Deposit $300.00</span></span><br><span class="line"><span class="keyword">let</span> johnChecking = <span class="type">CheckingAccount</span>() </span><br><span class="line">johnChecking.deposit(amount: <span class="number">300.00</span>) <span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+
+<p>由于CheckingAccount未指定访问修饰符，因此将其视为内部修饰符，因此使用定义了它的模块的Playground无法访问它。</p>
+<p>结果是Swift尝试使用CheckingAccount类型时显示生成错误。</p>
+<p>为了解决这个问题，你将必须了解public和open access修饰符。</p>
+<blockquote>
+<p>注意：由于internal是默认访问级别，因此你无需显式声明内部代码。 是否在定义中使用内部关键字取决于样式和偏好。</p>
+</blockquote>
+<h3 id="Public"><a href="#Public" class="headerlink" title="Public"></a>Public</h3><p>为了使CheckingAccount在你的Playground可见，你需要将访问级别从内部更改为公共。 定义实体的模块外部的代码可以查看和使用公共实体。</p>
+<p>将公共修饰符添加到CheckingAccount类中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CheckingAccount</span>: <span class="title">BasicAccount</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+<p>你还需要将公共帐户添加到BasicAccount中，因为CheckingAccount将其子类化：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicAccount</span>: <span class="title">Account</span></span></span><br></pre></td></tr></table></figure>
+
+<p>现在，Playground上将可以识别CheckingAccount，但你仍然无法实例化它。</p>
+<p>虽然类型本身现在是公共的，但其成员仍在内部，因此在模块外部不可用。 你需要向要成为模块界面一部分的所有实体添加公共修饰符。</p>
+<p>首先向BasicAccount和CheckingAccount添加公共初始化程序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// In BasicAccount:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">init</span>() &#123; &#125;</span><br><span class="line"><span class="comment">// In CheckingAccount:</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">init</span>() &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>接下来，在BasicAccount中，将公共帐户添加到余额，存款（金额：）和取款（金额：）。 你还需要公开Dollars类型别名，因为该类型别名现在已在公共方法中使用。</p>
+<p>最后，在CheckingAccount中，将public添加到writeCheck（amount :)，deposit（_ :)和Check类。 保存所有文件。 你会发现一切都已构建并运行！</p>
+<blockquote>
+<p>注意：即使BasicAccount采用了“帐户”，你可能会注意到Playground看不到“帐户”，也不知道BasicAccount符合该帐户。 如果协议本身不可访问，则协议一致性对使用方模块将是不可见的。</p>
+</blockquote>
+<h3 id="Open"><a href="#Open" class="headerlink" title="Open"></a>Open</h3><p>现在，CheckingAccount及其公共成员对Playground可见，你可以按设计使用银行界面。</p>
+<p>好吧-差不多了！ 银行库应提供一组通用帐户（例如支票帐户），但也可以对银行可能具有的任何特殊类型的帐户进行扩展。</p>
+<p>在你的Playground中，创建一个将BasicAccount子类化的累积利息的SavingsAccount：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SavingsAccount</span>: <span class="title">BasicAccount</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> interestRate: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">init</span>(interestRate: <span class="type">Double</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.interestRate = interestRate </span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">processInterest</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">let</span> interest = balance * interestRate</span><br><span class="line">        deposit(amount: interest)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然BasicAccount被声明为公共的，并且可以在Playground上访问，但是当尝试对BasicAccount进行子类化时，Swift将显示生成错误.</p>
+<p>对于要由另一个模块中的代码覆盖的类，方法或属性，需要将其声明为open。 打开Account.swift并将classBasicAccount类的公共访问修饰符替换为open：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">open</span> <span class="class"><span class="keyword">class</span> <span class="title">BasicAccount</span>: <span class="title">Account</span> </span>&#123; <span class="comment">//..</span></span><br></pre></td></tr></table></figure>
+
+<p>你看到这一切在一起吗？ 你使用BasicAccount的公共和开放许可子类设计的界面提供了新类型的帐户。 这些子类可以使用withdraw（amount :)和deposit（amount :)，因为它们是公共的。 取而代之的是，withdraw（amount :)和deposit（amount :)的实现是安全的，因为它们只是公开的，而不是开放的！</p>
+<p>想象一下，是否可以覆盖withdraw（amount :)和deposit（amount :)：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">deposit</span><span class="params">(amount: Dollars)</span></span> &#123;</span><br><span class="line">    <span class="comment">// LOL</span></span><br><span class="line">    <span class="keyword">super</span>.deposit(amount: <span class="number">1_000_000.00</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你要创建库，则通常希望限制覆盖方法和属性的功能，以免造成其他意外情况。 开放访问修饰符使你可以显式控制其他模块对代码执行的操作。</p>
+<h1 id="将代码组织到扩展中"><a href="#将代码组织到扩展中" class="headerlink" title="将代码组织到扩展中"></a>将代码组织到扩展中</h1><p>访问控制的主题是这样的想法，即你的代码应松散地耦合并且具有高度的内聚性。 松散耦合的代码限制了一个实体对另一实体的了解程度，这反过来又使你的代码的不同部分更少地依赖于其他实体。 正如你先前所学，高度紧密的代码可帮助紧密相关的代码协同工作以完成任务。</p>
+<p>与扩展程序一起使用时，访问修饰符之类的Swift功能可以帮助你组织代码并鼓励良好的软件设计。</p>
+<h2 id="行为扩展"><a href="#行为扩展" class="headerlink" title="行为扩展"></a>行为扩展</h2><p>Swift中的有效策略是按行为将代码组织成扩展。 你甚至可以将访问修饰符应用于扩展本身，这将有助于你将整个代码部分归类为公共，内部或私有。</p>
+<p>首先向CheckingAccount添加一些基本的欺诈防护。 将以下属性添加到CheckingAccount：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> issuedChecks: [<span class="type">Int</span>] = []</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">var</span> currentCheck = <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
+<p>这些将跟踪由支票帐户写的支票。</p>
+<p>接下来，添加以下私人扩展名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="class"><span class="keyword">extension</span> <span class="title">CheckingAccount</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">inspectForFraud</span><span class="params">(with checkNumber: Int)</span></span> -&gt; <span class="type">Bool</span> &#123;</span><br><span class="line">        issuedChecks.<span class="built_in">contains</span>(checkNumber) </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">nextNumber</span><span class="params">()</span></span> -&gt; <span class="type">Int</span> &#123; </span><br><span class="line">        <span class="keyword">let</span> next = currentCheck currentCheck += <span class="number">1</span> </span><br><span class="line">        <span class="keyword">return</span> next</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>CheckingAccount可以使用这两种方法来确定支票号，并确认它实际上是由该帐户发行的。</p>
+<p>值得注意的是，此扩展被标记为私有。 <em><strong>私有扩展会将其所有成员隐式标记为私有</strong></em>。 这些欺诈防护工具仅供CheckingAccount使用-你绝对不希望其他代码增加currentCheck编号！ 将这两种方法放在一起还可以连接两种相关的凝聚方法。 你自己和其他维护代码的人都清楚这两者是紧密结合的，有助于解决一项常见任务。</p>
+<h2 id="通过协议一致性扩展"><a href="#通过协议一致性扩展" class="headerlink" title="通过协议一致性扩展"></a>通过协议一致性扩展</h2><p>另一种有效的技术是基于协议一致性来组织扩展。 你已经在第16章“协议”中看到了这种技术。 例如，通过添加以下扩展名，使CheckingAccount符合CustomStringConvertible：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">CheckingAccount</span>: <span class="title">CustomStringConvertible</span> </span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">var</span> description: <span class="type">String</span> &#123;</span><br><span class="line">    <span class="string">"Checking Balance: $\(balance)"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此扩展实现CustomStringConvertible，更重要的是：</p>
+<ul>
+<li>使其说明很明显是CustomStringConvertible的一部分。</li>
+<li>不利于遵守其他协议。</li>
+<li>可以轻松移除，而不会对CheckingAccount的其余部分造成附带损害。</li>
+<li>容易被骗！</li>
+</ul>
+<h2 id="available"><a href="#available" class="headerlink" title="available()"></a>available()</h2><p>如果你查看SavingsAccount，你会发现你可以滥用processInterest（），方法是多次调用它，并反复增加对该帐户的兴趣。 为了使此功能更安全，你可以向该帐户添加PIN。</p>
+<p>将一个pin属性添加到SavingsAccount，并确保初始化程序和processInterest（）方法将此PIN作为参数。 该类应如下所示：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SavingsAccount</span>: <span class="title">BasicAccount</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> interestRate: <span class="type">Double</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">let</span> pin: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">init</span>(interestRate: <span class="type">Double</span>, pin: <span class="type">Int</span>) &#123; </span><br><span class="line">        <span class="keyword">self</span>.interestRate = interestRate</span><br><span class="line">        <span class="keyword">self</span>.pin = pin </span><br><span class="line">        &#125;</span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">processInterest</span><span class="params">(pin: Int)</span></span> &#123; </span><br><span class="line">        <span class="keyword">if</span> pin == <span class="keyword">self</span>.pin &#123;</span><br><span class="line">        <span class="keyword">let</span> interest = balance * interestRate</span><br><span class="line">        deposit(amount: interest)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你对新的安全层感到非常满意。 但是，将更新后的代码发送到银行后，你会生气。 该银行的代码现在无法编译，因为它使用的是旧的SavingsAccount类。</p>
+<p>为防止破坏使用旧实现的代码，你需要弃用该代码而不是替换它。 幸运的是，Swift对此具有内置支持。</p>
+<p>还原初始化程序和processInterest（）的旧实现，并在初始化程序之前添加以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@available</span>(*, deprecated, message: <span class="string">"Use init(interestRate:pin:)</span></span><br><span class="line"><span class="string">instead"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>而这行代码在processInterest（）之前：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="meta">@available</span>(*, deprecated, message: <span class="string">"Use processInterest(pin:)</span></span><br><span class="line"><span class="string">instead"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>现在这些方法仍然可以按预期工作，但是当有人尝试使用它们时，Xcode会使用你的自定义消息生成警告.</p>
+<p>参数中的星号表示此弃用会影响哪些平台。 它接受值*，iOS，iOSMac，tvOS或watchOS。 第二个参数详细说明此方法是否已弃用，重命名或不可用。</p>
+<h2 id="不透明的返回类型"><a href="#不透明的返回类型" class="headerlink" title="不透明的返回类型"></a>不透明的返回类型</h2><p>假设你需要为银行库的用户创建一个公共API。 你需要创建一个名为createAccount的函数，该函数将创建一个新帐户并返回该帐户。 该API的要求之一是隐藏实现细节，以便鼓励客户端编写通用代码。 这意味着你不应该公开要创建的帐户类型，无论是BasicAccount，CheckingAccount还是SavingsAccount。 取而代之的是，你只返回一些符合协议帐户的实例。</p>
+<p>为了实现这一点，你需要首先将“帐户”协议公开。 打开Account.swift并将public修饰符添加到协议Account之前。 现在回到你的Playground并插入以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">createAccount</span><span class="params">()</span></span> -&gt; <span class="type">Account</span> &#123;</span><br><span class="line">  <span class="type">CheckingAccount</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>为了解决这个问题，你可以在返回类型之前添加一些关键字，因此它看起来像这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">createAccount</span><span class="params">()</span></span> -&gt; some <span class="type">Account</span> &#123;</span><br><span class="line">  <span class="type">CheckingAccount</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是一种不透明的返回类型，它使函数可以在不公开类类型的情况下确定要返回的Account类型。</p>
+<p>你将在第26章“高级协议和泛型”中了解有关此功能的更多信息。</p>
+<h1 id="Swift-Package-Manager"><a href="#Swift-Package-Manager" class="headerlink" title="Swift Package Manager"></a>Swift Package Manager</h1><p>组织代码的另一种有效方法是使用Swift Package Manager（简称SwiftPM）。 SwiftPM使你可以“打包”模块，以便你或其他开发人员可以轻松地在其代码中使用它。</p>
+<p>例如，实现从Web下载图像的逻辑的模块在许多项目中很有用。 无需将代码复制并粘贴到需要图像下载功能的所有项目中，你可以导入此模块并重新使用它。</p>
+<p>Swift Package Manager超出了本书的范围，但是你可以在这里阅读更多内容：https：//swift.org/package-manager/。</p>
+<h1 id="Testing"><a href="#Testing" class="headerlink" title="Testing"></a>Testing</h1><p>想象一下，有新的工程师加入你的团队来处理你的银行库。 这些工程师的任务是更新SavingsAccount类以支持贷款。 为此，他们将需要更新所编写代码的基本功能。 这是有风险的，因为他们不熟悉代码，而且更改可能会给现有逻辑带来错误。 防止这种情况发生的好方法是编写单元测试。</p>
+<p>单元测试是一段代码，其目的是测试你现有的代码是否按预期工作。 例如，你可能编写了一个测试，将$ 100存入新帐户，然后验证余额确实为$ 100。</p>
+<p>乍一看听起来像是过分杀人，但是当许多工程师正在开发一个代码库时，或者当你回去修改很久以前编写的代码时，单元测试可以帮助你验证你没有破坏任何东西。</p>
+<h2 id="创建测试类"><a href="#创建测试类" class="headerlink" title="创建测试类"></a>创建测试类</h2><p>为了编写单元测试，首先需要导入XCTest框架。 将其添加到Playground的顶部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> XCTest</span><br></pre></td></tr></table></figure>
+
+<p>接下来，你需要创建一个新类，它是XCTestCase的子类：</p>
+<h2 id="Writing-tests"><a href="#Writing-tests" class="headerlink" title="Writing tests"></a>Writing tests</h2><p>准备好测试课程后，就该添加一些测试了。 测试应涵盖代码的核心功能和一些边缘情况。 首字母缩写词FIRST描述了有效单元测试的一组简明标准。 这些标准是：</p>
+<ul>
+<li>快速：测试应该快速运行。</li>
+<li>独立/隔离：测试不应相互共享状态。</li>
+<li>可重复：每次运行测试时，你应该获得相同的结果。</li>
+<li>自我验证：测试应完全自动化。 输出应为“通过”或“失败”。</li>
+<li>及时：理想情况下，应在编写测试代码之前编写测试（测试驱动开发）。</li>
+</ul>
+<p>将测试添加到测试类非常容易-只需添加一个以单词test开头，不带参数且不返回任何内容的函数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> <span class="function"><span class="keyword">func</span> <span class="title">testSomething</span><span class="params">()</span></span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>恭喜你！ 你刚刚编写了第一个测试。</p>
+<p>要在Playground上实际运行测试，请将其添加到底部的底部BankingTests类。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">BankingTests</span>.defaultTestSuite.run()</span><br></pre></td></tr></table></figure>
+
+<p>现在运行Playground，你会看到类似的内容打印到控制台上：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Test</span> <span class="type">Suite</span> '<span class="type">BankingTests'</span> started at ...</span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> '-[__lldb_expr_2.<span class="type">BankingTests</span> testSomething]' started. </span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> '-[__lldb_expr_2.<span class="type">BankingTests</span> testSomething]' passed (<span class="number">0.837</span> seconds).</span><br><span class="line"><span class="type">Test</span> <span class="type">Suite</span> '<span class="type">BankingTests'</span> passed at ...</span><br><span class="line"><span class="type">Executed</span> <span class="number">1</span> test, with <span class="number">0</span> failures (<span class="number">0</span> unexpected) <span class="keyword">in</span> <span class="number">0.837</span> (<span class="number">0.840</span>) seconds</span><br></pre></td></tr></table></figure>
+
+<p>测试通过了，这并不奇怪，因为目前它什么都不做。</p>
+<h2 id="XCTAssert"><a href="#XCTAssert" class="headerlink" title="XCTAssert"></a>XCTAssert</h2><p>XCTAssert函数在测试中用于断言满足某些条件。 例如，你可以验证某个值大于零或对象不是nil。 这是一个如何检查新帐户余额是否为零的示例。 以此替换testSomething方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testNewAccountBalanceZero</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> checkingAccount = <span class="type">CheckingAccount</span>()</span><br><span class="line">    <span class="type">XCTAssertEqual</span>(checkingAccount.balance, <span class="number">0</span>) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>方法XCTAssertEqual验证两个参数是否相等，否则将无法通过测试。 请注意，测试名称是如何明确说明测试内容的。</p>
+<p>如果你现在要运行Playground，它将显示在控制台中：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Test</span> <span class="type">Case</span> '-[__lldb_expr_4.<span class="type">BankingTests</span> testNewAccountBalanceZero]' started.</span><br><span class="line"><span class="type">Test</span> <span class="type">Case</span> '-[__lldb_expr_4.<span class="type">BankingTests</span> testNewAccountBalanceZero]' passed (<span class="number">0.030</span> seconds).</span><br></pre></td></tr></table></figure>
+
+<p>太好了，你的测试通过了！ 如果有人进行更改而无意中导致新帐户以零以外的余额开始，则测试将失败。 为什么不测试呢？ 打开文件Account.swift，找到此行</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">private</span>(<span class="keyword">set</span>) <span class="keyword">var</span> balance: <span class="type">Dollars</span> = <span class="number">0.0</span></span><br></pre></td></tr></table></figure>
+
+<p>并将0.0替换为1.0。 现在在Playground上进行测试，你应该看到此打印到控制台：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: -[<span class="type">BankingTests</span> testNewAccountBalanceZero] : <span class="type">XCTAssertEqual</span> failed: (<span class="string">"1.0"</span>) <span class="keyword">is</span> not <span class="built_in">equal</span> to (<span class="string">"0.0"</span>)</span><br></pre></td></tr></table></figure>
+
+<p>你可以看到测试失败，甚至可以告诉你测试失败的原因！ 这是单元测试的真正力量。 从现在开始，你的帐户代码将免受此类错误的影响。</p>
+<p>现在继续操作，将可变余额返回为0.0，然后再添加一个测试：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testCheckOverBudgetFails</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">let</span> checkingAccount = <span class="type">CheckingAccount</span>()</span><br><span class="line">    <span class="keyword">let</span> check = checkingAccount.writeCheck(amount: <span class="number">100</span>) </span><br><span class="line">    <span class="type">XCTAssertNil</span>(check)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你能弄清楚该测试的作用吗？ 它创建一个新帐户，然后尝试写一张100美元的支票。 帐户余额为零，因此此测试验证写支票失败，并且实际上返回nil。</p>
+<h2 id="testable"><a href="#testable" class="headerlink" title="@testable"></a>@testable</h2><p>导入Foundation时，Swift会为该模块引入公共接口。 对于你的银行应用程序，你可以创建一个可以导入的银行模块。 这使你可以查看公共界面。 但是你可能想使用XCTAssert检查内部状态。 你可以在测试代码中做到这一点，而不是公开不应该公开的内容：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@testable</span> <span class="keyword">import</span> Banking</span><br></pre></td></tr></table></figure>
+
+<p>这使你的内部界面可见。 （注意：私有API仍然是私有的。）这是一个很好的测试工具，但是你绝对不要在生产代码中这样做。 始终坚持在那里的公共API。</p>
+<h2 id="setUp和tearDown方法"><a href="#setUp和tearDown方法" class="headerlink" title="setUp和tearDown方法"></a>setUp和tearDown方法</h2><p>你会注意到，这两种测试方法都首先创建一个新的支票帐户，并且你编写的许多测试可能会执行相同的操作。 幸运的是，有一个setUp方法。 此方法在每次测试之前执行，其目的是初始化测试运行所需的状态。</p>
+<p>将其添加到BankingTests类的顶部：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> checkingAccount: <span class="type">CheckingAccount!</span></span><br><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123; </span><br><span class="line">    <span class="keyword">super</span>.setUp()</span><br><span class="line">    checkingAccount = <span class="type">CheckingAccount</span>()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>并从这两个测试中删除lettingAccount = CheckingAccount（）行。</p>
+<p>类似于在每次测试之前执行setUp的方式一样，tearDown在每次测试之后运行，而不管测试是否通过。 当你需要释放获得的资源或需要重置对象的状态时，这是很好的选择。 例如，你可以将CheckingAccount实例的余额重置为零。 不需要这样做，因为setUp将初始化新帐户，但是出于示例的原因，你可以添加它。</p>
+<p>将其添加到setUp方法下面：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</span><br><span class="line">    checkingAccount.withdraw(amount: checkingAccount.balance)</span><br><span class="line">    <span class="keyword">super</span>.tearDown() </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以在 <a href="https://developer.apple.com/documentation/xctest" target="_blank" rel="noopener">https://developer.apple.com/documentation/xctest</a> 中了解有关单元测试的更多信息。</p>
+<h1 id="关键点"><a href="#关键点" class="headerlink" title="关键点"></a>关键点</h1><ul>
+<li><p>访问控制修饰符是私有，文件私有，内部，公共和开放的。 内部访问级别是默认级别。</p>
+</li>
+<li><p>修饰符可用于控制代码的可见界面并隐藏复杂性。</p>
+</li>
+<li><p>专用和文件专用保护代码分别防止其他类型或文件中的代码访问。</p>
+</li>
+<li><p>public和open允许从另一个模块访问代码。 open修饰符还允许实体被其他模块覆盖。</p>
+</li>
+<li><p>将访问修饰符应用于扩展时，该扩展的所有成员都将获得该访问级别。</p>
+</li>
+<li><p>标记协议一致性的扩展名不能具有访问修饰符。</p>
+</li>
+<li><p>通过弃用API，可用的关键字可用于开发库。</p>
+</li>
+<li><p>你使用单元测试来验证你的代码是否按预期工作。</p>
+</li>
+<li><p>@testable import可让你测试内部API。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%B8%80)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2018%E3%80%81%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/" title="Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织">https://www.xuebaonline.com/Swift Apprentice系列 (二十一) : 第四部分：高级主题 - 18、访问控制和代码组织/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/Swift-5-0/" rel="tag"><i class="fa fa-tag"></i> Swift 5.0</a>
+              <a href="/tags/Swift-Apprentice/" rel="tag"><i class="fa fa-tag"></i> Swift Apprentice</a>
+              <a href="/tags/%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6%E5%92%8C%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87/" rel="tag"><i class="fa fa-tag"></i> 访问控制和代码组织</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98/" rel="prev" title="Swift Apprentice系列 (二十) : 第四部分：高级主题">
+      <i class="fa fa-chevron-left"></i> Swift Apprentice系列 (二十) : 第四部分：高级主题
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/Swift%20Apprentice%E7%B3%BB%E5%88%97%20(%E4%BA%8C%E5%8D%81%E4%BA%8C)%20:%20%E7%AC%AC%E5%9B%9B%E9%83%A8%E5%88%86%EF%BC%9A%E9%AB%98%E7%BA%A7%E4%B8%BB%E9%A2%98%20-%2019%E3%80%81%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%90%E7%AE%97%E7%AC%A6%EF%BC%8C%E4%B8%8B%E6%A0%87%E5%92%8C%E9%94%AE%E8%B7%AF%E5%BE%84/" rel="next" title="Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径">
+      Swift Apprentice系列 (二十二) : 第四部分：高级主题 - 19、自定义运算符，下标和键路径 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#由于缺乏访问控制而引入的问题"><span class="nav-number">1.</span> <span class="nav-text">由于缺乏访问控制而引入的问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#引入访问控制"><span class="nav-number">2.</span> <span class="nav-text">引入访问控制</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Private"><span class="nav-number">2.1.</span> <span class="nav-text">Private</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Fileprivate"><span class="nav-number">2.2.</span> <span class="nav-text">Fileprivate</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Internal-public-and-open"><span class="nav-number">2.3.</span> <span class="nav-text">Internal, public and open</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Internal"><span class="nav-number">2.3.1.</span> <span class="nav-text">Internal</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Public"><span class="nav-number">2.3.2.</span> <span class="nav-text">Public</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Open"><span class="nav-number">2.3.3.</span> <span class="nav-text">Open</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#将代码组织到扩展中"><span class="nav-number">3.</span> <span class="nav-text">将代码组织到扩展中</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#行为扩展"><span class="nav-number">3.1.</span> <span class="nav-text">行为扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通过协议一致性扩展"><span class="nav-number">3.2.</span> <span class="nav-text">通过协议一致性扩展</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#available"><span class="nav-number">3.3.</span> <span class="nav-text">available()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#不透明的返回类型"><span class="nav-number">3.4.</span> <span class="nav-text">不透明的返回类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Swift-Package-Manager"><span class="nav-number">4.</span> <span class="nav-text">Swift Package Manager</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Testing"><span class="nav-number">5.</span> <span class="nav-text">Testing</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建测试类"><span class="nav-number">5.1.</span> <span class="nav-text">创建测试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Writing-tests"><span class="nav-number">5.2.</span> <span class="nav-text">Writing tests</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XCTAssert"><span class="nav-number">5.3.</span> <span class="nav-text">XCTAssert</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#testable"><span class="nav-number">5.4.</span> <span class="nav-text">@testable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#setUp和tearDown方法"><span class="nav-number">5.5.</span> <span class="nav-text">setUp和tearDown方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关键点"><span class="nav-number">6.</span> <span class="nav-text">关键点</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>

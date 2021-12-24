@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="SwiftUI 系列(一)：1、 简介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SwiftUI 系列(一)_1、 简介">
+<meta property="og:url" content="https://www.xuebaonline.com/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="SwiftUI 系列(一)：1、 简介">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_1.png?raw=true">
+<meta property="og:image" content="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_2.png?raw=true">
+<meta property="og:image" content="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_3.png?raw=true">
+<meta property="og:image" content="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_4.png?raw=true">
+<meta property="article:published_time" content="2021-08-27T07:03:55.000Z">
+<meta property="article:modified_time" content="2021-12-18T11:29:26.076Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="Swift">
+<meta property="article:tag" content="SwiftUI">
+<meta property="article:tag" content="Swift学习">
+<meta property="article:tag" content="Swift进阶">
+<meta property="article:tag" content="Diving Into SwiftUI">
+<meta property="article:tag" content="初探SwiftUI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_1.png?raw=true">
+
+<link rel="canonical" href="https://www.xuebaonline.com/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>SwiftUI 系列(一)_1、 简介 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">135</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">60</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">166</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SwiftUI 系列(一)_1、 简介
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-08-27 15:03:55" itemprop="dateCreated datePublished" datetime="2021-08-27T15:03:55+08:00">2021-08-27</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/SwiftUI/" itemprop="url" rel="index"><span itemprop="name">SwiftUI</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">SwiftUI 系列(一)：1、 简介</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>“SwiftUI is an innovative, exceptionally simple way to build user interfaces across all Apple platforms with the power of Swift.”<br>   —— Apple</p>
+</blockquote>
+<p><code>SwiftUI</code> 是苹果相关开发的新方式。2014年，在多年使用 <code>Objective-C</code> 编程应用程序之后，苹果推出了一种新的开源语言: <code>Swift</code>，震惊了世界。自发布以来，<code>Swift</code> 不断更新和发展，最终成为当今最受欢迎和最强大的编程语言之一。</p>
+<p>2019年 <code>SwiftUI</code> 的推出为该行业的范式转变创造了另一个机会。在多年使用 <code>UIKit</code>和 <code>AppKit</code> 来创建用户界面之后，<code>SwiftUI</code> 为你的应用程序提供了一种全新的 <code>UI</code> 创建方式。在很多方面，<code>SwiftUI</code> 都比它的前辈更简单、更强大，更重要的是，它在苹果生态系统中是跨平台的。</p>
+<p>不过，最重要的一点是 <code>SwiftUI</code> 的声明性。多年来，开发人员一直在使用命令式编程模型，处理状态管理问题和复杂的代码。但是现在，我们提供了一种声明性的、直接的方法来构建令人惊叹的用户界面。别担心;如果你喜欢使用 <code>UIKit</code> 或 <code>AppKit</code> ，请放心，你可以将这些框架与你的 <code>SwiftUI</code> 代码集成在一起。</p>
+<a id="more"></a>
+
+<p>SwiftUI 仍有改进的空间; 正如Swift从1.0版开始就必须不断发展一样，SwiftUI也将如此。但正如Swift已经成为先进的现代编程语言的行业标准之一，SwiftUI肯定也会走同样的道路。</p>
+<p>这里会分享创建用户界面的新方法的所有提示和技巧。你́会发现SwiftUI提供了什么，它是多么强大，开始使用它是多么快速和容易。</p>
+<p>创建一个小的颜色匹配游戏。该应用程序的目标是通过从RGB颜色空间中选择颜色来尝试匹配随机生成的颜色:<br><img src="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_1.png?raw=true"></p>
+<p>在本篇中，您将:</p>
+<ul>
+<li>学习如何使用Xcode画布创建你的UI与它的代码并排，并看看他们如何保持同步。对一边的更改总是会更新另一边。</li>
+<li>为图片中的滑块创建一个可重用的视图。</li>
+<li>了解@State属性，并在状态值改变时使用它们更新你的UI。</li>
+<li>呈现提示以显示用户的分数。是时候开始了!</li>
+</ul>
+<h1 id="SwiftUI-入门"><a href="#SwiftUI-入门" class="headerlink" title="SwiftUI 入门"></a>SwiftUI 入门</h1><p>从章节材料中打开<strong>SwiftUI/RGBullsEye</strong>启动项目。<br>在项目导航器中，打开<strong>RGBullsEye</strong>组，看看这里是什么: <strong>AppDelegate.swift</strong>，你可能已经习惯了，现在是<strong>RGBullsEyeApp.swift</strong>。这将从<strong>ContentView()<strong>创建应用程序的</strong>WindowGroup</strong>:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@main</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">RGBullsEyeApp</span>: <span class="title">App</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body: some <span class="type">Scene</span> &#123;</span><br><span class="line">    	<span class="type">WindowGroup</span> &#123;</span><br><span class="line">    	    <span class="type">ContentView</span>()</span><br><span class="line">    	&#125;</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>@main</strong>属性意味着这个结构体包含应用程序的入口点。应用程序协议负责生成实际运行的静态 <strong>main</strong> 函数。当应用程序启动时，它会显示 <strong>ContentView</strong> 的这个实例，它在 <strong>ContentView.swift</strong> 中定义。它是一个符合 <strong>View</strong> 协议的结构:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView</span>: <span class="title">View</span> </span>&#123;</span><br><span class="line">  <span class="keyword">var</span> body: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">Text</span>(<span class="string">"Hello, world!"</span>)</span><br><span class="line">      .padding()</span><br><span class="line">    &#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是 <strong>SwiftUI</strong> 声明 <strong>ContentView</strong> 的主体包含一个显示 <strong>Hello World</strong> 的 <strong>Text</strong> 视图。<strong>padding()</strong> 修饰符在文本周围添加10个点填充。</p>
+<p>有一个 <strong>Model</strong> 组包含了定义带有属性和方法的 <strong>Game</strong> 结构的文件，以及一个用于包装红色、绿色和蓝色值的RGB结构。<strong>Color</strong> 扩展提供了一个自定义初始化器来从 <strong>RGB</strong> 结构创建一个 <strong>Color</strong> 视图。</p>
+<h1 id="预览-ContentView"><a href="#预览-ContentView" class="headerlink" title="预览 ContentView"></a>预览 <strong>ContentView</strong></h1><p>在 <strong>ContentView.swift</strong> 中，在 <strong>ContentView</strong> 结构体下面，<strong>ContentView_Previews</strong> 包含一个包含 <strong>ContentView</strong> 实例的视图:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ContentView_Previews</span> : <span class="title">PreviewProvider</span> </span>&#123;</span><br><span class="line">  <span class="keyword">static</span> <span class="keyword">var</span> previews: some <span class="type">View</span> &#123;</span><br><span class="line">    <span class="type">ContentView</span>()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在这里，您可以为预览指定示例数据，并可以比较不同的屏幕和字体大小。但是预览在哪里呢?<br>代码旁边有一大块空白，上面是这样的:<br><img src="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_2.png?raw=true"></p>
+<p>默认情况下，预览使用当前活动的方案。<br>点击 <strong>Resume</strong> 并等待一段时间来查看预览:<br><img src="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_3.png?raw=true"></p>
+<p>点击文本显示填充框。</p>
+<blockquote>
+<p>注意:如果你没有看到 <strong>Resume</strong> 按钮，点击编辑器选项按钮并选择 <strong>Canvas</strong> 如下图：<br>    <img src="https://github.com/Bogon/mysql_manual/blob/main/SwiftUI/Section1/s_s_1_2_4.png?raw=true"></p>
+</blockquote>
+<p>如果您仍然没有看到 <strong>Resume</strong> 按钮，请确保您正在运行 <strong>macOS Catalina(10.15)</strong> 或更高版本。</p>
+<blockquote>
+<p>注意:你可以使用非常有用的键盘快捷键 <em><strong>Option-Command-P</strong></em>，而不是点击 <strong>Resume</strong> 按钮。即使在您更改视图中的某些内容后，<strong>Resume</strong> 按钮没有立即显示，它也可以完成页面刷新。</p>
+</blockquote>
+<h1 id="自定义界面"><a href="#自定义界面" class="headerlink" title="自定义界面"></a>自定义界面</h1><p>你的 <strong>SwiftUI</strong> 应用程序没有 <strong>storyboard</strong> 或视图控制器。<strong>ContentView.swift</strong> 接管了他们的工作。你可以使用任何代码和拖拽对象库的组合来创建你的 <strong>UI</strong>，并且你可以直接在你的代码中执行类似故事板的操作!最棒的是，一切都保持同步!</p>
+<p><strong>SwiftUI</strong> 是<strong>声明性的</strong>:你声明你想要的<strong>UI</strong>外观，然后 <strong>SwiftUI</strong> 将你的声明转换成高效的代码来完成任务。苹果鼓励您创建尽可能多的视图，以保持您的代码易于阅读。特别推荐可重用的参数化视图。这就像将代码提取到函数中一样，您将在本章的后面创建一个函数。</p>
+<p>在这里，主要使用<strong>canvas</strong>，类似于在<strong>Interface Builder (IB)<strong>中布局你的</strong>UI</strong>。</p>
+<h2 id="SwiftUI-关键词"><a href="#SwiftUI-关键词" class="headerlink" title="SwiftUI 关键词"></a><strong>SwiftUI</strong> 关键词</h2><p>在开始创建视图之前，您需要了解一些词汇表。</p>
+<ul>
+<li><p><strong>Canvas</strong> 和 <strong>Minimap</strong> :要获得完整的<strong>SwiftUI</strong>体验，你至少需要<strong>Xcode 11</strong>和<strong>macOS 10.15</strong>。然后你就可以在<strong>canvas</strong>中预览应用的视图，以及代码编辑器。此外，你还可以使用你的代码的<strong>Minimap</strong>:它不会出现在我的截图中，因为我隐藏了它: <strong>Editor long ▸ HideMinimap</strong>。</p>
+</li>
+<li><p><strong>Modifiers</strong>:你可以调用修改器方法来修改前景色、字体、填充等等，而不是设置<strong>UIKit</strong>对象的属性或属性。</p>
+</li>
+<li><p><strong>Container views</strong>:如果你以前使用过堆栈视图，你会发现在<strong>SwiftUI</strong>中使用<strong>HStack</strong>和<strong>VStack</strong>容器视图创建这个应用的<strong>UI</strong>非常容易。还有其他容器视图，包括<strong>ZStack</strong>和<strong>Group</strong>。将在后面文章中<code>“介绍堆栈和容器”</code>中了解它们。 </p>
+</li>
+</ul>
+<p>除了<strong>Container views</strong>，还有许多你知道并喜欢的<strong>UIKit</strong>对象的<strong>SwiftUI</strong>视图，如文本，按钮和滑块。工具栏中的+按钮显示<strong>SwiftUI</strong>视图和修改 类库，以及媒体和代码片段。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/SwiftUI%20%E7%B3%BB%E5%88%97(%E4%B8%80)%EF%BC%9A1%E3%80%81%20%E7%AE%80%E4%BB%8B/" title="SwiftUI 系列(一)_1、 简介">https://www.xuebaonline.com/SwiftUI 系列(一)：1、 简介/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/SwiftUI/" rel="tag"><i class="fa fa-tag"></i> SwiftUI</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Swift%20%E4%B8%89%E6%96%B9%E5%BA%93%EF%BC%9AGRDB%20%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8C%97/" rel="prev" title="Swift 三方库：GRDB 使用指北">
+      <i class="fa fa-chevron-left"></i> Swift 三方库：GRDB 使用指北
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/iOS%2015%20%E9%80%82%E9%85%8D/" rel="next" title="iOS 15 适配">
+      iOS 15 适配 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#SwiftUI-入门"><span class="nav-number">1.</span> <span class="nav-text">SwiftUI 入门</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#预览-ContentView"><span class="nav-number">2.</span> <span class="nav-text">预览 ContentView</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#自定义界面"><span class="nav-number">3.</span> <span class="nav-text">自定义界面</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#SwiftUI-关键词"><span class="nav-number">3.1.</span> <span class="nav-text">SwiftUI 关键词</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">166</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">60</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">135</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:15</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
