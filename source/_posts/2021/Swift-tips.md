@@ -278,29 +278,7 @@ JPUSHService.setAlias("0000000000", completion: { (index, alias, idx) in
      - PromiseKit/WatchConnectivity (6.15.3)
 ```
 
+# 开发技巧12 ***修改 UITextField 占位符的颜色和字体***
+```Swift
+textfield.attributedPlaceholder = NSAttributedString.init(string:"搜索款号", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), .foregroundColor: UIColor(hexColor: "A7B4CC")])
 ```
-structures use the stack(栈) and classes use the heap(堆)。
-```
-
-```Generics
-This design both preserves type information and constrains the arguments to be the same type as the return type. 
-```
-
-```@autoclosure
-Decorating a parameter type with @autoclosure causes the compiler to wrap arguments in a closure automatically. 
-```
-
-``` Rethrows
-func ifelse<V>(_ condition: Bool,
-               _ valueTrue: @autoclosure () throws -> V,
-               _ valueFalse: @autoclosure () throws -> V) rethrows -> V {
-  condition ? try valueTrue() : try valueFalse()
-}
-
-Rethrows propagates the error of any failing closure to the caller. If none of the closure parameters throw, it deduces the function is non-throwing and doesn’t need to be marked with try.
-```
-
-```@inlinable
-You don’t want to pay the cost of an extra layer of abstraction, and the implementation will never change, so it makes sense to mark the function @inlinable. This added keyword hints to the compiler that the body of the method should be directly included in the client code without the overhead of calling a function.
-```
-swiftc -O -emit-assembly ifelse.swift > ifelse.asm
