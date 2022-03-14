@@ -210,3 +210,20 @@ git push origin :refs/tags/old
 git tag -d Release_v2.2.8.2_build2365
 git push origin :refs/tags/Release_v2.2.8.2_build2365
 ```
+
+# 拉取远程分支(同步远程分支到本地)
+
+```Bash
+git fetch -p
+```
+
+# 删除报错分支
+
+```Bash
+git branch -D *
+```
+# 检出报错分支
+
+```Bash
+git checkout *
+```
