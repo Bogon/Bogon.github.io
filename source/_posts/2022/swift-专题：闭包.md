@@ -3,6 +3,7 @@ title: swift 专题：闭包
 description: swift 专题：闭包
 permalink: swift 专题：闭包
 copyright: true
+abbrlink: 59057
 date: 2022-03-23 17:31:15
 keywords:
 tags:
