@@ -3,7 +3,6 @@ title: mac 下载 AppStore 上 App IPA安装包
 description: mac 下载 AppStore 上 App IPA安装包
 permalink: mac 下载 AppStore 上 App IPA安装包
 copyright: true
-date: 2022-04-15 16:48:48
 keywords: 'iOS,IPA,下载,MAC,逆向'
 tags:
   - - iOS
@@ -12,6 +11,8 @@ tags:
 categories:
   - - iOS
   - - 逆向
+abbrlink: 6892
+date: 2022-04-15 16:48:48
 ---
 
 在需要研究一些`app`的时候我们希望直接能拿到这个软件的安装包，在`iOS`上就是 `"xxx.ipa"`。下面的步骤帮助我们获取一个`app`的`bundleID`，然后使用工具下载安装包。这样我们就能对目标`app`进行研究。
