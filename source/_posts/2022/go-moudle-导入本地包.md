@@ -3,15 +3,16 @@ title: go moudle 导入本地包
 description: go moudle 导入本地包
 permalink: go moudle 导入本地包
 copyright: true
-date: 2022-05-11 08:13:35
-keywords: go,moudle,package,file,interface
+keywords: 'go,moudle,package,file,interface'
 tags:
-	- go
-	- package
-	- interface
+  - go
+  - package
+  - interface
 categories:
-	- go
-	- interface
+  - go
+  - interface
+abbrlink: 35642
+date: 2022-05-11 08:13:35
 ---
 
 # 包
