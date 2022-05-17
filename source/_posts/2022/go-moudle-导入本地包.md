@@ -3,7 +3,7 @@ title: go moudle 导入本地包
 description: go moudle 导入本地包
 permalink: go moudle 导入本地包
 copyright: true
-keywords: 'go,moudle,package,file,interface'
+keywords: 'go,moudle,package,file,interface,goroutine'
 tags:
   - go
   - package
@@ -151,3 +151,79 @@ bufio
 
 ioutil
 ```
+
+# 反射
+接口类型的变量底层分类两个部分：动态类型和动态值。
+反射的作用： `json` 等数据解析\ORM等工具…
+
+## 反射的两个方法
++ `relfect.TypeOf()`
++ `relfect.ValueOf()`
+
+# `goroutine`
+
++ 将要并发执行的任务包装成一个函数，调用函数的时候加上 `go` 关键字，就能够开启一个 `goroutine` 去执行该函数的任务。
++ `goroutine` 对应的函数执行完，该 `goroutine` 就结束了。
++ 程序启动的时候会自动创建一个 `goroutine` 去执行 `main` 函数。
++ `main` 函数结束了，那么程序就结束了，由该程序启动的所有其他 `goroutine` 也都结束了。
+
+## `goroutine` 启动
+```Go
+
+func hello(i int) {
+	fmt.Println("hello, world~ id: ", i)
+}
+
+// 程序启动之后会启动一个 main goroutine
+func main() {
+	for i := 0; i < 100; i++ {
+		// go hello(i) // 单独开启一个 goroutine 去执行 hello 函数(任务)
+		go func(i int) {
+			fmt.Println(i) // 用的是函数传递进来的，不是外面的i
+		}(i)
+	}
+	fmt.Println("main")
+	time.Sleep(time.Second)
+	// main 函数结束了，由main函数启动的goroutine 也就结束了
+}
+```
+
+## `goroutine` 什么时间结束？
++ `goroutine` 对应的函数执行结束了， `goroutine` 就结束了。
++ `main` 函数执行结束了，由 `main` 函数启动的 `goroutine` 也都结束了。
+
+##  `goroutine` 调度模型
+`GMP` 
++ `G`
++ `M`
++ `P`
+
+`M:N`： 把 `m` 个 `goroutine` 分配给 `n` 个操作系统线程去执行。
+`goroutine` 初始占用内存大小 `2k` .
+# math/rand
+```Go
+func f() {
+	rand.Seed(time.Now().UnixNano())	// 保证每次执行的时候产生的随机数都有点不一样
+	for i := 0; i < 5; i++ {
+		r1 := rand.Int() // int64 随机数
+		r2 := rand.Intn(10)
+		fmt.Println(r1, "  ", r2)
+	}
+}
+```
+
+# `channel`
+## `chan` 声明与初始化
+```go
+var b chan int // 需要指定通道中元素的类型
+```
++ `chan` 必须 `make` 函数初始化之后才可以使用！！！
+```go
+b = make(chan int) // 通道的初始化
+```
+
+## `chan` 的操作
+箭头标识数据流动的方向。
++ `<-` : 发送值 `ch1 <- 1`
++ `->` : 接收值 `<- ch1`
++ `close()` : 关闭
