@@ -33,13 +33,14 @@
 <meta property="og:description" content="go moudle 导入本地包">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-11T00:13:35.000Z">
-<meta property="article:modified_time" content="2022-05-11T06:33:43.378Z">
+<meta property="article:modified_time" content="2022-05-17T02:42:18.697Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="moudle">
 <meta property="article:tag" content="package">
 <meta property="article:tag" content="file">
 <meta property="article:tag" content="interface">
+<meta property="article:tag" content="goroutine">
 <meta name="twitter:card" content="summary">
 
 <link rel="canonical" href="https://www.xuebaonline.com/go%20moudle%20%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E5%8C%85/">
@@ -302,14 +303,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>2.5k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
             <div class="post-description">go moudle 导入本地包</div>
 
@@ -376,6 +377,44 @@
 <li><code>ioutil</code></li>
 </ul>
 <h2 id="写文件"><a href="#写文件" class="headerlink" title="写文件"></a>写文件</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">file, err := os.openFile()</span><br><span class="line">file.write/writeString</span><br><span class="line"></span><br><span class="line">bufio</span><br><span class="line"></span><br><span class="line">ioutil</span><br></pre></td></tr></table></figure>
+
+<h1 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h1><p>接口类型的变量底层分类两个部分：动态类型和动态值。<br>反射的作用： <code>json</code> 等数据解析\ORM等工具…</p>
+<h2 id="反射的两个方法"><a href="#反射的两个方法" class="headerlink" title="反射的两个方法"></a>反射的两个方法</h2><ul>
+<li><code>relfect.TypeOf()</code></li>
+<li><code>relfect.ValueOf()</code></li>
+</ul>
+<h1 id="goroutine"><a href="#goroutine" class="headerlink" title="goroutine"></a><code>goroutine</code></h1><ul>
+<li>将要并发执行的任务包装成一个函数，调用函数的时候加上 <code>go</code> 关键字，就能够开启一个 <code>goroutine</code> 去执行该函数的任务。</li>
+<li><code>goroutine</code> 对应的函数执行完，该 <code>goroutine</code> 就结束了。</li>
+<li>程序启动的时候会自动创建一个 <code>goroutine</code> 去执行 <code>main</code> 函数。</li>
+<li><code>main</code> 函数结束了，那么程序就结束了，由该程序启动的所有其他 <code>goroutine</code> 也都结束了。</li>
+</ul>
+<h2 id="goroutine-启动"><a href="#goroutine-启动" class="headerlink" title="goroutine 启动"></a><code>goroutine</code> 启动</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">hello</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	fmt.Println(<span class="string">"hello, world~ id: "</span>, i)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 程序启动之后会启动一个 main goroutine</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">100</span>; i++ &#123;</span><br><span class="line">		<span class="comment">// go hello(i) // 单独开启一个 goroutine 去执行 hello 函数(任务)</span></span><br><span class="line">		<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(i <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">			fmt.Println(i) <span class="comment">// 用的是函数传递进来的，不是外面的i</span></span><br><span class="line">		&#125;(i)</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Println(<span class="string">"main"</span>)</span><br><span class="line">	time.Sleep(time.Second)</span><br><span class="line">	<span class="comment">// main 函数结束了，由main函数启动的goroutine 也就结束了</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="goroutine-什么时间结束？"><a href="#goroutine-什么时间结束？" class="headerlink" title="goroutine 什么时间结束？"></a><code>goroutine</code> 什么时间结束？</h2><ul>
+<li><code>goroutine</code> 对应的函数执行结束了， <code>goroutine</code> 就结束了。</li>
+<li><code>main</code> 函数执行结束了，由 <code>main</code> 函数启动的 <code>goroutine</code> 也都结束了。</li>
+</ul>
+<h2 id="goroutine-调度模型"><a href="#goroutine-调度模型" class="headerlink" title="goroutine 调度模型"></a><code>goroutine</code> 调度模型</h2><p><code>GMP</code> </p>
+<ul>
+<li><code>G</code></li>
+<li><code>M</code></li>
+<li><code>P</code></li>
+</ul>
+<p><code>M:N</code>： 把 <code>m</code> 个 <code>goroutine</code> 分配给 <code>n</code> 个操作系统线程去执行。<br><code>goroutine</code> 初始占用内存大小 <code>2k</code> .</p>
+<h1 id="math-rand"><a href="#math-rand" class="headerlink" title="math/rand"></a>math/rand</h1><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">f</span><span class="params">()</span></span> &#123;</span><br><span class="line">	rand.Seed(time.Now().UnixNano())	<span class="comment">// 保证每次执行的时候产生的随机数都有点不一样</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="number">5</span>; i++ &#123;</span><br><span class="line">		r1 := rand.Int() <span class="comment">// int64 随机数</span></span><br><span class="line">		r2 := rand.Intn(<span class="number">10</span>)</span><br><span class="line">		fmt.Println(r1, <span class="string">"  "</span>, r2)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="channel"><a href="#channel" class="headerlink" title="channel"></a><code>channel</code></h1><h2 id="chan-声明与初始化"><a href="#chan-声明与初始化" class="headerlink" title="chan 声明与初始化"></a><code>chan</code> 声明与初始化</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b <span class="keyword">chan</span> <span class="keyword">int</span> <span class="comment">// 需要指定通道中元素的类型</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>chan</code> 必须 <code>make</code> 函数初始化之后才可以使用！！！<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b = <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>) <span class="comment">// 通道的初始化</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="chan-的操作"><a href="#chan-的操作" class="headerlink" title="chan 的操作"></a><code>chan</code> 的操作</h2><p>箭头标识数据流动的方向。</p>
+<ul>
+<li><code>&lt;-</code> : 发送值 <code>ch1 &lt;- 1</code></li>
+<li><code>-&gt;</code> : 接收值 <code>&lt;- ch1</code></li>
+<li><code>close()</code> : 关闭</li>
+</ul>
+
     </div>
 
     
@@ -548,7 +587,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包"><span class="nav-number">1.</span> <span class="nav-text">包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包的定义-gt-package-关键字，包名通常和目录名一致，不能包含"><span class="nav-number">1.1.</span> <span class="nav-text">包的定义 &#x3D;&gt; package 关键字，包名通常和目录名一致，不能包含 -</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包的导入-gt-import"><span class="nav-number">1.2.</span> <span class="nav-text">包的导入 &#x3D;&gt; import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包中标识符-变量名-函数名-结构体名-常量…-可见性-gt-标识符首字母大写标识对外可见"><span class="nav-number">1.3.</span> <span class="nav-text">包中标识符(变量名\函数名\结构体名\常量…)可见性 &#x3D;&gt; 标识符首字母大写标识对外可见</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">2.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的定义"><span class="nav-number">2.1.</span> <span class="nav-text">接口的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的实现"><span class="nav-number">2.2.</span> <span class="nav-text">接口的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口变量"><span class="nav-number">2.3.</span> <span class="nav-text">接口变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空接口"><span class="nav-number">2.4.</span> <span class="nav-text">空接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口底层"><span class="nav-number">2.5.</span> <span class="nav-text">接口底层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言"><span class="nav-number">2.6.</span> <span class="nav-text">类型断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件操作"><span class="nav-number">3.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开-关闭文件"><span class="nav-number">3.1.</span> <span class="nav-text">打开&#x2F;关闭文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读文件"><span class="nav-number">3.2.</span> <span class="nav-text">读文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文件"><span class="nav-number">3.3.</span> <span class="nav-text">写文件</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#包"><span class="nav-number">1.</span> <span class="nav-text">包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包的定义-gt-package-关键字，包名通常和目录名一致，不能包含"><span class="nav-number">1.1.</span> <span class="nav-text">包的定义 &#x3D;&gt; package 关键字，包名通常和目录名一致，不能包含 -</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包的导入-gt-import"><span class="nav-number">1.2.</span> <span class="nav-text">包的导入 &#x3D;&gt; import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#包中标识符-变量名-函数名-结构体名-常量…-可见性-gt-标识符首字母大写标识对外可见"><span class="nav-number">1.3.</span> <span class="nav-text">包中标识符(变量名\函数名\结构体名\常量…)可见性 &#x3D;&gt; 标识符首字母大写标识对外可见</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#接口"><span class="nav-number">2.</span> <span class="nav-text">接口</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的定义"><span class="nav-number">2.1.</span> <span class="nav-text">接口的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口的实现"><span class="nav-number">2.2.</span> <span class="nav-text">接口的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口变量"><span class="nav-number">2.3.</span> <span class="nav-text">接口变量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#空接口"><span class="nav-number">2.4.</span> <span class="nav-text">空接口</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口底层"><span class="nav-number">2.5.</span> <span class="nav-text">接口底层</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型断言"><span class="nav-number">2.6.</span> <span class="nav-text">类型断言</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#文件操作"><span class="nav-number">3.</span> <span class="nav-text">文件操作</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#打开-关闭文件"><span class="nav-number">3.1.</span> <span class="nav-text">打开&#x2F;关闭文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读文件"><span class="nav-number">3.2.</span> <span class="nav-text">读文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写文件"><span class="nav-number">3.3.</span> <span class="nav-text">写文件</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#反射"><span class="nav-number">4.</span> <span class="nav-text">反射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#反射的两个方法"><span class="nav-number">4.1.</span> <span class="nav-text">反射的两个方法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#goroutine"><span class="nav-number">5.</span> <span class="nav-text">goroutine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine-启动"><span class="nav-number">5.1.</span> <span class="nav-text">goroutine 启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine-什么时间结束？"><span class="nav-number">5.2.</span> <span class="nav-text">goroutine 什么时间结束？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#goroutine-调度模型"><span class="nav-number">5.3.</span> <span class="nav-text">goroutine 调度模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#math-rand"><span class="nav-number">6.</span> <span class="nav-text">math&#x2F;rand</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#channel"><span class="nav-number">7.</span> <span class="nav-text">channel</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#chan-声明与初始化"><span class="nav-number">7.1.</span> <span class="nav-text">chan 声明与初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#chan-的操作"><span class="nav-number">7.2.</span> <span class="nav-text">chan 的操作</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -669,7 +708,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:42</span>
+    <span title="站点阅读时长">22:43</span>
 </div>
 
 <!--
