@@ -192,14 +192,29 @@ func main() {
 + `goroutine` 对应的函数执行结束了， `goroutine` 就结束了。
 + `main` 函数执行结束了，由 `main` 函数启动的 `goroutine` 也都结束了。
 
+## `sync.WaitGroup`
+`var wg sync.WaitGroup`
++ `wg.Add(1)` 计数器 +1
++ `wg.Done()` 计数器-1
++ `wg.Wait()` 等待
+
 ##  `goroutine` 调度模型
-`GMP` 
-+ `G`
-+ `M`
-+ `P`
+`goroutine` 的本质: `GMP` 
++ `G`: `goroutine`
++ `M`: 
++ `P`:
+
+## `goroutine` 与 操作系统线程(`OS线程`)的区别
+`goroutine` 是用户态的线程，比内核态的线程更加轻量级一些，初始化时之占用2k的空间，可以轻松开启是十万个 `goroutine` 也不会崩内存。
 
 `M:N`： 把 `m` 个 `goroutine` 分配给 `n` 个操作系统线程去执行。
-`goroutine` 初始占用内存大小 `2k` .
+
+### `runtime.GOMAXPROCS`
+`Go1.5` 之后默认操作系统的逻辑核心数，默认跑满 `CPU` 。
+`runtime.GOMAXPROCS(1)` ： 只占用一个内核。
+
+### `work pool` 模式
+开启一定数量的 `goroutine` 去干活。
 # math/rand
 ```Go
 func f() {
@@ -213,13 +228,19 @@ func f() {
 ```
 
 # `channel`
+通过 `channel` 实现多个 `goroutine` 之间的通信。
+`CSP`：通过通信来共享内存。
+
+`channel` 是一种类型，一种引用类型。 `make` 函数初始化之后才能使用。（`slice`、`map`、`channel`）
+
 ## `chan` 声明与初始化
 ```go
 var b chan int // 需要指定通道中元素的类型
 ```
-+ `chan` 必须 `make` 函数初始化之后才可以使用！！！
++ ***`chan` 必须 `make` 函数初始化之后才可以使用！！！***
 ```go
-b = make(chan int) // 通道的初始化
+b = make(chan int) // 不带有缓存的通道的初始化
+b = make(chan int, 3) // 带有缓存的通道的初始化
 ```
 
 ## `chan` 的操作
@@ -227,3 +248,28 @@ b = make(chan int) // 通道的初始化
 + `<-` : 发送值 `ch1 <- 1`
 + `->` : 接收值 `<- ch1`
 + `close()` : 关闭
+
+```Go
+for {
+	x, ok := <-ch
+	if !ok {
+		break
+	}
+	fmt.Println(x)
+}
+
+for x := range ch {
+	fmt.Println(x)
+}
+```
+
+## 单向通道
+通常作为函数的参数，只读通道：`<-ch` 只写通道：`ch<- int` 。
+
+## `select` 
+同一时刻有多个通道接收数据。
+
+使用 `select` 语句能提高代码的可读性。
++ 可处理一个或多个 `channel` 的发送/接收操作。
++ 如果多个 `case` `同时满足，select` 会随机选择一个。
++ 对于没有 `case` 的 `select{}` 会一直等待，可用于阻塞 `main` 函数。
