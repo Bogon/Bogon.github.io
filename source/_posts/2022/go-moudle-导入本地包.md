@@ -273,3 +273,101 @@ for x := range ch {
 + 可处理一个或多个 `channel` 的发送/接收操作。
 + 如果多个 `case` `同时满足，select` 会随机选择一个。
 + 对于没有 `case` 的 `select{}` 会一直等待，可用于阻塞 `main` 函数。
+
+# `package sync` 包内容
+## 互斥锁
+`sync.Mutex` 是一个结构体，是一个值类型，给函数传参数的时候要传递指针。
+### 两个用法
+```Go
+var lock sync.Mutex
+lock.Lock()	 // 加锁
+lock.Unlock()	// 解锁
+```
+
+### 为什么要加锁？
+防止同一时刻多个 `goroutine` 操作同一个资源。
+
+## 读写互斥锁
+### 应用场景
+适用于读多写少的场景下。
+
+###  优点
++ 读的 goroutine 来了获取的是读取锁，后续的 goroutine 能读不能写。
++ 写的 goroutine 来了获取的是写锁，后续的 goroutine 不管是读写都要等待获取锁。
+
+### 使用
+```Go
+var rwLock sync.RWMutex
+rwLock.RLock()	// 获取读锁
+rwLock.RUnlock()  // 释放读锁
+
+rwLock.Lock()	// 获取写锁
+rwLock.Unlock()	// 释放写锁
+```
+
+## 等待组
+`sync.WaitGroup` 用来等 `goroutine` 执行完成再继续。
+同时是一个结构体，是一个值类型，给函数传参数的时候要传递指针。
+
+### 使用
+```Go
+var wg sync.WaitGroup
+
+wg.Add(1)	// 开启介几个 goroutine 就加几个计数
+wg.Done()	// 在goroutine 对应的函数中，函数要结束的时候表示 goroutine 完成，计数器 -1
+wg.Wait()	// 阻塞，等待所有的 goroutine 都结束
+```
+
+## **`sync.Once`**
+### 使用场景
+某些函数只需要执行一次的时候就可以使用 `sync.Once` 。
+比如并发，博客中加载图片
+
+```Go
+var once sync.Once
+
+once.Do()	// 接受一个没有参数也没有返回值的函数，如果需要可以使用闭包
+```
+
+## **`sync.Map`**
+### 使用场景
+并发操作一个 `map` 的时候，内置的 `map` 不是并发安全的。
+
+### 使用
+是一个开箱即用的并发安全的 `map` 。
+```Go
+var syncMap sync.Map
+
+// Map[Key] = value
+syncMap.Store(key, value)
+syncMap.Load(key)
+syncMap.LoadOrStore()
+syncMap.Delete()
+syncMap.Range()
+```
+
+## 原子操作
+`go` 语言中内置了一些针对内置的基本数据类型的一些并发安全的操作。
+
+```Go
+var i int64 = 10
+atomic.AddInt64(&i, 1)
+```
+
+# 网络编程
+`OSI` 七层模型
+
+`http`: 超文本传输协议。
+规定了：浏览器和服务器之间通信的规则。
+`HTML`: 超文本标记语言
+学习 `HTML` 就是学习标记的符号、标签。
+
+`CSS`: 层叠样式表
++ 规定了 `HTML` 中标签的具体样式(颜色\背景\大小\位置\浮动)
+
+`JsvsScript`: 一种跑在浏览器上的编程语言。
+
+## **`http.Client`**
+
+# 今日分享
+***`注释`*** \ ***`日志`*** \ ***`单元测试`*** 
