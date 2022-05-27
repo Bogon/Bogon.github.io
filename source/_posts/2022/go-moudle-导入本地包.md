@@ -369,5 +369,167 @@ atomic.AddInt64(&i, 1)
 
 ## **`http.Client`**
 
+# 测试
+开发自己给自己的代码写测试。
+测试函数覆盖率：100%
+测试代码覆盖率：60%
+
+## 单元测试
+`xxxccc.go`
+单元测试文件必须是 `xxx/ccc_text.go` 。
+`go` 内置的测试工具：
+```Go
+go test
+```
+
+单元测试函数的格式：
+```Go
+import "testing"
+// Test开头的后缀名
+func TestSplit(t *testing.T) {
+	t.Fatal()
+}
+```
+
+## 性能测试/基准测试
+函数格式：
+```Go
+func BenchmarkSplit(b *testing.B) {
+	// b.N 被测试函数执行的次数
+}
+```
+执行命令：`go test -bench -v`
+
+## 并行测试
+### `setup` 和 `teardown`
+
+### `pprof`
+记录 `CPU` 快照信息。
+记录 内存的快照信息。
+
+# `flag`
+
+## `os.Args` 
+```Go
+./xxx a b c
+```
+
+`osArgs:["./xxx", "a", "b", "c"]`
+
+## flag 标准库
+### 声明变量
+```Go
+./xxx -name="asd" -age=120
+```
+
+```Go
+nameVal := flag.String("name", "qwed", "请输入你的名字") // 返回是对象的指针变量
+
+var nameVal2 string
+flag.StringVar(&nameVal2, "name", "qwed", "请输入你的名字")	// 把一个已经存在的变量绑定到命令行
+flag.TypeVar()
+
+//flag 参数
+```
+
+必须要调用：
+```Go
+flag.Parse() // 解析命令行传入的参数，赋值给对应的变量
+```
+
+其他方法：
+```Go
+flag.Args()	// 返回命令行参数后的其他参数，以[]string类型
+flag.NArg()	// 返回命令行参数后的其他参数个数
+flag.NFlag() // 返回使用命令行参数个数
+```
+
+
+
 # 今日分享
 ***`注释`*** \ ***`日志`*** \ ***`单元测试`*** 
+
+# MySQL
+## 数据库
+常见的数据库：`sqlite`、`MySQL`、`SQLServer`、`postgreSQL`、`Oracle`
+`MySQL` 主流的关系型数据库，类似的还有 `postgSQL` 。
+关系型数据库：
+用表来存储一类数据。
+表结构设计的三大范式：《漫画数据库》
+
+
+## MySQL 知识点
+`SQL` 语句
+
+`DDL`：操作数据库
+`DML`：表的增删改查
+`DCL`：操作权限
+
+## 数据库引擎
+`MySQL` 支持插件式的存储引擎。
+常见的存储引擎：`MyISAM` 和 `InnoDB`。
+
+`MyISAM`：
++ 查询速度快
++ 只支持表锁
++ 不支持事务
+
+`InnoDB`： 
++ 整体速度快
++ 支持表锁和行锁
++ 支持事务
+
+### 事务
+把多个 SQL 操作当成一个整体。
+
+事务的特点：
+ACID：
++ 原子性：事务要么成功，要么失败，没有中间状态
++ 一致性：数据库的完整性没有被破坏
++ 隔离性：事务之间的操作时互相隔离的
+	+ 隔离的四个级别
++ 持久性：事务操作的结果是不会丢失的
+
+索引：
+索引的原理是啥：B树和B+树
+索引的类型
+索引的命中
+分库分表
+`SQL` 注入
+`SQL` 慢查询优化
+
+`MySQL` 主从：
+	`binlog`
+
+`MySQL` 读写分离
+
+
+## `Go` 操作 `MySQL`
+`database/sql` 原生支持连接池，是并发安全的。
+这个标准库没有具体的实现，只是列出了一些需要第三方库实现的具体内容。
+
+### 下载驱动
+```Go
+go get -u github.com/go-sql-driver/mysql
+```
+
+`go get` 包的路径就是下载 地方的依赖。
+将第三方依赖默认保存在： `$GOPATH/src/` 下面。
+
+### 使用
+
+# Redis
+KV数据库
+
+`Redis` 用处：
++ `cache` 缓存
++ 简单队列
++ 排行榜
+
+
+
+# NSQ
+Go 语言开发的轻量级的消息队列。
+
+# 包的依赖管理 go moudle
+Go1.11 之后引入的三方包管理工具。
