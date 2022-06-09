@@ -533,3 +533,114 @@ Go 语言开发的轻量级的消息队列。
 
 # 包的依赖管理 go moudle
 Go1.11 之后引入的三方包管理工具。
+
+## goproxy
+设置代理，下载类库更快。
+```Go
+export GOPROXY=https://goproxy.cn		// mac
+
+SET GOPROXY=https://goproxy.cn	// windows
+```
+
+## go.mod 文件
+记录当前项目依赖的第三方包信息和版本信息。
+第三方的依赖包都下载到 `$GOPATH/pkg/mod` 目录下。
+
+## go.sum文件
+详细报名和版本信息。
+
+## 常用命令
+```Go
+go mod init	[包名]// 初始化信息
+go mod tidy	// 检查包里面的依赖去更新 go.mod 文件中的依赖
+go get 
+go mod download	// 下载
+```
+
+# Context
+非常重要。
+如何优雅的控制子 goroutine 的退出？
+
+## 两个默认值
+```Go
+context.Backgroud()
+context.TODO()
+```
+
+## 四个方法
+```Go
+context.WithCancel(context.Backgroud())
+context.WithDeadline(context.Backgroud(), time.time)
+context.WithTimeout(context.Backgroud(), time.Duration)
+context.WithValue(context.Backgroud(), key, value)
+```
+
+# 服务端 Agent 开发
+`zookkeepr`、`kafka` 部署文档:
+
+## `Kafka`
++ `Kafka` 集群的架构：
+	+ `broker`
+	+ `topic`
+	+ `partition`: 分区，把同一个 `topic` 分成不同的分区，提高负载
+		+ `leader`: 分区的主节点
+		+ `follower`: 分区的从节点
+	+ `Consumer Group`
++ 生产者向 Kafka 写入数据的流程
+
++ kafka 选择分区的模式
+	+ 制定分区
+	+ 指定key， ，kafka 根据key做hash决定写入哪个分区
+	+ 轮询模式
+
++ 生产者向 kafka 发送数据的模式(3种)
+	+ 0：把数据发送给leader就结束，效率高、安全性底
+	+ 1：把数据发送给leader，等待leader返回ACK
+	+ all：把数据发送给leader，确保follower从leader拉取数据回复ACK给leader，leader在回复ACK，安全性最高。
+
++ 为什么kafka 快？
+
+logAgent的工作流程：
++ 读取日志 `tailf` 三方库
++ 向kafka中写日志 `sarama` 写日志库
+
+
+
+
+## Kafaka 和 zookeeper 
+
+## tail 介绍
+kafka 终端读取数据：
+```Bash
+./bin/kafka-console-consumer.sh --bootstrop-server=127.0.0.1:9092 --topic=web_log
+```
+
+熟练使用：`gopkg.in/ini.v1`
+
+## 日志收集项目
+### 为什么要自己写不用 `ELK` ？
+`ELK`: 部署的时候麻烦，每一个 `filebeat` 都需要配置一个配置文件。
+使用 `etcd` 来管理被收集的日志。
+
+## `etcd`
+### 使用 `etcd` 优化日志收集项目。
+启动 etcd ：
+```Bash
+# 启动 zookeeper
+./bin/zookeeper-server-start.sh config/zookeeper.properties
+# 启动 kafka
+./bin/kafka-server-start.sh config/server.properties
+# 启动 etcd
+./etcd
+```
+
+### `Raft` 协议 
++ 选举
++ 日志复制机制
++ 异常处理
++ `zookeeper` 的 `zad` 协议的区别
+
+# 类库学习介绍
++ `gin`: 网络请求框架
++ `multitemplate`: 加载本地自定义模板 `https://github.com/gin-contrib/multitemplate`
+
