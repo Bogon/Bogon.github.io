@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="组件化插件化与模块化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组件化插件化与模块化">
+<meta property="og:url" content="https://www.xuebaonline.com/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="组件化插件化与模块化">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-06-09T09:43:09.000Z">
+<meta property="article:modified_time" content="2022-06-09T09:46:36.782Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="组件">
+<meta property="article:tag" content="组件化">
+<meta property="article:tag" content="插件化">
+<meta property="article:tag" content="模块化">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>组件化插件化与模块化 | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">142</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">66</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">173</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          组件化插件化与模块化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-06-09 17:43:09" itemprop="dateCreated datePublished" datetime="2022-06-09T17:43:09+08:00">2022-06-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%84%E4%BB%B6%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">组件化</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%BB%84%E4%BB%B6%E5%8C%96/%E6%A8%A1%E5%9D%97%E5%8C%96/" itemprop="url" rel="index"><span itemprop="name">模块化</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">组件化插件化与模块化</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>聊聊 <code>组件化</code>、<code>插件化</code> 以及 <code>模块化</code> 三个概念如何区分，以及在工程实践当中具体要解决什么样的问题，在实践当中要达到的目的，在整个项目团队中要起到怎样的作用。</p>
+<h1 id="组件化与插件化"><a href="#组件化与插件化" class="headerlink" title="组件化与插件化"></a>组件化与插件化</h1><ul>
+<li><p>组件：通俗点就是组件化就是基于可重用的目的，将一个大的软件系统按照分离关注点的形式，拆分成多个独立的组件。组件的出现是为了解决全局工程中有很多重复代码的问题，是为了复用，而且划分力度是相对较小的模块。组件化的另一个目的是为了解耦，把系统拆分成多个组件，分离组件边界和责任，便于独立升级和维护。</p>
+</li>
+<li><p>插件：可以理解为是封装了一层对外调用的接口的组件。插件的概念比较形象，一般存在一个“插拔”过程，所以要求可插拔的插件有一个相同的接口（这里所说的接口只是概念上的接口，即调用方法及参数等）。而组件是不存在这个相同接口的。</p>
+</li>
+</ul>
+<a id="more"></a>
+
+<p>拿我们最常见的网络请求功能举例，无论哪种开发语言，<code>github</code> 上可能都有多种网络请求组件，那么对于一个项目而言，从一个网络组件 <code>ComponentA</code> 切换为另一个网络组件 <code>ComponentB</code> 是基本无法做到调用方法不改动的。而如果把网络请求组件插件化，即在组件外层抽象一层统一化的调用接口 <code>NetworkInterface</code> ，然后将当前使用网络请求组件 <code>ComponentA</code> 包装成实现该接口的网络请求插件 <code>PluginA</code> 。那么如果以后需要将使用的 <code>ComponentA</code> 切换为 <code>ComponentB</code> ，就只需要将 <code>ComponentB</code> 包装成 <code>PluginB</code> 并插入到应用中即可。<br>实际调用时，业务代码还是调用 <code>NetworkInterface</code> ，不用做任何修改。</p>
+<blockquote>
+<p>从上面这个例子我们可以看出，插件和组件的实质区别就在于通过统一接口隔绝业务代码对于组件的直接依赖，这也是我们常听到的所谓的“项目开发时应该把第三方组件封装一下再用”。</p>
+</blockquote>
+<h1 id="组件化与模块化"><a href="#组件化与模块化" class="headerlink" title="组件化与模块化"></a>组件化与模块化</h1><ul>
+<li>模块：模块化的目的在于将一个程序按照其功能做拆分，分成相互独立的模块，以便于每个模块只包含与其功能相关的内容，模块之间通过接口调用。将一个大的系统模块化之后，每个模块都可以被高度复用。但是值得注意的是模块不等于功能，二者的关系大概为：功能 &gt; 模块。<br>  一个功能可能包含多个模块。</li>
+</ul>
+<blockquote>
+<p><em><strong>两者的实质区别在于：组件化开发是纵向分层，模块化开发是横向分块。</strong></em></p>
+</blockquote>
+<p>所以，模块化并没有要求一定组件化，就是说进行模块化拆分时你可以完全不考虑代码重用，只是把同一业务的代码做内聚整合成不同的模块。只不过这样得到的成果相对简单，我们一般不会这样而已。<br>组件化就比如项目中公共的 <code>alert</code> 框，它的出现其实是基于代码复用的目的，所以我们把它封装，并给多个地方使用。<br>而模块化就比如一个资讯列表界面，它本身可能只在一个地方使用，没有复用的需求，但我们也要把它封装成模块，这是高内聚的要求，我们不应该把资讯相关的代码在项目中放得到处都是。</p>
+<p>但像这样的简单模块只是轻模块，统一接口较少。而统一定义的接口越多，其实和主应用的耦合就越高，也便是重模块。<br>而路由就是解决高耦合问题的，不过耦合问题不是模块化开发的需求，只不过我们一般都会在这个时间考虑这一事情而已，就像我们不会只做模块化开发同时不做组件化开发一样。</p>
+<h1 id="以一个项目实例来渐进式辨析"><a href="#以一个项目实例来渐进式辨析" class="headerlink" title="以一个项目实例来渐进式辨析"></a>以一个项目实例来渐进式辨析</h1><p>上面讲了一下几个概念的区别，拿一个渐进式开发移动端项目的例子进行辨析。<br>首先我们定义一个虚拟的产品——一款知识类应用，包含常见的资讯、问答、学院、直播等功能。<br>接下来我们从设计的角度逐步拆分这个产品。</p>
+<h2 id="原始态"><a href="#原始态" class="headerlink" title="原始态"></a>原始态</h2><p>如果开发时没有考虑任何组件化、模块化开发，那么此应用的所有功能都是堆积在一起的，总结起来就是代码特点就是高耦合，低内聚，无重用。<br>面对这样的一堆代码，技术经理可能要让你做一下代码重构，这就是你下一步的工作。</p>
+<h2 id="组件"><a href="#组件" class="headerlink" title="组件"></a>组件</h2><p>那么你进行代码重构的第一步是什么呢？<br>答：将工程中重复的代码合并成为一份，也就是重用。</p>
+<p>如果让我们来看组件化开发的定义，它的着重点就是代码重用。那这一步最后的结果就是提炼出一个个组件给不同的功能使用。</p>
+<p>这里我们可以看一下其中的依赖关系：具体功能依赖提炼出来的组件，组件本身之间可能也有依赖关系，但一般不多。<br>所以我们总结组件化开发的原则就是高重用，低耦合。当然这只是相对而言。</p>
+<p>基于这样的认识，我们甚至于可以把资讯、问答、学院、直播等功能封装成组件，只不过这些组件比较大，依赖可能多些，不过本质上没有多少区别。<br>就在你进行重构的过程中，这时需求来了：运营人员要求首页顶部的九宫格样式工具栏可动态配置，通过服务端数据修改显示功能，并调用对应的功能页面。</p>
+<h2 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h2><p>代码重构从来不是超然物外的，在进行过程中接到新需求也是常有的事情。那么，对于这样一个需求，应该怎么考虑呢？<br>这个动态化需求很普遍，只不过这里有一个隐性要求——既然需求中要求功能动态配置，那么调用功能的地方就不知道功能的具体实现。</p>
+<p>所以最终的方案中被调用功能必须有统一接口。我们这里说的接口只是编程领域的抽象概念，并非是指具体语言的 <code>interface</code> 或者 <code>protocol</code> 。<br>而有了这一统一接口，其配置功能其实就是“插拔”过程了。这样的成果实质上已经是插件了。</p>
+<p>插件可以解释成可插拔式组件，它的核心就是不同功能实现提供统一接口。</p>
+<p>项目中插件化的例子其实也不少，再举一个例子：比如资讯和问答功能使用的弹框样式不同，但是在两个功能内部其弹框样式是一致的。</p>
+<p>面对这样的问题，你在重构时可能会简单的封装出两个组件 <code>AlertA</code> 和 <code>AlertB</code> ，分别给两个功能使用。<br>这样确实很便捷，而且适合当下的场景，但是从设计或者长远发展的角度上来考虑，如果资讯里面弹框样式需要换成和问答一样，甚至其他样式，那么基于现有的方法，你就需要修改资讯功能中所有调用弹框的地方。</p>
+<p>所以插件化是解决这个问题的好办法：定义 <code>AlertInterface</code> 接口给具体业务功能使用，并实现 <code>AlertPluginA</code> 、 <code>AlertPluginB</code> ，在外面给不同的功能指定不同的插件即可。</p>
+<p>其实 <code>iOS</code> 中最常见的插件就是<code> UITableView</code>，就是通过接口（协议-代理）实现。</p>
+<h2 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h2><p>这时候项目的组件化拆分完成，技术经理说以后不同的模块会交由不同的人来维护，各人维护各自负责的代码。</p>
+<p>这个需求初看上去只是项目管理上的需求，但实际执行时若资讯、问答、学院、直播分别由四个人维护，那么他们虽然大部分代码是相互隔离的，但仍然会有相当一部分代码耦合在一起，有时候会同时修改同一个代码文件。</p>
+<p>这时候要做的自然就是模块化。</p>
+<p>为什么是模块化呢？按照模块的定义，它是以关注点进行划分的，而关注点说到底就是功能，也就是说根据我们上面的例子，资讯、问答、学院、直播可以分成不同的模块。</p>
+<p>我们最开始定义这个虚拟产品的时候说，它有三个特点——高耦合、低内聚、无重用。<br>而第一点组件化开发主要是解决了重用问题，提升了部分内聚，而耦合问题则没有涉及。</p>
+<p>所以说我们上面可以将这个产品在逻辑上划分为资讯、问答、学院、直播四个模块，但在代码层面上它们却不是四个模块，因为它们的代码都是混杂在一起的。<br>比如产品首页，可能推荐了部分资讯、显示了热门问答、推送了目前的直播，而这些功能的代码则是写在一起的；再比如程序启动的时候，这四个模块都需要初始化一些数据，而初始化数据的代码也是写在一起的。</p>
+<p>而模块化开发就是为了解决这一问题，即提高内聚，将分属同一模块代码放到一起；降低耦合，将不同模块间的耦合程度弱化。</p>
+<p>高内聚是这一步的目标。但现状是有许多地方会用到多个模块，比如启动的时候会调用四个模块，首页会展示三个模块的界面。<br>如果要高内聚，那么必然需要这些模块为不同的场景提供相同的方法，这就是说所有模块要实现同一套多个接口。</p>
+<p>而低耦合其实并非是模块化开发的要求，其实更多时候是基于产品上的动态化要求，所以最常见的解决方案就是路由机制。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>组件：代码重用，功能相对单一或者独立，无统一接口。组件化开发的成果是基础库和公共组件。</li>
+<li>插件：近乎组件，有统一接口，可以说是封装了一层对外调用的接口的组件。</li>
+<li>模块：高内聚，松耦合，功能相对复杂，有多个统一接口。模块化开发的基础是框架。</li>
+</ul>
+<p>首先，可以肯定的是，组件化和模块化的中心思想都是分而治之。目的都是将一个庞大的系统拆分成多个组件或者说是模块。<br>而且如果大的组件也可以称为模块，小的模块也可以称为组件，所以，在我看来组件和模块的划分并没有那么的泾渭分明。随意两者的粒度的大小改变，两者是可以转换的。</p>
+<p>最后说一下，这三个概念是经常同时出现在一个项目中的，我们往往对复杂大项目进行模块化划分的时候，也会进行组件化，而且插件化的本质是面向接口编程，对于组件化和模块化都是适用的，可实现随意插拔的灵活和高扩展性，属于项目架构的高端设计。</p>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/%E7%BB%84%E4%BB%B6%E5%8C%96%E6%8F%92%E4%BB%B6%E5%8C%96%E4%B8%8E%E6%A8%A1%E5%9D%97%E5%8C%96/" title="组件化插件化与模块化">https://www.xuebaonline.com/组件化插件化与模块化/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/%E7%BB%84%E4%BB%B6%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 组件化</a>
+              <a href="/tags/%E6%A8%A1%E5%9D%97%E5%8C%96/" rel="tag"><i class="fa fa-tag"></i> 模块化</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/%E7%BB%84%E4%BB%B6%E8%AE%BE%E8%AE%A1%E4%B8%8ESDK%E5%BC%80%E5%8F%91%E5%9F%BA%E6%9C%AC%E8%A7%84%E8%8C%83/" rel="prev" title="组件设计与SDK开发基本规范">
+      <i class="fa fa-chevron-left"></i> 组件设计与SDK开发基本规范
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化与插件化"><span class="nav-number">2.</span> <span class="nav-text">组件化与插件化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组件化与模块化"><span class="nav-number">3.</span> <span class="nav-text">组件化与模块化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#以一个项目实例来渐进式辨析"><span class="nav-number">4.</span> <span class="nav-text">以一个项目实例来渐进式辨析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原始态"><span class="nav-number">4.1.</span> <span class="nav-text">原始态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件"><span class="nav-number">4.2.</span> <span class="nav-text">组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#插件"><span class="nav-number">4.3.</span> <span class="nav-text">插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模块"><span class="nav-number">4.4.</span> <span class="nav-text">模块</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">173</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">66</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">142</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2021 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">22:52</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
