@@ -3,13 +3,14 @@ title: 组件设计与SDK开发基本规范
 description: 组件设计与SDK开发基本规范
 permalink: 组件设计与SDK开发基本规范
 copyright: true
-date: 2022-06-09 17:42:46
-keywords: 组件,组件化,SDK,开发规范
+keywords: '组件,组件化,SDK,开发规范'
 tags:
   - 组件化
 categories:
   - 组件化
   - SDK
+abbrlink: 60489
+date: 2022-06-09 17:42:46
 ---
 
 在 `SDK` 和组件的设计过程中从 ***设计原则***、***代码规范***、***文档规范***、***第三方依赖处理原则***、***版本管理规范*** 五个大的方面来讨论。
