@@ -3,12 +3,13 @@ title: go 每日一问
 description: go 每日一问
 permalink: go 每日一问
 copyright: true
-date: 2022-06-13 20:10:44
-keywords: go,进阶,学习
+keywords: 'go,进阶,学习'
 tags:
   - go
 categories:
   - go
+abbrlink: 48711
+date: 2022-06-13 20:10:44
 ---
 
 # 基础类
