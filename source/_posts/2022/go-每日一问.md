@@ -61,3 +61,20 @@ date: 2022-06-13 20:10:44
 
 + `goroutine` 对应的函数执行结束了， `goroutine` 就结束了。
 + `main` 函数执行结束了，由 `main` 函数启动的 `goroutine` 也都结束了。
+
+
+## ***2022-06-19*** 
+问： [如何在运行时检查变量类型?](https://draveness.me/golang/docs/part1-prerequisite/ch02-compile/golang-typecheck/)
+类型开关(`Type Switch`)是在运行时检查变量类型的最佳方式。类型开关按类型 而不是值来评估变量。每个 `Switch` 至少包含一个 `case` 用作条件语句，如果没 有一个 `case` 为真，则执行 `default` 。
+
+## ***2022-06-20*** 
+问： [Go 两个接口之间可以存在什么关系?](https://draveness.me/golang/docs/part2-foundation/ch04-basic/golang-interface/)
+如果两个接口有相同的方法列表，那么他们就是等价的，可以相互赋值。如果 接口 A 的方法列表是接口 B 的方法列表的子集，那么接口 B 可以赋值给接口 A。接口查询是否成功，要在运行期才能够确定。
+
+## ***2022-06-21*** 
+问： [Go 当中同步锁有什么特点?作用是什么?](https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/)
+同步锁的特点：
++ `Mutex`：当一个 `Goroutine`（协程）获得了 `Mutex` 后，其他 `Gorouline`（协程）就只能进入等待之中，除非该 `gorouline` 释放了该 `Mutex` 。
+
++ `RWMutex`（读写锁）：`RWMutex` 在读锁占用的情况下，会阻止写，但不阻止读；`RWMutex` 在写锁占用情况下，会阻止任何其他 `goroutine`（读和写）进来，整个锁相当于由该 `goroutine`（协程）独占。
+> 同步锁的作用：保证资源在使用时的独有性，不会因为并发而导致数据错乱，保证系统并发时的稳定性。
