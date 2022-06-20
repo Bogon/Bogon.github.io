@@ -33,7 +33,7 @@
 <meta property="og:description" content="go 每日一问">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-06-13T12:10:44.000Z">
-<meta property="article:modified_time" content="2022-06-20T00:50:01.565Z">
+<meta property="article:modified_time" content="2022-06-20T03:39:48.264Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="进阶">
@@ -296,7 +296,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>917</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -359,6 +359,18 @@
 <li><p><code>goroutine</code> 对应的函数执行结束了， <code>goroutine</code> 就结束了。</p>
 </li>
 <li><p><code>main</code> 函数执行结束了，由 <code>main</code> 函数启动的 <code>goroutine</code> 也都结束了。</p>
+</li>
+</ul>
+<h2 id="2022-06-19"><a href="#2022-06-19" class="headerlink" title="2022-06-19"></a><em><strong>2022-06-19</strong></em></h2><p>问： <a href="https://draveness.me/golang/docs/part1-prerequisite/ch02-compile/golang-typecheck/" target="_blank" rel="noopener">如何在运行时检查变量类型?</a><br>类型开关(<code>Type Switch</code>)是在运行时检查变量类型的最佳方式。类型开关按类型 而不是值来评估变量。每个 <code>Switch</code> 至少包含一个 <code>case</code> 用作条件语句，如果没 有一个 <code>case</code> 为真，则执行 <code>default</code> 。</p>
+<h2 id="2022-06-20"><a href="#2022-06-20" class="headerlink" title="2022-06-20"></a><em><strong>2022-06-20</strong></em></h2><p>问： <a href="https://draveness.me/golang/docs/part2-foundation/ch04-basic/golang-interface/" target="_blank" rel="noopener">Go 两个接口之间可以存在什么关系?</a><br>如果两个接口有相同的方法列表，那么他们就是等价的，可以相互赋值。如果 接口 A 的方法列表是接口 B 的方法列表的子集，那么接口 B 可以赋值给接口 A。接口查询是否成功，要在运行期才能够确定。</p>
+<h2 id="2022-06-21"><a href="#2022-06-21" class="headerlink" title="2022-06-21"></a><em><strong>2022-06-21</strong></em></h2><p>问： <a href="https://draveness.me/golang/docs/part3-runtime/ch06-concurrency/golang-sync-primitives/" target="_blank" rel="noopener">Go 当中同步锁有什么特点?作用是什么?</a><br>同步锁的特点：</p>
+<ul>
+<li><p><code>Mutex</code>：当一个 <code>Goroutine</code>（协程）获得了 <code>Mutex</code> 后，其他 <code>Gorouline</code>（协程）就只能进入等待之中，除非该 <code>gorouline</code> 释放了该 <code>Mutex</code> 。</p>
+</li>
+<li><p><code>RWMutex</code>（读写锁）：<code>RWMutex</code> 在读锁占用的情况下，会阻止写，但不阻止读；<code>RWMutex</code> 在写锁占用情况下，会阻止任何其他 <code>goroutine</code>（读和写）进来，整个锁相当于由该 <code>goroutine</code>（协程）独占。</p>
+<blockquote>
+<p>同步锁的作用：保证资源在使用时的独有性，不会因为并发而导致数据错乱，保证系统并发时的稳定性。</p>
+</blockquote>
 </li>
 </ul>
 
@@ -532,7 +544,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础类"><span class="nav-number">1.</span> <span class="nav-text">基础类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-13"><span class="nav-number">1.1.</span> <span class="nav-text">2022-06-13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-14"><span class="nav-number">1.2.</span> <span class="nav-text">2022-06-14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-15"><span class="nav-number">1.3.</span> <span class="nav-text">2022-06-15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-16"><span class="nav-number">1.4.</span> <span class="nav-text">2022-06-16</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-17"><span class="nav-number">1.5.</span> <span class="nav-text">2022-06-17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-18"><span class="nav-number">1.6.</span> <span class="nav-text">2022-06-18</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#基础类"><span class="nav-number">1.</span> <span class="nav-text">基础类</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-13"><span class="nav-number">1.1.</span> <span class="nav-text">2022-06-13</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-14"><span class="nav-number">1.2.</span> <span class="nav-text">2022-06-14</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-15"><span class="nav-number">1.3.</span> <span class="nav-text">2022-06-15</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-16"><span class="nav-number">1.4.</span> <span class="nav-text">2022-06-16</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-17"><span class="nav-number">1.5.</span> <span class="nav-text">2022-06-17</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-18"><span class="nav-number">1.6.</span> <span class="nav-text">2022-06-18</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-19"><span class="nav-number">1.7.</span> <span class="nav-text">2022-06-19</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-20"><span class="nav-number">1.8.</span> <span class="nav-text">2022-06-20</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2022-06-21"><span class="nav-number">1.9.</span> <span class="nav-text">2022-06-21</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -653,7 +665,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">22:53</span>
+    <span title="站点阅读时长">22:54</span>
 </div>
 
 <!--
