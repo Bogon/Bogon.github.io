@@ -85,3 +85,16 @@ date: 2022-06-13 20:10:44
 如果给一个 `nil` 的 `channel` 发送数据，会造成永远阻塞。
 如果从一个 `nil` 的 channel 中接收数据，也会造成永久阻塞。 给一个已经关闭的 `channel` 发送数据， 会引起 `panic`
 从一个已经关闭的 `channel` 接收数据， 如果缓冲区中为空，则返回一个 零 值。
+
+## ***2022-06-23*** 
+问：`Go` 语言中 `cap` 函数可以作用于哪些内容?
+可以作用于的类型有:
++ `array`(数组)
++ `slice`(切片)
++ `channel`(通道)
+
+## ***2022-06-24*** 
+问：`goconvey` 是什么? 一般用来做什么? [github: goconvey]((https://github.com/smartystreets/goconvey))
++ `goconvey` 是一个支持 `Golang` 的单元测试框架
++ `goconvey`能够自动监控文件修改并启动测试，并可以将测试结果实时输出到 `Web` 界面
++ `goconvey` 提供了丰富的断言简化测试用例的编写
