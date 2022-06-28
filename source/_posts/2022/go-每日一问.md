@@ -98,3 +98,6 @@ date: 2022-06-13 20:10:44
 + `goconvey` 是一个支持 `Golang` 的单元测试框架
 + `goconvey`能够自动监控文件修改并启动测试，并可以将测试结果实时输出到 `Web` 界面
 + `goconvey` 提供了丰富的断言简化测试用例的编写
+
+
+## 配置 [elasticsearch](https://cloud.tencent.com/developer/article/1657534)

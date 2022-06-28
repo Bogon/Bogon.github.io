@@ -643,3 +643,23 @@ kafka 终端读取数据：
 # 类库学习介绍
 + `gin`: 网络请求框架
 + `multitemplate`: 加载本地自定义模板 `https://github.com/gin-contrib/multitemplate`
+
+
+# 配置文件注意事项
+以下列代码为例，总结使用和解析配置文件时候需要注意的事项：
+```Go
+// 写法一
+var cfg conf.LogTransferCfg
+err := ini.MapTo(&cfg, "./conf/cfg.ini")
+// 写法二
+cfg := new(conf.LogTransferCfg)
+err := ini.MapTo(cfg, "./conf/cfg.ini")
+if err != nil {
+	fmt.Println("cfg init failed, err: ", err)
+	return
+}
+fmt.Printf("cfg: %v \n", cfg)
+```
+两个额外需要注意的地方：
++ 在一个函数中修改变量一定要传递指针；
++ 在配置文件对应的结构体中一定要设置 `tag` (特别是嵌套的结构体)。
