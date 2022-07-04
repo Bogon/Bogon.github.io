@@ -3,13 +3,14 @@ title: go 库专题(一)：gin
 description: go 库专题(一)：gin
 permalink: go 库专题(一)：gin
 copyright: true
-date: 2022-07-04 06:50:06
 keywords: 'go,进阶,学习,框架,API,Gin,gin'
 tags:
   - go
   - gin
 categories:
   - go
+abbrlink: 48378
+date: 2022-07-04 06:50:06
 ---
 
 `Gin` 是一个 `Golang` 的微框架，基于 `httprouter` ，封装比较优雅，`API` 友好，源码注释比较明确。具有快速灵活，容错率高，高性能等特点。框架更像是一些常用函数或者工具的集合。借助框架开发，不仅可以省去很多常用的封装带来的时间，也有助于团队的编码风格和形成规范。
