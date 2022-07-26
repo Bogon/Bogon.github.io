@@ -3,7 +3,6 @@ title: MySQL Tips
 description: MySQL Tips
 permalink: MySQL Tips
 copyright: true
-date: 2022-07-25 21:54:18
 keywords: 'go,MySQL,数据库'
 tags:
   - go
@@ -12,6 +11,8 @@ tags:
 categories:
   - go
   - MySQL
+abbrlink: 37554
+date: 2022-07-25 21:54:18
 ---
 
 
