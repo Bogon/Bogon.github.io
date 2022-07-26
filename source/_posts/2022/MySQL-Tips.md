@@ -25,6 +25,8 @@ delete * from table_name;
 ```
 > 注: `truncate` 操作中的 `table` 可以省略，`delete` 操作中的 `*` 可以省略
 
+<!--more-->
+
 `truncate`、`delete` 清空表数据的区别 :
 + `truncate` 是整体删除 (速度较快)，`delete` 是逐条删除 (速度较慢);
 + `truncate` 不写服务器 `log`，`delete` 写服务器 `log`，也就是 `truncate` 效率比 `delete` 高的原因;
