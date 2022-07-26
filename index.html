@@ -326,13 +326,6 @@
 <blockquote>
 <p>注: <code>truncate</code> 操作中的 <code>table</code> 可以省略，<code>delete</code> 操作中的 <code>*</code> 可以省略</p>
 </blockquote>
-<p><code>truncate</code>、<code>delete</code> 清空表数据的区别 :</p>
-<ul>
-<li><code>truncate</code> 是整体删除 (速度较快)，<code>delete</code> 是逐条删除 (速度较慢);</li>
-<li><code>truncate</code> 不写服务器 <code>log</code>，<code>delete</code> 写服务器 <code>log</code>，也就是 <code>truncate</code> 效率比 <code>delete</code> 高的原因;</li>
-<li><code>truncate</code> 不激活 <code>trigger</code> (触发器)，但是会重置 <code>Identity</code> (标识列、自增字段)，相当于自增列会被置为初始值，又重新从1开始记录，而不是接着原来的 <code>ID</code> 数。而 <code>delete</code> 删除以后，<code>identity</code> 依旧是接着被删除的最近的那一条记录 <code>ID</code> 加1后进行记录。如果只需删除表中的部分记录，只能使用 <code>DELETE</code> 语句配合 <code>where</code> 条件s</li>
-</ul>
-
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/MySQL%20Tips/#more" rel="contents">
