@@ -189,3 +189,9 @@ func make(Type, size IntegerType) Type
 
 学习位置： 212 gRPC  
 
+
+
+## 今日计划
+1、编写自己使用的mysql 链接类库，要求如下：
+  1、能够从配置文件中读取  mysql 的配置信息
+  2、能够将 配置信息同步到 etcd，最好从etcd中读取配置信息
