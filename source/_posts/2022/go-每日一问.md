@@ -275,7 +275,7 @@ func (c *Cond) Broadcast()
 
 `Signal` 只唤醒 1 个等待 `c` 的 `goroutine`。调用 `Signal` 的时候，可以加锁，也可以不加锁。
 
-## ***2022-07-19** 
+## ***2022-07-19***
 问：`Cond` 中 `Wait` 使用
 ```Go
  func (c *Cond) Wait()
@@ -409,6 +409,21 @@ create table select_tvs_tag
     id   bigint auto_increment
         primary key,
     name varchar(20) default '' null
+);
+
+create table select_tvs_subjects
+(
+    episodes_info text        null comment '提示信息',
+    rate          varchar(20) null comment '评分',
+    cover_x       double      null comment '封面宽度',
+    title         text        null comment '标题',
+    url           text        null comment '电视剧链接',
+    playable      tinyint(1)  null comment '是否可以播放',
+    cover         text        null comment '封面图片链接',
+    id            text        null comment '电视剧标识',
+    cover_y       double      null comment '封面图片高度',
+    is_new        tinyint(1)  null comment '是否是新上映电视剧',
+    m_id          int auto_increment comment '自增主键' primary key
 );
 
 ```
