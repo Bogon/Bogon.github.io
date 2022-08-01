@@ -394,6 +394,32 @@ c.L.Unlock()
 + 收回因 `syscall` 长时间阻塞的 `P`;
 
 
+# `Docker` 安装使用并连接 `Redis`
+`Docker` 下拉取最新的镜像，命令：
+```Bash
+docker pull redis
+```
+
+查看已安装镜像:
+```Bash
+docker images
+```
+
+启动一个 `redis` 实例：
+```Bash
+docker run -itd --name redis_test -p 6379:6379 redis
+```
+
+通过 `redis-cli` 链接 `redis`:
+```Bash
+docker exec -it redis_test /bin/bash
+```
+
+> `MySQL` 安装并链接同理。\
+设置字符集：`echo "export LANG=C.UTF-8" >>/etc/profile && source /etc/profile`。
+
+
+
 
 # 爬取 豆瓣 电影列表
 创建表 `select_movies_subjects` ：
