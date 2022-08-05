@@ -419,7 +419,8 @@ docker exec -it redis_test /bin/bash
 设置字符集：`echo "export LANG=C.UTF-8" >>/etc/profile && source /etc/profile`。
 
 
-
+# Goland web 项目所需要的设计模式，项目结构
+![](https://raw.githubusercontent.com/Bogon/blog_images/main/go_pattern/go_pattern_MVC.png)
 
 # 爬取 豆瓣 电影列表
 创建表 `select_movies_subjects` ：
