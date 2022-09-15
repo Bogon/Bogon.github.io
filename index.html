@@ -297,7 +297,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>630</span>
+              <span>729</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -318,23 +318,6 @@
 
       
           <h1 id="基础语法"><a href="#基础语法" class="headerlink" title="基础语法"></a>基础语法</h1><h2 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h2><p>不同于变量在运行期分配存储内存（非优化状态），常量通常会被编译器在预处理阶段直接展开，作为指令数据使用。数字常量不会分配存储空间，无须像变量那样通过内存寻址来取值，因此无法获取地址。</p>
-<h2 id="指针"><a href="#指针" class="headerlink" title="指针"></a>指针</h2><ul>
-<li>不能将内存地址与指针混为一谈。</li>
-<li>存地址是内存中每个字节单元的唯一编号，而指针则是一个实体。指针会分配内存空间，相当于一个专门用来保存地址的整型变量。</li>
-<li><code>Pointer</code> 类似 <code>C</code> 语言中的 <code>void*</code> 万能指针，可用来转换指针类型。它能安全持有对象或对象成员，但 <code>uintptr</code> 不行。后者仅是一种特殊整型，并不引用目标对象，无法阻止垃圾回收器回收对象内存。</li>
-</ul>
-<blockquote>
-<p>并非所有对象都能进行取地址操作，但变量总是能正确返回（addressable）。指针运算符为左值时，我们可更新目标对象状态；而为右值时则是为了获取目标状态。</p>
-</blockquote>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
-<li>第一类对象（<code>first-class object</code>）指可在运行期创建，可用作函数参数或返回值，可存入变量的实体。最常见的用法就是匿名函数。</li>
-<li>函数只能判断其是否为nil，不支持其他比较操作。</li>
-<li>从函数返回局部变量指针是安全的，编译器会通过逃逸分析（escape analysis）来决定是否在堆上分配内存。</li>
-<li>不管是指针、引用类型，还是其他类型参数，都是值拷贝传递（pass-by-value）。区别无非是拷贝目标对象，还是拷贝指针而已。在函数调用前，会为形参和返回值分配内存空间，并将实参拷贝到形参内存。</li>
-</ul>
-<blockquote>
-<p>变参：变参本质上就是一个切片。只能接收一到多个同类型参数，且必须放在列表尾部。</p>
-</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/goland%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
