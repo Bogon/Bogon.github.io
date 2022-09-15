@@ -297,7 +297,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>463</span>
+              <span>630</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -329,8 +329,12 @@
 <h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
 <li>第一类对象（<code>first-class object</code>）指可在运行期创建，可用作函数参数或返回值，可存入变量的实体。最常见的用法就是匿名函数。</li>
 <li>函数只能判断其是否为nil，不支持其他比较操作。</li>
+<li>从函数返回局部变量指针是安全的，编译器会通过逃逸分析（escape analysis）来决定是否在堆上分配内存。</li>
+<li>不管是指针、引用类型，还是其他类型参数，都是值拷贝传递（pass-by-value）。区别无非是拷贝目标对象，还是拷贝指针而已。在函数调用前，会为形参和返回值分配内存空间，并将实参拷贝到形参内存。</li>
 </ul>
-<p>摘录来自<br>Go语言学习笔记<br>雨痕<br>此材料可能受版权保护。</p>
+<blockquote>
+<p>变参：变参本质上就是一个切片。只能接收一到多个同类型参数，且必须放在列表尾部。</p>
+</blockquote>
           <!--noindex-->
             <div class="post-button">
               <a class="btn" href="/goland%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/#more" rel="contents">
@@ -1569,7 +1573,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:10</span>
+    <span title="站点阅读时长">23:11</span>
 </div>
 
 <!--
