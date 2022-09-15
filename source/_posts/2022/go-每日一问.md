@@ -393,6 +393,56 @@ c.L.Unlock()
 + 向长时间运行的 `G` 任务发出抢占调度(超过 `10ms` 的 `g`，会进行 `retake`);
 + 收回因 `syscall` 长时间阻塞的 `P`;
 
+## ***2022-08-06*** 
+问：三色标记原理
+原理:
++ 首先把所有的对象都放到白色的集合中：
++ 从根节点开始遍历对象，遍历到的白色对象从白色集合中放到灰色集合中
++ 遍历灰色集合中的对象，把灰色对象引用的白色集合的对象放入到灰色集合中，同时把遍历过的灰色集合中的对象放到黑色的集合中
++ 循环步骤3，知道灰色集合中没有对象
++ 步骤4结束后，白色集合中的对象就是不可达对象，也就是垃圾，进行回收
+
+## ***2022-08-07*** 
+问：写屏障
+Go 在进行三色标记的时候并没有 STW，也就是说，此时的对象还是可以进行修改。
+我们在进行三色标记中扫􏰀灰色集合中，扫􏰀到了对象 A，并标记了对象 A 的 所有引用，这时候，开始扫􏰀对象 D 的引用，而此时，另一个 goroutine 修改 了 D->E 的引用。
+这样会不会导致 E 对象就扫􏰀不到了，而被误认为 为白色对象，也就是垃圾 写屏障就是为了解决这样的问题，引入写屏障后，在上述步骤后，E 会被认为 是存活的，即使后面 E 被 A 对象抛弃，E 会被在下一轮的 GC 中进行回收，这一 轮 GC 中是不会对对象 E 进行回收的。
+
+## ***2022-08-08*** 
+问：插入写屏障
+Go GC 在混合写屏障之前，一直是插入写屏障，由于栈赋值没有 hook 的原因，栈中没有启用写屏障，所以有 STW。Golang 的解决方法是:只是需要在结束时启动 STW 来重新扫描栈。这个自然就会导致整个进程的赋值器卡顿。
+
+## ***2022-08-09*** 
+问：删除写屏障
+Golang 没有这一步，Golang 的内存写屏障是由插入写屏障到混合写屏障过渡 的。简单介绍一下，一个对象即使被删除了最后一个指向它的指针也依旧可以活过这一轮，在下一轮 GC 中才被清理掉。
+
+## ***2022-08-10*** 
+问：删除写屏障
++ 混合写屏障继承了插入写屏障的优点，起始无需 STW 打快照，直接并发扫描垃圾即可;
++ 混合写屏障继承了删除写屏障的优点，赋值器是黑色赋值器，GC期间，任何在栈上创建的新对象，均为黑色，扫描过一次就不需要扫描了，这样就消除了插入写屏障时期最后 STW 的重新扫描栈;
++ 混合写屏障扫􏰀精度继承了删除写屏障，比插入写屏障更低，随着带来的 是 GC 过程全程无 STW;
++ 混合写屏障扫􏰀栈虽然没有 STW，但是扫􏰀某一个具体的栈的时候，还是 要停止这个 goroutine 赋值器的工作(针对一个 goroutine 栈来说，是 暂停扫的，要么全灰，要么全黑，原子状态切换)。
+
+## ***2022-08-11*** 
+问：GC 触发时机 
+主动触发: 调用 `runtime.GC`
+被动触发: 使用系统监控，该触发条件由` runtime.forcegcperiod` 变量控制，默认为 2 分 钟。当超过两分钟没有产生任何 GC 时，强制触发 GC。 使用步调(`Pacing`)算法，其核心思想是控制内存增长的比例。如 `Go` 的 `GC` 是一种比例 GC, 下一次 GC 结束时的堆大小和上一次 GC 存活堆大小成比例.
+
+## ***2022-08-12*** 
+问：Go 语言中 GC 的流程是什么?
+`Go1.14` 版本以 `STW` 为界限，可以将 `GC` 划分为五个阶段:
++ `GCMark` 标记准备阶段，为并发标记做准备工作，启动写屏障
++ `STWGCMark` 扫描标记阶段，与赋值器并发执行，写屏障开启并发 
++ `GCMarkTermination` 标记终止阶段，保证一个周期内标记任务完成，停止写屏障
++ `GCoff` 内存清扫阶段，将需要回收的内存归还到堆中，写屏障关闭 
++ `GCoff` 内存归还阶段，将过多的内存归还给操作系统，写屏障关闭
+
+## ***2022-08-13*** 
+问：`GC` 如何调优
+通过 `go tool pprof` 和 `go tool trace` 等工具
++ 控制内存分配的速度，限制 `Goroutine` 的数量，从而提高赋值器对 `CPU` 的利用率。
++ 减少并复用内存，例如使用 `sync.Pool` 来复用需要频繁创建临时对象，例如提前分配足够的内存来降低多余的拷贝。
++ 需要时，增大 `GOGC` 的值，降低 `GC` 的运行频率。
 
 # `Docker` 安装使用并连接 `Redis`
 `Docker` 下拉取最新的镜像，命令：
@@ -408,6 +458,7 @@ docker images
 启动一个 `redis` 实例：
 ```Bash
 docker run -itd --name redis_test -p 6379:6379 redis
+docker run -itd --name redis_web_app -p 6379:6379 redis
 ```
 
 通过 `redis-cli` 链接 `redis`:
@@ -480,4 +531,58 @@ create table select_tvs_subjects
     m_id          int auto_increment comment '自增主键' primary key
 );
 
+```
+
+```SQL
+CREATE TABLE user (
+    `id` bigint (20) NOT NULL AUTO_INCREMENT,
+    `user_id` bigint (20) NOT NULL,
+    `username` varchar (64) COLLATE utf8mb4_general_ci NOT NULL,
+    `password` varchar (64) COLLATE utf8mb4_general_ci NOT NULL,
+    `email` varchar (64) COLLATE utf8mb4_general_ci,
+    `gender` tinyint (4) NOT NULL DEFAULT '0',
+    `create_time` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+    `update time` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`id`),
+    UNIQUE KEY `idx_username` (`username`) USING BTREE,
+    UNIQUE KEY `idx_user_id` (`user_id`) USING BTREE
+)
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+```
+
+
+## 开发小技巧
+JS中标识最大的整数：2^53-1， Go中表达最大的整数是: 2^63-1，在传值的过程中，会出现js无法表现超出其表现范围的数字。
+解决的办法是在go端返回给前端数据的时，将将该字段转成字符串传递，而在go中表现的更简单一些，就是在tag中加上`,string` 即可。
+实例：
+```Json
+type User struct {
+	UserID   int64  `db:"user_id,string"`
+	Username string `db:"username"`
+	Password string `db:"password"`
+	Token    string `db:"token"`
+}
+```
+
+use mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '123456';
+FLUSH PRIVILEGES;
+
+## nginx 部署项目 配置文件实例
+```Bash
+server {
+  listen       80;
+  server_name  localhost;
+
+  access_log   /var/log/webapp-access.log;
+  error_log    /var/logwebapp-error.log;
+
+  location / {
+      proxy_pass                 http://127.0.0.1:8084;
+      proxy_redirect             off;
+      proxy_set_header           Host             $host;
+      proxy_set_header           X-Real-IP        $remote_addr;
+      proxy_set_header           X-Forwarded-For  $proxy_add_x_forwarded_for;
+  }
+}
 ```
