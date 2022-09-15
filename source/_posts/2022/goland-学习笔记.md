@@ -3,12 +3,13 @@ title: goland 学习笔记
 description: goland 学习笔记
 permalink: goland 学习笔记
 copyright: true
-date: 2022-09-15 14:46:00
 keywords: 'go,进阶,学习,框架,API,gin'
 tags:
   - go
 categories:
   - go
+abbrlink: 63073
+date: 2022-09-15 14:46:00
 ---
 
 # 基础语法
@@ -24,7 +25,12 @@ categories:
 
 ## 函数
 + 第一类对象（`first-class object`）指可在运行期创建，可用作函数参数或返回值，可存入变量的实体。最常见的用法就是匿名函数。
++ 函数只能判断其是否为nil，不支持其他比较操作。
 
+摘录来自
+Go语言学习笔记
+雨痕
+此材料可能受版权保护。
 
 
 
