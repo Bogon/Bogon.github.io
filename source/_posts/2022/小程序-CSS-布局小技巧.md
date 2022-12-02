@@ -3,14 +3,15 @@ title: '小程序: [CSS] 布局小技巧'
 description: '小程序: [CSS] 布局小技巧'
 permalink: '小程序: [CSS] 布局小技巧'
 copyright: true
-date: 2022-12-02 12:35:09
-keywords: CSS,小程序,布局
+keywords: 'CSS,小程序,布局'
 tags:
   - 小程序
   - CSS
 categories:
   - 小程序
   - CSS
+abbrlink: 56880
+date: 2022-12-02 12:35:09
 ---
 
 最近对小程序比较感兴趣于是就花时间对这这部分把玩一下，跟移动端的布局还是有一些区别的。就把使用过程中的一些小技巧记录下来。
