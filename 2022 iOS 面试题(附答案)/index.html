@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="G0fHOrfJn5sHWzmi6ZCcg2aX83myBc-9U1BJZJJDSTU">
+  <meta name="baidu-site-verification" content="7gJOLignE2">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"www.xuebaonline.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+
+  <meta name="description" content="2022 iOS 面试题(附答案)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2022 iOS 面试题(附答案)">
+<meta property="og:url" content="https://www.xuebaonline.com/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/index.html">
+<meta property="og:site_name" content="Char&#39;s Blog">
+<meta property="og:description" content="2022 iOS 面试题(附答案)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-15T05:37:33.000Z">
+<meta property="article:modified_time" content="2022-12-02T05:34:12.024Z">
+<meta property="article:author" content="Char">
+<meta property="article:tag" content="iOS">
+<meta property="article:tag" content="面试">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://www.xuebaonline.com/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+<script data-ad-client="ca-pub-5714801576974230" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <title>2022 iOS 面试题(附答案) | Char's Blog</title>
+  
+    <script>
+      function sendPageView() {
+        if (CONFIG.hostname !== location.hostname) return;
+        var uid = localStorage.getItem('uid') || (Math.random() + '.' + Math.random());
+        localStorage.setItem('uid', uid);
+        navigator.sendBeacon('https://www.google-analytics.com/collect', new URLSearchParams({
+          v  : 1,
+          tid: 'UA-165583776-1',
+          cid: uid,
+          t  : 'pageview',
+          dp : encodeURIComponent(location.pathname)
+        }));
+      }
+      document.addEventListener('pjax:complete', sendPageView);
+      sendPageView();
+    </script>
+
+
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f44aa1d26d8ba6a20c1a09a9cdcd7e3d";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="Char's Blog" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Char's Blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">如切如磋，如琢如磨。</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">147</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">73</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">182</span></a>
+
+  </li>
+        <li class="menu-item menu-item-schedule">
+
+    <a href="/schedule/" rel="section"><i class="fa fa-calendar fa-fw"></i>日程表</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://cdn.xuebaonline.com/blog_avatar.JPG">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2022 iOS 面试题(附答案)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-15 13:37:33" itemprop="dateCreated datePublished" datetime="2022-08-15T13:37:33+08:00">2022-08-15</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/%E9%9D%A2%E8%AF%95/" itemprop="url" rel="index"><span itemprop="name">面试</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.6k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+            <div class="post-description">2022 iOS 面试题(附答案)</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p><a href="https://ios.nobady.cn/" target="_blank" rel="noopener">iOS 面试题集锦一</a><br><a href="https://github.com/ChenYilong/iOSInterviewQuestions" target="_blank" rel="noopener">iOS 面试题目</a><br><a href="https://www.icodebang.com/article/300244" target="_blank" rel="noopener">iOS 八股面试题</a></p>
+<p>此次寻找 以 iOS 为主，跨平台为主，go 为辅助，但是也要整理只是，一定还是要多用。</p>
+<a id="more"></a>
+
+<p>面试大纲总结：</p>
+<h2 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a><strong>操作系统</strong></h2><ul>
+<li>进程与线程的区别*2，什么可以公用什么不能公用</li>
+<li><code>CPU</code> 执行单位</li>
+<li>堆与栈的区别</li>
+<li>内核态和用户态的划分与切换</li>
+<li>虚拟地址怎么映射到物理地址</li>
+<li>简述 <code>IO多路复用</code></li>
+<li>简述进程通信的各种方法</li>
+<li>线程有几种状态</li>
+<li>死锁的产生条件，如何检查，如何解决</li>
+<li>文件描述符 <code>fd</code> 是线程私有还是公有</li>
+</ul>
+<h2 id="计算机网络"><a href="#计算机网络" class="headerlink" title="计算机网络"></a><strong>计算机网络</strong></h2><ul>
+<li>简述从输入网址到浏览器显示的过程</li>
+<li><code>TCP</code> 为什么是三次握手四次挥手</li>
+<li><code>TCP</code> 如何保障数据包有效</li>
+<li><code>HTTP</code> 和 <code>HTTPS</code> 的区别</li>
+<li><code>TCP</code> 与 <code>UDP</code> 区别</li>
+<li>微信发文件用什么协议</li>
+<li><code>OSI</code> 的七层架构以及每一层都有哪些协议</li>
+<li>所知道的 <code>HTTP</code> 请求头和返回码</li>
+</ul>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a><strong>数据库</strong></h2><ul>
+<li>简述关系型数据库与非关系型数据库的区别与联系</li>
+<li>简述数据库的事务</li>
+<li>如何在 <code>hibernate</code> 中查看原始的 <code>sql</code> 语句</li>
+<li><code>MySQL</code> 事务隔离级别分别有哪些</li>
+<li>分库分表的依据是什么，有用到什么工具</li>
+<li>数据库索引的原理</li>
+<li>上万/十万用户查询数据库的场景如何设计</li>
+<li>建表语句怎么写</li>
+<li><code>char</code> 和 <code>varchar</code> 区别</li>
+<li><code>Innodb</code> 和 <code>Myisam</code> 存储引擎的区别</li>
+<li>修改表的字段的语句，会上锁吗</li>
+<li>什么时候上行锁</li>
+<li>聚集索引和非聚集索引，非聚集索引做什么</li>
+<li>索引有哪几种</li>
+<li>一个表同时有 <code>ID</code> 和 <code>UUID</code> ，用哪个当主键(索引)-用ID，因为ID是顺序的，而UUID是乱序的，需要经常调整B+树的结构</li>
+<li>B+树的结构是如何调整的-某个节点存的数据&gt;一个阈值后会调整结构</li>
+<li>什么时候会创建新的分支</li>
+<li>一页存多少数据</li>
+</ul>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a><strong>数据结构</strong></h2><ul>
+<li><code>HashMap</code> 的底层实现，如何解决哈希冲突</li>
+<li>二叉树有哪些遍历方式，应用的场景都有哪些</li>
+<li>快排实现的原理</li>
+<li>对堆排序有了解么，堆排序的空间复杂度为什么是O(1)</li>
+<li><code>socket</code></li>
+<li><code>select</code> 和 <code>epoll</code> 的区别*2</li>
+<li><code>epoll</code> 被通知的话，怎么知道是哪个文件描述符准备好了</li>
+<li><code>Zookeeper</code></li>
+<li><code>Zookeeper</code> 是做什么用的</li>
+<li><code>Zookeeper</code> 选举流程</li>
+<li><code>Zookeeper</code> 处理过程</li>
+</ul>
+<h2 id="设计模式"><a href="#设计模式" class="headerlink" title="设计模式"></a><strong>设计模式</strong></h2><ul>
+<li>线程安全是如何做到的</li>
+<li><code>Java</code> 中 <code>IO</code> 包下的 <code>inputstream</code> 用了什么设计模式</li>
+<li>简述知道的设计模式</li>
+<li>手写单例模式，应用场景</li>
+<li><code>Java</code></li>
+<li>简述 <code>AOP</code> 和 <code>IOC</code> 的作用</li>
+<li><code>Java</code> 中所有类的父类是什么，都有什么方法，请列举</li>
+<li><code>JVM</code> 内存的分布，不同版本之间有区别么</li>
+<li><code>wait</code> 和 <code>sleep</code> 分别属于哪个类的方法</li>
+<li><code>lock</code> 和 <code>synchronized</code> 的区别</li>
+<li>什么样的任务适合用多线程，以及什么适合单线程</li>
+<li><code>ArrayList</code> 和 <code>LinkList</code> 的区别</li>
+</ul>
+<h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a><strong>Redis</strong></h2><ul>
+<li><code>Redis</code> 数据结构都有哪些</li>
+<li><code>Redis</code> 为什么快</li>
+<li><code>Redis</code> 多路复用？</li>
+<li><code>Redis</code> 内存淘汰？</li>
+</ul>
+<h2 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a><strong>Swift</strong></h2><ul>
+<li><code>Swift</code> 中 <code>struct</code> 和 <code>class</code> 有什么区别？</li>
+<li><code>Swift</code> 中的方法调用有哪些形式？</li>
+<li><code>Swift</code> 和 <code>OC</code> 有什么区别？</li>
+<li>从 <code>OC</code> 向 <code>Swift</code> 迁移的时候遇到过什么问题？</li>
+<li>怎么理解面向协议编程？</li>
+</ul>
+<h2 id="OC语法"><a href="#OC语法" class="headerlink" title="OC语法"></a><strong>OC语法</strong></h2><ul>
+<li><code>Block</code> 是如何实现的？ <code>Block</code> 对应的数据结构是什么样子的？ <code>__block</code> 的作用是什么？它对应的数据结构又是什么样子的？</li>
+<li><code>GCD</code> 中的 <code>Block</code> 是在堆上还是栈上？</li>
+<li><code>NSCoding</code> 协议是干什么用的？</li>
+<li><code>KVO</code> 的实现原理</li>
+<li><code>NSOperation</code> 有哪些特性比着 <code>GCD</code> 有哪些优点，它有哪些 <code>API</code> ？</li>
+<li><code>NSNotificaiton</code> 是同步还是异步的，如果发通知时在子线程，接收在哪个线程？</li>
+</ul>
+<h2 id="UI"><a href="#UI" class="headerlink" title="UI"></a><strong>UI</strong></h2><ul>
+<li>事件响应链是如何传递的？</li>
+<li>什么是异步渲染？</li>
+<li>layoutsubviews是在什么时机调用的？</li>
+<li>一张图片的展示经历了哪些步骤？</li>
+<li>什么是离屏渲染，什么情况会导致离屏渲染？</li>
+<li>CoreAnimation这个框架的作用什么，它跟UIKit的关系是什么？</li>
+</ul>
+<h2 id="引用计数"><a href="#引用计数" class="headerlink" title="引用计数"></a><strong>引用计数</strong></h2><ul>
+<li>ARC方案的原理是什么？它是在什么时候做的隐式添加release操作？</li>
+<li>循环引用有哪些场景，如何避免？</li>
+<li>为什么当我们在使用block时外面是weak 声明一个weakSelf，还要在block内部使用strong再持有一下？</li>
+<li>Autoreleasepool是实现机制是什么？它是什么时候释放内部的对象的？它内部的数据结构是什么样的？当我提到哨兵对象时，会继续问哨兵对象的作用是什么，为什么要设计它？</li>
+<li>哪些对象会放入到Autoreleasepool中？</li>
+<li>weak的实现原理是什么？当引用对象销毁是它是如何管理内部的Hash表的？（这里要参阅weak源码）</li>
+</ul>
+<h2 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a><strong>Runtime</strong></h2><ul>
+<li>消息发送的流程是怎样的？</li>
+<li>关联对象时什么情况下会导致内存泄露？</li>
+<li>消息转发的流程是什么？</li>
+<li>category能否添加属性，为什么？能否添加实例变量，为什么？</li>
+<li>元类的作用是什么？</li>
+<li>类方法是存储到什么地方的？类属性呢？</li>
+<li>讲几个runtime的应用场景</li>
+</ul>
+<h2 id="Runloop"><a href="#Runloop" class="headerlink" title="Runloop"></a><strong>Runloop</strong></h2><ul>
+<li>讲一下对Runloop的理解？</li>
+<li>可以用Runloop实现什么功能？</li>
+</ul>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a><strong>性能优化</strong></h2><ul>
+<li>对TableView进行性能优化有哪些方式？</li>
+<li>Xcode的Instruments都有哪些调试的工具？</li>
+<li>讲一下你做过的性能优化的事情。</li>
+<li>如何检测卡顿，都有哪些方法？</li>
+<li>缩小包体积有哪些方案？</li>
+</ul>
+<h2 id="延伸知识"><a href="#延伸知识" class="headerlink" title="延伸知识"></a><strong>延伸知识</strong></h2><ul>
+<li>Lottie实现动画效果的原理是什么？</li>
+<li>OClint实现静态分析的原理是什么，它是如何做到的？</li>
+<li>MVVM和MVC有什么区别？</li>
+<li>静态库和动态库的区别是什么？</li>
+<li>了解Flutter吗？它有没有使用UIKit？它是如何渲染UI的？</li>
+<li>二进制重排的核心依据是什么？</li>
+<li>如何设计一套切换主题的方案？</li>
+<li>AVPlayer和IJKPlayer有什么区别？用IJKPlayer如何实现一个缓存视频列表每条视频前1s的内容？</li>
+<li>类似微博的短视频列表，滑动停留播放，如何实现？</li>
+<li>使用python做过哪些事？如何理解脚本语言？</li>
+</ul>
+<h2 id="额外考虑的内容"><a href="#额外考虑的内容" class="headerlink" title="额外考虑的内容"></a><strong>额外考虑的内容</strong></h2><ul>
+<li>做过哪些工作职责之外的事情？</li>
+<li>经历过最难的一次业务开发是什么样的，最终怎么解决的？</li>
+<li>最近有学习什么新技术吗？有何收获？</li>
+<li>你最擅长iOS哪方面的知识？怎么体现出来的？</li>
+<li>常用哪些开源库，有没有研究过他们的原理？</li>
+<li>如何保持个人成长？</li>
+</ul>
+<h2 id="整理面试官风格"><a href="#整理面试官风格" class="headerlink" title="整理面试官风格"></a><strong>整理面试官风格</strong></h2><ul>
+<li><p>面试官更喜欢“刨根问底”，对着一个概念不断的往深处延展，不断深入的问。这类问题会有很大的区分度，第一问第二问第三问难度逐次提高，用于筛选不同的面试者。这也提醒我们某些知识点不光要知道原理，还要知道为什么这么设计，这么设计的好处是什么。</p>
+</li>
+<li><p>问题范围更全面化，特别是二面时，问题不再局限于iOS端，而是更通用的计算机方向问题，这个需要我们平常多积累；还有就是开始重视个人软技能，学习能力和上进心。</p>
+</li>
+<li><p>注重软技能，这个比前面2条作用稍微小些，但是如果被问到了，而我们也有很好的贴合点，那绝对就是加分项。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- bottom ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="5659053341"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        <div class="reward-container">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.png" alt="Char 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.png" alt="Char 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Char
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://www.xuebaonline.com/2022%20iOS%20%E9%9D%A2%E8%AF%95%E9%A2%98(%E9%99%84%E7%AD%94%E6%A1%88)/" title="2022 iOS 面试题(附答案)">https://www.xuebaonline.com/2022 iOS 面试题(附答案)/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/zh-CN" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/Bogon">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/images/connectme.JPG">
+            <span class="icon">
+              <i class="fab fa-weixin"></i>
+            </span>
+
+            <span class="label">WeChat</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/%E9%9D%A2%E8%AF%95/" rel="tag"><i class="fa fa-tag"></i> 面试</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/Docker%20%E5%90%AF%E5%8A%A8%20MySQL%20%E6%8C%87%E5%8C%97/" rel="prev" title="Docker 启动 MySQL 指北">
+      <i class="fa fa-chevron-left"></i> Docker 启动 MySQL 指北
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/goland%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" rel="next" title="goland 学习笔记">
+      goland 学习笔记 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#操作系统"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机网络"><span class="nav-number">2.</span> <span class="nav-text">计算机网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据库"><span class="nav-number">3.</span> <span class="nav-text">数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">4.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设计模式"><span class="nav-number">5.</span> <span class="nav-text">设计模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Redis"><span class="nav-number">6.</span> <span class="nav-text">Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Swift"><span class="nav-number">7.</span> <span class="nav-text">Swift</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OC语法"><span class="nav-number">8.</span> <span class="nav-text">OC语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UI"><span class="nav-number">9.</span> <span class="nav-text">UI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数"><span class="nav-number">10.</span> <span class="nav-text">引用计数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runtime"><span class="nav-number">11.</span> <span class="nav-text">Runtime</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Runloop"><span class="nav-number">12.</span> <span class="nav-text">Runloop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#性能优化"><span class="nav-number">13.</span> <span class="nav-text">性能优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#延伸知识"><span class="nav-number">14.</span> <span class="nav-text">延伸知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额外考虑的内容"><span class="nav-number">15.</span> <span class="nav-text">额外考虑的内容</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#整理面试官风格"><span class="nav-number">16.</span> <span class="nav-text">整理面试官风格</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Char"
+      src="http://cdn.xuebaonline.com/blog_avatar.JPG">
+  <p class="site-author-name" itemprop="name">Char</p>
+  <div class="site-description" itemprop="description">曾经沧海难为水，除却巫山不是云。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">147</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="sidebar-button motion-element">
+    <a onclick="Chatra('openChat', true);"><i class="fa fa-comment"></i>
+    联系我
+  </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Bogon" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhangqixcu@gmail.com" title="E-Mail → mailto:zhangqixcu@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/u/5640441479" title="新浪微博 → https:&#x2F;&#x2F;weibo.com&#x2F;u&#x2F;5640441479" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://blog.csdn.net/bogonbug" title="CSDN → https:&#x2F;&#x2F;blog.csdn.net&#x2F;bogonbug" rel="noopener" target="_blank"><i class="fab fa-skype fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/Bogon" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;Bogon" rel="noopener" target="_blank"><i class="fab fa-twitter fa-fw"></i></a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/4368897/qizhang" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;4368897&#x2F;qizhang" rel="noopener" target="_blank"><i class="fab fa-stack-overflow fa-fw"></i></a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/swift/" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;swift&#x2F;" rel="noopener" target="_blank">Swift 5.4</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://developer.apple.com/documentation/objectivec" title="https:&#x2F;&#x2F;developer.apple.com&#x2F;documentation&#x2F;objectivec" rel="noopener" target="_blank">Objective-C</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://flutter.cn/" title="https:&#x2F;&#x2F;flutter.cn&#x2F;" rel="noopener" target="_blank">Flutter</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://go.dev/" title="https:&#x2F;&#x2F;go.dev&#x2F;" rel="noopener" target="_blank">Goland</a>
+        </li>
+    </ul>
+  </div>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- side ad -->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-5714801576974230"
+     data-ad-slot="8285216682"
+     data-ad-format="auto"
+     data-full-width-responsive="true"></ins>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+  <div class="beian"><a href="https://beian.miit.gov.cn/" rel="noopener" target="_blank">豫ICP备20011156号-1 </a>
+      <img src="/images/beian.png" style="display: inline-block;"><a href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=41172402000135" rel="noopener" target="_blank">豫公网安备41172402000135号 </a>
+  </div>
+
+<div class="copyright">
+  
+  &copy; 2020 – 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Char</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">博客全站共1.5m字</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">23:11</span>
+</div>
+
+<!--
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5eacc50f0dcd8169" async="async"></script>
+  </div>
+-->
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+  <script>
+    (function(d, w, c) {
+      w.ChatraID = 'PxGFNHLgjQ3C3Hmpo';
+      var s = d.createElement('script');
+      w[c] = w[c] || function() {
+        (w[c].q = w[c].q || []).push(arguments);
+      };
+      s.async = true;
+      s.src = 'https://call.chatra.io/chatra.js';
+      if (d.head) d.head.appendChild(s);
+    })(document, window, 'Chatra');
+  </script>
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : true,
+      appId      : 'rfRdmQpsk2Crnz747tDDOu26-gzGzoHsz',
+      appKey     : 'eyu1k9BeINgR5FuXzbc969UA',
+      placeholder: "写出你的想法……",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : false,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : true,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+<script async>window.onload=function(){var a=document.createElement('script'),b=document.getElementsByTagName('script')[0];a.type='text/javascript',a.async=!0,a.src='/sw-register.js?v='+Date.now(),b.parentNode.insertBefore(a,b)};</script></body></html>
