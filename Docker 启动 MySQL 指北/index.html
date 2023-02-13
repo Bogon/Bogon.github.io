@@ -32,13 +32,22 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="Docker 启动 MySQL 指北">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-01.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-02.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-03.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-04.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-06.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-05.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-07.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-08.png">
 <meta property="article:published_time" content="2022-07-29T13:27:17.000Z">
-<meta property="article:modified_time" content="2022-09-09T02:46:36.922Z">
+<meta property="article:modified_time" content="2023-02-13T13:22:52.393Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="go">
 <meta property="article:tag" content="docker">
 <meta property="article:tag" content="MySQL">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-01.png">
 
 <link rel="canonical" href="https://www.xuebaonline.com/Docker%20%E5%90%AF%E5%8A%A8%20MySQL%20%E6%8C%87%E5%8C%97/">
 
@@ -165,7 +174,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">182</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -304,7 +313,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>445</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -324,7 +333,39 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h1 id="搜索-MySQL-镜像"><a href="#搜索-MySQL-镜像" class="headerlink" title="搜索 MySQL 镜像"></a>搜索 <code>MySQL</code> 镜像</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-01.png"></p>
+<a id="more"></a>
+
+<h1 id="拉取-MySQL-镜像"><a href="#拉取-MySQL-镜像" class="headerlink" title="拉取 MySQL 镜像"></a>拉取 <code>MySQL</code> 镜像</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:lastest</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-02.png"></p>
+<h1 id="安装-MySQL"><a href="#安装-MySQL" class="headerlink" title="安装 MySQL"></a>安装 <code>MySQL</code></h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -itd --name mysql-demo -p 3307:3306 -e MYSQL_ROOT_PASSWORD=123456 mysql</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-t</code>： 选项让 <code>Docker</code> 分配一个伪终端<code>（pseudo-tty）</code>并绑定到容器的标准输入上</li>
+<li><code>-i</code>： 则让容器的标准输入保持打开</li>
+<li><code>-d</code>： 后台运行</li>
+<li><code>--name</code>： 容器名称</li>
+<li><code>-p</code>： 映射端口，3307 本机端口，:3306 容器端口</li>
+<li><code>-e</code>：设置环境变量</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-03.png"></p>
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-04.png"></p>
+<h1 id="查看启动的容器"><a href="#查看启动的容器" class="headerlink" title="查看启动的容器"></a>查看启动的容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-06.png"></p>
+<h1 id="查询已创建容器"><a href="#查询已创建容器" class="headerlink" title="查询已创建容器"></a>查询已创建容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br><span class="line"><span class="comment"># 创建在运行容器</span></span><br><span class="line">docker ps -s</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-05.png"></p>
+<h1 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker start 容器名称|容器ID</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-07.png"></p>
+<h1 id="停止容器"><a href="#停止容器" class="headerlink" title="停止容器"></a>停止容器</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker stop 容器名称|容器ID</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-08.png"></p>
+<h1 id="补充操作"><a href="#补充操作" class="headerlink" title="补充操作"></a>补充操作</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 删除容器</span></span><br><span class="line">docker rm 容器名称|容器ID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启容器</span></span><br><span class="line">docker restart 容器名称|容器ID</span><br><span class="line"></span><br><span class="line"><span class="comment"># 杀掉运行中的容器</span></span><br><span class="line">docker <span class="built_in">kill</span> 容器名称|容器ID</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -500,6 +541,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#搜索-MySQL-镜像"><span class="nav-number">1.</span> <span class="nav-text">搜索 MySQL 镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拉取-MySQL-镜像"><span class="nav-number">2.</span> <span class="nav-text">拉取 MySQL 镜像</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装-MySQL"><span class="nav-number">3.</span> <span class="nav-text">安装 MySQL</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看启动的容器"><span class="nav-number">4.</span> <span class="nav-text">查看启动的容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询已创建容器"><span class="nav-number">5.</span> <span class="nav-text">查询已创建容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#启动容器"><span class="nav-number">6.</span> <span class="nav-text">启动容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#停止容器"><span class="nav-number">7.</span> <span class="nav-text">停止容器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#补充操作"><span class="nav-number">8.</span> <span class="nav-text">补充操作</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -515,7 +557,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">182</span>
+          <span class="site-state-item-count">183</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -626,7 +668,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:11</span>
+    <span title="站点阅读时长">23:12</span>
 </div>
 
 <!--
