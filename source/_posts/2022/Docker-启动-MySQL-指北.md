@@ -91,3 +91,12 @@ docker restart 容器名称|容器ID
 # 杀掉运行中的容器
 docker kill 容器名称|容器ID
 ```
+
+# MySQL 显示中文问题
+需要设置 MySQL 字符集：
+```Bash
+echo "export LANG=C.UTF-8" >>/etc/profile && source /etc/profile
+```
+
+![](https://raw.githubusercontent.com/Bogon/blog_images/main/docker-mysql/docker-mysql-10.png)
+
