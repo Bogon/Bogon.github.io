@@ -166,17 +166,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">147</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">148</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">73</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">74</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">183</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">184</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -240,6 +240,125 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/" class="post-title-link" itemprop="url">Advanced Swift系列(四):  Functions</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-05-06 18:53:44" itemprop="dateCreated datePublished" datetime="2020-05-06T18:53:44+08:00">2020-05-06</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Advanced-Swift/" itemprop="url" rel="index"><span itemprop="name">Advanced Swift</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>53k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>48 分钟</span>
+            </span>
+            <div class="post-description">Advanced Swift系列(四):  Functions</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="总览"><a href="#总览" class="headerlink" title="总览"></a><strong>总览</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在打开本章之前，让我们回顾一下有关功能的要点。如果你已经熟悉一流的功能，请随时跳到下一部分。但是，如果你甚至不确定它们，请通读以下内容。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;要了解 <code>Swift中的函数</code> 和 <code>闭包</code> ，你实际上需要理解三件事，大致按此重要性顺序排列：</p>
+<ul>
+<li>1.可以将函数分配给变量，并传入和传出其他函数作为参数，就像 <code>Int</code> 或 <code>String</code> 一样。</li>
+<li>2.函数可以捕获存在于其本地范围之外的变量。</li>
+<li>3.有两种创建功能的功能–使用 <code>关键字</code> 或 <code>{}</code>。 <code>Swift</code>调用后一个闭包表达式。</li>
+</ul>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;有时，刚接触闭包主题的人会以相反的顺序来讲，可能会错过这些要点之一，或者他们将 <code>闭包</code> 和 <code>闭包表达</code> 这两个术语混为一谈，这可能会引起很多混乱。这是三足凳，如果你错过了以上三点之一，当你尝试坐下时会跌倒。</p>
+<h2 id="可以将函数分配给变量，并可以将其他函数作为参数传入和传出"><a href="#可以将函数分配给变量，并可以将其他函数作为参数传入和传出" class="headerlink" title="可以将函数分配给变量，并可以将其他函数作为参数传入和传出"></a><em><strong>可以将函数分配给变量，并可以将其他函数作为参数传入和传出</strong></em></h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;与许多现代语言一样，在 <code>Swift</code> 中，功能被称为 <code>“一流的对象”</code> 。 你可以将函数分配给变量，也可以将它们传入和传出其他函数，以供以后调用。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/Advanced%20Swift%E7%B3%BB%E5%88%97(%E5%9B%9B):%20%20Functions/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1277,119 +1396,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/" class="post-title-link" itemprop="url">为iOS应用构建输入表单</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-30 19:42:53" itemprop="dateCreated datePublished" datetime="2020-04-30T19:42:53+08:00">2020-04-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>6.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
-            </span>
-            <div class="post-description">为iOS应用构建输入表单</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>了解如何使用更新的集合视图视图模型框架构建复杂的表单，而无需使用 <code>Swift</code> 。</p>
-<blockquote>
-<p>**<code>提示:</code>**<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;此方法不起作用，因为表单中的单元格将被重用，这会导致某些不一致的情况…… <a href="http://www.xuebaonline.com/iOS%20%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A7%86%E5%9B%BE%EF%BC%8C%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95%E5%92%8C%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA/"><em><strong><code>请阅读我的其他文章</code></strong></em></a> 。🤷‍♂️</p>
-</blockquote>
-</br>
-
-<h1 id="CollectionView和输入表单"><a href="#CollectionView和输入表单" class="headerlink" title="CollectionView和输入表单"></a><strong>CollectionView和输入表单</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://github.com/corekit/collectionview" target="_blank" rel="noopener"><em><strong><code>CollectionView框架</code></strong></em></a> 刚刚进行了巨大更新。有很多新变化，但是最大的改进之一是我处理视图模型的方式。过去，你必须在视图模型中使用长函数名，包括通用视图和模型类名。如果你曾经阅读过 <a href="http://www.xuebaonline.com/Swift%20UICollectionView%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"><em><strong><code>最终UICollectionView指南</code></strong></em></a> ，那么你应该了解我在说什么。好消息：我现在有一种更好的解决方案！ 😉</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/%E4%B8%BAiOS%E5%BA%94%E7%94%A8%E6%9E%84%E5%BB%BA%E8%BE%93%E5%85%A5%E8%A1%A8%E5%8D%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1461,20 +1467,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">183</span>
+          <span class="site-state-item-count">184</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">73</span>
+        <span class="site-state-item-count">74</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">147</span>
+        <span class="site-state-item-count">148</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1567,12 +1573,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">博客全站共1.5m字</span>
+    <span title="站点总字数">博客全站共1.6m字</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:13</span>
+    <span title="站点阅读时长">23:35</span>
 </div>
 
 <!--
