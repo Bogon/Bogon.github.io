@@ -32,26 +32,19 @@
 <meta property="og:site_name" content="Char&#39;s Blog">
 <meta property="og:description" content="UICollectionView、UICollectionViewFlowLayout使用技巧">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/UIColleciton/collection_demo.gif">
 <meta property="article:published_time" content="2020-11-17T01:16:45.000Z">
-<meta property="article:modified_time" content="2021-12-18T11:29:26.202Z">
+<meta property="article:modified_time" content="2023-05-19T04:15:47.005Z">
 <meta property="article:author" content="Char">
 <meta property="article:tag" content="iOS">
 <meta property="article:tag" content="Swift">
-<meta property="article:tag" content="Go">
-<meta property="article:tag" content="Golang">
-<meta property="article:tag" content="后端开发">
-<meta property="article:tag" content="Vapor">
-<meta property="article:tag" content="技术博客">
-<meta property="article:tag" content="多线程">
-<meta property="article:tag" content="操作系统">
-<meta property="article:tag" content="多并发">
-<meta property="article:tag" content="多进程">
-<meta property="article:tag" content="上海">
-<meta property="article:tag" content="北京">
-<meta property="article:tag" content="深圳">
-<meta property="article:tag" content="广州">
-<meta property="article:tag" content="武汉">
+<meta property="article:tag" content="自动化布局">
+<meta property="article:tag" content="用户体验">
+<meta property="article:tag" content=" UICollectionView">
+<meta property="article:tag" content="UICollectionViewCell">
+<meta property="article:tag" content="自适应">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Bogon/blog_images/main/UIColleciton/collection_demo.gif">
 
 <link rel="canonical" href="https://www.xuebaonline.com/UICollectionView%E3%80%81UICollectionViewFlowLayout%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7/">
 
@@ -168,17 +161,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">148</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">152</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">74</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">83</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">184</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">192</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -272,6 +265,27 @@
 
               <time title="创建时间：2020-11-17 09:16:45" itemprop="dateCreated datePublished" datetime="2020-11-17T09:16:45+08:00">2020-11-17</time>
             </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/Swift/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/Swift/UIKit/UICollectionView/" itemprop="url" rel="index"><span itemprop="name">UICollectionView</span></a>
+                </span>
+            </span>
 
           
             <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
@@ -300,14 +314,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
+              <span>4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>4 分钟</span>
             </span>
             <div class="post-description">UICollectionView、UICollectionViewFlowLayout使用技巧</div>
 
@@ -320,7 +334,30 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <p>通过对比发现 <code>UITableView</code> 和 <code>UICollectionView</code> 在开发中使用构建列表页面都很方便，常规的列表展示使用 <code>UITableView</code> 足以应对，在自定义特殊灵活的表格展示下 <code>UIcollectionView</code> 就显得很灵活。</p>
+<a id="more"></a>
+
+<p>简单使用 UICollectionView 实现一下效果：</p>
+<img src="https://raw.githubusercontent.com/Bogon/blog_images/main/UIColleciton/collection_demo.gif" width = "300" height = "650" alt="图片名称" align=center />
+
+
+<h2 id="创建-UICollectionView"><a href="#创建-UICollectionView" class="headerlink" title="创建 UICollectionView"></a>创建 <code>UICollectionView</code></h2><p>创建 <code>UICollectionView</code> 实例可以使用 <code>xib</code>  拖拽创建，也可使用纯代码创建，下面是代码创建：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">private</span> <span class="keyword">var</span> contentCollectionView: <span class="type">UICollectionView</span> = &#123;</span><br><span class="line">		<span class="keyword">let</span> _lay_out: <span class="type">UICollectionViewFlowLayout</span> = <span class="type">UICollectionViewFlowLayout</span>()</span><br><span class="line">		_lay_out.scrollDirection = .horizontal</span><br><span class="line">		<span class="keyword">let</span> collectionView:<span class="type">UICollectionView</span> = <span class="type">UICollectionView</span>(frame: <span class="type">CGRect</span>.zero, collectionViewLayout: _lay_out)</span><br><span class="line">		collectionView.keyboardDismissMode = .onDrag</span><br><span class="line">		collectionView.showsHorizontalScrollIndicator = <span class="literal">false</span></span><br><span class="line">		collectionView.showsVerticalScrollIndicator = <span class="literal">true</span></span><br><span class="line">		collectionView.backgroundColor = <span class="type">UIColor</span>.white</span><br><span class="line">		<span class="keyword">return</span> collectionView</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+
+<h3 id="UICollectionViewFlowLayout"><a href="#UICollectionViewFlowLayout" class="headerlink" title="UICollectionViewFlowLayout"></a><code>UICollectionViewFlowLayout</code></h3><p><code>UICollectionViewFlowLayout</code> 负责对单元格进行布局，此处用到了滑动方向(<code>scrollDirection</code>)：横向。</p>
+<h2 id="添加实例"><a href="#添加实例" class="headerlink" title="添加实例"></a>添加实例</h2><p>将实例添加到需要的内容视图并设置代理：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">contentCollectionView.delegate = <span class="keyword">self</span></span><br><span class="line">contentCollectionView.dataSource = <span class="keyword">self</span></span><br><span class="line">contentCollectionView.register(cellType: <span class="type">ExploreTourItemCollectionCell</span>.<span class="keyword">self</span>)</span><br><span class="line">addSubview(contentCollectionView)</span><br><span class="line"></span><br><span class="line">contentCollectionView.snp.remakeConstraints &#123; (make) <span class="keyword">in</span></span><br><span class="line">		make.<span class="keyword">left</span>.equalTo(<span class="keyword">self</span>.snp.<span class="keyword">left</span>).offset(<span class="number">12</span>)</span><br><span class="line">		make.<span class="keyword">right</span>.equalTo(<span class="keyword">self</span>.snp.<span class="keyword">right</span>)</span><br><span class="line">		make.top.equalTo(<span class="keyword">self</span>.snp.top).offset(<span class="number">15</span>)</span><br><span class="line">		make.height.equalTo(<span class="number">200</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="实现代理和数据源方法"><a href="#实现代理和数据源方法" class="headerlink" title="实现代理和数据源方法"></a>实现代理和数据源方法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// MARK: - UICollectionViewDelegateFlowLayout</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ExploreContentView</span>: <span class="title">UICollectionViewDelegateFlowLayout</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">CGSize</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">CGSize</span>(width: <span class="type">ExploreTourItemCollectionCell</span>.width, height: <span class="type">ExploreTourItemCollectionCell</span>.height)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, backgroundColorForSectionAt section: Int)</span></span> -&gt; <span class="type">UIColor</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIColor</span>.clear</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int)</span></span> -&gt; <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">12</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int)</span></span> -&gt; <span class="type">UIEdgeInsets</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="type">UIEdgeInsets</span>(top: <span class="number">0</span>,<span class="keyword">left</span>: <span class="number">0</span>,bottom: <span class="number">20</span>,<span class="keyword">right</span>: <span class="number">12</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - UICollectionViewDelegate</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ExploreContentView</span>: <span class="title">UICollectionViewDelegate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)</span></span> &#123;</span><br><span class="line">        </span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// MARK: - UICollectionViewDataSource</span></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">ExploreContentView</span>: <span class="title">UICollectionViewDataSource</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">numberOfSections</span><span class="params">(<span class="keyword">in</span> collectionView: UICollectionView)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, numberOfItemsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</span><br><span class="line"><span class="comment">//        let m_dataSource: [CategoryDetailModel] = getDataSource()</span></span><br><span class="line">        <span class="keyword">return</span> <span class="number">20</span></span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">collectionView</span><span class="params">(<span class="number">_</span> collectionView: UICollectionView, cellForItemAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UICollectionViewCell</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> cell: <span class="type">ExploreTourItemCollectionCell</span> = collectionView.dequeueReusableCell(<span class="keyword">for</span>: indexPath)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> cell</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建-ExploreTourItemCollectionCell-代码"><a href="#创建-ExploreTourItemCollectionCell-代码" class="headerlink" title="创建 ExploreTourItemCollectionCell 代码"></a>创建 <code>ExploreTourItemCollectionCell</code> 代码</h2><p>使用的 <code>xib</code> 创建:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> UIKit</span><br><span class="line"><span class="keyword">import</span> Reusable</span><br><span class="line"></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">let</span> <span class="type">ScreenWidth</span>: <span class="type">CGFloat</span> = <span class="type">UIScreen</span>.main.bounds.width</span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">let</span> wp_width: <span class="type">CGFloat</span> = <span class="type">ScreenWidth</span> - <span class="number">76</span></span><br><span class="line"><span class="keyword">fileprivate</span> <span class="keyword">let</span> wp_height: <span class="type">CGFloat</span> = <span class="number">180</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">ExploreTourItemCollectionCell</span>: <span class="title">UICollectionViewCell</span>, <span class="title">NibReusable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> reuseIdentifier: <span class="type">String</span> &#123; <span class="string">"ExploreTourItemCollectionCell"</span> &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">awakeFromNib</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">super</span>.awakeFromNib()</span><br><span class="line">        </span><br><span class="line">        contentView.backgroundColor = .red</span><br><span class="line">        <span class="keyword">self</span>.backgroundColor = .white</span><br><span class="line">        </span><br><span class="line">        contentView.layer.masksToBounds = <span class="literal">true</span></span><br><span class="line">        contentView.layer.cornerRadius = <span class="number">15.0</span></span><br><span class="line">  </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> height: <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> wp_height</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">static</span> <span class="keyword">var</span> width: <span class="type">CGFloat</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> wp_width</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="更多用法"><a href="#更多用法" class="headerlink" title="更多用法"></a>更多用法</h2><ul>
+<li><a href="https://xuebaonline.com/UICollectionView%20data%20source%20and%20delegates/" target="_blank" rel="noopener">UICollectionView data source and delegates</a></li>
+<li><a href="https://xuebaonline.com/UICollectionView%20Cells%EF%BC%9A%E5%9C%86%E5%BD%A2%E5%9B%BE%E5%83%8F%E3%80%81%E6%94%AF%E6%8C%81%E6%97%8B%E8%BD%AC/" target="_blank" rel="noopener">UICollectionView Cells：圆形图像、支持旋转</a></li>
+</ul>
+
     </div>
 
     
@@ -417,6 +454,13 @@
 
 
       <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/iOS/" rel="tag"><i class="fa fa-tag"></i> iOS</a>
+              <a href="/tags/Swift/" rel="tag"><i class="fa fa-tag"></i> Swift</a>
+              <a href="/tags/UIKit/" rel="tag"><i class="fa fa-tag"></i> UIKit</a>
+              <a href="/tags/UICollectionView/" rel="tag"><i class="fa fa-tag"></i> UICollectionView</a>
+          </div>
 
         
 
@@ -490,6 +534,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-UICollectionView"><span class="nav-number">1.</span> <span class="nav-text">创建 UICollectionView</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UICollectionViewFlowLayout"><span class="nav-number">1.1.</span> <span class="nav-text">UICollectionViewFlowLayout</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加实例"><span class="nav-number">2.</span> <span class="nav-text">添加实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现代理和数据源方法"><span class="nav-number">3.</span> <span class="nav-text">实现代理和数据源方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建-ExploreTourItemCollectionCell-代码"><span class="nav-number">4.</span> <span class="nav-text">创建 ExploreTourItemCollectionCell 代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#更多用法"><span class="nav-number">5.</span> <span class="nav-text">更多用法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -505,20 +550,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">184</span>
+          <span class="site-state-item-count">192</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">74</span>
+        <span class="site-state-item-count">83</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">148</span>
+        <span class="site-state-item-count">152</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -616,7 +661,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:35</span>
+    <span title="站点阅读时长">23:48</span>
 </div>
 
 <!--
