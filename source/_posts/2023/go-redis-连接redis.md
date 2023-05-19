@@ -3,6 +3,7 @@ title: 'go-redis: 连接redis'
 description: 'go-redis: 连接redis'
 permalink: 'go-redis: 连接redis'
 copyright: true
+abbrlink: 58004
 date: 2023-05-08 11:44:43
 keywords:
 tags:

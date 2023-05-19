@@ -3,12 +3,13 @@ title: vue tips
 description: vue tips
 permalink: vue tips
 copyright: true
-date: 2023-03-18 17:07:01
-keywords: vue,tips
+keywords: 'vue,tips'
 tags:
-	- vue
+  - vue
 categories:
-	- vue
+  - vue
+abbrlink: 12932
+date: 2023-03-18 17:07:01
 ---
 
 # vue

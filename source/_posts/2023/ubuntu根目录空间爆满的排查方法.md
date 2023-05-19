@@ -3,6 +3,7 @@ title: ubuntu根目录空间爆满的排查方法
 description: ubuntu根目录空间爆满的排查方法
 permalink: ubuntu根目录空间爆满的排查方法
 copyright: true
+abbrlink: 15493
 date: 2023-05-06 18:02:58
 keywords:
 tags:

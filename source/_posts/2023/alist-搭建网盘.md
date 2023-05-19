@@ -3,6 +3,7 @@ title: 'alist: 搭建网盘'
 description: 'alist: 搭建网盘'
 permalink: 'alist: 搭建网盘'
 copyright: true
+abbrlink: 5150
 date: 2023-05-06 18:09:25
 keywords:
 tags:

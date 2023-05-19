@@ -3,13 +3,14 @@ title: 'minio: 部署分布式文件存储服务(纠删码EC)'
 description: 'minio: 部署分布式文件存储服务(纠删码EC)'
 permalink: 'minio: 部署分布式文件存储服务(纠删码EC)'
 copyright: true
-date: 2023-04-25 14:43:59
-keywords: minio,分布式,文件存储
+keywords: 'minio,分布式,文件存储'
 tags:
-	- 分布式
+  - 分布式
 categories:
-	- 分布式
-	- 文件存储
+  - 分布式
+  - 文件存储
+abbrlink: 28715
+date: 2023-04-25 14:43:59
 ---
 
 本文展示搭建一个具备纠删码机制的分布式文件存储服务。

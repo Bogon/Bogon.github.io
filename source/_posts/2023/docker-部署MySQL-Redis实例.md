@@ -3,6 +3,7 @@ title: 'docker: 部署MySQL,Redis实例'
 description: 'docker: 部署MySQL,Redis实例'
 permalink: 'docker: 部署MySQL,Redis实例'
 copyright: true
+abbrlink: 54619
 date: 2023-05-06 18:58:08
 keywords:
 tags:

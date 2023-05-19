@@ -3,16 +3,17 @@ title: 'golang(总结): 实现分布式对象存储系统'
 description: 'golang(总结): 实现分布式对象存储系统'
 permalink: 'golang(总结): 实现分布式对象存储系统'
 copyright: true
-date: 2023-04-13 13:52:25
-keywords: golang,分布式,对象存储
-tags: 
-	- golang
-	- 分布式
-	- 对象存储
+keywords: 'golang,分布式,对象存储'
+tags:
+  - golang
+  - 分布式
+  - 对象存储
 categories:
-	- golang
-	- 分布式
-	- 对象存储
+  - golang
+  - 分布式
+  - 对象存储
+abbrlink: 6664
+date: 2023-04-13 13:52:25
 ---
 
 # 消息队列 [RabbitMQ](https://rabbitmq.com)
