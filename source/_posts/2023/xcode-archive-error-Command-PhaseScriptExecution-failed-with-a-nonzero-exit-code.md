@@ -9,14 +9,15 @@ permalink: >-
   xcode archive error: Command PhaseScriptExecution failed with a nonzero exit
   code
 copyright: true
-date: 2023-05-26 18:03:05
-keywords: iOS,Archive,Build,14.3
+keywords: 'iOS,Archive,Build,14.3'
 tags:
   - iOS
   - Archive
 categories:
   - iOS
   - Archive
+abbrlink: 52495
+date: 2023-05-26 18:03:05
 ---
 
 升级 `Xcode14.3` 后打包报错 `Command PhaseScriptExecution failed with a nonzero exit code`
