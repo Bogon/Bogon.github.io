@@ -176,7 +176,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">193</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">196</span></a>
 
   </li>
         <li class="menu-item menu-item-schedule">
@@ -240,6 +240,378 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/" class="post-title-link" itemprop="url">掌握VIPER架构</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-29 09:39:33" itemprop="dateCreated datePublished" datetime="2020-04-29T09:39:33+08:00">2020-04-29</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VIPER/" itemprop="url" rel="index"><span itemprop="name">VIPER</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+            <div class="post-description">掌握VIPER架构</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;了解如何使用 <code>Swift</code> 使用一些 <code>面向协议</code> 的编程技术来掌握 <code>VIPER架构设计模式</code> 。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在写了关于 <a href="http://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/"><em><strong><code>VIPER的最佳实践</code></strong></em></a> 之后，我对代码库进行了一些更改。 我已经想到了这些想法，但是却没有足够的时间正确地实施它们。 </p>
+</br>
+
+<h1 id="VIPER协议"><a href="#VIPER协议" class="headerlink" title="VIPER协议"></a><strong>VIPER协议</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我希望每个 <code>模块组件</code> 都有一个通用接口。 这就是为什么我为以下内容创建 <code>简单协议</code> 的原因：</p>
+<ul>
+<li><strong>View</strong></li>
+<li><strong>Interactor</strong></li>
+<li><strong>Presenter</strong></li>
+<li><strong>Entity</strong></li>
+<li><strong>Router</strong></li>
+<li><strong>Module</strong></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E6%8E%8C%E6%8F%A1VIPER%E6%9E%B6%E6%9E%84/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" class="post-title-link" itemprop="url">适用于iOS开发人员的VIPER最佳实践</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-28 20:12:33" itemprop="dateCreated datePublished" datetime="2020-04-28T20:12:33+08:00">2020-04-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VIPER/" itemprop="url" rel="index"><span itemprop="name">VIPER</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>12k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>11 分钟</span>
+            </span>
+            <div class="post-description">适用于iOS开发人员的VIPER最佳实践</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在本教程中，我将向你展示有关如何构建完全基于 <code>Swift</code> 的基于 <code>VIPER</code> 的 <code>iOS</code> 应用程序的完整指南。</p>
+<blockquote>
+<p>***<code>提示:</code>***<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;这篇文章有点过时了，请期待很快会有新版本…</p>
+</blockquote>
+</br>
+
+<h1 id="VIPER入门"><a href="#VIPER入门" class="headerlink" title="VIPER入门"></a><strong>VIPER入门</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;首先，你应该阅读 <a href="http://www.xuebaonline.com/iOS%20VIPER%E6%9E%B6%E6%9E%84%E6%B7%B1%E5%85%A5%E5%AE%9E%E8%B7%B5/"><em><strong><code>关于VIPER架构本身的文章（理论上更深入） </code></strong></em></a>。 这是一个相当不错的文章，解释了所有 <code>VIPER组件</code> 和 <code>内存管理</code> 。  ⭐️</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;但是，那篇文章的问题在于，我还没有向你展示真正的技术细节。 用于实现 <code>VIPER</code> 的 <code>Swift</code> 代码。 在使用该体系结构进行了整整一年的项目之后，现在我终于可以与你分享我所有的最佳实践。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因此，让我们开始创建一个全新的 <code>Xcode</code> 项目，使用单视图应用程序模板，将该项目命名（  <code>VIPER最佳实践</code> ），使用 <code>Swift</code> ，现在你准备好进行下一步，以制作出色的 <code>“企业级” iOS 应用</code> 。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/%E9%80%82%E7%94%A8%E4%BA%8EiOS%E5%BC%80%E5%8F%91%E4%BA%BA%E5%91%98%E7%9A%84VIPER%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
+      <meta itemprop="name" content="Char">
+      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Char's Blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/" class="post-title-link" itemprop="url">VIPER体系结构：我们的最佳实践，像老板一样构建应用程序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-28 17:06:59" itemprop="dateCreated datePublished" datetime="2020-04-28T17:06:59+08:00">2020-04-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/VIPER/" itemprop="url" rel="index"><span itemprop="name">VIPER</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>8 分钟</span>
+            </span>
+            <div class="post-description">VIPER体系结构：我们的最佳实践，像老板一样构建应用程序</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>Cheesecake Labs</code> 的开发团队使用 <code>VIPER</code> 进行 <code>iOS</code> 和 <code>Android</code> 移动应用程序开发已有一年多了，我们喜欢这种简洁的架构！</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本文使用 <code>VIPER</code> 样板中的代码示例总结了关于 <code>VIPER</code> 架构的最佳实践。 这里使用的代码示例在 <code>Swift</code> 中，但是提到的所有概念都可以应用于使用 <code>Java</code> 或 <code>Kotlin</code> 用 <code>VIPER</code> 开发的 <code>Android</code> 项目。</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果你仍然需要熟悉基本的 <code>VIPER</code> 概念以及该体系结构如何使你的代码更具组织性和可伸缩性，建议你阅读以下文章：</p>
+<ul>
+<li><a href="https://medium.com/ios-os-x-development/ios-architecture-patterns-ecba4c38de52" target="_blank" rel="noopener"><em><strong><code>最常见的移动应用程序设计模式之间的比较</code></strong></em></a></li>
+<li><a href="https://www.ckl.io/blog/ios-project-architecture-using-viper" target="_blank" rel="noopener"><em><strong><code>在iOS上使用VIPER的第一步的绝佳指南</code></strong></em></a></li>
+<li><a href="https://cheesecakelabs.com/blog/using-viper-architecture-android/" target="_blank" rel="noopener"><em><strong><code>适用于Android的VIPER架构上的独特内容</code></strong></em></a></li>
+</ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/VIPER%E4%BD%93%E7%B3%BB%E7%BB%93%E6%9E%84%EF%BC%9A%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5%EF%BC%8C%E5%83%8F%E8%80%81%E6%9D%BF%E4%B8%80%E6%A0%B7%E6%9E%84%E5%BB%BA%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -518,11 +890,11 @@
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
+                  <a href="/categories/SwiftUI/" itemprop="url" rel="index"><span itemprop="name">SwiftUI</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SwiftUI/" itemprop="url" rel="index"><span itemprop="name">SwiftUI</span></a>
+                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
                 </span>
             </span>
 
@@ -1071,358 +1443,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/" class="post-title-link" itemprop="url">Swift中的UITableView教程</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-28 11:46:56" itemprop="dateCreated datePublished" datetime="2020-04-28T11:46:56+08:00">2020-04-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UITableView/" itemprop="url" rel="index"><span itemprop="name">UITableView</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>16k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>14 分钟</span>
-            </span>
-            <div class="post-description">Swift中的UITableView教程</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;本指南是供初学者通过 <code>Swift</code> 中的自动布局以编程方式学习 <code>UITableView</code> 类的基础的。</p>
-</br>
-
-<h1 id="如何以代码方式创建表视图？"><a href="#如何以代码方式创建表视图？" class="headerlink" title="如何以代码方式创建表视图？"></a><strong>如何以代码方式创建表视图？</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;让我们直接进入编码部分，但首先：启动 <code>Xcode</code> ，创建一个新的 <code>iOS</code> 单视图应用程序项目，像往常一样输入该项目的名称和详细信息，使用 <code>Swift</code> ，最后立即打开 <code>ViewController.swift</code> 文件。 现在抓住键盘！ ⌨️</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Swift%E4%B8%AD%E7%9A%84UITableView%E6%95%99%E7%A8%8B/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/" class="post-title-link" itemprop="url">Swift结合Xib文件自定义UIView</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-28 11:02:25" itemprop="dateCreated datePublished" datetime="2020-04-28T11:02:25+08:00">2020-04-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-            <div class="post-description">Swift结合Xib文件自定义UIView</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;你是否想学习如何加载 <code>xib</code> 文件以创建自定义视图对象？ 好吧，这个 <code>UIKit</code> 教程只适合你用 <code>Swift</code> 编写。</p>
-<p><em><strong>使用界面生成器创建自定义视图。🤷‍♂️</strong></em></p>
-</br>
-
-<h1 id="加载-Xib-文件"><a href="#加载-Xib-文件" class="headerlink" title="加载 Xib 文件"></a><strong>加载 <code>Xib</code> 文件</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;使用 <code>xib</code> 文件的内容是一件非常容易的事。 你可以使用以下两种方法来加载文件的内容（也称为视图层次结构）。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> view = <span class="type">UINib</span>(nibName: <span class="string">"CustomView"</span>, bundle: .main).instantiate(withOwner: <span class="literal">nil</span>, options: <span class="literal">nil</span>).first <span class="keyword">as</span>! <span class="type">UIView</span></span><br><span class="line"><span class="comment">// let view = Bundle.main.loadNibNamed("CustomView", owner: nil, options: nil)!.first as! UIView // does the same as above</span></span><br><span class="line">view.frame = <span class="keyword">self</span>.view.bounds</span><br><span class="line"><span class="keyword">self</span>.view.addSubview(view)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/Swift%E7%BB%93%E5%90%88Xib%E6%96%87%E4%BB%B6%E8%87%AA%E5%AE%9A%E4%B9%89UIView/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://www.xuebaonline.com/UICollectionView%20data%20source%20and%20delegates/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="https://github.com/Bogon/blog_images/blob/main/blog_info/blog_avatar.png?raw=true">
-      <meta itemprop="name" content="Char">
-      <meta itemprop="description" content="曾经沧海难为水，除却巫山不是云。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Char's Blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/UICollectionView%20data%20source%20and%20delegates/" class="post-title-link" itemprop="url">UICollectionView data source and delegates</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-04-28 10:31:38" itemprop="dateCreated datePublished" datetime="2020-04-28T10:31:38+08:00">2020-04-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Swift/" itemprop="url" rel="index"><span itemprop="name">Swift</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UIKit/" itemprop="url" rel="index"><span itemprop="name">UIKit</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/UICollectionView/" itemprop="url" rel="index"><span itemprop="name">UICollectionView</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/UICollectionView%20data%20source%20and%20delegates/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/UICollectionView%20data%20source%20and%20delegates/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-            <div class="post-description">UICollectionView data source and delegates</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;在这个快速的 <code>UIKit</code> 教程中，我将向你展示如何在不使用 <code>Interface Builder</code> 而是仅使用 <code>Swift</code> 的情况下创建简单的 <code>UICollectionView</code> 。</p>
-</br>
-
-<h1 id="UICollectionViewCell-纯代码实现"><a href="#UICollectionViewCell-纯代码实现" class="headerlink" title="UICollectionViewCell 纯代码实现"></a><strong><code>UICollectionViewCell</code> 纯代码实现</strong></h1><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;如果要向单元格中添加视图，则应使用 <code>init（frame :)</code> 方法，并在那里设置视图层次结构。 而不是 <code>awakeFromNib</code> ，你也应该在 <code>init</code> 方法中设置视图的样式。 你可以在常规的 <code>prepareForReuse</code> 方法中重置所有内容。 如你所见，有时使用锚点值得完全抛弃 <code>IB</code> 。 🎉</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/UICollectionView%20data%20source%20and%20delegates/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1494,7 +1514,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">193</span>
+          <span class="site-state-item-count">196</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1605,7 +1625,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">23:50</span>
+    <span title="站点阅读时长">23:53</span>
 </div>
 
 <!--
